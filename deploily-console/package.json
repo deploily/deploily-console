@@ -1,0 +1,85 @@
+{
+    "name": "deploily-website",
+    "version": "0.1.0",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "npx eslint src ",
+        "lint:fix": "npm run lint -- --fix",
+        "prettier": "npx prettier src  --check",
+        "prettier:fix": "npm run prettier -- --write",
+        "format": "npm run prettier:fix && npm run lint:fix",
+        "pre-commit": "npm run format"
+    },
+    "dependencies": {
+        "@ant-design/cssinjs": "^1.22.1",
+        "@ant-design/nextjs-registry": "^1.0.2",
+        "@emotion/react": "^11.13.0",
+        "@emotion/styled": "^11.13.0",
+        "@fontsource/inter": "^5.0.19",
+        "@fontsource/roboto": "^5.0.8",
+        "@microsoft/fetch-event-source": "^2.0.1",
+        "@next/third-parties": "^15.1.2",
+        "@phosphor-icons/react": "^2.1.5-alpha.3",
+        "@reduxjs/toolkit": "^2.0.1",
+        "antd": "^5.22.6",
+        "axios": "^1.6.3",
+        "dayjs": "^1.11.10",
+        "framer-motion": "^11.3.19",
+        "international-types": "^0.8.1",
+        "js-cookie": "^3.0.5",
+        "jwt-decode": "^4.0.0",
+        "leaflet": "^1.9.4",
+        "leaflet-defaulticon-compatibility": "^0.1.2",
+        "next": "^14.2.5",
+        "next-international": "^1.3.1",
+        "next-sitemap": "^4.2.3",
+        "next-themes": "^0.4.4",
+        "react": "^18",
+        "react-dom": "^18",
+        "react-leaflet": "^4.2.1",
+        "react-redux": "^9.0.4",
+        "react-slick": "^0.30.2",
+        "react-toastify": "^10.0.4",
+        "redux-logger": "^3.0.6",
+        "redux-persist": "^6.0.0",
+        "sharp": "^0.33.4",
+        "slick-carousel": "^1.8.1",
+        "swr": "^2.2.4"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.17.0",
+        "@types/node": "^20",
+        "@types/react": "^18",
+        "@types/react-dom": "^18",
+        "@types/react-scroll-to-bottom": "^4.2.4",
+        "eslint": "^9.17.0",
+        "eslint-config-next": "15.1.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-prettier": "^5.2.1",
+        "eslint-plugin-react": "^7.37.2",
+        "globals": "^15.14.0",
+        "prettier": "3.4.2",
+        "react-markdown": "^8.0.7",
+        "react-textarea-autosize": "^8.4.1",
+        "remark-gfm": "^3.0.1",
+        "typescript": "^5",
+        "typescript-eslint": "^8.18.1"
+    },
+    "browser": {
+        "fs": false,
+        "os": false,
+        "path": false
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "*": "prettier --write"
+    }
+}

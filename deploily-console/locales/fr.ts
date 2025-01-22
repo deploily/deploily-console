@@ -1,0 +1,12 @@
+export default {
+  'platformName': 'Deploily',
+  'hero.title': 'Du développement au déploiement—En toute simplicité.',
+  'hero.subtitle': "Déployez vos projets en toute simplicité, aucune compétence DevOps n'est requise. Nous proposons des API gratuites et une infrastructure de déploiement puissante pour vous simplifier la vie. Concentrez-vous sur ce que vous faites de mieux pendant que nous nous occupons du déploiement pour vous.",
+  'hero.buttonHero': 'Déployer un nouveau projet',
+  'service.title1': 'Services API',
+  'service.description1': "Notre service API fournit des points de terminaison puissants et faciles à utiliser qui vous permettent d'intégrer des fonctionnalités avancées telles que l'authentification, les bases de données et les données en temps réel dans vos applications. Que vous construisiez un prototype, une startup ou un projet à grande échelle, nos API gèrent la complexité du backend, afin que vous puissiez vous concentrer sur la création rapide et efficace de votre application. Aucune configuration de serveur, aucun problème : juste une intégration transparente pour un développement plus rapide.",
+  'service.title2': "Déployer depuis Git sans DevOps",
+  'service.description2': "Oubliez les complexités des workflows DevOps traditionnels. Avec notre plateforme, vous pouvez déployer vos projets directement depuis Git en quelques clics. Vous n'avez besoin d'aucune expérience DevOps ni de connaissances spécialisées : connectez simplement votre référentiel, configurez vos paramètres et déployez en un rien de temps. Rationalisez votre processus de déploiement et mettez votre code en ligne plus rapidement, sans vous soucier des obstacles techniques.",
+  'service.title3': 'Construire une infrastructure de déploiement',
+  'service.description3': "Notre plateforme vous permet de créer et de gérer facilement votre infrastructure de déploiement. Que vous déployiez une seule application ou plusieurs services, nos solutions évolutives s'adaptent à vos besoins. Nous fournissons les outils pour créer un pipeline de déploiement transparent, garantissant que votre infrastructure évolue avec vous. De la mise à l'échelle automatisée aux environnements personnalisables, nous avons tout ce dont vous avez besoin pour créer un système de déploiement robuste et fiable."
+} as const
