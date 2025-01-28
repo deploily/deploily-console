@@ -1,26 +1,38 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Layout } from "antd";
-import AppAppBar from "../components/appbar";
-import MainSideBar from "../components/sidebar";
+import { MainSideBar } from "../components/sidebar";
+import { AppAppBarDesktop, AppAppBarMobile } from "../components/appbar";
+
 const { Content } = Layout;
 
 export default function PortalContent({ children }: any) {
+  const [shouldShowDesktop, setShouldShowDeskttop] = useState(true);
+
+  useEffect(() => {
+    const updateDesktopVisibility = () => {
+      setShouldShowDeskttop(window.innerWidth > 865);
+    };
+
+    updateDesktopVisibility();
+    window.addEventListener("resize", updateDesktopVisibility);
+
+    return () => {
+      window.removeEventListener("resize", updateDesktopVisibility);
+    };
+  }, []);
+
   return (
-    <Layout
-      style={{
-        overflow: "hidden",
-      }}
-    >
-      <AppAppBar />
+    <Layout style={{ overflow: "hidden" }}>
+      {shouldShowDesktop && <AppAppBarDesktop />}
+      {!shouldShowDesktop && <AppAppBarMobile />}
       <Layout>
-        <MainSideBar />
+        {shouldShowDesktop && <MainSideBar />}
         <Content
           style={{
             padding: 0,
             width: "100%",
-            backgroundImage:
-              "url(/images/bottomBack.png), url(/images/topBack.png)",
+            backgroundImage: "url(/images/bottomBack.png), url(/images/topBack.png)",
             backgroundRepeat: "no-repeat, no-repeat",
             backgroundPosition: "bottom left, top right",
             backgroundAttachment: "fixed",
@@ -29,7 +41,6 @@ export default function PortalContent({ children }: any) {
           {children}
         </Content>
       </Layout>
-      {/* <Footer style={footerStyle}>Footer</Footer> */}
     </Layout>
   );
 }
