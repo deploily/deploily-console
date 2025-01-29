@@ -13,7 +13,7 @@ export default function Page() {
             fontWeight: 800,
           }}
         >
-          Members
+          My services
         </span>
       </Row>
       <ComingSoonPage />

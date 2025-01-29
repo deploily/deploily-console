@@ -1,7 +1,22 @@
+import {Row} from "antd";
+import ComingSoonPage from "../containers/comingSoonContainer";
+
 export default function Page() {
-    return (
-        <>
-            Cart Page
-        </>
-    )
+  return (
+    <>
+      <Row style={{padding: 20}}>
+        <span
+          style={{
+            color: "white",
+            fontFamily: "Inter, sans-serif",
+            fontSize: "24px",
+            fontWeight: 800,
+          }}
+        >
+          CART
+        </span>
+      </Row>
+      <ComingSoonPage />
+    </>
+  );
 }

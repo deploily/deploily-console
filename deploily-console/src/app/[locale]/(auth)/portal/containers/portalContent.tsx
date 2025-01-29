@@ -1,12 +1,12 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { Layout } from "antd";
-import { MainSideBar } from "../components/sidebar";
-import { AppAppBarDesktop, AppAppBarMobile } from "../components/appbar";
+import React, {useEffect, useState} from "react";
+import {Layout} from "antd";
+import {MainSideBar} from "../components/sidebar";
+import {AppAppBarDesktop, AppAppBarMobile} from "../components/appbar";
 
-const { Content } = Layout;
+const {Content} = Layout;
 
-export default function PortalContent({ children }: any) {
+export default function PortalContent({children}: any) {
   const [shouldShowDesktop, setShouldShowDeskttop] = useState(true);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export default function PortalContent({ children }: any) {
   }, []);
 
   return (
-    <Layout style={{ overflow: "hidden" }}>
+    <Layout style={{overflow: "hidden"}}>
       {shouldShowDesktop && <AppAppBarDesktop />}
       {!shouldShowDesktop && <AppAppBarMobile />}
       <Layout>

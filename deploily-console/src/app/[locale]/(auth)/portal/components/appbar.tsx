@@ -29,16 +29,18 @@ export function AppAppBarDesktop() {
       >
         <Row align="middle" justify="space-between" style={{width: "100%"}}>
           <Col style={{flexGrow: 1}}>
-            <Link href="/portal"><Image
-              src="/images/logo_name.png"
-              width={180}
-              height={70}
-              alt="logo-deploily"
-              style={{
-                marginRight: "20px",
-                cursor: "pointer",
-              }}
-            /></Link> 
+            <Link href="/portal">
+              <Image
+                src="/images/logo_name.png"
+                width={180}
+                height={70}
+                alt="logo-deploily"
+                style={{
+                  marginRight: "20px",
+                  cursor: "pointer",
+                }}
+              />
+            </Link>
           </Col>
           <Row
             style={{
@@ -69,13 +71,16 @@ export function AppAppBarDesktop() {
                 >
                   <Select />
                 </Form.Item>
-                <Link href="/portal/cart"> <Button
-                  style={{
-                    borderColor: "#D85912",
-                  }}
-                  icon={<ShoppingCart size={"28px"} style={{color: "#D85912"}} />}
-                  target="_blank"
-                /></Link>
+                <Link href="/portal/cart">
+                  {" "}
+                  <Button
+                    style={{
+                      borderColor: "#D85912",
+                    }}
+                    icon={<ShoppingCart size={"28px"} style={{color: "#D85912"}} />}
+                    target="_blank"
+                  />
+                </Link>
                 <Button
                   style={{
                     color: "#fff",
@@ -84,16 +89,17 @@ export function AppAppBarDesktop() {
                   }}
                 >
                   <Link href="/portal/home">
-                  <span
-                    style={{
-                      color: "rgba(220, 233, 245, 0.88)",
-                      fontFamily: "Inter, sans-serif",
-                      fontSize: "16px",
-                      fontWeight: 600,
-                    }}
-                  >
-                    ON DEMAND
-                  </span></Link>
+                    <span
+                      style={{
+                        color: "rgba(220, 233, 245, 0.88)",
+                        fontFamily: "Inter, sans-serif",
+                        fontSize: "16px",
+                        fontWeight: 600,
+                      }}
+                    >
+                      ON DEMAND
+                    </span>
+                  </Link>
                 </Button>
                 <LocaleSwitcher color={appBarColor} />
               </Row>
@@ -136,15 +142,17 @@ export function AppAppBarMobile() {
       >
         <Row align="middle" justify="space-between" style={{width: "100%"}}>
           <Col style={{flexGrow: 1}}>
-            <Link href="/portal"><Image
-              src="/images/logo_name.png"
-              width={180}
-              height={70}
-              alt="logo-deploily"
-              style={{
-                marginRight: "20px",
-              }}
-            /></Link>
+            <Link href="/portal">
+              <Image
+                src="/images/logo_name.png"
+                width={180}
+                height={70}
+                alt="logo-deploily"
+                style={{
+                  marginRight: "20px",
+                }}
+              />
+            </Link>
           </Col>
           <Row
             style={{

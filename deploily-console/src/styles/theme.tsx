@@ -1,4 +1,4 @@
-const primaryColor = "#206fba";
+const primaryColor = "#D85912";
 const secondaryColor = "#eda879";
 
 export const theme = {
