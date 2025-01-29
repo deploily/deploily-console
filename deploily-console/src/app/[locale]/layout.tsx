@@ -6,6 +6,7 @@ import {ConfigProvider} from "antd";
 import {theme} from "../../styles/theme";
 import {I18nProviderClient} from "../../../locales/client";
 import "antd/dist/reset.css";
+import {StoreProvider} from "../storeProvider";
 
 export const generateViewport = () => ({
   width: "device-width",
@@ -50,11 +51,13 @@ export default async function RootLayout({
     <html lang={locale}>
       <body suppressHydrationWarning={true} style={{margin: "0px"}}>
         <GoogleAnalytics gaId="G-N5HBREFEE3" />
-        <I18nProviderClient locale={locale}>
-          <AntdRegistry>
-            <ConfigProvider theme={theme}>{children}</ConfigProvider>
-          </AntdRegistry>
-        </I18nProviderClient>
+        <StoreProvider>
+          <I18nProviderClient locale={locale}>
+            <AntdRegistry>
+              <ConfigProvider theme={theme}>{children}</ConfigProvider>
+            </AntdRegistry>
+          </I18nProviderClient>
+        </StoreProvider>
       </body>
     </html>
   );

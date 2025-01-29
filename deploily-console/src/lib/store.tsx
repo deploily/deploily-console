@@ -1,8 +1,11 @@
 import {configureStore} from "@reduxjs/toolkit";
+import apiServiceSlice from "./features/apiService/apiServiceSlice";
 
 export const makeStore = () => {
   return configureStore({
-    reducer: {},
+    reducer: {
+      apiService: apiServiceSlice,
+    },
   });
 };
 export type AppStore = ReturnType<typeof makeStore>;
