@@ -1,5 +1,5 @@
 import {Row} from "antd";
-import ComingSoonPage from "../containers/comingSoonContainer";
+import ApiServiceContainer from "./components/apiServiceContainer";
 
 export default function Page() {
   return (
@@ -16,7 +16,7 @@ export default function Page() {
           Home Page
         </span>
       </Row>
-      <ComingSoonPage />
+      <ApiServiceContainer />
     </>
   );
 }
