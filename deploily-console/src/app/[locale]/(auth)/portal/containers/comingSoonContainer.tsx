@@ -19,8 +19,8 @@ export default function ComingSoonPage() {
             fontWeight: 600,
           }}
         >
-          Behind the scenes, we`&quot;`re crafting something special. Stay tuned for what`&quot;`s
-          to come!
+          Behind the scenes, we&apos;re crafting something special. Stay tuned for what&apos;s to
+          come!
         </p>
       </Card>
     </Row>
