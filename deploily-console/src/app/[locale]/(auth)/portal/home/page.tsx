@@ -4,7 +4,7 @@ import ApiServiceContainer from "./components/apiServiceContainer";
 export default function Page() {
   return (
     <>
-      <Row style={{padding: 20}}>
+      {/* <Row style={{padding: 20}}>
         <span
           style={{
             color: "white",
@@ -15,7 +15,7 @@ export default function Page() {
         >
           Home Page
         </span>
-      </Row>
+      </Row> */}
       <ApiServiceContainer />
     </>
   );
