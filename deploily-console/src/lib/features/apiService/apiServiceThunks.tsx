@@ -6,10 +6,8 @@ export const fetchApiServices = createAsyncThunk(
   async (_, thunkConfig) => {
     try {
       const response = data;
-      console.log(data);
 
       if (response.status == 200) {
-        console.log(response.data);
 
         return response.data;
       } else {
