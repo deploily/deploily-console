@@ -1,4 +1,4 @@
-import {Button, Layout, Menu, MenuProps} from "antd";
+import {Button, Layout, Menu, MenuProps, Row} from "antd";
 import React, {useState} from "react";
 import {
   HouseLine,
@@ -175,14 +175,25 @@ export function MainSideBar() {
       />
       <div
         style={{
+          width: "100%",
           textAlign: "center",
           cursor: "pointer",
           color: "#fff",
           background: "rgba(12, 13, 15, 0.9)",
+          padding: "10px",
+          marginTop: "auto",
+            marginBottom: "30px",
+          position: "absolute",
+          bottom: "8px",
         }}
         onClick={toggleCollapsed}
       >
-        {collapsed ? <ArrowRight size={24} color="#fff" /> : <ArrowLeft size={24} color="#fff" />}
+        {collapsed ? <ArrowRight size={24} color="#7D7D7D" />
+          :
+          <Row align="middle" gutter={8} className="cursor-pointer hover:bg-gray-800 rounded-md p-2">
+            <ArrowLeft size={24} color="#7D7D7D" />
+            <span style={{ paddingLeft: 10, fontSize: 16, color:"#7D7D7D"}}>Collapse sidebar</span>
+          </Row>}
       </div>
       <Button
         style={{
