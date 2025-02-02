@@ -1,5 +1,5 @@
-import {Button, Layout, Menu, MenuProps, Row} from "antd";
-import React, {useState} from "react";
+import { Button, Dropdown, Layout, Menu, MenuProps, Row } from "antd";
+import React, { useState } from "react";
 import {
   HouseLine,
   ShoppingCart,
@@ -14,10 +14,10 @@ import {
   ArrowLeft,
   ArrowRight,
 } from "@phosphor-icons/react/dist/ssr";
-import {User} from "@phosphor-icons/react";
+import { CaretUp, User } from "@phosphor-icons/react";
 import Link from "next/link";
 
-const {Sider} = Layout;
+const { Sider } = Layout;
 
 type MenuItem = Required<MenuProps>["items"][number];
 const labelStyle = {
@@ -116,8 +116,8 @@ const items: MenuItem[] = [
     label: <span style={labelStyle}>Billing</span>,
     icon: <Invoice size={24} />,
     children: [
-      {key: "10", label: <span style={labelStyle}>Invoice</span>},
-      {key: "11", label: <span style={labelStyle}>Payments</span>},
+      { key: "10", label: <span style={labelStyle}>Invoice</span> },
+      { key: "11", label: <span style={labelStyle}>Payments</span> },
     ],
   },
   {
@@ -139,6 +139,25 @@ const items: MenuItem[] = [
     icon: <Handshake size={24} />,
   },
 ];
+
+const menu = (
+  <Menu
+    items={[
+      {
+        key: "profile",
+        label: "Profile",
+        icon: <User size={24} />,
+        onClick: () => console.log("Go to profile"),
+      },
+      {
+        key: "logout",
+        label: "Logout",
+        icon: <SignOut size={24} />,
+        onClick: () => console.log("Logging out..."),
+      },
+    ]}
+  />
+);
 
 export function MainSideBar() {
   const onClick: MenuProps["onClick"] = (e) => {
@@ -171,10 +190,11 @@ export function MainSideBar() {
         defaultOpenKeys={["sub1"]}
         mode="inline"
         items={items}
-        style={{flexGrow: 1}}
+        style={{ flexGrow: 1 }}
       />
       <div
         style={{
+          height: "",
           width: "100%",
           textAlign: "center",
           cursor: "pointer",
@@ -182,66 +202,54 @@ export function MainSideBar() {
           background: "rgba(12, 13, 15, 0.9)",
           padding: "10px",
           marginTop: "auto",
-            marginBottom: "30px",
+          // marginBottom: "30px",
           position: "absolute",
           bottom: "8px",
         }}
         onClick={toggleCollapsed}
       >
-        {collapsed ? <ArrowRight size={24} color="#7D7D7D" />
-          :
-          <Row align="middle" gutter={8} className="cursor-pointer hover:bg-gray-800 rounded-md p-2">
+        {collapsed ? (
+          <ArrowRight size={24} color="#7D7D7D" />
+        ) : (
+          <Row
+            align="middle"
+            gutter={8}
+            className="cursor-pointer hover:bg-gray-800 rounded-md p-2"
+          >
             <ArrowLeft size={24} color="#7D7D7D" />
-            <span style={{ paddingLeft: 10, fontSize: 16, color:"#7D7D7D"}}>Collapse sidebar</span>
-          </Row>}
+            <span style={{ paddingLeft: 10, fontSize: 16, color: "#7D7D7D" }}>Collapse sidebar</span>
+          </Row>
+        )}
       </div>
-      <Button
-        style={{
-          width: "100%",
-          borderColor: "#D85912",
-          marginBottom: "30px",
-          position: "absolute",
-          bottom: "8px",
-        }}
-        icon={<SignOut size={24} color="#D85912" />}
-        onClick={() => console.log("Logging out...")}
-      >
-        {!collapsed && (
-          <span
-            style={{
-              color: "#D85912",
-              fontFamily: "Inter, sans-serif",
-              fontSize: "16px",
-              fontWeight: 600,
-            }}
-          >
-            Log out
-          </span>
-        )}
-      </Button>
-      <Button
-        style={{
-          width: "100%",
-          border: "none",
-          position: "absolute",
-          bottom: "0px",
-        }}
-        icon={<User size={24} color="rgba(220, 233, 245, 0.88)" />}
-        onClick={() => console.log("Account...")}
-      >
-        {!collapsed && (
-          <span
-            style={{
-              color: "rgba(220, 233, 245, 0.88)",
-              fontFamily: "Inter, sans-serif",
-              fontSize: "16px",
-              fontWeight: 600,
-            }}
-          >
-            Account
-          </span>
-        )}
-      </Button>
+      <Dropdown overlay={menu} trigger={["click"]} >
+        <Button
+          style={{
+            width: "100%",
+            border: "none",
+            position: "absolute",
+            bottom: "10px",
+            padding: "5px",
+            display: "flex",
+            justifyContent:"space-evenly",
+            alignItems: "center"
+          }}
+        >
+          <User size={24} color="rgba(220, 233, 245, 0.88)" />
+          {!collapsed && (
+            <span
+              style={{
+                color: "rgba(220, 233, 245, 0.88)",
+                fontFamily: "Inter, sans-serif",
+                fontSize: "16px",
+                fontWeight: 600,
+              }}
+            >
+              Account
+            </span>
+          )}
+          <CaretUp size={20} color="rgba(220, 233, 245, 0.88)" />
+        </Button>
+      </Dropdown>
     </Sider>
   );
 }
@@ -281,51 +289,32 @@ export function MainSideBarMobile() {
         defaultOpenKeys={["sub1"]}
         mode="inline"
         items={items}
-        style={{flexGrow: 1}}
+        style={{ flexGrow: 1 }}
       />
-      <Button
-        style={{
-          width: "100%",
-          borderColor: "#D85912",
-          marginBottom: "30px",
-          position: "absolute",
-          bottom: "8px",
-        }}
-        icon={<SignOut size={24} color="#D85912" />}
-        onClick={() => console.log("Logging out...")}
-      >
-        <span
+      <Dropdown overlay={menu} trigger={["click"]} >
+        <Button
           style={{
-            color: "#D85912",
-            fontFamily: "Inter, sans-serif",
-            fontSize: "16px",
-            fontWeight: 600,
-          }}
-        >
-          Log out
-        </span>
-      </Button>
-      <Button
-        style={{
-          width: "100%",
-          border: "none",
-          position: "absolute",
-          bottom: "0px",
-        }}
-        icon={<User size={24} color="rgba(220, 233, 245, 0.88)" />}
-        onClick={() => console.log("Account...")}
-      >
-        <span
-          style={{
-            color: "rgba(220, 233, 245, 0.88)",
-            fontFamily: "Inter, sans-serif",
-            fontSize: "16px",
-            fontWeight: 600,
-          }}
-        >
-          Account
-        </span>
-      </Button>
+            width: "100%",
+            border: "none",
+            position: "absolute",
+            bottom: "5px",
+          }}>
+          <User size={24} color="rgba(220, 233, 245, 0.88)" />
+         
+            <span
+              style={{
+                color: "rgba(220, 233, 245, 0.88)",
+                fontFamily: "Inter, sans-serif",
+                fontSize: "16px",
+                fontWeight: 600,
+              }}
+            >
+              Account
+            </span>
+        
+          <CaretUp size={20} color="rgba(220, 233, 245, 0.88)" />
+        </Button>
+      </Dropdown>
     </>
   );
 }
