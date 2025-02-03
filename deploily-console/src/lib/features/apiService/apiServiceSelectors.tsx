@@ -1,4 +1,4 @@
 import {useSelector} from "react-redux";
 import {RootState} from "../../store";
 
-export const getAllServices = () => useSelector((state: RootState) => state.apiService);
+export const useAllServices = () => useSelector((state: RootState) => state.apiService);

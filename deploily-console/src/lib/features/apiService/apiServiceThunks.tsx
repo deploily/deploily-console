@@ -8,7 +8,6 @@ export const fetchApiServices = createAsyncThunk(
       const response = data;
 
       if (response.status == 200) {
-
         return response.data;
       } else {
         return thunkConfig.rejectWithValue("error");

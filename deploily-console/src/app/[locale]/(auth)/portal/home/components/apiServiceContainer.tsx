@@ -1,14 +1,14 @@
 "use client";
-import { getAllServices } from "@/lib/features/apiService/apiServiceSelectors";
-import { Row, Col } from "antd";
+import {useAllServices} from "@/lib/features/apiService/apiServiceSelectors";
+import {Row, Col} from "antd";
 import ApiServiceCard from "./apiServiceCard";
-import { ApiServiceInterface } from "@/lib/features/apiService/apiServiceInterface";
-import { useEffect } from "react";
-import { fetchApiServices } from "@/lib/features/apiService/apiServiceThunks";
-import { useAppDispatch } from "@/lib/hook";
+import {ApiServiceInterface} from "@/lib/features/apiService/apiServiceInterface";
+import {useEffect} from "react";
+import {fetchApiServices} from "@/lib/features/apiService/apiServiceThunks";
+import {useAppDispatch} from "@/lib/hook";
 
 export default function ApiServiceContainer() {
-  const { isLoading, apiServiceResponse } = getAllServices();
+  const {isLoading, apiServiceResponse} = useAllServices();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export default function ApiServiceContainer() {
 
   return (
     <>
-      <Row style={{ padding: 20 }}>
+      <Row style={{padding: 20}}>
         <span
           style={{
             color: "white",
@@ -27,12 +27,21 @@ export default function ApiServiceContainer() {
           }}
         >
           API Service
-        </span></Row>
+        </span>
+      </Row>
 
       {!isLoading && apiServiceResponse !== undefined && (
-        <Row gutter={[24, 24]} justify="start" style={{ margin: 0 }}>
+        <Row gutter={[24, 24]} justify="start" style={{margin: 0}}>
           {apiServiceResponse?.result?.map((row: ApiServiceInterface) => (
-            <Col key={row.id} xs={24} sm={12} md={10} lg={8} xl={6} style={{ display: "flex", justifyContent: "center" }}>
+            <Col
+              key={row.id}
+              xs={24}
+              sm={12}
+              md={10}
+              lg={8}
+              xl={6}
+              style={{display: "flex", justifyContent: "center"}}
+            >
               <ApiServiceCard data={row} />
             </Col>
           ))}

@@ -1,2 +1,2 @@
-cd deploily-website
+cd deploily-console
 npm run pre-commit

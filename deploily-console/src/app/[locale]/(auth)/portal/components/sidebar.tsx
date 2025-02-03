@@ -1,5 +1,5 @@
-import { Button, Dropdown, Layout, Menu, MenuProps, Row } from "antd";
-import React, { useState } from "react";
+import {Button, Dropdown, Layout, Menu, MenuProps, Row} from "antd";
+import React, {useState} from "react";
 import {
   HouseLine,
   ShoppingCart,
@@ -14,10 +14,10 @@ import {
   ArrowLeft,
   ArrowRight,
 } from "@phosphor-icons/react/dist/ssr";
-import { CaretUp, User } from "@phosphor-icons/react";
+import {CaretUp, User} from "@phosphor-icons/react";
 import Link from "next/link";
 
-const { Sider } = Layout;
+const {Sider} = Layout;
 
 type MenuItem = Required<MenuProps>["items"][number];
 const labelStyle = {
@@ -116,8 +116,8 @@ const items: MenuItem[] = [
     label: <span style={labelStyle}>Billing</span>,
     icon: <Invoice size={24} />,
     children: [
-      { key: "10", label: <span style={labelStyle}>Invoice</span> },
-      { key: "11", label: <span style={labelStyle}>Payments</span> },
+      {key: "10", label: <span style={labelStyle}>Invoice</span>},
+      {key: "11", label: <span style={labelStyle}>Payments</span>},
     ],
   },
   {
@@ -190,7 +190,7 @@ export function MainSideBar() {
         defaultOpenKeys={["sub1"]}
         mode="inline"
         items={items}
-        style={{ flexGrow: 1 }}
+        style={{flexGrow: 1}}
       />
       <div
         style={{
@@ -217,11 +217,11 @@ export function MainSideBar() {
             className="cursor-pointer hover:bg-gray-800 rounded-md p-2"
           >
             <ArrowLeft size={24} color="#7D7D7D" />
-            <span style={{ paddingLeft: 10, fontSize: 16, color: "#7D7D7D" }}>Collapse sidebar</span>
+            <span style={{paddingLeft: 10, fontSize: 16, color: "#7D7D7D"}}>Collapse sidebar</span>
           </Row>
         )}
       </div>
-      <Dropdown overlay={menu} trigger={["click"]} >
+      <Dropdown overlay={menu} trigger={["click"]}>
         <Button
           style={{
             width: "100%",
@@ -230,8 +230,8 @@ export function MainSideBar() {
             bottom: "10px",
             padding: "5px",
             display: "flex",
-            justifyContent:"space-evenly",
-            alignItems: "center"
+            justifyContent: "space-evenly",
+            alignItems: "center",
           }}
         >
           <User size={24} color="rgba(220, 233, 245, 0.88)" />
@@ -289,29 +289,30 @@ export function MainSideBarMobile() {
         defaultOpenKeys={["sub1"]}
         mode="inline"
         items={items}
-        style={{ flexGrow: 1 }}
+        style={{flexGrow: 1}}
       />
-      <Dropdown overlay={menu} trigger={["click"]} >
+      <Dropdown overlay={menu} trigger={["click"]}>
         <Button
           style={{
             width: "100%",
             border: "none",
             position: "absolute",
             bottom: "5px",
-          }}>
+          }}
+        >
           <User size={24} color="rgba(220, 233, 245, 0.88)" />
-         
-            <span
-              style={{
-                color: "rgba(220, 233, 245, 0.88)",
-                fontFamily: "Inter, sans-serif",
-                fontSize: "16px",
-                fontWeight: 600,
-              }}
-            >
-              Account
-            </span>
-        
+
+          <span
+            style={{
+              color: "rgba(220, 233, 245, 0.88)",
+              fontFamily: "Inter, sans-serif",
+              fontSize: "16px",
+              fontWeight: 600,
+            }}
+          >
+            Account
+          </span>
+
           <CaretUp size={20} color="rgba(220, 233, 245, 0.88)" />
         </Button>
       </Dropdown>
