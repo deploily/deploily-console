@@ -6,13 +6,13 @@ const nextConfig = {
     reactStrictMode: true,
     output: "standalone",
     env: {
-        WEB_SITE_URL: "https://deploily.cloud",
+        WEB_SITE_URL: "https://console.deploily.cloud",
     },
     images: {
         remotePatterns: [
             {
                 protocol: 'https',
-                hostname: 'deploily.cloud',
+                hostname: 'console.deploily.cloud',
                 pathname: '**',
             },
         ],
