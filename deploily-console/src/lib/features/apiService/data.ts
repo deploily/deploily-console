@@ -11,25 +11,25 @@ export const data = {
     result: [
       {
         name: "Name service 1",
-        price: "1000 DA",
+        price: "1000.00 DA",
         description:
           "Description Description Description Description Description Description Description Description Description .",
       },
       {
         name: "Name service 2",
-        price: "1000 DA",
+        price: "2000.00 DA",
         description:
           "Description Description Description Description Description Description Description Description Description .",
       },
       {
         name: "Name service 3",
-        price: "1000 DA",
+        price: "3000.00 DA",
         description:
           "Description Description Description Description Description Description Description Description Description .",
       },
       {
         name: "Name service 4",
-        price: "1000 DA",
+        price: "3500.00 DA",
         description:
           "Description Description Description Description Description Description Description Description Description .",
       },

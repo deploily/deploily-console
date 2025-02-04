@@ -1,175 +1,38 @@
-import {Button, Dropdown, Layout, Menu, MenuProps, Row} from "antd";
+"use client";
+import {Button, Dropdown, Layout, Menu, Row} from "antd";
 import React, {useState} from "react";
-import {
-  HouseLine,
-  ShoppingCart,
-  HardDrives,
-  CalendarStar,
-  Question,
-  Books,
-  Invoice,
-  UserList,
-  Handshake,
-  SignOut,
-  ArrowLeft,
-  ArrowRight,
-} from "@phosphor-icons/react/dist/ssr";
+import {SignOut, ArrowLeft, ArrowRight} from "@phosphor-icons/react/dist/ssr";
 import {CaretUp, User} from "@phosphor-icons/react";
 import Link from "next/link";
+import {menuItems} from "./menuItems";
+import {useI18n, useScopedI18n} from "../../../../../../locales/client";
 
 const {Sider} = Layout;
 
-type MenuItem = Required<MenuProps>["items"][number];
-const labelStyle = {
-  fontFamily: "Inter, sans-serif",
-  fontSize: "16px",
-  fontWeight: 600,
-};
-
-const items: MenuItem[] = [
-  {
-    key: "sub1",
-    label: (
-      <Link href="/portal/home">
-        <span style={labelStyle}>Home</span>
-      </Link>
-    ),
-    icon: <HouseLine size={24} />,
-  },
-  {
-    key: "sub2",
-    label: (
-      <Link href="/portal/cart">
-        <span style={labelStyle}>Cart</span>
-      </Link>
-    ),
-    icon: <ShoppingCart size={24} />,
-  },
-  {
-    key: "sub3",
-    label: <span style={labelStyle}>My services</span>,
-    icon: <HardDrives size={24} />,
-    children: [
-      {
-        key: "1",
-        label: (
-          <Link href="/portal/myServices">
-            <span style={labelStyle}>API</span>
-          </Link>
-        ),
-      },
-      {
-        key: "2",
-        label: (
-          <Link href="/portal/myServices">
-            <span style={labelStyle}>CI/CD</span>
-          </Link>
-        ),
-      },
-      {
-        key: "3",
-        label: (
-          <Link href="/portal/myServices">
-            <span style={labelStyle}>Databases</span>
-          </Link>
-        ),
-      },
-      {
-        key: "4",
-        label: (
-          <Link href="/portal/myServices">
-            <span style={labelStyle}>ERP/CRM </span>
-          </Link>
-        ),
-      },
-    ],
-  },
-  {
-    key: "sub4",
-    label: (
-      <Link href="/portal/myFavorites">
-        <span style={labelStyle}>My favorites</span>
-      </Link>
-    ),
-    icon: <CalendarStar size={24} />,
-  },
-  {
-    key: "sub5",
-    label: (
-      <Link href="/portal/supportTicket">
-        <span style={labelStyle}>Support Ticket</span>
-      </Link>
-    ),
-    icon: <Question size={24} />,
-  },
-  {
-    key: "sub6",
-    label: (
-      <Link href="/portal/documentation">
-        <span style={labelStyle}>Documentation</span>
-      </Link>
-    ),
-    icon: <Books size={24} />,
-  },
-  {
-    key: "sub7",
-    label: <span style={labelStyle}>Billing</span>,
-    icon: <Invoice size={24} />,
-    children: [
-      {key: "10", label: <span style={labelStyle}>Invoice</span>},
-      {key: "11", label: <span style={labelStyle}>Payments</span>},
-    ],
-  },
-  {
-    key: "sub8",
-    label: (
-      <Link href="/portal/members">
-        <span style={labelStyle}>Members</span>
-      </Link>
-    ),
-    icon: <UserList size={24} />,
-  },
-  {
-    key: "sub9",
-    label: (
-      <Link href="/portal/sponsoring">
-        <span style={labelStyle}>Sponsoring</span>
-      </Link>
-    ),
-    icon: <Handshake size={24} />,
-  },
-];
-
-const menu = (
-  <Menu
-    items={[
-      {
-        key: "profile",
-        label: "Profile",
-        icon: <User size={24} />,
-        onClick: () => console.log("Go to profile"),
-      },
-      {
-        key: "logout",
-        label: "Logout",
-        icon: <SignOut size={24} />,
-        onClick: () => console.log("Logging out..."),
-      },
-    ]}
-  />
-);
-
 export function MainSideBar() {
-  const onClick: MenuProps["onClick"] = (e) => {
-    console.log("click ", e);
-  };
-
   const [collapsed, setCollapsed] = useState(false);
 
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
   };
+  const scopedSidebar = useScopedI18n("sidebar");
 
+  const menu = (
+    <Menu
+      items={[
+        {
+          key: "profile",
+          label: scopedSidebar("profile"),
+          icon: <User size={24} />,
+        },
+        {
+          key: "logout",
+          label: scopedSidebar("logout"),
+          icon: <SignOut size={24} />,
+        },
+      ]}
+    />
+  );
   return (
     <Sider
       collapsible
@@ -185,13 +48,13 @@ export function MainSideBar() {
       }}
     >
       <Menu
-        onClick={onClick}
         defaultSelectedKeys={["1"]}
         defaultOpenKeys={["sub1"]}
         mode="inline"
-        items={items}
+        items={menuItems(scopedSidebar)}
         style={{flexGrow: 1}}
       />
+
       <div
         style={{
           height: "",
@@ -202,7 +65,6 @@ export function MainSideBar() {
           background: "rgba(12, 13, 15, 0.9)",
           padding: "10px",
           marginTop: "auto",
-          // marginBottom: "30px",
           position: "absolute",
           bottom: "8px",
         }}
@@ -217,7 +79,9 @@ export function MainSideBar() {
             className="cursor-pointer hover:bg-gray-800 rounded-md p-2"
           >
             <ArrowLeft size={24} color="#7D7D7D" />
-            <span style={{paddingLeft: 10, fontSize: 16, color: "#7D7D7D"}}>Collapse sidebar</span>
+            <span style={{paddingLeft: 10, fontSize: 16, color: "#7D7D7D"}}>
+              {scopedSidebar("collapse")}
+            </span>
           </Row>
         )}
       </div>
@@ -244,7 +108,7 @@ export function MainSideBar() {
                 fontWeight: 600,
               }}
             >
-              Account
+              {scopedSidebar("account")}
             </span>
           )}
           <CaretUp size={20} color="rgba(220, 233, 245, 0.88)" />
@@ -255,16 +119,29 @@ export function MainSideBar() {
 }
 
 export function MainSideBarMobile() {
-  const onClick: MenuProps["onClick"] = (e) => {
-    console.log("click ", e);
-  };
-
+  const scopedSidebar = useScopedI18n("sidebar");
+  const t = useI18n();
+  const menu = (
+    <Menu
+      items={[
+        {
+          key: "profile",
+          label: scopedSidebar("profile"),
+          icon: <User size={24} />,
+        },
+        {
+          key: "logout",
+          label: scopedSidebar("logout"),
+          icon: <SignOut size={24} />,
+        },
+      ]}
+    />
+  );
   return (
     <>
       <Button
         style={{
           width: "100%",
-
           color: "#fff",
           backgroundColor: "#D85912",
           border: "none",
@@ -279,18 +156,18 @@ export function MainSideBarMobile() {
               fontWeight: 600,
             }}
           >
-            ON DEMAND
+            {t("ondemand")}
           </span>
         </Link>
       </Button>
       <Menu
-        onClick={onClick}
         defaultSelectedKeys={["1"]}
         defaultOpenKeys={["sub1"]}
         mode="inline"
-        items={items}
+        items={menuItems(scopedSidebar)}
         style={{flexGrow: 1}}
       />
+
       <Dropdown overlay={menu} trigger={["click"]}>
         <Button
           style={{
@@ -310,9 +187,8 @@ export function MainSideBarMobile() {
               fontWeight: 600,
             }}
           >
-            Account
+            {scopedSidebar("account")}
           </span>
-
           <CaretUp size={20} color="rgba(220, 233, 245, 0.88)" />
         </Button>
       </Dropdown>

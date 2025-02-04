@@ -8,11 +8,12 @@ import LocaleSwitcher from "@/components/locale/localeSwitcher";
 import {List, ShoppingCart} from "@phosphor-icons/react";
 import {MainSideBarMobile} from "./sidebar";
 import Link from "next/link";
+import {useI18n} from "../../../../../../locales/client";
 
 export function AppAppBarDesktop() {
   const [theme] = useState("dark");
   const appBarColor = theme == "dark" ? "#2c82d4" : "#eda879";
-
+  const t = useI18n();
   return (
     <>
       <Header
@@ -97,7 +98,7 @@ export function AppAppBarDesktop() {
                         fontWeight: 600,
                       }}
                     >
-                      ON DEMAND
+                      {t("ondemand")}
                     </span>
                   </Link>
                 </Button>
