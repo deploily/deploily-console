@@ -54,7 +54,7 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
         key: "2",
         label: (
           <Link href="/portal/myServices">
-            <span style={labelStyle}>{scopedSidebar("ci/cd")}</span>
+            <span style={labelStyle}>{scopedSidebar("cicd")}</span>
           </Link>
         ),
       },
@@ -70,7 +70,7 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
         key: "4",
         label: (
           <Link href="/portal/myServices">
-            <span style={labelStyle}>{scopedSidebar("erp/crm")}</span>
+            <span style={labelStyle}>{scopedSidebar("erpcrm")}</span>
           </Link>
         ),
       },

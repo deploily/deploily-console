@@ -1,4 +1,5 @@
-import {Row} from "antd";
+"use client";
+import { Row } from "antd";
 import ComingSoonPage from "../containers/comingSoonContainer";
 import { useI18n } from "../../../../../../locales/client";
 
