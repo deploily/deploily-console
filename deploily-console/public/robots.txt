@@ -1,13 +1,3 @@
 # *
 User-agent: *
-Disallow: /api/
-Disallow: /admin/
-Allow: /
-
-# Host
-Host: https://deploily.cloud
-
-# Sitemaps
-Sitemap: https://deploily.cloud/sitemap.xml
-
-
+Disallow: /

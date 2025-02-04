@@ -1,6 +1,4 @@
 import React, {ReactElement} from "react";
-import {GoogleAnalytics} from "@next/third-parties/google";
-import type {Metadata} from "next";
 import {AntdRegistry} from "@ant-design/nextjs-registry";
 import {ConfigProvider} from "antd";
 import {theme} from "../../styles/theme";
@@ -12,31 +10,6 @@ export const generateViewport = () => ({
   width: "device-width",
   initialScale: 1,
 });
-export const metadata: Metadata = {
-  metadataBase: new URL("https://deploily.cloud"),
-  title: "Deploily",
-  description: `Open-source cloud proxy solution, 
-                offers local alternatives to foreign APIs,
-                and ensures compliance with Algerian data protection regulations.`,
-  keywords:
-    "Cloud Proxy Solution, Application Deployment, Open Source Platform, Algerian Data Protection, Local Cloud Hosting, Local API Alternatives",
-  openGraph: {
-    type: "website",
-    url: "https://deploily.cloud",
-    title: "Deploily",
-    siteName: "Deploily",
-    description: `Open-source cloud proxy solution,
-                  offers local alternatives to foreign APIs,
-                  and ensures compliance with Algerian data protection regulations.`,
-    images: [
-      {
-        url: "https://deploily.cloud/_next/image?url=%2Fimages%2Flogo_name.png&w=256&q=75",
-      },
-    ],
-    locale: "en_US",
-  },
-};
-
 export default async function RootLayout({
   children,
   params,
@@ -50,7 +23,6 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body suppressHydrationWarning={true} style={{margin: "0px"}}>
-        <GoogleAnalytics gaId="G-N5HBREFEE3" />
         <StoreProvider>
           <I18nProviderClient locale={locale}>
             <AntdRegistry>

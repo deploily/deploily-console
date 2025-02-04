@@ -6,8 +6,10 @@ import {ApiServiceInterface} from "@/lib/features/apiService/apiServiceInterface
 import {useEffect} from "react";
 import {fetchApiServices} from "@/lib/features/apiService/apiServiceThunks";
 import {useAppDispatch} from "@/lib/hook";
+import {useI18n} from "../../../../../../../locales/client";
 
 export default function ApiServiceContainer() {
+  const t = useI18n();
   const {isLoading, apiServiceResponse} = useAllServices();
   const dispatch = useAppDispatch();
 
@@ -26,7 +28,7 @@ export default function ApiServiceContainer() {
             fontWeight: 800,
           }}
         >
-          API Service
+          {t("APIService")}
         </span>
       </Row>
 

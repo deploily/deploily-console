@@ -9,7 +9,7 @@ export default function ApiServiceCard({data}: any) {
       <Card hoverable>
         <Row align="middle" gutter={16}>
           <Col style={{paddingBottom: 10}}>
-            <Image src="/images/logo_service.png" width={80} height={80} />
+            <Image alt="Logo" src="/images/logo_service.png" width={80} height={80} />
           </Col>
           <Col style={{padding: 10}}>
             <Meta
