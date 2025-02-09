@@ -27,7 +27,7 @@ export function MainSideBar() {
         },
         {
           key: "logout",
-          label: scopedSidebar("logout"),
+          label: <Link href="/">{scopedSidebar("logout")}</Link>,
           icon: <SignOut size={24} />,
         },
       ]}
@@ -54,7 +54,6 @@ export function MainSideBar() {
         items={menuItems(scopedSidebar)}
         style={{flexGrow: 1}}
       />
-
       <div
         style={{
           height: "",
@@ -131,7 +130,7 @@ export function MainSideBarMobile() {
         },
         {
           key: "logout",
-          label: scopedSidebar("logout"),
+          label: <Link href="/">{scopedSidebar("logout")}</Link>,
           icon: <SignOut size={24} />,
         },
       ]}
