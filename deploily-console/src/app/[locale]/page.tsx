@@ -1,11 +1,15 @@
+"use client";
 import AppAppBar from "./components/appBar";
-import ScrollToTopButton from "./components/scrollTopButton";
+import {Content} from "antd/es/layout/layout";
+import LandingPageContent from "./components/landingPageContent";
 
 export default function LandingPage() {
   return (
     <main>
       <AppAppBar />
-      <ScrollToTopButton></ScrollToTopButton>
+      <Content style={{backgroundColor: "#0c0d0f", height: "93vh"}}>
+        <LandingPageContent />
+      </Content>
     </main>
   );
 }

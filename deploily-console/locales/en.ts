@@ -28,4 +28,6 @@ export default {
     'sidebar.profile': 'Profile',
     'sidebar.logout': 'logout',
     'sidebar.collapse': 'Collapse sidebar', 
-}
+    'login': 'LOGIN', 
+    'cancel': 'GO TO THE WEBSITE',
+}as const
