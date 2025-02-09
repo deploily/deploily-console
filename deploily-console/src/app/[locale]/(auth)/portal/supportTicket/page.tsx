@@ -1,7 +1,7 @@
 "use client";
-import { Row } from "antd";
+import {Row} from "antd";
 import ComingSoonPage from "../containers/comingSoonContainer";
-import { useI18n } from "../../../../../../locales/client";
+import {useI18n} from "../../../../../../locales/client";
 
 export default function Page() {
   const t = useI18n();
