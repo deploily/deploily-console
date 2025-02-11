@@ -30,4 +30,9 @@ export default {
   'sidebar.collapse': 'Réduire la barre',
   'login': 'CONNEXION',
   'cancel': 'ACCÉDER AU SITE WEB',
+  'details': 'Détails',
+  'offeredBy': 'Offert par',
+  'TryForFree': 'ESSAYER GRATUITEMENT',
+  'oneMonthFree': 'UN MOIS GRATUIT',
+  'youLike': 'Vous aimerez peut-être aussi'
 } as const

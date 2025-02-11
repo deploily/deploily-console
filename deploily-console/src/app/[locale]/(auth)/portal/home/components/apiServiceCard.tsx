@@ -1,9 +1,13 @@
 "use client";
-import {Star} from "@phosphor-icons/react";
-import {Card, Col, Row, Image} from "antd";
+import {ArrowRight, Star} from "@phosphor-icons/react";
+import {Card, Col, Row, Image, Button} from "antd";
 import Meta from "antd/es/card/Meta";
+// import Link from "next/link";
+import {useI18n} from "../../../../../../../locales/client";
+import Link from "next/link";
 
 export default function ApiServiceCard({data}: any) {
+  const t = useI18n();
   return (
     <>
       <Card hoverable>
@@ -38,6 +42,35 @@ export default function ApiServiceCard({data}: any) {
           </Col>{" "}
         </Row>
         <p>{data.description}</p>
+        <Row justify="end">
+          <Col>
+            {" "}
+            <Link href="/portal/service/details">
+              <Button
+                style={{
+                  justifyContent: "end",
+                  color: "#fff",
+                  backgroundColor: "#D85912",
+                  border: "none",
+                  padding: "4px",
+                }}
+              >
+                {" "}
+                <ArrowRight size={20} style={{color: "rgba(220, 233, 245, 0.88)"}} />
+                <span
+                  style={{
+                    color: "rgba(220, 233, 245, 0.88)",
+                    fontFamily: "Inter, sans-serif",
+                    fontSize: "16px",
+                    fontWeight: 600,
+                  }}
+                >
+                  {t("details")}
+                </span>
+              </Button>
+            </Link>{" "}
+          </Col>
+        </Row>
       </Card>
     </>
   );

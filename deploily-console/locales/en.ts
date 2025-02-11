@@ -30,4 +30,9 @@ export default {
     'sidebar.collapse': 'Collapse sidebar', 
     'login': 'LOGIN', 
     'cancel': 'GO TO THE WEBSITE',
-}as const
+    'details': 'Details',
+    'offeredBy': 'Offered by',
+    'TryForFree': 'TRY FOR FREE',
+    'oneMonthFree': 'ONE MONTH FREE',
+    'youLike':'You might also like'
+} as const
