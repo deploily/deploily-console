@@ -56,6 +56,7 @@
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
+    "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^29.5.14",
     "@types/node": "^20",
     "@types/react": "^18",
@@ -73,6 +74,8 @@
     "react-markdown": "^8.0.7",
     "react-textarea-autosize": "^8.4.1",
     "remark-gfm": "^3.0.1",
+    "resize-observer-polyfill": "^1.5.1",
+    "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "typescript": "^5",
     "typescript-eslint": "^8.18.1"

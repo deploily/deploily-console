@@ -6,7 +6,7 @@ import {Button, Col, Drawer, Form, Row, Select} from "antd";
 import {Header} from "antd/es/layout/layout";
 import LocaleSwitcher from "@/components/locale/localeSwitcher";
 import {List, ShoppingCart} from "@phosphor-icons/react";
-import {MainSideBarMobile} from "./sidebar";
+import {MainSideBarMobile} from "./sideBar";
 import Link from "next/link";
 import {useI18n} from "../../../../../../locales/client";
 
@@ -57,21 +57,24 @@ export function AppAppBarDesktop() {
                   alignItems: "center",
                 }}
               >
-                <Form.Item
-                  name="Select"
-                  rules={[{message: "Please input!"}]}
-                  style={{
-                    width: 300,
-                    border: "1px solid ",
-                    backgroundColor: "#202227",
-                    color: "#fff",
-                    borderColor: "#4E4E4E",
-                    borderRadius: "6px",
-                    marginBottom: "0px",
-                  }}
-                >
-                  <Select />
-                </Form.Item>
+                {" "}
+                <Form>
+                  <Form.Item
+                    name="Select"
+                    rules={[{message: "Please input!"}]}
+                    style={{
+                      width: 300,
+                      border: "1px solid ",
+                      backgroundColor: "#202227",
+                      color: "#fff",
+                      borderColor: "#4E4E4E",
+                      borderRadius: "6px",
+                      marginBottom: "0px",
+                    }}
+                  >
+                    <Select />
+                  </Form.Item>
+                </Form>
                 <Link href="/portal/cart">
                   {" "}
                   <Button
@@ -89,7 +92,7 @@ export function AppAppBarDesktop() {
                     border: "none",
                   }}
                 >
-                  <Link href="/portal/home">
+                  <Link href="/portal/home" data-testid="mocked-link">
                     <span
                       style={{
                         color: "rgba(220, 233, 245, 0.88)",
@@ -176,7 +179,7 @@ export function AppAppBarMobile() {
             </Col>
           </Row>
         </Row>
-        <Drawer onClose={onClose} open={open} width={"50%"} bodyStyle={{padding: "0px"}}>
+        <Drawer onClose={onClose} open={open} width={"50%"} styles={{body: {padding: "0px"}}}>
           <MainSideBarMobile />
         </Drawer>
       </Header>

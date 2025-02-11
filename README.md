@@ -58,5 +58,7 @@ cd deploily-console
 npm run build
 ```
 
+## Useful links 
+- [I have a problem setup Jest in my NextJS project](https://github.com/vercel/next.js/discussions/58994)
 
 

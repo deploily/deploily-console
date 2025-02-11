@@ -1,8 +1,8 @@
 "use client";
 import React, {useEffect, useState} from "react";
 import {Layout} from "antd";
-import {MainSideBar} from "../components/sidebar";
-import {AppAppBarDesktop, AppAppBarMobile} from "../components/appbar";
+import {MainSideBar} from "../components/sideBar";
+import {AppAppBarDesktop, AppAppBarMobile} from "../components/appBar";
 
 const {Content} = Layout;
 
