@@ -1,4 +1,3 @@
-"use client";
 import AppAppBar from "./components/appBar";
 import {Content} from "antd/es/layout/layout";
 import LandingPageContent from "./components/landingPageContent";

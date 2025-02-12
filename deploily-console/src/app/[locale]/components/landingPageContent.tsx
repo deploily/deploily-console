@@ -24,7 +24,7 @@ export default function LandingPageContent() {
             border: "none",
             marginBottom: "20px",
           }}
-          href="/portal"
+          href="/portal/home"
         >
           <span
             style={{
