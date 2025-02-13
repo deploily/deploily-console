@@ -29,10 +29,14 @@ export default {
   'sidebar.logout': 'logout',
   'sidebar.collapse': 'Réduire la barre',
   'login': 'CONNEXION',
-  'cancel': 'ACCÉDER AU SITE WEB',
+  'gotoSite': 'ACCÉDER AU SITE WEB',
   'details': 'Détails',
   'offeredBy': 'Offert par',
   'TryForFree': 'ESSAYER GRATUITEMENT',
   'oneMonthFree': 'UN MOIS GRATUIT',
-  'youLike': 'Vous aimerez peut-être aussi'
+  'youLike': 'Vous aimerez peut-être aussi',
+  'settings': 'Paramètres',
+  'cancel': 'Annuler',
+  'save': 'Enregistrer',
+  'onDemandService': "Vous n'avez actuellement aucun service disponible. N'hésitez pas à créer un service !"
 } as const

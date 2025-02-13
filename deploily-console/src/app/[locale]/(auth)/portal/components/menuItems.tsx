@@ -9,7 +9,7 @@ import {
   UserList,
   Handshake,
 } from "@phosphor-icons/react/dist/ssr";
-import type { MenuProps } from "antd";
+import type {MenuProps} from "antd";
 import Link from "next/link";
 
 const labelStyle = {
@@ -39,7 +39,12 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
   },
   {
     key: "sub3",
-    label: <Link href="/portal/myServices"> <span style={labelStyle}>{scopedSidebar("myServices")}</span> </Link>,
+    label: (
+      <Link href="/portal/myServices">
+        {" "}
+        <span style={labelStyle}>{scopedSidebar("myServices")}</span>{" "}
+      </Link>
+    ),
     icon: <HardDrives size={24} />,
     // children: [
     //   {
@@ -108,8 +113,8 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
     label: <span style={labelStyle}>{scopedSidebar("billing")}</span>,
     icon: <Invoice size={24} />,
     children: [
-      { key: "10", label: <span style={labelStyle}>{scopedSidebar("invoice")}</span> },
-      { key: "11", label: <span style={labelStyle}>{scopedSidebar("payments")}</span> },
+      {key: "10", label: <span style={labelStyle}>{scopedSidebar("invoice")}</span>},
+      {key: "11", label: <span style={labelStyle}>{scopedSidebar("payments")}</span>},
     ],
   },
   {

@@ -55,7 +55,7 @@ export default function LandingPageContent() {
               fontWeight: 600,
             }}
           >
-            {t("cancel")}
+            {t("gotoSite")}
           </span>
         </Button>
       </Col>
