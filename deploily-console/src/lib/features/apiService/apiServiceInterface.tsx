@@ -11,6 +11,9 @@ export interface ApiServiceResponse {
 export interface ApiServiceInterface {
   id: number;
   name: string;
-  price: string;
   description: string;
+  documentation_url: string;
+  unit_price: number; 
+  service_url: string;
+  image_service: string ; 
 }
