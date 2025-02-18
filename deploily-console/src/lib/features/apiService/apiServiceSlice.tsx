@@ -1,17 +1,22 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {ApiServiceResponse} from "./apiServiceInterface";
-import {fetchApiServices} from "./apiServiceThunks";
+import {ApiServiceInterface, ApiServiceResponse} from "./apiServiceInterface";
+import {fetchApiServices, getApiServiceById} from "./apiServiceThunks";
 
 interface ApiServiceState {
   apiServiceResponse?: ApiServiceResponse;
   isLoading: boolean;
   apiServiceLoadingError?: any;
+  serviceLoading: boolean;
+  currentService?: ApiServiceInterface;
+  service_id?: number;
 }
 
 const initialState: ApiServiceState = {
   apiServiceResponse: undefined,
   isLoading: false,
   apiServiceLoadingError: undefined,
+  serviceLoading: false,
+  service_id: undefined,
 };
 const ApiServiceSlice = createSlice({
   name: "apiService",
@@ -33,6 +38,21 @@ const ApiServiceSlice = createSlice({
       })
       .addCase(fetchApiServices.rejected, (state, {payload}) => {
         state.isLoading = false;
+        state.apiServiceLoadingError = payload;
+      })
+      //CHECK IF SERVICE EXIST OR NOT
+      .addCase(getApiServiceById.pending, (state) => {
+        state.serviceLoading = true;
+        state.apiServiceLoadingError = null;
+      })
+      .addCase(getApiServiceById.fulfilled, (state, action) => {
+        state.serviceLoading = false;
+        state.apiServiceLoadingError = null;
+        state.currentService = {...action.payload.result, ...{id: action.payload.id}};
+        state.service_id = action.payload.id;
+      })
+      .addCase(getApiServiceById.rejected, (state, {payload}) => {
+        state.serviceLoading = false;
         state.apiServiceLoadingError = payload;
       });
   },

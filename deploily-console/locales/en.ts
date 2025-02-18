@@ -38,5 +38,8 @@ export default {
     'settings': 'Settings',
     'cancel': 'Cancel',
     'save': 'Save',
-    'onDemandService':"You currently don't have any services available.Feel free to create a service!"
+    'onDemandService': "You currently don't have any services available.Feel free to create a service!",
+    'description':'Description',
+    'featuresSpecifications': 'Features and Specifications',
+    'documentation': 'Documentation'
 } as const

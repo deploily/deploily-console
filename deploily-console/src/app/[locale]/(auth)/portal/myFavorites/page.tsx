@@ -19,8 +19,7 @@ export default function Page() {
           {t("myFavorites")}
         </span>
       </Row>
-      <OnDemandCard/>
-
+      <OnDemandCard />
     </>
   );
 }
