@@ -8,6 +8,7 @@ import { useAllServices } from "@/lib/features/apiService/apiServiceSelectors";
 import { useAppDispatch } from "@/lib/hook";
 import { getApiServiceById } from "@/lib/features/apiService/apiServiceThunks";
 import { useRouter } from "next/navigation";
+import { postServiceInCart } from "@/lib/features/cart/cartThunks";
 
 export default function ServiceDetailsContentPage({ serviceId }: { serviceId: string }) {
   const { useToken } = theme;
@@ -101,7 +102,9 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
                 border: "none",
                 padding: "4px",
               }}
-              onClick={() => router.push("/portal/myServices")}
+              onClick={() =>
+               { dispatch(postServiceInCart());
+                router.push("/portal/myServices")}}
             >
               <span
                 style={{
