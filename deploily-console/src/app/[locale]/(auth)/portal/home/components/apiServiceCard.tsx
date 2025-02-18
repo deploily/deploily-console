@@ -2,7 +2,6 @@
 import {ArrowRight, Star} from "@phosphor-icons/react";
 import {Card, Col, Row, Image, Button} from "antd";
 import Meta from "antd/es/card/Meta";
-// import Link from "next/link";
 import {useI18n} from "../../../../../../../locales/client";
 import Link from "next/link";
 
@@ -15,14 +14,11 @@ export default function ApiServiceCard({data}: any) {
       : `${baseURL}${data.image_service}`
     : "/images/logo_service.png";
 
-  console.log("Final Image URL:", imageUrl); 
-
   return (
     <>
-      <Card hoverable style={{ width:500 , minWidth:300}}>
+      <Card hoverable style={{width: 500, minWidth: 300}}>
         <Row align="middle" gutter={16}>
           <Col style={{paddingBottom: 10}}>
-
             <Image
               alt="Logo"
               src={imageUrl}
@@ -61,7 +57,7 @@ export default function ApiServiceCard({data}: any) {
         <Row justify="end">
           <Col>
             {" "}
-            <Link href="/portal/service/details">
+            <Link href={`/portal/service/${data.id}`}>
               <Button
                 style={{
                   justifyContent: "end",

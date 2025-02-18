@@ -44,7 +44,7 @@ export default function ApiServiceContainer() {
               xl={6}
               style={{display: "flex", justifyContent: "center"}}
             >
-              <ApiServiceCard data={row} />
+              <ApiServiceCard key={row.id} data={row} />
             </Col>
           ))}
         </Row>
