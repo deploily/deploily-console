@@ -1,25 +1,26 @@
 "use client";
-import {useAllServices} from "@/lib/features/apiService/apiServiceSelectors";
 import {Col, Row} from "antd";
-import {ApiServiceInterface} from "@/lib/features/apiService/apiServiceInterface";
 import {useEffect} from "react";
-import {fetchApiServices} from "@/lib/features/apiService/apiServiceThunks";
 import {useAppDispatch} from "@/lib/hook";
 import MyServiceCard from "./myServicesCard";
+import { useCartLine } from "@/lib/features/cartLine/cartLineSelectors";
+import { CartLinesInterface } from "@/lib/features/cartLine/cartLineInterface";
+import { fetchCartLines } from "@/lib/features/cartLine/cartLineThunks";
 
 export default function MyServiceContentPage() {
-  const {isLoading, apiServiceResponse} = useAllServices();
+  const { isLoading, cartLineResponse } = useCartLine();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchApiServices());
+    dispatch(fetchCartLines());
   }, []);
+console.log(cartLineResponse);
 
   return (
     <>
-      {!isLoading && apiServiceResponse !== undefined && (
+      {!isLoading && cartLineResponse !== undefined && (
         <Row gutter={[24, 24]} justify="start" style={{margin: 0}}>
-          {apiServiceResponse?.result?.map((row: ApiServiceInterface) => (
+          {cartLineResponse?.result?.map((row: CartLinesInterface) => (
             <Col
               key={row.id}
               xs={24}

@@ -11,18 +11,30 @@ export default function MyServiceCard({data}: any) {
   const t = useI18n();
   const dateFormat = "YYYY-MM-DD";
   const router = useRouter();
+  const baseURL = `http://192.168.1.15:5000/static/uploads/`;
+  const imageUrl = data.image_service
+    ? data.image_service.startsWith("http")
+      ? data.image_service
+      : `${baseURL}${data.image_service}`
+    : "/images/logo_service.png";
 
   return (
     <Card>
       <Row align="middle" gutter={16}>
         <div style={{width: "100%", maxWidth: 126, overflow: "hidden"}}>
-          <Image alt="Logo" src="/images/logo_service.png" width="100%" />
+          <Image
+            alt="Logo"
+            src={imageUrl}
+            width={80}
+            height={80}
+            fallback="/images/logo_service.png"
+          />
         </div>
         <Col flex="1">
           <Meta
             title={
-              <Typography.Title level={4} style={{margin: 0, fontWeight: 400}}>
-                {data.name}
+              <Typography.Title level={4} style={{margin: 10, fontWeight: 400}}>
+                {data.service.name}
               </Typography.Title>
             }
             description={
@@ -37,7 +49,7 @@ export default function MyServiceCard({data}: any) {
             disabled
           />
           <Typography.Title level={5} style={{marginTop: 8, fontWeight: 400}}>
-            Duration: {data.duration_month} month(s)
+            {t('duration')}: {data.duration_month} {t('month')}
           </Typography.Title>
         </Col>
         <Col>
@@ -47,7 +59,7 @@ export default function MyServiceCard({data}: any) {
 
       <Row gutter={8} justify="end" style={{marginTop: 12}}>
         <Col>
-          <Link href="/portal/service/details" passHref legacyBehavior>
+          <Link href={`/portal/service/${data.service_id}`}>
             <Button
               style={{
                 color: "#fff",
@@ -81,7 +93,7 @@ export default function MyServiceCard({data}: any) {
               border: "none",
               padding: "4px 8px",
             }}
-            onClick={() => router.push("/portal/myServices/myServiceParameters")}
+            onClick={() => router.push(`/portal/myServices/${data.cart_id}`)}
           >
             <span
               style={{

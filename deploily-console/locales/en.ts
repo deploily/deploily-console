@@ -41,5 +41,7 @@ export default {
     'onDemandService': "You currently don't have any services available.Feel free to create a service!",
     'description':'Description',
     'featuresSpecifications': 'Features and Specifications',
-    'documentation': 'Documentation'
+    'documentation': 'Documentation',
+    'duration': 'Duration',
+    'month': 'month(s)'
 } as const
