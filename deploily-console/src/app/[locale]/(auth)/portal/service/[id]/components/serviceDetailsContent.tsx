@@ -103,7 +103,8 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
                 padding: "4px",
               }}
               onClick={() =>
-               { dispatch(postServiceInCart());
+              {
+                dispatch(postServiceInCart(serviceId));
                 router.push("/portal/myServices")}}
             >
               <span
