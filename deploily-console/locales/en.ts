@@ -43,5 +43,6 @@ export default {
     'featuresSpecifications': 'Features and Specifications',
     'documentation': 'Documentation',
     'duration': 'Duration',
-    'month': 'month(s)'
+    'month': 'month(s)',
+    'startDate':'Start date'
 } as const

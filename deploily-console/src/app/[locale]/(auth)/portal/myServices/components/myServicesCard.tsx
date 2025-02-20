@@ -34,7 +34,7 @@ export default function MyServiceCard({data}: any) {
           <Meta
             title={
               <Typography.Title level={4} style={{margin: 10, fontWeight: 400}}>
-                {data.service.name}
+                {data.service?.name}
               </Typography.Title>
             }
             description={

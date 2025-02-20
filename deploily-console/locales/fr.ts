@@ -43,5 +43,6 @@ export default {
   'featuresSpecifications': 'Fonctionnalités et spécifications',
   'documentation': 'Documentation',
   'duration': 'Durée',
-  'mois': 'mois'
+  'mois': 'mois',
+  'startDate': 'Date de début'
 } as const
