@@ -1,6 +1,6 @@
-import {Col} from "antd";
+import { Col, Space } from "antd";
 import PortalContent from "./containers/portalContent";
-import {ReactElement} from "react";
+import { ReactElement } from "react";
 
 export default async function HomeLayout({
   children,
@@ -13,16 +13,18 @@ export default async function HomeLayout({
   return (
     <>
       <main>
-        <Col
-          style={{
-            display: "flex",
-            minHeight: "100vh",
-            width: "100%",
-            margin: "0px",
-          }}
-        >
-          <PortalContent>{children}</PortalContent>
-        </Col>
+        <Space direction="vertical" size="middle" style={{ display: 'flex',  margin: "0px", }} >
+          <Col
+            style={{
+              display: "flex",
+              minHeight: "100vh",
+              width: "100%",
+              margin: "0px",
+            }}
+          >
+            <PortalContent>{children}</PortalContent>
+          </Col>
+        </Space>
       </main>
     </>
   );
