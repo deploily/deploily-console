@@ -29,6 +29,7 @@ export default {
   'sidebar.logout': 'logout',
   'sidebar.collapse': 'Réduire la barre',
   'login': 'CONNEXION',
+  'logout': 'DÉCONNECTION',
   'gotoSite': 'ACCÉDER AU SITE WEB',
   'details': 'Détails',
   'offeredBy': 'Offert par',

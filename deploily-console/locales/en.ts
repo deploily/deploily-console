@@ -29,6 +29,7 @@ export default {
     'sidebar.logout': 'logout',
     'sidebar.collapse': 'Collapse sidebar', 
     'login': 'LOGIN', 
+    'logout': 'LOGOUT', 
     'gotoSite': 'GO TO THE WEBSITE',
     'details': 'Details',
     'offeredBy': 'Offered by',
