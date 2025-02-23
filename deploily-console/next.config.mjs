@@ -1,5 +1,6 @@
 
-const BASE_URL = process.env.BASE_URL; 
+// const BASE_URL = "http://localost:5000"; // for DEV  
+const BASE_URL = "https://console.deploily.cloud";  // for PROD
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
