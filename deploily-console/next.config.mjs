@@ -1,10 +1,9 @@
 
-const BASE_URL = `http://192.168.1.15:5000`; 
+const BASE_URL = process.env.BASE_URL; 
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     transpilePackages: ['next-international', 'international-types'],
-    reactStrictMode: true,
     output: "standalone",
     env: {
         BASE_URL: `${BASE_URL}`,
