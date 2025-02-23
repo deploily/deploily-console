@@ -1,6 +1,6 @@
 "use client";
 import {useAllServices} from "@/lib/features/apiService/apiServiceSelectors";
-import {Row, Col} from "antd";
+import {Row, Col, Space} from "antd";
 import ApiServiceCard from "./apiServiceCard";
 import {ApiServiceInterface} from "@/lib/features/apiService/apiServiceInterface";
 import {useEffect} from "react";
@@ -19,6 +19,7 @@ export default function ApiServiceContainer() {
 
   return (
     <>
+      <Space direction="vertical" size="middle" style={{ display: 'flex', paddingTop: 15 }} >
       <Row style={{padding: 20}}>
         <span
           style={{
@@ -33,7 +34,7 @@ export default function ApiServiceContainer() {
       </Row>
 
       {!isLoading && apiServiceResponse !== undefined && (
-        <Row gutter={[24, 24]} justify="start" style={{margin: 0}}>
+        <Row gutter={[24, 24]} justify="start" style={{margin: 10}}>
           {apiServiceResponse?.result?.map((row: ApiServiceInterface) => (
             <Col
               key={row.id}
@@ -44,11 +45,12 @@ export default function ApiServiceContainer() {
               xl={6}
               style={{display: "flex", justifyContent: "center"}}
             >
-              <ApiServiceCard data={row} />
+              <ApiServiceCard key={row.id} data={row} />
             </Col>
           ))}
         </Row>
-      )}
+        )}
+        </Space>
     </>
   );
 }

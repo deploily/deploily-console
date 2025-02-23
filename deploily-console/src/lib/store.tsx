@@ -1,10 +1,14 @@
 import {configureStore} from "@reduxjs/toolkit";
 import apiServiceSlice from "./features/apiService/apiServiceSlice";
+import cartSlice from "./features/cart/cartSlice";
+import cartLineSlice from "./features/cartLine/cartLineSlice";
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       apiService: apiServiceSlice,
+      cart: cartSlice,
+      cartLine: cartLineSlice
     },
   });
 };

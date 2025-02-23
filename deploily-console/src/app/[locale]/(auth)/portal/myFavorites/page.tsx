@@ -1,7 +1,7 @@
 "use client";
 import {Row} from "antd";
-import ComingSoonPage from "../containers/comingSoonContainer";
 import {useI18n} from "../../../../../../locales/client";
+import OnDemandCard from "../containers/onDemandCard";
 
 export default function Page() {
   const t = useI18n();
@@ -19,7 +19,7 @@ export default function Page() {
           {t("myFavorites")}
         </span>
       </Row>
-      <ComingSoonPage />
+      <OnDemandCard />
     </>
   );
 }

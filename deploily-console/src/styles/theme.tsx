@@ -1,10 +1,8 @@
 const primaryColor = "#D85912";
-const secondaryColor = "#eda879";
 
 export const theme = {
   token: {
     colorPrimary: primaryColor,
-    colorSecondary: secondaryColor,
     colorInfo: "#206fba",
     colorSuccess: "#2b7904",
     colorWarning: "#fadb14",
@@ -12,18 +10,39 @@ export const theme = {
     colorLink: "#63a9ea",
     colorTextBase: "#ffff",
     colorBgBase: "#0c0d0f",
+    borderRadius: 8,
     fontSize: 14,
-    colorWhite: "#ffff",
+    fontFamily: "Inter, sans-serif",
+    headingFontSize: {
+      h1: 35,
+      h2: 30,
+      h3: 28,
+      h4: 24,
+      h5: 20,
+      h6: 16,
+    },
   },
   components: {
+    Typography: {
+      fontFamily: "Inter, sans-serif",
+      titleMarginBottom: 8,
+    },
+    Rate: {
+      starColor: "rgb(252,50,50)",
+    },
+    Collapse: {
+      colorTextHeading: primaryColor,
+      fontFamily: "Inter, sans-serif",
+      fontSizeIcon: 20,
+      fontSize: 20,
+      borderRadiusLG: 10,
+      colorBorder: "rgb(78,78,78)",
+    },
+    algorithm: "dark",
     Button: {
       borderColorDisabled: "rgb(76,150,215)",
       defaultActiveBorderColor: "rgb(76,150,215)",
       colorText: "rgba(0,0,0,0)",
-    },
-    Input: {
-      colorPrimary: "#eb2f96",
-      algorithm: true,
     },
   },
 };

@@ -1,15 +1,31 @@
 "use client";
-import {Star} from "@phosphor-icons/react";
-import {Card, Col, Row, Image} from "antd";
+import {ArrowRight, Star} from "@phosphor-icons/react";
+import {Card, Col, Row, Image, Button} from "antd";
 import Meta from "antd/es/card/Meta";
+import {useI18n} from "../../../../../../../locales/client";
+import Link from "next/link";
 
 export default function ApiServiceCard({data}: any) {
+  const t = useI18n();
+  const baseURL = `http://192.168.1.15:5000/static/uploads/`;
+  const imageUrl = data.image_service
+    ? data.image_service.startsWith("http")
+      ? data.image_service
+      : `${baseURL}${data.image_service}`
+    : "/images/logo_service.png";
+
   return (
     <>
-      <Card hoverable>
+      <Card hoverable style={{width: 500, minWidth: 300}}>
         <Row align="middle" gutter={16}>
           <Col style={{paddingBottom: 10}}>
-            <Image alt="Logo" src="/images/logo_service.png" width={80} height={80} />
+            <Image
+              alt="Logo"
+              src={imageUrl}
+              width={80}
+              height={80}
+              fallback="/images/logo_service.png"
+            />
           </Col>
           <Col style={{padding: 10}}>
             <Meta
@@ -28,7 +44,7 @@ export default function ApiServiceCard({data}: any) {
                     fontSize: "18px",
                   }}
                 >
-                  {data.price}
+                  {data.unit_price}
                 </p>
               }
             />
@@ -38,6 +54,35 @@ export default function ApiServiceCard({data}: any) {
           </Col>{" "}
         </Row>
         <p>{data.description}</p>
+        <Row justify="end">
+          <Col>
+            {" "}
+            <Link href={`/portal/service/${data.id}`}>
+              <Button
+                style={{
+                  justifyContent: "end",
+                  color: "#fff",
+                  backgroundColor: "#D85912",
+                  border: "none",
+                  padding: "4px",
+                }}
+              >
+                {" "}
+                <ArrowRight size={20} style={{color: "rgba(220, 233, 245, 0.88)"}} />
+                <span
+                  style={{
+                    color: "rgba(220, 233, 245, 0.88)",
+                    fontFamily: "Inter, sans-serif",
+                    fontSize: "16px",
+                    fontWeight: 600,
+                  }}
+                >
+                  {t("details")}
+                </span>
+              </Button>
+            </Link>{" "}
+          </Col>
+        </Row>
       </Card>
     </>
   );

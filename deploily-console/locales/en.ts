@@ -29,5 +29,21 @@ export default {
     'sidebar.logout': 'logout',
     'sidebar.collapse': 'Collapse sidebar', 
     'login': 'LOGIN', 
-    'cancel': 'GO TO THE WEBSITE',
-}as const
+    'logout': 'LOGOUT', 
+    'gotoSite': 'GO TO THE WEBSITE',
+    'details': 'Details',
+    'offeredBy': 'Offered by',
+    'TryForFree': 'TRY FOR FREE',
+    'oneMonthFree': 'ONE MONTH FREE',
+    'youLike':'You might also like',
+    'settings': 'Settings',
+    'cancel': 'Cancel',
+    'save': 'Save',
+    'onDemandService': "You currently don't have any services available.Feel free to create a service!",
+    'description':'Description',
+    'featuresSpecifications': 'Features and Specifications',
+    'documentation': 'Documentation',
+    'duration': 'Duration',
+    'month': 'month(s)',
+    'startDate':'Start date'
+} as const

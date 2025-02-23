@@ -7,10 +7,8 @@ const createJestConfig = nextJest({
 
 const config: Config = {
   coverageProvider: "v8",
-  // testEnvironment: "jsdom",
   testEnvironment: 'jest-environment-jsdom',
   transform: {
-    // "^.+\\.(js|jsx|ts|tsx)$": ["babel-jest", { presets: ["next/babel"] }],
     '^.+\\.jsx?$': 'babel-jest',
     '^.+\\.tsx?$': 'ts-jest',
   },

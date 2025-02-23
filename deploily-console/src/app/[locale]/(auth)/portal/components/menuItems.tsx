@@ -39,42 +39,47 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
   },
   {
     key: "sub3",
-    label: <span style={labelStyle}>{scopedSidebar("myServices")}</span>,
+    label: (
+      <Link href="/portal/myServices">
+        {" "}
+        <span style={labelStyle}>{scopedSidebar("myServices")}</span>{" "}
+      </Link>
+    ),
     icon: <HardDrives size={24} />,
-    children: [
-      {
-        key: "1",
-        label: (
-          <Link href="/portal/myServices">
-            <span style={labelStyle}>{scopedSidebar("api")}</span>
-          </Link>
-        ),
-      },
-      {
-        key: "2",
-        label: (
-          <Link href="/portal/myServices">
-            <span style={labelStyle}>{scopedSidebar("cicd")}</span>
-          </Link>
-        ),
-      },
-      {
-        key: "3",
-        label: (
-          <Link href="/portal/myServices">
-            <span style={labelStyle}>{scopedSidebar("databases")}</span>
-          </Link>
-        ),
-      },
-      {
-        key: "4",
-        label: (
-          <Link href="/portal/myServices">
-            <span style={labelStyle}>{scopedSidebar("erpcrm")}</span>
-          </Link>
-        ),
-      },
-    ],
+    // children: [
+    //   {
+    //     key: "1",
+    //     label: (
+    //       <Link href="/portal/myServices">
+    //         <span style={labelStyle}>{scopedSidebar("api")}</span>
+    //       </Link>
+    //     ),
+    //   },
+    //   {
+    //     key: "2",
+    //     label: (
+    //       <Link href="/portal/myServices">
+    //         <span style={labelStyle}>{scopedSidebar("cicd")}</span>
+    //       </Link>
+    //     ),
+    //   },
+    //   {
+    //     key: "3",
+    //     label: (
+    //       <Link href="/portal/myServices">
+    //         <span style={labelStyle}>{scopedSidebar("databases")}</span>
+    //       </Link>
+    //     ),
+    //   },
+    //   {
+    //     key: "4",
+    //     label: (
+    //       <Link href="/portal/myServices">
+    //         <span style={labelStyle}>{scopedSidebar("erpcrm")}</span>
+    //       </Link>
+    //     ),
+    //   },
+    // ],
   },
   {
     key: "sub4",

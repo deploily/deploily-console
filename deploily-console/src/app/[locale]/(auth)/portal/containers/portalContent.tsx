@@ -11,7 +11,7 @@ export default function PortalContent({children}: any) {
 
   useEffect(() => {
     const updateDesktopVisibility = () => {
-      setShouldShowDeskttop(window.innerWidth > 865);
+      setShouldShowDeskttop(window.innerWidth > 880);
     };
 
     updateDesktopVisibility();
