@@ -21,7 +21,7 @@ export interface CartLinesInterface {
 export interface CartLineByIdInterface {
     id: number;
     cart: CartLinesInterface[];
-    service: ApiServiceInterface[];
+    service: ApiServiceInterface;
     amount: string;
     duration_month: number;
     parameters_values: string;
