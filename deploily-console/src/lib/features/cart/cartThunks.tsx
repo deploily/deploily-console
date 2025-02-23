@@ -1,13 +1,18 @@
 import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
-import { RootState } from "@/lib/store";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { getSession } from "next-auth/react";
 
 export const postServiceInCart = createAsyncThunk(
     "cart/posrtServiceInCart",
     async (id: string, thunkConfig) => {
 
         try {
+            const session = await getSession();
+            if (!session) {
+                return thunkConfig.rejectWithValue("session expired");
+            }
+            const token = session.accessToken;
             const response = await axios.post(`${deploilyApiUrls.CART_URL}`,
                 {
                     "service_id": id,
@@ -15,7 +20,7 @@ export const postServiceInCart = createAsyncThunk(
                 {
                     headers: {
                         Accept: "application/json",
-                        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6dHJ1ZSwiaWF0IjoxNzQwMDUwNDAyLCJqdGkiOiI5YmY0MTMyNS1jZjQwLTQ2N2EtODMxNS1mODhkMjlhZmQwNTEiLCJ0eXBlIjoiYWNjZXNzIiwic3ViIjoxLCJuYmYiOjE3NDAwNTA0MDIsImNzcmYiOiI3NTExZDY0YS1mZmNhLTRhNWMtYjMyZS02MDFhMzAwYzBiYWYiLCJleHAiOjE3NDAxMzY4MDJ9.YFQL7HQZn1B_-vRz0WczadwHhiZozVNP9F-qYRZTCK4`,
+                        Authorization: `Bearer ${token}`,
                     },
                 });
             if (response.status == 200) {

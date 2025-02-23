@@ -14,7 +14,6 @@ export default function MyServiceContentPage() {
   useEffect(() => {
     dispatch(fetchCartLines());
   }, []);
-console.log(cartLineResponse);
 
   return (
     <>

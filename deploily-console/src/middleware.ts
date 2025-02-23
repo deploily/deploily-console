@@ -1,14 +1,41 @@
 import {createI18nMiddleware} from "next-international/middleware";
 import {NextRequest} from "next/server";
+import { withAuth } from "next-auth/middleware";
+
+export const locales = ["en", "fr"] as const;
 
 const I18nMiddleware = createI18nMiddleware({
-  locales: ["en", "fr"],
+  locales: locales,
   defaultLocale: "en",
 });
 
-export function middleware(request: NextRequest) {
-  return I18nMiddleware(request);
+
+const authMiddleware = withAuth(
+  function onSuccess(req) {
+    return I18nMiddleware(req);
+  },
+  {
+    callbacks: {
+      authorized: ({ token }) => token != null,
+    },
+    pages: {
+      signIn: "/auth/login",
+    },
+  }
+);
+
+export default function middleware(req: NextRequest) {
+  const excludePattern = "^(/(" + locales.join("|") + "))?/admin/?.*?$";
+  const publicPathnameRegex = RegExp(excludePattern, "i");
+  const isPublicPage = !publicPathnameRegex.test(req.nextUrl.pathname);
+
+  if (isPublicPage) {
+    return I18nMiddleware(req);
+  } else {
+    return (authMiddleware as any)(req);
+  }
 }
+
 
 export const config = {
   matcher: ["/((?!api|static|.*\\..*|_next|favicon.ico|robots.txt).*)"],

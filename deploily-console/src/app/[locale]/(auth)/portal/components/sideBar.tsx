@@ -6,6 +6,7 @@ import {CaretUp, User} from "@phosphor-icons/react";
 import Link from "next/link";
 import {menuItems} from "./menuItems";
 import {useI18n, useScopedI18n} from "../../../../../../locales/client";
+import federatedLogout from "@/lib/utils/federatedLogout";
 
 const {Sider} = Layout;
 
@@ -27,7 +28,7 @@ export function MainSideBar() {
         },
         {
           key: "logout",
-          label: <Link href="/">{scopedSidebar("logout")}</Link>,
+          label: <span onClick={() => federatedLogout()}>{scopedSidebar("logout")}</span>,
           icon: <SignOut size={24} />,
         },
       ]}
@@ -130,7 +131,7 @@ export function MainSideBarMobile() {
         },
         {
           key: "logout",
-          label: <Link href="/">{scopedSidebar("logout")}</Link>,
+          label: <span onClick={() => federatedLogout()}>{scopedSidebar("logout")}</span>,
           icon: <SignOut size={24} />,
         },
       ]}
