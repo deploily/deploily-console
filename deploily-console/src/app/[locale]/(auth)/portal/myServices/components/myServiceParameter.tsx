@@ -8,12 +8,13 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useI18n } from "../../../../../../../locales/client";
 
+
 export default function MyServiceParameterPage({ cartLine_id }: { cartLine_id: string }) {
   const { useToken } = theme;
   const { token } = useToken();
   const dateFormat = "YYYY-MM-DD";
   const [apiKey, setApiKey] = useState("");
-
+  const t = useI18n();
   const generateApiKey = () => {
     // Simulate API key generation
     const newKey = Math.random().toString(36).substr(2, 10).toUpperCase();
@@ -29,7 +30,7 @@ export default function MyServiceParameterPage({ cartLine_id }: { cartLine_id: s
   }, []);
 
   if (cartLineLoading || !currentCartLine) return null;
-  const t = useI18n();
+  
   return (
     <>
       <Row gutter={16} key={currentCartLine.id}>
@@ -37,12 +38,12 @@ export default function MyServiceParameterPage({ cartLine_id }: { cartLine_id: s
           <Image alt="Logo" src="/images/logo_service.png" width={220} height={220} />
         </Col>
         <Col xs={24} sm={12} md={16} lg={12} style={{ padding: 45, justifyContent: "start" }}>
-          <Typography.Title level={2}>Name service 1</Typography.Title>
+          <Typography.Title level={2}> {currentCartLine.service.name} </Typography.Title>
           <Typography.Title level={2} style={{ color: token.colorPrimaryTextHover }}>
-            1000,00
+            {currentCartLine.service.unit_price}
           </Typography.Title>
           <Typography.Title level={4}>
-            Short description Short description Short description Short description
+            {currentCartLine.service.short_description}
           </Typography.Title>
           <Row>
             <Typography.Title level={5} style={{ marginTop: 8, marginRight: 8, fontWeight: 600 }}>
@@ -64,12 +65,12 @@ export default function MyServiceParameterPage({ cartLine_id }: { cartLine_id: s
         <Typography.Title level={5} style={{ fontWeight: 600 }}>
           ACCESS URL
         </Typography.Title>
-        <Typography.Text>https://api.example.com/your-service</Typography.Text>
+        <Typography.Text> {currentCartLine.service.service_url} </Typography.Text>
 
         <Typography.Title level={5} style={{ marginTop: 15, fontWeight: 600 }}>
-          Link to Documentation
+          Link to Documentation 
         </Typography.Title>
-        <Link href="/docs/service-docs" target="_blank" style={{ color: token.colorPrimary }}>
+        <Link href={currentCartLine.service.documentation_url} target="_blank" style={{ color: token.colorPrimary }}>
           View API Documentation
         </Link>
 
