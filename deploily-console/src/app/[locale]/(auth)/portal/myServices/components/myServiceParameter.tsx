@@ -47,7 +47,7 @@ export default function MyServiceParameterPage({ cartLine_id }: { cartLine_id: s
           </Typography.Title>
           <Row>
             <Typography.Title level={5} style={{ marginTop: 8, marginRight: 8, fontWeight: 600 }}>
-              Start date
+              {t('startDate')}
             </Typography.Title>
             <DatePicker
               style={{ marginTop: 10 }}
@@ -63,29 +63,29 @@ export default function MyServiceParameterPage({ cartLine_id }: { cartLine_id: s
 
       <Col style={{ padding: 45 }}>
         <Typography.Title level={5} style={{ fontWeight: 600 }}>
-          ACCESS URL
+          {t('accessUrl')}
         </Typography.Title>
         <Typography.Text> {currentCartLine.service.service_url} </Typography.Text>
 
         <Typography.Title level={5} style={{ marginTop: 15, fontWeight: 600 }}>
-          Link to Documentation 
+          {t('link')}
         </Typography.Title>
         <Link href={currentCartLine.service.documentation_url} target="_blank" style={{ color: token.colorPrimary }}>
-          View API Documentation
+          {t('viewApi')}
         </Link>
 
         <Typography.Title level={5} style={{ marginTop: 15, fontWeight: 600 }}>
-          Parameter Values
+          {t('parameterValue')}
         </Typography.Title>
-        <Input placeholder="Enter parameter value" style={{ marginBottom: 10 }} />
-        <Input placeholder="Enter parameter value" style={{ marginBottom: 10 }} />
-        <Input placeholder="Enter parameter value" style={{ marginBottom: 10 }} />
+        {/* <Input value={20} placeholder="Enter parameter value" style={{ marginBottom: 10 }} />
+        <Input value={20} placeholder="Enter parameter value" style={{ marginBottom: 10 }} />
+        <Input value={20} placeholder="Enter parameter value" style={{ marginBottom: 10 }} /> */}
 
         <Button
           onClick={generateApiKey}
           style={{ marginTop: 20, backgroundColor: "#1890ff", color: "#fff" }}
         >
-          GENERATE KEY
+          {t('ganerateKey')}
         </Button>
         {apiKey && (
           <Typography.Paragraph copyable style={{ marginTop: 10, fontWeight: 600 }}>
