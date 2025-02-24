@@ -32,7 +32,6 @@ export default function PortalContent({children}: any) {
           style={{
             padding: 0,
             width: "100%",
-            backgroundImage: "url(/images/bottomBack.png), url(/images/topBack.png)",
             backgroundRepeat: "no-repeat, no-repeat",
             backgroundPosition: "bottom left, top right",
             backgroundAttachment: "fixed",

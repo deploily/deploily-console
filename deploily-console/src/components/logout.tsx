@@ -3,14 +3,14 @@ import federatedLogout from "@/lib/utils/federatedLogout";
 import { useCurrentLocale, useI18n } from "../../locales/client";
 import { Button } from "antd";
 
-export default function Login() {
+export default function Logout() {
     const t = useI18n();
     const locale = useCurrentLocale();
     return (
 
         <Button
             style={{
-                width: 350,
+                width:"100%",
                 color: "#fff",
                 height: "40px",
                 backgroundColor: "#D85912",

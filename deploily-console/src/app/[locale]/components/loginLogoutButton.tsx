@@ -10,5 +10,5 @@ export default async function LoginLogoutButton() {
     if (session) {
         return <><Logout /> </>
     }
-    return (<div><Login /> </div>)
+    return (<><Login /> </>)
 }
