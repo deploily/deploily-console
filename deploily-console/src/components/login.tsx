@@ -12,7 +12,7 @@ export default function Login() {
         
         <Button
             style={{
-                width: 350,
+                width: "100%",
                 color: "#fff",
                 height: "40px",
                 backgroundColor: "#D85912",
@@ -20,7 +20,7 @@ export default function Login() {
                 marginBottom: "20px",
             }}
             // href="/portal/home"
-            onClick={() => signIn("keycloak", { callbackUrl: `/${locale}/portal/` })}
+            onClick={() => signIn("keycloak", { callbackUrl: `/${locale}/portal/home` })}
         >
             <span
                 style={{

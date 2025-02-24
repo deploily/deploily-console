@@ -1,12 +1,14 @@
 "use client";
 import { useCartLine } from "@/lib/features/cartLine/cartLineSelectors";
-import { fetchCartLineById } from "@/lib/features/cartLine/cartLineThunks";
+import { fetchCartLineById, generateTokenThunk } from "@/lib/features/cartLine/cartLineThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { Col, Row, Typography, Image, theme, DatePicker, Button, Input } from "antd";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useI18n } from "../../../../../../../locales/client";
+import { ArrowLeft } from "@phosphor-icons/react";
+import { useRouter } from "next/navigation";
 
 
 export default function MyServiceParameterPage({ cartLine_id }: { cartLine_id: string }) {
@@ -15,13 +17,10 @@ export default function MyServiceParameterPage({ cartLine_id }: { cartLine_id: s
   const dateFormat = "YYYY-MM-DD";
   const [apiKey, setApiKey] = useState("");
   const t = useI18n();
-  const generateApiKey = () => {
-    // Simulate API key generation
-    const newKey = Math.random().toString(36).substr(2, 10).toUpperCase();
-    setApiKey(newKey);
-  };
+ 
   const { cartLineLoading, currentCartLine } = useCartLine();
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   useEffect(() => {
     if (cartLine_id) {
@@ -30,10 +29,16 @@ export default function MyServiceParameterPage({ cartLine_id }: { cartLine_id: s
   }, []);
 
   if (cartLineLoading || !currentCartLine) return null;
+
+
+  const generateApiKey =()=>{ dispatch(generateTokenThunk(cartLine_id)) }
   
   return (
     <>
       <Row gutter={16} key={currentCartLine.id}>
+        <div style={{ padding: "10px" }}>
+          <Button style={{ border: "none", background: "#030303", boxShadow: "none" }} icon={<ArrowLeft color="#D85912" size={35} />} onClick={() => router.back()} />
+        </div>
         <Col style={{ padding: "50px 0px 50px 50px" }}>
           <Image alt="Logo" src="/images/logo_service.png" width={220} height={220} />
         </Col>
@@ -47,7 +52,7 @@ export default function MyServiceParameterPage({ cartLine_id }: { cartLine_id: s
           </Typography.Title>
           <Row>
             <Typography.Title level={5} style={{ marginTop: 8, marginRight: 8, fontWeight: 600 }}>
-              Start date
+              {t('startDate')}
             </Typography.Title>
             <DatePicker
               style={{ marginTop: 10 }}
@@ -56,37 +61,52 @@ export default function MyServiceParameterPage({ cartLine_id }: { cartLine_id: s
             />
           </Row>
           <Typography.Title level={5} style={{ marginTop: 8, fontWeight: 600 }}>
-            {t('duration')} {currentCartLine.duration_month} {t('month')}(s)
+            {t('duration')} {currentCartLine.duration_month} {t('month')}
           </Typography.Title>
         </Col>
       </Row>
 
       <Col style={{ padding: 45 }}>
         <Typography.Title level={5} style={{ fontWeight: 600 }}>
-          ACCESS URL
+          {t('accessUrl')}
         </Typography.Title>
         <Typography.Text> {currentCartLine.service.service_url} </Typography.Text>
 
         <Typography.Title level={5} style={{ marginTop: 15, fontWeight: 600 }}>
-          Link to Documentation 
+          {t('link')}
         </Typography.Title>
         <Link href={currentCartLine.service.documentation_url} target="_blank" style={{ color: token.colorPrimary }}>
-          View API Documentation
+          {t('viewApi')}
         </Link>
 
         <Typography.Title level={5} style={{ marginTop: 15, fontWeight: 600 }}>
-          Parameter Values
+          {t('parameterValue')}
         </Typography.Title>
-        <Input placeholder="Enter parameter value" style={{ marginBottom: 10 }} />
-        <Input placeholder="Enter parameter value" style={{ marginBottom: 10 }} />
-        <Input placeholder="Enter parameter value" style={{ marginBottom: 10 }} />
-
-        <Button
+        {currentCartLine.parameters_values.map((parameter: any) => (
+          <div  key={parameter.id} >
+            {/* <Typography.Title level={5} style={{ marginTop: 15, fontWeight: 600 }}>
+              {parameter.name}
+            </Typography.Title> */}
+            <Input defaultValue={parameter.value} placeholder="Enter parameter value" style={{ marginBottom: 10 }} />
+          </div>
+        ))}
+        <>
+          {currentCartLine.parameters_values.find(param => param.type === 'token') ? (
+            <div>
+              <Input
+                defaultValue={currentCartLine.parameters_values.find(param => param.type === 'token')?.type}
+                placeholder="Enter parameter value"
+                style={{ marginBottom: 10 }}
+              />
+            </div>
+          ) : null}
+        </>
+        {currentCartLine.parameters_values.find(param => param.type === 'token') ==null&&<Button
           onClick={generateApiKey}
           style={{ marginTop: 20, backgroundColor: "#1890ff", color: "#fff" }}
         >
-          GENERATE KEY
-        </Button>
+          {t('ganerateKey')}
+        </Button>}
         {apiKey && (
           <Typography.Paragraph copyable style={{ marginTop: 10, fontWeight: 600 }}>
             {apiKey}

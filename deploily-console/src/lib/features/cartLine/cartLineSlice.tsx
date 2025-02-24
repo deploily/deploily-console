@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { CartLineByIdInterface, CartLineResponse } from "./cartLineInterface";
-import { fetchCartLineById, fetchCartLines } from "./cartLineThunks";
+import { fetchCartLineById, fetchCartLines, generateTokenThunk } from "./cartLineThunks";
 
 interface CartLineState {
     cartLineResponse?: CartLineResponse;
@@ -9,6 +9,9 @@ interface CartLineState {
     cartLineLoading: boolean;
     currentCartLine?: CartLineByIdInterface;
     cartLine_id?: number;
+    generateTokenLoading?: boolean;
+    generatedToken?: string;
+    generateTokenFailed?: boolean;
 }
 
 const initialState: CartLineState = {
@@ -18,8 +21,10 @@ const initialState: CartLineState = {
     cartLineLoading: false,
     currentCartLine: undefined,
     cartLine_id: undefined,
+    generateTokenLoading: undefined,
+    generatedToken: undefined,
+    generateTokenFailed: undefined,
 }
-
 const CartLineSlice = createSlice({
     name: "cartLine",
     initialState,
@@ -56,6 +61,18 @@ const CartLineSlice = createSlice({
             .addCase(fetchCartLineById.rejected, (state, { payload }) => {
                 state.cartLineLoading = false;
                 state.cartLineLoadingError = payload;
+            })   //GENRATE API TOKEN 
+            .addCase(generateTokenThunk.pending, (state) => {
+                state.generateTokenLoading = true;
+                state.generatedToken = undefined;
+            })
+            .addCase(generateTokenThunk.fulfilled, (state, action) => {
+                state.generateTokenLoading = false;
+                state.generatedToken = action.payload;
+            })
+            .addCase(generateTokenThunk.rejected, (state) => {
+                state.generateTokenLoading = false;
+                state.generateTokenFailed = true;
             });
     },
 });

@@ -1,13 +1,13 @@
 "use client";
-import {ArrowRight, Star} from "@phosphor-icons/react";
-import {Card, Col, Row, Image, Button} from "antd";
+import { ArrowRight, Star } from "@phosphor-icons/react";
+import { Card, Col, Row, Image, Button } from "antd";
 import Meta from "antd/es/card/Meta";
-import {useI18n} from "../../../../../../../locales/client";
+import { useI18n } from "../../../../../../../locales/client";
 import Link from "next/link";
 
-export default function ApiServiceCard({data}: any) {
+export default function ApiServiceCard({ data }: any) {
   const t = useI18n();
-  const baseURL = `http://192.168.1.15:5000/static/uploads/`;
+  const baseURL = `https://console.deploily.cloud/static/uploads/`;
   const imageUrl = data.image_service
     ? data.image_service.startsWith("http")
       ? data.image_service
@@ -16,9 +16,9 @@ export default function ApiServiceCard({data}: any) {
 
   return (
     <>
-      <Card hoverable style={{width: 500, minWidth: 300}}>
+      <Card hoverable style={{ width: 500, minWidth: 300 }}>
         <Row align="middle" gutter={16}>
-          <Col style={{paddingBottom: 10}}>
+          <Col style={{ paddingBottom: 10 }}>
             <Image
               alt="Logo"
               src={imageUrl}
@@ -27,11 +27,11 @@ export default function ApiServiceCard({data}: any) {
               fallback="/images/logo_service.png"
             />
           </Col>
-          <Col style={{padding: 10}}>
+          <Col style={{ padding: 10 }}>
             <Meta
               title={
                 <p
-                  style={{fontFamily: "Inter, sans-serif", fontWeight: "regular", fontSize: "20px"}}
+                  style={{ fontFamily: "Inter, sans-serif", fontWeight: "regular", fontSize: "20px" }}
                 >
                   {data.name}
                 </p>
@@ -49,7 +49,7 @@ export default function ApiServiceCard({data}: any) {
               }
             />
           </Col>
-          <Col style={{display: "flex", justifyContent: "flex-end"}}>
+          <Col style={{ display: "flex", justifyContent: "flex-end" }}>
             <Star size={20} color="#7D7D7D" />
           </Col>{" "}
         </Row>
@@ -68,7 +68,7 @@ export default function ApiServiceCard({data}: any) {
                 }}
               >
                 {" "}
-                <ArrowRight size={20} style={{color: "rgba(220, 233, 245, 0.88)"}} />
+                <ArrowRight size={20} style={{ color: "rgba(220, 233, 245, 0.88)" }} />
                 <span
                   style={{
                     color: "rgba(220, 233, 245, 0.88)",

@@ -24,6 +24,6 @@ export interface CartLineByIdInterface {
     service: ApiServiceInterface;
     amount: string;
     duration_month: number;
-    parameters_values: string;
+    parameters_values: any[];
     start_date: Date;
 }

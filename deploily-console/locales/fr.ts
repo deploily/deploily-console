@@ -45,5 +45,10 @@ export default {
   'documentation': 'Documentation',
   'duration': 'Durée',
   'mois': 'mois',
-  'startDate': 'Date de début'
+  'startDate': 'Date de début',
+  'accessUrl': "URL D'ACCÈS",
+  'link': 'Lien vers la documentation',
+  'viewApi': "Afficher la documentation de lAPI",
+  'parameterValue': 'Valeurs des paramètres',
+  'ganerateKey': 'GÉNÉRER LA CLÉ',
 } as const

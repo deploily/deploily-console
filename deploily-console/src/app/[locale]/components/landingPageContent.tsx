@@ -1,28 +1,29 @@
 "use client";
-import {Button, Col, Row} from "antd";
+import { Button, Col, Row } from "antd";
 import Image from "next/image";
-import {useI18n} from "../../../../locales/client";
-import { signIn } from "next-auth/react";
+import { useI18n } from "../../../../locales/client";
 
 export default function LandingPageContent({ loginLogoutButton }: { loginLogoutButton: React.ReactNode }) {
   const t = useI18n();
 
   return (
-    <Row justify="center" align="middle" style={{padding: 20, height: "60vh"}}>
-      <Col style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+    <Row justify="center" align="middle" style={{ padding: 20, height: "60vh" }}>
+      <Col xs={{ flex: '100%' }} sm={{ flex: '80%' }} md={{ flex: '50%' }} lg={{ flex: '35%' }}
+        style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      >
         <Image
           src="/images/logo_name.png"
           width={350}
           height={109}
           alt="logo-deploily"
-          style={{marginBottom: "50px"}}
+          layout="responsive"
         />
         <>
-          { loginLogoutButton }
+          {loginLogoutButton}
         </>
         <Button
           style={{
-            width: 350,
+            width: "100%",
             color: "#fff",
             height: "40px",
             backgroundColor: "#5394CC",

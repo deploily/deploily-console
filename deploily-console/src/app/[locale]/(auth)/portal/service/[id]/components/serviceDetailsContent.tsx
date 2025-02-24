@@ -1,6 +1,6 @@
 "use client";
 import { Col, Row, Image, Typography, theme, Collapse, Card, Button } from "antd";
-import { CaretDown, CaretUp, Star } from "@phosphor-icons/react";
+import { ArrowLeft, CaretDown, CaretUp, Star } from "@phosphor-icons/react";
 import { useI18n } from "../../../../../../../../locales/client";
 import { getItems } from "./getItems";
 import { useEffect, useState } from "react";
@@ -25,13 +25,16 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
     }
   }, [dispatch, serviceId]);
 
-  const baseURL = "http://192.168.1.15:5000/static/uploads/";
+  const baseURL = "https://console.deploily.cloud/static/uploads/";
 
   if (serviceLoading || !currentService) return null;
 
   return (
     <>
       <Row gutter={16} key={currentService.id}>
+        <div style={{ padding: "10px" }}>
+          <Button style={{ border: "none", background: "#030303", boxShadow: "none" }} icon={<ArrowLeft color="#D85912" size={35} />} onClick={() => router.back()} />
+        </div>
         <Col style={{ padding: "50px 0px 50px 50px" }}>
           <Image
             alt="Logo"
@@ -102,10 +105,10 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
                 border: "none",
                 padding: "4px",
               }}
-              onClick={() =>
-              {
+              onClick={() => {
                 dispatch(postServiceInCart(serviceId));
-                router.push("/portal/myServices")}}
+                router.push("/portal/myServices")
+              }}
             >
               <span
                 style={{
