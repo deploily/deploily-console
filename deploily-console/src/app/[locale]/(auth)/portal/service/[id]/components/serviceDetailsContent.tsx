@@ -25,7 +25,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
     }
   }, [dispatch, serviceId]);
 
-  const baseURL = "http://192.168.1.15:5000/static/uploads/";
+  const baseURL = "https://admin.deploily.cloud/static/uploads/";
 
   if (serviceLoading || !currentService) return null;
 

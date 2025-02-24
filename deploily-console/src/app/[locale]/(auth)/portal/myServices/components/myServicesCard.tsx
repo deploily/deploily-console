@@ -11,7 +11,7 @@ export default function MyServiceCard({data}: any) {
   const t = useI18n();
   const dateFormat = "YYYY-MM-DD";
   const router = useRouter();
-  const baseURL = `http://192.168.1.15:5000/static/uploads/`;
+  const baseURL = `https://admin.deploily.cloud/static/uploads/`;
   const imageUrl = data.image_service
     ? data.image_service.startsWith("http")
       ? data.image_service
