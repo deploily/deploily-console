@@ -25,7 +25,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
     }
   }, [dispatch, serviceId]);
 
-  const baseURL = "https://admin.deploily.cloud/static/uploads/";
+  const baseURL = "https://console.deploily.cloud/static/uploads/";
 
   if (serviceLoading || !currentService) return null;
 
@@ -105,10 +105,10 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
                 border: "none",
                 padding: "4px",
               }}
-              onClick={() =>
-              {
+              onClick={() => {
                 dispatch(postServiceInCart(serviceId));
-                router.push("/portal/myServices")}}
+                router.push("/portal/myServices")
+              }}
             >
               <span
                 style={{
