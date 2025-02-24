@@ -32,7 +32,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
   return (
     <>
       <Row gutter={16} key={currentService.id}>
-        <div style={{ paddingLeft: "10px" }}>
+        <div style={{ padding: "10px" }}>
           <Button style={{ border: "none", background: "#030303", boxShadow: "none" }} icon={<ArrowLeft color="#D85912" size={35} />} onClick={() => router.back()} />
         </div>
         <Col style={{ padding: "50px 0px 50px 50px" }}>

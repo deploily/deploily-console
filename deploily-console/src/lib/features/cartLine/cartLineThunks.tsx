@@ -54,3 +54,29 @@ export const fetchCartLineById = createAsyncThunk(
         }
     },
 );
+export const generateTokenThunk = createAsyncThunk(
+    "cartLine/generateToken",
+    async (cartLine_id: string, thunkConfig) => {
+        try {
+            const session = await getSession();
+            if (!session) {
+                return thunkConfig.rejectWithValue("session expired");
+            }
+            const token = session.accessToken;
+
+            const response = await axios.post(`${deploilyApiUrls.GENERATE_TOKEN_URL}${cartLine_id}`, {
+                headers: {
+                    Accept: "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            if (response.status === 200) {
+                return response.data['auth-key'];
+            } else {
+                return thunkConfig.rejectWithValue("Failed to generate token");
+            }
+        } catch (error: any) {
+            return thunkConfig.rejectWithValue(error.response.data.message);
+        }
+    },
+);
