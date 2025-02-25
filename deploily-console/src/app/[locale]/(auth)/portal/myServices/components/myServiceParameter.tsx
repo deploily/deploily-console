@@ -5,7 +5,7 @@ import { useAppDispatch } from "@/lib/hook";
 import { Col, Row, Typography, Image, theme, DatePicker, Button, Input } from "antd";
 import dayjs from "dayjs";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useI18n } from "../../../../../../../locales/client";
 import { ArrowLeft } from "@phosphor-icons/react";
 import { useRouter } from "next/navigation";
@@ -15,9 +15,8 @@ export default function MyServiceParameterPage({ cartLine_id }: { cartLine_id: s
   const { useToken } = theme;
   const { token } = useToken();
   const dateFormat = "YYYY-MM-DD";
-  const [apiKey, setApiKey] = useState("");
   const t = useI18n();
- 
+
   const { cartLineLoading, currentCartLine } = useCartLine();
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -31,8 +30,8 @@ export default function MyServiceParameterPage({ cartLine_id }: { cartLine_id: s
   if (cartLineLoading || !currentCartLine) return null;
 
 
-  const generateApiKey =()=>{ dispatch(generateTokenThunk(cartLine_id)) }
-  
+  const generateApiKey = () => { dispatch(generateTokenThunk(cartLine_id)) }
+
   return (
     <>
       <Row gutter={16} key={currentCartLine.id}>
@@ -83,11 +82,8 @@ export default function MyServiceParameterPage({ cartLine_id }: { cartLine_id: s
           {t('parameterValue')}
         </Typography.Title>
         {currentCartLine.parameters_values.map((parameter: any) => (
-          <div  key={parameter.id} >
-            {/* <Typography.Title level={5} style={{ marginTop: 15, fontWeight: 600 }}>
-              {parameter.name}
-            </Typography.Title> */}
-            <Input defaultValue={parameter.value} placeholder="Enter parameter value" style={{ marginBottom: 10 }} />
+          <div key={parameter.id} >
+            <Input defaultValue={parameter.value} style={{ marginBottom: 10 }} />
           </div>
         ))}
         <>
@@ -101,17 +97,19 @@ export default function MyServiceParameterPage({ cartLine_id }: { cartLine_id: s
             </div>
           ) : null}
         </>
-        {currentCartLine.parameters_values.find(param => param.type === 'token') ==null&&<Button
+        {/* {currentCartLine.parameters_values.find(param => param.type === 'token') == null && <Button//TODO UNCOMMENT THIS AFTER LOGIC FIX 
+          onClick={generateApiKey}
+          style={{ marginTop: 20, backgroundColor: "#1890ff", color: "#fff" }}
+        >
+          {t('ganerateKey')}
+        </Button>} */}
+        {currentCartLine.parameters_values.length<0&& <Button
           onClick={generateApiKey}
           style={{ marginTop: 20, backgroundColor: "#1890ff", color: "#fff" }}
         >
           {t('ganerateKey')}
         </Button>}
-        {apiKey && (
-          <Typography.Paragraph copyable style={{ marginTop: 10, fontWeight: 600 }}>
-            {apiKey}
-          </Typography.Paragraph>
-        )}
+   
       </Col>
 
       <Col style={{ display: "flex", justifyContent: "flex-end", padding: 45, gap: 8 }}>
