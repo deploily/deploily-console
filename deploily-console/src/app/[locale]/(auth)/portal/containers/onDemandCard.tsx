@@ -9,7 +9,7 @@ export default function OnDemandCard() {
       <Row justify="center" align="middle" style={{height: "80vh", padding: 20}}>
         <Card style={{width: "50%", justifyContent: "center"}}>
           <Typography.Title level={3} style={{paddingBottom: 10, textAlign: "center"}}>
-            {"onDemandService"}
+            {t("onDemandService")}
           </Typography.Title>
           <Row justify="center" align="middle">
             <Button

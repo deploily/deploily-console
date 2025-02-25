@@ -11,51 +11,61 @@ export default function MyServiceCard({ data }: any) {
   const t = useI18n();
   const dateFormat = "YYYY-MM-DD";
   const router = useRouter();
-  const baseURL = `https://console.deploily.cloud/static/uploads/`;
-  const imageUrl = data.image_service
-    ? data.image_service.startsWith("http")
+  const baseURL = `https://admin.deploily.cloud/static/uploads/`;
+  const imageUrl = data.service?.image_service
+    ? data.service?.image_service.startsWith("http")
       ? data.image_service
-      : `${baseURL}${data.image_service}`
+      : `${baseURL}${data.service?.image_service}`
     : "/images/logo_service.png";
 
   return (
-    <Card>
-      <Row align="middle" gutter={16}>
-        <div style={{ width: "100%", maxWidth: 126, overflow: "hidden" }}>
-          <Image
-            alt="Logo"
-            src={imageUrl}
-            width={80}
-            height={80}
-            fallback="/images/logo_service.png"
-          />
-        </div>
-        <Col flex="1">
-          <Meta
-            title={
-              <Typography.Title level={4} style={{ margin: 10, fontWeight: 400 }}>
-                {data.service?.name}
-              </Typography.Title>
-            }
-            description={
-              <Typography.Text strong style={{ color: "#DD8859", fontSize: "20px" }}>
-                {data.price}
-              </Typography.Text>
-            }
-          />
+    <Card style={{ width: "100%", maxWidth: 380, marginBottom: 16 }} >
+      <Row justify={"space-between"} style={{ width: "100%", overflow: "hidden" }}>
+        <Col><Image
+          alt="Logo"
+          src={imageUrl}
+          preview={false}
+          width={80}
+          height={80}
+          fallback="/images/logo_service.png"
+        />
+        </Col>
+        <Col>
+          <Typography.Text strong style={{ color: "#DD8859", fontSize: "20px" }}>
+            {data.amount}
+          </Typography.Text>
+        </Col>
+      </Row>
+      <Col style={{ padding: 0 }}>
+
+        <Row justify={"space-between"}><Typography.Title level={4} style={{ paddingTop: 10, fontWeight: 400 }}>
+          {data.service?.name}
+        </Typography.Title>
+          <Col style={{ justifyItems: "center", paddingTop: 10 }}>
+            <Star size={20} color="#7D7D7D" />
+          </Col>
+        </Row>
+
+
+        <Row justify={"space-between"}>
+          <Typography.Title level={5} style={{ marginTop: 8, marginRight: 8, fontWeight: 600 }}>
+            {t('startDate')}
+          </Typography.Title>
           <DatePicker
             style={{ marginTop: 10 }}
             defaultValue={dayjs(data.start_date, dateFormat)}
             disabled
           />
-          <Typography.Title level={5} style={{ marginTop: 8, fontWeight: 400 }}>
-            {t('duration')}: {data.duration_month} {t('month')}
+        </Row>
+        <Row>
+          <Typography.Title level={5} style={{ marginTop: 8, fontWeight: 600, marginRight: 8 }}>
+            {t('duration')}
           </Typography.Title>
-        </Col>
-        <Col>
-          <Star size={20} color="#7D7D7D" />
-        </Col>
-      </Row>
+          <Typography.Title level={5} style={{ marginTop: 8, fontWeight: 300 }}>
+            {data.duration_month} {t('month')}
+          </Typography.Title>
+        </Row>
+      </Col>
 
       <Row gutter={8} justify="end" style={{ marginTop: 12 }}>
         <Col>
