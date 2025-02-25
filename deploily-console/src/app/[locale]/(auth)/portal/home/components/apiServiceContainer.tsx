@@ -1,6 +1,6 @@
 "use client";
 import { useAllServices } from "@/lib/features/apiService/apiServiceSelectors";
-import { Row, Col, Space, Button } from "antd";
+import { Row, Col, Space } from "antd";
 import ApiServiceCard from "./apiServiceCard";
 import { ApiServiceInterface } from "@/lib/features/apiService/apiServiceInterface";
 import { useEffect } from "react";
@@ -18,11 +18,12 @@ export default function ApiServiceContainer() {
   }, []);
 
   return (
-    <>
-      <Space direction="vertical" size="middle" style={{ display: 'flex', paddingTop: 15 }} >
-       
-        {!isLoading && apiServiceResponse !== undefined && (
-          <> <Row style={{ padding: 20 }}>
+
+    <Space direction="vertical" size="middle" style={{ display: 'flex', paddingTop: 15 }} >
+
+      {!isLoading && apiServiceResponse !== undefined && (
+        <>
+          <Row style={{ padding: 20 }}>
             <span
               style={{
                 color: "white",
@@ -35,23 +36,24 @@ export default function ApiServiceContainer() {
             </span>
           </Row>
 
-            <Row gutter={[24, 24]} justify="start" style={{ margin: 10 }}>
-              {apiServiceResponse?.result?.map((row: ApiServiceInterface) => (
-                <Col
-                  key={row.id}
-                  xs={24}
-                  sm={12}
-                  md={10}
-                  lg={8}
-                  xl={6}
-                  style={{ display: "flex", justifyContent: "center" }}
-                >
-                  <ApiServiceCard key={row.id} data={row} />
-                </Col>
-              ))}
-            </Row>
-          </>)}
-      </Space>
-    </>
+          <Row gutter={[24, 24]} justify="start" style={{ margin: 0 }}>
+
+            {apiServiceResponse?.result?.map((row: ApiServiceInterface) => (
+              <Col
+                key={row.id}
+                xs={24}
+                sm={12}
+                md={10}
+                lg={8}
+                xl={6}
+                style={{ display: "flex", justifyContent: "center", marginBottom: 24 }}
+              >
+                <ApiServiceCard key={row.id} data={row} />
+              </Col>
+            ))}
+          </Row>
+        </>)}
+    </Space>
+
   );
 }
