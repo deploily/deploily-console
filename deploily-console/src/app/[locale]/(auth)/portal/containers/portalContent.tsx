@@ -23,7 +23,7 @@ export default function PortalContent({children}: any) {
   }, []);
 
   return (
-    <Layout style={{overflow: "hidden"}}>
+    <Layout style={{overflow: "hidden", height:"100vh"}}>
       {shouldShowDesktop && <AppAppBarDesktop />}
       {!shouldShowDesktop && <AppAppBarMobile />}
       <Layout>
@@ -32,6 +32,7 @@ export default function PortalContent({children}: any) {
           style={{
             padding: 0,
             width: "100%",
+            overflow:"auto",
             backgroundRepeat: "no-repeat, no-repeat",
             backgroundPosition: "bottom left, top right",
             backgroundAttachment: "fixed",
