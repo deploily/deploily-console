@@ -25,7 +25,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
     }
   }, [dispatch, serviceId]);
 
-  const baseURL = "https://console.deploily.cloud/static/uploads/";
+  const baseURL = "https://admin.deploily.cloud/static/uploads/";
 
   if (serviceLoading || !currentService) return null;
 

@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function ApiServiceCard({ data }: any) {
   const t = useI18n();
-  const baseURL = `https://console.deploily.cloud/static/uploads/`;
+  const baseURL = `https://admin.deploily.cloud/static/uploads/`;
   const imageUrl = data.image_service
     ? data.image_service.startsWith("http")
       ? data.image_service
