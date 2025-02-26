@@ -29,17 +29,29 @@ export default function MyServiceParameterPage({ cartLine_id }: { cartLine_id: s
 
   if (cartLineLoading || !currentCartLine) return null;
 
+  const baseURL = `https://admin.deploily.cloud/static/uploads/`;
+  const imageUrl = currentCartLine?.service?.image_service
+    ? currentCartLine?.service?.image_service.startsWith("http")
+      ? currentCartLine?.service?.image_service
+      : `${baseURL}${currentCartLine?.service?.image_service}`
+    : "/images/logo_service.png";
 
   const generateApiKey = () => { dispatch(generateTokenThunk(cartLine_id)) }
 
   return (
     <>
-      <Row gutter={16} key={currentCartLine.id}>
-        <div style={{ padding: "10px" }}>
+      <div style={{ padding: "0px 10px 10px 10px" }}>
           <Button style={{ border: "none", background: "#030303", boxShadow: "none" }} icon={<ArrowLeft color="#D85912" size={35} />} onClick={() => router.back()} />
         </div>
-        <Col style={{ padding: "50px 0px 50px 50px" }}>
-          <Image alt="Logo" src="/images/logo_service.png" width={220} height={220} />
+      <Row gutter={16} key={currentCartLine.id}>
+        <Col style={{ padding: "0px 0px 50px 50px" }}>
+          <Image
+            alt="Logo"
+            src={imageUrl}
+            preview={false}
+            width={220}
+            height={220}
+          />
         </Col>
         <Col xs={24} sm={12} md={16} lg={12} style={{ padding: 45, justifyContent: "start" }}>
           <Typography.Title level={2}> {currentCartLine.service.name} </Typography.Title>
@@ -103,13 +115,12 @@ export default function MyServiceParameterPage({ cartLine_id }: { cartLine_id: s
         >
           {t('ganerateKey')}
         </Button>} */}
-        {currentCartLine.parameters_values.length<0&& <Button
+        {currentCartLine.parameters_values.length < 0 && <Button
           onClick={generateApiKey}
           style={{ marginTop: 20, backgroundColor: "#1890ff", color: "#fff" }}
         >
           {t('ganerateKey')}
         </Button>}
-   
       </Col>
 
       <Col style={{ display: "flex", justifyContent: "flex-end", padding: 45, gap: 8 }}>
@@ -141,7 +152,7 @@ export default function MyServiceParameterPage({ cartLine_id }: { cartLine_id: s
             </span>
           </Link>
         </Button>
-      </Col>
+        </Col>
     </>
   );
 }
