@@ -30,7 +30,7 @@ export default function MyServiceContentPage() {
   return (
     <>
       {!isLoading && cartLineResponse !== undefined && (
-        <Row gutter={[14, 14]} justify={justify} style={{ margin: 0 }}>
+        <Row gutter={[24, 24]} justify={justify} style={{ margin: 0 }}>
           {cartLineResponse?.result?.map((row) => (
             <Col
               key={row.id}
@@ -39,7 +39,7 @@ export default function MyServiceContentPage() {
               md={10}
               lg={8}
               xl={6}
-              style={{ display: "flex", justifyContent: "center" }}
+              style={{ display: "flex", justifyContent: "center"}}
             >
               <MyServiceCard data={row} />
             </Col>
