@@ -1,26 +1,23 @@
 "use client";
-import {Button, Dropdown, Layout, Menu, Row} from "antd";
-import React, {useState} from "react";
-import {SignOut, ArrowLeft, ArrowRight} from "@phosphor-icons/react/dist/ssr";
-import {CaretUp, User} from "@phosphor-icons/react";
+import { Button, Dropdown, Layout, Menu, Space } from "antd";
+import React, { useState } from "react";
+import { SignOut, ArrowLeft, ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { CaretUp, User } from "@phosphor-icons/react";
 import Link from "next/link";
-import {menuItems} from "./menuItems";
-import {useI18n, useScopedI18n} from "../../../../../../locales/client";
+import { menuItems } from "./menuItems";
+import { useI18n, useScopedI18n } from "../../../../../../locales/client";
 import federatedLogout from "@/lib/utils/federatedLogout";
 
-const {Sider} = Layout;
+const { Sider } = Layout;
 
 export function MainSideBar() {
   const [collapsed, setCollapsed] = useState(false);
-
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
   };
   const scopedSidebar = useScopedI18n("sidebar");
 
-  const menu = (
-    <Menu
-      items={[
+  const items =[
         {
           key: "profile",
           label: scopedSidebar("profile"),
@@ -31,9 +28,8 @@ export function MainSideBar() {
           label: <span onClick={() => federatedLogout()}>{scopedSidebar("logout")}</span>,
           icon: <SignOut size={24} />,
         },
-      ]}
-    />
-  );
+      ]
+  
   return (
     <Sider
       collapsible
@@ -53,11 +49,12 @@ export function MainSideBar() {
         defaultOpenKeys={["sub1"]}
         mode="inline"
         items={menuItems(scopedSidebar)}
-        style={{flexGrow: 1}}
+        style={{ flexGrow: 1 }}
+        selectable
       />
       <div
         style={{
-          height: "",
+         
           width: "100%",
           textAlign: "center",
           cursor: "pointer",
@@ -67,53 +64,54 @@ export function MainSideBar() {
           marginTop: "auto",
           position: "absolute",
           bottom: "8px",
+          display:"inline-grid"
         }}
-        onClick={toggleCollapsed}
+        
       >
+      
+        <Space onClick={toggleCollapsed}>
         {collapsed ? (
           <ArrowRight size={24} color="#7D7D7D" />
         ) : (
-          <Row
-            align="middle"
-            gutter={8}
-            className="cursor-pointer hover:bg-gray-800 rounded-md p-2"
-          >
+          <>
             <ArrowLeft size={24} color="#7D7D7D" />
-            <span style={{paddingLeft: 10, fontSize: 16, color: "#7D7D7D"}}>
+            <span style={{ paddingLeft: 10, fontSize: 16, color: "#7D7D7D" }}>
               {scopedSidebar("collapse")}
             </span>
-          </Row>
+          </>
         )}
+        </Space>
+
+        <Dropdown menu={{items}} trigger={["click"]}>
+          <Button
+            style={{
+              width: "100%",
+              border: "none",
+              position: "absolute",
+              bottom: "10px",
+              padding: "5px",
+              display: "flex",
+              justifyContent: "space-evenly",
+              alignItems: "center",
+            }}
+          >
+            <User size={24} color="rgba(220, 233, 245, 0.88)" />
+            {!collapsed && (
+              <span
+                style={{
+                  color: "rgba(220, 233, 245, 0.88)",
+                  fontFamily: "Inter, sans-serif",
+                  fontSize: "16px",
+                  fontWeight: 600,
+                }}
+              >
+                {scopedSidebar("account")}
+              </span>
+            )}
+            <CaretUp size={20} color="rgba(220, 233, 245, 0.88)" />
+          </Button>
+        </Dropdown>
       </div>
-      <Dropdown overlay={menu} trigger={["click"]}>
-        <Button
-          style={{
-            width: "100%",
-            border: "none",
-            position: "absolute",
-            bottom: "10px",
-            padding: "5px",
-            display: "flex",
-            justifyContent: "space-evenly",
-            alignItems: "center",
-          }}
-        >
-          <User size={24} color="rgba(220, 233, 245, 0.88)" />
-          {!collapsed && (
-            <span
-              style={{
-                color: "rgba(220, 233, 245, 0.88)",
-                fontFamily: "Inter, sans-serif",
-                fontSize: "16px",
-                fontWeight: 600,
-              }}
-            >
-              {scopedSidebar("account")}
-            </span>
-          )}
-          <CaretUp size={20} color="rgba(220, 233, 245, 0.88)" />
-        </Button>
-      </Dropdown>
     </Sider>
   );
 }
@@ -121,22 +119,19 @@ export function MainSideBar() {
 export function MainSideBarMobile() {
   const scopedSidebar = useScopedI18n("sidebar");
   const t = useI18n();
-  const menu = (
-    <Menu
-      items={[
-        {
-          key: "profile",
-          label: scopedSidebar("profile"),
-          icon: <User size={24} />,
-        },
-        {
-          key: "logout",
-          label: <span onClick={() => federatedLogout()}>{scopedSidebar("logout")}</span>,
-          icon: <SignOut size={24} />,
-        },
-      ]}
-    />
-  );
+  const items =[
+    {
+      key: "profile",
+      label: scopedSidebar("profile"),
+      icon: <User size={24} />,
+    },
+    {
+      key: "logout",
+      label: <span onClick={() => federatedLogout()}>{scopedSidebar("logout")}</span>,
+      icon: <SignOut size={24} />,
+    },
+  ]
+
   return (
     <>
       <Button
@@ -165,10 +160,10 @@ export function MainSideBarMobile() {
         defaultOpenKeys={["sub1"]}
         mode="inline"
         items={menuItems(scopedSidebar)}
-        style={{flexGrow: 1}}
+        style={{ flexGrow: 1 }}
       />
 
-      <Dropdown overlay={menu} trigger={["click"]}>
+      <Dropdown menu={{items}}  trigger={["click"]}>
         <Button
           style={{
             width: "100%",

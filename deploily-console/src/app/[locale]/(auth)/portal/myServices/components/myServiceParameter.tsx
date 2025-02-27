@@ -45,13 +45,13 @@ export default function MyServiceParameterPage({ cartLine_id }: { cartLine_id: s
   };
   return (
     <>
-      <div style={{ marginLeft: 20 }}>
+      <div style={{ marginLeft: 40 }}>
         <Button style={{ border: "none", background: "#030303", boxShadow: "none" }}
           icon={<ArrowLeft color="#D85912" size={35} />} onClick={() => router.back()} />
       </div>
-      <Space direction="vertical" size="large" style={{ paddingInline: 200, marginTop: 10, width: "100%" }}>
+      <Space direction="vertical" size="large" style={{ paddingInline: 40, marginTop: 10, width: "100%" }}>
         <Row gutter={16} >
-          <Col span={12} >
+          <Col md={18} xs={24}  >
             <Image
               alt="Logo"
               src={imageUrl}
@@ -60,12 +60,12 @@ export default function MyServiceParameterPage({ cartLine_id }: { cartLine_id: s
               height={220}
             />
           </Col>
-          <Col span={12} style={{
+          <Col md={6} xs={24} style={{
             color: "#DD8859",
             fontWeight: "bold",
             fontSize: "18px",
             display: "flex",
-            justifyContent: "end",
+            justifyContent: "start",
             alignSelf: "start"
           }}>
             <Typography.Title level={2} style={{ color: token.colorPrimaryTextHover }}>
@@ -75,13 +75,13 @@ export default function MyServiceParameterPage({ cartLine_id }: { cartLine_id: s
         </Row>
 
         <Row gutter={16} style={{ marginTop: 10 }} >
-          <Col span={20} >
+          <Col span={18} >
             <div>
               <Typography.Title level={2}> {currentCartLine.service.name}</Typography.Title>
 
             </div>
           </Col>
-          <Col span={4} style={{ display: "flex", justifyContent: "end" }}>
+          <Col span={6} style={{ display: "flex", justifyContent: "start" }}>
             <Star size={20} color="#7D7D7D" />
           </Col>
         </Row>

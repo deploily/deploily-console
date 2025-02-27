@@ -1,6 +1,6 @@
 "use client";
 
-import {Dropdown, Menu, Button, Space, Typography, Row, Col} from "antd";
+import {Dropdown, Button, Space, Typography, Row, Col} from "antd";
 import {locales} from "@/config";
 import {useChangeLocale, useCurrentLocale} from "../../../locales/client";
 import {useState} from "react";
@@ -15,19 +15,19 @@ export default function LocaleSwitcher({color}: any) {
     changeLocale(value);
   };
 
-  const menu = (
-    <Menu>
-      {locales.map((loc) => (
-        <Menu.Item key={loc} onClick={() => handleChange(loc)}>
-          {loc.toUpperCase()}
-        </Menu.Item>
-      ))}
-    </Menu>
-  );
+
+  const menuItems = locales.map((loc) => ({
+    key: loc,
+    label: (
+      <div onClick={() => handleChange(loc)}>
+        {loc.toUpperCase()}
+      </div>
+    ),
+  }));
 
   return (
     <Space wrap>
-      <Dropdown overlay={menu} trigger={["click"]}>
+      <Dropdown menu={{ items: menuItems }} trigger={["click"]}>
         <Button
           style={{
             border: "none",
