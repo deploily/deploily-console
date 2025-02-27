@@ -4,10 +4,11 @@ import { Card, Col, Row, Image, Button, Space } from "antd";
 import { useI18n } from "../../../../../../../locales/client";
 import Paragraph from "antd/es/typography/Paragraph";
 import { useRouter } from "next/navigation";
+import { Admin_URL } from "@/deploilyWebsiteUrls";
 
 export default function ApiServiceCard({ data }: any) {
   const t = useI18n();
-  const baseURL = `https://admin.deploily.cloud/static/uploads/`;
+  const baseURL = Admin_URL; 
   const router = useRouter();
   const imageUrl = data.image_service
     ? data.image_service.startsWith("http")

@@ -10,6 +10,7 @@ import { getApiServiceById } from "@/lib/features/apiService/apiServiceThunks";
 import { useRouter } from "next/navigation";
 import { postServiceInCart } from "@/lib/features/cart/cartThunks";
 import Paragraph from "antd/es/typography/Paragraph";
+import { Admin_URL } from "@/deploilyWebsiteUrls";
 
 export default function ServiceDetailsContentPage({ serviceId }: { serviceId: string }) {
   const { useToken } = theme;
@@ -24,10 +25,15 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
     }  
   }, [dispatch, serviceId]);
 
-  const baseURL = "https://admin.deploily.cloud/static/uploads/";
-
   if (serviceLoading || !currentService) return null;
 
+  const baseURL = Admin_URL; 
+  const imageUrl = currentService.image_service
+    ? currentService.image_service.startsWith("http")
+      ? currentService.image_service
+      : `${baseURL}${currentService.image_service}`
+    : "/images/logo_service.png";
+  
   return (
     <>
       <div style={{ marginLeft: 40 }}>
@@ -39,11 +45,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
           <Col md={16} xs={24} >
             <Image
               alt="Logo"
-              src={
-                currentService.image_service
-                  ? `${baseURL}${currentService.image_service}`
-                  : "/images/logo_service.png"
-              }
+              src={ imageUrl}
               width={220}
               height={220}
               preview={false}

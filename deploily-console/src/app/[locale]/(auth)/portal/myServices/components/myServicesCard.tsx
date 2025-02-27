@@ -7,12 +7,13 @@ import Link from "next/link";
 import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
 import Paragraph from "antd/es/typography/Paragraph";
+import { Admin_URL } from "@/deploilyWebsiteUrls";
 
 export default function MyServiceCard({ data }: any) {
   const t = useI18n();
   const dateFormat = "YYYY-MM-DD";
   const router = useRouter();
-  const baseURL = "https://admin.deploily.cloud/static/uploads/";
+  const baseURL = Admin_URL; 
 
   // Corrected image handling
   const imageUrl = data.service?.image_service?.startsWith("http")
