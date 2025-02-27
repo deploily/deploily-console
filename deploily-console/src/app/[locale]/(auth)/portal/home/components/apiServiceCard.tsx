@@ -5,17 +5,31 @@ import { useI18n } from "../../../../../../../locales/client";
 import Paragraph from "antd/es/typography/Paragraph";
 import { useRouter } from "next/navigation";
 import { Admin_URL } from "@/deploilyWebsiteUrls";
+import { ApiServiceInterface } from "@/lib/features/apiService/apiServiceInterface";
+import { deleteFavoriteService, postFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
+import { useAppDispatch } from "@/lib/hook";
 
-export default function ApiServiceCard({ data }: any) {
+export default function ApiServiceCard({ service }:{service: ApiServiceInterface}) {
   const t = useI18n();
   const baseURL = Admin_URL; 
   const router = useRouter();
-  const imageUrl = data.image_service
-    ? data.image_service.startsWith("http")
-      ? data.image_service
-      : `${baseURL}${data.image_service}`
+  const imageUrl = service.image_service
+    ? service.image_service.startsWith("http")
+      ? service.image_service
+      : `${baseURL}${service.image_service}`
     : "/images/logo_service.png";
+  const dispatch = useAppDispatch();
 
+
+  const handleFavoriteService=(service_id:number)=>{
+if(service.is_favorite){
+        dispatch(deleteFavoriteService(service_id));
+
+}else{
+  dispatch(postFavoriteService({"service_id":service_id}));
+}
+
+  }
   return (
 
     <Card style={{ height: "100%", width: "100%" }}>
@@ -38,25 +52,35 @@ export default function ApiServiceCard({ data }: any) {
             justifyContent: "end",
             alignSelf: "start"
           }}>
-            {data.unit_price}
+            {service.unit_price}
           </Col>
         </Row>
         <Row style={{ height: "20%" }}>
           <Col span={20} >
             <div>
               <Paragraph ellipsis={{ rows: 2, expandable: false }} style={{ fontFamily: "Inter, sans-serif", fontSize: "20px"}}>
-                {data.name}
+                {service.name}
               </Paragraph>
             </div>
           </Col>
-          <Col span={4} style={{ display: "flex", justifyContent: "end" }}>
-            <Star size={20} color="#7D7D7D" />
+          <Col span={4} style={{ display: "flex", justifyContent: "end" }}>   
+            {service.is_favorite==true?
+            <Star size={20} weight="fill" color="#FC3232" />:
+            <Star size={20} color="#7D7D7D" />}
+
+            <Button style={{ border: "none", background: "#030303", boxShadow: "none" }}
+              icon={service.is_favorite == true ?
+                  <Star size={20} weight="fill" color="#FC3232" /> :
+                  <Star size={20} color="#7D7D7D" /> } onClick={() => 
+                    handleFavoriteService(service.id)
+                  } />
+
           </Col>
         </Row>
         <Row style={{ height: "30%" }}>
           <div>
             <Paragraph ellipsis={{ rows: 3, expandable: false }} style={{paddingTop: "10px" }}>
-              {data.short_description}
+              {service.short_description}
             </Paragraph>
           </div>
         </Row>
@@ -71,7 +95,7 @@ export default function ApiServiceCard({ data }: any) {
             border: "none",
             padding: "4px",
           }}
-          onClick={() => router.push(`/portal/service/${data.id}`)}
+          onClick={() => router.push(`/portal/service/${service.id}`)}
         >
           <ArrowRight size={20} style={{ color: "rgba(220, 233, 245, 0.88)" }} />
           <span

@@ -38,7 +38,7 @@ export default function ApiServiceContainer() {
 
           <Row gutter={[24, 24]} justify="start" style={{ margin: 0 }}>
 
-       
+
             {apiServiceResponse?.result?.map((row: ApiServiceInterface) => (
               <Col
                 key={row.id}
@@ -49,12 +49,12 @@ export default function ApiServiceContainer() {
                 xl={6}
                 style={{ display: "flex", justifyContent: "center" }}
               >
-                <ApiServiceCard key={row.id} data={row} />
-                
+                <ApiServiceCard key={row.id} service={row} />
+
               </Col>
             ))}
           </Row>
-          
+
         </>)}
     </Space>
 
