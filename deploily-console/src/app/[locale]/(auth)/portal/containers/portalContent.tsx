@@ -35,13 +35,10 @@ export default function PortalContent({ children }: any) {
             backgroundRepeat: "no-repeat, no-repeat",
             backgroundPosition: "bottom left, top right",
             backgroundAttachment: "fixed",
-            display: "flex",
-            justifyContent: "center"
           }}
         >
-          <Space direction="vertical" align="center" style={{ padding: "20px", maxWidth: "1600px" }}>
+        {/* <Content style={{ padding: "0px", maxWidth: "1200px", margin: "0 auto" }}> */}
             {children}
-          </Space>
 
         </Content>
       </Layout>

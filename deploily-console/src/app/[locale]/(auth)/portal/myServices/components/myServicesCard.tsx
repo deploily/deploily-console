@@ -41,7 +41,7 @@ export default function MyServiceCard({ data }: any) {
             fontSize: "18px",
             display: "flex",
             justifyContent: "flex-end",
-            alignItems: "center",
+            alignSelf: "start"
           }}>
             {data.amount}
           </Col>
@@ -65,19 +65,19 @@ export default function MyServiceCard({ data }: any) {
             <Row><Typography.Title level={5} style={{ marginTop: 8, marginRight: 8, fontWeight: 600 }}>
               {t('startDate')}
             </Typography.Title>
-            <DatePicker
-              style={{ marginTop: 10 }}
-              defaultValue={dayjs(data.start_date, dateFormat)}
-              disabled
-            /></Row> 
-           <Row><Typography.Title level={5} style={{ marginTop: 8, fontWeight: 600, marginRight: 8 }}>
+              <DatePicker
+                style={{ marginTop: 10 }}
+                defaultValue={dayjs(data.start_date, dateFormat)}
+                disabled
+              /></Row>
+            <Row><Typography.Title level={5} style={{ marginTop: 8, fontWeight: 600, marginRight: 8 }}>
               {t('duration')}
             </Typography.Title>
-            <Typography.Title level={5} style={{ marginTop: 8, fontWeight: 300 }}>
-              {data.duration_month} {t('month')}
+              <Typography.Title level={5} style={{ marginTop: 8, fontWeight: 300 }}>
+                {data.duration_month} {t('month')}
               </Typography.Title></Row>
           </div>
-           
+
         </Row>
       </div>
 
