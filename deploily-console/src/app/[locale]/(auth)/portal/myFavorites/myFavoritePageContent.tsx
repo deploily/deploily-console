@@ -31,7 +31,7 @@ export default function FavoriteServicesContainer() {
                                 xl={6}
                                 style={{ display: "flex", justifyContent: "center" }}
                             >
-                                <FavoriteServiceCard service={row.service} />
+                                <FavoriteServiceCard favoriteService={row} />
                             </Col>
                         ))}
                     </Row>

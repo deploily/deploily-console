@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { postServiceInCart } from "@/lib/features/cart/cartThunks";
 import Paragraph from "antd/es/typography/Paragraph";
 import { Admin_URL } from "@/deploilyWebsiteUrls";
+import { deleteFavoriteService, postFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
 
 export default function ServiceDetailsContentPage({ serviceId }: { serviceId: string }) {
   const { useToken } = theme;
@@ -22,30 +23,40 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
   useEffect(() => {
     if (serviceId) {
       dispatch(getApiServiceById(serviceId));
-    }  
+    }
   }, [dispatch, serviceId]);
 
   if (serviceLoading || !currentService) return null;
 
-  const baseURL = Admin_URL; 
+  const baseURL = Admin_URL;
   const imageUrl = currentService.image_service
     ? currentService.image_service.startsWith("http")
       ? currentService.image_service
       : `${baseURL}${currentService.image_service}`
     : "/images/logo_service.png";
-  
+
+  const handleFavoriteService = (service_id: number) => {
+    if (currentService.is_favorite) {
+      dispatch(deleteFavoriteService(service_id));
+
+    } else {
+      dispatch(postFavoriteService({ "service_id": service_id }));
+    }
+
+  }
+
   return (
     <>
       <div style={{ marginLeft: 40 }}>
-        <Button style={{ border: "none", background: "#030303", boxShadow: "none" }} 
-        icon={<ArrowLeft color="#D85912" size={35} />} onClick={() => router.back()} />
+        <Button style={{ border: "none", background: "#030303", boxShadow: "none" }}
+          icon={<ArrowLeft color="#D85912" size={35} />} onClick={() => router.back()} />
       </div>
-      <Space direction="vertical" size="large" style={{ paddingInline:40  , marginTop: 10, width:"100%" }}>
+      <Space direction="vertical" size="large" style={{ paddingInline: 40, marginTop: 10, width: "100%" }}>
         <Row gutter={16}  >
           <Col md={16} xs={24} >
             <Image
               alt="Logo"
-              src={ imageUrl}
+              src={imageUrl}
               width={220}
               height={220}
               preview={false}
@@ -71,23 +82,28 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
               <Typography.Title level={2}>{currentService.name}</Typography.Title>
             </div>
           </Col>
-          <Col span={8} style={{ display: "flex", justifyContent: "start"}}>
-            <Star size={20} color="#7D7D7D" />
+          <Col span={8} style={{ display: "flex", justifyContent: "start" }}>
+            <Button style={{ border: "none", backgroundColor: "transparent", boxShadow: "none" }}
+              icon={currentService.is_favorite == true ?
+                <Star size={20} weight="fill" color="#FC3232" /> :
+                <Star size={20} color="#7D7D7D" />} onClick={() =>
+                  handleFavoriteService(currentService.id)
+                } />
           </Col>
         </Row>
         <Row gutter={16} style={{ marginTop: 10 }} >
           <Col span={16} >
-          <div>
-            <Paragraph style={{fontSize:18}} >
-              
-              {currentService.description}
+            <div>
+              <Paragraph style={{ fontSize: 18 }} >
+
+                {currentService.description}
               </Paragraph>
-          </div>
+            </div>
           </Col>
 
         </Row>
         <Row gutter={16} key={currentService.id}  >
-          <Col md={16} xs={24} style={{ textAlign: "start", width: "100%", padding:0, marginTop:10 }}>
+          <Col md={16} xs={24} style={{ textAlign: "start", width: "100%", padding: 0, marginTop: 10 }}>
             <Collapse
               bordered={false}
               defaultActiveKey={["1"]}
@@ -98,16 +114,16 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
             />
           </Col>
 
-          <Col md={8} xs={24}  
+          <Col md={8} xs={24}
             style={{
-              paddingLeft:10,
-              marginTop:10,
+              paddingLeft: 10,
+              marginTop: 10,
               textAlign: "center",
               display: "flex",
               justifyContent: "start",
             }}
           >
-            <Card style={{  width: "90%", maxWidth:300, height:250 }}>
+            <Card style={{ width: "90%", maxWidth: 300, height: 250 }}>
               <Typography style={{ color: "#7D7D7D", paddingBottom: 10 }}>{t("offeredBy")}</Typography>
               <Col style={{ paddingBottom: 10, textAlign: "center" }}>
                 <Image alt="Logo" src="/images/logo_transformatek.png" width={70} height={70} />

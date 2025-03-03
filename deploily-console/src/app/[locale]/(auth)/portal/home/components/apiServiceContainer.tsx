@@ -7,16 +7,18 @@ import { useEffect } from "react";
 import { fetchApiServices } from "@/lib/features/apiService/apiServiceThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { useI18n } from "../../../../../../../locales/client";
+import { useFavoriteServices } from "@/lib/features/favorites/favoriteServiceSelectors";
 
 export default function ApiServiceContainer() {
   const t = useI18n();
   const { isLoading, apiServiceResponse } = useAllServices();
   const dispatch = useAppDispatch();
+  const { favoriteServiceAdded } = useFavoriteServices()
 
   useEffect(() => {
     dispatch(fetchApiServices());
-  }, []);
 
+  }, [favoriteServiceAdded])
   return (
 
     <Space direction="vertical" size="middle" style={{ display: 'flex', paddingTop: 15 }} >
