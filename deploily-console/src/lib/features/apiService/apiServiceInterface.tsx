@@ -18,4 +18,5 @@ export interface ApiServiceInterface {
   image_service: string;
   short_description: string;
   specifications: string;
+  is_favorite?: boolean;
 }

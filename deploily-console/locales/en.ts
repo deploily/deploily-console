@@ -46,9 +46,9 @@ export default {
     'duration': 'Duration',
     'month': 'month(s)',
     'startDate':'Start date',
-    'accessUrl':'ACCESS URL',
-    'link':'Link to Documentation',
-    'viewApi':'View API Documentation',
+    'accessUrl':'Access URL',
+    'link':'Link to documentation',
+    'viewApi':'View API documentation',
     'parameterValue':'Parameter Values',
     'ganerateKey':'GENERATE KEY',
 } as const
