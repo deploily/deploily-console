@@ -51,4 +51,12 @@ export default {
     'viewApi':'View API documentation',
     'parameterValue':'Parameter Values',
     'ganerateKey':'GENERATE KEY',
+
+    'supportTicket.title': 'Support ticket',
+    'createSupportTicket.title': 'Create a new support ticket',
+    'createSupportTicket.typography': 'Please assist us in directing your query to the appropriate team by selecting a server related to your request.',
+    'createSupportTicket.selectService': 'Select service*',
+    'createSupportTicket.subject': 'Subject*',
+    'createSupportTicket.description': 'Description*',
+    'createSupportTicket.createTicket': 'Create a ticket',
 } as const
