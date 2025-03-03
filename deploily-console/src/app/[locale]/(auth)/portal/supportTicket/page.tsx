@@ -1,25 +1,13 @@
 "use client";
-import {Row} from "antd";
-import ComingSoonPage from "../containers/comingSoonContainer";
-import {useI18n} from "../../../../../../locales/client";
+
+import { Content } from "antd/es/layout/layout";
+import GetSupportTecket from "./components/getSupportTicket";
 
 export default function Page() {
-  const t = useI18n();
+  
   return (
-    <>
-      <Row style={{padding: 20}}>
-        <span
-          style={{
-            color: "white",
-            fontFamily: "Inter, sans-serif",
-            fontSize: "24px",
-            fontWeight: 800,
-          }}
-        >
-          {t("supportTicket")}
-        </span>
-      </Row>
-      <ComingSoonPage />
-    </>
+    <Content style={{padding: 20, color: "#27292E", marginInline:20}}>
+      <GetSupportTecket/>
+    </Content>
   );
 }
