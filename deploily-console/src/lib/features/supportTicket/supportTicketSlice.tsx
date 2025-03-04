@@ -1,18 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { SupportTicketResponse } from "./supportTicketInterface";
-import { fetchSupportTicket } from "./supportTicketThanks";
+import { fetchSupportTicket, postSupportTicket } from "./supportTicketThanks";
 
 interface SupportTicketState {
   supportTicketList?: SupportTicketResponse;
   isLoading: boolean;
   supportTicketLoadingError?: any;
-  
+  addSupportTicketLoading: boolean;
+  addSupportTicketError: any;
+
 }
 
-const initialState:  SupportTicketState = {
-    supportTicketList: undefined,
+const initialState: SupportTicketState = {
+  supportTicketList: undefined,
   isLoading: false,
   supportTicketLoadingError: undefined,
+  addSupportTicketLoading: false,
+  addSupportTicketError: false,
 };
 const SupportTicketSlice = createSlice({
   name: "supportTicket",
@@ -27,17 +31,30 @@ const SupportTicketSlice = createSlice({
         state.isLoading = false;
         state.supportTicketLoadingError = null;
         const result = action.payload.ids.map((id: number, index: any) =>
-          Object.assign({}, { id: id }, action.payload.result[index]),
+          Object.assign({ key: index }, { id: id }, action.payload.result[index]),
         );
         const payload = Object.assign({}, action.payload, { result: result });
+        console.log(payload);
+
         state.supportTicketList = payload;
       })
       .addCase(fetchSupportTicket.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.supportTicketLoadingError = payload;
       })
-      
-    
+      .addCase(postSupportTicket.pending, (state) => {
+        state.addSupportTicketLoading = true;
+        state.addSupportTicketError = null;
+      })
+      .addCase(postSupportTicket.fulfilled, (state) => {
+        state.addSupportTicketLoading = false;
+        state.addSupportTicketError = null;
+      })
+      .addCase(postSupportTicket.rejected, (state, { payload }) => {
+        state.addSupportTicketLoading = false;
+        state.addSupportTicketError = payload;
+      });
+
   },
 });
 export default SupportTicketSlice.reducer;

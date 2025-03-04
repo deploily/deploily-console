@@ -11,6 +11,7 @@ export interface SupportTicketResponse {
 
 export interface SupportTicket {
     id: number;
+    key: number;
     cart_line_id: number;
     cart_line: any;
     title: string;
