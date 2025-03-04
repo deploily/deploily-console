@@ -1,7 +1,6 @@
 "use client";
 import { ArrowRight, Star } from "@phosphor-icons/react";
-import { Card, Col, Row, Image, Button, DatePicker, Typography, Space } from "antd";
-import Meta from "antd/es/card/Meta";
+import { Card, Col, Row, Image, Button, DatePicker, Typography, } from "antd";
 import { useI18n } from "../../../../../../../locales/client";
 import Link from "next/link";
 import dayjs from "dayjs";
