@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchMyFavoriteServices, postFavoriteService } from "./favoriteServiceThunks";
+import { deleteFavoriteService, fetchMyFavoriteServices, postFavoriteService } from "./favoriteServiceThunks";
 import { FavoriteServicesResponse } from "./favoriteServiceInterface";
 
 interface FavoriteServiceState {
@@ -7,7 +7,11 @@ interface FavoriteServiceState {
   isLoading: boolean;
   favoriteServicesLoadingError?: any;
   addFavoriteServiceLoading: boolean;
+  deleteFavoriteServiceLoading: boolean;
   addFavoriteServiceError: any;
+  deleteFavoriteServiceError: any;
+  favoriteServiceAdded?: boolean;
+  favoriteServiceDeleted?: boolean;
 }
 
 const initialState: FavoriteServiceState = {
@@ -15,7 +19,11 @@ const initialState: FavoriteServiceState = {
   isLoading: false,
   favoriteServicesLoadingError: undefined,
   addFavoriteServiceLoading: false,
+  deleteFavoriteServiceLoading: false,
   addFavoriteServiceError: false,
+  favoriteServiceAdded: undefined,
+  deleteFavoriteServiceError: false,
+  favoriteServiceDeleted: undefined,
 };
 const FavoriteServiceSlice = createSlice({
   name: "FavoriteService",
@@ -42,27 +50,33 @@ const FavoriteServiceSlice = createSlice({
       .addCase(postFavoriteService.pending, (state) => {
         state.addFavoriteServiceLoading = true;
         state.addFavoriteServiceError = null;
+        state.favoriteServiceAdded = false;
       })
       .addCase(postFavoriteService.fulfilled, (state) => {
         state.addFavoriteServiceLoading = false;
         state.addFavoriteServiceError = null;
+        state.favoriteServiceAdded = true;
       })
       .addCase(postFavoriteService.rejected, (state, { payload }) => {
         state.addFavoriteServiceLoading = false;
         state.addFavoriteServiceError = payload;
+        state.favoriteServiceAdded = false;
       })
-    // .addCase(postFavoriteService.pending, (state) => {
-    //   state.addFavoriteServiceLoading = true;
-    //   state.addFavoriteServiceError = null;
-    // })
-    // .addCase(postFavoriteService.fulfilled, (state) => {
-    //   state.addFavoriteServiceLoading = false;
-    //   state.addFavoriteServiceError = null;
-    // })
-    // .addCase(postFavoriteService.rejected, (state, {payload}) => {
-    //   state.addFavoriteServiceLoading = false;
-    //   state.addFavoriteServiceError = payload;
-    // });
+      .addCase(deleteFavoriteService.pending, (state) => {
+        state.deleteFavoriteServiceLoading = true;
+        state.favoriteServiceDeleted = false;
+        state.deleteFavoriteServiceError = null;
+      })
+      .addCase(deleteFavoriteService.fulfilled, (state) => {
+        state.deleteFavoriteServiceLoading = false;
+        state.favoriteServiceDeleted = true;
+        state.deleteFavoriteServiceError = null;
+      })
+      .addCase(deleteFavoriteService.rejected, (state, { payload }) => {
+        state.deleteFavoriteServiceLoading = false;
+        state.favoriteServiceDeleted = false;
+        state.deleteFavoriteServiceError = payload;
+      });
   },
 });
 export default FavoriteServiceSlice.reducer;

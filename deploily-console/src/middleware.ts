@@ -19,13 +19,13 @@ const authMiddleware = withAuth(
       authorized: ({ token }) => token != null,
     },
     pages: {
-      signIn: "/auth/login",
+      signIn: "/",
     },
   }
 );
 
 export default function middleware(req: NextRequest) {
-  const excludePattern = "^(/(" + locales.join("|") + "))?/admin/?.*?$";
+  const excludePattern = "^(/(" + locales.join("|") + "))?/portal/?.*?$";
   const publicPathnameRegex = RegExp(excludePattern, "i");
   const isPublicPage = !publicPathnameRegex.test(req.nextUrl.pathname);
 

@@ -9,9 +9,9 @@ import { ApiServiceInterface } from "@/lib/features/apiService/apiServiceInterfa
 import { deleteFavoriteService, postFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
 import { useAppDispatch } from "@/lib/hook";
 
-export default function ApiServiceCard({ service }:{service: ApiServiceInterface}) {
+export default function ApiServiceCard({ service }: { service: ApiServiceInterface }) {
   const t = useI18n();
-  const baseURL = Admin_URL; 
+  const baseURL = Admin_URL;
   const router = useRouter();
   const imageUrl = service.image_service
     ? service.image_service.startsWith("http")
@@ -21,15 +21,20 @@ export default function ApiServiceCard({ service }:{service: ApiServiceInterface
   const dispatch = useAppDispatch();
 
 
-  const handleFavoriteService=(service_id:number)=>{
-if(service.is_favorite){
-        dispatch(deleteFavoriteService(service_id));
+  const handleFavoriteService = (service_id: number) => {
+    if (service.is_favorite) {
+      dispatch(deleteFavoriteService(service_id));
 
-}else{
-  dispatch(postFavoriteService({"service_id":service_id}));
-}
+    } else {
+      dispatch(postFavoriteService({ "service_id": service_id }));
+    }
 
   }
+
+  // useEffect(() => {
+  //       dispatch(fetchApiServices());
+  // }, [favoriteServiceAdded])
+
   return (
 
     <Card style={{ height: "100%", width: "100%" }}>
@@ -58,28 +63,23 @@ if(service.is_favorite){
         <Row style={{ height: "20%" }}>
           <Col span={20} >
             <div>
-              <Paragraph ellipsis={{ rows: 2, expandable: false }} style={{ fontFamily: "Inter, sans-serif", fontSize: "20px"}}>
+              <Paragraph ellipsis={{ rows: 2, expandable: false }} style={{ fontFamily: "Inter, sans-serif", fontSize: "20px" }}>
                 {service.name}
               </Paragraph>
             </div>
           </Col>
-          <Col span={4} style={{ display: "flex", justifyContent: "end" }}>   
-            {service.is_favorite==true?
-            <Star size={20} weight="fill" color="#FC3232" />:
-            <Star size={20} color="#7D7D7D" />}
-
-            <Button style={{ border: "none", background: "#030303", boxShadow: "none" }}
+          <Col span={4} style={{ display: "flex", justifyContent: "end" }}>
+            <Button style={{ border: "none", backgroundColor: "transparent", boxShadow: "none" }}
               icon={service.is_favorite == true ?
-                  <Star size={20} weight="fill" color="#FC3232" /> :
-                  <Star size={20} color="#7D7D7D" /> } onClick={() => 
-                    handleFavoriteService(service.id)
-                  } />
-
+                <Star size={20} weight="fill" color="#FC3232" /> :
+                <Star size={20} color="#7D7D7D" />} onClick={() =>
+                  handleFavoriteService(service.id)
+                } />
           </Col>
         </Row>
         <Row style={{ height: "30%" }}>
           <div>
-            <Paragraph ellipsis={{ rows: 3, expandable: false }} style={{paddingTop: "10px" }}>
+            <Paragraph ellipsis={{ rows: 3, expandable: false }} style={{ paddingTop: "10px" }}>
               {service.short_description}
             </Paragraph>
           </div>
