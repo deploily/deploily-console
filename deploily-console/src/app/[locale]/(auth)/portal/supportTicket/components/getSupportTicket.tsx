@@ -1,47 +1,109 @@
-import { Button, Col, Row, Table } from "antd";
+import { Button, Col, Row, Skeleton, Table } from "antd";
 import Title from "antd/es/typography/Title";
 import { useScopedI18n } from "../../../../../../../locales/client";
-import { Plus } from "@phosphor-icons/react";
+import { ArrowRight, Plus } from "@phosphor-icons/react";
 import { useAppDispatch } from "@/lib/hook";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchSupportTicket } from "@/lib/features/supportTicket/supportTicketThanks";
 import { SupportTicket } from "@/lib/features/supportTicket/supportTicketInterface";
 import { useSupportTicket } from "@/lib/features/supportTicket/supportTicketSelector";
-
-
-
+import { useRouter } from "next/navigation";
 
 export default function GetSupportTecket() {
     const dispatch = useAppDispatch();
     const t = useScopedI18n('supportTicket')
     const translate = useScopedI18n('createSupportTicket')
-    const { supportTicketList, isLoading, supportTicketLoadingError } = useSupportTicket()
+    const [columns] = useState([]);
+    const { supportTicketList, isLoading } = useSupportTicket()
+    const router = useRouter();
+
     useEffect(() => {
         dispatch(fetchSupportTicket());
-       
+
     }, []);
 
-    // const keysToColumn = () => {
-    //     let columns: GridColDef[] = [];
-    //     ["source", "label", "target"].forEach((element) => {
-    //       columns = [
-    //         ...columns,
-    //         {
-    //           field: element,
-    //           headerName: titleCase(element),
-    //           sortable: false,
-    //           minWidth: 150,
-    //         },
-    //       ];
-    //     });
-    //     return columns;
-    //   };
+    const keysToColumn = () => {
+        const list = ["title", "service", "status", "created_on"]
+
+        let columns = list.map((element: any) => {
+            if (element === "created_on") {
+                return {
+                    title: t(element),
+                    dataIndex: element,
+                    key: element,
+                    render: (date: Date) => (date ? new Date(date).toLocaleDateString("fr-FR") : "-"),
+                };
+            }
+            else if (element === "status")
+                return {
+                    title: t(element),
+                    dataIndex: element,
+                    key: element,
+                    render: (status: any) => (status === "open" ? <span style={{ color: "#28B609" }} >{status}</span> : <span>{status}</span>),
+                };
+            else
+                return {
+                    title: t(element),
+                    dataIndex: element,
+                    key: element,
+                };
+        });
+
+        columns = [
+            ...columns,
+            {
+                title: "",
+                dataIndex: "",
+                key: "actions",
+                render: () =>
+                    supportTicketList && supportTicketList?.result?.length >= 1 ? (
+                        <div style={{ display: "flex", justifyContent: "end", paddingInline: 5 }}>
+                            <Button
+                                style={{
+                                    color: "#fff",
+                                    backgroundColor: "#D85912",
+                                    border: "none",
+                                    padding: "4px",
+                                }}
+
+                            >
+                                <ArrowRight size={16} style={{ color: "rgba(220, 233, 245, 0.88)" }} />
+                                <span
+                                    style={{
+                                        color: "rgba(220, 233, 245, 0.88)",
+                                        fontFamily: "Inter, sans-serif",
+                                        fontSize: "14px",
+                                        fontWeight: 600,
+                                        paddingRight: 3
+                                    }}
+                                >
+                                    {t("details")}
+                                </span>
+                            </Button>
+                        </div>
+                    ) : <></>,
+            },
+        ];
+
+        return columns;
+    };
+    const skeletonColumns = columns.length
+        ? columns.map((col: any, index) => ({
+            ...col,
+            render: () => <Skeleton.Input active={true} key={index} />,
+        }))
+        : Array(3).fill({}).map((_, index) => ({
+            title: <Skeleton.Input active={true} size="small" />,
+            dataIndex: `col${index}`,
+            key: `col${index}`,
+            render: () => <Skeleton.Input active={true} />,
+        }));
     return (
         <>
             <Row gutter={16}>
                 <Col span={14}>
                     <Title level={3} style={{ fontWeight: 700, color: '#ffff' }}>
-                        {t("title")}
+                        {t("supportTicket")}
                     </Title>
                 </Col>
                 <Col span={10} style={{ display: "flex", justifyContent: "end" }}>
@@ -54,20 +116,22 @@ export default function GetSupportTecket() {
                             fontSize: 15,
                             height: 45
                         }}
-
+                        onClick={() => router.push(`/portal/supportTicket/add`)}
                     >
                         <Plus size={20} style={{ color: "rgba(220, 233, 245, 0.88)" }} />
                         {translate("createTicket")}
                     </Button>
                 </Col>
-
             </Row>
-            
-            {isLoading ?
-                <span>loading</span> :
-                
-                <Table<SupportTicket>  dataSource={supportTicketList?.result} size="middle" />
-            }
+
+            <Table<SupportTicket>
+                columns={isLoading ? skeletonColumns : supportTicketList && keysToColumn()}
+                dataSource={isLoading ? Array(1).fill({ key: Math.random() }) : supportTicketList?.result}
+                size="middle"
+                className="custom-table"
+                style={{ marginTop: 40, borderRadius: 0 }}
+            />
+
         </>
     )
 }
