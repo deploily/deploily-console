@@ -47,7 +47,7 @@ export const postFavoriteService = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       });
-      if (response.status === 200) {
+      if (response.status === 201) {
         return response.data;
       } else {
         return thunkConfig.rejectWithValue("Failed to post new favorite Service");
