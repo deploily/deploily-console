@@ -15,7 +15,7 @@ export default function MyServiceContentPage() {
   // Fetch cart lines on mount (only once)
   useEffect(() => {
     dispatch(fetchCartLines());
-  }, [dispatch]);
+  }, []);
 
   // Handle screen resize event
   useEffect(() => {
