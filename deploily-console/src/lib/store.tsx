@@ -3,6 +3,7 @@ import apiServiceSlice from "./features/apiService/apiServiceSlice";
 import cartSlice from "./features/cart/cartSlice";
 import cartLineSlice from "./features/cartLine/cartLineSlice";
 import favoriteServiceSlice from "./features/favorites/favoriteServiceSlice";
+import serviceParametersSlice from "./features/serviceParameters/serviceParametersSlice";
 
 export const makeStore = () => {
   return configureStore({
@@ -10,7 +11,8 @@ export const makeStore = () => {
       apiService: apiServiceSlice,
       cart: cartSlice,
       cartLine: cartLineSlice,
-      favoriteService: favoriteServiceSlice
+      favoriteService: favoriteServiceSlice,
+      serviceParameters: serviceParametersSlice
     },
   });
 };
