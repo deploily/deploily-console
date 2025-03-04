@@ -52,11 +52,18 @@ export default {
   'parameterValue': 'Valeurs des paramètres',
   'ganerateKey': 'GÉNÉRER LA CLÉ',
   
-  'supportTicket.title': "Ticket d'assistance",
+  'supportTicket.supportTicket': "Ticket d'assistance",
+  'supportTicket.details': 'Détails',
+  'supportTicket.title': 'Titre',
+  'supportTicket.status': 'Status',
+  'supportTicket.service': 'Service',
+  'supportTicket.created_on': 'Date de création',
   'createSupportTicket.title': "Créer un nouveau ticket d'assistance",
   'createSupportTicket.typography': "Veuillez nous aider à orienter votre requête vers l'équipe appropriée en sélectionnant un serveur lié à votre demande.",
   'createSupportTicket.selectService': 'Sélectionner un service*',
   'createSupportTicket.subject': 'Sujet*',
   'createSupportTicket.description': 'Description*',
   'createSupportTicket.createTicket': 'Créer un ticket',
+  'createSupportTicket.uploadFile': 'Télécharger un fichier',
+
 } as const
