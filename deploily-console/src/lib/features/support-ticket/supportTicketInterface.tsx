@@ -1,3 +1,5 @@
+import { myServiceInterface } from "../myService/myServiceInterface";
+
 export interface SupportTicketResponse {
   count: number;
   description_columns: any;
@@ -12,8 +14,8 @@ export interface SupportTicketResponse {
 export interface SupportTicket {
     id: number;
     key: number;
-    cart_line_id: number;
-    cart_line: any;
+    my_service_id: number;
+    my_service: myServiceInterface;
     title: string;
     description: string;
     status: string;

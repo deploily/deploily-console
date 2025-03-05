@@ -1,9 +1,10 @@
-import {configureStore} from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import apiServiceSlice from "./features/apiService/apiServiceSlice";
 import cartSlice from "./features/cart/cartSlice";
 import cartLineSlice from "./features/cartLine/cartLineSlice";
 import favoriteServiceSlice from "./features/favorites/favoriteServiceSlice";
-import supportTicketSlice from "./features/supportTicket/supportTicketSlice"
+import supportTicketSlice from "./features/support-ticket/supportTicketSlice"
+import myServiceSlice from "./features/myService/myServiceSlice"
 
 export const makeStore = () => {
   return configureStore({
@@ -12,7 +13,8 @@ export const makeStore = () => {
       cart: cartSlice,
       cartLine: cartLineSlice,
       favoriteService: favoriteServiceSlice,
-      supportTicket: supportTicketSlice
+      supportTicket: supportTicketSlice,
+      myService: myServiceSlice
     },
   });
 };

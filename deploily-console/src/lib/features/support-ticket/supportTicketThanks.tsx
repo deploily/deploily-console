@@ -34,6 +34,8 @@ export const fetchSupportTicket = createAsyncThunk(
   export const postSupportTicket = createAsyncThunk(
     "apiServices/postSupportTicket",
     async (newsupportTicket: any, thunkConfig) => {
+      console.log("newsupportTicket=== ", newsupportTicket);
+      
       try {
         const session = await getSession();
         if (!session) {
@@ -44,13 +46,14 @@ export const fetchSupportTicket = createAsyncThunk(
         const response = await axios.post(`${deploilyApiUrls.SUPPORT_TICKET_URL}`, newsupportTicket, {
           headers: {
             Accept: "application/json",
+            // "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`,
           },
         });
         if (response.status === 200) {
           return response.data;
         } else {
-          return thunkConfig.rejectWithValue("Failed to post new support ticket");
+          return thunkConfig.rejectWithValue("Failed to create new support ticket");
         }
       } catch (error: any) {
         return thunkConfig.rejectWithValue(error.message);

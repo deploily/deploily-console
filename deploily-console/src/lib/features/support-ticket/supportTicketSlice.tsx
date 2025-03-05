@@ -7,6 +7,7 @@ interface SupportTicketState {
   isLoading: boolean;
   supportTicketLoadingError?: any;
   addSupportTicketLoading: boolean;
+  addSupportTicketSuccess: any;
   addSupportTicketError: any;
 
 }
@@ -16,6 +17,7 @@ const initialState: SupportTicketState = {
   isLoading: false,
   supportTicketLoadingError: undefined,
   addSupportTicketLoading: false,
+  addSupportTicketSuccess: false,
   addSupportTicketError: false,
 };
 const SupportTicketSlice = createSlice({
@@ -44,14 +46,17 @@ const SupportTicketSlice = createSlice({
       })
       .addCase(postSupportTicket.pending, (state) => {
         state.addSupportTicketLoading = true;
+        state.addSupportTicketSuccess = null;
         state.addSupportTicketError = null;
       })
       .addCase(postSupportTicket.fulfilled, (state) => {
         state.addSupportTicketLoading = false;
-        state.addSupportTicketError = null;
+        state.addSupportTicketSuccess = true;
+        state.addSupportTicketError = false;
       })
       .addCase(postSupportTicket.rejected, (state, { payload }) => {
         state.addSupportTicketLoading = false;
+        state.addSupportTicketSuccess = false;
         state.addSupportTicketError = payload;
       });
 
