@@ -1,25 +1,23 @@
 "use client";
 import { ArrowRight, Star } from "@phosphor-icons/react";
-import { Card, Col, Row, Image, Button, DatePicker, Typography, Space } from "antd";
-import Meta from "antd/es/card/Meta";
+import { Card, Col, Row, Image, Button, DatePicker, Typography} from "antd";
 import { useI18n } from "../../../../../../../locales/client";
 import Link from "next/link";
 import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
 import Paragraph from "antd/es/typography/Paragraph";
-import { Admin_URL } from "@/deploilyWebsiteUrls";
+import { IMAGES_URL } from "@/deploilyWebsiteUrls";
 
 export default function MyServiceCard({ data }: any) {
   const t = useI18n();
   const dateFormat = "YYYY-MM-DD";
   const router = useRouter();
-  const baseURL = Admin_URL; 
 
   // Corrected image handling
   const imageUrl = data.service?.image_service?.startsWith("http")
     ? data.service.image_service
     : data.service?.image_service
-      ? `${baseURL}${data.service.image_service}`
+      ? `${IMAGES_URL}${data.service.image_service}`
       : "/images/logo_service.png";
 
   return (
