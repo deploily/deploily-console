@@ -1,5 +1,6 @@
 import { JWT, getToken } from 'next-auth/jwt'
 import { NextRequest, NextResponse } from 'next/server'
+export const dynamic = 'force-dynamic';
 
 
 function logoutParams(token: JWT): Record<string, string> {
