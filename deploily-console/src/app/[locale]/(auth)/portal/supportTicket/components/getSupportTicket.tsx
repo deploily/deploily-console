@@ -4,9 +4,9 @@ import { useScopedI18n } from "../../../../../../../locales/client";
 import { ArrowRight, Plus } from "@phosphor-icons/react";
 import { useAppDispatch } from "@/lib/hook";
 import { useEffect, useState } from "react";
-import { fetchSupportTicket } from "@/lib/features/supportTicket/supportTicketThanks";
-import { SupportTicket } from "@/lib/features/supportTicket/supportTicketInterface";
-import { useSupportTicket } from "@/lib/features/supportTicket/supportTicketSelector";
+import { fetchSupportTicket } from "@/lib/features/support-ticket/supportTicketThanks";
+import { SupportTicket } from "@/lib/features/support-ticket/supportTicketInterface";
+import { useSupportTicket } from "@/lib/features/support-ticket/supportTicketSelector";
 import { useRouter } from "next/navigation";
 
 export default function GetSupportTecket() {
@@ -130,6 +130,7 @@ export default function GetSupportTecket() {
                 size="middle"
                 className="custom-table"
                 style={{ marginTop: 40, borderRadius: 0 }}
+                scroll={{ y: 55 * 5 }}
             />
 
         </>
