@@ -5,7 +5,7 @@ import { useI18n } from "../../../../../../../locales/client";
 import Paragraph from "antd/es/typography/Paragraph";
 import { useRouter } from "next/navigation";
 import { ApiServiceInterface } from "@/lib/features/apiService/apiServiceInterface";
-import { deleteFavoriteService, postFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
+import {  postFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { IMAGES_URL } from "@/deploilyWebsiteUrls";
 
@@ -21,21 +21,9 @@ export default function ApiServiceCard({ service }: { service: ApiServiceInterfa
 
 
   const handleFavoriteService = (service_id: number) => {
-    if (service.is_in_favorite) {
-      dispatch(deleteFavoriteService(service_id));
-
-    } else {
       dispatch(postFavoriteService({ "service_id": service_id }));
-    }
-
   }
-
-  // useEffect(() => {
-  //       dispatch(fetchApiServices());
-  // }, [favoriteServiceAdded])
-
   return (
-
     <Card style={{ height: "100%", width: "100%" }}>
       <div style={{ height: "300px" }}>
         <Row align="middle" gutter={16} style={{ height: "30%" }} >
@@ -48,7 +36,8 @@ export default function ApiServiceCard({ service }: { service: ApiServiceInterfa
               preview={false}
             />
           </Col>
-          <Col span={12} style={{
+          <Col span={12} 
+          style={{
             color: "#DD8859",
             fontWeight: "bold",
             fontSize: "18px",

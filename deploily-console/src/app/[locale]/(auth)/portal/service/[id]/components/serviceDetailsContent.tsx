@@ -11,14 +11,14 @@ import { useRouter } from "next/navigation";
 import { postServiceInCart } from "@/lib/features/cart/cartThunks";
 import Paragraph from "antd/es/typography/Paragraph";
 import { IMAGES_URL } from "@/deploilyWebsiteUrls";
-import { deleteFavoriteService, postFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
+import { postFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
 import { useFavoriteServices } from "@/lib/features/favorites/favoriteServiceSelectors";
 
 export default function ServiceDetailsContentPage({ serviceId }: { serviceId: string }) {
   const { useToken } = theme;
   const { token } = useToken();
   const t = useI18n();
-  const { serviceLoading, currentService } = useAllServices();
+  const { currentService } = useAllServices();
   const { favoriteServiceAdded, favoriteServiceDeleted } = useFavoriteServices()
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -35,14 +35,8 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
     : "/images/logo_service.png";
 
   const handleFavoriteService = (service_id: number) => {
-    if (currentService.is_in_favorite) {
-      dispatch(deleteFavoriteService(service_id));//TODO CHANGE THIS 
-    } else {
-      dispatch(postFavoriteService({ "service_id": service_id }));
-    }
-
+    dispatch(postFavoriteService({ "service_id": service_id }));
   }
-  console.log(currentService);
 
   return (
     <>
@@ -83,7 +77,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
           </Col>
           <Col span={8} style={{ display: "flex", justifyContent: "start" }}>
             <Button style={{ border: "none", backgroundColor: "transparent", boxShadow: "none" }}
-              icon={currentService.is_in_favorite !== true ?
+              icon={currentService.is_in_favorite == true ?
                 <Star size={20} weight="fill" color="#FC3232" /> :
                 <Star size={20} color="#7D7D7D" />}
               onClick={() =>
