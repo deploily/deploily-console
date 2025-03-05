@@ -40,7 +40,7 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
   {
     key: "sub3",
     label: (
-      <Link href="/portal/myServices">
+      <Link href="/portal/my-services">
         {" "}
         <span style={labelStyle}>{scopedSidebar("myServices")}</span>{" "}
       </Link>
@@ -84,7 +84,7 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
   {
     key: "sub4",
     label: (
-      <Link href="/portal/myFavorites">
+      <Link href="/portal/my-favorites">
         <span style={labelStyle}>{scopedSidebar("myFavorites")}</span>
       </Link>
     ),

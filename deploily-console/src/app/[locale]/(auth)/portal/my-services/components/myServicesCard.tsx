@@ -110,7 +110,7 @@ export default function MyServiceCard({ data }: any) {
             border: "none",
             padding: "4px 8px",
           }}
-          onClick={() => router.push(`/portal/myServices/${data.cart_id}`)}
+          onClick={() => router.push(`/portal/my-services/${data.cart_id}`)}
         >
           <span style={{ fontFamily: "Inter, sans-serif", fontSize: "16px", fontWeight: 600 }}>
             {t("settings")}

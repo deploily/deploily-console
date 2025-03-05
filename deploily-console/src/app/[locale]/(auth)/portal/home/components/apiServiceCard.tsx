@@ -4,25 +4,24 @@ import { Card, Col, Row, Image, Button, Space } from "antd";
 import { useI18n } from "../../../../../../../locales/client";
 import Paragraph from "antd/es/typography/Paragraph";
 import { useRouter } from "next/navigation";
-import { Admin_URL } from "@/deploilyWebsiteUrls";
 import { ApiServiceInterface } from "@/lib/features/apiService/apiServiceInterface";
 import { deleteFavoriteService, postFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
 import { useAppDispatch } from "@/lib/hook";
+import { IMAGES_URL } from "@/deploilyWebsiteUrls";
 
 export default function ApiServiceCard({ service }: { service: ApiServiceInterface }) {
   const t = useI18n();
-  const baseURL = Admin_URL;
   const router = useRouter();
   const imageUrl = service.image_service
     ? service.image_service.startsWith("http")
       ? service.image_service
-      : `${baseURL}${service.image_service}`
+      : `${IMAGES_URL}${service.image_service}`
     : "/images/logo_service.png";
   const dispatch = useAppDispatch();
 
 
   const handleFavoriteService = (service_id: number) => {
-    if (service.is_favorite) {
+    if (service.is_in_favorite) {
       dispatch(deleteFavoriteService(service_id));
 
     } else {
@@ -70,7 +69,7 @@ export default function ApiServiceCard({ service }: { service: ApiServiceInterfa
           </Col>
           <Col span={4} style={{ display: "flex", justifyContent: "end" }}>
             <Button style={{ border: "none", backgroundColor: "transparent", boxShadow: "none" }}
-              icon={service.is_favorite == true ?
+              icon={service.is_in_favorite == true ?
                 <Star size={20} weight="fill" color="#FC3232" /> :
                 <Star size={20} color="#7D7D7D" />} onClick={() =>
                   handleFavoriteService(service.id)
