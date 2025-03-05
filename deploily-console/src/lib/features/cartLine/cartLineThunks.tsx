@@ -63,7 +63,7 @@ export const generateTokenThunk = createAsyncThunk(
                 return thunkConfig.rejectWithValue("session expired");
             }
             const token = session.accessToken;
-            const response = await axios.post(`${deploilyApiUrls.GENERATE_TOKEN_URL}${cartLine_id}`,{}, {
+            const response = await axios.post(`${deploilyApiUrls.CART_LINE_URL}${cartLine_id}/consumer`,{}, {
                 headers: {
                     Accept: "application/json",
                     Authorization: `Bearer ${token}`,

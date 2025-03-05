@@ -10,7 +10,7 @@ import { getApiServiceById } from "@/lib/features/apiService/apiServiceThunks";
 import { useRouter } from "next/navigation";
 import { postServiceInCart } from "@/lib/features/cart/cartThunks";
 import Paragraph from "antd/es/typography/Paragraph";
-import { Admin_URL } from "@/deploilyWebsiteUrls";
+import { IMAGES_URL } from "@/deploilyWebsiteUrls";
 import { deleteFavoriteService, postFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
 import { useFavoriteServices } from "@/lib/features/favorites/favoriteServiceSelectors";
 
@@ -28,15 +28,14 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
 
   if (!currentService) return null;
 
-  const baseURL = Admin_URL;
   const imageUrl = currentService.image_service
     ? currentService.image_service.startsWith("http")
       ? currentService.image_service
-      : `${baseURL}${currentService.image_service}`
+      : `${IMAGES_URL}${currentService.image_service}`
     : "/images/logo_service.png";
 
   const handleFavoriteService = (service_id: number) => {
-    if (currentService.is_favorite) {
+    if (currentService.is_in_favorite) {
       dispatch(deleteFavoriteService(service_id));//TODO CHANGE THIS 
     } else {
       dispatch(postFavoriteService({ "service_id": service_id }));
@@ -84,7 +83,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
           </Col>
           <Col span={8} style={{ display: "flex", justifyContent: "start" }}>
             <Button style={{ border: "none", backgroundColor: "transparent", boxShadow: "none" }}
-              icon={currentService.is_favorite !== true ?
+              icon={currentService.is_in_favorite !== true ?
                 <Star size={20} weight="fill" color="#FC3232" /> :
                 <Star size={20} color="#7D7D7D" />}
               onClick={() =>
@@ -141,7 +140,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
                 }}
                 onClick={() => {
                   dispatch(postServiceInCart(serviceId));
-                  router.push("/portal/myServices")
+                  router.push("/portal/my-services")
                 }}
               >
                 <span
