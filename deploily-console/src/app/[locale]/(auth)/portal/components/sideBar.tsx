@@ -7,6 +7,7 @@ import Link from "next/link";
 import { menuItems } from "./menuItems";
 import { useI18n, useScopedI18n } from "../../../../../../locales/client";
 import federatedLogout from "@/lib/utils/federatedLogout";
+import { usePathname } from "next/navigation";
 
 const { Sider } = Layout;
 
@@ -16,20 +17,31 @@ export function MainSideBar() {
     setCollapsed(!collapsed);
   };
   const scopedSidebar = useScopedI18n("sidebar");
+  const pathName = usePathname();
 
-  const items =[
-        {
-          key: "profile",
-          label: scopedSidebar("profile"),
-          icon: <User size={24} />,
-        },
-        {
-          key: "logout",
-          label: <span onClick={() => federatedLogout()}>{scopedSidebar("logout")}</span>,
-          icon: <SignOut size={24} />,
-        },
-      ]
-  
+  const parentKey = menuItems(scopedSidebar)?.find(item => {
+    console.log(pathName.includes(`/${item?.key}`));
+    console.log(`/${item?.key}/`);
+    console.log(pathName);
+
+    return pathName.includes(`/${item?.key}`)
+  }
+  )?.key;
+
+  const items = [
+    {
+      key: "profile",
+      label: scopedSidebar("profile"),
+      icon: <User size={24} />,
+    },
+    {
+      key: "logout",
+      label: <span onClick={() => federatedLogout()}>{scopedSidebar("logout")}</span>,
+      icon: <SignOut size={24} />,
+    },
+  ]
+  console.log(parentKey);
+
   return (
     <Sider
       collapsible
@@ -46,15 +58,15 @@ export function MainSideBar() {
     >
       <Menu
         defaultSelectedKeys={["1"]}
-        defaultOpenKeys={["sub1"]}
         mode="inline"
         items={menuItems(scopedSidebar)}
         style={{ flexGrow: 1 }}
         selectable
+        selectedKeys={[`${parentKey}`]}
       />
       <div
         style={{
-         
+
           width: "100%",
           textAlign: "center",
           cursor: "pointer",
@@ -64,25 +76,25 @@ export function MainSideBar() {
           marginTop: "auto",
           position: "absolute",
           bottom: "8px",
-          display:"inline-grid"
+          display: "inline-grid"
         }}
-        
+
       >
-      
+
         <Space onClick={toggleCollapsed}>
-        {collapsed ? (
-          <ArrowRight size={24} color="#7D7D7D" />
-        ) : (
-          <>
-            <ArrowLeft size={24} color="#7D7D7D" />
-            <span style={{ paddingLeft: 10, fontSize: 16, color: "#7D7D7D" }}>
-              {scopedSidebar("collapse")}
-            </span>
-          </>
-        )}
+          {collapsed ? (
+            <ArrowRight size={24} color="#7D7D7D" />
+          ) : (
+            <>
+              <ArrowLeft size={24} color="#7D7D7D" />
+              <span style={{ paddingLeft: 10, fontSize: 16, color: "#7D7D7D" }}>
+                {scopedSidebar("collapse")}
+              </span>
+            </>
+          )}
         </Space>
 
-        <Dropdown menu={{items}} trigger={["click"]}>
+        <Dropdown menu={{ items }} trigger={["click"]}>
           <Button
             style={{
               width: "100%",
@@ -119,7 +131,7 @@ export function MainSideBar() {
 export function MainSideBarMobile() {
   const scopedSidebar = useScopedI18n("sidebar");
   const t = useI18n();
-  const items =[
+  const items = [
     {
       key: "profile",
       label: scopedSidebar("profile"),
@@ -163,7 +175,7 @@ export function MainSideBarMobile() {
         style={{ flexGrow: 1 }}
       />
 
-      <Dropdown menu={{items}}  trigger={["click"]}>
+      <Dropdown menu={{ items }} trigger={["click"]}>
         <Button
           style={{
             width: "100%",
