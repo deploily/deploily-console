@@ -123,7 +123,7 @@ export default function MyServiceParameterPage({ cartLine_id }: { cartLine_id: s
             <Typography.Title level={5} style={{ marginTop: 15, fontWeight: 600 }}>
               {t('parameterValue')}
             </Typography.Title>
-            <ServiceParameterComponent cartLine_id={cartLine_id} service_id={currentCartLine.service.id}/>
+            <ServiceParameterComponent cartLine_id={cartLine_id} />
         </Col>
         </Row>
       </Space>

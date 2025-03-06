@@ -11,7 +11,7 @@ import { useFavoriteServices } from "@/lib/features/favorites/favoriteServiceSel
 
 export default function ApiServiceContainer() {
   const t = useI18n();
-  const { isLoading, apiServiceResponse } = useAllServices();
+  const {  apiServiceResponse } = useAllServices();
   const dispatch = useAppDispatch();
   const { favoriteServiceAdded, favoriteServiceDeleted } = useFavoriteServices()
 

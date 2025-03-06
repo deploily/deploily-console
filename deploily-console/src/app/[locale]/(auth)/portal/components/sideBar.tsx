@@ -20,10 +20,6 @@ export function MainSideBar() {
   const pathName = usePathname();
 
   const parentKey = menuItems(scopedSidebar)?.find(item => {
-    console.log(pathName.includes(`/${item?.key}`));
-    console.log(`/${item?.key}/`);
-    console.log(pathName);
-
     return pathName.includes(`/${item?.key}`)
   }
   )?.key;
@@ -40,8 +36,7 @@ export function MainSideBar() {
       icon: <SignOut size={24} />,
     },
   ]
-  console.log(parentKey);
-
+  
   return (
     <Sider
       collapsible
