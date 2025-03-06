@@ -51,5 +51,20 @@ export default {
     'viewApi':'View API documentation',
     'parameterValue':'Parameter Values',
     'ganerateKey':'GENERATE KEY',
-    "placeholderGenerate":"Click to generate token"
+    "placeholderGenerate":"Click to generate token",
+
+    'supportTicket.supportTicket': 'Support ticket',
+    'supportTicket.details': 'Details',
+    'supportTicket.title': 'Title',
+    'supportTicket.status': 'Status',
+    'supportTicket.service': 'Service',
+    'supportTicket.created_on': 'Creation date',
+    
+    'createSupportTicket.title': 'Create a new support ticket',
+    'createSupportTicket.typography': 'Please assist us in directing your query to the appropriate team by selecting a server related to your request.',
+    'createSupportTicket.selectService': 'Select service*',
+    'createSupportTicket.subject': 'Subject*',
+    'createSupportTicket.description': 'Description*',
+    'createSupportTicket.createTicket': 'Create a ticket',
+    'createSupportTicket.uploadFile': 'Upload file',
 } as const

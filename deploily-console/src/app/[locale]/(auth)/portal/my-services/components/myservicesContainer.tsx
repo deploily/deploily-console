@@ -10,7 +10,7 @@ export default function MyServiceContentPage() {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchCartLines());
-  }, [dispatch]);
+  }, []);
 
   return (
     <>
