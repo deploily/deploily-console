@@ -51,4 +51,5 @@ export default {
     'viewApi':'View API documentation',
     'parameterValue':'Parameter Values',
     'ganerateKey':'GENERATE KEY',
+    "placeholderGenerate":"Click to generate token"
 } as const

@@ -51,4 +51,6 @@ export default {
   'viewApi': "Afficher la documentation de l'API",
   'parameterValue': 'Valeurs des paramètres',
   'ganerateKey': 'GÉNÉRER LA CLÉ',
+  "placeholderGenerate": "Cliquer pour générer la clé"
+
 } as const
