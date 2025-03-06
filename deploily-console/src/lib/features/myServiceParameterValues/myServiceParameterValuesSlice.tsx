@@ -14,7 +14,7 @@ const initialState: ServiceParametersValuesState = {
   serviceParameterValuesListLoadingError: undefined
 };
 const ServiceParametersValuesSlice = createSlice({
-  name: "FavoriteService",
+  name: "ServiceParametersValue",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
