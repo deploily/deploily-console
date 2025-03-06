@@ -60,10 +60,17 @@ export default function ServiceParameterComponent({ cartLine_id }: { cartLine_id
                                 </Button>
                             </Col>
                         </Row > :
-                        < Row>
-                            <SyntaxHighlighter language="bash" style={dracula}>
-                                {currentCartLine?.service.curl_command}
-                            </SyntaxHighlighter>
+                        < Row gutter={12}>
+                            <Col span={16}>
+                                <SyntaxHighlighter language="bash" style={dracula}>
+                                    {currentCartLine?.service.curl_command}
+                                </SyntaxHighlighter>
+                            </Col>
+                            <Col span={8} style={{  display:"flex", alignItems :"center"}}>
+                                <Tooltip title="Copy">
+                                    <Button type="primary" style={{ boxShadow: "none" }} icon={<Copy />} onClick={() => handleCopy(currentCartLine?.service.curl_command)} />
+                                </Tooltip>
+                            </Col>
                         </Row>
                     }
                 </>
