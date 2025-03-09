@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Layout, Space } from "antd";
+import { Layout } from "antd";
 import { MainSideBar } from "../components/sideBar";
 import { AppAppBarDesktop, AppAppBarMobile } from "../components/appBar";
 
@@ -8,18 +8,21 @@ const { Content } = Layout;
 
 export default function PortalContent({ children }: any) {
   const [shouldShowDesktop, setShouldShowDeskttop] = useState(true);
-
-  useEffect(() => {
-    const updateDesktopVisibility = () => {
+  const updateDesktopVisibility = () => {
+      if (window != undefined) { 
       setShouldShowDeskttop(window.innerWidth > 880);
+      }
     };
+  useEffect(() => {
 
+    if (window != undefined) { 
     updateDesktopVisibility();
-    window.addEventListener("resize", updateDesktopVisibility);
-
+    window.addEventListener("resize", updateDesktopVisibility); 
     return () => {
       window.removeEventListener("resize", updateDesktopVisibility);
     };
+    }
+ 
   }, []);
 
   return (

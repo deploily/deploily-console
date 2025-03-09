@@ -1,25 +1,23 @@
 "use client";
-import { ArrowRight, Star } from "@phosphor-icons/react";
-import { Card, Col, Row, Image, Button, DatePicker, Typography, Space } from "antd";
-import Meta from "antd/es/card/Meta";
+import { ArrowRight } from "@phosphor-icons/react";
+import { Card, Col, Row, Image, Button, DatePicker, Typography } from "antd";
 import { useI18n } from "../../../../../../../locales/client";
 import Link from "next/link";
 import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
 import Paragraph from "antd/es/typography/Paragraph";
-import { Admin_URL } from "@/deploilyWebsiteUrls";
+import { IMAGES_URL } from "@/deploilyWebsiteUrls";
 
 export default function MyServiceCard({ data }: any) {
   const t = useI18n();
   const dateFormat = "YYYY-MM-DD";
   const router = useRouter();
-  const baseURL = Admin_URL; 
 
   // Corrected image handling
   const imageUrl = data.service?.image_service?.startsWith("http")
     ? data.service.image_service
     : data.service?.image_service
-      ? `${baseURL}${data.service.image_service}`
+      ? `${IMAGES_URL}${data.service.image_service}`
       : "/images/logo_service.png";
 
   return (
@@ -56,7 +54,12 @@ export default function MyServiceCard({ data }: any) {
             </Paragraph>
           </Col>
           <Col span={4} style={{ display: "flex", justifyContent: "flex-end" }}>
-            <Star size={20} color="#7D7D7D" />
+            {/* <Button style={{ border: "none", backgroundColor: "transparent", boxShadow: "none" }}
+              icon={data.service.is_in_favorite == true ?
+                <Star size={20} weight="fill" color="#FC3232" /> :
+                <Star size={20} color="#7D7D7D" />} onClick={() =>
+                  handleFavoriteService(data.service.id)
+                } /> */}
           </Col>
         </Row>
 
@@ -110,7 +113,7 @@ export default function MyServiceCard({ data }: any) {
             border: "none",
             padding: "4px 8px",
           }}
-          onClick={() => router.push(`/portal/myServices/${data.cart_id}`)}
+          onClick={() => router.push(`/portal/my-services/${data.id}`)}
         >
           <span style={{ fontFamily: "Inter, sans-serif", fontSize: "16px", fontWeight: 600 }}>
             {t("settings")}

@@ -11,19 +11,19 @@ import { useFavoriteServices } from "@/lib/features/favorites/favoriteServiceSel
 
 export default function ApiServiceContainer() {
   const t = useI18n();
-  const { isLoading, apiServiceResponse } = useAllServices();
+  const {  apiServiceResponse } = useAllServices();
   const dispatch = useAppDispatch();
-  const { favoriteServiceAdded } = useFavoriteServices()
+  const { favoriteServiceAdded, favoriteServiceDeleted } = useFavoriteServices()
+
 
   useEffect(() => {
     dispatch(fetchApiServices());
-
-  }, [favoriteServiceAdded])
+  }, [favoriteServiceAdded, favoriteServiceDeleted])
   return (
 
     <Space direction="vertical" size="middle" style={{ display: 'flex', paddingTop: 15 }} >
 
-      {!isLoading && apiServiceResponse !== undefined && (
+      {apiServiceResponse !== undefined && (
         <>
           <Row style={{ padding: 20 }}>
             <span

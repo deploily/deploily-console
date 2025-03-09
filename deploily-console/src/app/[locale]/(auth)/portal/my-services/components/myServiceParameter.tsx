@@ -1,15 +1,16 @@
 "use client";
 import { useCartLine } from "@/lib/features/cartLine/cartLineSelectors";
-import { fetchCartLineById, generateTokenThunk } from "@/lib/features/cartLine/cartLineThunks";
+import { fetchCartLineById } from "@/lib/features/cartLine/cartLineThunks";
 import { useAppDispatch } from "@/lib/hook";
-import { Col, Row, Typography, Image, theme, DatePicker, Button, Input, Space, message, Tooltip } from "antd";
+import { Col, Row, Typography, Image, theme, DatePicker, Button, Space } from "antd";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { useEffect } from "react";
 import { useI18n } from "../../../../../../../locales/client";
-import { ArrowLeft, Copy, Star } from "@phosphor-icons/react";
+import { ArrowLeft } from "@phosphor-icons/react";
 import { useRouter } from "next/navigation";
 import Paragraph from "antd/es/typography/Paragraph";
+import ServiceParameterComponent from "./serviceParameterComponent";
 
 
 export default function MyServiceParameterPage({ cartLine_id }: { cartLine_id: string }) {
@@ -37,12 +38,8 @@ export default function MyServiceParameterPage({ cartLine_id }: { cartLine_id: s
       : `${baseURL}${currentCartLine?.service?.image_service}`
     : "/images/logo_service.png";
 
-  const generateApiKey = () => { dispatch(generateTokenThunk(cartLine_id)) }
 
-  const handleCopy = (value: string) => {
-    navigator.clipboard.writeText(value);
-    message.success("Copied to clipboard!");
-  };
+
   return (
     <>
       <div style={{ marginLeft: 40 }}>
@@ -82,7 +79,7 @@ export default function MyServiceParameterPage({ cartLine_id }: { cartLine_id: s
             </div>
           </Col>
           <Col span={6} style={{ display: "flex", justifyContent: "start" }}>
-            <Star size={20} color="#7D7D7D" />
+            {/* <Star size={20} color="#7D7D7D" /> */}
           </Col>
         </Row>
         <Row gutter={16} style={{ marginTop: 10 }} >
@@ -126,42 +123,7 @@ export default function MyServiceParameterPage({ cartLine_id }: { cartLine_id: s
             <Typography.Title level={5} style={{ marginTop: 15, fontWeight: 600 }}>
               {t('parameterValue')}
             </Typography.Title>
-            {currentCartLine.parameters_values.map((parameter: any) => (
-              <div key={parameter.id} >
-                <Row gutter={10}>
-                  <Col span={16}>
-                    <Input defaultValue={parameter.value} style={{ marginBottom: 10 }} /></Col>
-                  <Col span={8}>
-                    <Tooltip title="Copy">
-                    <Button type="primary" style={{boxShadow:"none"}} icon={<Copy />} onClick={() => handleCopy(parameter.value)} />
-                  </Tooltip>
-                  </Col>
-                </Row>
-              </div>
-            ))}
-            <>
-              {currentCartLine.parameters_values.find(param => param.type === 'token') ? (
-                <div>
-                  <Input
-                    defaultValue={currentCartLine.parameters_values.find(param => param.type === 'token')?.type}
-                    placeholder="Enter parameter value"
-                    style={{ marginBottom: 10 }}
-                  />
-                </div>
-              ) : null}
-            </>
-            {/* {currentCartLine.parameters_values.find(param => param.type === 'token') == null && <Button //TODO UNCOMMENT THIS AFTER LOGIC FIX 
-              onClick={generateApiKey}
-              style={{ marginTop: 20, backgroundColor: "#1890ff", color: "#fff" }}
-               >
-               {t('ganerateKey')}
-               </Button>} */}
-            {currentCartLine.parameters_values.length < 0 &&
-              <Button
-                onClick={generateApiKey}
-                style={{ marginTop: 20, backgroundColor: "#1890ff", color: "#fff" }}>
-                {t('ganerateKey')}
-              </Button>}
+            <ServiceParameterComponent cartLine_id={cartLine_id} />
         </Col>
         </Row>
       </Space>

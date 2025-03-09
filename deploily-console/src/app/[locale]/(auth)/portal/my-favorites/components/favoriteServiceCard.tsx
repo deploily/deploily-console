@@ -19,10 +19,8 @@ export default function FavoriteServiceCard({ favoriteService }: { favoriteServi
         : "/images/logo_service.png";
     const dispatch = useAppDispatch();
     const handleDeleteFavorite = () => {
-        dispatch(deleteFavoriteService(favoriteService.id));
-
+        dispatch(deleteFavoriteService(favoriteService.service.id));
     }
-
     return (
 
         <Card style={{ height: "100%", width: "100%" }}>

@@ -53,7 +53,6 @@ describe("MainSideBar", () => {
   });
 });
 
-// console.log(screen.getByText((content) => content.includes("logout"))); // Logs the entire rendered DOM
 
 describe("MainSideBarMobile", () => {
   beforeEach(async () => {
