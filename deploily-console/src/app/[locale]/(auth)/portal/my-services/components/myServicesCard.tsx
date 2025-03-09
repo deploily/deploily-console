@@ -1,6 +1,6 @@
 "use client";
-import { ArrowRight, Star } from "@phosphor-icons/react";
-import { Card, Col, Row, Image, Button, DatePicker, Typography} from "antd";
+import { ArrowRight } from "@phosphor-icons/react";
+import { Card, Col, Row, Image, Button, DatePicker, Typography } from "antd";
 import { useI18n } from "../../../../../../../locales/client";
 import Link from "next/link";
 import dayjs from "dayjs";
@@ -54,7 +54,12 @@ export default function MyServiceCard({ data }: any) {
             </Paragraph>
           </Col>
           <Col span={4} style={{ display: "flex", justifyContent: "flex-end" }}>
-            <Star size={20} color="#7D7D7D" />
+            {/* <Button style={{ border: "none", backgroundColor: "transparent", boxShadow: "none" }}
+              icon={data.service.is_in_favorite == true ?
+                <Star size={20} weight="fill" color="#FC3232" /> :
+                <Star size={20} color="#7D7D7D" />} onClick={() =>
+                  handleFavoriteService(data.service.id)
+                } /> */}
           </Col>
         </Row>
 

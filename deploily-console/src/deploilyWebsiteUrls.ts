@@ -6,6 +6,7 @@ export const deploilyApiUrls = {
   CART_URL: `${process.env.API_BASE_URL}/cart/`,
   CART_LINE_URL: `${process.env.API_BASE_URL}/cart-line/`,
   MY_FAVORITE_URL: `${process.env.API_BASE_URL}/my-favorites/`,
+  POST_FAVORITE_SERVICE_URL: `${process.env.API_BASE_URL}/my-favorites-service/`,
   SUPPORT_TICKET_URL: `${process.env.API_BASE_URL}/support-ticket/`,
   LOGIN_URL: `${process.env.API_BASE_URL}/security/login/`,
   SERVICE_PARAMETER_URL: ` ${process.env.API_BASE_URL }/parameter/`,

@@ -1,16 +1,16 @@
-import {createSlice} from "@reduxjs/toolkit";
-import { myServiceResponse } from "./myServiceInterface";
+import { createSlice } from "@reduxjs/toolkit";
+import { MyServiceResponse } from "./myServiceInterface";
 import { fetchMyServices } from "./myServiceThunks";
 
 interface MyServiceState {
-  myServiceResponse?: myServiceResponse;
+  MyServiceResponse?: MyServiceResponse;
   myServiceLoadingError?: any;
   myServiceLoading: boolean;
-  
+
 }
 
 const initialState: MyServiceState = {
-  myServiceResponse: undefined,
+  MyServiceResponse: undefined,
   myServiceLoadingError: undefined,
   myServiceLoading: false,
 };
@@ -27,16 +27,16 @@ const MyServiceSlice = createSlice({
         state.myServiceLoading = false;
         state.myServiceLoadingError = null;
         const result = action.payload.ids.map((id: number, index: any) =>
-          Object.assign({}, {id: id}, action.payload.result[index]),
+          Object.assign({}, { id: id }, action.payload.result[index]),
         );
-        const payload = Object.assign({}, action.payload, {result: result});
-        state.myServiceResponse = payload;
+        const payload = Object.assign({}, action.payload, { result: result });
+        state.MyServiceResponse = payload;
       })
-      .addCase(fetchMyServices.rejected, (state, {payload}) => {
+      .addCase(fetchMyServices.rejected, (state, { payload }) => {
         state.myServiceLoading = false;
         state.myServiceLoadingError = payload;
       })
-      
+
   },
 });
 export default MyServiceSlice.reducer;

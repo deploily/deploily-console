@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 import Link from "next/link";
 import { useEffect } from "react";
 import { useI18n } from "../../../../../../../locales/client";
-import { ArrowLeft, Star } from "@phosphor-icons/react";
+import { ArrowLeft } from "@phosphor-icons/react";
 import { useRouter } from "next/navigation";
 import Paragraph from "antd/es/typography/Paragraph";
 import ServiceParameterComponent from "./serviceParameterComponent";
@@ -79,7 +79,7 @@ export default function MyServiceParameterPage({ cartLine_id }: { cartLine_id: s
             </div>
           </Col>
           <Col span={6} style={{ display: "flex", justifyContent: "start" }}>
-            <Star size={20} color="#7D7D7D" />
+            {/* <Star size={20} color="#7D7D7D" /> */}
           </Col>
         </Row>
         <Row gutter={16} style={{ marginTop: 10 }} >

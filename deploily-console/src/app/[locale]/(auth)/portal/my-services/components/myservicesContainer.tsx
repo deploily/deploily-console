@@ -8,6 +8,7 @@ import { fetchCartLines } from "@/lib/features/cartLine/cartLineThunks";
 export default function MyServiceContentPage() {
   const { isLoading, cartLineResponse } = useCartLine();
   const dispatch = useAppDispatch();
+  
   useEffect(() => {
     dispatch(fetchCartLines());
   }, []);

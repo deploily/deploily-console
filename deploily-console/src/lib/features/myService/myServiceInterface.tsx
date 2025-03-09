@@ -1,4 +1,4 @@
-export interface myServiceResponse {
+export interface MyServiceResponse {
   count: number;
   description_columns: any;
   ids: number[];
@@ -6,9 +6,9 @@ export interface myServiceResponse {
   list_columns: string[];
   list_title: string;
   order_columns: string[];
-  result: myServiceInterface[];
+  result: MyServiceInterface[];
 }
-export interface myServiceInterface {
+export interface MyServiceInterface {
   id: number;
   name: string;
   amount:string,

@@ -10,10 +10,15 @@ import FavoriteServiceCard from "./components/favoriteServiceCard";
 export default function FavoriteServicesContainer() {
     const { isLoading, favoriteServicesList } = useFavoriteServices();
     const dispatch = useAppDispatch();
+    const { favoriteServiceDeleted } = useFavoriteServices()
 
     useEffect(() => {
         dispatch(fetchMyFavoriteServices());
-    }, []);
+    }, [favoriteServiceDeleted]);
+
+
+
+
 
     return (
         <Space direction="vertical" size="middle" style={{ display: 'flex', paddingTop: 15 }} >

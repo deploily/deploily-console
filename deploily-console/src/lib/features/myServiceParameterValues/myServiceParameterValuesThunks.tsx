@@ -4,7 +4,7 @@ import axios from "axios";
 import { getSession } from "next-auth/react";
 
 export const fetchServiceParametersValues = createAsyncThunk(
-  "apiServices/getServiceParameter",
+  "apiServices/getServiceParameterValues",
   async (cart_line_id:string, thunkConfig) => {
     try {
       const session = await getSession();

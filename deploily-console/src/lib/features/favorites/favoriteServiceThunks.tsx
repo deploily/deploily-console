@@ -41,13 +41,13 @@ export const postFavoriteService = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axios.post(`${deploilyApiUrls.MY_FAVORITE_URL}`, newFavData, {
+      const response = await axios.post(`${deploilyApiUrls.POST_FAVORITE_SERVICE_URL}`, newFavData, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
         },
       });
-      if (response.status === 201) {
+      if (response.status === 200) {
         return response.data;
       } else {
         return thunkConfig.rejectWithValue("Failed to post new favorite Service");

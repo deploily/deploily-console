@@ -33,7 +33,7 @@ export default function ServiceParameterComponent({ cartLine_id }: { cartLine_id
 
     return (
         <>
-            {serviceParameterValuesList != undefined && serviceParameterValuesList?.result != undefined &&
+            {serviceParameterValuesList !== undefined && serviceParameterValuesList?.result !== undefined &&
                 <>
                     {serviceParameterValuesList?.result?.map((parameterValue) => (
                         <div key={parameterValue.id} >
