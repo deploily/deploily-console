@@ -11,7 +11,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import { useAppDispatch } from "@/lib/hook";
 import { fetchMyServices } from "@/lib/features/myService/myServiceThunks";
 import { useMyService } from "@/lib/features/myService/myServiceSelectors";
-import { myServiceInterface } from "@/lib/features/myService/myServiceInterface";
+import { MyServiceInterface } from "@/lib/features/myService/myServiceInterface";
 import { postSupportTicket } from "@/lib/features/support-ticket/supportTicketThanks";
 import { useSupportTicket } from "@/lib/features/support-ticket/supportTicketSelector";
 const { Option } = Select;
@@ -20,7 +20,7 @@ export default function CreateSupportTecket() {
     const t = useScopedI18n('createSupportTicket')
     const [form] = Form.useForm();
     const dispatch = useAppDispatch();
-    const { myServiceResponse, myServiceLoading, myServiceLoadingError } = useMyService()
+    const { MyServiceResponse, myServiceLoading, myServiceLoadingError } = useMyService()
     const { addSupportTicketSuccess, addSupportTicketError } = useSupportTicket()
     // const [file, setFile] = useState(null);
     const [fileList, setFileList] = useState<UploadFile[]>()
@@ -90,7 +90,7 @@ export default function CreateSupportTecket() {
                         placeholder={t("selectService")}
 
                     >
-                        {myServiceResponse !== undefined ? myServiceResponse?.result?.map((value: myServiceInterface) => (
+                        {MyServiceResponse !== undefined ? MyServiceResponse?.result?.map((value: MyServiceInterface) => (
                             <Option key={value.id} value={value.id}>{value.name}</Option>
                         )) : null}
 

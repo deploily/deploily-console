@@ -1,4 +1,4 @@
-import { myServiceInterface } from "../myService/myServiceInterface";
+import { MyServiceInterface } from "../myService/myServiceInterface";
 
 export interface SupportTicketResponse {
   count: number;
@@ -12,13 +12,13 @@ export interface SupportTicketResponse {
 }
 
 export interface SupportTicket {
-    id: number;
-    key: number;
-    my_service_id: number;
-    my_service: myServiceInterface;
-    title: string;
-    description: string;
-    status: string;
-    image: string;
-    support_ticket_responses: any[];
-  }
+  id: number;
+  key: number;
+  my_service_id: number;
+  my_service: MyServiceInterface;
+  title: string;
+  description: string;
+  status: string;
+  image: string;
+  support_ticket_responses: any[];
+}

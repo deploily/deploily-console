@@ -8,6 +8,7 @@ import { fetchSupportTicket } from "@/lib/features/support-ticket/supportTicketT
 import { SupportTicket } from "@/lib/features/support-ticket/supportTicketInterface";
 import { useSupportTicket } from "@/lib/features/support-ticket/supportTicketSelector";
 import { useRouter } from "next/navigation";
+import { MyServiceInterface } from "@/lib/features/myService/myServiceInterface";
 
 export default function GetSupportTecket() {
     const dispatch = useAppDispatch();
@@ -23,7 +24,7 @@ export default function GetSupportTecket() {
     }, []);
 
     const keysToColumn = () => {
-        const list = ["title", "service", "status", "created_on"]
+        const list = ["title", "my_service", "status", "created_on"]
 
         let columns = list.map((element: any) => {
             if (element === "created_on") {
@@ -41,6 +42,14 @@ export default function GetSupportTecket() {
                     key: element,
                     render: (status: any) => (status === "open" ? <span style={{ color: "#28B609" }} >{status}</span> : <span>{status}</span>),
                 };
+            else if (element == "my_service")
+                return {
+                    title: t("service"),
+                    dataIndex: element,
+                    key: element,
+                    render: (myService: MyServiceInterface) => (myService !== undefined && myService.name),
+
+                }
             else
                 return {
                     title: t(element),
