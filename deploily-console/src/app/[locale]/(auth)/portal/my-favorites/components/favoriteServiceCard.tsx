@@ -19,7 +19,7 @@ export default function FavoriteServiceCard({ favoriteService }: { favoriteServi
         : "/images/logo_service.png";
     const dispatch = useAppDispatch();
     const handleDeleteFavorite = () => {
-        dispatch(deleteFavoriteService(favoriteService.service.id));
+        dispatch(deleteFavoriteService(favoriteService.id));
     }
     return (
 
