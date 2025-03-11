@@ -20,7 +20,7 @@ export default function CreateSupportTecket() {
     const t = useScopedI18n('createSupportTicket')
     const [form] = Form.useForm();
     const dispatch = useAppDispatch();
-    const { MyServiceResponse, myServiceLoading, myServiceLoadingError } = useMyService()
+    const { myServiceResponse, myServiceLoading, myServiceLoadingError } = useMyService()
     const { addSupportTicketSuccess, addSupportTicketError } = useSupportTicket()
     // const [file, setFile] = useState(null);
     const [fileList, setFileList] = useState<UploadFile[]>()
@@ -52,7 +52,7 @@ export default function CreateSupportTecket() {
         console.log("file=== ", fileList);
 
         dispatch(postSupportTicket({
-            my_service_id: values.service,
+            my_service_id: values.myService,
             title: values.subject,
             description: values.description,
             image: (fileList && fileList.length > 0) ? fileList[0].thumbUrl : null,
@@ -83,14 +83,14 @@ export default function CreateSupportTecket() {
                 name="control-hooks"
                 onFinish={onFinish}
             >
-                <Form.Item name="service" rules={[{ required: true }]}>
+                <Form.Item name="myService" rules={[{ required: true }]}>
                     <Select
                         allowClear
                         style={{ width: "100%", height: 40 }}
                         placeholder={t("selectService")}
 
                     >
-                        {MyServiceResponse !== undefined ? MyServiceResponse?.result?.map((value: MyServiceInterface) => (
+                        {myServiceResponse !== undefined ? myServiceResponse?.result?.map((value: MyServiceInterface) => (
                             <Option key={value.id} value={value.id}>{value.name}</Option>
                         )) : null}
 
