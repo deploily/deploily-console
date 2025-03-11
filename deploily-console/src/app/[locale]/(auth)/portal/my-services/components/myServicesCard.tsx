@@ -7,17 +7,18 @@ import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
 import Paragraph from "antd/es/typography/Paragraph";
 import { IMAGES_URL } from "@/deploilyWebsiteUrls";
+import { MyServiceInterface } from "@/lib/features/myService/myServiceInterface";
 
-export default function MyServiceCard({ data }: any) {
+export default function MyServiceCard({ data }: { data: MyServiceInterface }) {
   const t = useI18n();
   const dateFormat = "YYYY-MM-DD";
   const router = useRouter();
 
   // Corrected image handling
-  const imageUrl = data.service?.image_service?.startsWith("http")
-    ? data.service.image_service
-    : data.service?.image_service
-      ? `${IMAGES_URL}${data.service.image_service}`
+  const imageUrl = data?.image_service?.startsWith("http")
+    ? data.image_service
+    : data?.image_service
+      ? `${IMAGES_URL}${data.image_service}`
       : "/images/logo_service.png";
 
   return (
@@ -26,6 +27,7 @@ export default function MyServiceCard({ data }: any) {
         {/* Service Logo and Amount */}
         <Row align="middle" gutter={16} style={{ height: "30%" }}>
           <Col span={12} style={{ paddingBottom: 10 }}>
+          
             <Image
               alt="Logo"
               src={imageUrl}
@@ -50,7 +52,7 @@ export default function MyServiceCard({ data }: any) {
         <Row style={{ height: "20%", marginBottom: 8 }}>
           <Col span={20}>
             <Paragraph ellipsis={{ rows: 2 }} style={{ fontFamily: "Inter, sans-serif", fontSize: "20px" }}>
-              {data.service?.name}
+              {data?.name}
             </Paragraph>
           </Col>
           <Col span={4} style={{ display: "flex", justifyContent: "flex-end" }}>
@@ -87,7 +89,9 @@ export default function MyServiceCard({ data }: any) {
 
       {/* Buttons (Details & Settings) */}
       <div style={{ position: "absolute", bottom: "20px", right: "20px", display: "flex", gap: "10px" }}>
-        <Link href={`/portal/service/${data.service_id}`}>
+        <Link href={"#"}
+        // href={`/portal/service/${data.service_id}`}
+        >
           <Button
             style={{
               color: "#fff",
