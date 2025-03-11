@@ -5,7 +5,7 @@ import {useState} from "react";
 import {Button, Col, Drawer, Form, Row, Select} from "antd";
 import {Header} from "antd/es/layout/layout";
 import LocaleSwitcher from "@/components/locale/localeSwitcher";
-import {List, ShoppingCart} from "@phosphor-icons/react";
+import {List, Coins} from "@phosphor-icons/react";
 import {MainSideBarMobile} from "./sideBar";
 import Link from "next/link";
 import {useI18n} from "../../../../../../locales/client";
@@ -80,10 +80,14 @@ export function AppAppBarDesktop() {
                   <Button
                     style={{
                       borderColor: "#D85912",
+                      color:"#D85912"
                     }}
-                    icon={<ShoppingCart size={"28px"} style={{color: "#D85912"}} />}
+                    icon={<Coins size={"28px"} style={{color: "#D85912"}} />}
+                    iconPosition={"end"}
                     target="_blank"
-                  />
+                  >
+                    0.00 DZD
+                  </Button>
                 </Link>
                 <Button
                   style={{

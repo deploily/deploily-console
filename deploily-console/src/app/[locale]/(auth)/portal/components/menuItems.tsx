@@ -1,6 +1,5 @@
 import {
   HouseLine,
-  ShoppingCart,
   HardDrives,
   CalendarStar,
   Question,
@@ -27,15 +26,6 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
       </Link>
     ),
     icon: <HouseLine size={24} />,
-  },
-  {
-    key: "cart",
-    label: (
-      <Link href="/portal/cart">
-        <span style={labelStyle}>{scopedSidebar("cart")}</span>
-      </Link>
-    ),
-    icon: <ShoppingCart size={24} />,
   },
   {
     key: "my-services",
