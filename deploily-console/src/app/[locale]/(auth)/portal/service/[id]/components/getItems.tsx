@@ -1,23 +1,8 @@
 "use client";
-import { useAllServices } from "@/lib/features/apiService/apiServiceSelectors";
-import { getApiServiceById } from "@/lib/features/apiService/apiServiceThunks";
-import { useAppDispatch } from "@/lib/hook";
+
 import { CollapseProps, Typography } from "antd";
-import { useEffect } from "react";
 import { ApiServiceInterface } from "@/lib/features/apiService/apiServiceInterface";
 import Link from "next/link";
-
-export function useFetchServiceById( serviceId : string ) {
-  const dispatch = useAppDispatch();
-  const { serviceLoading, currentService } = useAllServices();
-
-  useEffect(() => {
-    if (serviceId) {
-      dispatch(getApiServiceById(serviceId));
-    }
-  }, []);
-  return { serviceLoading, currentService };
-}
 
 export const getItems = (row: ApiServiceInterface, t: any ): CollapseProps["items"] => [
   {
