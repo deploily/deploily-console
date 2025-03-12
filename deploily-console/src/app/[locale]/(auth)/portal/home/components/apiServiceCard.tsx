@@ -24,12 +24,10 @@ export default function ApiServiceCard({ service }: { service: ApiServiceInterfa
     dispatch(postFavoriteService({ "service_id": service_id }));
   }
   return (
-
-    <Card style={{ height: "100%", width: "100%" }}>
+    <Card style={{ height: "100%", width: "100%", padding: 0 }}>
       <div style={{ height: "300px" }}>
-        <Row align="middle" gutter={16} style={{ height: "30%" }} >
-          <Col span={12} style={{ paddingBottom: 10 }}>
-
+        <Row align="middle" gutter={16} style={{ height: "50%" }} >
+          <Col span={12} style={{height:"100%",}} >
             <Badge count={<Button style={{ border: "none", backgroundColor: "transparent", boxShadow: "none" }}
               icon={service.is_in_favorite == true ?
                 <Star size={25} weight="fill" color="#FC3232" /> :
@@ -37,36 +35,40 @@ export default function ApiServiceCard({ service }: { service: ApiServiceInterfa
                   handleFavoriteService(service.id)
                 } />}
               offset={[-12, 12]}>
+
               <Image
                 alt="Logo"
                 src={imageUrl}
-                width={80}
-                height={80}
+                width={100}
+                height={100}
                 preview={false}
               />
             </Badge>
           </Col>
           <Col span={12}
             style={{
-              color: "#DD8859",
+              height:"100%",
               fontWeight: "bold",
-              fontSize: "18px",
-              display: "flex",
-              justifyContent: "end",
-              alignSelf: "start"
+              fontFamily: "Inter, sans-serif"
             }}>
-            {service.unit_price}
+
+            <Row 
+            style={{ height: "60%" }}
+            >
+              <Paragraph ellipsis={{ rows: 2, expandable: false }} style={{ fontSize: 20, }}>
+                {service.name}
+              </Paragraph>
+            </Row>
+            <Row
+             style={{ height: "40%" }}
+             >
+              <Paragraph style={{ color: "#DD8859", fontSize: 20, }}>
+                {service.unit_price} DZD
+              </Paragraph>
+            </Row>
           </Col>
         </Row>
-        <Row style={{ height: "20%" }}>
 
-          <Paragraph ellipsis={{ rows: 2, expandable: false }} style={{ fontFamily: "Inter, sans-serif", fontSize: "20px" }}>
-            {service.name}
-          </Paragraph>
-
-
-
-        </Row>
         <Row style={{ height: "30%" }}>
           <div>
             <Paragraph ellipsis={{ rows: 3, expandable: false }} style={{ paddingTop: "10px" }}>
@@ -102,8 +104,5 @@ export default function ApiServiceCard({ service }: { service: ApiServiceInterfa
         </Button>
       </Space>
     </Card>
-
-
-
   );
 }
