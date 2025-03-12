@@ -3,7 +3,7 @@ export default {
   'ondemand': 'SUR DEMANDE',
   'CART': 'PANIER',
   'comingSoon': "Dans les coulisses, nous créons quelque chose de spécial. Restez à l'écoute pour ce qui est à venir !",
-  'APIService': 'Service API',
+  'APIService': 'APIs',
   'Members': 'Membres',
   'myFavorites': 'Mes favoris',
   'myServices': 'Mes services',
@@ -52,6 +52,8 @@ export default {
   'parameterValue': 'Valeurs des paramètres',
   'ganerateKey': 'GÉNÉRER LA CLÉ',
   "placeholderGenerate": "Cliquer pour générer la clé",
+  "SelectServicePlan":"Sélectionnez le plan de service",
+  "subscrib":"SUBSCRIB",
   
   'supportTicket.supportTicket': "Ticket d'assistance",
   'supportTicket.details': 'Détails',
@@ -59,6 +61,7 @@ export default {
   'supportTicket.status': 'Status',
   'supportTicket.service': 'Service',
   'supportTicket.created_on': 'Date de création',
+
   'createSupportTicket.title': "Créer un nouveau ticket d'assistance",
   'createSupportTicket.typography': "Veuillez nous aider à orienter votre requête vers l'équipe appropriée en sélectionnant un serveur lié à votre demande.",
   'createSupportTicket.selectService': 'Sélectionner un service*',

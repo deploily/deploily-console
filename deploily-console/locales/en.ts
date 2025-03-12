@@ -3,7 +3,7 @@ export default {
     'ondemand': 'ON DEMAND',
     'CART': 'CART',
     'comingSoon': "Behind the scenes, we're crafting something special. Stay tuned for what's to come!",
-    'APIService': 'API Service',
+    'APIService': 'APIs',
     'Members': 'Members',
     'myFavorites': 'My favorites',
     'myServices': 'My services',
@@ -52,6 +52,8 @@ export default {
     'parameterValue':'Parameter Values',
     'ganerateKey':'GENERATE KEY',
     "placeholderGenerate":"Click to generate token",
+    "SelectServicePlan":"Select service plan",
+    "subscrib":"SUBSCRIB",
 
     'supportTicket.supportTicket': 'Support ticket',
     'supportTicket.details': 'Details',
