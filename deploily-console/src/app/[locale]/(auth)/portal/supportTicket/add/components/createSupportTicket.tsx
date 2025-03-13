@@ -6,7 +6,7 @@ import TextArea from "antd/es/input/TextArea";
 import Title from "antd/es/typography/Title";
 import { useScopedI18n } from "../../../../../../../../locales/client";
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { UploadOutlined } from '@ant-design/icons';
 import { useAppDispatch } from "@/lib/hook";
 import { fetchMyServices } from "@/lib/features/myService/myServiceThunks";
@@ -47,10 +47,6 @@ export default function CreateSupportTecket() {
     const handleChange: UploadProps['onChange'] = ({ fileList: newFile }) =>
         setFileList(newFile);
     const onFinish = (values: any) => {
-        console.log(values);
-
-        console.log("file=== ", fileList);
-
         dispatch(postSupportTicket({
             my_service_id: values.myService,
             title: values.subject,

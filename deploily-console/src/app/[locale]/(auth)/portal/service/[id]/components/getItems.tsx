@@ -14,7 +14,7 @@ export const getItems = (row: ApiServiceInterface, t: any ): CollapseProps["item
       </Typography.Title>
     ),
     children: (
-      <Typography.Paragraph style={{ fontWeight: 600 }}>
+      <Typography.Paragraph style={{ fontWeight: 600, fontSize:14, }}>
         {row.description}
       </Typography.Paragraph>
     ),

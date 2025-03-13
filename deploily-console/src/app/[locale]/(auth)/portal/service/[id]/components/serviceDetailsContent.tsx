@@ -1,5 +1,5 @@
 "use client";
-import { Col, Row, Image, Typography, Collapse, Button, Space, Skeleton, Badge } from "antd";
+import { Col, Row, Image, Typography, Collapse, Button, Space, Skeleton, Badge, Card } from "antd";
 import { ArrowLeft, CaretDown, CaretUp, Star } from "@phosphor-icons/react";
 import { useI18n } from "../../../../../../../../locales/client";
 import { getItems } from "./getItems";
@@ -26,6 +26,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { servicePlanResponse, servicePlanLoading } = useServicePlan()
+  
   useEffect(() => {
     dispatch(getApiServiceById(serviceId));
     dispatch(fetchServicePlan(serviceId))
@@ -60,14 +61,15 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
           <>
             <Row gutter={16}  >
               <Col md={16} xs={24} >
-                <Badge count={<Button style={{ border: "none", backgroundColor: "transparent", boxShadow: "none" }}
-                  icon={currentService.is_in_favorite == true ?
-                    <Star size={40} weight="fill" color="#FC3232" /> :
-                    <Star size={40} color="#7D7D7D" />}
-                  onClick={() =>
-                    handleFavoriteService(currentService.id)
+                <Badge
+                  count={
+                    <Button style={{ border: "none", backgroundColor: "transparent", boxShadow: "none" }}
+                      icon={currentService.is_in_favorite == true ?
+                        <Star size={40} weight="fill" color="#FC3232" /> :
+                        <Star size={40} color="#7D7D7D" />}
+                      onClick={() => handleFavoriteService(currentService.id)}
+                    />
                   }
-                />}
                   offset={[-20, 20]}>
                   <Image
                     alt="Logo"
@@ -90,20 +92,15 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
                 </Typography.Title>
               </Col>
             </Row>
-            <Row gutter={16} style={{ marginTop: 10 }} >
+            <Row gutter={16} style={{ marginTop: 0 }} >
 
               <Typography.Title level={2}>{currentService.name}</Typography.Title>
 
-
             </Row>
-            <Row gutter={16} style={{ marginTop: 10 }} >
-              <div>
-                <Paragraph style={{ fontSize: 18 }} >
-
-                  {currentService.short_description}
-                </Paragraph>
-              </div>
-
+            <Row gutter={16} style={{ marginTop: 0 }} >
+              <Paragraph style={{ fontSize: 14 }} >
+                {currentService.short_description}
+              </Paragraph>
             </Row>
             <Row gutter={16} key={currentService.id}  >
               <Collapse
@@ -111,7 +108,10 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
                 defaultActiveKey={["1"]}
                 expandIcon={({ isActive }) => (isActive ? <CaretUp /> : <CaretDown />)}
                 expandIconPosition="end"
-                style={{ background: theme.token.darkGray_1, border: "1px solid", borderColor: theme.token.gray_1, width: "100%" }}
+                style={{
+                  background: theme.token.darkGray_1, border: "1px solid",
+                  borderColor: theme.token.gray_1, width: "100%"
+                }}
                 items={getItems(currentService, t)}
               />
 
@@ -123,8 +123,16 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
                 </Typography.Title>
               </Col>
               {servicePlanLoading || servicePlanResponse?.result === undefined ?
-
-                <Skeleton.Node active style={{ width: 160, height: 200 }} /> :
+                <Col
+                  xs={24}
+                  sm={12}
+                  md={10}
+                  lg={8}
+                  xl={8}
+                  style={{ display: "flex", justifyContent: "center" }}
+                >
+                  <Card loading={true} style={{ minWidth: 300 }} />
+                </Col> :
                 <>
                   {servicePlanResponse?.result?.map((row: ServicePlan) => (
                     <Col

@@ -1,52 +1,85 @@
-import { ServicePlan } from "@/lib/features/servicePlan/servicePlanInterface";
-import { Button, Card, Typography } from "antd";
-import Paragraph from "antd/es/typography/Paragraph";
+import { ServicePlan, ServicePlanOption } from "@/lib/features/servicePlan/servicePlanInterface";
+import { Button, Card, Col, Row, Typography } from "antd";
 import { useI18n } from "../../../../../../../../locales/client";
 import { theme } from "@/styles/theme";
 
 export default function ServicePlanCard({ servicePlan }: { servicePlan: ServicePlan }) {
-    console.log("servicePlan=== ", servicePlan);
     const t = useI18n();
-
     return (
-        <Card style={{ height: "100%", width: "100%", padding: 0 }}>
-            <div style={{ height: "300px" }}>
-                <Typography.Title level={3} style={{ paddingBottom: 20, textAlign: "center" }}>
-                    {servicePlan.plan.name}
-                </Typography.Title>
-                <Paragraph style={{ fontSize: 20, }}>
-                    {servicePlan.limit}
-                </Paragraph>
-                <Paragraph style={{ fontSize: 20, }}>
-                    Standard Support
-                </Paragraph>
-                <Paragraph style={{ fontSize: 20, }}>
-                    Location Module
-                </Paragraph>
-                <div
+        <Card
+            style={{
+                display: "flex",
+                flexDirection: "column",
+                height: "100%",
+                borderColor: theme.token.gray_1,
+                boxShadow: "none"
+            }}
+            styles={{
+                body: { flex: 1, display: "flex", flexDirection: "column" },
+            }}
+            onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = theme.token.orange_7;
+                e.currentTarget.style.boxShadow = `4px 4px 10px 0px ${theme.token.orange_7}`;
+            }}
+            onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = theme.token.gray_1;
+                e.currentTarget.style.boxShadow = "none";
+            }}
+        >
+
+            <Typography.Title level={3} style={{ textAlign: "center" }}>
+                {servicePlan.plan.name}
+            </Typography.Title>
+
+            <div style={{ flex: 1, paddingBottom: "16px" }}>
+                {servicePlan.options.map((row: ServicePlanOption) => (
+                    <Row gutter={16} key={row.id} align="middle">
+                        <Col span={2}>
+                            <Typography.Paragraph style={{ fontSize: 25, color: theme.token.gray_0 }}>
+                                {row.icon}
+                            </Typography.Paragraph>
+                        </Col>
+                        <Col span={22}>
+                            <Typography.Paragraph style={{ fontSize: 16, color: theme.token.gray_0 }}>
+                                <div dangerouslySetInnerHTML={{ __html: row.html_content }} />
+                            </Typography.Paragraph>
+                        </Col>
+                    </Row>
+                ))}
+            </div>
+
+            <div
+                style={{
+                    padding: "16px",
+                    display: "inline-block",
+                }}
+            >
+                <Button
                     style={{
-                        position: "absolute",
-                        bottom: "20px", left: 0,
+                        color: theme.token.colorWhite,
+                        backgroundColor: theme.token.orange_7,
+                        border: "none",
                         width: "100%",
-                        display: "flex",
-                        justifyContent: "center"
+                        paddingBlock: 20,
+                        fontWeight: 600,
+                        fontSize: 20,
                     }}
                 >
-                    <Button
-                        style={{
-                            color: "rgba(220, 233, 245, 0.88)",
-                            backgroundColor: theme.token.orange_7,
-                            border: "none",
-                            width: "90%",
-                            paddingBlock: 20,
-                            fontWeight: 600,
-                            fontSize: 20,
-                        }}
-                    >
-                        {t("subscrib")}
-                    </Button>
-                </div>
+                    {t("subscrib")}
+                </Button>
+                
+                <Typography.Paragraph style={{ fontSize: 25, fontWeight:600, color: theme.token.colorWhite, textAlign:"center" }}> {servicePlan.price}
+                   <span style={{fontSize: 16, fontWeight:400}}> DZD/Month</span>  
+                </Typography.Paragraph>
+              
             </div>
         </Card>
+
+
+
+
+
+
+
     )
 }
