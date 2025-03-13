@@ -12,7 +12,6 @@ export default async function federatedLogout() {
         }
         throw new Error(data.error);
     } catch (error) {
-        console.log(error)
         alert(error);
         await signOut({ redirect: false });
         window.location.href = "/";

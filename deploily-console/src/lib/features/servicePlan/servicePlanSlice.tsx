@@ -30,8 +30,6 @@ const ServicePlanSlice = createSlice({
           Object.assign({ key: index }, { id: id }, action.payload.result[index]),
         );
         const payload = Object.assign({}, action.payload, { result: result });
-        console.log(payload);
-
         state.servicePlanResponse = payload;
       })
       .addCase(fetchServicePlan.rejected, (state, { payload }) => {

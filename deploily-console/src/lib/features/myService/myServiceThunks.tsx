@@ -65,7 +65,6 @@ export const fetchMyServiceById = createAsyncThunk(
 export const postMyService = createAsyncThunk(
   "myServices/postMyService",
   async (data: any, thunkConfig) => {
-    console.log("postMyService=== ", data);
     
     try {
       const session = await getSession();
