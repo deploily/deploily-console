@@ -3,6 +3,7 @@ const primaryColor = "#D85912";
 export const theme = {
   token: {
     colorPrimary: primaryColor,
+    colorWhite:"white",
     colorInfo: "#206fba",
     colorSuccess: "#2b7904",
     colorWarning: "#fadb14",
@@ -14,6 +15,7 @@ export const theme = {
     orange_6: "#DD8859",
     orange_7: "#D85912",
     darkGray_1:"#202227",
+    gray_0:"#D0CECE",
     gray_1:"#4E4E4E",
     borderRadius: 8,
     fontSize: 14,
