@@ -15,15 +15,23 @@ export interface ServicePlan {
   id: number;
   key: number;
   limit: string;
-  price:number;
-  name:string;
-  plan:Plan;
-  ubscription_category:"string";
-  service_id:number;
-  service:ApiServiceInterface
+  price: number;
+  name: string;
+  plan: Plan;
+  ubscription_category: "string";
+  service_id: number;
+  service: ApiServiceInterface;
+  options: ServicePlanOption[];
 }
 
 export interface Plan {
   id: number;
   name: string;
+}
+
+export interface ServicePlanOption {
+  id: number;
+  icon: string;
+  html_content: string;
+
 }
