@@ -4,7 +4,7 @@ import {fetchApiServices, getApiServiceById} from "./apiServiceThunks";
 
 interface ApiServiceState {
   apiServiceResponse?: ApiServiceResponse;
-  isLoading: boolean;
+  isLoadingServiceResponse: boolean;
   apiServiceLoadingError?: any;
   serviceLoading: boolean;
   currentService?: ApiServiceInterface;
@@ -13,7 +13,7 @@ interface ApiServiceState {
 
 const initialState: ApiServiceState = {
   apiServiceResponse: undefined,
-  isLoading: false,
+  isLoadingServiceResponse: false,
   apiServiceLoadingError: undefined,
   serviceLoading: false,
   service_id: undefined,
@@ -25,10 +25,10 @@ const ApiServiceSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchApiServices.pending, (state) => {
-        state.isLoading = true;
+        state.isLoadingServiceResponse = true;
       })
       .addCase(fetchApiServices.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.isLoadingServiceResponse = false;
         state.apiServiceLoadingError = null;
         const result = action.payload.ids.map((id: number, index: any) =>
           Object.assign({}, {id: id}, action.payload.result[index]),
@@ -37,7 +37,7 @@ const ApiServiceSlice = createSlice({
         state.apiServiceResponse = payload;
       })
       .addCase(fetchApiServices.rejected, (state, {payload}) => {
-        state.isLoading = false;
+        state.isLoadingServiceResponse = false;
         state.apiServiceLoadingError = payload;
       })
       //CHECK IF SERVICE EXIST OR NOT
