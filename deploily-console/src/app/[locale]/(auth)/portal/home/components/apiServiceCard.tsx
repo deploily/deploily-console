@@ -26,8 +26,8 @@ export default function ApiServiceCard({ service }: { service: ApiServiceInterfa
   return (
     <Card style={{ height: "100%", width: "100%", padding: 0 }}>
       <div style={{ height: "300px" }}>
-        <Row align="middle" gutter={16} style={{ height: "50%" }} >
-          <Col span={12} style={{height:"100%",}} >
+        <Row align="middle" gutter={16} style={{ height: "40%" }} >
+          <Col span={12} style={{ height: "100%", }} >
             <Badge count={<Button style={{ border: "none", backgroundColor: "transparent", boxShadow: "none" }}
               icon={service.is_in_favorite == true ?
                 <Star size={25} weight="fill" color="#FC3232" /> :
@@ -47,31 +47,22 @@ export default function ApiServiceCard({ service }: { service: ApiServiceInterfa
           </Col>
           <Col span={12}
             style={{
-              height:"100%",
+              height: "100%",
               fontWeight: "bold",
               fontFamily: "Inter, sans-serif"
             }}>
-
-            <Row 
-            style={{ height: "60%" }}
-            >
-              <Paragraph ellipsis={{ rows: 2, expandable: false }} style={{ fontSize: 20, }}>
-                {service.name}
-              </Paragraph>
-            </Row>
-            <Row
-             style={{ height: "40%" }}
-             >
-              <Paragraph style={{ color: "#DD8859", fontSize: 20, }}>
-                {service.unit_price} DZD
-              </Paragraph>
-            </Row>
+            <Paragraph style={{ color: "#DD8859", fontSize: 16, }}>
+              {service.unit_price} DZD
+            </Paragraph>
           </Col>
         </Row>
 
-        <Row style={{ height: "30%" }}>
+        <Row style={{ height: "40%" }}>
           <div>
-            <Paragraph ellipsis={{ rows: 3, expandable: false }} style={{ paddingTop: "10px" }}>
+            <Paragraph ellipsis={{ rows: 2, expandable: false }} style={{ fontSize: 20, }}>
+              {service.name}
+            </Paragraph>
+            <Paragraph ellipsis={{ rows: 3, expandable: false }} style={{ paddingTop: "0px" }}>
               {service.short_description}
             </Paragraph>
           </div>
