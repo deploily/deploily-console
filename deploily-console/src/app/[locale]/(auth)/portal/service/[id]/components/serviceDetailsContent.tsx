@@ -17,16 +17,27 @@ import { fetchServicePlan } from "@/lib/features/servicePlan/servicePlanThanks";
 import { useServicePlan } from "@/lib/features/servicePlan/servicePlanSelector";
 import { ServicePlan } from "@/lib/features/servicePlan/servicePlanInterface";
 import ServicePlanCard from "./servicePlanCard";
+import { useState } from "react";
+import SubscriptionDrawer from "./subscriptionDrawer";
 
 export default function ServiceDetailsContentPage({ serviceId }: { serviceId: string }) {
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const [planSelected, setSelectedPlan] = useState(undefined);
 
+  const showDrawer = (plan:any) => {
+     setSelectedPlan(plan);
+    setOpenDrawer(true);
+  };
+
+  const onClose = () => {
+    setOpenDrawer(false);
+  };
   const t = useI18n();
   const { currentService, serviceLoading } = useAllServices();
   const { favoriteServiceAdded, favoriteServiceDeleted } = useFavoriteServices()
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { servicePlanResponse, servicePlanLoading } = useServicePlan()
-  
   useEffect(() => {
     dispatch(getApiServiceById(serviceId));
     dispatch(fetchServicePlan(serviceId))
@@ -51,7 +62,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
         <Button style={{ border: "none", background: "#030303", boxShadow: "none" }}
           icon={<ArrowLeft color="#D85912" size={35} />} onClick={() => router.back()} />
       </div>
-      <Space direction="vertical" size="large" style={{ paddingInline: 40, marginBlock: 10, width: "100%" }}>
+      <Space direction="vertical" size="large" style={{ paddingInline: 40, marginBlock: 10, width: "100%"  ,marginBottom:50}}>
         {(serviceLoading || currentService === undefined) ?
           <>
             <Skeleton.Image active />
@@ -144,13 +155,15 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
                       xl={8}
                       style={{ display: "flex", justifyContent: "center" }}
                     >
-                      <ServicePlanCard key={row.id} servicePlan={row} />
+                      <ServicePlanCard key={row.id} servicePlan={row}  showDrawer={() => showDrawer(row)}/>
+                     
 
                     </Col>
                   ))}
                 </>
               }
             </Row>
+            <SubscriptionDrawer openDrawer={openDrawer} onClose={onClose} planSelected={planSelected}/>
           </>
         }
 

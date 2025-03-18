@@ -3,7 +3,7 @@ import { Button, Card, Col, Row, Typography } from "antd";
 import { useI18n } from "../../../../../../../../locales/client";
 import { theme } from "@/styles/theme";
 
-export default function ServicePlanCard({ servicePlan }: { servicePlan: ServicePlan }) {
+export default function ServicePlanCard({ servicePlan, showDrawer }: { servicePlan: ServicePlan, showDrawer: any }) {
     const t = useI18n();
     return (
         <Card
@@ -15,7 +15,7 @@ export default function ServicePlanCard({ servicePlan }: { servicePlan: ServiceP
                 boxShadow: "none"
             }}
             styles={{
-                body: { flex: 1, display: "flex", flexDirection: "column" },
+                body: { flex: 1, display: "flex", flexDirection: "column", paddingBottom: 0  },
             }}
             onMouseEnter={(e) => {
                 e.currentTarget.style.borderColor = theme.token.orange_7;
@@ -30,6 +30,11 @@ export default function ServicePlanCard({ servicePlan }: { servicePlan: ServiceP
             <Typography.Title level={3} style={{ textAlign: "center" }}>
                 {servicePlan.plan.name}
             </Typography.Title>
+
+            <Typography.Paragraph style={{ fontSize: 25, fontWeight: 600, color: theme.token.orange_6, textAlign: "center" }}>
+                {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(servicePlan.price)}
+                <span style={{ fontSize: 16, fontWeight: 400 }}> DZD/Month</span>
+            </Typography.Paragraph>
 
             <div style={{ flex: 1, paddingBottom: "16px" }}>
                 {servicePlan.options.map((row: ServicePlanOption) => (
@@ -55,6 +60,7 @@ export default function ServicePlanCard({ servicePlan }: { servicePlan: ServiceP
                 }}
             >
                 <Button
+                    onClick={showDrawer}
                     style={{
                         color: theme.token.colorWhite,
                         backgroundColor: theme.token.orange_7,
@@ -67,11 +73,6 @@ export default function ServicePlanCard({ servicePlan }: { servicePlan: ServiceP
                 >
                     {t("subscrib")}
                 </Button>
-                
-                <Typography.Paragraph style={{ fontSize: 25, fontWeight:600, color: theme.token.colorWhite, textAlign:"center" }}> {servicePlan.price}
-                   <span style={{fontSize: 16, fontWeight:400}}> DZD/Month</span>  
-                </Typography.Paragraph>
-              
             </div>
         </Card>
 

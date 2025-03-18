@@ -1,3 +1,4 @@
+
 const primaryColor = "#D85912";
 
 export const theme = {
@@ -15,7 +16,7 @@ export const theme = {
     orange_6: "#DD8859",
     orange_7: "#D85912",
     darkGray_1:"#202227",
-    gray_0:"#D0CECE",
+    gray_0: "#D0CECE",
     gray_1:"#4E4E4E",
     borderRadius: 8,
     fontSize: 14,
@@ -50,6 +51,10 @@ export const theme = {
       borderColorDisabled: "rgb(76,150,215)",
       defaultActiveBorderColor: "rgb(76,150,215)",
       colorText: "rgba(0,0,0,0)",
+    },
+    Select: {
+      optionSelectedBg: "#D85912",
+      optionActiveBg: "#DD8859",
     },
   },
 };
