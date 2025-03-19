@@ -11,5 +11,7 @@ export const deploilyApiUrls = {
   SUPPORT_TICKET_URL: `${process.env.API_BASE_URL}/support-ticket/`,
   LOGIN_URL: `${process.env.API_BASE_URL}/security/login/`,
   SERVICE_PARAMETER_URL: ` ${process.env.API_BASE_URL }/parameter/`,
-  SERVICE_PARAMETER_VALUES_URL: ` ${process.env.API_BASE_URL }/parameter-value/`
+  SERVICE_PARAMETER_VALUES_URL: ` ${process.env.API_BASE_URL }/parameter-value/`,
+  PROFILE_URL: `${process.env.API_BASE_URL}/profile/`
+
 };

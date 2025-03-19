@@ -18,6 +18,7 @@ export const theme = {
     darkGray_1:"#202227",
     gray_0: "#D0CECE",
     gray_1:"#4E4E4E",
+    green:"#28b609",
     borderRadius: 8,
     fontSize: 14,
     fontFamily: "Inter, sans-serif",
@@ -53,8 +54,11 @@ export const theme = {
       colorText: "rgba(0,0,0,0)",
     },
     Select: {
+     
       optionSelectedBg: "#D85912",
       optionActiveBg: "#DD8859",
     },
+   
   },
+  
 };

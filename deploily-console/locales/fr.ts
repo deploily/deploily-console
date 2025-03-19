@@ -79,7 +79,12 @@ export default {
   'subscription.price': 'Prix :',
   'subscription.selectProfile': 'Sélectionner un profil',
   'subscription.subscribeService': 'S’abonner au service',
-  'subscription.month': 'Mois'
+  'subscription.month': 'Mois',
+  'subscription.confirm': 'Confirmer',
+  'subscription.sufficientBalance': 'Votre solde est suffisant pour effectuer ce paiement.',
+  'subscription.insufficientBalance': 'Votre solde est insuffisant pour effectuer ce paiement.',
+  'subscription.profile': 'Profil',
+  'subscription.balance': 'Solde',
 
 
 } as const

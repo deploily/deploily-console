@@ -80,6 +80,12 @@ export default {
     'subscription.price': 'Price :',
     'subscription.selectProfile': 'Select  Profile',
     'subscription.subscribeService': 'Subscribe Service',
-    'subscription.month': 'Month'
+    'subscription.month': 'Month',
+    'subscription.confirm': 'Confirm',
+    'subscription.sufficientBalance': 'Your account balance is sufficient to complete this payment.',
+    'subscription.insufficientBalance': 'Your account balance is insufficient to complete this payment.',
+    'subscription.profile': 'Profile',
+    'subscription.balance': 'Balance',
+
 
 } as const

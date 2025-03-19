@@ -8,6 +8,7 @@ import serviceParameterValuesSlice from "./features/myServiceParameterValues/myS
 import supportTicketSlice from "./features/support-ticket/supportTicketSlice"
 import myServiceSlice from "./features/myService/myServiceSlice"
 import servicePlanSlice from "./features/servicePlan/servicePlanSlice"
+import ProfileServiceSlice from "./features/profile/profileServiceSlice"
 
 export const makeStore = () => {
   return configureStore({
@@ -20,7 +21,8 @@ export const makeStore = () => {
       serviceParameterValues: serviceParameterValuesSlice,
       supportTicket: supportTicketSlice,
       myService: myServiceSlice,
-      servicePlan: servicePlanSlice
+      servicePlan: servicePlanSlice,
+      profileService: ProfileServiceSlice,
     },
   });
 };
