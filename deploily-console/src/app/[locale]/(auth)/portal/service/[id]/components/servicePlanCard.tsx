@@ -71,7 +71,7 @@ export default function ServicePlanCard({ servicePlan, showDrawer }: { servicePl
                         fontSize: 20,
                     }}
                 >
-                    {t("subscrib")}
+                    {t("subscribe")}
                 </Button>
             </div>
         </Card>
