@@ -1,7 +1,7 @@
 "use client";
 import {Row} from "antd";
 import {useI18n} from "../../../../../../locales/client";
-import MyServiceContentPage from "./components/myservicesContainer";
+import MyServiceContentPage from "./components/myServiceContainer";
 
 export default function Page() {
   const t = useI18n();

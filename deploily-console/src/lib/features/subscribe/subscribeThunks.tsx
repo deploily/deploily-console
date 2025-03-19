@@ -3,8 +3,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { getSession } from "next-auth/react";
 
-export const fetchMyServices = createAsyncThunk(
-  "myServices/getMyServices",
+export const fetchSubscribe = createAsyncThunk(
+  "subscribe/getSubscribe",
   async (_, thunkConfig) => {
     try {
       const session = await getSession();
@@ -14,7 +14,7 @@ export const fetchMyServices = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axios.get(`${deploilyApiUrls.My_SERVICE_URL}`, {
+      const response = await axios.get(`${deploilyApiUrls.SUBSCRIBE_URL}`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
@@ -26,7 +26,7 @@ export const fetchMyServices = createAsyncThunk(
         return response.data;
       }
       else {
-        return thunkConfig.rejectWithValue("Failed to fetch my services");
+        return thunkConfig.rejectWithValue("Failed to fetch subscribes");
       }
 
      
@@ -35,8 +35,8 @@ export const fetchMyServices = createAsyncThunk(
     }
   },
 );
-export const fetchMyServiceById = createAsyncThunk(
-  "myServices/getMyService",
+export const fetchSubscribeById = createAsyncThunk(
+  "subscribe/getSubscribeById",
   async (myService_id: string, thunkConfig) => {
       try {
           const session = await getSession();
@@ -45,7 +45,7 @@ export const fetchMyServiceById = createAsyncThunk(
           }
           const token = session.accessToken;
 
-          const response = await axios.get(`${deploilyApiUrls.My_SERVICE_URL}${myService_id}`, {
+          const response = await axios.get(`${deploilyApiUrls.SUBSCRIBE_URL}${myService_id}`, {
               headers: {
                   Accept: "application/json",
                   Authorization: `Bearer ${token}`,
@@ -54,7 +54,7 @@ export const fetchMyServiceById = createAsyncThunk(
           if (response.status === 200) {
               return response.data;
           } else {
-              return thunkConfig.rejectWithValue("Failed to fetch my service");
+              return thunkConfig.rejectWithValue("Failed to fetch subscribe");
           }
       } catch (error: any) {
           return thunkConfig.rejectWithValue(error.response.data.message);
@@ -62,8 +62,8 @@ export const fetchMyServiceById = createAsyncThunk(
   },
 );
 
-export const postMyService = createAsyncThunk(
-  "myServices/postMyService",
+export const postSubscribe = createAsyncThunk(
+  "subscribe/postSubscribe",
   async (data: any, thunkConfig) => {
     
     try {
@@ -73,7 +73,7 @@ export const postMyService = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axios.post(`${deploilyApiUrls.My_SERVICE_URL}`, data, {
+      const response = await axios.post(`${deploilyApiUrls.SUBSCRIBE_URL}`, data, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
@@ -82,7 +82,7 @@ export const postMyService = createAsyncThunk(
       if (response.status === 200) {
         return response.data;
       } else {
-        return thunkConfig.rejectWithValue("Failed to create new my service");
+        return thunkConfig.rejectWithValue("Failed to create new subscribe");
       }
     } catch (error: any) {
       return thunkConfig.rejectWithValue(error.message);
@@ -99,7 +99,7 @@ export const generateTokenThunk = createAsyncThunk(
               return thunkConfig.rejectWithValue("session expired");
           }
           const token = session.accessToken;
-          const response = await axios.post(`${deploilyApiUrls.My_SERVICE_URL}${myService_id}/consumer`,{}, {
+          const response = await axios.post(`${deploilyApiUrls.SUBSCRIBE_URL}${myService_id}/consumer`,{}, {
               headers: {
                   Accept: "application/json",
                   Authorization: `Bearer ${token}`,

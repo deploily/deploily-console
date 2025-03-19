@@ -6,7 +6,7 @@ import favoriteServiceSlice from "./features/favorites/favoriteServiceSlice";
 import serviceParametersSlice from "./features/serviceParameters/serviceParametersSlice";
 import serviceParameterValuesSlice from "./features/myServiceParameterValues/myServiceParameterValuesSlice";
 import supportTicketSlice from "./features/support-ticket/supportTicketSlice"
-import myServiceSlice from "./features/myService/myServiceSlice"
+import subscribeSlice from "./features/subscribe/subscribeSlice"
 import servicePlanSlice from "./features/servicePlan/servicePlanSlice"
 
 export const makeStore = () => {
@@ -19,7 +19,7 @@ export const makeStore = () => {
       serviceParameters: serviceParametersSlice,
       serviceParameterValues: serviceParameterValuesSlice,
       supportTicket: supportTicketSlice,
-      myService: myServiceSlice,
+      subscribe: subscribeSlice,
       servicePlan: servicePlanSlice
     },
   });

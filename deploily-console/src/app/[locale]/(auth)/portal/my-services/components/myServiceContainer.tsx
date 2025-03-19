@@ -1,31 +1,31 @@
 import { useEffect } from "react";
 import { Row, Col } from "antd";
 import { useAppDispatch } from "@/lib/hook";
-import MyServiceCard from "./myServicesCard";
-import { fetchMyServices } from "@/lib/features/myService/myServiceThunks";
-import { useMyService } from "@/lib/features/myService/myServiceSelectors";
-import { MyServiceInterface } from "@/lib/features/myService/myServiceInterface";
+import MyServiceCard from "./MyServiceCard";
+import { fetchSubscribe } from "@/lib/features/subscribe/subscribeThunks";
+import {  useSubscribe } from "@/lib/features/subscribe/subscribeSelectors";
+import { SubscribeInterface } from "@/lib/features/subscribe/subscribeInterface";
 
 export default function MyServiceContentPage() {
   const dispatch = useAppDispatch();
-  const {myServiceLoading, myServiceResponse} = useMyService()
-  
+  const { subscribeLoading, subscribeResponse } = useSubscribe()
+
   useEffect(() => {
-    dispatch(fetchMyServices());
+    dispatch(fetchSubscribe());
   }, []);
 
   return (
     <>
-      {!myServiceLoading && myServiceResponse !== undefined && (
+      {!subscribeLoading && subscribeResponse !== undefined && (
         <Row gutter={[24, 24]} justify="start" style={{ margin: 0 }}>
-          {myServiceResponse?.result?.map((row: MyServiceInterface) => (
+          {subscribeResponse?.result?.map((row: SubscribeInterface) => (
             <Col
               key={row.id}
               xs={24}
               sm={12}
               md={10}
               lg={8}
-              xl={6}
+              xl={8}
               style={{ display: "flex", justifyContent: "center" }}
             >
               <MyServiceCard data={row} />

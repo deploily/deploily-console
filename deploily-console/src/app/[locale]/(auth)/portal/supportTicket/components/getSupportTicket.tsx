@@ -8,7 +8,7 @@ import { fetchSupportTicket } from "@/lib/features/support-ticket/supportTicketT
 import { SupportTicket } from "@/lib/features/support-ticket/supportTicketInterface";
 import { useSupportTicket } from "@/lib/features/support-ticket/supportTicketSelector";
 import { useRouter } from "next/navigation";
-import { MyServiceInterface } from "@/lib/features/myService/myServiceInterface";
+import { MyServiceInterface } from "@/lib/features/subscribe/subscribeInterface";
 
 export default function GetSupportTecket() {
     const dispatch = useAppDispatch();
