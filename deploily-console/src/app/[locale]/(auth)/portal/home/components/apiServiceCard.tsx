@@ -31,7 +31,7 @@ export default function ApiServiceCard({ service }: { service: ApiServiceInterfa
             <Badge count={<Button style={{ border: "none", backgroundColor: "transparent", boxShadow: "none" }}
               icon={service.is_in_favorite == true ?
                 <Star size={25} weight="fill" color="#FC3232" /> :
-                <Star size={25} color="#7D7D7D" />} onClick={() =>
+                <Star size={25} weight="fill" color="#7D7D7D" />} onClick={() =>
                   handleFavoriteService(service.id)
                 } />}
               offset={[-12, 12]}>
