@@ -52,9 +52,9 @@ export default {
   'parameterValue': 'Valeurs des paramètres',
   'ganerateKey': 'GÉNÉRER LA CLÉ',
   "placeholderGenerate": "Cliquer pour générer la clé",
-  "SelectServicePlan":"Sélectionnez le plan de service",
-  "subscrib":"SUBSCRIB",
-  
+  "SelectServicePlan": "Sélectionnez le plan de service",
+  "subscrib": "SUBSCRIB",
+
   'supportTicket.supportTicket': "Ticket d'assistance",
   'supportTicket.details': 'Détails',
   'supportTicket.title': 'Titre',
@@ -69,4 +69,17 @@ export default {
   'createSupportTicket.description': 'Description*',
   'createSupportTicket.createTicket': 'Créer un ticket',
   'createSupportTicket.uploadFile': 'Télécharger un fichier',
+
+  'subscription.title': 'S’abonner',
+  'subscription.serviceName': 'Nom du service :',
+  'subscription.servicePlanSelected': 'Plan de service sélectionné :',
+  'subscription.duration': 'Durée :',
+  'subscription.totalAmount': 'Montant total :',
+  'subscription.promoCode': 'Code promo :',
+  'subscription.price': 'Prix :',
+  'subscription.selectProfile': 'Sélectionner un profil',
+  'subscription.subscribeService': 'S’abonner au service',
+  'subscription.month': 'Mois'
+
+
 } as const

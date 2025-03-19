@@ -2,7 +2,9 @@
 import { Card, Col, Drawer, Input, Row, Select, Space, Typography } from "antd";
 import { theme } from "@/styles/theme";
 import { useEffect, useState } from "react";
+import { useScopedI18n } from "../../../../../../../../locales/client";
 export default function SubscriptionDrawer({ openDrawer, onClose, planSelected }: { openDrawer: any, onClose: any, planSelected: any }) {
+  const translate = useScopedI18n('subscription');
   const [promoCode, setPromoCode] = useState("");
   const [promoPercent, setPromoPercent] = useState(0);
   const [promoColor, setPromoColor] = useState("red");
@@ -36,7 +38,7 @@ export default function SubscriptionDrawer({ openDrawer, onClose, planSelected }
   return (
     <>
       <Drawer
-        title="Subscribe Service"
+        title={translate("subscribeService")}
         placement="right"
         closable={true}
 
@@ -67,15 +69,15 @@ export default function SubscriptionDrawer({ openDrawer, onClose, planSelected }
               <Space direction="vertical" style={{ width: "100%" }}>
 
                 <Row gutter={16} align="top" >
-                  <Col span={14} >  <Typography.Text strong >Service Name :</Typography.Text></Col>
+                  <Col span={14} >  <Typography.Text strong >{translate("serviceName")}</Typography.Text></Col>
                   <Col span={10} > <Typography.Text >{planSelected.service.name}</Typography.Text></Col>
                 </Row>
                 <Row gutter={16} align="top" >
-                  <Col span={14} >  <Typography.Text strong >Service Plan selected :</Typography.Text></Col>
+                  <Col span={14} >  <Typography.Text strong >{translate("servicePlanSelected")}</Typography.Text></Col>
                   <Col span={10} > <Typography.Text >{planSelected.plan.name}</Typography.Text></Col>
                 </Row>
                 <Row gutter={16} align="top" >
-                  <Col span={14} >  <Typography.Text strong >Duration :</Typography.Text></Col>
+                  <Col span={14} >  <Typography.Text strong >{translate("duration")}</Typography.Text></Col>
                   <Col span={10} >
                     <Select
                       defaultValue={duration}
@@ -93,12 +95,12 @@ export default function SubscriptionDrawer({ openDrawer, onClose, planSelected }
                   </Col>
                 </Row>
                 <Row gutter={16} align="top" >
-                  <Col span={14} >  <Typography.Text strong >Total Amount :</Typography.Text></Col>
+                  <Col span={14} >  <Typography.Text strong >{translate("totalAmount")}</Typography.Text></Col>
                   <Col span={10} > <Typography.Text strong> {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(planSelected.price)} </Typography.Text>
                     <Typography.Text >  DZD   </Typography.Text> </Col>
                 </Row>
                 <Row gutter={16} align="top" >
-                  <Col span={14} >  <Typography.Text strong >Promo code :</Typography.Text></Col>
+                  <Col span={14} >  <Typography.Text strong >{translate("promoCode")}</Typography.Text></Col>
                   <Col span={10} >
                     <Input
                       placeholder=".........."
@@ -118,7 +120,7 @@ export default function SubscriptionDrawer({ openDrawer, onClose, planSelected }
                   </Col>
                 </Row>
                 <Row gutter={16} align="top" >
-                  <Col span={14} >  <Typography.Text strong >Price :</Typography.Text></Col>
+                  <Col span={14} >  <Typography.Text strong >{translate("price")}</Typography.Text></Col>
                   <Col span={10} color="red">
                     <Typography.Text strong  style={{fontSize: 16, fontWeight: 500, color: theme.token.orange_6}}>
                       {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(calculatePercentage(calculPrice(planSelected.price, duration), promoPercent))}
@@ -133,9 +135,7 @@ export default function SubscriptionDrawer({ openDrawer, onClose, planSelected }
           </Card>
 
 
-          <Typography.Title level={3} >
-            Select  Profile
-          </Typography.Title>
+          <Typography.Title level={3} >{translate("selectProfile")}</Typography.Title>
         </Col>
 
 
