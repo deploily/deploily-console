@@ -53,7 +53,7 @@ export default {
     'ganerateKey':'GENERATE KEY',
     "placeholderGenerate":"Click to generate token",
     "SelectServicePlan":"Select service plan",
-    "subscrib":"SUBSCRIB",
+    "subscribe":"SUBSCRIBE",
 
     'supportTicket.supportTicket': 'Support ticket',
     'supportTicket.details': 'Details',

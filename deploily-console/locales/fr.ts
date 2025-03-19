@@ -53,7 +53,7 @@ export default {
   'ganerateKey': 'GÉNÉRER LA CLÉ',
   "placeholderGenerate": "Cliquer pour générer la clé",
   "SelectServicePlan":"Sélectionnez le plan de service",
-  "subscrib":"SUBSCRIB",
+  "subscribe":"SUBSCRIBE",
   
   'supportTicket.supportTicket': "Ticket d'assistance",
   'supportTicket.details': 'Détails',
