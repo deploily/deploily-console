@@ -8,7 +8,7 @@ import { fetchSupportTicket } from "@/lib/features/support-ticket/supportTicketT
 import { SupportTicket } from "@/lib/features/support-ticket/supportTicketInterface";
 import { useSupportTicket } from "@/lib/features/support-ticket/supportTicketSelector";
 import { useRouter } from "next/navigation";
-import { MyServiceInterface } from "@/lib/features/subscribe/subscribeInterface";
+import { SubscribeInterface } from "@/lib/features/subscribe/subscribeInterface";
 
 export default function GetSupportTecket() {
     const dispatch = useAppDispatch();
@@ -47,7 +47,7 @@ export default function GetSupportTecket() {
                     title: t("service"),
                     dataIndex: element,
                     key: element,
-                    render: (myService: MyServiceInterface) => (myService !== undefined && myService.name),
+                    render: (myService: SubscribeInterface) => (myService !== undefined && myService.name),
 
                 }
             else
