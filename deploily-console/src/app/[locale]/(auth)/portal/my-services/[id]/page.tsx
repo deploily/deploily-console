@@ -1,11 +1,14 @@
-import MyServiceParameterPage from "../components/myServiceParameter";
+"use client";
+
+import MyServiceSettingContant from "./components/myServiceSettingContent";
+
 type Props = {
   params: { id: string };
 };
 export default function Page({ params: { id } }: Props) {
   return (
     <>
-      <MyServiceParameterPage cartLine_id={id} />
+      <MyServiceSettingContant subscribe_id={id} />
     </>
   );
 }
