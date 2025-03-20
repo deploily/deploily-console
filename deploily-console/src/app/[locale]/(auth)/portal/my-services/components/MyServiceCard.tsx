@@ -2,9 +2,10 @@ import { SubscribeInterface } from "@/lib/features/subscribe/subscribeInterface"
 import { IMAGES_URL } from "@/deploilyWebsiteUrls";
 import { useI18n } from "../../../../../../../locales/client";
 import { useRouter } from "next/navigation";
-import { Badge, Button, Card, Col, Image, Row, Space } from "antd";
+import { Badge, Button, Card, Col, Image, Row, Space, Typography } from "antd";
 import { Faders, Star } from "@phosphor-icons/react";
 import Paragraph from "antd/es/typography/Paragraph";
+import { CustomBlueButton } from "@/styles/components/buttonStyle";
 export default function MyServiceCard({ data }: { data: SubscribeInterface }) {
 
     const t = useI18n();
@@ -59,28 +60,20 @@ export default function MyServiceCard({ data }: { data: SubscribeInterface }) {
             <Space
                 style={{ position: "absolute", bottom: "20px", right: "20px" }}
             >
-                <Button
-                    style={{
-                        color: "#fff",
-                        backgroundColor: "#5394CC",
-                        border: "none",
-                        padding: "4px 8px",
-                    }}
-                    onClick={() => router.push(`/portal/service/${data.id}`)}
+                <CustomBlueButton
+                    onClick={() => router.push(`/portal/my-services/${data.id}`)}
                 >
-                    <Faders size={20} style={{ color: "rgba(220, 233, 245, 0.88)" }} />
-                    <span
+                    <Faders size={20}  />
+                    <Typography
                         style={{
-                            color: "rgba(220, 233, 245, 0.88)",
-                            fontFamily: "Inter, sans-serif",
                             fontSize: "16px",
-                            fontWeight: 600,
+                            fontWeight: 500,
                             paddingRight: 3
                         }}
                     >
-                        {t("settings")}
-                    </span>
-                </Button>
+                        {t("setting")}
+                    </Typography>
+                </CustomBlueButton>
             </Space>
         </Card>
     )
