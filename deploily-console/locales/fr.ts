@@ -36,7 +36,7 @@ export default {
   'TryForFree': 'ESSAYER GRATUITEMENT',
   'oneMonthFree': 'UN MOIS GRATUIT',
   'youLike': 'Vous aimerez peut-être aussi',
-  'settings': 'Paramètres',
+  'setting': 'Paramètre',
   'cancel': 'Annuler',
   'save': 'Enregistrer',
   'onDemandService': "Vous n'avez actuellement aucun service disponible. N'hésitez pas à créer un service !",
@@ -44,6 +44,7 @@ export default {
   'featuresSpecifications': 'Fonctionnalités et spécifications',
   'documentation': 'Documentation',
   'duration': 'Durée',
+  "remainingDuration":"Durée restante",
   'mois': 'mois',
   'startDate': 'Date de début',
   'accessUrl': "URL d'aceés",
@@ -54,6 +55,9 @@ export default {
   "placeholderGenerate": "Cliquer pour générer la clé",
   "SelectServicePlan":"Sélectionnez le plan de service",
   "subscribe":"SUBSCRIBE",
+  
+  "viewApiDocumentation":"View API documentation",
+
   
   'supportTicket.supportTicket': "Ticket d'assistance",
   'supportTicket.details': 'Détails',

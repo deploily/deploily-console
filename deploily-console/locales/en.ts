@@ -36,7 +36,7 @@ export default {
     'TryForFree': 'TRY FOR FREE',
     'oneMonthFree': 'ONE MONTH FREE',
     'youLike':'You might also like',
-    'settings': 'Settings',
+    'setting': 'Setting',
     'cancel': 'Cancel',
     'save': 'Save',
     'onDemandService': "You currently don't have any services available.Feel free to create a service!",
@@ -44,6 +44,7 @@ export default {
     'featuresSpecifications': 'Features and Specifications',
     'documentation': 'Documentation',
     'duration': 'Duration',
+    "remainingDuration":"Remaining duration",
     'month': 'month(s)',
     'startDate':'Start date',
     'accessUrl':'Access URL',
@@ -55,6 +56,8 @@ export default {
     "SelectServicePlan":"Select service plan",
     "subscribe":"SUBSCRIBE",
 
+    "viewApiDocumentation":"View API documentation",
+    
     'supportTicket.supportTicket': 'Support ticket',
     'supportTicket.details': 'Details',
     'supportTicket.title': 'Title',
