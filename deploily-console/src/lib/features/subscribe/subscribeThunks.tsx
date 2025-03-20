@@ -91,15 +91,16 @@ export const postSubscribe = createAsyncThunk(
 );
 
 export const generateTokenThunk = createAsyncThunk(
-  "myServices/generateToken",
-  async (myService_id: string, thunkConfig) => {
+  "subscribe/generateToken",
+  async (subscribe_id: string, thunkConfig) => {
       try {
           const session = await getSession();
           if (!session) {
               return thunkConfig.rejectWithValue("session expired");
           }
           const token = session.accessToken;
-          const response = await axios.post(`${deploilyApiUrls.SUBSCRIBE_URL}${myService_id}/consumer`,{}, {
+          
+          const response = await axios.post(`${deploilyApiUrls.SERVICE_CONSUMER}${subscribe_id}/consumer`, {
               headers: {
                   Accept: "application/json",
                   Authorization: `Bearer ${token}`,
