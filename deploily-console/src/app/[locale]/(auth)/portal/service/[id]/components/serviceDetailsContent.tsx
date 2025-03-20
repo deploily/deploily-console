@@ -129,7 +129,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
             </Row>
             <Row gutter={20}>
               <Col span={24}>
-                <Typography.Title level={2} style={{ color: theme.token.blue_1, fontSize: 24, }}>
+                <Typography.Title level={2} style={{ color: theme.token.blue_100, fontSize: 24, }}>
                   {t('SelectServicePlan')}
                 </Typography.Title>
               </Col>
