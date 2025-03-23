@@ -6,7 +6,7 @@ import { Badge, Button, Card, Col, Image, Row, Space, Typography } from "antd";
 import { Faders, Star } from "@phosphor-icons/react";
 import Paragraph from "antd/es/typography/Paragraph";
 import { CustomBlueButton } from "@/styles/components/buttonStyle";
-export default function MyServiceCard({ data }: { data: SubscribeInterface }) {
+export default function SubscriptionCard({ data }: { data: SubscribeInterface }) {
 
     const t = useI18n();
     const router = useRouter();
@@ -61,7 +61,7 @@ export default function MyServiceCard({ data }: { data: SubscribeInterface }) {
                 style={{ position: "absolute", bottom: "20px", right: "20px" }}
             >
                 <CustomBlueButton
-                    onClick={() => router.push(`/portal/my-services/${data.id}`)}
+                    onClick={() => router.push(`/portal/subscriptions/${data.id}`)}
                 >
                     <Faders size={20}  />
                     <Typography

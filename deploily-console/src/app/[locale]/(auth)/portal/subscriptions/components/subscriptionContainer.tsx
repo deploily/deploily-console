@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { Row, Col } from "antd";
 import { useAppDispatch } from "@/lib/hook";
-import MyServiceCard from "./MyServiceCard";
 import { fetchSubscribe } from "@/lib/features/subscribe/subscribeThunks";
 import {  useSubscribe } from "@/lib/features/subscribe/subscribeSelectors";
 import { SubscribeInterface } from "@/lib/features/subscribe/subscribeInterface";
+import SubscriptionCard from "./subscriptionCard";
 
-export default function MyServiceContentPage() {
+export default function SubscriptionContainer() {
   const dispatch = useAppDispatch();
   const { subscribeLoading, subscribeResponse } = useSubscribe()
 
@@ -28,7 +28,7 @@ export default function MyServiceContentPage() {
               xl={8}
               style={{ display: "flex", justifyContent: "center" }}
             >
-              <MyServiceCard data={row} />
+              <SubscriptionCard data={row} />
             </Col>
           ))}
         </Row>

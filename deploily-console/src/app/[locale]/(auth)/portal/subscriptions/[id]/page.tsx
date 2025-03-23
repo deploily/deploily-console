@@ -1,6 +1,7 @@
 "use client";
 
-import MyServiceSettingContant from "./components/myServiceSettingContent";
+import SubscriptionSettingContant from "./components/subscriptionSettingContant";
+
 
 type Props = {
   params: { id: string };
@@ -8,7 +9,7 @@ type Props = {
 export default function Page({ params: { id } }: Props) {
   return (
     <>
-      <MyServiceSettingContant subscribe_id={id} />
+      <SubscriptionSettingContant subscribe_id={id} />
     </>
   );
 }
