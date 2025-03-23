@@ -100,7 +100,7 @@ export const generateTokenThunk = createAsyncThunk(
           }
           const token = session.accessToken;
           
-          const response = await axios.post(`${deploilyApiUrls.SERVICE_CONSUMER}${subscribe_id}/consumer`, {
+          const response = await axios.post(`${deploilyApiUrls.SERVICE_CONSUMER}${subscribe_id}/consumer`, {}, {
               headers: {
                   Accept: "application/json",
                   Authorization: `Bearer ${token}`,
