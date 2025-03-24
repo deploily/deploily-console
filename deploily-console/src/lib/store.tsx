@@ -4,10 +4,11 @@ import cartSlice from "./features/cart/cartSlice";
 import cartLineSlice from "./features/cartLine/cartLineSlice";
 import favoriteServiceSlice from "./features/favorites/favoriteServiceSlice";
 import serviceParametersSlice from "./features/serviceParameters/serviceParametersSlice";
-import serviceParameterValuesSlice from "./features/myServiceParameterValues/myServiceParameterValuesSlice";
+import serviceParameterValuesSlice from "./features/subscribeParameterValues/subscribeParameterValuesSlice";
 import supportTicketSlice from "./features/support-ticket/supportTicketSlice"
 import subscribeSlice from "./features/subscribe/subscribeSlice"
 import servicePlanSlice from "./features/servicePlan/servicePlanSlice"
+import profileServiceSlice from "./features/profileService/profileServiceSlice"
 
 export const makeStore = () => {
   return configureStore({
@@ -20,7 +21,8 @@ export const makeStore = () => {
       serviceParameterValues: serviceParameterValuesSlice,
       supportTicket: supportTicketSlice,
       subscribe: subscribeSlice,
-      servicePlan: servicePlanSlice
+      servicePlan: servicePlanSlice,
+      profileService: profileServiceSlice
     },
   });
 };
