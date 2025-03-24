@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchServiceParametersValues } from "./myServiceParameterValuesThunks";
-import { ServiceParametersValuesResponse } from "./myServiceParameterValuesInterface";
+import { fetchServiceParametersValues } from "./subscribeParameterValuesThunks";
+import { ServiceParametersValuesResponse } from "./subscribeParameterValuesInterface";
 
 interface ServiceParametersValuesState {
   serviceParameterValuesList?: ServiceParametersValuesResponse;

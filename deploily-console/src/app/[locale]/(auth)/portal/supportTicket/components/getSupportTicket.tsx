@@ -24,7 +24,7 @@ export default function GetSupportTecket() {
     }, []);
 
     const keysToColumn = () => {
-        const list = ["title", "my_service", "status", "created_on"]
+        const list = ["title", "subscribe", "status", "created_on"]
 
         let columns = list.map((element: any) => {
             if (element === "created_on") {
@@ -42,12 +42,12 @@ export default function GetSupportTecket() {
                     key: element,
                     render: (status: any) => (status === "open" ? <span style={{ color: "#28B609" }} >{status}</span> : <span>{status}</span>),
                 };
-            else if (element == "my_service")
+            else if (element == "subscribe")
                 return {
                     title: t("service"),
                     dataIndex: element,
                     key: element,
-                    render: (myService: SubscribeInterface) => (myService !== undefined && myService.name),
+                    render: (subscribe: SubscribeInterface) => (subscribe !== undefined && subscribe.name),
 
                 }
             else
@@ -109,7 +109,7 @@ export default function GetSupportTecket() {
         }));
     return (
         <>
-            <Row gutter={16}>
+            <Row gutter={16} style={{marginTop:20}} >
                 <Col span={14}>
                     <Title level={3} style={{ fontWeight: 700, color: '#ffff' }}>
                         {t("supportTicket")}

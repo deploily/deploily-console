@@ -48,7 +48,7 @@ export default function CreateSupportTecket() {
         setFileList(newFile);
     const onFinish = (values: any) => {
         dispatch(postSupportTicket({
-            my_service_id: values.subscribe,
+            subscribe_id: values.subscribe,
             title: values.subject,
             description: values.description,
             image: (fileList && fileList.length > 0) ? fileList[0].thumbUrl : null,

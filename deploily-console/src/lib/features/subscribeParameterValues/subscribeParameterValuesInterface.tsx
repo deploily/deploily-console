@@ -11,10 +11,7 @@ export interface ServiceParametersValuesResponse {
 }
 export interface ServiceParameterValueInterface {
   id: number,
-  name: string,
-  service_id: number,
-  type: string,
-  cart_line_id: number,
+  subscribe_id: number,
   parameter: ParameterInterface,
   parameter_id: number,
   value: string

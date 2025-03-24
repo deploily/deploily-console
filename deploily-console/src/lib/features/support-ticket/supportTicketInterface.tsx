@@ -14,8 +14,8 @@ export interface SupportTicketResponse {
 export interface SupportTicket {
   id: number;
   key: number;
-  my_service_id: number;
-  my_service: SubscribeInterface;
+  subscribe_id: number;
+  subscribe: SubscribeInterface;
   title: string;
   description: string;
   status: string;
