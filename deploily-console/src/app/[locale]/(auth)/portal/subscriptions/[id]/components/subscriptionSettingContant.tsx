@@ -8,30 +8,37 @@ import { IMAGES_URL } from "@/deploilyWebsiteUrls";
 import { theme } from "@/styles/theme";
 import Paragraph from "antd/es/typography/Paragraph";
 import dayjs from "dayjs";
-import { useI18n } from "../../../../../../../../locales/client";
+import { useI18n, useScopedI18n } from "../../../../../../../../locales/client";
 import { CustomTypography } from "@/styles/components/typographyStyle";
 import { DatePickerStyle } from "@/styles/components/datePickerStyle";
-import { CustomSubscripionInput } from "@/styles/components/inputStyle";
-import { fetchServiceParametersValues } from "@/lib/features/myServiceParameterValues/myServiceParameterValuesThunks";
-import { useServiceParametersValues } from "@/lib/features/myServiceParameterValues/myServiceParameterValuesSelectors";
-import { CustomBlueButton, CustomOrangeButton } from "@/styles/components/buttonStyle";
+import { fetchServiceParametersValues } from "@/lib/features/subscribeParameterValues/subscribeParameterValuesThunks";
+import { useServiceParametersValues } from "@/lib/features/subscribeParameterValues/subscribeParameterValuesSelectors";
+import { CustomBlueButton, CustomErrorButton, CustomOrangeButton } from "@/styles/components/buttonStyle";
 import DocumentationDrawer from "./documentationDrawer";
+import { CustomSubscripionInput } from "@/styles/components/inputStyle";
 
 export default function SubscriptionSettingContant({ subscribe_id }: { subscribe_id: string }) {
     const t = useI18n();
+    const translate = useScopedI18n('subscription')
     const dispatch = useAppDispatch();
     const { currentSubscribe, currentSubscribeLoading, generatedToken } = useSubscribe()
     const { serviceParameterValuesList } = useServiceParametersValues();
     const [openDrawer, setOpenDrawer] = useState(false);
-
+    const [remainingDuration, setRemainingDuration] = useState<number>()
 
     const onClose = () => {
         setOpenDrawer(false);
     };
     useEffect(() => {
-        dispatch(fetchSubscribeById(subscribe_id));
+        if (currentSubscribe === undefined) {
+            dispatch(fetchSubscribeById(subscribe_id));
+        }
+        else {
+            setRemainingDuration ( getRemainingDuration(currentSubscribe.start_date, currentSubscribe.duration_month));
+        }
+
         dispatch(fetchServiceParametersValues(subscribe_id));
-    }, [generatedToken]);
+    }, [generatedToken, currentSubscribe]);
 
     const imageUrl = (image_service: string) => {
         return (
@@ -50,13 +57,12 @@ export default function SubscriptionSettingContant({ subscribe_id }: { subscribe
         const today = new Date();
 
         if (today >= end) {
-            return 0;
+            return 0
         }
 
         const diffInMonths =
             (end.getFullYear() - today.getFullYear()) * 12 + (end.getMonth() - today.getMonth());
-
-        return diffInMonths;
+        return (diffInMonths)
     }
 
     const generateApiKey = () => { dispatch(generateTokenThunk(subscribe_id)) }
@@ -109,7 +115,7 @@ export default function SubscriptionSettingContant({ subscribe_id }: { subscribe
                                     alignSelf: "start"
                                 }}>
                                     <CustomOrangeButton onClick={() => setOpenDrawer(true)} >
-                                        Documentation
+                                        {t('documentation')}
                                     </CustomOrangeButton>
                                 </Col>
                             </Row>
@@ -135,7 +141,7 @@ export default function SubscriptionSettingContant({ subscribe_id }: { subscribe
                         </Col>
                         <Col md={4} xs={24}>
                             <DatePickerStyle
-                                style={{ width: 160 }}
+                                style={{ width: 160, color: theme.token.colorWhite }}
                                 defaultValue={dayjs(currentSubscribe.start_date, "YYYY-MM-DD")}
                                 disabled
                                 suffixIcon={<CalendarDots size={24} style={{ color: theme.token.blue_200 }} />}
@@ -151,9 +157,10 @@ export default function SubscriptionSettingContant({ subscribe_id }: { subscribe
                         <Col md={20} xs={24}>
                             <CustomSubscripionInput
                                 defaultValue={`${currentSubscribe.duration_month} / month(s)`}
-                                style={{ width: 160 }} disabled />
+                                style={{ width: 160, color: theme.token.colorWhite }} disabled />
                         </Col>
                     </Row>
+
                     <Row gutter={[16, 10]}>
                         <Col md={4} xs={24} style={{ display: "flex", alignItems: "center" }}>
                             <CustomTypography >
@@ -163,24 +170,42 @@ export default function SubscriptionSettingContant({ subscribe_id }: { subscribe
                         <Col md={20} xs={24}>
                             <CustomSubscripionInput
                                 defaultValue={`${getRemainingDuration(currentSubscribe.start_date, currentSubscribe.duration_month)} / month(s)`}
-                                style={{ width: 160 }} disabled />
+                                style={{
+                                    width: 160,
+                                    color: remainingDuration !== undefined && remainingDuration <= 1 ? theme.token.colorError : theme.token.colorWhite
+                                }} disabled />
                         </Col>
                     </Row>
+
+                    {remainingDuration !== undefined && remainingDuration <= 1 &&
+                        <Row gutter={[16, 10]}>
+                            <Col md={16} xs={24} style={{ display: "flex", alignItems: "center" }}>
+                                <CustomTypography >
+                                    &quot;{translate('clickToRenewNow')}&quot;
+                                </CustomTypography>
+                            </Col>
+                            <Col md={8} xs={24}>
+                                <CustomErrorButton> {translate('renewNow')} </CustomErrorButton>
+                            </Col>
+                        </Row>
+                    }
                     {serviceParameterValuesList?.result?.find(paramVal => paramVal.parameter !== undefined && paramVal.parameter.type === "token") == null &&
                         <CustomBlueButton
                             onClick={generateApiKey}
-                            style={{ backgroundColor: theme.token.blue_100, width: "20rem" }}
+                            style={{ backgroundColor: theme.token.blue_100, width: "20rem", color: theme.token.colorWhite }}
                         >
                             {t('ganerateKey')}
                         </CustomBlueButton>}
-                    {serviceParameterValuesList?.result
-                        ?.filter(paramVal => paramVal.parameter !== undefined && paramVal.parameter.type === "token")
+
+                    {/* {serviceParameterValuesList?.result
+                        ?.filter(paramVal => paramVal.parameter !== undefined && paramVal.parameter.type !== "token")
                         .map((paramVal, index) => (
                             <div key={index} >
-                                <CustomSubscripionInput />
+                                <CustomTypography> {paramVal.parameter.name} </CustomTypography>
+                                <CustomSubscripionInput defaultValue={paramVal.value} />
                                 
                             </div>
-                        ))}
+                        ))} */}
 
                     <DocumentationDrawer openDrawer={openDrawer} onClose={onClose} currentSubscribe={currentSubscribe} t={t} />
                 </>}
