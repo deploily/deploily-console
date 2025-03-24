@@ -23,6 +23,7 @@ export default {
     'sidebar.erpcrm': 'ERP/CRM',
     'sidebar.billing': 'Billing',
     'sidebar.invoice': 'Invoice',
+    'sidebar.profilePayment': 'Profile payment',
     'sidebar.payments': 'Payments',
     'sidebar.documentation': 'Documentation',
     'sidebar.sponsoring': 'Sponsoring',
@@ -59,14 +60,16 @@ export default {
     "subscribe":"SUBSCRIBE",
 
     "viewApiDocumentation":"View API documentation",
-    
+    "subscription.clickToRenewNow":"Keep your service active without interruptions. Click to renew now.",
+    "subscription.renewNow": "Renew Now",
+
     'supportTicket.supportTicket': 'Support ticket',
     'supportTicket.details': 'Details',
     'supportTicket.title': 'Title',
     'supportTicket.status': 'Status',
     'supportTicket.service': 'Service',
     'supportTicket.created_on': 'Creation date',
-    
+
     'createSupportTicket.title': 'Create a new support ticket',
     'createSupportTicket.typography': 'Please assist us in directing your query to the appropriate team by selecting a server related to your request.',
     'createSupportTicket.selectService': 'Select service*',
@@ -74,4 +77,8 @@ export default {
     'createSupportTicket.description': 'Description*',
     'createSupportTicket.createTicket': 'Create a ticket',
     'createSupportTicket.uploadFile': 'Upload file',
+
+    'profilePayment.profilePayment': 'Profile payment',
+    'profilePayment.createProfile': 'create a profile ',
+    'profilePayment.fundBalance': 'Fund balance',
 } as const

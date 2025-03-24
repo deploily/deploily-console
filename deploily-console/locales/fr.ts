@@ -23,6 +23,7 @@ export default {
   'sidebar.erpcrm': 'ERP/CRM',
   'sidebar.billing': 'Facturation',
   'sidebar.invoice': 'Facture',
+  'sidebar.profilePayment': 'Paiement du profil',
   'sidebar.payments': 'Paiements',
   'sidebar.documentation': 'Documentation',
   'sidebar.sponsoring': 'Sponsoring',
@@ -46,7 +47,7 @@ export default {
   'featuresSpecifications': 'Fonctionnalités et spécifications',
   'documentation': 'Documentation',
   'duration': 'Durée',
-  "remainingDuration":"Durée restante",
+  "remainingDuration": "Durée restante",
   'mois': 'mois',
   'startDate': 'Date de début',
   'accessUrl': "URL d'aceés",
@@ -55,12 +56,13 @@ export default {
   'parameterValue': 'Valeurs des paramètres',
   'ganerateKey': 'GÉNÉRER LA CLÉ',
   "placeholderGenerate": "Cliquer pour générer la clé",
-  "SelectServicePlan":"Sélectionnez le plan de service",
-  "subscribe":"SUBSCRIBE",
-  
-  "viewApiDocumentation":"View API documentation",
+  "SelectServicePlan": "Sélectionnez le plan de service",
+  "subscribe": "SUBSCRIBE",
 
-  
+  "viewApiDocumentation": "View API documentation",
+  "subscription.clickToRenewNow": "Maintenez votre service actif sans interruption. Cliquez pour renouveler maintenant.",
+  "subscription.renewNow": "Renouveler maintenant",
+
   'supportTicket.supportTicket': "Ticket d'assistance",
   'supportTicket.details': 'Détails',
   'supportTicket.title': 'Titre',
@@ -75,4 +77,9 @@ export default {
   'createSupportTicket.description': 'Description*',
   'createSupportTicket.createTicket': 'Créer un ticket',
   'createSupportTicket.uploadFile': 'Télécharger un fichier',
+
+  'profilePayment.profilePayment': 'Paiement par profil',
+  'profilePayment.createProfile': 'Créer un profil',
+  'profilePayment.fundBalance': 'Solde du fonds',
+  
 } as const
