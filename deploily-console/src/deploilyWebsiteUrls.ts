@@ -12,6 +12,7 @@ export const deploilyApiUrls = {
   LOGIN_URL: `${process.env.API_BASE_URL}/security/login/`,
   SERVICE_PARAMETER_URL: ` ${process.env.API_BASE_URL }/parameter/`,
   SERVICE_PARAMETER_VALUES_URL: ` ${process.env.API_BASE_URL }/parameter-value/`,
-  PROFILE_URL: `${process.env.API_BASE_URL}/profile/`
-
+  PROFILE_URL: `${process.env.API_BASE_URL}/profile/`,
+  SERVICE_SUBSCRIPTION: `${process.env.API_BASE_URL}/service-subscription/`,
+  CHECK_PROMO_CODE: `${process.env.API_BASE_URL}/promo-code/`,
 };

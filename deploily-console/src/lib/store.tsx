@@ -9,6 +9,7 @@ import supportTicketSlice from "./features/support-ticket/supportTicketSlice"
 import myServiceSlice from "./features/myService/myServiceSlice"
 import servicePlanSlice from "./features/servicePlan/servicePlanSlice"
 import ProfileServiceSlice from "./features/profile/profileServiceSlice"
+import PormoCodeSlice from "./features/promoCode/promoCodeSlice"
 
 export const makeStore = () => {
   return configureStore({
@@ -23,6 +24,7 @@ export const makeStore = () => {
       myService: myServiceSlice,
       servicePlan: servicePlanSlice,
       profileService: ProfileServiceSlice,
+      promoCode: PormoCodeSlice,
     },
   });
 };
