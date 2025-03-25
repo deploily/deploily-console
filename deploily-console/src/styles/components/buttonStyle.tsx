@@ -20,6 +20,25 @@ export const CustomBlueButton = styled(Button)` &&
 }
 `;
 
+export const DeleteButton = styled(Button)` &&
+ {  
+    color: ${theme.token.colorWhite};
+    background-color: ${theme.token.red_5};
+    border: none;
+    border-raduis:10px;
+    padding: 4px 8px;
+    transition: background-color 0.3s ease;
+    box-shadow: none !important;
+
+     &:hover {
+      background-color: ${theme.token.red_5} !important;
+      color: ${theme.token.colorWhite} !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+}
+`;
+
 
 
 
