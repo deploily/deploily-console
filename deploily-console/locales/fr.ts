@@ -58,10 +58,13 @@ export default {
   "placeholderGenerate": "Cliquer pour générer la clé",
   "SelectServicePlan": "Sélectionnez le plan de service",
   "subscribe": "SUBSCRIBE",
+  "error": "Erreur",
+  "subTitleError": "Désolé, une erreur s'est produite.",
 
   "viewApiDocumentation": "View API documentation",
   "subscription.clickToRenewNow": "Maintenez votre service actif sans interruption. Cliquez pour renouveler maintenant.",
   "subscription.renewNow": "Renouveler maintenant",
+
 
   'supportTicket.supportTicket': "Ticket d'assistance",
   'supportTicket.details': 'Détails',
@@ -81,5 +84,22 @@ export default {
   'profilePayment.profilePayment': 'Paiement par profil',
   'profilePayment.createProfile': 'Créer un profil',
   'profilePayment.fundBalance': 'Solde du fonds',
-  
+  "profilePayment.profileInformation": "Informations de profil",
+  "profilePayment.name": "Nom",
+  "profilePayment.lastName": "Nom de famille",
+  "profilePayment.firstName": "Prénom",
+  "profilePayment.address": "Adresse",
+  "profilePayment.city": "Ville",
+  "profilePayment.etreprise": "Étreprise",
+  "profilePayment.codePostal": "Code postal",
+  "profilePayment.wilaya": "Wilaya",
+  "profilePayment.country": "Pays",
+  "profilePayment.phone": "Téléphone",
+  "profilePayment.isCompany": "Est une entreprise",
+  "profilePayment.taxCoordinate": "Coordonnées fiscales",
+  "profilePayment.commercialRegister": "Registre du commerce",
+  "profilePayment.taxArticle": "Article fiscal (AI)",
+  "profilePayment.nif": "NIF",
+  "profilePayment.nis": "NIS",
+
 } as const

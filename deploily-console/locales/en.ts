@@ -58,6 +58,9 @@ export default {
     "placeholderGenerate":"Click to generate token",
     "SelectServicePlan":"Select service plan",
     "subscribe":"SUBSCRIBE",
+    "error":"Error",
+    "subTitleError":"Sorry, something went wrong.",
+
 
     "viewApiDocumentation":"View API documentation",
     "subscription.clickToRenewNow":"Keep your service active without interruptions. Click to renew now.",
@@ -81,4 +84,22 @@ export default {
     'profilePayment.profilePayment': 'Profile payment',
     'profilePayment.createProfile': 'create a profile ',
     'profilePayment.fundBalance': 'Fund balance',
+    "profilePayment.profileInformation":"Profile information",
+    "profilePayment.name":"Name",
+    "profilePayment.lastName":"Last name",
+    "profilePayment.firstName":"First name",
+    "profilePayment.address":"Address",
+    "profilePayment.city":"City",
+    "profilePayment.etreprise":"Etreprise",
+    "profilePayment.codePostal":"Code postal",
+    "profilePayment.wilaya":"Wilaya",
+    "profilePayment.country":"Country",
+    "profilePayment.phone":"Phone",
+    "profilePayment.isCompany":"Is Company   ",
+    "profilePayment.taxCoordinate":"Tax coordinate",
+    "profilePayment.commercialRegister":"Commercial register",
+    "profilePayment.taxArticle":"Tax Article (AI)",
+    "profilePayment.nif":"NIF",
+    "profilePayment.nis":"NIS",
+
 } as const
