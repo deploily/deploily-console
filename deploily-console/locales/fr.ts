@@ -75,7 +75,7 @@ export default {
   'createSupportTicket.uploadFile': 'Télécharger un fichier',
 
   'payments.paymentList': 'Liste des paiements',
-  'paiements.N_Order': 'N° Commande ',  
+  'payments.N_Order': 'N° de commande',
   'payments.serviceName': 'Nom du service',
   'payments.start_date': 'Date',
   'payments.profile': 'Profil',
@@ -88,7 +88,11 @@ export default {
   'payments.no': 'Non',
   'payments.delete_success': 'Suppression réussie',
   'payments.delete_error': 'Erreur de suppression',
+  'payments.delete': 'Supprimer',
+  'payments.bank': 'Virement bancaire',
+  'payments.card': 'Carte',
   'payments.done': 'Terminé',
   'payments.pending': 'En attente',
   'payments.failed': 'Échec',
+  'payments.paymentDetails': 'Détails du paiement',
 } as const

@@ -87,7 +87,11 @@ export default {
     'payments.no': 'No',
     'payments.delete_success': 'Delete success',
     'payments.delete_error': 'Delete error',
+    'payments.delete': 'Delete',
+    'payments.bank': 'Bank transfer',
+    'payments.card': 'Card',
     'payments.done': 'Done',
     'payments.pending': 'Pending',
     'payments.failed': 'Failed',
+    'payments.paymentDetails': 'Payment details',
 } as const

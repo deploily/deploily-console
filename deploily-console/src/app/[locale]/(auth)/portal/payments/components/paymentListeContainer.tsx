@@ -1,23 +1,23 @@
 "use client";
 
 import { usePayment } from "@/lib/features/payments/paymentSelector";
-import { deletePaymentById, fetchPayments,  } from "@/lib/features/payments/paymentThunks";
+import { deletePaymentById, deletePayments, fetchPayments,  } from "@/lib/features/payments/paymentThunks";
 import { ProfileInterface } from "@/lib/features/profilePayment/profilePaymentInterface";
 import { SubscribeInterface } from "@/lib/features/subscribe/subscribeInterface";
 import { useAppDispatch } from "@/lib/hook";
-import { Button, Checkbox, Skeleton, Table, Modal, message } from "antd";
-import { useRouter } from "next/navigation";
+import { Button, Skeleton, Table, Modal, message } from "antd";
 import { useEffect, useMemo, useState } from "react";
 import { useScopedI18n } from "../../../../../../../locales/client";
 import { PaymentInterface } from "@/lib/features/payments/paymentInterface";
 import { Trash } from "@phosphor-icons/react";
+import { useRouter } from "next/navigation";
+import { DeleteButton } from "@/styles/components/buttonStyle";
 
 export default function PaymentListeContainer() {
+    const router = useRouter(); 
     const t = useScopedI18n('payments');
     const dispatch = useAppDispatch();
     const { paymentsList, isLoading } = usePayment();
-    const router = useRouter();
-    const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([]);
     const [data, setData] = useState<PaymentInterface[]>([]);
 
     useEffect(() => {
@@ -47,6 +47,22 @@ export default function PaymentListeContainer() {
             },
         });
     };
+    // const handleDeleteAll = () => {
+    //     Modal.confirm({
+    //         title: t("are_you_sure"),
+    //         content: t("delete_confirmation"),
+    //         okText: t("yes"),
+    //         cancelText: t("no"),
+    //         onOk: async () => {
+    //             try {
+    //                 await dispatch(deletePayments()).unwrap();
+    //                 message.success(t("delete_success"));
+    //             } catch (error) {
+    //                 message.error(t("delete_error"));
+    //             }
+    //         },
+    //     });
+    // };
 
     const columns = useMemo(() => {
         return [
@@ -71,6 +87,8 @@ export default function PaymentListeContainer() {
                 title: t("amount"),
                 dataIndex: "amount",
                 key: "amount",
+                render: (amount: number) =>
+                    amount ? amount.toLocaleString("fr-FR", { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + " DZD " : "-",
             },
             {
                 title: t("status"),
@@ -109,12 +127,20 @@ export default function PaymentListeContainer() {
                     );
                 },
             },
-
-
             {
                 title: t("payment_method"),
                 dataIndex: "payment_method",
                 key: "payment_method",
+                render: (payment_method: string) => {
+                    switch (payment_method) {
+                        case "bank_transfer":
+                            return t("bank");
+                        case "card":
+                            return t("card");
+                        default:
+                            return "-"; 
+                    }
+                },
             },
             {
                 title: t("start_date"),
@@ -149,6 +175,13 @@ export default function PaymentListeContainer() {
     ), [isLoading, columns]);
 
     return (
+        <>
+            {/* <DeleteButton danger icon={<Trash size={24} />}
+            onClick={handleDeleteAll}
+        >
+                      {t("delete")}
+                    </DeleteButton>
+         */}
         <Table<PaymentInterface>
             columns={skeletonColumns}
             dataSource={isLoading ? Array(3).fill({ key: Math.random() }) : data}
@@ -156,6 +189,9 @@ export default function PaymentListeContainer() {
             className="custom-table"
             style={{ marginTop: 40, borderRadius: 0 }}
             rowKey={(record) => record.id || `row-${Math.random()}`}
-        />
+            onRow={(record) => ({
+                onClick: () => router.push(`/portal/payments/${record.id}`), // Redirect on row click
+            })}
+        /></> 
     );
 }
