@@ -2,7 +2,7 @@ import { useSubscribe } from "@/lib/features/subscribe/subscribeSelectors";
 import { fetchSubscribeById, generateTokenThunk } from "@/lib/features/subscribe/subscribeThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { CalendarDots, Star } from "@phosphor-icons/react";
-import { Badge, Button, Col, Image, Row, Skeleton, Space, Typography } from "antd";
+import { Badge, Button, Col, Image, Result, Row, Skeleton, Space, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { IMAGES_URL } from "@/deploilyWebsiteUrls";
 import { theme } from "@/styles/theme";
@@ -21,7 +21,7 @@ export default function SubscriptionSettingContant({ subscribe_id }: { subscribe
     const t = useI18n();
     const translate = useScopedI18n('subscription')
     const dispatch = useAppDispatch();
-    const { currentSubscribe, currentSubscribeLoading, generatedToken } = useSubscribe()
+    const { currentSubscribe, currentSubscribeLoading, currentSubscribeLoadingError, generatedToken } = useSubscribe()
     const { serviceParameterValuesList } = useServiceParametersValues();
     const [openDrawer, setOpenDrawer] = useState(false);
     const [remainingDuration, setRemainingDuration] = useState<number>()
@@ -34,7 +34,7 @@ export default function SubscriptionSettingContant({ subscribe_id }: { subscribe
             dispatch(fetchSubscribeById(subscribe_id));
         }
         else {
-            setRemainingDuration ( getRemainingDuration(currentSubscribe.start_date, currentSubscribe.duration_month));
+            setRemainingDuration(getRemainingDuration(currentSubscribe.start_date, currentSubscribe.duration_month));
         }
 
         dispatch(fetchServiceParametersValues(subscribe_id));
@@ -70,12 +70,14 @@ export default function SubscriptionSettingContant({ subscribe_id }: { subscribe
 
     return (
         <Space direction="vertical" size="large" style={{ paddingInline: 40, marginBlock: 10, width: "100%", marginBottom: 50 }}>
-            {(currentSubscribeLoading || currentSubscribe === undefined) ?
+            {currentSubscribeLoading && currentSubscribe === undefined &&
                 <>
                     <Skeleton.Image active />
                     <Skeleton active paragraph={{ rows: 2 }} />
 
-                </> :
+                </>
+            }
+            {!currentSubscribeLoading && currentSubscribe !== undefined &&
                 <>
                     <Row gutter={16}  >
                         <Col md={16} xs={24} >
@@ -208,7 +210,14 @@ export default function SubscriptionSettingContant({ subscribe_id }: { subscribe
                         ))} */}
 
                     <DocumentationDrawer openDrawer={openDrawer} onClose={onClose} currentSubscribe={currentSubscribe} t={t} />
-                </>}
+                </>
+            }
+            {!currentSubscribeLoading && currentSubscribeLoadingError &&
+                <Result
+                    status="500"
+                    title={t('error')}
+                    subTitle={t('subTitleError')}
+                />}
         </Space>
     )
 }

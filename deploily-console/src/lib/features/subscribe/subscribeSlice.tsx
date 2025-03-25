@@ -9,7 +9,6 @@ interface SubscribeState {
   currentSubscribe?: SubscribeInterface;
   currentSubscribeLoadingError?: any;
   currentSubscribeLoading: boolean;
-  cartLine_id?: number;
   generateTokenLoading?: boolean;
   generatedToken?: string;
   generateTokenFailed?: boolean;
@@ -22,7 +21,6 @@ const initialState: SubscribeState = {
   currentSubscribe: undefined,
   currentSubscribeLoadingError: undefined,
   currentSubscribeLoading: false,
-  cartLine_id: undefined,
   generateTokenLoading: undefined,
   generatedToken: undefined,
   generateTokenFailed: undefined,
@@ -57,7 +55,6 @@ const SubscribeSlice = createSlice({
         state.currentSubscribeLoading = false;
         state.currentSubscribeLoadingError = null;
         state.currentSubscribe = { ...action.payload.result, ...{ id: action.payload.id } };
-        state.cartLine_id = action.payload.id;
       })
       .addCase(fetchSubscribeById.rejected, (state, { payload }) => {
         state.currentSubscribeLoading = false;

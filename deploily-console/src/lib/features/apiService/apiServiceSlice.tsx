@@ -8,6 +8,7 @@ interface ApiServiceState {
   apiServiceLoadingError?: any;
   serviceLoading: boolean;
   currentService?: ApiServiceInterface;
+  currentServiceError?: any;
   service_id?: number;
 }
 
@@ -16,6 +17,7 @@ const initialState: ApiServiceState = {
   isLoadingServiceResponse: false,
   apiServiceLoadingError: undefined,
   serviceLoading: false,
+  currentServiceError: undefined,
   service_id: undefined,
 };
 const ApiServiceSlice = createSlice({
@@ -43,17 +45,17 @@ const ApiServiceSlice = createSlice({
       //CHECK IF SERVICE EXIST OR NOT
       .addCase(getApiServiceById.pending, (state) => {
         state.serviceLoading = true;
-        state.apiServiceLoadingError = null;
+        state.currentServiceError = null;
       })
       .addCase(getApiServiceById.fulfilled, (state, action) => {
         state.serviceLoading = false;
-        state.apiServiceLoadingError = null;
+        state.currentServiceError = null;
         state.currentService = {...action.payload.result, ...{id: action.payload.id}};
         state.service_id = action.payload.id;
       })
       .addCase(getApiServiceById.rejected, (state, {payload}) => {
         state.serviceLoading = false;
-        state.apiServiceLoadingError = payload;
+        state.currentServiceError = payload;
       });
   },
 });
