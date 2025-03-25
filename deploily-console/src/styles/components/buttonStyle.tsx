@@ -26,7 +26,7 @@ export const CustomOrangeButton = styled(Button)` &&
     background-color: ${theme.token.orange_6 };
     border: none;
     border-raduis:10px;
-    padding: 10px 8px;
+    padding: 10px 30px;
     transition: background-color 0.3s ease;
 
      &:hover {
