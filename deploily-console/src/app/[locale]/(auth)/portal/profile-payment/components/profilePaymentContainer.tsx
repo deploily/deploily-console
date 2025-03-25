@@ -1,8 +1,8 @@
 
 
-import { Button, Col, Row, Skeleton, Table } from "antd";
+import { Button, Col, Result, Row, Skeleton, Table } from "antd";
 import Title from "antd/es/typography/Title";
-import { useScopedI18n } from "../../../../../../../locales/client";
+import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import { Coins, Plus } from "@phosphor-icons/react";
 import { useAppDispatch } from "@/lib/hook";
 import { useEffect, useState } from "react";
@@ -17,10 +17,11 @@ export default function ProfilePayementContainer() {
     const dispatch = useAppDispatch();
     // const t = useScopedI18n('supportTicket')
     const t = useScopedI18n("profilePayment");
+    const traslate = useI18n();
 
 
     const [columns] = useState([]);
-    const { profileServicesList, isLoading } = useProfileServices()
+    const { profileServicesList, isLoading, profileServicesLoadingError } = useProfileServices()
     const router = useRouter();
 
     useEffect(() => {
@@ -70,11 +71,11 @@ export default function ProfilePayementContainer() {
                 title: "",
                 dataIndex: "",
                 key: "actions",
-                render: () =>
+                render: (element) =>
 
                     <div style={{ display: "flex", justifyContent: "end", paddingInline: 5 }}>
-                        <CustomOrangeButton  >
-                            {t('fundBalance')}
+                        <CustomOrangeButton  onClick={() => router.push(`/portal/profile-payment/${element.id}`)} >
+                            {t('fundBalance')} 
                         </CustomOrangeButton>
                     </div>
 
@@ -94,6 +95,8 @@ export default function ProfilePayementContainer() {
             key: `col${index}`,
             render: () => <Skeleton.Input active={true} />,
         }));
+
+
     return (
         <>
             <Row gutter={16} style={{ marginTop: 30 }}>
@@ -120,14 +123,22 @@ export default function ProfilePayementContainer() {
                 </Col>
             </Row>
 
-            <Table<ProfileServiceInterface>
-                columns={isLoading ? skeletonColumns : profileServicesList && keysToColumn()}
-                dataSource={isLoading ? Array(1).fill({ key: Math.random() }) : profileServicesList?.result}
-                size="middle"
-                className="custom-table"
-                style={{ marginTop: 40, borderRadius: 0 }}
-                scroll={{ y: 55 * 5 }}
-            />
+            {!profileServicesLoadingError &&
+                <Table<ProfileServiceInterface>
+                    columns={isLoading ? skeletonColumns : profileServicesList && keysToColumn()}
+                    dataSource={isLoading ? Array(1).fill({ key: Math.random() }) : profileServicesList?.result}
+                    size="middle"
+                    className="custom-table"
+                    style={{ marginTop: 40, borderRadius: 0 }}
+                    scroll={{ y: 55 * 5 }}
+                />
+            }
+            {!isLoading && profileServicesLoadingError &&
+                <Result
+                    status="500"
+                    title={traslate('error')}
+                    subTitle={traslate('subTitleError')}
+                />}
 
         </>
     )
