@@ -3,15 +3,16 @@ import { Col, Form, Radio, Result, Row, Skeleton } from "antd";
 import Title from "antd/es/typography/Title";
 import { useI18n, useScopedI18n } from "../../../../../../../../locales/client";
 import { useAppDispatch } from "@/lib/hook";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getProfileById } from "@/lib/features/profileService/profileServiceThunks";
 import { useProfileServices } from "@/lib/features/profileService/profileServiceSelectors";
 import { CustomPayementInput } from "@/styles/components/inputStyle";
+import FundBalanceDrawer from "./fundBalanceDrawer";
 
 export default function ProfileDetailsContainer({ profile_id }: { profile_id: string }) {
     const t = useScopedI18n("profilePayment");
     const traslate = useI18n();
-
+    const [openDrawer, setOpenDrawer] = useState(false);
     const dispatch = useAppDispatch();
     const { currentProfile, currentProfileLoading, currentProfileError } = useProfileServices()
 
@@ -19,8 +20,12 @@ export default function ProfileDetailsContainer({ profile_id }: { profile_id: st
         dispatch(getProfileById(profile_id));
     }, []);
 
+    const onClose = () => {
+        setOpenDrawer(false);
+    };
+
     return (
-        <>
+        <div style={{ paddingInline: 10 }}>
             <Row gutter={16} style={{ marginTop: 30 }}>
                 <Col span={14}>
                     <Title level={3} style={{ fontWeight: 700, color: '#ffff' }}>
@@ -29,7 +34,7 @@ export default function ProfileDetailsContainer({ profile_id }: { profile_id: st
                 </Col>
                 <Col span={10} style={{ display: "flex", justifyContent: "end" }}>
                     <CustomOrangeButton
-                    // onClick={() => setOpenDrawer(true)} 
+                    onClick={() => setOpenDrawer(true)} 
                     >
                         {t('fundBalance')}
                     </CustomOrangeButton>
@@ -61,10 +66,10 @@ export default function ProfileDetailsContainer({ profile_id }: { profile_id: st
                         name="wrap"
                         labelCol={{ flex: '110px' }}
                         labelAlign="left"
-                        labelWrap
-                        wrapperCol={{ flex: 1 }}
+                        labelWrap={true}
+                        wrapperCol={{ flex: 0 }}
                         colon={false}
-                        style={{paddingInline:20}}
+                        style={{ paddingInline: 20 }}
                     >
                         <Row gutter={[16, 16]} >
                             <Col md={12} xs={24} >
@@ -97,8 +102,6 @@ export default function ProfileDetailsContainer({ profile_id }: { profile_id: st
                                 </Form.Item>
                             </Col>
                         </Row>
-
-
                         <Form.Item label={t('wilaya')} name="wilaya" >
                             <CustomPayementInput />
                         </Form.Item>
@@ -108,9 +111,9 @@ export default function ProfileDetailsContainer({ profile_id }: { profile_id: st
                         <Form.Item label={t('phone')} name="phone" >
                             <CustomPayementInput defaultValue={currentProfile.phone} />
                         </Form.Item>
-                        
+
                         <Radio checked={currentProfile.user.active} > {t('isCompany')} </Radio>
-                        
+
                         <Row style={{ padding: 20 }}>
                             <span
                                 style={{
@@ -160,10 +163,10 @@ export default function ProfileDetailsContainer({ profile_id }: { profile_id: st
                     subTitle={traslate('subTitleError')}
                 />
             }
+            <FundBalanceDrawer openDrawer={openDrawer} onClose={onClose} />
 
 
+        </div>
 
-        </>
-    
     )
 }

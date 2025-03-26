@@ -5,6 +5,7 @@ export const theme = {
   token: {
     colorPrimary: primaryColor,
     colorWhite:"white",
+    colorBlack:"black",
     colorInfo: "#206fba",
     colorSuccess: "#2b7904",
     colorWarning: "#fadb14",
@@ -19,6 +20,7 @@ export const theme = {
     darkGray_1:"#202227",
     gray_0: "#D0CECE",
     gray_1:"#4E4E4E",
+    gray_2:"rgba(125, 125, 125, 1)",
     Error_100:"#EA1919",
     borderRadius: 8,
     fontSize: 14,

@@ -10,6 +10,26 @@ export const CustomTypography = styled(Typography)` &&
 }
 `;
 
+export const BodyMedium = styled(Typography)` &&
+ {  
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 100%;
+    letter-spacing: 0%;
+
+}
+`;
+
+export const InterRegular16 = styled(Typography)` &&
+ {  
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+
+}
+`;
+
 
 
 
