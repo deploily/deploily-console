@@ -1,10 +1,10 @@
 import { ServicePlan, ServicePlanOption } from "@/lib/features/servicePlan/servicePlanInterface";
 import { Button, Card, Col, Row, Typography } from "antd";
-import { useI18n } from "../../../../../../../../locales/client";
 import { theme } from "@/styles/theme";
+import { useScopedI18n } from "../../../../../../../../locales/client";
 
 export default function ServicePlanCard({ servicePlan, showDrawer }: { servicePlan: ServicePlan, showDrawer: any }) {
-    const t = useI18n();
+    const t = useScopedI18n('subscription');
     return (
         <Card
             style={{
@@ -28,12 +28,12 @@ export default function ServicePlanCard({ servicePlan, showDrawer }: { servicePl
         >
 
             <Typography.Title level={3} style={{ textAlign: "center" }}>
-                {servicePlan.plan.name}
+                {(servicePlan.plan!==null)? servicePlan.plan.name:""}
             </Typography.Title>
 
             <Typography.Paragraph style={{ fontSize: 25, fontWeight: 600, color: theme.token.orange_6, textAlign: "center" }}>
                 {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(servicePlan.price)}
-                <span style={{ fontSize: 16, fontWeight: 400 }}> DZD/Month</span>
+                <span style={{ fontSize: 16, fontWeight: 400 }}> DZD/{t("month")}</span>
             </Typography.Paragraph>
 
             <div style={{ flex: 1, paddingBottom: "16px" }}>
@@ -71,7 +71,8 @@ export default function ServicePlanCard({ servicePlan, showDrawer }: { servicePl
                         fontSize: 20,
                     }}
                 >
-                    {t("subscribe")}
+
+                    {t("title")}
                 </Button>
             </div>
         </Card>

@@ -10,6 +10,8 @@ import subscribeSlice from "./features/subscribe/subscribeSlice"
 import servicePlanSlice from "./features/servicePlan/servicePlanSlice"
 import profileServiceSlice from "./features/profileService/profileServiceSlice"
 import paymentSlice from "./features/payments/paymentSlice";
+import PormoCodeSlice from "./features/promoCode/promoCodeSlice"
+import SubscriptionSlice from "./features/subscription/subscriptionSlice"
 
 export const makeStore = () => {
   return configureStore({
@@ -24,7 +26,9 @@ export const makeStore = () => {
       subscribe: subscribeSlice,
       servicePlan: servicePlanSlice,
       profileService: profileServiceSlice,
-      payment: paymentSlice
+      payment: paymentSlice,
+      promoCode: PormoCodeSlice,
+      subscription: SubscriptionSlice,
     },
   });
 };

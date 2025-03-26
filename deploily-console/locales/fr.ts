@@ -60,11 +60,9 @@ export default {
   "subscribe": "SUBSCRIBE",
   "error": "Erreur",
   "subTitleError": "Désolé, une erreur s'est produite.",
-
   "viewApiDocumentation": "View API documentation",
   "subscription.clickToRenewNow": "Maintenez votre service actif sans interruption. Cliquez pour renouveler maintenant.",
   "subscription.renewNow": "Renouveler maintenant",
-
 
   'supportTicket.supportTicket': "Ticket d'assistance",
   'supportTicket.details': 'Détails',
@@ -126,4 +124,19 @@ export default {
   'payments.failed': 'Échec',
   'payments.paymentDetails': 'Détails du paiement',
   'payments.uploadReceived': 'Télécharger le reçu',
+  'subscription.title': "S'abonner",
+  'subscription.serviceName': 'Nom du service :',
+  'subscription.servicePlanSelected': 'Plan de service sélectionné :',
+  'subscription.duration': 'Durée :',
+  'subscription.totalAmount': 'Montant total :',
+  'subscription.promoCode': 'Code promo :',
+  'subscription.price': 'Prix :',
+  'subscription.selectProfile': 'Sélectionner un profil',
+  'subscription.subscribeService': "S'abonner au service",
+  'subscription.month': 'Mois',
+  'subscription.confirm': 'Confirmer',
+  'subscription.sufficientBalance': 'Votre solde est suffisant pour effectuer ce paiement.',
+  'subscription.insufficientBalance': 'Votre solde est insuffisant pour effectuer ce paiement.',
+  'subscription.profile': 'Profil',
+  'subscription.balance': 'Solde',
 } as const

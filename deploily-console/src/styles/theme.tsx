@@ -15,6 +15,8 @@ export const theme = {
     colorBgBase: "#0c0d0f",
     blue_100: "#5394CC",
     blue_200: "rgba(83, 148, 204, 1)",
+    blue_1: "#3696EA",
+    blue_2: "#0057D8",
     orange_6: "#DD8859",
     orange_7: "#D85912",
     darkGray_1:"#202227",
@@ -23,6 +25,7 @@ export const theme = {
     gray_2:"rgba(125, 125, 125, 1)",
     Error_100:"#EA1919",
     red_5:"#C63131",
+    green:"#28b609",
     borderRadius: 8,
     fontSize: 14,
     fontFamily: "Inter, sans-serif",
@@ -58,8 +61,25 @@ export const theme = {
       colorText: "rgba(0,0,0,0)",
     },
     Select: {
+     
       optionSelectedBg: "#D85912",
       optionActiveBg: "#DD8859",
     },
+    Dropdown: {
+     
+      optionSelectedBg: "#D85912",
+      optionActiveBg: "#DD8859",
+    },
+    Radio: {
+      colorBgContainer: "#ffffff",
+      colorPrimary: "#28b609",
+      
+    },
+    Checkbox:{
+      colorBgContainer: "#ffffff", 
+      colorPrimary: "#28b609",
+    }
+   
   },
+  
 };
