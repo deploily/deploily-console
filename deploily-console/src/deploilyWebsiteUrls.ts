@@ -13,6 +13,6 @@ export const deploilyApiUrls = {
   SERVICE_PARAMETER_URL: ` ${process.env.API_BASE_URL }/parameter/`,
   SERVICE_PARAMETER_VALUES_URL: ` ${process.env.API_BASE_URL }/parameter-value/`,
   PROFILE_URL: `${process.env.API_BASE_URL}/profile/`,
-  SERVICE_SUBSCRIPTION: `${process.env.API_BASE_URL}/service-subscription/`,
+  SERVICE_SUBSCRIPTION: `${process.env.API_BASE_URL}/service-subscription/subscribe`,
   CHECK_PROMO_CODE: `${process.env.API_BASE_URL}/promo-code/`,
 };

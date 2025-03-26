@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { postSubscription } from "./subscriptionThunks";
+import { SubscriptionResponse } from "./subscriptionInterface";
 
 interface SubscriptionState {
   myServiceLoadingError?: any;
@@ -10,8 +11,10 @@ interface SubscriptionState {
   generateTokenLoading?: boolean;
   generatedToken?: string;
   generateTokenFailed?: boolean;
-  isProductCreatedSuccess: boolean;
-  isProductCreatedFailed: boolean;
+  isSubscriptionCreatedSuccess: boolean;
+  isSubscriptionCreatedFailed: boolean;
+  subscriptionResponse?: SubscriptionResponse;
+
 }
 
 const initialState: SubscriptionState = {
@@ -23,8 +26,9 @@ const initialState: SubscriptionState = {
   generateTokenLoading: undefined,
   generatedToken: undefined,
   generateTokenFailed: undefined,
-  isProductCreatedSuccess: false,
-  isProductCreatedFailed: false,
+  isSubscriptionCreatedSuccess: false,
+  isSubscriptionCreatedFailed: false,
+  subscriptionResponse: undefined,
 };
 const SubscriptionSlice = createSlice({
   name: "myService",
@@ -34,19 +38,24 @@ const SubscriptionSlice = createSlice({
     builder
       .addCase(postSubscription.pending, (state) => {
         state.myServiceLoading = true;
-        state.isProductCreatedSuccess = false;
-        state.isProductCreatedFailed = false;
+        state.isSubscriptionCreatedSuccess = false;
+        state.isSubscriptionCreatedFailed = false;
 
       })
       .addCase(postSubscription.rejected, (state) => {
         state.myServiceLoading = false;
-        state.isProductCreatedFailed = true;
-        state.isProductCreatedSuccess = false;
+        state.isSubscriptionCreatedFailed = true;
+        state.isSubscriptionCreatedSuccess = false;
       })
-      .addCase(postSubscription.fulfilled, (state) => {
+      .addCase(postSubscription.fulfilled, (state,{ payload }) => {
         state.myServiceLoading = false;
-        state.isProductCreatedSuccess = true;
-        state.isProductCreatedFailed = false;
+        console.log("sliiiiiiiiiiiiiiiiiiiiissssssssssssseeeeeeeee_____________");
+        console.log(payload);
+        
+        
+        state.isSubscriptionCreatedSuccess = true;
+        state.subscriptionResponse = payload;
+        state.isSubscriptionCreatedFailed = false;
       });
   },
 });

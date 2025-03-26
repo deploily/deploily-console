@@ -14,7 +14,7 @@ export const postSubscription = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axios.post(`${deploilyApiUrls.SERVICE_SUBSCRIPTION}${data.servicePlanId}/subscribe`, data, {  
+      const response = await axios.post(`${deploilyApiUrls.SERVICE_SUBSCRIPTION}`, data, {  
 
         headers: {
           Accept: "application/json",
