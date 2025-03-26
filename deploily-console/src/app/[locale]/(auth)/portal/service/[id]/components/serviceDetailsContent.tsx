@@ -158,7 +158,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
                       xl={8}
                       style={{ display: "flex", justifyContent: "center" }}
                     >
-                      <ServicePlanCard key={row.id} servicePlan={row}  showDrawer={() =>row!==null? showDrawer(row):null}/>
+                      {row.plan && (<ServicePlanCard key={row.id} servicePlan={row} showDrawer={() =>showDrawer(row) } />)}
                      
 
                     </Col>
