@@ -9,6 +9,7 @@ import supportTicketSlice from "./features/support-ticket/supportTicketSlice"
 import subscribeSlice from "./features/subscribe/subscribeSlice"
 import servicePlanSlice from "./features/servicePlan/servicePlanSlice"
 import profileServiceSlice from "./features/profileService/profileServiceSlice"
+import paymentSlice from "./features/payments/paymentSlice";
 
 export const makeStore = () => {
   return configureStore({
@@ -22,7 +23,8 @@ export const makeStore = () => {
       supportTicket: supportTicketSlice,
       subscribe: subscribeSlice,
       servicePlan: servicePlanSlice,
-      profileService: profileServiceSlice
+      profileService: profileServiceSlice,
+      payment: paymentSlice
     },
   });
 };

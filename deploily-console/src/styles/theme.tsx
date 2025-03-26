@@ -22,6 +22,7 @@ export const theme = {
     gray_1:"#4E4E4E",
     gray_2:"rgba(125, 125, 125, 1)",
     Error_100:"#EA1919",
+    red_5:"#C63131",
     borderRadius: 8,
     fontSize: 14,
     fontFamily: "Inter, sans-serif",

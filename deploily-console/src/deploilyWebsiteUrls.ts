@@ -14,5 +14,5 @@ export const deploilyApiUrls = {
   SERVICE_PARAMETER_VALUES_URL: ` ${process.env.API_BASE_URL }/parameter-value/`,
   SERVICE_CONSUMER: ` ${process.env.API_BASE_URL }/custom-my-service/`,
   PROFILE_URL: ` ${process.env.API_BASE_URL }/profile/`,
-  
+  PAYMENT: ` ${process.env.API_BASE_URL }/payment/`
 };
