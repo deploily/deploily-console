@@ -101,5 +101,6 @@ export default {
   "profilePayment.taxArticle": "Article fiscal (AI)",
   "profilePayment.nif": "NIF",
   "profilePayment.nis": "NIS",
+  "profilePayment.choosePaymentMethod": "Choisissez le mode de paiement",
 
 } as const
