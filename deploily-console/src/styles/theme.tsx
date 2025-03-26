@@ -13,6 +13,7 @@ export const theme = {
     colorTextBase: "#ffff",
     colorBgBase: "#0c0d0f",
     blue_1: "#3696EA",
+    blue_2: "#0057D8",
     orange_6: "#DD8859",
     orange_7: "#D85912",
     darkGray_1:"#202227",
@@ -58,6 +59,20 @@ export const theme = {
       optionSelectedBg: "#D85912",
       optionActiveBg: "#DD8859",
     },
+    Dropdown: {
+     
+      optionSelectedBg: "#D85912",
+      optionActiveBg: "#DD8859",
+    },
+    Radio: {
+      colorBgContainer: "#ffffff",
+      colorPrimary: "#28b609",
+      
+    },
+    Checkbox:{
+      colorBgContainer: "#ffffff", 
+      colorPrimary: "#28b609",
+    }
    
   },
   
