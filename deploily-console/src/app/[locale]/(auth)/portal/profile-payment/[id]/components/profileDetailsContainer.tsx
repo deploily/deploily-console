@@ -8,6 +8,7 @@ import { getProfileById } from "@/lib/features/profileService/profileServiceThun
 import { useProfileServices } from "@/lib/features/profileService/profileServiceSelectors";
 import { CustomPayementInput } from "@/styles/components/inputStyle";
 import FundBalanceDrawer from "./fundBalanceDrawer";
+import { theme } from "@/styles/theme";
 
 export default function ProfileDetailsContainer({ profile_id }: { profile_id: string }) {
     const t = useScopedI18n("profilePayment");
@@ -74,42 +75,42 @@ export default function ProfileDetailsContainer({ profile_id }: { profile_id: st
                         <Row gutter={[16, 16]} >
                             <Col md={12} xs={24} >
                                 <Form.Item label={t('firstName')} name="firstName" >
-                                    <CustomPayementInput defaultValue={currentProfile.user.first_name} />
+                                    <CustomPayementInput defaultValue={currentProfile.user.first_name} style={{ color: theme.token.colorWhite }}  disabled />
                                 </Form.Item>
                             </Col>
                             <Col md={12} xs={24} >
                                 <Form.Item label={t('lastName')} name="lastName" >
-                                    <CustomPayementInput defaultValue={currentProfile.user.last_name} />
+                                    <CustomPayementInput defaultValue={currentProfile.user.last_name} style={{ color: theme.token.colorWhite }} disabled />
                                 </Form.Item>
                             </Col>
                         </Row>
 
                         <Form.Item label={t('etreprise')} name="etreprise" >
-                            <CustomPayementInput defaultValue={currentProfile.company_name} />
+                            <CustomPayementInput defaultValue={currentProfile.company_name} style={{ color: theme.token.colorWhite }} disabled />
                         </Form.Item>
                         <Form.Item label={t('address')} name="address" >
-                            <CustomPayementInput />
+                            <CustomPayementInput style={{ color: theme.token.colorWhite }} disabled/>
                         </Form.Item>
                         <Row gutter={[16, 16]} >
                             <Col md={16} xs={24} >
                                 <Form.Item label={t('city')} name="city" >
-                                    <CustomPayementInput />
+                                    <CustomPayementInput style={{ color: theme.token.colorWhite }} disabled/>
                                 </Form.Item>
                             </Col>
                             <Col md={8} xs={24} >
                                 <Form.Item label={t('codePostal')} name="codePostal">
-                                    <CustomPayementInput />
+                                    <CustomPayementInput style={{ color: theme.token.colorWhite }} disabled/>
                                 </Form.Item>
                             </Col>
                         </Row>
                         <Form.Item label={t('wilaya')} name="wilaya" >
-                            <CustomPayementInput />
+                            <CustomPayementInput style={{  color: theme.token.colorWhite }} disabled/>
                         </Form.Item>
                         <Form.Item label={t('country')} name="country">
-                            <CustomPayementInput />
+                            <CustomPayementInput style={{  color: theme.token.colorWhite }} disabled/>
                         </Form.Item>
                         <Form.Item label={t('phone')} name="phone" >
-                            <CustomPayementInput defaultValue={currentProfile.phone} />
+                            <CustomPayementInput defaultValue={currentProfile.phone} style={{  color: theme.token.colorWhite }} disabled/>
                         </Form.Item>
 
                         <Radio checked={currentProfile.user.active} > {t('isCompany')} </Radio>
@@ -130,12 +131,12 @@ export default function ProfileDetailsContainer({ profile_id }: { profile_id: st
                         <Row gutter={[16, 16]} >
                             <Col md={12} xs={24} >
                                 <Form.Item label={t('commercialRegister')} name="commercialRegister" >
-                                    <CustomPayementInput defaultValue={currentProfile.company_registration_number} />
+                                    <CustomPayementInput defaultValue={currentProfile.company_registration_number} style={{ color: theme.token.colorWhite }} disabled/>
                                 </Form.Item>
                             </Col>
                             <Col md={12} xs={24} >
                                 <Form.Item label={t('taxArticle')} name="taxArticle" >
-                                    <CustomPayementInput />
+                                    <CustomPayementInput style={{  color: theme.token.colorWhite }} disabled/>
                                 </Form.Item>
                             </Col>
                         </Row>
@@ -143,12 +144,12 @@ export default function ProfileDetailsContainer({ profile_id }: { profile_id: st
                         <Row gutter={[16, 16]} >
                             <Col md={12} xs={24} >
                                 <Form.Item label={t('nif')} name="nif" >
-                                    <CustomPayementInput />
+                                    <CustomPayementInput style={{ color: theme.token.colorWhite }} disabled/>
                                 </Form.Item>
                             </Col>
                             <Col md={12} xs={24} >
                                 <Form.Item label={t('nis')} name="nis" >
-                                    <CustomPayementInput />
+                                    <CustomPayementInput style={{  color: theme.token.colorWhite }} disabled/>
                                 </Form.Item>
                             </Col>
                         </Row>
