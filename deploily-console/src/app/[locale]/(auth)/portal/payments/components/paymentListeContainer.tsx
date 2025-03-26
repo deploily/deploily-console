@@ -32,7 +32,7 @@ export default function PaymentListeContainer() {
 
     const handleDelete = (id: string) => {
         Modal.confirm({
-            title: t("are_you_sure"),
+            title: t("areYouSure"),
             content: t("delete_confirmation"),
             okText: t("yes"),
             cancelText: t("no"),
@@ -40,34 +40,19 @@ export default function PaymentListeContainer() {
                 try {
                     await dispatch(deletePaymentById(id)).unwrap();
                     setData((prevData) => prevData.filter((item) => item.id !== id));
-                    message.success(t("delete_success"));
+                    message.success(t("deleteSuccess"));
                 } catch (error) {
-                    message.error(t("delete_error"));
+                    message.error(t("deleteError"));
                 }
             },
         });
     };
-    // const handleDeleteAll = () => {
-    //     Modal.confirm({
-    //         title: t("are_you_sure"),
-    //         content: t("delete_confirmation"),
-    //         okText: t("yes"),
-    //         cancelText: t("no"),
-    //         onOk: async () => {
-    //             try {
-    //                 await dispatch(deletePayments()).unwrap();
-    //                 message.success(t("delete_success"));
-    //             } catch (error) {
-    //                 message.error(t("delete_error"));
-    //             }
-    //         },
-    //     });
-    // };
+  
 
     const columns = useMemo(() => {
         return [
             {
-                title: t("N_Order"),
+                title: t("nOrder"),
                 dataIndex: "id",
                 key: "id",
             },
@@ -143,7 +128,7 @@ export default function PaymentListeContainer() {
                 },
             },
             {
-                title: t("start_date"),
+                title: t("startDate"),
                 dataIndex: "start_date",
                 key: "start_date",
                 render: (date: Date) =>
@@ -176,13 +161,7 @@ export default function PaymentListeContainer() {
 
     return (
         <>
-            {/* <DeleteButton danger icon={<Trash size={24} />}
-            onClick={handleDeleteAll}
-        >
-                      {t("delete")}
-                    </DeleteButton>
-         */}
-        <Table<PaymentInterface>
+            <Table<PaymentInterface>
             columns={skeletonColumns}
             dataSource={isLoading ? Array(3).fill({ key: Math.random() }) : data}
             size="middle"
@@ -190,8 +169,10 @@ export default function PaymentListeContainer() {
             style={{ marginTop: 40, borderRadius: 0 }}
             rowKey={(record) => record.id || `row-${Math.random()}`}
             onRow={(record) => ({
-                onClick: () => router.push(`/portal/payments/${record.id}`), // Redirect on row click
+                onClick: () => router.push(`/portal/payments/${record.id}`), 
+                style: { cursor: "pointer" },
             })}
-        /></> 
+            />
+        </> 
     );
 }

@@ -75,9 +75,10 @@ export default {
   'createSupportTicket.uploadFile': 'Télécharger un fichier',
 
   'payments.paymentList': 'Liste des paiements',
-  'payments.N_Order': 'N° de commande',
+  'payments.nOrder': 'N° de commande',
   'payments.serviceName': 'Nom du service',
   'payments.start_date': 'Date',
+  'payments.hour': 'Heure',
   'payments.profile': 'Profil',
   'payments.status': 'Statut',
   'payments.amount': 'Montant',
@@ -95,4 +96,5 @@ export default {
   'payments.pending': 'En attente',
   'payments.failed': 'Échec',
   'payments.paymentDetails': 'Détails du paiement',
+  'payments.uploadReceived': 'Télécharger le reçu',
 } as const
