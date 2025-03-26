@@ -63,9 +63,9 @@ export const fetchSubscribeById = createAsyncThunk(
 );
 
 export const postSubscribe = createAsyncThunk(
-  "subscribe/postSubscribe",
+  "subscribtion/postSubscribe",
   async (data: any, thunkConfig) => {
-    
+
     try {
       const session = await getSession();
       if (!session) {
@@ -73,7 +73,8 @@ export const postSubscribe = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axios.post(`${deploilyApiUrls.SUBSCRIBE_URL}`, data, {
+      const response = await axios.post(`${deploilyApiUrls.SERVICE_SUBSCRIPTION}`, data, {
+
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
@@ -82,7 +83,7 @@ export const postSubscribe = createAsyncThunk(
       if (response.status === 200) {
         return response.data;
       } else {
-        return thunkConfig.rejectWithValue("Failed to create new subscribe");
+        return thunkConfig.rejectWithValue("Failed to create new subscription");
       }
     } catch (error: any) {
       return thunkConfig.rejectWithValue(error.message);

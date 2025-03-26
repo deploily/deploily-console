@@ -18,7 +18,7 @@ import { useServicePlan } from "@/lib/features/servicePlan/servicePlanSelector";
 import { ServicePlan } from "@/lib/features/servicePlan/servicePlanInterface";
 import ServicePlanCard from "./servicePlanCard";
 import { useState } from "react";
-import SubscriptionDrawer from "./subscriptionDrawer/subscriptionDrawer";
+import SubscribeDrawer from "./subscriptionDrawer/subscriptionDrawer";
 
 export default function ServiceDetailsContentPage({ serviceId }: { serviceId: string }) {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -177,7 +177,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
               }
             </Row>
 
-            <SubscriptionDrawer openDrawer={openDrawer} onClose={onClose} planSelected={planSelected} />
+          <SubscribeDrawer openDrawer={openDrawer} onClose={onClose} planSelected={planSelected} />
           </>
         }
 

@@ -10,13 +10,13 @@ import { useProfileServices } from "@/lib/features/profile/profileServiceSelecto
 import { checkPromoCode } from "@/lib/features/promoCode/promoCodeThunks";
 import { usePromoCode } from "@/lib/features/promoCode/promoCodeSelectors";
 import PaymentComponent from "./paymentComponent";
-import { useSubscription } from "@/lib/features/subscription/subscriptionSelectors";
 import { redirect, useRouter } from "next/navigation";
+import { useSubscribe } from "@/lib/features/subscribe/subscribeSelectors";
 
-export default function SubscriptionDrawer({ openDrawer, onClose, planSelected }: { openDrawer: any, onClose: any, planSelected: any }) {
+export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: { openDrawer: any, onClose: any, planSelected: any }) {
   const translate = useScopedI18n('subscription');
   const router = useRouter();
-  const { subscriptionResponse } = useSubscription();
+  const { newSubscribeResponse } = useSubscribe();
   const [promoCode, setPromoCode] = useState({promo_code: ""});
   const [sufficientBalance, checkSufficientBalance] = useState<boolean | null>(null);
   const [showConfirmButton, setShowConfirmButton] = useState(true);
@@ -150,15 +150,15 @@ export default function SubscriptionDrawer({ openDrawer, onClose, planSelected }
   }, []);
 
   useEffect(() => {
-    console.log(subscriptionResponse);
+    console.log(newSubscribeResponse);
 
-    if (subscriptionResponse) {
+    if (newSubscribeResponse) {
 
-      redirect(subscriptionResponse.form_url);
+      redirect(newSubscribeResponse.form_url);
     }
     dispatch(fetchProfilesServices());
 
-  }, [subscriptionResponse]);
+  }, [newSubscribeResponse]);
 
 
 
@@ -368,7 +368,7 @@ export default function SubscriptionDrawer({ openDrawer, onClose, planSelected }
 
           {(sufficientBalance === false && showConfirmButton === false) ?
 
-            <PaymentComponent newSubscription={values} setNewSubscription={setValues} totalAmount={totalAmount} /> :
+            <PaymentComponent newSubscribe={values} setNewSubscribe={setValues} totalAmount={totalAmount} /> :
 
             <div
               style={{

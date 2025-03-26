@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { SubscribeInterface, SubscribeResponse } from "./subscribeInterface";
-import { fetchSubscribe, fetchSubscribeById, generateTokenThunk } from "./subscribeThunks";
+import { NewSubscribeResponse, SubscribeInterface, SubscribeResponse } from "./subscribeInterface";
+import { fetchSubscribe, fetchSubscribeById, generateTokenThunk, postSubscribe } from "./subscribeThunks";
 
 interface SubscribeState {
   subscribeResponse?: SubscribeResponse;
@@ -12,6 +12,9 @@ interface SubscribeState {
   generateTokenLoading?: boolean;
   generatedToken?: string;
   generateTokenFailed?: boolean;
+  isSubscribeCreatedSuccess: boolean;
+  isSubscribeCreatedFailed: boolean;
+  newSubscribeResponse?: NewSubscribeResponse;
 }
 
 const initialState: SubscribeState = {
@@ -24,6 +27,9 @@ const initialState: SubscribeState = {
   generateTokenLoading: undefined,
   generatedToken: undefined,
   generateTokenFailed: undefined,
+  isSubscribeCreatedSuccess: false,
+  isSubscribeCreatedFailed: false,
+  newSubscribeResponse: undefined,
 };
 const SubscribeSlice = createSlice({
   name: "subscribe",
@@ -72,6 +78,23 @@ const SubscribeSlice = createSlice({
       .addCase(generateTokenThunk.rejected, (state) => {
         state.generateTokenLoading = false;
         state.generateTokenFailed = true;
+      })
+      .addCase(postSubscribe.pending, (state) => {
+        state.subscribeLoading = true;
+        state.isSubscribeCreatedSuccess = false;
+        state.isSubscribeCreatedFailed = false;
+
+      })
+      .addCase(postSubscribe.rejected, (state) => {
+        state.subscribeLoading = false;
+        state.isSubscribeCreatedFailed = true;
+        state.isSubscribeCreatedSuccess = false;
+      })
+      .addCase(postSubscribe.fulfilled, (state, { payload }) => {
+        state.subscribeLoading = false;
+        state.isSubscribeCreatedSuccess = true;
+        state.newSubscribeResponse = payload;
+        state.isSubscribeCreatedFailed = false;
       });
   },
 });

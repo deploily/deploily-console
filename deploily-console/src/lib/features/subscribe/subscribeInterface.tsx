@@ -9,17 +9,27 @@ export interface SubscribeResponse {
   order_columns: string[];
   result: SubscribeInterface[];
 }
+
+export interface NewSubscribeResponse {
+  form_url: string;
+  order_id: string;
+  subscribe: SubscribeInterface;
+  }
+
 export interface SubscribeInterface {
   id: number;
-  name: string;
-  total_amount: number;
-  price: number;
   duration_month: number;
+  name: string;
+  price: number
+  promo_code_id: number;
+  service_plan_id: number;
   start_date: Date;
   status: string;
+  total_amount: number;
   service_details: ServiceDetails;
   service_plan: ServicePlan;
 }
+
 
 export interface ServiceDetails {
   id: number;

@@ -3,11 +3,9 @@ import { Button, Card, Checkbox, CheckboxChangeEvent, Flex, Image, Radio, RadioC
 import { useState } from "react";
 import { theme } from "@/styles/theme";
 import { useAppDispatch } from "@/lib/hook";
-import { postSubscription } from "@/lib/features/subscription/subscriptionThunks";
+import { postSubscribe } from "@/lib/features/subscribe/subscribeThunks";
 
-// import { postSubscription } from "@/lib/features/subscription/subscriptionThunks";
-
-export default function PaymentComponent({newSubscription,setNewSubscription,totalAmount}:{newSubscription:any,setNewSubscription:any,totalAmount:number}) {
+export default function PaymentComponent({ newSubscribe,setNewSubscribe,totalAmount}:{newSubscribe:any,setNewSubscribe:any,totalAmount:number}) {
   
 
    const [value, setValue] = useState(false);
@@ -15,7 +13,7 @@ export default function PaymentComponent({newSubscription,setNewSubscription,tot
 
   const onChange = (e: RadioChangeEvent) => {
 
-    setNewSubscription({ ...newSubscription, payment_method:e.target.value});
+    setNewSubscribe({ ...newSubscribe, payment_method:e.target.value});
 
   };
   const onChangeCheckbox = (e: CheckboxChangeEvent) => {
@@ -25,16 +23,16 @@ export default function PaymentComponent({newSubscription,setNewSubscription,tot
   const dispatch = useAppDispatch();
 
   const handleSubscribe = async () => {
-     dispatch(postSubscription(newSubscription));
+     dispatch(postSubscribe(newSubscribe));
 };
 
   return (
     <>
       <Typography.Title level={4} style={{ paddingTop: 20, paddingBottom: 20 }}>Choose the payment method</Typography.Title>
 <Flex vertical gap="start" style={{ padding: 10, backgroundColor: theme.token.colorBgBase, }}>
-          <Radio.Group block defaultValue={newSubscription.payment_method}
+          <Radio.Group block defaultValue={newSubscribe.payment_method}
             onChange={onChange}
-            value={newSubscription.payment_method}>
+            value={newSubscribe.payment_method}>
             <Radio value="card"  >Card</Radio>
             <Radio value="bank_transfer">Bank transfer</Radio>
           </Radio.Group>
@@ -59,7 +57,7 @@ export default function PaymentComponent({newSubscription,setNewSubscription,tot
           DZD
         </Typography.Title>
         <Button
-        onClick={() => console.log(newSubscription)}
+        onClick={() => console.log(newSubscribe)}
         style={{
               color: "#fff",
               backgroundColor: "#D85912",
