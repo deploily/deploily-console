@@ -24,8 +24,8 @@ export default function FundBalanceDrawer({ openDrawer, onClose }: { openDrawer:
             getContainer={false}
             width={600}
             styles={{
-                header: { backgroundColor: theme.token.darkGray_1, borderBottom: `1px solid ${theme.token.gray_2}` },
-                body: { padding: 20, backgroundColor: theme.token.darkGray_1 },
+                header: { backgroundColor: theme.token.darkGray, borderBottom: `1px solid ${theme.token.gray200}` },
+                body: { padding: 20, backgroundColor: theme.token.darkGray },
             }}
         >
             <BodyMedium>{t('choosePaymentMethod')}</BodyMedium>

@@ -107,7 +107,7 @@ export default function SubscriptionSettingContant({ subscribe_id }: { subscribe
                                     justifyContent: "end",
                                     alignSelf: "start"
                                 }}>
-                                    <Typography.Title level={2} style={{ color: theme.token.orange_6 }}>
+                                    <Typography.Title level={2} style={{ color: theme.token.orange400 }}>
                                         {currentSubscribe.total_amount} DZD
                                     </Typography.Title>
                                 </Col>
@@ -146,7 +146,7 @@ export default function SubscriptionSettingContant({ subscribe_id }: { subscribe
                                 style={{ width: 160, color: theme.token.colorWhite }}
                                 defaultValue={dayjs(currentSubscribe.start_date, "YYYY-MM-DD")}
                                 disabled
-                                suffixIcon={<CalendarDots size={24} style={{ color: theme.token.blue_200 }} />}
+                                suffixIcon={<CalendarDots size={24} style={{ color: theme.token.blue200 }} />}
                             />
                         </Col>
                     </Row>
@@ -194,7 +194,7 @@ export default function SubscriptionSettingContant({ subscribe_id }: { subscribe
                     {serviceParameterValuesList?.result?.find(paramVal => paramVal.parameter !== undefined && paramVal.parameter.type === "token") == null &&
                         <CustomBlueButton
                             onClick={generateApiKey}
-                            style={{ backgroundColor: theme.token.blue_100, width: "20rem", color: theme.token.colorWhite }}
+                            style={{ backgroundColor: theme.token.blue100, width: "20rem", color: theme.token.colorWhite }}
                         >
                             {t('ganerateKey')}
                         </CustomBlueButton>}

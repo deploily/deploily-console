@@ -99,7 +99,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
                 justifyContent: "end",
                 alignSelf: "start"
               }}>
-                <Typography.Title level={2} style={{ color: theme.token.orange_6 }}>
+                <Typography.Title level={2} style={{ color: theme.token.orange400 }}>
                   {currentService.unit_price} DZD
                 </Typography.Title>
               </Col>
@@ -121,8 +121,8 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
                 expandIcon={({ isActive }) => (isActive ? <CaretUp /> : <CaretDown />)}
                 expandIconPosition="end"
                 style={{
-                  background: theme.token.darkGray_1, border: "1px solid",
-                  borderColor: theme.token.gray_1, width: "100%"
+                  background: theme.token.darkGray, border: "1px solid",
+                  borderColor: theme.token.gray50, width: "100%"
                 }}
                 items={getItems(currentService, t)}
               />
@@ -130,7 +130,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
             </Row>
             <Row gutter={20}>
               <Col span={24}>
-                <Typography.Title level={2} style={{ color: theme.token.blue_100, fontSize: 24, }}>
+                <Typography.Title level={2} style={{ color: theme.token.blue100, fontSize: 24, }}>
                   {t('SelectServicePlan')}
                 </Typography.Title>
               </Col>

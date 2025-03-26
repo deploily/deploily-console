@@ -43,11 +43,11 @@ export default function PaymentComponent({ newSubscribe,setNewSubscribe,totalAmo
         display: "flex",
         flexDirection: "column",
         height: "100%",
-        borderColor: theme.token.gray_1,
+        borderColor: theme.token.gray50,
         boxShadow: "none",
         textAlign: "center"
       }}
-        styles={{ header: { borderColor: theme.token.gray_1, textAlign: "start" } }}
+        styles={{ header: { borderColor: theme.token.gray50, textAlign: "start" } }}
 
       >
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
@@ -72,7 +72,7 @@ export default function PaymentComponent({ newSubscribe,setNewSubscribe,totalAmo
         <Button
             style={{
               color: "#fff",
-              backgroundColor: theme.token.blue_2,
+              backgroundColor: theme.token.blue300,
               border: "none",
               padding: "25px 10px",
               display: "flex",

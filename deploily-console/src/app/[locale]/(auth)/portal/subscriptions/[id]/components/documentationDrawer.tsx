@@ -18,21 +18,21 @@ export default function DocumentationDrawer({ openDrawer, onClose, currentSubscr
             getContainer={false}
             width={600}
             styles={{
-                header: { borderBottom: "none", backgroundColor: theme.token.darkGray_1 },
-                body: { padding: 0, backgroundColor: theme.token.darkGray_1 },
+                header: { borderBottom: "none", backgroundColor: theme.token.darkGray },
+                body: { padding: 0, backgroundColor: theme.token.darkGray },
             }}
         >
             <CustomDrawerCard style={{
                 display: "flex",
                 flexDirection: "column",
                 margin: 20,
-                borderColor: theme.token.gray_1,
+                borderColor: theme.token.gray50,
                 boxShadow: "none",
 
             }}>
                 <Row>
                     <Col span={24}>
-                        <Typography.Title level={4} style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange_7 }}>
+                        <Typography.Title level={4} style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange600 }}>
                             {t("accessUrl")}
                         </Typography.Title>
                     </Col>
@@ -43,7 +43,7 @@ export default function DocumentationDrawer({ openDrawer, onClose, currentSubscr
                         <Button type="primary" style={{ boxShadow: "none" }} icon={<Copy />} onClick={() => handleCopy(currentSubscribe.service_details.service_url)} />
                     </Col>
                     <Col span={24}>
-                        <Typography.Title level={4} style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange_7 }}>
+                        <Typography.Title level={4} style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange600 }}>
                             {t("documentation")}
                         </Typography.Title>
                     </Col>

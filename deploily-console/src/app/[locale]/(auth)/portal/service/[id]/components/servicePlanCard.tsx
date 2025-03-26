@@ -11,18 +11,18 @@ export default function ServicePlanCard({ servicePlan, showDrawer }: { servicePl
                 display: "flex",
                 flexDirection: "column",
                 height: "100%",
-                borderColor: theme.token.gray_1,
+                borderColor: theme.token.gray50,
                 boxShadow: "none"
             }}
             styles={{
                 body: { flex: 1, display: "flex", flexDirection: "column", paddingBottom: 0  },
             }}
             onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = theme.token.orange_7;
-                e.currentTarget.style.boxShadow = `4px 4px 10px 0px ${theme.token.orange_7}`;
+                e.currentTarget.style.borderColor = theme.token.orange600;
+                e.currentTarget.style.boxShadow = `4px 4px 10px 0px ${theme.token.orange600}`;
             }}
             onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = theme.token.gray_1;
+                e.currentTarget.style.borderColor = theme.token.gray50;
                 e.currentTarget.style.boxShadow = "none";
             }}
         >
@@ -31,7 +31,7 @@ export default function ServicePlanCard({ servicePlan, showDrawer }: { servicePl
                 {(servicePlan.plan!==null)? servicePlan.plan.name:""}
             </Typography.Title>
 
-            <Typography.Paragraph style={{ fontSize: 25, fontWeight: 600, color: theme.token.orange_6, textAlign: "center" }}>
+            <Typography.Paragraph style={{ fontSize: 25, fontWeight: 600, color: theme.token.orange400, textAlign: "center" }}>
                 {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(servicePlan.price)}
                 <span style={{ fontSize: 16, fontWeight: 400 }}> DZD/{t("month")}</span>
             </Typography.Paragraph>
@@ -40,12 +40,12 @@ export default function ServicePlanCard({ servicePlan, showDrawer }: { servicePl
                 {servicePlan.options.map((row: ServicePlanOption) => (
                     <Row gutter={16} key={row.id} align="middle">
                         <Col span={2}>
-                            <Typography.Paragraph style={{ fontSize: 25, color: theme.token.gray_0 }}>
+                            <Typography.Paragraph style={{ fontSize: 25, color: theme.token.gray100 }}>
                                 {row.icon}
                             </Typography.Paragraph>
                         </Col>
                         <Col span={22}>
-                            <Typography.Paragraph style={{ fontSize: 16, color: theme.token.gray_0 }}>
+                            <Typography.Paragraph style={{ fontSize: 16, color: theme.token.gray100 }}>
                                 <div dangerouslySetInnerHTML={{ __html: row.html_content }} />
                             </Typography.Paragraph>
                         </Col>
@@ -63,7 +63,7 @@ export default function ServicePlanCard({ servicePlan, showDrawer }: { servicePl
                     onClick={showDrawer}
                     style={{
                         color: theme.token.colorWhite,
-                        backgroundColor: theme.token.orange_7,
+                        backgroundColor: theme.token.orange600,
                         border: "none",
                         width: "100%",
                         paddingBlock: 20,

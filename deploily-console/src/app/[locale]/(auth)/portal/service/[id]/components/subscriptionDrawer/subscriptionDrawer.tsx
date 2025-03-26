@@ -173,8 +173,8 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
         getContainer={false} width={600}
 
         styles={{
-          header: { borderBottom: "none", backgroundColor: theme.token.darkGray_1 },
-          body: { padding: 0, backgroundColor: theme.token.darkGray_1 },
+          header: { borderBottom: "none", backgroundColor: theme.token.darkGray },
+          body: { padding: 0, backgroundColor: theme.token.darkGray },
 
 
         }}
@@ -188,7 +188,7 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
             display: "flex",
             flexDirection: "column",
             height: "100%",
-            borderColor: theme.token.gray_1,
+            borderColor: theme.token.gray50,
             boxShadow: "none",
 
           }}
@@ -210,7 +210,7 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
                     <ConfigProvider theme={{
                       components: {
                         Select: {
-                          colorBgContainer: theme.token.gray_1,
+                          colorBgContainer: theme.token.gray50,
                         }
 
                       }
@@ -223,8 +223,8 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
                         }}
                         onChange={handleChange}
                         dropdownStyle={{
-                          backgroundColor: theme.token.gray_1,
-                          border: `2px solid ${theme.token.gray_0}`
+                          backgroundColor: theme.token.gray50,
+                          border: `2px solid ${theme.token.gray100}`
 
 
                         }}
@@ -263,7 +263,7 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
                 <Row gutter={16} align="top" >
                   <Col span={14} >  <Typography.Text strong >{translate("price")}</Typography.Text></Col>
                   <Col span={10} color="red">
-                    <Typography.Text strong style={{ fontSize: 16, fontWeight: 500, color: theme.token.orange_6 }}>
+                    <Typography.Text strong style={{ fontSize: 16, fontWeight: 500, color: theme.token.orange400 }}>
                       {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(totalAmount)}
                       <span style={{ fontSize: 12, fontWeight: 400 }}>  DZD</span>
                     </Typography.Text>
@@ -296,7 +296,7 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
                   <style>
                     {`
                       .ant-select-item-option-selected {
-                      border: 1px solid ${theme.token.orange_7} !important;
+                      border: 1px solid ${theme.token.orange600} !important;
                       border-radius: 4px;
                       }
                     `}
@@ -314,7 +314,7 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
                     <span style={{ fontWeight: "bold" }}>{translate("balance")}</span>
                     <span />
                   </div>
-                  <Divider style={{ margin: 0, borderColor: theme.token.gray_1 }} />
+                  <Divider style={{ margin: 0, borderColor: theme.token.gray50 }} />
                   {menu}
                 </>
               )}
@@ -334,11 +334,11 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
                         paddingLeft: 10, paddingRight: 10
                       }}>
                         <span >{profile.name} </span>
-                        <span style={{ color: theme.token.orange_7 }}>{profile.balance}</span>
+                        <span style={{ color: theme.token.orange600 }}>{profile.balance}</span>
 
                         <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-                          <span style={{ color: theme.token.orange_7 }}>DZD</span>
-                          <Coins size={24} color={theme.token.orange_7} />
+                          <span style={{ color: theme.token.orange600 }}>DZD</span>
+                          <Coins size={24} color={theme.token.orange600} />
                         </div>
                       </div>
                     </Option>
@@ -380,7 +380,7 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
               <Button
                 style={{
                   color: theme.token.colorWhite,
-                  backgroundColor: theme.token.orange_7,
+                  backgroundColor: theme.token.orange600,
                   border: "none",
                   paddingBlock: 15,
                   fontWeight: 600,

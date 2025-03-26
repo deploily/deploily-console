@@ -15,7 +15,7 @@ export const getSubscriptionItems = (row: SubscribeInterface, t: any): CollapseP
     {
         key: "1",
         label: (
-            <Typography.Title level={4} style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange_7 }}>
+            <Typography.Title level={4} style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange600 }}>
                 {t("accessUrl")}
             </Typography.Title>
         ),
@@ -34,7 +34,7 @@ export const getSubscriptionItems = (row: SubscribeInterface, t: any): CollapseP
         key: "2",
         label: (
 
-            <Typography.Title level={4} style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange_7 }}>
+            <Typography.Title level={4} style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange600 }}>
                 {t("documentation")}
             </Typography.Title>
 

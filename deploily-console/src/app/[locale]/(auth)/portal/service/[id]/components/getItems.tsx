@@ -9,7 +9,7 @@ export const getItems = (row: ApiServiceInterface, t: any ): CollapseProps["item
   {
     key: "1",
     label: (
-      <Typography.Title level={3} style={{ fontWeight: 700, fontSize:24, color: theme.token.orange_7 }}>
+      <Typography.Title level={3} style={{ fontWeight: 700, fontSize:24, color: theme.token.orange600 }}>
         {t("description")}
       </Typography.Title>
     ),
@@ -22,7 +22,7 @@ export const getItems = (row: ApiServiceInterface, t: any ): CollapseProps["item
   {
     key: "2",
     label: (
-      <Typography.Title level={3} style={{ fontWeight: 700, fontSize:24, color: theme.token.orange_7 }}>
+      <Typography.Title level={3} style={{ fontWeight: 700, fontSize:24, color: theme.token.orange600 }}>
         {t("featuresSpecifications")}
       </Typography.Title>
     ),
@@ -38,7 +38,7 @@ export const getItems = (row: ApiServiceInterface, t: any ): CollapseProps["item
         key: "3",
         label: (
           <Link href={row.documentation_url} target="_blank" rel="noopener noreferrer">
-            <Typography.Title level={3} style={{ fontWeight: 700, fontSize:24, color: theme.token.orange_7 }}>
+            <Typography.Title level={3} style={{ fontWeight: 700, fontSize:24, color: theme.token.orange600 }}>
               {t("documentation")}
             </Typography.Title>
           </Link>
