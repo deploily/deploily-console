@@ -2,7 +2,6 @@
 
 import { usePayment } from "@/lib/features/payments/paymentSelector";
 import { deletePaymentById, deletePayments, fetchPayments,  } from "@/lib/features/payments/paymentThunks";
-import { ProfileInterface } from "@/lib/features/profilePayment/profilePaymentInterface";
 import { SubscribeInterface } from "@/lib/features/subscribe/subscribeInterface";
 import { useAppDispatch } from "@/lib/hook";
 import { Button, Skeleton, Table, Modal, message } from "antd";
@@ -12,8 +11,11 @@ import { PaymentInterface } from "@/lib/features/payments/paymentInterface";
 import { Trash } from "@phosphor-icons/react";
 import { useRouter } from "next/navigation";
 import { DeleteButton } from "@/styles/components/buttonStyle";
+import { theme } from "@/styles/theme";
+import { ProfileServiceInterface } from "@/lib/features/profileService/profileServiceInterface";
 
 export default function PaymentListeContainer() {
+    
     const router = useRouter(); 
     const t = useScopedI18n('payments');
     const dispatch = useAppDispatch();
@@ -60,7 +62,7 @@ export default function PaymentListeContainer() {
                 title: t("profile"),
                 dataIndex: "profile",
                 key: "profile",
-                render: (profile: ProfileInterface) => profile?.name || "-",
+                render: (profile: ProfileServiceInterface) => profile?.name || "-",
             },
             {
                 title: t("serviceName"),
@@ -83,13 +85,13 @@ export default function PaymentListeContainer() {
                     const getStatusStyle = () => {
                         switch (status) {
                             case "completed":
-                                return { backgroundColor: "#28B609", color: "#fff", label: t("done") }; 
+                                return { backgroundColor: theme.token.green, color: theme.token.colorWhite, label: t("done") }; 
                             case "pending":
-                                return { backgroundColor: "#F77605", color: "#fff", label: t("pending") }; 
+                                return { backgroundColor: theme.token.orange300, color: theme.token.colorWhite, label: t("pending") }; 
                             case "failed":
-                                return { backgroundColor: "#EA1919", color: "#fff", label: t("failed") }; 
+                                return { backgroundColor: theme.token.Error100, color: theme.token.colorWhite, label: t("failed") }; 
                             default:
-                                return { backgroundColor: "#d9d9d9", color: "#000", label: status }; 
+                                return { backgroundColor: theme.token.gray200, color: theme.token.colorWhite, label: status }; 
                         }
                     };
 
@@ -144,7 +146,7 @@ export default function PaymentListeContainer() {
             {
                 key: "actions",
                 render: (_: any, record: PaymentInterface) => (
-                    <Button type="link" danger icon={<Trash size={24} />} onClick={() => handleDelete(record.id)} />
+                    <Button type="link" icon={<Trash size={24} color={theme.token.red500} />} onClick={() => handleDelete(record.id)} />
                 ),
             },
         ];
