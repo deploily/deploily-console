@@ -1,13 +1,13 @@
 "use client";
 import { Col, Row, Image, Typography, Collapse, Button, Space, Skeleton, Badge, Card } from "antd";
-import { ArrowLeft, CaretDown, CaretUp, Star } from "@phosphor-icons/react";
+import {  CaretDown, CaretUp, Star } from "@phosphor-icons/react";
 import { useI18n } from "../../../../../../../../locales/client";
 import { getItems } from "./getItems";
 import { useEffect } from "react";
 import { useAllServices } from "@/lib/features/apiService/apiServiceSelectors";
 import { useAppDispatch } from "@/lib/hook";
 import { getApiServiceById } from "@/lib/features/apiService/apiServiceThunks";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import Paragraph from "antd/es/typography/Paragraph";
 import { IMAGES_URL } from "@/deploilyWebsiteUrls";
 import { postFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
@@ -18,14 +18,14 @@ import { useServicePlan } from "@/lib/features/servicePlan/servicePlanSelector";
 import { ServicePlan } from "@/lib/features/servicePlan/servicePlanInterface";
 import ServicePlanCard from "./servicePlanCard";
 import { useState } from "react";
-import SubscriptionDrawer from "./subscriptionDrawer";
+import SubscriptionDrawer from "./subscriptionDrawer/subscriptionDrawer";
 
 export default function ServiceDetailsContentPage({ serviceId }: { serviceId: string }) {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [planSelected, setSelectedPlan] = useState(undefined);
 
-  const showDrawer = (plan:any) => {
-     setSelectedPlan(plan);
+  const showDrawer = (plan:any | null) => {
+   if(plan!==null){ setSelectedPlan(plan);}
     setOpenDrawer(true);
   };
 
@@ -36,7 +36,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
   const { currentService, serviceLoading } = useAllServices();
   const { favoriteServiceAdded, favoriteServiceDeleted } = useFavoriteServices()
   const dispatch = useAppDispatch();
-  const router = useRouter();
+  // const router = useRouter();
   const { servicePlanResponse, servicePlanLoading } = useServicePlan()
   useEffect(() => {
     dispatch(getApiServiceById(serviceId));
@@ -58,10 +58,10 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
 
   return (
     <>
-      <div style={{ marginLeft: 40 }}>
+      {/* <div style={{ marginLeft: 40 }}>
         <Button style={{ border: "none", background: "#030303", boxShadow: "none" }}
           icon={<ArrowLeft color="#D85912" size={35} />} onClick={() => router.back()} />
-      </div>
+      </div> */}
       <Space direction="vertical" size="large" style={{ paddingInline: 40, marginBlock: 10, width: "100%"  ,marginBottom:50}}>
         {(serviceLoading || currentService === undefined) ?
           <>
@@ -155,7 +155,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
                       xl={8}
                       style={{ display: "flex", justifyContent: "center" }}
                     >
-                      <ServicePlanCard key={row.id} servicePlan={row}  showDrawer={() => showDrawer(row)}/>
+                      <ServicePlanCard key={row.id} servicePlan={row}  showDrawer={() =>row!==null? showDrawer(row):null}/>
                      
 
                     </Col>

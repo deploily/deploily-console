@@ -28,7 +28,7 @@ export default function ServicePlanCard({ servicePlan, showDrawer }: { servicePl
         >
 
             <Typography.Title level={3} style={{ textAlign: "center" }}>
-                {servicePlan.plan.name}
+                {(servicePlan.plan!==null)? servicePlan.plan.name:""}
             </Typography.Title>
 
             <Typography.Paragraph style={{ fontSize: 25, fontWeight: 600, color: theme.token.orange_6, textAlign: "center" }}>
