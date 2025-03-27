@@ -141,7 +141,6 @@ export default function ProfilePayementContainer() {
 
             {!profileServicesLoadingError &&
                 <Table<ProfileServiceInterface>
-                // columns={isLoading ? skeletonColumns : profileServicesList && keysToColumn()}
                 columns={
                     isLoading
                         ? skeletonColumns
