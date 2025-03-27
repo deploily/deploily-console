@@ -17,4 +17,5 @@ export const deploilyApiUrls = {
   PAYMENT: ` ${process.env.API_BASE_URL }/payment/`,
   SERVICE_SUBSCRIPTION: `${process.env.API_BASE_URL}/service-subscription/subscribe`,
   CHECK_PROMO_CODE: `${process.env.API_BASE_URL}/promo-code/`,
+  EPAYMENT_STATUS: ` ${process.env.API_BASE_URL }/service-subscription/payment-status`,
 };

@@ -21,6 +21,7 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
   const [sufficientBalance, checkSufficientBalance] = useState<boolean | null>(null);
   const [showConfirmButton, setShowConfirmButton] = useState(true);
   const [totalAmount, setTotalAmount] = useState(0);
+  const [promoCodeRate, setPromoCodeRate] = useState<number | null>(null);
   const [promoColor, setPromoColor] = useState("red");
   const { Option } = Select;
   const dispatch = useAppDispatch();
@@ -31,11 +32,9 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
     const selectedProfile = profileServicesList?.result.find(
       (profile) => profile.id === value
     );
-    if (sufficientBalance === false) { setShowConfirmButton(false); }
-    if (selectedProfile != undefined) {
-      console.log(selectedProfile.balance);
-      checkBalance(values.total_amount, selectedProfile.balance);
-
+   setShowConfirmButton(true);
+   checkSufficientBalance(null);
+    if (selectedProfile != undefined ) {
       setValues({ ...values, profile_id: selectedProfile.id });
       setProfileSelected(selectedProfile);
     }
@@ -58,8 +57,6 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
     profile_id: 0
   });
 
-
-
   const calculPrice = (totalAmount: number, duration: number) => {
     setTotalAmount((totalAmount * duration));
   };
@@ -74,6 +71,7 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
       checkSufficientBalance(true);
     } else {
       checkSufficientBalance(false);
+      setShowConfirmButton(false);
     }
   };
 
@@ -85,7 +83,8 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
     }));
 
     calculPrice(planSelected.price, value);
-    checkBalance(values.total_amount, profileSelected.balance);
+  if(promoCodeRate!==null) { calculatePercentage(totalAmount,promoCodeRate);}
+
   };
 
   useEffect(() => {
@@ -117,6 +116,7 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
       calculatePercentage(totalAmount, promoCodeResponse?.rate);
       setValues({ ...values, promo_code: promoCode.promo_code });
 
+      setPromoCodeRate(promoCodeResponse?.rate);
       setPromoColor("green");
       setValues((prevValues) => ({
         ...prevValues,
@@ -150,7 +150,6 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
   }, []);
 
   useEffect(() => {
-    console.log(newSubscribeResponse);
 
     if (newSubscribeResponse) {
 
@@ -324,7 +323,7 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
 
                 <>
 
-                  {profileServicesList?.result.map((profile, index) => (
+                  {(profileServicesList?.result).map((profile, index) => (
                     <Option key={index} value={profile.id}>
                       <div style={{
                         display: "flex",
