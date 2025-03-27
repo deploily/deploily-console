@@ -20,6 +20,24 @@ export const CustomBlueButton = styled(Button)` &&
 }
 `;
 
+export const CustomBlueRoundedButton = styled(Button)` &&
+ {  
+    color: ${theme.token.colorWhite};
+    background-color:${theme.token.blue100};
+    padding: 10px;
+    border-radius: 25px;
+    fontsize: 15px;
+    height: 45px;
+
+     &:hover {
+      color: ${theme.token.colorWhite} !important;
+      background-color:${theme.token.blue100} !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+}
+`;
+
 export const CustomOrangeButton = styled(Button)` &&
  {  
     color: ${theme.token.colorWhite};

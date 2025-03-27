@@ -9,6 +9,7 @@ import { SupportTicket } from "@/lib/features/support-ticket/supportTicketInterf
 import { useSupportTicket } from "@/lib/features/support-ticket/supportTicketSelector";
 import { useRouter } from "next/navigation";
 import { SubscribeInterface } from "@/lib/features/subscribe/subscribeInterface";
+import { CustomBlueRoundedButton } from "@/styles/components/buttonStyle";
 
 export default function GetSupportTecket() {
     const dispatch = useAppDispatch();
@@ -109,27 +110,20 @@ export default function GetSupportTecket() {
         }));
     return (
         <>
-            <Row gutter={16} style={{marginTop:20}} >
+            <Row gutter={16} style={{ marginTop: 20 }} >
                 <Col span={14}>
                     <Title level={3} style={{ fontWeight: 700, color: '#ffff' }}>
                         {t("supportTicket")}
                     </Title>
                 </Col>
                 <Col span={10} style={{ display: "flex", justifyContent: "end" }}>
-                    <Button
-                        style={{
-                            color: "#ffff",
-                            backgroundColor: "#5394CC",
-                            padding: 10,
-                            borderRadius: 25,
-                            fontSize: 15,
-                            height: 45
-                        }}
+                    <CustomBlueRoundedButton
+
                         onClick={() => router.push(`/portal/supportTicket/add`)}
                     >
                         <Plus size={20} style={{ color: "rgba(220, 233, 245, 0.88)" }} />
                         {translate("createTicket")}
-                    </Button>
+                    </CustomBlueRoundedButton>
                 </Col>
             </Row>
 

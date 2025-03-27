@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import { ProfileServiceInterface } from "@/lib/features/profileService/profileServiceInterface";
 import { useProfileServices } from "@/lib/features/profileService/profileServiceSelectors";
 import { fetchProfilesServices } from "@/lib/features/profileService/profileServiceThunks";
-import { CustomOrangeButton } from "@/styles/components/buttonStyle";
+import { CustomBlueRoundedButton, CustomOrangeButton } from "@/styles/components/buttonStyle";
 import { theme } from "@/styles/theme";
 import { CustomTypography } from "@/styles/components/typographyStyle";
 import FundBalanceDrawer from "./fundBalanceDrawer";
@@ -122,36 +122,28 @@ export default function ProfilePayementContainer() {
                     </Title>
                 </Col>
                 <Col span={10} style={{ display: "flex", justifyContent: "end" }}>
-                    <Button
-                        style={{
-                            color: "#ffff",
-                            backgroundColor: "#5394CC",
-                            padding: 10,
-                            borderRadius: 25,
-                            fontSize: 15,
-                            height: 45
-                        }}
+                    <CustomBlueRoundedButton
                         onClick={() => router.push(`/portal/profile-payement/add`)}
                     >
                         <Plus size={20} style={{ color: "rgba(220, 233, 245, 0.88)" }} />
                         {t("createProfile")}
-                    </Button>
+                    </CustomBlueRoundedButton>
                 </Col>
             </Row>
 
             {!profileServicesLoadingError &&
                 <Table<ProfileServiceInterface>
-                columns={
-                    isLoading
-                        ? skeletonColumns
-                        : profileServicesList &&
-                        keysToColumn().map((col, index, arr) => ({
-                            ...col,
-                            onCell: () => ({
-                                onClick: index === arr.length - 1 ? (e: React.MouseEvent) => e.stopPropagation() : undefined,
-                            }),
-                        }))
-                }
+                    columns={
+                        isLoading
+                            ? skeletonColumns
+                            : profileServicesList &&
+                            keysToColumn().map((col, index, arr) => ({
+                                ...col,
+                                onCell: () => ({
+                                    onClick: index === arr.length - 1 ? (e: React.MouseEvent) => e.stopPropagation() : undefined,
+                                }),
+                            }))
+                    }
                     dataSource={isLoading ? Array(1).fill({ key: Math.random() }) : profileServicesList?.result}
                     size="middle"
                     className="custom-table"
