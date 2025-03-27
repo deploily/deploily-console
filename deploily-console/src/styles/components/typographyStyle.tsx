@@ -30,6 +30,16 @@ export const InterRegular16 = styled(Typography)` &&
 }
 `;
 
+export const InterBold18 = styled(Typography)` &&
+ {  
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 100%;
+    letter-spacing: 0%;
+
+}
+`;
+
 
 
 

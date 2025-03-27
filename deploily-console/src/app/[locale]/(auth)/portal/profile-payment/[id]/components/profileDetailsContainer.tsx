@@ -1,5 +1,5 @@
 import { CustomOrangeButton } from "@/styles/components/buttonStyle";
-import { Col, Form, Radio, Result, Row, Skeleton } from "antd";
+import { Col, Form, Radio, Result, Row, Skeleton, Tag } from "antd";
 import Title from "antd/es/typography/Title";
 import { useI18n, useScopedI18n } from "../../../../../../../../locales/client";
 import { useAppDispatch } from "@/lib/hook";
@@ -31,11 +31,17 @@ export default function ProfileDetailsContainer({ profile_id }: { profile_id: st
                 <Col span={14}>
                     <Title level={3} style={{ fontWeight: 700, color: '#ffff' }}>
                         {t("profilePayment")}
+                        {currentProfile !== undefined && currentProfile.company_name !== null && currentProfile.company_name !== "" &&
+                            <Tag color={"magenta"} bordered={false} style={{ marginLeft: 20, fontSize:16, fontWeight:500}} >
+                              {currentProfile.company_name}
+                            </Tag>
+                        }
                     </Title>
+
                 </Col>
                 <Col span={10} style={{ display: "flex", justifyContent: "end" }}>
                     <CustomOrangeButton
-                    onClick={() => setOpenDrawer(true)} 
+                        onClick={() => setOpenDrawer(true)}
                     >
                         {t('fundBalance')}
                     </CustomOrangeButton>
@@ -75,7 +81,7 @@ export default function ProfileDetailsContainer({ profile_id }: { profile_id: st
                         <Row gutter={[16, 16]} >
                             <Col md={12} xs={24} >
                                 <Form.Item label={t('firstName')} name="firstName" >
-                                    <CustomPayementInput defaultValue={currentProfile.user.first_name} style={{ color: theme.token.colorWhite }}  disabled />
+                                    <CustomPayementInput defaultValue={currentProfile.user.first_name} style={{ color: theme.token.colorWhite }} disabled />
                                 </Form.Item>
                             </Col>
                             <Col md={12} xs={24} >
@@ -89,28 +95,28 @@ export default function ProfileDetailsContainer({ profile_id }: { profile_id: st
                             <CustomPayementInput defaultValue={currentProfile.company_name} style={{ color: theme.token.colorWhite }} disabled />
                         </Form.Item>
                         <Form.Item label={t('address')} name="address" >
-                            <CustomPayementInput style={{ color: theme.token.colorWhite }} disabled/>
+                            <CustomPayementInput style={{ color: theme.token.colorWhite }} disabled />
                         </Form.Item>
                         <Row gutter={[16, 16]} >
                             <Col md={16} xs={24} >
                                 <Form.Item label={t('city')} name="city" >
-                                    <CustomPayementInput style={{ color: theme.token.colorWhite }} disabled/>
+                                    <CustomPayementInput style={{ color: theme.token.colorWhite }} disabled />
                                 </Form.Item>
                             </Col>
                             <Col md={8} xs={24} >
                                 <Form.Item label={t('codePostal')} name="codePostal">
-                                    <CustomPayementInput style={{ color: theme.token.colorWhite }} disabled/>
+                                    <CustomPayementInput style={{ color: theme.token.colorWhite }} disabled />
                                 </Form.Item>
                             </Col>
                         </Row>
                         <Form.Item label={t('wilaya')} name="wilaya" >
-                            <CustomPayementInput style={{  color: theme.token.colorWhite }} disabled/>
+                            <CustomPayementInput style={{ color: theme.token.colorWhite }} disabled />
                         </Form.Item>
                         <Form.Item label={t('country')} name="country">
-                            <CustomPayementInput style={{  color: theme.token.colorWhite }} disabled/>
+                            <CustomPayementInput style={{ color: theme.token.colorWhite }} disabled />
                         </Form.Item>
                         <Form.Item label={t('phone')} name="phone" >
-                            <CustomPayementInput defaultValue={currentProfile.phone} style={{  color: theme.token.colorWhite }} disabled/>
+                            <CustomPayementInput defaultValue={currentProfile.phone} style={{ color: theme.token.colorWhite }} disabled />
                         </Form.Item>
 
                         <Radio checked={currentProfile.user.active} > {t('isCompany')} </Radio>
@@ -131,12 +137,12 @@ export default function ProfileDetailsContainer({ profile_id }: { profile_id: st
                         <Row gutter={[16, 16]} >
                             <Col md={12} xs={24} >
                                 <Form.Item label={t('commercialRegister')} name="commercialRegister" >
-                                    <CustomPayementInput defaultValue={currentProfile.company_registration_number} style={{ color: theme.token.colorWhite }} disabled/>
+                                    <CustomPayementInput defaultValue={currentProfile.company_registration_number} style={{ color: theme.token.colorWhite }} disabled />
                                 </Form.Item>
                             </Col>
                             <Col md={12} xs={24} >
                                 <Form.Item label={t('taxArticle')} name="taxArticle" >
-                                    <CustomPayementInput style={{  color: theme.token.colorWhite }} disabled/>
+                                    <CustomPayementInput style={{ color: theme.token.colorWhite }} disabled />
                                 </Form.Item>
                             </Col>
                         </Row>
@@ -144,12 +150,12 @@ export default function ProfileDetailsContainer({ profile_id }: { profile_id: st
                         <Row gutter={[16, 16]} >
                             <Col md={12} xs={24} >
                                 <Form.Item label={t('nif')} name="nif" >
-                                    <CustomPayementInput style={{ color: theme.token.colorWhite }} disabled/>
+                                    <CustomPayementInput style={{ color: theme.token.colorWhite }} disabled />
                                 </Form.Item>
                             </Col>
                             <Col md={12} xs={24} >
                                 <Form.Item label={t('nis')} name="nis" >
-                                    <CustomPayementInput style={{  color: theme.token.colorWhite }} disabled/>
+                                    <CustomPayementInput style={{ color: theme.token.colorWhite }} disabled />
                                 </Form.Item>
                             </Col>
                         </Row>

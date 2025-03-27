@@ -1,15 +1,18 @@
 import { theme } from "@/styles/theme";
-import { Button, Card, Checkbox, Drawer, Flex, Radio, RadioChangeEvent, Image, Typography } from "antd";
+import { Button, Card, Checkbox, Drawer, Flex, Radio, RadioChangeEvent, Image, Typography, Input } from "antd";
 import { useScopedI18n } from "../../../../../../../../locales/client";
-import { InterRegular16 } from "@/styles/components/typographyStyle";
+import { InterBold18, InterRegular16 } from "@/styles/components/typographyStyle";
 
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { useState } from "react";
+import { PayButton } from "@/styles/components/buttonStyle";
 
 
 
 export default function FundBalanceDrawer({ openDrawer, onClose }: { openDrawer: any, onClose: any }) {
     const t = useScopedI18n("profilePayment");
+    const [balance, setBalance] = useState<number>()
+    const [selectBalance, setSelectBalance] = useState()
     const [value, setValue] = useState(false);
     const [values, setValues] = useState({
         payment_method: "card",
@@ -22,10 +25,19 @@ export default function FundBalanceDrawer({ openDrawer, onClose }: { openDrawer:
 
     };
 
+    const onChangeSelectBalance = (e: RadioChangeEvent) => {
+
+        setSelectBalance(e.target.value);
+
+    };
+
     const onChangeCheckbox = (e: CheckboxChangeEvent) => {
+
         setValue(e.target.value);
 
     };
+
+
 
     return (
         <Drawer
@@ -40,7 +52,7 @@ export default function FundBalanceDrawer({ openDrawer, onClose }: { openDrawer:
                 body: { padding: 20, backgroundColor: theme.token.darkGray },
             }}
         >
-           
+
             <>
                 <Typography.Title level={4} style={{ paddingTop: 20, paddingBottom: 20 }}>{t('choosePaymentMethod')}</Typography.Title>
                 <Flex vertical gap="start" style={{ padding: 10, backgroundColor: theme.token.colorBgBase, borderRadius: 5 }}>
@@ -57,7 +69,6 @@ export default function FundBalanceDrawer({ openDrawer, onClose }: { openDrawer:
                         marginTop: 20,
                         display: "flex",
                         flexDirection: "column",
-                        // height: "100%",
                         borderColor: theme.token.gray50,
                         boxShadow: "none",
                         textAlign: "center", borderRadius: 0
@@ -67,10 +78,46 @@ export default function FundBalanceDrawer({ openDrawer, onClose }: { openDrawer:
                 >
                     <div style={{ display: "flex", flexDirection: "column", alignItems: "start", gap: 10 }}>
                         <InterRegular16> {t('balanceRecharge')} : </InterRegular16>
+                        <Radio.Group
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                gap: 8,
+                                flexWrap:"wrap"
+                            }}
+                           
+                            onChange={onChangeSelectBalance}
+                            value={value}
+                            options={[
+                                { value: 1000, label:  '1 000' },
+                                { value: 2000, label: '2 000' },
+                                { value: 3000, label: ' 3 000' },
+                                { value: 5000, label: ' 5 000' },
+                                { value: 10000, label: ' 10 000' },
+                                {
+                                    value: 4,
+                                    label: (
+                                        <>
+                                            Others...
+                                            {selectBalance === 4 && (
+                                                <Input
+                                                type="number"
+                                                    variant="filled"
+                                                    placeholder="please input"
+                                                    style={{ width: 120, marginInlineStart: 12 }}
+                                                    onChange={(e)=>setBalance(parseFloat(e.target.value))}
+                                                />
+                                            )}
+                                        </>
+                                    ),
+                                },
+                            ]}
+                        />
+
                     </div>
-                   
+
                     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
-                       
+
 
                         <Button
                             onClick={() => console.log(values)}
@@ -85,24 +132,12 @@ export default function FundBalanceDrawer({ openDrawer, onClose }: { openDrawer:
                             }} > captcha</Button>
                         <Checkbox style={{ padding: 15 }} onChange={onChangeCheckbox} value={value}>I accept the general conditions of use</Checkbox>
 
-                        <Button
-                            style={{
-                                color: "#fff",
-                                backgroundColor: theme.token.blue300,
-                                border: "none",
-                                padding: "25px 10px",
-                                display: "flex",
-                                alignItems: "center",
-                                gap: "10px",
-                            }}
-                            icon={<Image src="/images/paymentIcon.png" alt="PAY" style={{ width: 60, height: 35 }} />}
+                        <PayButton
+                            icon={<Image src="/images/paymentIcon.png" alt="Recharge" preview={false} style={{ width: 60, height: 35 }} />}
                         // onClick={handleSubscribe}
                         >
-
-                            <span style={{ fontFamily: "Inter, sans-serif", fontSize: "16px", fontWeight: 600 }}>
-                                PAY
-                            </span>
-                        </Button>
+                            <InterBold18> Recharge </InterBold18>
+                        </PayButton>
                     </div>
                 </Card>
             </>

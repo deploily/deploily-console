@@ -1,6 +1,6 @@
 
 
-import { Button, Col, Result, Row, Skeleton, Table } from "antd";
+import { Button, Col, Result, Row, Skeleton, Table, Tag } from "antd";
 import Title from "antd/es/typography/Title";
 import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import { Coins, Plus } from "@phosphor-icons/react";
@@ -12,6 +12,7 @@ import { useProfileServices } from "@/lib/features/profileService/profileService
 import { fetchProfilesServices } from "@/lib/features/profileService/profileServiceThunks";
 import { CustomOrangeButton } from "@/styles/components/buttonStyle";
 import { theme } from "@/styles/theme";
+import { CustomTypography } from "@/styles/components/typographyStyle";
 
 export default function ProfilePayementContainer() {
     const dispatch = useAppDispatch();
@@ -35,21 +36,31 @@ export default function ProfilePayementContainer() {
         let columns = list.map((element: any) => {
             if (element === "balance") {
                 return {
-                    title: t(element),
+                    title: <CustomTypography>{t(element)}</CustomTypography>,
                     dataIndex: element,
                     key: element,
                     render: (balance: any) =>
-                        <div>
+                        <CustomTypography>
                             {balance}
-                        </div>
+                        </CustomTypography>
+
                 };
             }
 
             else
                 return {
-                    title: t(element),
-                    dataIndex: element,
+                    title: <CustomTypography>{t(element)}</CustomTypography>,
+                    dataIndex: "",
                     key: element,
+                    render: (element: any) =>
+                        <CustomTypography>
+                            {element.name}
+                            {element.company_name !== null && element.company_name !== "" &&
+                                <Tag color={"magenta"} bordered={false} style={{ marginLeft: 20, fontSize: 16, fontWeight: 500 }} >
+                                    {element.company_name}
+                                </Tag>
+                            }
+                        </CustomTypography>
 
                 };
         });
@@ -57,25 +68,25 @@ export default function ProfilePayementContainer() {
         columns = [
             ...columns,
             {
-                title: "",
+                title: <CustomTypography>{""}</CustomTypography>,
                 dataIndex: "",
                 key: "val",
                 render: () =>
 
-                    <div style={{ display: "flex", justifyContent: "start", paddingInline: 5 }}>
+                    <CustomTypography style={{ display: "flex", justifyContent: "start", paddingInline: 5, alignItems: "center" }}>
                         DZD
-                        <Coins size={"28px"} style={{ color: theme.token.colorWhite }} />
-                    </div>
+                        <Coins size={"28px"} style={{ color: theme.token.colorWhite, marginLeft: 4 }} />
+                    </CustomTypography>
 
             }, {
-                title: "",
+                title: <CustomTypography>{""}</CustomTypography>,
                 dataIndex: "",
                 key: "actions",
                 render: (element) =>
 
                     <div style={{ display: "flex", justifyContent: "end", paddingInline: 5 }}>
-                        <CustomOrangeButton  onClick={() => router.push(`/portal/profile-payment/${element.id}`)} >
-                            {t('fundBalance')} 
+                        <CustomOrangeButton onClick={() => router.push(`/portal/profile-payment/${element.id}`)} >
+                            {t('fundBalance')}
                         </CustomOrangeButton>
                     </div>
 
@@ -131,6 +142,7 @@ export default function ProfilePayementContainer() {
                     className="custom-table"
                     style={{ marginTop: 40, borderRadius: 0 }}
                     scroll={{ y: 55 * 5 }}
+
                 />
             }
             {!isLoading && profileServicesLoadingError &&
