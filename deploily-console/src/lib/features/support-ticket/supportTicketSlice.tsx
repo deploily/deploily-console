@@ -36,8 +36,6 @@ const SupportTicketSlice = createSlice({
           Object.assign({ key: index }, { id: id }, action.payload.result[index]),
         );
         const payload = Object.assign({}, action.payload, { result: result });
-        console.log(payload);
-
         state.supportTicketList = payload;
       })
       .addCase(fetchSupportTicket.rejected, (state, { payload }) => {

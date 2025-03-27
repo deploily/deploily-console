@@ -34,7 +34,6 @@ export const fetchSupportTicket = createAsyncThunk(
   export const postSupportTicket = createAsyncThunk(
     "apiServices/postSupportTicket",
     async (newsupportTicket: any, thunkConfig) => {
-      console.log("newsupportTicket=== ", newsupportTicket);
       
       try {
         const session = await getSession();

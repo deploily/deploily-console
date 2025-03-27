@@ -4,18 +4,20 @@ import {fetchApiServices, getApiServiceById} from "./apiServiceThunks";
 
 interface ApiServiceState {
   apiServiceResponse?: ApiServiceResponse;
-  isLoading: boolean;
+  isLoadingServiceResponse: boolean;
   apiServiceLoadingError?: any;
   serviceLoading: boolean;
   currentService?: ApiServiceInterface;
+  currentServiceError?: any;
   service_id?: number;
 }
 
 const initialState: ApiServiceState = {
   apiServiceResponse: undefined,
-  isLoading: false,
+  isLoadingServiceResponse: false,
   apiServiceLoadingError: undefined,
   serviceLoading: false,
+  currentServiceError: undefined,
   service_id: undefined,
 };
 const ApiServiceSlice = createSlice({
@@ -25,10 +27,10 @@ const ApiServiceSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchApiServices.pending, (state) => {
-        state.isLoading = true;
+        state.isLoadingServiceResponse = true;
       })
       .addCase(fetchApiServices.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.isLoadingServiceResponse = false;
         state.apiServiceLoadingError = null;
         const result = action.payload.ids.map((id: number, index: any) =>
           Object.assign({}, {id: id}, action.payload.result[index]),
@@ -37,23 +39,23 @@ const ApiServiceSlice = createSlice({
         state.apiServiceResponse = payload;
       })
       .addCase(fetchApiServices.rejected, (state, {payload}) => {
-        state.isLoading = false;
+        state.isLoadingServiceResponse = false;
         state.apiServiceLoadingError = payload;
       })
       //CHECK IF SERVICE EXIST OR NOT
       .addCase(getApiServiceById.pending, (state) => {
         state.serviceLoading = true;
-        state.apiServiceLoadingError = null;
+        state.currentServiceError = null;
       })
       .addCase(getApiServiceById.fulfilled, (state, action) => {
         state.serviceLoading = false;
-        state.apiServiceLoadingError = null;
+        state.currentServiceError = null;
         state.currentService = {...action.payload.result, ...{id: action.payload.id}};
         state.service_id = action.payload.id;
       })
       .addCase(getApiServiceById.rejected, (state, {payload}) => {
         state.serviceLoading = false;
-        state.apiServiceLoadingError = payload;
+        state.currentServiceError = payload;
       });
   },
 });

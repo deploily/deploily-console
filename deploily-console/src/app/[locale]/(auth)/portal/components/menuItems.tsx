@@ -1,6 +1,5 @@
 import {
   HouseLine,
-  ShoppingCart,
   HardDrives,
   CalendarStar,
   Question,
@@ -9,7 +8,7 @@ import {
   UserList,
   Handshake,
 } from "@phosphor-icons/react/dist/ssr";
-import type {MenuProps} from "antd";
+import type { MenuProps } from "antd";
 import Link from "next/link";
 
 const labelStyle = {
@@ -29,20 +28,11 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
     icon: <HouseLine size={24} />,
   },
   {
-    key: "cart",
+    key: "subscriptions",
     label: (
-      <Link href="/portal/cart">
-        <span style={labelStyle}>{scopedSidebar("cart")}</span>
-      </Link>
-    ),
-    icon: <ShoppingCart size={24} />,
-  },
-  {
-    key: "my-services",
-    label: (
-      <Link href="/portal/my-services">
+      <Link href="/portal/subscriptions">
         {" "}
-        <span style={labelStyle}>{scopedSidebar("myServices")}</span>{" "}
+        <span style={labelStyle}>{scopedSidebar("subscriptions")}</span>{" "}
       </Link>
     ),
     icon: <HardDrives size={24} />,
@@ -50,7 +40,7 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
     //   {
     //     key: "1",
     //     label: (
-    //       <Link href="/portal/myServices">
+    //       <Link href="/portal/subscriptions">
     //         <span style={labelStyle}>{scopedSidebar("api")}</span>
     //       </Link>
     //     ),
@@ -58,7 +48,7 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
     //   {
     //     key: "2",
     //     label: (
-    //       <Link href="/portal/myServices">
+    //       <Link href="/portal/subscriptions">
     //         <span style={labelStyle}>{scopedSidebar("cicd")}</span>
     //       </Link>
     //     ),
@@ -66,7 +56,7 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
     //   {
     //     key: "3",
     //     label: (
-    //       <Link href="/portal/myServices">
+    //       <Link href="/portal/subscriptions">
     //         <span style={labelStyle}>{scopedSidebar("databases")}</span>
     //       </Link>
     //     ),
@@ -74,7 +64,7 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
     //   {
     //     key: "4",
     //     label: (
-    //       <Link href="/portal/myServices">
+    //       <Link href="/portal/subscriptions">
     //         <span style={labelStyle}>{scopedSidebar("erpcrm")}</span>
     //       </Link>
     //     ),
@@ -113,8 +103,8 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
     label: <span style={labelStyle}>{scopedSidebar("billing")}</span>,
     icon: <Invoice size={24} />,
     children: [
-      {key: "10", label: <span style={labelStyle}>{scopedSidebar("invoice")}</span>},
-      {key: "11", label: <span style={labelStyle}>{scopedSidebar("payments")}</span>},
+      { key: "10", label: <Link href={"/portal/profile-payment"}><span style={labelStyle}>{scopedSidebar("profilePayment")}</span></Link> },
+      { key: "11", label: <Link href={"/portal/payments"}><span style={labelStyle}>{scopedSidebar("payments")}</span></Link> },
     ],
   },
   {

@@ -13,10 +13,13 @@ export default function LandingPageContent({ loginLogoutButton }: { loginLogoutB
       >
         <Image
           src="/images/logo_name.png"
-          width={350}
+          width={441}
           height={109}
           alt="logo-deploily"
           layout="responsive"
+          style={{
+            marginBottom: "40px",
+          }}
         />
         <>
           {loginLogoutButton}
@@ -28,6 +31,7 @@ export default function LandingPageContent({ loginLogoutButton }: { loginLogoutB
             height: "40px",
             backgroundColor: "#5394CC",
             border: "none",
+            
           }}
           href="https://deploily.cloud/en"
         >

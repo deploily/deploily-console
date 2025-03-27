@@ -4,9 +4,14 @@ import cartSlice from "./features/cart/cartSlice";
 import cartLineSlice from "./features/cartLine/cartLineSlice";
 import favoriteServiceSlice from "./features/favorites/favoriteServiceSlice";
 import serviceParametersSlice from "./features/serviceParameters/serviceParametersSlice";
-import serviceParameterValuesSlice from "./features/myServiceParameterValues/myServiceParameterValuesSlice";
+import serviceParameterValuesSlice from "./features/subscribeParameterValues/subscribeParameterValuesSlice";
 import supportTicketSlice from "./features/support-ticket/supportTicketSlice"
-import myServiceSlice from "./features/myService/myServiceSlice"
+import subscribeSlice from "./features/subscribe/subscribeSlice"
+import servicePlanSlice from "./features/servicePlan/servicePlanSlice"
+import profileServiceSlice from "./features/profileService/profileServiceSlice"
+import paymentSlice from "./features/payments/paymentSlice";
+import PormoCodeSlice from "./features/promoCode/promoCodeSlice"
+import epaymentSlice from "./features/epayment/epaymentSlice";
 
 export const makeStore = () => {
   return configureStore({
@@ -18,7 +23,12 @@ export const makeStore = () => {
       serviceParameters: serviceParametersSlice,
       serviceParameterValues: serviceParameterValuesSlice,
       supportTicket: supportTicketSlice,
-      myService: myServiceSlice
+      subscribe: subscribeSlice,
+      servicePlan: servicePlanSlice,
+      profileService: profileServiceSlice,
+      payment: paymentSlice,
+      promoCode: PormoCodeSlice,
+      epayment: epaymentSlice,
     },
   });
 };

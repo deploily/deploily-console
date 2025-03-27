@@ -6,12 +6,12 @@ import TextArea from "antd/es/input/TextArea";
 import Title from "antd/es/typography/Title";
 import { useScopedI18n } from "../../../../../../../../locales/client";
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { UploadOutlined } from '@ant-design/icons';
 import { useAppDispatch } from "@/lib/hook";
-import { fetchMyServices } from "@/lib/features/myService/myServiceThunks";
-import { useMyService } from "@/lib/features/myService/myServiceSelectors";
-import { MyServiceInterface } from "@/lib/features/myService/myServiceInterface";
+import { fetchSubscribe } from "@/lib/features/subscribe/subscribeThunks";
+import { useSubscribe } from "@/lib/features/subscribe/subscribeSelectors";
+import { SubscribeInterface } from "@/lib/features/subscribe/subscribeInterface";
 import { postSupportTicket } from "@/lib/features/support-ticket/supportTicketThanks";
 import { useSupportTicket } from "@/lib/features/support-ticket/supportTicketSelector";
 const { Option } = Select;
@@ -20,14 +20,14 @@ export default function CreateSupportTecket() {
     const t = useScopedI18n('createSupportTicket')
     const [form] = Form.useForm();
     const dispatch = useAppDispatch();
-    const { MyServiceResponse, myServiceLoading, myServiceLoadingError } = useMyService()
+    const { subscribeResponse, subscribeLoading, subscribeLoadingError } = useSubscribe()
     const { addSupportTicketSuccess, addSupportTicketError } = useSupportTicket()
     // const [file, setFile] = useState(null);
     const [fileList, setFileList] = useState<UploadFile[]>()
     const [messageApi] = message.useMessage();
 
     useEffect(() => {
-        dispatch(fetchMyServices());
+        dispatch(fetchSubscribe());
         if (addSupportTicketSuccess) {
             messageApi.open({
                 type: 'success',
@@ -47,12 +47,8 @@ export default function CreateSupportTecket() {
     const handleChange: UploadProps['onChange'] = ({ fileList: newFile }) =>
         setFileList(newFile);
     const onFinish = (values: any) => {
-        console.log(values);
-
-        console.log("file=== ", fileList);
-
         dispatch(postSupportTicket({
-            my_service_id: values.service,
+            subscribe_id: values.subscribe,
             title: values.subject,
             description: values.description,
             image: (fileList && fileList.length > 0) ? fileList[0].thumbUrl : null,
@@ -83,14 +79,14 @@ export default function CreateSupportTecket() {
                 name="control-hooks"
                 onFinish={onFinish}
             >
-                <Form.Item name="service" rules={[{ required: true }]}>
+                <Form.Item name="subscribe" rules={[{ required: true }]}>
                     <Select
                         allowClear
                         style={{ width: "100%", height: 40 }}
                         placeholder={t("selectService")}
 
                     >
-                        {MyServiceResponse !== undefined ? MyServiceResponse?.result?.map((value: MyServiceInterface) => (
+                        {subscribeResponse !== undefined ? subscribeResponse?.result?.map((value: SubscribeInterface) => (
                             <Option key={value.id} value={value.id}>{value.name}</Option>
                         )) : null}
 

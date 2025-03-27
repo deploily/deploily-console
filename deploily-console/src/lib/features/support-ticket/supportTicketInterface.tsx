@@ -1,4 +1,4 @@
-import { MyServiceInterface } from "../myService/myServiceInterface";
+import { SubscribeInterface } from "../subscribe/subscribeInterface";
 
 export interface SupportTicketResponse {
   count: number;
@@ -14,8 +14,8 @@ export interface SupportTicketResponse {
 export interface SupportTicket {
   id: number;
   key: number;
-  my_service_id: number;
-  my_service: MyServiceInterface;
+  subscribe_id: number;
+  subscribe: SubscribeInterface;
   title: string;
   description: string;
   status: string;

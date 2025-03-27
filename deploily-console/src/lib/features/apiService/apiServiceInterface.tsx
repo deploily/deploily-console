@@ -18,6 +18,6 @@ export interface ApiServiceInterface {
   image_service: string;
   short_description: string;
   specifications: string;
-  curl_command?: any;
+  curl_command: string;
   is_in_favorite?: boolean;
 }

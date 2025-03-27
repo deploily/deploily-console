@@ -8,7 +8,8 @@ import { fetchSupportTicket } from "@/lib/features/support-ticket/supportTicketT
 import { SupportTicket } from "@/lib/features/support-ticket/supportTicketInterface";
 import { useSupportTicket } from "@/lib/features/support-ticket/supportTicketSelector";
 import { useRouter } from "next/navigation";
-import { MyServiceInterface } from "@/lib/features/myService/myServiceInterface";
+import { SubscribeInterface } from "@/lib/features/subscribe/subscribeInterface";
+import { CustomBlueRoundedButton } from "@/styles/components/buttonStyle";
 
 export default function GetSupportTecket() {
     const dispatch = useAppDispatch();
@@ -24,7 +25,7 @@ export default function GetSupportTecket() {
     }, []);
 
     const keysToColumn = () => {
-        const list = ["title", "my_service", "status", "created_on"]
+        const list = ["title", "subscribe", "status", "created_on"]
 
         let columns = list.map((element: any) => {
             if (element === "created_on") {
@@ -42,12 +43,12 @@ export default function GetSupportTecket() {
                     key: element,
                     render: (status: any) => (status === "open" ? <span style={{ color: "#28B609" }} >{status}</span> : <span>{status}</span>),
                 };
-            else if (element == "my_service")
+            else if (element == "subscribe")
                 return {
                     title: t("service"),
                     dataIndex: element,
                     key: element,
-                    render: (myService: MyServiceInterface) => (myService !== undefined && myService.name),
+                    render: (subscribe: SubscribeInterface) => (subscribe !== undefined && subscribe.name),
 
                 }
             else
@@ -109,27 +110,20 @@ export default function GetSupportTecket() {
         }));
     return (
         <>
-            <Row gutter={16}>
+            <Row gutter={16} style={{ marginTop: 20 }} >
                 <Col span={14}>
                     <Title level={3} style={{ fontWeight: 700, color: '#ffff' }}>
                         {t("supportTicket")}
                     </Title>
                 </Col>
                 <Col span={10} style={{ display: "flex", justifyContent: "end" }}>
-                    <Button
-                        style={{
-                            color: "#ffff",
-                            backgroundColor: "#5394CC",
-                            padding: 10,
-                            borderRadius: 25,
-                            fontSize: 15,
-                            height: 45
-                        }}
+                    <CustomBlueRoundedButton
+
                         onClick={() => router.push(`/portal/supportTicket/add`)}
                     >
                         <Plus size={20} style={{ color: "rgba(220, 233, 245, 0.88)" }} />
                         {translate("createTicket")}
-                    </Button>
+                    </CustomBlueRoundedButton>
                 </Col>
             </Row>
 
