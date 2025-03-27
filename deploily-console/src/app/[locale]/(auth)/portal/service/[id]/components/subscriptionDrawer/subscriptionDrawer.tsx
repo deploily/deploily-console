@@ -17,7 +17,7 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
   const translate = useScopedI18n('subscription');
   const router = useRouter();
   const { newSubscribeResponse } = useSubscribe();
-  const [promoCode, setPromoCode] = useState({promo_code: ""});
+  const [promoCode, setPromoCode] = useState({ promo_code: "" });
   const [sufficientBalance, checkSufficientBalance] = useState<boolean | null>(null);
   const [showConfirmButton, setShowConfirmButton] = useState(true);
   const [totalAmount, setTotalAmount] = useState(0);
@@ -32,9 +32,9 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
     const selectedProfile = profileServicesList?.result.find(
       (profile) => profile.id === value
     );
-   setShowConfirmButton(true);
-   checkSufficientBalance(null);
-    if (selectedProfile != undefined ) {
+    setShowConfirmButton(true);
+    checkSufficientBalance(null);
+    if (selectedProfile != undefined) {
       setValues({ ...values, profile_id: selectedProfile.id });
       setProfileSelected(selectedProfile);
     }
@@ -83,7 +83,7 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
     }));
 
     calculPrice(planSelected.price, value);
-  if(promoCodeRate!==null) { calculatePercentage(totalAmount,promoCodeRate);}
+    if (promoCodeRate !== null) { calculatePercentage(totalAmount, promoCodeRate); }
 
   };
 
@@ -105,7 +105,7 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
       }));
     }
 
-  }, [planSelected,profileServicesList?.result]);
+  }, [planSelected, profileServicesList?.result]);
 
 
 
@@ -153,7 +153,13 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
 
     if (newSubscribeResponse) {
 
-      redirect(newSubscribeResponse.form_url);
+      if(newSubscribeResponse.form_url !== null){
+        redirect(newSubscribeResponse.form_url);
+      }else {
+        // TODO display error in a toast
+        console.log("Error in payment registration");
+        
+      }
     }
     dispatch(fetchProfilesServices());
 
