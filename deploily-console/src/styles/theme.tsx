@@ -65,11 +65,7 @@ export const theme = {
       optionSelectedBg: "#D85912",
       optionActiveBg: "#DD8859",
     },
-    Dropdown: {
-     
-      optionSelectedBg: "#D85912",
-      optionActiveBg: "#DD8859",
-    },
+
     Radio: {
       colorBgContainer: "#ffffff",
       colorPrimary: "#28b609",
