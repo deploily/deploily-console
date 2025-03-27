@@ -1,4 +1,4 @@
-import { ProfileInterface } from "../profilePayment/profilePaymentInterface";
+import { ProfileServiceInterface } from "../profileService/profileServiceInterface";
 import { SubscribeInterface } from "../subscribe/subscribeInterface";
 
 export interface PaymentResponse {
@@ -13,7 +13,7 @@ export interface PaymentResponse {
 }
 export interface PaymentInterface {
     id: string;
-    profile: ProfileInterface;
+    profile: ProfileServiceInterface;
     subscription: SubscribeInterface;
     amount: number;
     status: string;

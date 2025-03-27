@@ -1,7 +1,7 @@
 "use client";
 
 import { usePayment } from "@/lib/features/payments/paymentSelector";
-import { deletePaymentById, deletePayments, fetchPayments, } from "@/lib/features/payments/paymentThunks";
+import { deletePaymentById, fetchPayments, } from "@/lib/features/payments/paymentThunks";
 import { SubscribeInterface } from "@/lib/features/subscribe/subscribeInterface";
 import { useAppDispatch } from "@/lib/hook";
 import { Button, Skeleton, Table, Modal, message, Result } from "antd";
@@ -69,7 +69,7 @@ export default function PaymentListeContainer() {
                 title: t("serviceName"),
                 dataIndex: "subscription",
                 key: "subscription",
-                render: (myService: SubscribeInterface) => myService?.name || "-",
+                render: (subscribe: SubscribeInterface) => subscribe?.name || "-",
             },
             {
                 title: t("amount"),
