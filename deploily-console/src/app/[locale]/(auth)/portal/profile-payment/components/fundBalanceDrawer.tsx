@@ -1,6 +1,6 @@
 import { theme } from "@/styles/theme";
 import { Button, Card, Checkbox, Drawer, Flex, Radio, RadioChangeEvent, Image, Typography, Input } from "antd";
-import { useScopedI18n } from "../../../../../../../../locales/client";
+import { useScopedI18n } from "../../../../../../../locales/client";
 import { InterBold18, InterRegular16 } from "@/styles/components/typographyStyle";
 
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';

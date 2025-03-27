@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { getProfileById } from "@/lib/features/profileService/profileServiceThunks";
 import { useProfileServices } from "@/lib/features/profileService/profileServiceSelectors";
 import { CustomPayementInput } from "@/styles/components/inputStyle";
-import FundBalanceDrawer from "./fundBalanceDrawer";
+import FundBalanceDrawer from "../../components/fundBalanceDrawer";
 import { theme } from "@/styles/theme";
 
 export default function ProfileDetailsContainer({ profile_id }: { profile_id: string }) {

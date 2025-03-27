@@ -13,12 +13,14 @@ import { fetchProfilesServices } from "@/lib/features/profileService/profileServ
 import { CustomOrangeButton } from "@/styles/components/buttonStyle";
 import { theme } from "@/styles/theme";
 import { CustomTypography } from "@/styles/components/typographyStyle";
+import FundBalanceDrawer from "./fundBalanceDrawer";
 
 export default function ProfilePayementContainer() {
     const dispatch = useAppDispatch();
     // const t = useScopedI18n('supportTicket')
     const t = useScopedI18n("profilePayment");
     const traslate = useI18n();
+    const [openDrawer, setOpenDrawer] = useState(false);
 
 
     const [columns] = useState([]);
@@ -30,6 +32,9 @@ export default function ProfilePayementContainer() {
 
     }, []);
 
+    const onClose = () => {
+        setOpenDrawer(false);
+    };
     const keysToColumn = () => {
         const list = ["name", "balance"]
 
@@ -85,7 +90,7 @@ export default function ProfilePayementContainer() {
                 render: (element) =>
 
                     <div style={{ display: "flex", justifyContent: "end", paddingInline: 5 }}>
-                        <CustomOrangeButton onClick={() => router.push(`/portal/profile-payment/${element.id}`)} >
+                        <CustomOrangeButton onClick={() => setOpenDrawer(true)}>
                             {t('fundBalance')}
                         </CustomOrangeButton>
                     </div>
@@ -126,7 +131,7 @@ export default function ProfilePayementContainer() {
                             fontSize: 15,
                             height: 45
                         }}
-                        onClick={() => router.push(`/portal/supportTicket/add`)}
+                        onClick={() => router.push(`/portal/profile-payement/add`)}
                     >
                         <Plus size={20} style={{ color: "rgba(220, 233, 245, 0.88)" }} />
                         {t("createProfile")}
@@ -136,13 +141,27 @@ export default function ProfilePayementContainer() {
 
             {!profileServicesLoadingError &&
                 <Table<ProfileServiceInterface>
-                    columns={isLoading ? skeletonColumns : profileServicesList && keysToColumn()}
+                // columns={isLoading ? skeletonColumns : profileServicesList && keysToColumn()}
+                columns={
+                    isLoading
+                        ? skeletonColumns
+                        : profileServicesList &&
+                        keysToColumn().map((col, index, arr) => ({
+                            ...col,
+                            onCell: () => ({
+                                onClick: index === arr.length - 1 ? (e: React.MouseEvent) => e.stopPropagation() : undefined,
+                            }),
+                        }))
+                }
                     dataSource={isLoading ? Array(1).fill({ key: Math.random() }) : profileServicesList?.result}
                     size="middle"
                     className="custom-table"
                     style={{ marginTop: 40, borderRadius: 0 }}
                     scroll={{ y: 55 * 5 }}
-
+                    onRow={(element) => ({
+                        onClick: () => router.push(`/portal/profile-payment/${element.id}`),
+                        style: { cursor: "pointer" },
+                    })}
                 />
             }
             {!isLoading && profileServicesLoadingError &&
@@ -151,6 +170,7 @@ export default function ProfilePayementContainer() {
                     title={traslate('error')}
                     subTitle={traslate('subTitleError')}
                 />}
+            <FundBalanceDrawer openDrawer={openDrawer} onClose={onClose} />
 
         </>
     )
