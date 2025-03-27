@@ -11,6 +11,7 @@ import servicePlanSlice from "./features/servicePlan/servicePlanSlice"
 import profileServiceSlice from "./features/profileService/profileServiceSlice"
 import paymentSlice from "./features/payments/paymentSlice";
 import PormoCodeSlice from "./features/promoCode/promoCodeSlice"
+import epaymentSlice from "./features/epayment/epaymentSlice";
 
 export const makeStore = () => {
   return configureStore({
@@ -27,6 +28,7 @@ export const makeStore = () => {
       profileService: profileServiceSlice,
       payment: paymentSlice,
       promoCode: PormoCodeSlice,
+      epayment: epaymentSlice,
     },
   });
 };
