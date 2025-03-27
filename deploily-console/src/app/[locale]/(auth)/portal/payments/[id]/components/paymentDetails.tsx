@@ -1,21 +1,24 @@
 "use client";
 
-import { Button, Row, Spin, Modal, message, Table, Upload, UploadFile, UploadProps } from "antd";
-import { useScopedI18n } from "../../../../../../../../locales/client";
+import { Button, Row, Spin, Modal, message, Table, Upload, UploadFile, UploadProps, Result } from "antd";
+import { useI18n, useScopedI18n } from "../../../../../../../../locales/client";
 import { useAppDispatch } from "@/lib/hook";
 import { usePayment } from "@/lib/features/payments/paymentSelector";
 import { useEffect, useState } from "react";
 import { fetchPaymentById, deletePaymentById } from "@/lib/features/payments/paymentThunks";
 import { useRouter } from "next/navigation";
-import { DeleteButton } from "@/styles/components/buttonStyle";
+import { CustomDeleteButton, CustomUploadButton } from "@/styles/components/buttonStyle";
 import { Trash } from "@phosphor-icons/react";
 import { UploadOutlined } from '@ant-design/icons';
+import { theme } from "@/styles/theme";
 
 export default function PaymentDetailsPage({ paymentId }: { paymentId: string }) {
   const t = useScopedI18n("payments");
+  const translate = useI18n();
+
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const { currentPayment, currentPaymentLoading } = usePayment();
+  const { currentPayment, currentPaymentLoading, currentPaymentLoadingError } = usePayment();
 
   useEffect(() => {
     if (paymentId) {
@@ -27,13 +30,13 @@ export default function PaymentDetailsPage({ paymentId }: { paymentId: string })
   const getStatusStyle = (status: string) => {
     switch (status) {
       case "completed":
-        return { backgroundColor: "#28B609", color: "#fff", label: t("done") };
+        return { backgroundColor: theme.token.green, color: theme.token.colorWhite, label: t("done") };
       case "pending":
-        return { backgroundColor: "#F77605", color: "#fff", label: t("pending") };
+        return { backgroundColor: theme.token.orange300, color: theme.token.colorWhite, label: t("pending") };
       case "failed":
-        return { backgroundColor: "#EA1919", color: "#fff", label: t("failed") };
+        return { backgroundColor: theme.token.Error100, color: theme.token.colorWhite, label: t("failed") };
       default:
-        return { backgroundColor: "#d9d9d9", color: "#000", label: status };
+        return { backgroundColor: theme.token.gray200, color: theme.token.colorWhite, label: status };
     }
   };
 
@@ -41,14 +44,14 @@ export default function PaymentDetailsPage({ paymentId }: { paymentId: string })
   const handleDelete = () => {
     Modal.confirm({
       title: t("areYouSure"),
-      content: t("delete_confirmation"),
+      content: t("deleteConfirmation"),
       okText: t("yes"),
       cancelText: t("no"),
       onOk: async () => {
         try {
           await dispatch(deletePaymentById(paymentId)).unwrap();
           message.success(t("deleteSuccess"));
-          router.push("/portal/payments"); 
+          router.push("/portal/payments");
         } catch (error) {
           message.error(t("deleteError"));
         }
@@ -64,7 +67,7 @@ export default function PaymentDetailsPage({ paymentId }: { paymentId: string })
       { key: "4", label: t("amount"), value: currentPayment.amount?.toLocaleString("fr-FR", { minimumFractionDigits: 0 }) + " DZD " || "-" },
       { key: "5", label: t("startDate"), value: new Date(currentPayment.start_date).toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric" }) },
       { key: "6", label: t("hour"), value: new Date(currentPayment.start_date).toLocaleString("fr-FR", { hour: "2-digit", minute: "2-digit" }) },
-      { key: "7", label: t("payment_method"), value: currentPayment.payment_method === "bank_transfer" ? t("bank") : t("card") },
+      { key: "7", label: t("paymentMethod"), value: currentPayment.payment_method === "bank_transfer" ? t("bank") : t("card") },
     ]
     : [];
 
@@ -100,9 +103,9 @@ export default function PaymentDetailsPage({ paymentId }: { paymentId: string })
               );
             })()}
 
-            <DeleteButton danger icon={<Trash size={24} />} onClick={handleDelete}>
+            <CustomDeleteButton icon={<Trash size={24} />} onClick={handleDelete}>
               {t("delete")}
-            </DeleteButton>
+            </CustomDeleteButton>
           </div>
         ) : null}
       </Row>
@@ -169,23 +172,27 @@ export default function PaymentDetailsPage({ paymentId }: { paymentId: string })
             beforeUpload={() => false}
             onChange={handleChange}
           >
-            <Button
+            <CustomUploadButton
               style={{
-                color: "#fff",
-                backgroundColor: "#D85912",
-                border: "none",
+               
                 paddingInline: 10,
               }}
             >
               <UploadOutlined />
               {t("uploadReceived")}
-            </Button>
+            </CustomUploadButton>
           </Upload>
 
         </div>
         }
 
       </div>
+      {!currentPaymentLoading && currentPaymentLoadingError &&
+        <Result
+          status="500"
+          title={translate('error')}
+          subTitle={translate('subTitleError')}
+        />}
     </div>
   );
 }
