@@ -4,7 +4,7 @@ import { deletePaymentById, deletePayments, fetchPaymentById, fetchPayments } fr
 
 interface PaymentState {
   paymentsList?: PaymentResponse;
-  isLoading: boolean;
+  isLoadingPayments: boolean;
   paymentsLoadingError?: any;
   deletePaymentByIdLoading: boolean;
   deletePaymentByIdError: any;
@@ -19,7 +19,7 @@ interface PaymentState {
 
 const initialState: PaymentState = {
   paymentsList: undefined,
-  isLoading: false,
+  isLoadingPayments: false,
   paymentsLoadingError: undefined,
   deletePaymentByIdLoading: false,
   deletePaymentByIdError: false,
@@ -38,10 +38,10 @@ const PaymentSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchPayments.pending, (state) => {
-        state.isLoading = true;
+        state.isLoadingPayments = true;
       })
       .addCase(fetchPayments.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.isLoadingPayments = false;
         state.paymentsLoadingError = null;
         const result = action.payload.ids.map((id: number, index: any) =>
           Object.assign({ key: index }, { id: id }, action.payload.result[index]),
@@ -51,7 +51,7 @@ const PaymentSlice = createSlice({
         state.paymentsList = payload;
       })
       .addCase(fetchPayments.rejected, (state, { payload }) => {
-        state.isLoading = false;
+        state.isLoadingPayments = false;
         state.paymentsLoadingError = payload;
       })
       .addCase(deletePaymentById.pending, (state) => {

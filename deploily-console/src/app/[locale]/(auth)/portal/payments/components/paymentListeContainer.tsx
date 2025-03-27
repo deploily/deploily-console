@@ -1,23 +1,26 @@
 "use client";
 
 import { usePayment } from "@/lib/features/payments/paymentSelector";
-import { deletePaymentById, deletePayments, fetchPayments,  } from "@/lib/features/payments/paymentThunks";
-import { ProfileInterface } from "@/lib/features/profilePayment/profilePaymentInterface";
+import { deletePaymentById, deletePayments, fetchPayments, } from "@/lib/features/payments/paymentThunks";
 import { SubscribeInterface } from "@/lib/features/subscribe/subscribeInterface";
 import { useAppDispatch } from "@/lib/hook";
-import { Button, Skeleton, Table, Modal, message } from "antd";
+import { Button, Skeleton, Table, Modal, message, Result } from "antd";
 import { useEffect, useMemo, useState } from "react";
-import { useScopedI18n } from "../../../../../../../locales/client";
+import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import { PaymentInterface } from "@/lib/features/payments/paymentInterface";
 import { Trash } from "@phosphor-icons/react";
 import { useRouter } from "next/navigation";
-import { DeleteButton } from "@/styles/components/buttonStyle";
+import { theme } from "@/styles/theme";
+import { ProfileServiceInterface } from "@/lib/features/profileService/profileServiceInterface";
 
 export default function PaymentListeContainer() {
-    const router = useRouter(); 
+
+    const router = useRouter();
     const t = useScopedI18n('payments');
+    const translate = useI18n();
+
     const dispatch = useAppDispatch();
-    const { paymentsList, isLoading } = usePayment();
+    const { paymentsList, isLoadingPayments, paymentsLoadingError } = usePayment();
     const [data, setData] = useState<PaymentInterface[]>([]);
 
     useEffect(() => {
@@ -33,7 +36,7 @@ export default function PaymentListeContainer() {
     const handleDelete = (id: string) => {
         Modal.confirm({
             title: t("areYouSure"),
-            content: t("delete_confirmation"),
+            content: t("deleteConfirmation"),
             okText: t("yes"),
             cancelText: t("no"),
             onOk: async () => {
@@ -47,7 +50,7 @@ export default function PaymentListeContainer() {
             },
         });
     };
-  
+
 
     const columns = useMemo(() => {
         return [
@@ -60,7 +63,7 @@ export default function PaymentListeContainer() {
                 title: t("profile"),
                 dataIndex: "profile",
                 key: "profile",
-                render: (profile: ProfileInterface) => profile?.name || "-",
+                render: (profile: ProfileServiceInterface) => profile?.name || "-",
             },
             {
                 title: t("serviceName"),
@@ -83,13 +86,13 @@ export default function PaymentListeContainer() {
                     const getStatusStyle = () => {
                         switch (status) {
                             case "completed":
-                                return { backgroundColor: "#28B609", color: "#fff", label: t("done") }; 
+                                return { backgroundColor: theme.token.green, color: theme.token.colorWhite, label: t("done") };
                             case "pending":
-                                return { backgroundColor: "#F77605", color: "#fff", label: t("pending") }; 
+                                return { backgroundColor: theme.token.orange300, color: theme.token.colorWhite, label: t("pending") };
                             case "failed":
-                                return { backgroundColor: "#EA1919", color: "#fff", label: t("failed") }; 
+                                return { backgroundColor: theme.token.Error100, color: theme.token.colorWhite, label: t("failed") };
                             default:
-                                return { backgroundColor: "#d9d9d9", color: "#000", label: status }; 
+                                return { backgroundColor: theme.token.gray200, color: theme.token.colorWhite, label: status };
                         }
                     };
 
@@ -98,13 +101,14 @@ export default function PaymentListeContainer() {
                     return (
                         <Button
                             type="primary"
-                            style={{ width:"80px",
+                            style={{
+                                width: "80px",
                                 backgroundColor,
                                 color,
                                 borderColor: "transparent",
                                 cursor: "default",
                                 pointerEvents: "none",
-                                boxShadow:"none"
+                                boxShadow: "none"
                             }}
                         >
                             {label}
@@ -113,7 +117,7 @@ export default function PaymentListeContainer() {
                 },
             },
             {
-                title: t("payment_method"),
+                title: t("paymentMethod"),
                 dataIndex: "payment_method",
                 key: "payment_method",
                 render: (payment_method: string) => {
@@ -123,7 +127,7 @@ export default function PaymentListeContainer() {
                         case "card":
                             return t("card");
                         default:
-                            return "-"; 
+                            return "-";
                     }
                 },
             },
@@ -144,35 +148,43 @@ export default function PaymentListeContainer() {
             {
                 key: "actions",
                 render: (_: any, record: PaymentInterface) => (
-                    <Button type="link" danger icon={<Trash size={24} />} onClick={() => handleDelete(record.id)} />
+                    <Button type="link" icon={<Trash size={24} color={theme.token.red500} />} onClick={() => handleDelete(record.id)} />
                 ),
             },
         ];
     }, [t]);
 
     const skeletonColumns = useMemo(() => (
-        isLoading
+        isLoadingPayments
             ? columns.map((col) => ({
                 ...col,
                 render: () => <Skeleton.Input active />,
             }))
             : columns
-    ), [isLoading, columns]);
+    ), [isLoadingPayments, columns]);
 
     return (
         <>
-            <Table<PaymentInterface>
-            columns={skeletonColumns}
-            dataSource={isLoading ? Array(3).fill({ key: Math.random() }) : data}
-            size="middle"
-            className="custom-table"
-            style={{ marginTop: 40, borderRadius: 0 }}
-            rowKey={(record) => record.id || `row-${Math.random()}`}
-            onRow={(record) => ({
-                onClick: () => router.push(`/portal/payments/${record.id}`), 
-                style: { cursor: "pointer" },
-            })}
-            />
-        </> 
+            {!paymentsLoadingError &&
+                <Table<PaymentInterface>
+                    columns={skeletonColumns}
+                    dataSource={isLoadingPayments ? Array(3).fill({ key: Math.random() }) : data}
+                    size="middle"
+                    className="custom-table"
+                    style={{ marginTop: 40, borderRadius: 0 }}
+                    rowKey={(record) => record.id || `row-${Math.random()}`}
+                    onRow={(record) => ({
+                        onClick: () => router.push(`/portal/payments/${record.id}`),
+                        style: { cursor: "pointer" },
+                    })}
+                />}
+
+            {!isLoadingPayments && paymentsLoadingError &&
+                <Result
+                    status="500"
+                    title={translate('error')}
+                    subTitle={translate('subTitleError')}
+                />}
+        </>
     );
 }
