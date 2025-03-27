@@ -33,8 +33,8 @@ export function AppAppBarDesktop() {
             <Link href="/portal">
               <Image
                 src="/images/logo_name.png"
-                width={180}
-                height={70}
+                width={202}
+                height={50}
                 alt="logo-deploily"
                 style={{
                   marginRight: "20px",
@@ -153,8 +153,8 @@ export function AppAppBarMobile() {
             <Link href="/portal">
               <Image
                 src="/images/logo_name.png"
-                width={180}
-                height={70}
+                width={202}
+                height={50}
                 alt="logo-deploily"
                 style={{
                   marginRight: "20px",
