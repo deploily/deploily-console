@@ -15,6 +15,7 @@ env:
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
+    if: github.repository_owner == 'deploily' # Restrict to 'deploily' org
     # Sets the permissions granted to the `GITHUB_TOKEN` for the actions in this job.
     permissions:
       contents: read
@@ -58,3 +59,13 @@ jobs:
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
       
+
+  deploy-image:
+    runs-on: arc-runner-set-deploily
+    needs: build-and-push-image # 👈 Ensures it runs only after build-and-push-image completes
+    if: github.repository_owner == 'deploily' # 👈 Restrict to 'deploily' org
+    steps:
+      - run: |
+          echo "🎉 Deploy using runner scale set runners:)"
+          kubectl -n deploily rollout restart deployment deploily-console
+          echo "🎉 Deployment runners finished"
