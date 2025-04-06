@@ -100,7 +100,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
                 alignSelf: "start"
               }}>
                 <Typography.Title level={2} style={{ color: theme.token.orange400 }}>
-                  {currentService.unit_price} DZD
+                {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(currentService.unit_price)} DZD
                 </Typography.Title>
               </Col>
             </Row>

@@ -52,7 +52,7 @@ export default function ApiServiceCard({ service }: { service: ApiServiceInterfa
               fontFamily: "Inter, sans-serif"
             }}>
             <Paragraph style={{ color: "#DD8859", fontSize: 16, }}>
-              {service.unit_price} DZD
+              {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(service.unit_price)} DZD
             </Paragraph>
           </Col>
         </Row>

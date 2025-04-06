@@ -43,7 +43,7 @@ export default function FavoriteServiceCard({ favoriteService }: { favoriteServi
                         justifyContent: "end",
                         alignSelf: "start"
                     }}>
-                        {favoriteService.service.unit_price}
+                        {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(favoriteService.service.unit_price)} DZD
                     </Col>
                 </Row>
                 <Row style={{ height: "20%" }}>

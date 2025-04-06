@@ -42,6 +42,8 @@ export default function SubscriptionCard({ data }: { data: SubscribeInterface })
                         }}>
                         <Paragraph style={{ color: "#DD8859", fontSize: 16, }}>
                             {data.total_amount} DZD
+                            {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(data.total_amount)} DZD
+
                         </Paragraph>
                     </Col>
                 </Row>

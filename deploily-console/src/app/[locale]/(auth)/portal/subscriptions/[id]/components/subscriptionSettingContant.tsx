@@ -108,7 +108,8 @@ export default function SubscriptionSettingContant({ subscribe_id }: { subscribe
                                     alignSelf: "start"
                                 }}>
                                     <Typography.Title level={2} style={{ color: theme.token.orange400 }}>
-                                        {currentSubscribe.total_amount} DZD
+                                    {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(currentSubscribe.total_amount)} DZD
+
                                     </Typography.Title>
                                 </Col>
                                 <Col span={24} style={{
