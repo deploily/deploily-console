@@ -75,8 +75,6 @@ export function AppAppBarDesktop() {
                     <Select />
                   </Form.Item>
                 </Form>
-                <Link href="/portal/cart">
-                  {" "}
                   <Button
                     style={{
                       borderColor: "#D85912",
@@ -88,7 +86,6 @@ export function AppAppBarDesktop() {
                   >
                     0.00 DZD
                   </Button>
-                </Link>
                 <Button
                   style={{
                     color: "#fff",

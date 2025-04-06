@@ -1,7 +1,6 @@
 export default {
   'platformName': 'Deploily',
   'ondemand': 'SUR DEMANDE',
-  'CART': 'PANIER',
   'comingSoon': "Dans les coulisses, nous créons quelque chose de spécial. Restez à l'écoute pour ce qui est à venir !",
   'APIService': 'APIs',
   'Members': 'Membres',
@@ -11,7 +10,6 @@ export default {
   'supportTicket': "Ticket d'assistance",
   'sponsoring': 'Sponsoring',
   'sidebar.home': 'Accueil',
-  'sidebar.cart': 'Panier',
   'sidebar.members': 'Membres',
   'sidebar.myFavorites': 'Mes favoris',
   'sidebar.supportTicket': "Ticket d'assistance",

@@ -1,7 +1,6 @@
 export default {
     'platformName': 'Deploily',
     'ondemand': 'ON DEMAND',
-    'CART': 'CART',
     'comingSoon': "Behind the scenes, we're crafting something special. Stay tuned for what's to come!",
     'APIService': 'APIs',
     'Members': 'Members',
@@ -11,7 +10,6 @@ export default {
     'supportTicket': 'Support Ticket',
     'sponsoring': 'Sponsoring',
     'sidebar.home': 'Home',
-    'sidebar.cart': 'Cart',
     'sidebar.members': 'Members',
     'sidebar.myFavorites': 'My favorites',
     'sidebar.supportTicket': 'Support Ticket',

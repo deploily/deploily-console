@@ -1,7 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
 import apiServiceSlice from "./features/apiService/apiServiceSlice";
-import cartSlice from "./features/cart/cartSlice";
-import cartLineSlice from "./features/cartLine/cartLineSlice";
 import favoriteServiceSlice from "./features/favorites/favoriteServiceSlice";
 import serviceParametersSlice from "./features/serviceParameters/serviceParametersSlice";
 import serviceParameterValuesSlice from "./features/subscribeParameterValues/subscribeParameterValuesSlice";
@@ -17,8 +15,6 @@ export const makeStore = () => {
   return configureStore({
     reducer: {
       apiService: apiServiceSlice,
-      cart: cartSlice,
-      cartLine: cartLineSlice,
       favoriteService: favoriteServiceSlice,
       serviceParameters: serviceParametersSlice,
       serviceParameterValues: serviceParameterValuesSlice,
