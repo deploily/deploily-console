@@ -1,6 +1,6 @@
 "use client";
 import { Col, Row, Image, Typography, Collapse, Button, Space, Skeleton, Badge, Card, Result } from "antd";
-import {  CaretDown, CaretUp, Star } from "@phosphor-icons/react";
+import { CaretDown, CaretUp, Star } from "@phosphor-icons/react";
 import { useI18n } from "../../../../../../../../locales/client";
 import { getItems } from "./getItems";
 import { useEffect } from "react";
@@ -25,8 +25,8 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
   const [planSelected, setSelectedPlan] = useState(undefined);
 
 
-  const showDrawer = (plan:any | null) => {
-   if(plan!==null){ setSelectedPlan(plan);}
+  const showDrawer = (plan: any | null) => {
+    if (plan !== null) { setSelectedPlan(plan); }
     setOpenDrawer(true);
   };
 
@@ -63,7 +63,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
         style={{ paddingInline: 40, marginBlock: 10, width: "100%", marginBottom: 50 }}>
         {serviceLoading && currentService === undefined &&
 
-    
+
           <>
             <Skeleton.Image active />
             <Skeleton active paragraph={{ rows: 2 }} />
@@ -75,10 +75,19 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
               <Col md={16} xs={24} >
                 <Badge
                   count={
-                    <Button style={{ border: "none", backgroundColor: "transparent", boxShadow: "none" }}
+                    <Button style={{
+                      border: "none",
+                      backgroundColor: "#fff",
+                      boxShadow: "0 0 4px rgba(0,0,0,0.1)",
+                      borderRadius: "50%",
+                      padding: 0,
+                      width: 40,
+                      height: 40,
+                      minWidth: 40
+                    }}
                       icon={currentService.is_in_favorite == true ?
-                        <Star size={40} weight="fill" color="#FC3232" /> :
-                        <Star size={40} color="#7D7D7D" />}
+                        <Star size={35} weight="fill" color="#FC3232" /> :
+                        <Star size={35} color="#7D7D7D" />}
                       onClick={() => handleFavoriteService(currentService.id)}
                     />
                   }
@@ -100,7 +109,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
                 alignSelf: "start"
               }}>
                 <Typography.Title level={2} style={{ color: theme.token.orange400 }}>
-                {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(currentService.unit_price)} DZD
+                  {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(currentService.unit_price)} DZD
                 </Typography.Title>
               </Col>
             </Row>
@@ -158,8 +167,8 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
                       xl={8}
                       style={{ display: "flex", justifyContent: "center" }}
                     >
-                      {row.plan && (<ServicePlanCard key={row.id} servicePlan={row} showDrawer={() =>showDrawer(row) } />)}
-                     
+                      {row.plan && (<ServicePlanCard key={row.id} servicePlan={row} showDrawer={() => showDrawer(row)} />)}
+
 
                     </Col>
                   ))}
@@ -167,7 +176,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
               }
 
               {!servicePlanLoading && servicePlanError &&
-                <div style={{display:"flex", justifyContent:"center", width:"100%"}}>
+                <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
                   <Result
                     status="500"
                     title={t('error')}
@@ -177,7 +186,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
               }
             </Row>
 
-          <SubscribeDrawer openDrawer={openDrawer} onClose={onClose} planSelected={planSelected} />
+            <SubscribeDrawer openDrawer={openDrawer} onClose={onClose} planSelected={planSelected} />
           </>
         }
 

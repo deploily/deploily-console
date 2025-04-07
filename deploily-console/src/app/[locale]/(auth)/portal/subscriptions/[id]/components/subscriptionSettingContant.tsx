@@ -83,9 +83,18 @@ export default function SubscriptionSettingContant({ subscribe_id }: { subscribe
                         <Col md={16} xs={24} >
                             <Badge
                                 count={
-                                    <Button style={{ border: "none", backgroundColor: "transparent", boxShadow: "none" }}
+                                <Button style={{
+                                    border: "none",
+                                    backgroundColor: "#fff",
+                                    boxShadow: "0 0 4px rgba(0,0,0,0.1)",
+                                    borderRadius: "50%",
+                                    padding: 0,
+                                    width: 40,
+                                    height: 40,
+                                    minWidth: 40
+                                }}
                                         icon={
-                                            <Star size={40} weight="fill" color="#7D7D7D" />}
+                                            <Star size={35} weight="fill" color="#7D7D7D" />}
                                     />
                                 }
                                 offset={[-20, 20]}>
