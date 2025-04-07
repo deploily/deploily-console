@@ -79,7 +79,7 @@ export default function PaymentComponent({ newSubscribe,setNewSubscribe,totalAmo
               alignItems: "center",
               gap: "10px",
             }}
-            icon={<Image src="/images/paymentIcon.png" alt="PAY" style={{ width: 60, height: 35 }} />}
+            icon={<Image src="/images/paymentIcon.png" alt="PAY" style={{ width: 60, height: 35 }} preview={false}/>}
             onClick={ handleSubscribe}
           >
             
