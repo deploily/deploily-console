@@ -1,5 +1,5 @@
 "use client";
-import { Button, Card, Col, ConfigProvider, Divider, Drawer, Input, Row, Select, Space, Typography } from "antd";
+import { Card, Col, ConfigProvider, Divider, Drawer, Input, Row, Select, Space, Typography } from "antd";
 import { theme } from "@/styles/theme";
 import { useEffect, useState } from "react";
 import { useScopedI18n } from "../../../../../../../../../locales/client";
@@ -12,37 +12,33 @@ import { usePromoCode } from "@/lib/features/promoCode/promoCodeSelectors";
 import PaymentComponent from "./paymentComponent";
 import { redirect, useRouter } from "next/navigation";
 import { useSubscribe } from "@/lib/features/subscribe/subscribeSelectors";
+import { useSubscriptionStates } from "@/lib/features/subscribtionStates/subscriptionSelectors";
 
 export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: { openDrawer: any, onClose: any, planSelected: any }) {
+
+  const { totalAmount, promoColor, isBalanceSufficient, selectedProfile } = useSubscriptionStates()
+  console.log(selectedProfile);
+
   const translate = useScopedI18n('subscription');
   const router = useRouter();
   const { newSubscribeResponse } = useSubscribe();
   const [promoCode, setPromoCode] = useState({ promo_code: "" });
-  const [sufficientBalance, checkSufficientBalance] = useState<boolean | null>(null);
-  const [showConfirmButton, setShowConfirmButton] = useState(true);
-  const [totalAmount, setTotalAmount] = useState(0);
-  const [promoCodeRate, setPromoCodeRate] = useState<number | null>(null);
-  const [promoColor, setPromoColor] = useState("red");
   const { Option } = Select;
   const dispatch = useAppDispatch();
   const { isLoading, profileServicesList } = useProfileServices();
   const { promoCodeResponse } = usePromoCode();
-  const [profileSelected, setProfileSelected] = useState({ id: 0, balance: 0, name: "default" });
   const handleSelectedProfile = (value: any) => {
     const selectedProfile = profileServicesList?.result.find(
       (profile) => profile.id === value
     );
-    setShowConfirmButton(true);
-    checkSufficientBalance(null);
+    dispatch({ type: "SubscriptionStates/updateSelectedProfile", payload: selectedProfile })
     if (selectedProfile != undefined) {
       setValues({ ...values, profile_id: selectedProfile.id });
-      setProfileSelected(selectedProfile);
     }
-
   };
 
   const options = [
-    { value: 1, label: '1 Month' },
+    { value: 1, label: '1 Month' },//TODO TRANSLATE THIS 
     { value: 3, label: '3 Months' },
     { value: 6, label: '6 Months' },
     { value: 12, label: '1 Year' },
@@ -57,44 +53,25 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
     profile_id: 0
   });
 
-  const calculPrice = (totalAmount: number, duration: number) => {
-    setTotalAmount((totalAmount * duration));
-  };
 
-  const calculatePercentage = (totalAmount: number, percentage: number) => {
-    setTotalAmount((totalAmount - ((totalAmount * percentage) / 100)));
 
-  };
 
-  const checkBalance = (totalAmount: number, balance: number) => {
-    if ((balance - totalAmount) >= 0) {
-      checkSufficientBalance(true);
-    } else {
-      checkSufficientBalance(false);
-      setShowConfirmButton(false);
-    }
-  };
 
-  const handleChange = (value: number) => {
-
-    setValues((values) => ({
-      ...values,
-      duration: value,
-    }));
-
-    calculPrice(planSelected.price, value);
-    if (promoCodeRate !== null) { calculatePercentage(totalAmount, promoCodeRate); }
-
+  const handleChangeDuration = (value: number) => {
+    dispatch({
+      type: "SubscriptionStates/updateSubscriptionStates", payload: { duration: value }
+    });
   };
 
   useEffect(() => {
     if (planSelected) {
-      setTotalAmount(planSelected.price);
+      dispatch({
+        type: "SubscriptionStates/updateSubscriptionStates", payload: { price: planSelected.price }
+      });
       setValues((values) => ({
         ...values,
         service_plan_selected_id: planSelected.plan.id,
         total_amount: planSelected.price,
-
       }));
     }
 
@@ -113,15 +90,7 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
   // Handles updating promo percent and color based on promoCodeResponse
   useEffect(() => {
     if (promoCodeResponse?.rate !== undefined) {
-      calculatePercentage(totalAmount, promoCodeResponse?.rate);
-      setValues({ ...values, promo_code: promoCode.promo_code });
-
-      setPromoCodeRate(promoCodeResponse?.rate);
-      setPromoColor("green");
-      setValues((prevValues) => ({
-        ...prevValues,
-        promo_code: promoCode.promo_code
-      }));
+      dispatch({ type: "SubscriptionStates/updateSubscriptionStates", payload: { "promoCodeRate": promoCodeResponse.rate } })
     }
   }, [promoCodeResponse]);
 
@@ -129,15 +98,8 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
   useEffect(() => {
     if (promoCode.promo_code.length === 10) {
       dispatch(checkPromoCode(promoCode));
-    } else {
-      // calculatePercentage(values.total_amount, 0);
-
-      setPromoColor("red");
     }
   }, [promoCode.promo_code]);
-
-
-
 
 
   useEffect(() => {
@@ -153,12 +115,12 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
 
     if (newSubscribeResponse) {
 
-      if(newSubscribeResponse.form_url !== null){
+      if (newSubscribeResponse.form_url !== null) {
         redirect(newSubscribeResponse.form_url);
-      }else {
+      } else {
         // TODO display error in a toast
         console.log("Error in payment registration");
-        
+
       }
     }
     dispatch(fetchProfilesServices());
@@ -187,15 +149,12 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
 
         <Col style={{ padding: 20 }}>
           <Typography.Title level={4} style={{ paddingBottom: 30 }}>{translate("subscribeService")}</Typography.Title>
-
-
           <Card style={{
             display: "flex",
             flexDirection: "column",
             height: "100%",
             borderColor: theme.token.gray50,
             boxShadow: "none",
-
           }}
           >
             {(planSelected != undefined) &&
@@ -226,12 +185,10 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
                           width: 150,
                           borderRadius: "10px",
                         }}
-                        onChange={handleChange}
+                        onChange={handleChangeDuration}
                         dropdownStyle={{
                           backgroundColor: theme.token.gray50,
                           border: `2px solid ${theme.token.gray100}`
-
-
                         }}
                         options={options}
                       /></ConfigProvider>
@@ -294,7 +251,7 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
             }
           }}>
             <Select
-              defaultValue={profileSelected}
+              defaultValue={selectedProfile}
               style={{ width: "100%" }}
               dropdownRender={(menu) => (
                 <>
@@ -354,7 +311,7 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
 
           </ConfigProvider>
 
-          {(sufficientBalance !== null && profileSelected.id !== 0) ? (sufficientBalance === true) ?
+          {(isBalanceSufficient !== null && selectedProfile && selectedProfile.id !== 0) ? (isBalanceSufficient === true) ?
             (<Typography.Text style={{
               color: theme.token.green, paddingTop: 30, display: "flex",
               justifyContent: "center",
@@ -368,40 +325,10 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
               </Typography.Text>
             ) : null
           }
-
-
-
-          {(sufficientBalance === false && showConfirmButton === false) ?
-
-            <PaymentComponent newSubscribe={values} setNewSubscribe={setValues} totalAmount={totalAmount} /> :
-
-            <div
-              style={{
-                paddingTop: 50,
-                display: "flex",
-                justifyContent: "flex-end",
-              }}
-            >
-              <Button
-                style={{
-                  color: theme.token.colorWhite,
-                  backgroundColor: theme.token.orange600,
-                  border: "none",
-                  paddingBlock: 15,
-                  fontWeight: 600,
-                  fontSize: 18,
-                  display: "flex",
-                  justifyContent: "flex-end",
-                }}
-                onClick={() => checkBalance(values.total_amount, profileSelected.balance)}              >
-                {translate("confirm")}
-              </Button></div>
+          {(isBalanceSufficient === false) &&
+            <PaymentComponent newSubscribe={values} setNewSubscribe={setValues} />
           }
-
-
         </Col>
-
-
       </Drawer>
     </>
   )

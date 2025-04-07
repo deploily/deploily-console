@@ -4,40 +4,43 @@ import { useState } from "react";
 import { theme } from "@/styles/theme";
 import { useAppDispatch } from "@/lib/hook";
 import { postSubscribe } from "@/lib/features/subscribe/subscribeThunks";
+import { useSubscriptionStates } from "@/lib/features/subscribtionStates/subscriptionSelectors";
 
-export default function PaymentComponent({ newSubscribe,setNewSubscribe,totalAmount}:{newSubscribe:any,setNewSubscribe:any,totalAmount:number}) {
-  
+export default function PaymentComponent({ newSubscribe, setNewSubscribe }: { newSubscribe: any, setNewSubscribe: any }) {
 
-   const [value, setValue] = useState(false);
+
+  const [value, setValue] = useState(false);
 
 
   const onChange = (e: RadioChangeEvent) => {
 
-    setNewSubscribe({ ...newSubscribe, payment_method:e.target.value});
+    setNewSubscribe({ ...newSubscribe, payment_method: e.target.value });
 
   };
   const onChangeCheckbox = (e: CheckboxChangeEvent) => {
     setValue(e.target.value);
-    
+
   };
   const dispatch = useAppDispatch();
 
   const handleSubscribe = async () => {
-     dispatch(postSubscribe(newSubscribe));
-};
+    dispatch(postSubscribe(newSubscribe));
+  };
 
+  const { totalAmount } = useSubscriptionStates()
   return (
     <>
       <Typography.Title level={4} style={{ paddingTop: 20, paddingBottom: 20 }}>Choose the payment method</Typography.Title>
-<Flex vertical gap="start" style={{ padding: 10, backgroundColor: theme.token.colorBgBase, }}>
-          <Radio.Group block defaultValue={newSubscribe.payment_method}
-            onChange={onChange}
-            value={newSubscribe.payment_method}>
-            <Radio value="card"  >Card</Radio>
-            <Radio value="bank_transfer">Bank transfer</Radio>
-          </Radio.Group>
+      <Flex vertical gap="start" style={{ padding: 10, backgroundColor: theme.token.colorBgBase, }}>
+        <Radio.Group block defaultValue={newSubscribe.payment_method}
+          onChange={onChange}
+          value={newSubscribe.payment_method}>
+          <Radio value="card"  >Card</Radio>
+          {/* //TODO */}
+          <Radio value="bank_transfer">Bank transfer</Radio>
+        </Radio.Group>
 
-        </Flex>
+      </Flex>
       <Card title="CIB/ E-Dahabia" style={{
         marginTop: 20,
         display: "flex",
@@ -51,14 +54,14 @@ export default function PaymentComponent({ newSubscribe,setNewSubscribe,totalAmo
 
       >
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
-        <Typography.Title level={5} style={{fontWeight:500}}>
-          Total to pay:  
-           <Typography.Text strong>  {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(totalAmount)}  </Typography.Text>
-          DZD
-        </Typography.Title>
-        <Button
-        onClick={() => console.log(newSubscribe)}
-        style={{
+          <Typography.Title level={5} style={{ fontWeight: 500 }}>
+            Total to pay:
+            <Typography.Text strong>  {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(totalAmount)}  </Typography.Text>
+            DZD
+          </Typography.Title>
+          <Button
+            onClick={() => console.log(newSubscribe)}
+            style={{
               color: "#fff",
               backgroundColor: "#D85912",
               border: "none",
@@ -67,9 +70,9 @@ export default function PaymentComponent({ newSubscribe,setNewSubscribe,totalAmo
               alignItems: "center",
               gap: "6px",
             }} > captcha</Button>
-        <Checkbox style={{padding:15}} onChange={onChangeCheckbox} value={value}>I accept the general conditions of use</Checkbox>
+          <Checkbox style={{ padding: 15 }} onChange={onChangeCheckbox} value={value}>I accept the general conditions of use</Checkbox>
 
-        <Button
+          <Button
             style={{
               color: "#fff",
               backgroundColor: theme.token.blue300,
@@ -80,9 +83,9 @@ export default function PaymentComponent({ newSubscribe,setNewSubscribe,totalAmo
               gap: "10px",
             }}
             icon={<Image src="/images/paymentIcon.png" alt="PAY" style={{ width: 60, height: 35 }} />}
-            onClick={ handleSubscribe}
+            onClick={handleSubscribe}
           >
-            
+
             <span style={{ fontFamily: "Inter, sans-serif", fontSize: "16px", fontWeight: 600 }}>
               PAY
             </span>
