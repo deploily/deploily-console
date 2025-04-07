@@ -1,5 +1,7 @@
 export const BASE_URL = `${process.env.API_BASE_URL}`;
 export const IMAGES_URL = `${process.env.BASE_URL}/static/uploads/`;
+export const DOC_URL = "https://docs.deploily.cloud"; 
+
 export const deploilyApiUrls = {
   SERVICE_URL: `${process.env.API_BASE_URL}/service/`,
   SERVICE_PLAN_URL: `${process.env.API_BASE_URL}/service-plan`,

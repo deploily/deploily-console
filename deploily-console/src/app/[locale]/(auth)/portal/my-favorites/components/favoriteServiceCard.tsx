@@ -29,7 +29,9 @@ export default function FavoriteServiceCard({ favoriteService }: { favoriteServi
 
     return (
         <Card style={{
-            height: "100%", width: "100%", padding: 0, cursor: "pointer"}}>
+            height: "100%", width: "100%", padding: 0, cursor: "pointer"
+        }}
+            onClick={() => router.push(`/portal/service/${favoriteService.service.id}`)} >
             <div style={{ height: "300px" }}>
                 <Row align="middle" gutter={16} style={{ height: "40%" }}>
                     <Col span={12}>
