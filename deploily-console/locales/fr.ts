@@ -44,6 +44,7 @@ export default {
   'description': 'Description',
   'featuresSpecifications': 'Fonctionnalités et spécifications',
   'documentation': 'Documentation',
+  'viewDocumentation': 'Vous pouvez explorer ses capacités et en apprendre davantage dans le',
   'duration': 'Durée',
   "remainingDuration": "Durée restante",
   'mois': 'mois',

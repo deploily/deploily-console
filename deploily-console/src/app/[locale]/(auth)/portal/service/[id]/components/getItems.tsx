@@ -32,18 +32,5 @@ export const getItems = (row: ApiServiceInterface, t: any ): CollapseProps["item
       </Typography.Paragraph>
     ),
   },
-  ...(row.documentation_url
-    ? [
-      {
-        key: "3",
-        label: (
-          <Link href={row.documentation_url} target="_blank" rel="noopener noreferrer">
-            <Typography.Title level={3} style={{ fontWeight: 700, fontSize:24, color: theme.token.orange600 }}>
-              {t("documentation")}
-            </Typography.Title>
-          </Link>
-        ),
-      },
-    ]
-    : []),
+ 
 ];
