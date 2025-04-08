@@ -4,23 +4,25 @@ import { ProfileServiceInterface } from "../profileService/profileServiceInterfa
 interface SubscriptionStates {
   promoCode: string,
   duration: number,
-  isBalanceSufficient?: boolean,
+  isBalanceSufficient: boolean|null,
   totalAmount: number,
   promoCodeRate?: number,
   promoColor: string,
+  payment_method: string,
   price: number,
   selectedProfile?: ProfileServiceInterface
 }
 
 const initialState: SubscriptionStates = {
   promoCode: "",
-  isBalanceSufficient: undefined,
+  isBalanceSufficient: null,
   totalAmount: 0,
   promoCodeRate: undefined,
   promoColor: "red",
   duration: 1,
   price: 0,
-  selectedProfile: undefined
+  selectedProfile: undefined,
+  payment_method: "card",
 };
 
 const SubscriptionStatesSlice = createSlice({
@@ -28,8 +30,6 @@ const SubscriptionStatesSlice = createSlice({
   initialState,
   reducers: {
     updateSubscriptionStates: (state, action: PayloadAction<any>) => {
-      console.log(action.payload);
-
       let updatedState = { ...state, ...action.payload }
       let updatedAmount = updatedState.duration * updatedState.price
       if (updatedState.promoCodeRate != undefined) {
@@ -37,7 +37,14 @@ const SubscriptionStatesSlice = createSlice({
         updatedAmount = updatedAmount - ((updatedAmount * updatedState.promoCodeRate) / 100);
       }
       updatedState = { ...updatedState, totalAmount: updatedAmount }
-      console.log(updatedState);
+
+      if (state.selectedProfile != undefined) {
+        if ((state.selectedProfile.balance - updatedState.totalAmount) >= 0) {
+          updatedState.isBalanceSufficient = true;
+        } else {
+          updatedState.isBalanceSufficient = false;
+        }
+      }
 
       return updatedState;
     },

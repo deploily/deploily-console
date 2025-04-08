@@ -20,9 +20,6 @@ export const fetchProfilesServices = createAsyncThunk(
         },
       });
       if (response.status === 200) {
-        if (response.data.result != null&&response.data.result.length>0) {
-          thunkConfig.dispatch({ type: "SubscriptionStates/updateSelectedProfile", payload: response.data.result[0]})
-        }
         return response.data;
       } else {
         return thunkConfig.rejectWithValue("Failed to fetch profiles liste");

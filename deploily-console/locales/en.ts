@@ -129,6 +129,7 @@ export default {
     'payments.failed': 'Failed',
     'payments.uploadReceived': 'Upload received',
     'payments.paymentDetails': 'Payment details',
+    'payments.totalToPay': 'Total to pay',
 
     'subscription.title': 'Subscribe',
     'subscription.serviceName': 'Service Name :',
@@ -145,4 +146,15 @@ export default {
     'subscription.insufficientBalance': 'Your account balance is insufficient to complete this payment.',
     'subscription.profile': 'Profile',
     'subscription.balance': 'Balance',
+
+    "bankPayment.title": "Payment by Bank",
+    "bankPayment.message": "This is our bank account, you can transfer the amount! ",
+    "bankPayment.name": "Company name",
+    "bankPayment.address":"Address",
+    "bankPayment.agency":"Agency",
+    "bankPayment.rib":"RIB",
+    "bankPayment.al_salam":"Al Salam",
+    "bankPayment.ain_temouchent":"Ain temouchent",
+    "bankPayment.oran":"Oran"
+
 } as const

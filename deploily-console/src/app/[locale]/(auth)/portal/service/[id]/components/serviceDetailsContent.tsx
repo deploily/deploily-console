@@ -26,7 +26,9 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
 
 
   const showDrawer = (plan:any | null) => {
-   if(plan!==null){ setSelectedPlan(plan);}
+   if(plan!==null){ setSelectedPlan(plan);
+       dispatch({ type: "SubscriptionStates/updateSubscriptionStates", payload: { "price": plan.price } });
+   }
     setOpenDrawer(true);
   };
 

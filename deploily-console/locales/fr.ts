@@ -124,6 +124,8 @@ export default {
   'payments.failed': 'Échec',
   'payments.paymentDetails': 'Détails du paiement',
   'payments.uploadReceived': 'Télécharger le reçu',
+  'payments.totalToPay': 'Total à payer',
+
   'subscription.title': "S'abonner",
   'subscription.serviceName': 'Nom du service :',
   'subscription.servicePlanSelected': 'Plan de service sélectionné :',
@@ -139,4 +141,14 @@ export default {
   'subscription.insufficientBalance': 'Votre solde est insuffisant pour effectuer ce paiement.',
   'subscription.profile': 'Profil',
   'subscription.balance': 'Solde',
+  
+  "bankPayment.title": "Paiement par virement bancaire",
+  "bankPayment.message": "Ceci est notre compte bancaire, vous pouvez transférer le montant !",
+  "bankPayment.name": "Nom de l'entreprise",
+  "bankPayment.address": "Adresse",
+  "bankPayment.agency": "Agence",
+  "bankPayment.rib": "RIB",
+  "bankPayment.al_salam": "Al Salam",
+  "bankPayment.ain_temouchent": "Aïn Témouchent",
+  "bankPayment.oran": "Oran"
 } as const
