@@ -26,9 +26,10 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
   const [planSelected, setSelectedPlan] = useState(undefined);
   const [isHovered, setIsHovered] = useState(false);
 
-
-  const showDrawer = (plan: any | null) => {
-    if (plan !== null) { setSelectedPlan(plan); }
+  const showDrawer = (plan:any | null) => {
+   if(plan!==null){ setSelectedPlan(plan);
+       dispatch({ type: "SubscriptionStates/updateSubscriptionStates", payload: { "price": plan.price } });
+   }
     setOpenDrawer(true);
   };
 
