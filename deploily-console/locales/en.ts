@@ -142,6 +142,7 @@ export default {
     'subscription.subscribeService': 'Subscribe Service',
     'subscription.month': 'Month',
     'subscription.confirm': 'Confirm',
+    'subscription.cancel': 'Cancel',
     'subscription.sufficientBalance': 'Your account balance is sufficient to complete this payment.',
     'subscription.insufficientBalance': 'Your account balance is insufficient to complete this payment.',
     'subscription.profile': 'Profile',

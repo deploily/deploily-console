@@ -6,7 +6,7 @@ import { useScopedI18n } from "../../../../../../../../../../locales/client";
 import { useAppDispatch } from "@/lib/hook";
 import { checkPromoCode } from "@/lib/features/promoCode/promoCodeThunks";
 import { usePromoCode } from "@/lib/features/promoCode/promoCodeSelectors";
-import { useSubscriptionStates } from "@/lib/features/subscribtionStates/subscriptionSelectors";
+import { useSubscriptionStates } from "@/lib/features/subscriptionStates/subscriptionSelectors";
 
 export default function NewSubscriptionInfo({ planSelected }: { planSelected: any }) {
   const { totalAmount, promoColor, duration } = useSubscriptionStates()
@@ -37,7 +37,8 @@ export default function NewSubscriptionInfo({ planSelected }: { planSelected: an
   }, [promoCodeResponse]);
 
   // Checks the promo code when its length reaches 10
-  useEffect(() => {
+  useEffect(() => { 
+    dispatch({ type: "SubscriptionStates/updateSubscriptionStates", payload: { "promoCode":promoCode.promo_code } })
     if (promoCode.promo_code.length === 10) {
       dispatch(checkPromoCode(promoCode));
     }

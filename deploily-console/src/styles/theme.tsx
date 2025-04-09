@@ -16,6 +16,7 @@ export const theme = {
     blue100: "#5394CC",
     blue200: "rgba(83, 148, 204, 1)",
     blue300: "#0057D8",
+    blue400: "rgba(54, 150, 234, 1)",
     orange300: "#F77605",
     orange400: "#DD8859",
     orange600: "#D85912",

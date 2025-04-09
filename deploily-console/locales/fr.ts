@@ -137,6 +137,7 @@ export default {
   'subscription.subscribeService': "S'abonner au service",
   'subscription.month': 'Mois',
   'subscription.confirm': 'Confirmer',
+  'subscription.cancel': 'Annuler',
   'subscription.sufficientBalance': 'Votre solde est suffisant pour effectuer ce paiement.',
   'subscription.insufficientBalance': 'Votre solde est insuffisant pour effectuer ce paiement.',
   'subscription.profile': 'Profil',

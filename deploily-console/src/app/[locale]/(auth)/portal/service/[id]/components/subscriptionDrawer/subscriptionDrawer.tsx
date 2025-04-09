@@ -8,35 +8,29 @@ import { fetchProfilesServices } from "@/lib/features/profile/profileServiceThun
 import PaymentComponent from "./containers/paymentComponent";
 import { redirect, useRouter } from "next/navigation";
 import { useSubscribe } from "@/lib/features/subscribe/subscribeSelectors";
-import { useSubscriptionStates } from "@/lib/features/subscribtionStates/subscriptionSelectors";
 import NewSubscriptionInfo from "./containers/newSubscriptionInfo";
 import SelectProfileComponent from "./containers/selectProfileComponent";
 import { postSubscribe } from "@/lib/features/subscribe/subscribeThunks";
+import { useSubscriptionStates } from "@/lib/features/subscriptionStates/subscriptionSelectors";
 
 export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: { openDrawer: any, onClose: any, planSelected: any }) {
 
   const { isBalanceSufficient, selectedProfile, payment_method, duration, totalAmount, promoCode } = useSubscriptionStates()
   const translate = useScopedI18n('subscription');
-  const router = useRouter();
   const { newSubscribeResponse } = useSubscribe();
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   useEffect(() => {
-    const redirectedFlag = sessionStorage.getItem("redirectedFlag");
-    if (!redirectedFlag) {
-      sessionStorage.setItem("redirectedFlag", "true");
-      router.replace("/portal/home");
-    }
-  }, []);
-
-  useEffect(() => {
-    if (newSubscribeResponse) {
+    if (newSubscribeResponse && !isBalanceSufficient) {
       if (newSubscribeResponse.form_url !== null) {
         redirect(newSubscribeResponse.form_url);
       } else {
         // TODO display error in a toast
         console.log("Error in payment registration");
       }
+    } else {
+      if (newSubscribeResponse !== undefined) { router.push(`/portal/subscriptions/${newSubscribeResponse?.subscription.id}`) }
     }
     dispatch(fetchProfilesServices());
   }, [newSubscribeResponse]);
@@ -80,11 +74,29 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
               {
                 <div
                   style={{
-                    paddingTop: 50,
+                    paddingTop: "50px",
                     display: "flex",
                     justifyContent: "flex-end",
+                    gap: '20px'
                   }}
                 >
+                  <Button
+                    style={{
+                      color: theme.token.colorWhite,
+                      backgroundColor: theme.token.blue100,
+                      border: "none",
+                      paddingBlock: 15,
+                      fontWeight: 600,
+                      fontSize: 18,
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      borderRadius: '15px',
+                      height: '40px'
+                    }}
+                    onClick={() => onClose()}
+                  >
+                    {translate("cancel")}
+                  </Button>
                   <Button
                     style={{
                       color: theme.token.colorWhite,
@@ -95,11 +107,14 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
                       fontSize: 18,
                       display: "flex",
                       justifyContent: "flex-end",
+                      borderRadius: '15px',
+                      height: '40px'
                     }}
                     onClick={() => handleSubscribe()}
                   >
                     {translate("confirm")}
-                  </Button></div>
+                  </Button>
+                </div>
               }
             </>)
             :

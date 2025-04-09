@@ -4,9 +4,9 @@ import { theme } from "@/styles/theme";
 import BankTransfertComponent from "../components/bankTransfertComponent";
 import { useScopedI18n } from "../../../../../../../../../../locales/client";
 import { useAppDispatch } from "@/lib/hook";
-import { useSubscriptionStates } from "@/lib/features/subscribtionStates/subscriptionSelectors";
 import { postSubscribe } from "@/lib/features/subscribe/subscribeThunks";
 import CardPaymentComponent from "../components/cardPaymentComponent";
+import { useSubscriptionStates } from "@/lib/features/subscriptionStates/subscriptionSelectors";
 
 export default function PaymentComponent({ selectedPlan }: { selectedPlan: any }) {
   const dispatch = useAppDispatch();

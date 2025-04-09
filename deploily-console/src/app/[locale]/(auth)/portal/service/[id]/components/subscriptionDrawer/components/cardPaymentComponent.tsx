@@ -2,7 +2,7 @@
 import { Button, Card, Checkbox, CheckboxChangeEvent, Image, Typography } from "antd";
 import { useState } from "react";
 import { theme } from "@/styles/theme";
-import { useSubscriptionStates } from "@/lib/features/subscribtionStates/subscriptionSelectors";
+import { useSubscriptionStates } from "@/lib/features/subscriptionStates/subscriptionSelectors";
 import { useScopedI18n } from "../../../../../../../../../../locales/client";
 
 export default function CardPaymentComponent({ handleSubscribe }: { handleSubscribe: any }) {

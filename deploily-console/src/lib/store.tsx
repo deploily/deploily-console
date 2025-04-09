@@ -12,7 +12,7 @@ import profileServiceSlice from "./features/profileService/profileServiceSlice"
 import paymentSlice from "./features/payments/paymentSlice";
 import PormoCodeSlice from "./features/promoCode/promoCodeSlice"
 import epaymentSlice from "./features/epayment/epaymentSlice";
-import subscriptionStatesSlice from './features/subscribtionStates/subscriptionSlice'
+import subscriptionStatesSlice from './features/subscriptionStates/subscriptionSlice'
 
 export const makeStore = () => {
   return configureStore({

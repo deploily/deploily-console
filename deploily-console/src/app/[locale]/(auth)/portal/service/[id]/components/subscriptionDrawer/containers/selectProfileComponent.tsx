@@ -6,7 +6,7 @@ import { useScopedI18n } from "../../../../../../../../../../locales/client";
 import { Coins } from "@phosphor-icons/react";
 import { useAppDispatch } from "@/lib/hook";
 import { useProfileServices } from "@/lib/features/profile/profileServiceSelectors";
-import { useSubscriptionStates } from "@/lib/features/subscribtionStates/subscriptionSelectors";
+import { useSubscriptionStates } from "@/lib/features/subscriptionStates/subscriptionSelectors";
 
 export default function SelectProfileComponent() {
   const { selectedProfile } = useSubscriptionStates()
