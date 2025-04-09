@@ -1,8 +1,8 @@
 import { useSubscribe } from "@/lib/features/subscribe/subscribeSelectors";
 import { fetchSubscribeById, generateTokenThunk } from "@/lib/features/subscribe/subscribeThunks";
 import { useAppDispatch } from "@/lib/hook";
-import { CalendarDots, CaretDown, CaretUp, Copy, Star } from "@phosphor-icons/react";
-import { Badge, Button, Col, Image, Result, Row, Skeleton, Space, Typography, Tooltip, Collapse } from "antd";
+import { CalendarDots, Copy, Star } from "@phosphor-icons/react";
+import { Badge, Button, Col, Image, Result, Row, Skeleton, Space, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { IMAGES_URL } from "@/deploilyWebsiteUrls";
 import { theme } from "@/styles/theme";
@@ -15,11 +15,8 @@ import { fetchServiceParametersValues } from "@/lib/features/subscribeParameterV
 import { useServiceParametersValues } from "@/lib/features/subscribeParameterValues/subscribeParameterValuesSelectors";
 import { CustomBlueButton, CustomErrorButton, CustomOrangeButton } from "@/styles/components/buttonStyle";
 import { CustomSubscripionInput } from "@/styles/components/inputStyle";
-import { CustomDrawerCard } from "@/styles/components/cardStyle";
 
 import { handleCopy } from "@/lib/utils/handleCopy";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { dracula } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import DocumentationDrawer from "./documentationDrawer";
 import Link from "next/link";
 import { getSubscriptionItems } from "./getSubscriptionItems";
@@ -33,7 +30,7 @@ export default function SubscriptionSettingContant({ subscribe_id }: { subscribe
     const [openDrawer, setOpenDrawer] = useState(false);
     const [remainingDuration, setRemainingDuration] = useState<number>()
 
-      const [isHovered, setIsHovered] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
     const onClose = () => {
         setOpenDrawer(false);
     };
@@ -135,9 +132,9 @@ export default function SubscriptionSettingContant({ subscribe_id }: { subscribe
                                     alignSelf: "start"
                                 }}>
                                     <CustomOrangeButton onClick={() => setOpenDrawer(true)} >
-                                    {t('details')}
-                                </CustomOrangeButton>
-                             
+                                        {t('details')}
+                                    </CustomOrangeButton>
+
 
                                 </Col>
                             </Row>
@@ -232,17 +229,26 @@ export default function SubscriptionSettingContant({ subscribe_id }: { subscribe
                             </Col>
                         </Row>
                     }
-                  
+
                     {serviceParameterValuesList?.result
-                        ?.filter(paramVal => paramVal.parameter !== undefined && paramVal.parameter.type !== "token")
+                        ?.filter(paramVal => paramVal.parameter !== undefined && paramVal.parameter.type === "token")
                         .map((paramVal, index) => (
-                            <div key={index} >
-                                <CustomTypography> {paramVal.parameter.name} </CustomTypography>
-                                <CustomSubscripionInput defaultValue={paramVal.value} />
-                                
+                            <div key={index}>
+                                <Typography.Title level={4} style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange600 }}>
+                                    {paramVal.parameter.name}
+                                </Typography.Title>
+                                <Row>
+                                    <Col span={20} style={{ display: "flex", justifyContent: "start" }} >
+                                        <CustomTypography> {paramVal.value} </CustomTypography>
+                                    </Col>
+                                    <Col span={4} style={{ display: "flex", alignItems: "start", justifyContent: "end" }} >
+                                        <Button type="primary" style={{ boxShadow: "none" }} icon={<Copy />} onClick={() => handleCopy(paramVal.value)} />
+                                    </Col>
+                                </Row>
+
                             </div>
                         ))}
-            
+
                     {serviceParameterValuesList?.result?.find(paramVal => paramVal.parameter != undefined && paramVal.parameter.type === "token") == null &&
                         <CustomBlueButton
                             onClick={generateApiKey}
@@ -251,17 +257,12 @@ export default function SubscriptionSettingContant({ subscribe_id }: { subscribe
                             {t('ganerateKey')}
                         </CustomBlueButton>}
                     <Row gutter={[16, 10]} key={currentSubscribe.id}  >
-                        <Collapse
-                            bordered={false}
-                            defaultActiveKey={["1", "2"]}
-                            expandIcon={({ isActive }) => (isActive ? <CaretUp /> : <CaretDown />)}
-                            expandIconPosition="end"
-                            style={{
-                                background: theme.token.darkGray, border: "1px solid",
-                                borderColor: theme.token.gray100, width: "100%"
-                            }}
-                        items={getSubscriptionItems(currentSubscribe, t)}
-                        />
+                        {getSubscriptionItems(currentSubscribe, t).map((item, index) => (
+                            <div key={index} style={{ width: '100%' }}>
+                                {item.label}
+                                {item.children}
+                            </div>
+                        ))}
                     </Row>
 
                     <DocumentationDrawer openDrawer={openDrawer} onClose={onClose} currentSubscribe={currentSubscribe} t={t} />
