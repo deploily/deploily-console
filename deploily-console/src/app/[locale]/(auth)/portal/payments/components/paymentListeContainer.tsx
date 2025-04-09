@@ -4,7 +4,7 @@ import { usePayment } from "@/lib/features/payments/paymentSelector";
 import { deletePaymentById, fetchPayments, } from "@/lib/features/payments/paymentThunks";
 import { SubscribeInterface } from "@/lib/features/subscribe/subscribeInterface";
 import { useAppDispatch } from "@/lib/hook";
-import { Button, Skeleton, Table, Modal, message, Result } from "antd";
+import { Button, Skeleton, Table, Modal, message, Result, Tag } from "antd";
 import { useEffect, useMemo, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import { PaymentInterface } from "@/lib/features/payments/paymentInterface";
@@ -81,20 +81,17 @@ export default function PaymentListeContainer() {
                     const { backgroundColor, color, label } = getStatusStyle();
 
                     return (
-                        <Button
-                            type="primary"
-                            style={{
-                                width: "80px",
-                                backgroundColor,
-                                color,
-                                borderColor: "transparent",
-                                cursor: "default",
-                                pointerEvents: "none",
-                                boxShadow: "none"
-                            }}
-                        >
+                        <Tag style={{
+                            backgroundColor, color, border: "none",
+                            padding: "4px 0",
+                            fontWeight: 600,
+                            fontSize: 13,
+                            borderRadius: "18px",
+                            width: "100px",
+                            textAlign: "center",
+                            display: "inline-block"}}>
                             {label}
-                        </Button>
+                        </Tag>
                     );
                 },
             },

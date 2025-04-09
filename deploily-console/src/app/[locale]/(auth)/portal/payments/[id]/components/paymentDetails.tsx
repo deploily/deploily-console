@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Row, Spin, Modal, message, Table, Upload, UploadFile, UploadProps, Result } from "antd";
+import { Button, Row, Spin, Modal, message, Table, Upload, UploadFile, UploadProps, Result, Tag } from "antd";
 import { useI18n, useScopedI18n } from "../../../../../../../../locales/client";
 import { useAppDispatch } from "@/lib/hook";
 import { usePayment } from "@/lib/features/payments/paymentSelector";
@@ -26,7 +26,6 @@ export default function PaymentDetailsPage({ paymentId }: { paymentId: string })
     }
   }, [paymentId, dispatch]);
 
-  // Function to get the status button style
   const getStatusStyle = (status: string) => {
     switch (status) {
       case "completed":
@@ -43,12 +42,33 @@ export default function PaymentDetailsPage({ paymentId }: { paymentId: string })
   const paymentDetailsData = currentPayment
     ? [
       { key: "1", label: t("nOrder"), value: currentPayment.id },
-      { key: "2", label: t("profile"), value: currentPayment.profile?.name || "-" },
-      { key: "3", label: t("serviceName"), value: currentPayment.subscription?.name || "-" },
-      { key: "4", label: t("amount"), value: currentPayment.amount?.toLocaleString("fr-FR", { minimumFractionDigits: 0 }) + " DZD " || "-" },
-      { key: "5", label: t("startDate"), value: new Date(currentPayment.start_date).toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric" }) },
-      { key: "6", label: t("hour"), value: new Date(currentPayment.start_date).toLocaleString("fr-FR", { hour: "2-digit", minute: "2-digit" }) },
-      { key: "7", label: t("paymentMethod"), value: currentPayment.payment_method === "bank_transfer" ? t("bank") : t("card") },
+      {
+        key: "2",
+        label: t("status"),
+        value: (() => {
+          const { backgroundColor, color, label } = getStatusStyle(currentPayment.status);
+          return (
+            <Tag style={{
+              backgroundColor,
+              color,
+              border: "none",
+              padding: "4px 0",
+              fontWeight: 600,
+              fontSize: 13,
+              borderRadius: "18px",
+              width: "100px",
+              textAlign: "center",
+              display: "inline-block",}}>
+              {label}
+            </Tag>
+          );
+        })()
+      },      { key: "3", label: t("profile"), value: currentPayment.profile?.name || "-" },
+      { key: "4", label: t("serviceName"), value: currentPayment.subscription?.name || "-" },
+      { key: "5", label: t("amount"), value: currentPayment.amount?.toLocaleString("fr-FR", { minimumFractionDigits: 0 }) + " DZD " || "-" },
+      { key: "6", label: t("startDate"), value: new Date(currentPayment.start_date).toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric" }) },
+      { key: "7", label: t("hour"), value: new Date(currentPayment.start_date).toLocaleString("fr-FR", { hour: "2-digit", minute: "2-digit" }) },
+      { key: "8", label: t("paymentMethod"), value: currentPayment.payment_method === "bank_transfer" ? t("bank") : t("card") },
     ]
     : [];
 
@@ -62,29 +82,6 @@ export default function PaymentDetailsPage({ paymentId }: { paymentId: string })
         <span style={{ color: "white", fontFamily: "Inter, sans-serif", fontSize: "24px", fontWeight: 800 }}>
           {t("paymentDetails")}
         </span>
-        {currentPayment ? (
-          <div style={{ display: "flex", gap: 10 }}>
-            {currentPayment.status && (() => {
-              const { backgroundColor, color, label } = getStatusStyle(currentPayment.status);
-              return (
-                <Button
-                  type="primary"
-                  style={{
-                    width: "100px",
-                    backgroundColor,
-                    color,
-                    borderColor: "transparent",
-                    cursor: "default",
-                    pointerEvents: "none",
-                    boxShadow: "none",
-                  }}
-                >
-                  {label}
-                </Button>
-              );
-            })()}
-          </div>
-        ) : null}
       </Row>
 
       <div
