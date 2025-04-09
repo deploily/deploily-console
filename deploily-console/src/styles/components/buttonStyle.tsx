@@ -38,23 +38,30 @@ export const CustomBlueRoundedButton = styled(Button)` &&
 }
 `;
 
-export const CustomOrangeButton = styled(Button)` &&
- {  
-    color: ${theme.token.colorWhite};
-    background-color: ${theme.token.orange400};
+export const CustomOrangeButton = styled(Button)`
+  && {
+    color: ${theme.token.orange400};
+    background-color: transparent;
+    text-decoration: underline;
     border: none;
-    border-raduis:10px;
+    border-radius: 10px;
     padding: 10px 30px;
-    transition: background-color 0.3s ease;
+    transition: none;
+    box-shadow: none;
 
-     &:hover {
-      background-color: ${theme.token.orange400} !important;
-      color: ${theme.token.colorWhite} !important;
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: transparent !important;
+      // color: ${theme.token.orange400} !important;
       border: none !important;
       box-shadow: none !important;
     }
-}
+  }
 `;
+
+
+
 export const CustomErrorButton = styled(Button)` &&
  {  
     color: ${theme.token.colorWhite};

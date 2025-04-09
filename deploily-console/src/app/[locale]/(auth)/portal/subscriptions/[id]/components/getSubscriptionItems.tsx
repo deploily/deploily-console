@@ -35,7 +35,7 @@ export const getSubscriptionItems = (row: SubscribeInterface, t: any): CollapseP
         label: (
 
             <Typography.Title level={4} style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange600 }}>
-                {t("documentation")}
+                {t("ApiDocumentation")}
             </Typography.Title>
 
         ),

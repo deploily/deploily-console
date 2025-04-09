@@ -62,7 +62,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
   return (
     <>
       <Space direction="vertical" size="large"
-        style={{ paddingInline: 40, marginBlock: 10, width: "100%", marginBottom: 50 }}>
+        style={{ paddingInline: 40, marginBlock: 10, width: "100%", marginBottom: 50, paddingTop: 20 }}>
         {serviceLoading && currentService === undefined &&
           <>
             <Skeleton.Image active />

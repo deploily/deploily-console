@@ -51,6 +51,7 @@ export default {
   'startDate': 'Date de début',
   'accessUrl': "URL d'aceés",
   'link': 'Lien vers la documentation',
+  'ApiDocumentation': "Documentation de l'API",
   'viewApi': "Afficher la documentation de l'API",
   'parameterValue': 'Valeurs des paramètres',
   'ganerateKey': 'GÉNÉRER LA CLÉ',
