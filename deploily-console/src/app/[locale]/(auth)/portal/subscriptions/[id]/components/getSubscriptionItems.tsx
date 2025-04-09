@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Col, CollapseProps, Row, Tooltip, Typography } from "antd";
+import { Button, Col, Row, Tooltip, Typography } from "antd";
 import { theme } from "@/styles/theme";
 import { SubscribeInterface } from "@/lib/features/subscribe/subscribeInterface";
 import { CustomTypography } from "@/styles/components/typographyStyle";
@@ -11,7 +11,7 @@ import { dracula } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 
 
-export const getSubscriptionItems = (row: SubscribeInterface, t: any): CollapseProps["items"] => [
+export const getSubscriptionItems = (row: SubscribeInterface, t: any) => [
     {
         key: "1",
         label: (
@@ -35,15 +35,12 @@ export const getSubscriptionItems = (row: SubscribeInterface, t: any): CollapseP
         label: (
 
             <Typography.Title level={4} style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange600 }}>
-                {t("documentation")}
+                {"CURL"}
             </Typography.Title>
 
         ),
         children: (
             <>
-                <CustomTypography style={{marginBottom:8}}>
-                    {t('viewApiDocumentation')}
-                </CustomTypography>
                 {row.service_details.curl_command !== undefined && row.service_details.curl_command !== "" &&
                     < Row gutter={12}>
                         <Col md={22} xs={20}>

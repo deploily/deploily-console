@@ -17,14 +17,30 @@ export default function SubscriptionCard({ data }: { data: SubscribeInterface })
             ? `${IMAGES_URL}${data.service_details.image_service}`
             : "/images/logo_service.png";
     return (
-        <Card style={{ height: "100%", width: "100%", padding: 0 }}>
+        <Card style={{ height: "100%", width: "100%", padding: 0, cursor: "pointer", position: "relative" }}
+            onClick={() => router.push(`/portal/subscriptions/${data.id}`)}
+        >
             <div style={{ height: "300px" }}>
                 <Row align="middle" gutter={16} style={{ height: "40%" }} >
                     <Col span={12} style={{ height: "100%", }} >
-                        <Badge count={<Button style={{ border: "none", backgroundColor: "transparent", boxShadow: "none" }}
-                            icon={<Star size={25} weight="fill" color="#7D7D7D" />} />}
-                            offset={[-12, 12]}>
-
+                        <Badge
+                            count={
+                                <Button
+                                    style={{
+                                        border: "none",
+                                        backgroundColor: "#fff",
+                                        boxShadow: "0 0 4px rgba(0,0,0,0.1)",
+                                        borderRadius: "50%",
+                                        padding: 0,
+                                        width: 24,
+                                        height: 24,
+                                        minWidth: 24
+                                    }}
+                                    icon={<Star size={25} weight="fill" color="#7D7D7D" />}
+                                />
+                            }
+                            offset={[-12, 12]}
+                        >
                             <Image
                                 alt="Logo"
                                 src={imageUrl}
@@ -33,15 +49,19 @@ export default function SubscriptionCard({ data }: { data: SubscribeInterface })
                                 preview={false}
                             />
                         </Badge>
+
+
+
                     </Col>
                     <Col span={12}
                         style={{
                             height: "100%",
                             fontWeight: "bold",
-                            display:"flex", justifyContent:"end"
+                            display: "flex", justifyContent: "end"
                         }}>
                         <Paragraph style={{ color: "#DD8859", fontSize: 16, }}>
-                            {data.total_amount} DZD
+                            {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(data.total_amount)} DZD
+
                         </Paragraph>
                     </Col>
                 </Row>
@@ -63,7 +83,7 @@ export default function SubscriptionCard({ data }: { data: SubscribeInterface })
                 <CustomBlueButton
                     onClick={() => router.push(`/portal/subscriptions/${data.id}`)}
                 >
-                    <Faders size={20}  />
+                    <Faders size={20} />
                     <Typography
                         style={{
                             fontSize: "16px",

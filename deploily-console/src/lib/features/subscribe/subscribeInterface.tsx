@@ -13,7 +13,7 @@ export interface SubscribeResponse {
 export interface NewSubscribeResponse {
   form_url: string;
   order_id: string;
-  subscribe: SubscribeInterface;
+  subscription: SubscribeInterface;
   }
 
 export interface SubscribeInterface {

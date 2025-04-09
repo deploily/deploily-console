@@ -1,19 +1,67 @@
 "use client";
 import * as React from "react";
 import Image from "next/image";
-import {useState} from "react";
-import {Button, Col, Drawer, Form, Row, Select} from "antd";
-import {Header} from "antd/es/layout/layout";
+import { useEffect, useState } from "react";
+import { Button, Col, Drawer, Row, Select } from "antd";
+import { Header } from "antd/es/layout/layout";
 import LocaleSwitcher from "@/components/locale/localeSwitcher";
-import {List, Coins} from "@phosphor-icons/react";
-import {MainSideBarMobile} from "./sideBar";
+import { Coins, List } from "@phosphor-icons/react";
+import { MainSideBarMobile } from "./sideBar";
 import Link from "next/link";
-import {useI18n} from "../../../../../../locales/client";
+import { useI18n } from "../../../../../../locales/client";
+import { useProfileServices } from "@/lib/features/profileService/profileServiceSelectors";
+import { theme } from "@/styles/theme";
+import { fetchProfilesServices } from "@/lib/features/profileService/profileServiceThunks";
+import { useAppDispatch } from "@/lib/hook";
 
 export function AppAppBarDesktop() {
   const [theme] = useState("dark");
   const appBarColor = theme == "dark" ? "#2c82d4" : "#eda879";
   const t = useI18n();
+  const { isLoading, profileServicesList } = useProfileServices();
+
+  const { Option } = Select;
+  const [profileSelected, setProfileSelected] = useState<number | undefined>(undefined);
+  const [values, setValues] = useState<{ total_amount: number; profile_id: number }>({
+    total_amount: 0,
+    profile_id: 0,
+  });
+  const dispatch = useAppDispatch();
+  
+  useEffect(() => {
+        dispatch(fetchProfilesServices());
+
+  }, []);
+  
+  // Set the default selected profile when the profile list is loaded
+  useEffect(() => {
+    if (!isLoading && profileServicesList?.result?.length) {
+      // Find the profile with name "Default"
+      const defaultProfile = profileServicesList.result.find((profile) => profile.name === "Default");
+
+      if (defaultProfile) {
+        setProfileSelected(defaultProfile.id);
+        setValues((prevValues) => ({ ...prevValues, profile_id: defaultProfile.id }));
+      } else {
+        // If "Default" profile is not found, select the first available profile
+        const firstProfile = profileServicesList.result[0];
+        setProfileSelected(firstProfile.id);
+        setValues((prevValues) => ({ ...prevValues, profile_id: firstProfile.id }));
+      }
+    }
+  }, [isLoading, profileServicesList]);
+
+  // Handle profile selection change
+  const handleSelectedProfile = (value: number) => {
+    const selectedProfile = profileServicesList?.result?.find((profile) => profile.id === value);
+
+    if (selectedProfile) {
+      setValues((prevValues) => ({ ...prevValues, profile_id: selectedProfile.id }));
+      setProfileSelected(selectedProfile.id);
+    }
+  };
+
+
   return (
     <>
       <Header
@@ -25,70 +73,107 @@ export function AppAppBarDesktop() {
           lineHeight: "0px",
           height: "70px",
           boxShadow:
-            theme === "dark" ? "0 4px 8px rgba(0, 0, 0, 0.25)" : "0 4px 8px rgba(0, 0, 0, 0.1)",
+            theme === "dark"
+              ? "0 4px 8px rgba(0, 0, 0, 0.25)"
+              : "0 4px 8px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <Row align="middle" justify="space-between" style={{width: "100%"}}>
-          <Col style={{flexGrow: 1}}>
+        <Row align="middle" justify="space-between" style={{ width: "100%" }}>
+          <Col style={{ flexGrow: 1 }}>
             <Link href="/portal">
               <Image
                 src="/images/logo_name.png"
                 width={202}
                 height={50}
                 alt="logo-deploily"
-                style={{
-                  marginRight: "20px",
-                  cursor: "pointer",
-                }}
+                style={{ marginRight: "20px", cursor: "pointer" }}
               />
             </Link>
           </Col>
-          <Row
-            style={{
-              justifyContent: "space-between",
-              alignItems: "flex-start",
-            }}
-          >
+
+          <Row style={{ justifyContent: "space-between", alignItems: "flex-start" }}>
             <Col>
-              <Row
-                style={{
-                  display: "flex",
-                  gap: 16,
-                  alignItems: "center",
-                }}
-              >
-                {" "}
-                <Form>
-                  <Form.Item
-                    name="Select"
-                    rules={[{message: "Please input!"}]}
+              <Row style={{ display: "flex", gap: 16, alignItems: "center" }}>
+                {/* Profile Select */}
+                <div>
+                  <Select
+                    labelInValue
+                    value={{
+                      key: profileSelected?.toString() || "",
+                      label: (
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                          <span style={{ color: "#D85912" }}>
+                            {(() => {
+                              const name = profileServicesList?.result?.find((p) => p.id === profileSelected)?.name;
+                              return name ? name.charAt(0).toUpperCase() + name.slice(1) : "...";
+                            })()}
+                          </span>
+
+                          <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+                            <span style={{ color: "#D85912" }}>
+                              {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(
+                                profileServicesList?.result?.find((p) => p.id === profileSelected)?.balance ?? 0
+                              )}
+                            </span>
+                            <span style={{ color: "#D85912" }}>DZD</span>
+                            <Coins size={18} color={"#D85912"} />
+                          </div>
+                        </div>
+                      ),
+                    }}
                     style={{
-                      width: 300,
-                      border: "1px solid ",
+                      width: 200,
+                      border: "1px solid #D85912 !important",
                       backgroundColor: "#202227",
-                      color: "#fff",
-                      borderColor: "#4E4E4E",
                       borderRadius: "6px",
                       marginBottom: "0px",
                     }}
+                    onChange={(value) => handleSelectedProfile(Number(value.key))}
+                    dropdownRender={(menu) => (
+                      <>
+                        <style>
+                          {`
+                            .ant-select-item-option-selected {
+                              border: 1px solid #D85912 !important;
+                              border-radius: 4px;
+                            }
+                          `}
+                        </style>
+                        {menu}
+                      </>
+                    )}
                   >
-                    <Select />
-                  </Form.Item>
-                </Form>
-                <Link href="/portal/cart">
-                  {" "}
-                  <Button
-                    style={{
-                      borderColor: "#D85912",
-                      color:"#D85912"
-                    }}
-                    icon={<Coins size={"28px"} style={{color: "#D85912"}} />}
-                    iconPosition={"end"}
-                    target="_blank"
-                  >
-                    0.00 DZD
-                  </Button>
-                </Link>
+                    {!isLoading &&
+                      (profileServicesList?.result ?? []).map((profile) => (
+                        <Option key={profile.id} value={profile.id}>
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                              alignItems: "center",
+                              width: "100%",
+                              paddingLeft: 10,
+                              paddingRight: 10,
+                            }}
+                          >
+                            <span style={{ color: "#D85912" }}>
+                              {profile.name.charAt(0).toUpperCase() + profile.name.slice(1)}
+                            </span>
+                            <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+                              <span style={{ color: "#D85912" }}>
+                                {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(profile.balance)}
+                              </span>  
+                              <span style={{ color: "#D85912" }}>DZD</span>
+                              <Coins size={18} color={"#D85912"} />
+                            </div>
+                          </div>
+                        </Option>
+                      ))}
+                  </Select>
+
+                </div>
+
+                {/* Navigation Button */}
                 <Button
                   style={{
                     color: "#fff",
@@ -109,6 +194,8 @@ export function AppAppBarDesktop() {
                     </span>
                   </Link>
                 </Button>
+
+                {/* Language Switcher */}
                 <LocaleSwitcher color={appBarColor} />
               </Row>
             </Col>
@@ -148,8 +235,8 @@ export function AppAppBarMobile() {
             theme === "dark" ? "0 4px 8px rgba(0, 0, 0, 0.25)" : "0 4px 8px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <Row align="middle" justify="space-between" style={{width: "100%"}}>
-          <Col style={{flexGrow: 1}}>
+        <Row align="middle" justify="space-between" style={{ width: "100%" }}>
+          <Col style={{ flexGrow: 1 }}>
             <Link href="/portal">
               <Image
                 src="/images/logo_name.png"
@@ -178,12 +265,12 @@ export function AppAppBarMobile() {
                 }}
               >
                 <LocaleSwitcher color={appBarColor} />
-                <List size={28} style={{color: "#D85912"}} onClick={showDrawer} />
+                <List size={28} style={{ color: "#D85912" }} onClick={showDrawer} />
               </Row>
             </Col>
           </Row>
         </Row>
-        <Drawer onClose={onClose} open={open} width={"50%"} styles={{body: {padding: "0px"}}}>
+        <Drawer onClose={onClose} open={open} width={"50%"} styles={{ body: { padding: "0px" } }}>
           <MainSideBarMobile />
         </Drawer>
       </Header>

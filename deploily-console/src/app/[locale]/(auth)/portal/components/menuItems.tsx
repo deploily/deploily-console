@@ -1,3 +1,4 @@
+import { DOC_URL } from "@/deploilyWebsiteUrls";
 import {
   HouseLine,
   HardDrives,
@@ -90,15 +91,6 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
     icon: <Question size={24} />,
   },
   {
-    key: "documentation",
-    label: (
-      <Link href="/portal/documentation">
-        <span style={labelStyle}>{scopedSidebar("documentation")}</span>
-      </Link>
-    ),
-    icon: <Books size={24} />,
-  },
-  {
     key: "billing",
     label: <span style={labelStyle}>{scopedSidebar("billing")}</span>,
     icon: <Invoice size={24} />,
@@ -125,4 +117,18 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
     ),
     icon: <Handshake size={24} />,
   },
+  {
+    key: "documentation",
+    label: (
+      <a
+        href={DOC_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={labelStyle}
+      >
+        {scopedSidebar("documentation")}
+      </a>
+    ),
+    icon: <Books size={24} />,
+  }
 ];

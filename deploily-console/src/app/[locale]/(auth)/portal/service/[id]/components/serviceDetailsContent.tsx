@@ -1,6 +1,6 @@
 "use client";
 import { Col, Row, Image, Typography, Collapse, Button, Space, Skeleton, Badge, Card, Result } from "antd";
-import {  CaretDown, CaretUp, Star } from "@phosphor-icons/react";
+import { CaretDown, CaretUp, Star } from "@phosphor-icons/react";
 import { useI18n } from "../../../../../../../../locales/client";
 import { getItems } from "./getItems";
 import { useEffect } from "react";
@@ -19,14 +19,17 @@ import { ServicePlan } from "@/lib/features/servicePlan/servicePlanInterface";
 import ServicePlanCard from "./servicePlanCard";
 import { useState } from "react";
 import SubscribeDrawer from "./subscriptionDrawer/subscriptionDrawer";
+import Link from "next/link";
 
 export default function ServiceDetailsContentPage({ serviceId }: { serviceId: string }) {
   const [openDrawer, setOpenDrawer] = useState(false);
   const [planSelected, setSelectedPlan] = useState(undefined);
-
+  const [isHovered, setIsHovered] = useState(false);
 
   const showDrawer = (plan:any | null) => {
-   if(plan!==null){ setSelectedPlan(plan);}
+   if(plan!==null){ setSelectedPlan(plan);
+       dispatch({ type: "SubscriptionStates/updateSubscriptionStates", payload: { "price": plan.price } });
+   }
     setOpenDrawer(true);
   };
 
@@ -60,10 +63,8 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
   return (
     <>
       <Space direction="vertical" size="large"
-        style={{ paddingInline: 40, marginBlock: 10, width: "100%", marginBottom: 50 }}>
+        style={{ paddingInline: 40, marginBlock: 10, width: "100%", marginBottom: 50, paddingTop: 20 }}>
         {serviceLoading && currentService === undefined &&
-
-    
           <>
             <Skeleton.Image active />
             <Skeleton active paragraph={{ rows: 2 }} />
@@ -71,47 +72,80 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
           </>}
         {!serviceLoading && currentService !== undefined &&
           <>
-            <Row gutter={16}  >
-              <Col md={16} xs={24} >
-                <Badge
-                  count={
-                    <Button style={{ border: "none", backgroundColor: "transparent", boxShadow: "none" }}
-                      icon={currentService.is_in_favorite == true ?
-                        <Star size={40} weight="fill" color="#FC3232" /> :
-                        <Star size={40} color="#7D7D7D" />}
-                      onClick={() => handleFavoriteService(currentService.id)}
-                    />
-                  }
-                  offset={[-20, 20]}>
-                  <Image
-                    alt="Logo"
-                    src={imageUrl(currentService?.image_service)}
-                    width={220}
-                    height={220}
-                    preview={false}
-
+          <Row gutter={16} >
+            <Col md={5} xs={24} style={{ display: "flex", justifyContent: "start" }}>
+              <Badge
+                count={
+                  <Button
+                    style={{
+                      border: "none",
+                      backgroundColor: "#fff",
+                      boxShadow: "0 0 4px rgba(0,0,0,0.1)",
+                      borderRadius: "50%",
+                      padding: 0,
+                      width: 40,
+                      height: 40,
+                      minWidth: 40,
+                    }}
+                    icon={
+                      currentService.is_in_favorite === true ? (
+                        <Star size={35} weight="fill" color="#FC3232" />
+                      ) : (
+                        <Star size={35} color="#7D7D7D" />
+                      )
+                    }
+                    onClick={() => handleFavoriteService(currentService.id)}
                   />
-                </Badge>
-              </Col>
+                }
+                offset={[-20, 20]}
+              >
+                <Image
+                  alt="Logo"
+                  src={imageUrl(currentService?.image_service)}
+                  width={220}
+                  height={220}
+                  preview={false}
+                />
+              </Badge>
+            </Col>
 
-              <Col md={8} xs={24} style={{
-                display: "flex",
-                justifyContent: "end",
-                alignSelf: "start"
-              }}>
-                <Typography.Title level={2} style={{ color: theme.token.orange400 }}>
-                  {currentService.unit_price} DZD
-                </Typography.Title>
-              </Col>
-            </Row>
-            <Row gutter={16} style={{ marginTop: 0 }} >
+            {/* Name and Price */}
+            <Col md={19} xs={24} style={{flexDirection: "column", justifyContent: "start" }}>
+              <Typography.Title level={3} style={{ marginBottom: 8 }}>
+                {currentService.name}
+              </Typography.Title>
+              <Typography.Title level={4} style={{ color: theme.token.orange400, margin: 0 }}>
+                {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(currentService.unit_price)} DZD
+              </Typography.Title>
+            </Col>
+          </Row>
 
-              <Typography.Title level={2}>{currentService.name}</Typography.Title>
-
-            </Row>
             <Row gutter={16} style={{ marginTop: 0 }} >
               <Paragraph style={{ fontSize: 14 }} >
-                {currentService.short_description}
+              {currentService.short_description}
+              
+              {t("viewDocumentation")}&nbsp;
+              <Link
+                href={currentService.documentation_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+              >
+                <Typography.Title
+                  level={5}
+                  style={{
+                    fontSize: 14,
+                    color: theme.token.blue300,
+                    textDecoration: isHovered ? "underline" : "none",
+                    display: "inline-block", 
+                    margin: 0 
+                  }}
+                >
+                  {t("documentation")}
+                </Typography.Title>
+              </Link>
+
               </Paragraph>
             </Row>
             <Row gutter={16} key={currentService.id}  >
@@ -128,7 +162,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
               />
 
             </Row>
-            <Row gutter={20}>
+            <Row gutter={[16, 24]} justify="start">
               <Col span={24}>
                 <Typography.Title level={2} style={{ color: theme.token.blue100, fontSize: 24, }}>
                   {t('SelectServicePlan')}
@@ -158,16 +192,22 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
                       xl={8}
                       style={{ display: "flex", justifyContent: "center" }}
                     >
-                      {row.plan && (<ServicePlanCard key={row.id} servicePlan={row} showDrawer={() =>showDrawer(row) } />)}
-                     
-
+                      {row.plan && (
+                        <div style={{ width: "100%", maxWidth: 340 }}>
+                          <ServicePlanCard
+                            key={row.id}
+                            servicePlan={row}
+                            showDrawer={() => showDrawer(row)}
+                          />
+                        </div>
+                      )}
                     </Col>
+
                   ))}
                 </>
               }
-
               {!servicePlanLoading && servicePlanError &&
-                <div style={{display:"flex", justifyContent:"center", width:"100%"}}>
+                <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
                   <Result
                     status="500"
                     title={t('error')}
@@ -176,8 +216,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
                 </div>
               }
             </Row>
-
-          <SubscribeDrawer openDrawer={openDrawer} onClose={onClose} planSelected={planSelected} />
+            <SubscribeDrawer openDrawer={openDrawer} onClose={onClose} planSelected={planSelected} />
           </>
         }
 

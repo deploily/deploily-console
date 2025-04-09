@@ -4,7 +4,7 @@ import { usePayment } from "@/lib/features/payments/paymentSelector";
 import { deletePaymentById, fetchPayments, } from "@/lib/features/payments/paymentThunks";
 import { SubscribeInterface } from "@/lib/features/subscribe/subscribeInterface";
 import { useAppDispatch } from "@/lib/hook";
-import { Button, Skeleton, Table, Modal, message, Result } from "antd";
+import { Button, Skeleton, Table, Modal, message, Result, Tag } from "antd";
 import { useEffect, useMemo, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import { PaymentInterface } from "@/lib/features/payments/paymentInterface";
@@ -33,25 +33,7 @@ export default function PaymentListeContainer() {
         }
     }, [paymentsList]);
 
-    const handleDelete = (id: string) => {
-        Modal.confirm({
-            title: t("areYouSure"),
-            content: t("deleteConfirmation"),
-            okText: t("yes"),
-            cancelText: t("no"),
-            onOk: async () => {
-                try {
-                    await dispatch(deletePaymentById(id)).unwrap();
-                    setData((prevData) => prevData.filter((item) => item.id !== id));
-                    message.success(t("deleteSuccess"));
-                } catch (error) {
-                    message.error(t("deleteError"));
-                }
-            },
-        });
-    };
-
-
+    
     const columns = useMemo(() => {
         return [
             {
@@ -63,7 +45,7 @@ export default function PaymentListeContainer() {
                 title: t("profile"),
                 dataIndex: "profile",
                 key: "profile",
-                render: (profile: ProfileServiceInterface) => profile?.name || "-",
+                render: (profile: ProfileServiceInterface) => profile?.name.charAt(0).toUpperCase() + profile.name.slice(1) || "-",
             },
             {
                 title: t("serviceName"),
@@ -99,20 +81,17 @@ export default function PaymentListeContainer() {
                     const { backgroundColor, color, label } = getStatusStyle();
 
                     return (
-                        <Button
-                            type="primary"
-                            style={{
-                                width: "80px",
-                                backgroundColor,
-                                color,
-                                borderColor: "transparent",
-                                cursor: "default",
-                                pointerEvents: "none",
-                                boxShadow: "none"
-                            }}
-                        >
+                        <Tag style={{
+                            backgroundColor, color, border: "none",
+                            padding: "4px 0",
+                            fontWeight: 600,
+                            fontSize: 13,
+                            borderRadius: "18px",
+                            width: "100px",
+                            textAlign: "center",
+                            display: "inline-block"}}>
                             {label}
-                        </Button>
+                        </Tag>
                     );
                 },
             },
@@ -143,13 +122,6 @@ export default function PaymentListeContainer() {
                         hour: "2-digit",
                         minute: "2-digit",
                     }) : "-",
-            },
-
-            {
-                key: "actions",
-                render: (_: any, record: PaymentInterface) => (
-                    <Button type="link" icon={<Trash size={24} color={theme.token.red500} />} onClick={() => handleDelete(record.id)} />
-                ),
             },
         ];
     }, [t]);
