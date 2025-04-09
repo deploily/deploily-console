@@ -33,25 +33,7 @@ export default function PaymentListeContainer() {
         }
     }, [paymentsList]);
 
-    const handleDelete = (id: string) => {
-        Modal.confirm({
-            title: t("areYouSure"),
-            content: t("deleteConfirmation"),
-            okText: t("yes"),
-            cancelText: t("no"),
-            onOk: async () => {
-                try {
-                    await dispatch(deletePaymentById(id)).unwrap();
-                    setData((prevData) => prevData.filter((item) => item.id !== id));
-                    message.success(t("deleteSuccess"));
-                } catch (error) {
-                    message.error(t("deleteError"));
-                }
-            },
-        });
-    };
-
-
+    
     const columns = useMemo(() => {
         return [
             {
@@ -63,7 +45,7 @@ export default function PaymentListeContainer() {
                 title: t("profile"),
                 dataIndex: "profile",
                 key: "profile",
-                render: (profile: ProfileServiceInterface) => profile?.name || "-",
+                render: (profile: ProfileServiceInterface) => profile?.name.charAt(0).toUpperCase() + profile.name.slice(1) || "-",
             },
             {
                 title: t("serviceName"),
@@ -143,13 +125,6 @@ export default function PaymentListeContainer() {
                         hour: "2-digit",
                         minute: "2-digit",
                     }) : "-",
-            },
-
-            {
-                key: "actions",
-                render: (_: any, record: PaymentInterface) => (
-                    <Button type="link" icon={<Trash size={24} color={theme.token.red500} />} onClick={() => handleDelete(record.id)} />
-                ),
             },
         ];
     }, [t]);

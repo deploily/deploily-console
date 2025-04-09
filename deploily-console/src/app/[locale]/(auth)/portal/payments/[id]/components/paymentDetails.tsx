@@ -7,7 +7,7 @@ import { usePayment } from "@/lib/features/payments/paymentSelector";
 import { useEffect, useState } from "react";
 import { fetchPaymentById, deletePaymentById } from "@/lib/features/payments/paymentThunks";
 import { useRouter } from "next/navigation";
-import { CustomDeleteButton, CustomUploadButton } from "@/styles/components/buttonStyle";
+import { CustomUploadButton } from "@/styles/components/buttonStyle";
 import { Trash } from "@phosphor-icons/react";
 import { UploadOutlined } from '@ant-design/icons';
 import { theme } from "@/styles/theme";
@@ -38,25 +38,6 @@ export default function PaymentDetailsPage({ paymentId }: { paymentId: string })
       default:
         return { backgroundColor: theme.token.gray200, color: theme.token.colorWhite, label: status };
     }
-  };
-
-  // Delete payment function
-  const handleDelete = () => {
-    Modal.confirm({
-      title: t("areYouSure"),
-      content: t("deleteConfirmation"),
-      okText: t("yes"),
-      cancelText: t("no"),
-      onOk: async () => {
-        try {
-          await dispatch(deletePaymentById(paymentId)).unwrap();
-          message.success(t("deleteSuccess"));
-          router.push("/portal/payments");
-        } catch (error) {
-          message.error(t("deleteError"));
-        }
-      },
-    });
   };
 
   const paymentDetailsData = currentPayment
@@ -102,10 +83,6 @@ export default function PaymentDetailsPage({ paymentId }: { paymentId: string })
                 </Button>
               );
             })()}
-
-            <CustomDeleteButton icon={<Trash size={24} />} onClick={handleDelete}>
-              {t("delete")}
-            </CustomDeleteButton>
           </div>
         ) : null}
       </Row>

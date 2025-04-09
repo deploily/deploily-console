@@ -70,24 +70,6 @@ export const CustomErrorButton = styled(Button)` &&
       box-shadow: none !important;
 }}`;
 
-export const CustomDeleteButton = styled(Button)` &&
- {  
-    color: ${theme.token.colorWhite};
-    background-color: ${theme.token.red500};
-    border: none;
-    border-raduis:10px;
-    padding: 4px 8px;
-    transition: background-color 0.3s ease;
-    box-shadow: none !important;
-
-    &:hover {
-      background-color: ${theme.token.red500} !important;
-      color: ${theme.token.colorWhite} !important;
-      border: none !important;
-      box-shadow: none !important;
-    }
-}
-`;
 export const CustomUploadButton = styled(Button)`&& {
   color: ${theme.token.colorPrimary};
   border: 1px solid ${theme.token.gray50};
