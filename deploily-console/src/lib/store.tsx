@@ -11,6 +11,7 @@ import paymentSlice from "./features/payments/paymentSlice";
 import PormoCodeSlice from "./features/promoCode/promoCodeSlice"
 import epaymentSlice from "./features/epayment/epaymentSlice";
 import subscriptionStatesSlice from './features/subscriptionStates/subscriptionSlice'
+import cicdServiceSlice from "./features/cicdService/cicdServiceSlice";
 
 export const makeStore = () => {
   return configureStore({
@@ -27,6 +28,7 @@ export const makeStore = () => {
       promoCode: PormoCodeSlice,
       epayment: epaymentSlice,
       subscriptionStatesSlice: subscriptionStatesSlice,
+      cicdService: cicdServiceSlice,
     },
   });
 };
