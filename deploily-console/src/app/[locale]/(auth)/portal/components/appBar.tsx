@@ -103,9 +103,9 @@ export function AppAppBarDesktop() {
 
                           <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
                             <span style={{ color: "#D85912" }}>
-                              {
-                                profileServicesList?.result?.find((p) => p.id === profileSelected)?.balance ?? "0"
-                              }
+                              {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(
+                                profileServicesList?.result?.find((p) => p.id === profileSelected)?.balance ?? 0
+                              )}
                             </span>
                             <span style={{ color: "#D85912" }}>DZD</span>
                             <Coins size={18} color={"#D85912"} />
@@ -116,10 +116,7 @@ export function AppAppBarDesktop() {
                     style={{
                       width: 200,
                       border: "1px solid #D85912 !important",
-
                       backgroundColor: "#202227",
-                      // color: "#fff",
-                      // borderColor: "#D85912",
                       borderRadius: "6px",
                       marginBottom: "0px",
                     }}
@@ -155,7 +152,9 @@ export function AppAppBarDesktop() {
                               {profile.name.charAt(0).toUpperCase() + profile.name.slice(1)}
                             </span>
                             <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-                              <span style={{ color: "#D85912" }}>{profile.balance}</span>
+                              <span style={{ color: "#D85912" }}>
+                                {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(profile.balance)}
+                              </span>  
                               <span style={{ color: "#D85912" }}>DZD</span>
                               <Coins size={18} color={"#D85912"} />
                             </div>
@@ -164,20 +163,7 @@ export function AppAppBarDesktop() {
                       ))}
                   </Select>
 
-
                 </div>
-
-                {/* Balance Button */}
-                {/* <Button
-                  style={{
-                    borderColor: "#D85912",
-                    color: "#D85912",
-                  }}
-                  icon={<Coins size={"20px"} style={{ color: "#D85912" }} />}
-                  iconPosition="end"
-                >
-                  0.00 DZD
-                </Button> */}
 
                 {/* Navigation Button */}
                 <Button
