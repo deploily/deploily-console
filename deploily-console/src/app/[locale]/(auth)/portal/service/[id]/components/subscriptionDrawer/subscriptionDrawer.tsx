@@ -6,7 +6,7 @@ import { useScopedI18n } from "../../../../../../../../../locales/client";
 import { useAppDispatch } from "@/lib/hook";
 import { fetchProfilesServices } from "@/lib/features/profile/profileServiceThunks";
 import PaymentComponent from "./containers/paymentComponent";
-import { redirect, useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import { useSubscribe } from "@/lib/features/subscribe/subscribeSelectors";
 import NewSubscriptionInfo from "./containers/newSubscriptionInfo";
 import SelectProfileComponent from "./containers/selectProfileComponent";
@@ -19,7 +19,7 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
   const translate = useScopedI18n('subscription');
   const { newSubscribeResponse } = useSubscribe();
   const dispatch = useAppDispatch();
-  const router = useRouter();
+  // const router = useRouter();
 
   useEffect(() => {
     if (newSubscribeResponse && !isBalanceSufficient) {
@@ -30,7 +30,7 @@ export default function SubscribeDrawer({ openDrawer, onClose, planSelected }: {
         console.log("Error in payment registration");
       }
     } else {
-      if (newSubscribeResponse !== undefined) { router.push(`/portal/subscriptions/${newSubscribeResponse?.subscription.id}`) }
+      // if (newSubscribeResponse !== undefined) { router.push(`/portal/subscriptions/${newSubscribeResponse?.subscription.id}`) }
     }
     dispatch(fetchProfilesServices());
   }, [newSubscribeResponse]);
