@@ -11,6 +11,8 @@ import Link from "next/link";
 import { useI18n } from "../../../../../../locales/client";
 import { useProfileServices } from "@/lib/features/profileService/profileServiceSelectors";
 import { theme } from "@/styles/theme";
+import { fetchProfilesServices } from "@/lib/features/profileService/profileServiceThunks";
+import { useAppDispatch } from "@/lib/hook";
 
 export function AppAppBarDesktop() {
   const [theme] = useState("dark");
@@ -24,7 +26,13 @@ export function AppAppBarDesktop() {
     total_amount: 0,
     profile_id: 0,
   });
+  const dispatch = useAppDispatch();
+  
+  useEffect(() => {
+        dispatch(fetchProfilesServices());
 
+  }, []);
+  
   // Set the default selected profile when the profile list is loaded
   useEffect(() => {
     if (!isLoading && profileServicesList?.result?.length) {
