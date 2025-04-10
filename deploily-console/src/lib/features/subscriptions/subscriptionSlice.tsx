@@ -12,6 +12,7 @@ interface SubscriptionState {
   generateTokenLoading?: boolean;
   generatedToken?: string;
   generateTokenFailed?: boolean;
+  generateTokenSuccess?: boolean;
   isSubscriptionCreatedSuccess: boolean;
   isSubscriptionCreatedFailed: boolean;
   newSubscriptionResponse?: NewSubscriptionResponse;
@@ -27,6 +28,7 @@ const initialState: SubscriptionState = {
   generateTokenLoading: undefined,
   generatedToken: undefined,
   generateTokenFailed: undefined,
+  generateTokenSuccess: undefined,
   isSubscriptionCreatedSuccess: false,
   isSubscriptionCreatedFailed: false,
   newSubscriptionResponse: undefined,
@@ -56,6 +58,7 @@ const SubscriptionSlice = createSlice({
       .addCase(fetchSubscriptionById.pending, (state) => {
         state.currentSubscriptionLoading = true;
         state.currentSubscriptionLoadingError = null;
+        state.generateTokenSuccess = undefined;
       })
       .addCase(fetchSubscriptionById.fulfilled, (state, action) => {
         state.currentSubscriptionLoading = false;
@@ -69,15 +72,18 @@ const SubscriptionSlice = createSlice({
       //GENRATE API TOKEN 
       .addCase(generateTokenThunk.pending, (state) => {
         state.generateTokenLoading = true;
+        state.generateTokenSuccess = undefined;
         state.generatedToken = undefined;
       })
       .addCase(generateTokenThunk.fulfilled, (state, action) => {
         state.generateTokenLoading = false;
+        state.generateTokenSuccess = true;
         state.generatedToken = action.payload;
       })
       .addCase(generateTokenThunk.rejected, (state) => {
         state.generateTokenLoading = false;
         state.generateTokenFailed = true;
+        state.generateTokenSuccess = false;
       })
       .addCase(postSubscription.pending, (state) => {
         state.subscriptionLoading = true;

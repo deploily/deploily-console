@@ -17,7 +17,7 @@ export interface NewSubscriptionResponse {
   }
 
 export interface SubscriptionInterface {
-  id: number;
+  id: number; 
   duration_month: number;
   name: string;
   price: number
@@ -28,6 +28,7 @@ export interface SubscriptionInterface {
   total_amount: number;
   service_details: ServiceDetails;
   service_plan: ServicePlan;
+  api_key?: string,
 }
 
 

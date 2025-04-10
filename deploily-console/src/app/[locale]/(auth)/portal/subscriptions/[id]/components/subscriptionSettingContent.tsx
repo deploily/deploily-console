@@ -1,7 +1,7 @@
 import { useSubscription } from "@/lib/features/subscriptions/subscriptionSelectors";
-import { fetchSubscriptionById, generateTokenThunk } from "@/lib/features/subscriptions/subscriptionThunks";
+import { fetchSubscriptionById } from "@/lib/features/subscriptions/subscriptionThunks";
 import { useAppDispatch } from "@/lib/hook";
-import { CalendarDots, Copy, Star } from "@phosphor-icons/react";
+import { CalendarDots, Star } from "@phosphor-icons/react";
 import { Badge, Button, Col, Image, Result, Row, Skeleton, Space, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { IMAGES_URL } from "@/deploilyWebsiteUrls";
@@ -11,22 +11,19 @@ import dayjs from "dayjs";
 import { useI18n, useScopedI18n } from "../../../../../../../../locales/client";
 import { CustomTypography } from "@/styles/components/typographyStyle";
 import { DatePickerStyle } from "@/styles/components/datePickerStyle";
-import { fetchServiceParametersValues } from "@/lib/features/subscribeParameterValues/subscribeParameterValuesThunks";
-import { useServiceParametersValues } from "@/lib/features/subscribeParameterValues/subscribeParameterValuesSelectors";
-import { CustomBlueButton, CustomErrorButton, CustomOrangeButton } from "@/styles/components/buttonStyle";
+import { CustomErrorButton, CustomOrangeButton } from "@/styles/components/buttonStyle";
 import { CustomSubscripionInput } from "@/styles/components/inputStyle";
 
-import { handleCopy } from "@/lib/utils/handleCopy";
 import DocumentationDrawer from "./documentationDrawer";
 import Link from "next/link";
 import { subscriptionItems } from "./subscriptionItems";
+import GenerateTokenComponent from "./generateTokenComponent";
 
-export default function SubscriptionSettingContent({ subscribe_id }: { subscribe_id: string }) {
+export default function SubscriptionSettingContent({ subscription_id }: { subscription_id: string }) {
     const t = useI18n();
     const translate = useScopedI18n('subscription')
     const dispatch = useAppDispatch();
-    const { currentSubscription, currentSubscriptionLoading, currentSubscriptionLoadingError, generatedToken } = useSubscription()
-    const { serviceParameterValuesList } = useServiceParametersValues();
+    const { currentSubscription, currentSubscriptionLoading, currentSubscriptionLoadingError } = useSubscription()
     const [openDrawer, setOpenDrawer] = useState(false);
     const [remainingDuration, setRemainingDuration] = useState<number>()
 
@@ -35,15 +32,14 @@ export default function SubscriptionSettingContent({ subscribe_id }: { subscribe
         setOpenDrawer(false);
     };
     useEffect(() => {
-        if (currentSubscription === undefined) {
-            dispatch(fetchSubscriptionById(subscribe_id));
-        }
-        else {
+                  dispatch(fetchSubscriptionById(subscription_id));
+    }, [subscription_id])
+    
+    useEffect(() => {
+        if (currentSubscription !== undefined) {
             setRemainingDuration(getRemainingDuration(currentSubscription.start_date, currentSubscription.duration_month));
         }
-
-        dispatch(fetchServiceParametersValues(subscribe_id));
-    }, [generatedToken, currentSubscription]);
+    }, [currentSubscription]);
 
     const imageUrl = (image_service: string) => {
         return (
@@ -69,9 +65,6 @@ export default function SubscriptionSettingContent({ subscribe_id }: { subscribe
             (end.getFullYear() - today.getFullYear()) * 12 + (end.getMonth() - today.getMonth());
         return (diffInMonths)
     }
-
-    const generateApiKey = () => { dispatch(generateTokenThunk(subscribe_id)) }
-    //TODO SIMPLIFY FILE CONTENT 
 
     return (
         <Space direction="vertical" size="large" style={{ paddingInline: 40, marginBlock: 10, width: "100%", marginBottom: 50, paddingTop: 20 }}>
@@ -229,33 +222,7 @@ export default function SubscriptionSettingContent({ subscribe_id }: { subscribe
                             </Col>
                         </Row>
                     }
-
-                    {serviceParameterValuesList?.result
-                        ?.filter(paramVal => paramVal.parameter !== undefined && paramVal.parameter.type === "token")
-                        .map((paramVal, index) => (
-                            <div key={index}>
-                                <Typography.Title level={4} style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange600 }}>
-                                    {paramVal.parameter.name}
-                                </Typography.Title>
-                                <Row>
-                                    <Col span={20} style={{ display: "flex", justifyContent: "start" }} >
-                                        <CustomTypography> {paramVal.value} </CustomTypography>
-                                    </Col>
-                                    <Col span={4} style={{ display: "flex", alignItems: "start", justifyContent: "end" }} >
-                                        <Button type="primary" style={{ boxShadow: "none" }} icon={<Copy />} onClick={() => handleCopy(paramVal.value)} />
-                                    </Col>
-                                </Row>
-
-                            </div>
-                        ))}
-
-                    {serviceParameterValuesList?.result?.find(paramVal => paramVal.parameter != undefined && paramVal.parameter.type === "token") == null &&
-                        <CustomBlueButton
-                            onClick={generateApiKey}
-                            style={{ backgroundColor: theme.token.blue100, width: "20rem" }}
-                        >
-                            {t('ganerateKey')}
-                        </CustomBlueButton>}
+                    <GenerateTokenComponent subscription_id={subscription_id} />
                     <Row gutter={[16, 10]} key={currentSubscription.id}  >
                         {subscriptionItems(currentSubscription, t).map((item, index) => (
                             <div key={index} style={{ width: '100%' }}>

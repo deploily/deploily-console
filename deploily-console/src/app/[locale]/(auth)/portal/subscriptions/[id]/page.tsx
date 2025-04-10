@@ -9,7 +9,7 @@ type Props = {
 export default function Page({ params: { id } }: Props) {
   return (
     <>
-      <SubscriptionSettingContent subscribe_id={id} />
+      <SubscriptionSettingContent subscription_id={id} />
     </>
   );
 }

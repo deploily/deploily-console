@@ -93,7 +93,7 @@ export const postSubscription = createAsyncThunk(
 
 export const generateTokenThunk = createAsyncThunk(
   "subscribe/generateToken",
-  async (subscribe_id: string, thunkConfig) => {
+  async (subscription_id: string, thunkConfig) => {
       try {
           const session = await getSession();
           if (!session) {
@@ -101,7 +101,7 @@ export const generateTokenThunk = createAsyncThunk(
           }
           const token = session.accessToken;
           
-          const response = await axios.post(`${deploilyApiUrls.SERVICE_CONSUMER}${subscribe_id}/consumer`, {}, {
+          const response = await axios.post(`${deploilyApiUrls.SUBSCRIBE_URL}${subscription_id}/token`, {}, {
               headers: {
                   Accept: "application/json",
                   Authorization: `Bearer ${token}`,
