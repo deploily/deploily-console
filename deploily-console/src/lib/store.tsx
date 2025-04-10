@@ -1,6 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
 import favoriteServiceSlice from "./features/favorites/favoriteServiceSlice";
-import serviceParameterValuesSlice from "./features/subscribeParameterValues/subscribeParameterValuesSlice";
 import supportTicketSlice from "./features/support-ticket/supportTicketSlice"
 import subscriptionSlice from "./features/subscriptions/subscriptionSlice"
 import servicePlanSlice from "./features/service-plans/servicePlanSlice"
@@ -8,7 +7,7 @@ import profileServiceSlice from "./features/payment-profiles/paymentProfilesSlic
 import paymentSlice from "./features/payments/paymentSlice";
 import PormoCodeSlice from "./features/promo-code/promoCodeSlice"
 import epaymentSlice from "./features/epayment/epaymentSlice";
-import subscriptionStatesSlice from './features/subscriptionStates/subscriptionSlice'
+import subscriptionStatesSlice from './features/subscription-states/subscriptionSlice'
 import apiServiceSlice from "./features/api-service/apiServiceSlice";
 import cicdServiceSlice from "./features/ci-cd-service/cicdServiceSlice";
 
@@ -17,7 +16,6 @@ export const makeStore = () => {
     reducer: {
       apiService: apiServiceSlice,
       favoriteService: favoriteServiceSlice,
-      serviceParameterValues: serviceParameterValuesSlice,
       supportTicket: supportTicketSlice,
       subscription: subscriptionSlice,
       servicePlan: servicePlanSlice,

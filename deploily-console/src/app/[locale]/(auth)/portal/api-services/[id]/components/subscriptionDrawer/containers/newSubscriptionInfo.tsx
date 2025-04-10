@@ -6,7 +6,7 @@ import { useScopedI18n } from "../../../../../../../../../../locales/client";
 import { useAppDispatch } from "@/lib/hook";
 import { checkPromoCode } from "@/lib/features/promo-code/promoCodeThunks";
 import { usePromoCode } from "@/lib/features/promo-code/promoCodeSelectors";
-import { useSubscriptionStates } from "@/lib/features/subscriptionStates/subscriptionSelectors";
+import { useSubscriptionStates } from "@/lib/features/subscription-states/subscriptionSelectors";
 
 export default function NewSubscriptionInfo({ planSelected }: { planSelected: any }) {
   const { totalAmount, promoColor, duration } = useSubscriptionStates()

@@ -1,7 +1,7 @@
 "use client";
 import { Button, Card, Typography, } from "antd";
 import { theme } from "@/styles/theme";
-import { useSubscriptionStates } from "@/lib/features/subscriptionStates/subscriptionSelectors";
+import { useSubscriptionStates } from "@/lib/features/subscription-states/subscriptionSelectors";
 import bankPaymentInfo from "./bankPaymentData";
 import { useScopedI18n } from "../../../../../../../../../../locales/client";
 

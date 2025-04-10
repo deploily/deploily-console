@@ -10,7 +10,7 @@ import { useSubscription } from "@/lib/features/subscriptions/subscriptionSelect
 import NewSubscriptionInfo from "./containers/newSubscriptionInfo";
 import SelectProfileComponent from "./containers/selectProfileComponent";
 import { postSubscription } from "@/lib/features/subscriptions/subscriptionThunks";
-import { useSubscriptionStates } from "@/lib/features/subscriptionStates/subscriptionSelectors";
+import { useSubscriptionStates } from "@/lib/features/subscription-states/subscriptionSelectors";
 import { fetchPaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesThunks";
 
 export default function SubscriptionDrawer({ openDrawer, onClose, planSelected }: { openDrawer: any, onClose: any, planSelected: any }) {

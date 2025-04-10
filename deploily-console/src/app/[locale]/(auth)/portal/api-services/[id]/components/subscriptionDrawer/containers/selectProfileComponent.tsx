@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useScopedI18n } from "../../../../../../../../../../locales/client";
 import { Coins } from "@phosphor-icons/react";
 import { useAppDispatch } from "@/lib/hook";
-import { useSubscriptionStates } from "@/lib/features/subscriptionStates/subscriptionSelectors";
+import { useSubscriptionStates } from "@/lib/features/subscription-states/subscriptionSelectors";
 import { usePaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesSelectors";
 
 export default function SelectProfileComponent() {

@@ -6,7 +6,7 @@ import { useScopedI18n } from "../../../../../../../../../../locales/client";
 import { useAppDispatch } from "@/lib/hook";
 import { postSubscription } from "@/lib/features/subscriptions/subscriptionThunks";
 import CardPaymentComponent from "../components/cardPaymentComponent";
-import { useSubscriptionStates } from "@/lib/features/subscriptionStates/subscriptionSelectors";
+import { useSubscriptionStates } from "@/lib/features/subscription-states/subscriptionSelectors";
 
 export default function PaymentComponent({ selectedPlan }: { selectedPlan: any }) {
   const dispatch = useAppDispatch();

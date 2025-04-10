@@ -2,7 +2,7 @@
 import { Button, Card, Checkbox, CheckboxChangeEvent, Image, Typography } from "antd";
 import { useState } from "react";
 import { theme } from "@/styles/theme";
-import { useSubscriptionStates } from "@/lib/features/subscriptionStates/subscriptionSelectors";
+import { useSubscriptionStates } from "@/lib/features/subscription-states/subscriptionSelectors";
 import { useScopedI18n } from "../../../../../../../../../../locales/client";
 
 export default function CardPaymentComponent({ handleSubscribe }: { handleSubscribe: any }) {
@@ -60,7 +60,7 @@ export default function CardPaymentComponent({ handleSubscribe }: { handleSubscr
                             alignItems: "center",
                             gap: "10px",
                         }}
-                        icon={<Image src="/images/paymentIcon.png" alt="PAY" style={{ width: 60, height: 35 }} preview={false}/>}
+                        icon={<Image src="/images/paymentIcon.png" alt="PAY" style={{ width: 60, height: 35 }} preview={false} />}
                         onClick={handleSubscribe}
                     >
                         <span style={{ fontFamily: "Inter, sans-serif", fontSize: "16px", fontWeight: 600 }}>
