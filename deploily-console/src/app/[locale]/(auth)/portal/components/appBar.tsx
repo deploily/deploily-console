@@ -9,16 +9,15 @@ import { Coins, List } from "@phosphor-icons/react";
 import { MainSideBarMobile } from "./sideBar";
 import Link from "next/link";
 import { useI18n } from "../../../../../../locales/client";
-import { useProfileServices } from "@/lib/features/profileService/profileServiceSelectors";
-import { theme } from "@/styles/theme";
-import { fetchProfilesServices } from "@/lib/features/profileService/profileServiceThunks";
+import { usePaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesSelectors";
 import { useAppDispatch } from "@/lib/hook";
+import { fetchPaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesThunks";
 
 export function AppAppBarDesktop() {
   const [theme] = useState("dark");
   const appBarColor = theme == "dark" ? "#2c82d4" : "#eda879";
   const t = useI18n();
-  const { isLoading, profileServicesList } = useProfileServices();
+  const { isLoading, paymentProfilesList } = usePaymentProfiles();
 
   const { Option } = Select;
   const [profileSelected, setProfileSelected] = useState<number | undefined>(undefined);
@@ -27,33 +26,33 @@ export function AppAppBarDesktop() {
     profile_id: 0,
   });
   const dispatch = useAppDispatch();
-  
+
   useEffect(() => {
-        dispatch(fetchProfilesServices());
+    dispatch(fetchPaymentProfiles());
 
   }, []);
-  
+
   // Set the default selected profile when the profile list is loaded
   useEffect(() => {
-    if (!isLoading && profileServicesList?.result?.length) {
+    if (!isLoading && paymentProfilesList?.result?.length) {
       // Find the profile with name "Default"
-      const defaultProfile = profileServicesList.result.find((profile) => profile.name === "Default");
+      const defaultProfile = paymentProfilesList.result.find((profile) => profile.name === "Default");
 
       if (defaultProfile) {
         setProfileSelected(defaultProfile.id);
         setValues((prevValues) => ({ ...prevValues, profile_id: defaultProfile.id }));
       } else {
         // If "Default" profile is not found, select the first available profile
-        const firstProfile = profileServicesList.result[0];
+        const firstProfile = paymentProfilesList.result[0];
         setProfileSelected(firstProfile.id);
         setValues((prevValues) => ({ ...prevValues, profile_id: firstProfile.id }));
       }
     }
-  }, [isLoading, profileServicesList]);
+  }, [isLoading, paymentProfilesList]);
 
   // Handle profile selection change
   const handleSelectedProfile = (value: number) => {
-    const selectedProfile = profileServicesList?.result?.find((profile) => profile.id === value);
+    const selectedProfile = paymentProfilesList?.result?.find((profile) => profile.id === value);
 
     if (selectedProfile) {
       setValues((prevValues) => ({ ...prevValues, profile_id: selectedProfile.id }));
@@ -104,7 +103,7 @@ export function AppAppBarDesktop() {
                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                           <span style={{ color: "#D85912" }}>
                             {(() => {
-                              const name = profileServicesList?.result?.find((p) => p.id === profileSelected)?.name;
+                              const name = paymentProfilesList?.result?.find((p) => p.id === profileSelected)?.name;
                               return name ? name.charAt(0).toUpperCase() + name.slice(1) : "...";
                             })()}
                           </span>
@@ -112,7 +111,7 @@ export function AppAppBarDesktop() {
                           <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
                             <span style={{ color: "#D85912" }}>
                               {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(
-                                profileServicesList?.result?.find((p) => p.id === profileSelected)?.balance ?? 0
+                                paymentProfilesList?.result?.find((p) => p.id === profileSelected)?.balance ?? 0
                               )}
                             </span>
                             <span style={{ color: "#D85912" }}>DZD</span>
@@ -144,7 +143,7 @@ export function AppAppBarDesktop() {
                     )}
                   >
                     {!isLoading &&
-                      (profileServicesList?.result ?? []).map((profile) => (
+                      (paymentProfilesList?.result ?? []).map((profile) => (
                         <Option key={profile.id} value={profile.id}>
                           <div
                             style={{
@@ -162,7 +161,7 @@ export function AppAppBarDesktop() {
                             <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
                               <span style={{ color: "#D85912" }}>
                                 {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(profile.balance)}
-                              </span>  
+                              </span>
                               <span style={{ color: "#D85912" }}>DZD</span>
                               <Coins size={18} color={"#D85912"} />
                             </div>

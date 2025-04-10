@@ -1,10 +1,11 @@
 "use client";
 
 import { CollapseProps, Typography } from "antd";
+import { ApiServiceInterface } from "@/lib/features/api-service/apiServiceInterface";
+import Link from "next/link";
 import { theme } from "@/styles/theme";
-import { SubscriptionInterface } from "@/lib/features/subscriptions/subscriptionInterface";
 
-export const subscriptionDetails = (row: SubscriptionInterface, t: any): CollapseProps["items"] => [
+export const getItems = (row: ApiServiceInterface, t: any): CollapseProps["items"] => [
   {
     key: "1",
     label: (
@@ -14,7 +15,7 @@ export const subscriptionDetails = (row: SubscriptionInterface, t: any): Collaps
     ),
     children: (
       <Typography.Paragraph style={{ fontWeight: 600, fontSize: 14, }}>
-        {row.service_details.description}
+        {row.description}
       </Typography.Paragraph>
     ),
   },
@@ -27,7 +28,7 @@ export const subscriptionDetails = (row: SubscriptionInterface, t: any): Collaps
     ),
     children: (
       <Typography.Paragraph style={{ fontWeight: 600 }}>
-        {row.service_details.specifications}
+        {row.specifications}
       </Typography.Paragraph>
     ),
   },

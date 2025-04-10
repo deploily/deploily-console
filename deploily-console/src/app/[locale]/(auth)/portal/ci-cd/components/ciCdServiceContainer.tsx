@@ -1,11 +1,11 @@
 "use client";
 import {Row, Col} from "antd";
-import {CiCdServiceInterface} from "@/lib/features/cicdService/cicdServiceInterface";
 import {useEffect} from "react";
-import {fetchCiCdServices} from "@/lib/features/cicdService/cicdServiceThunks";
 import {useAppDispatch} from "@/lib/hook";
 import CiCdServiceCard from "./cdCdServiceCard";
-import { useCiCdService } from "@/lib/features/cicdService/cicdServiceSelectors";
+import { fetchCiCdServices } from "@/lib/features/ci-cd-service/cicdServiceThunks";
+import { useCiCdService } from "@/lib/features/ci-cd-service/cicdServiceSelectors";
+import { CiCdServiceInterface } from "@/lib/features/ci-cd-service/cicdServiceInterface";
 
 export default function CiCdServiceContainer() {
   const { isLoading, cicdServiceResponse } = useCiCdService();

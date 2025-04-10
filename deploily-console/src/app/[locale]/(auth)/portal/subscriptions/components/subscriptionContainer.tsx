@@ -1,26 +1,26 @@
 import { useEffect } from "react";
 import { Row, Col, Card, Result } from "antd";
 import { useAppDispatch } from "@/lib/hook";
-import { fetchSubscribe } from "@/lib/features/subscribe/subscribeThunks";
-import { useSubscribe } from "@/lib/features/subscribe/subscribeSelectors";
-import { SubscribeInterface } from "@/lib/features/subscribe/subscribeInterface";
 import SubscriptionCard from "./subscriptionCard";
 import { useI18n } from "../../../../../../../locales/client";
+import { fetchSubscription } from "@/lib/features/subscriptions/subscriptionThunks";
+import { useSubscription } from "@/lib/features/subscriptions/subscriptionSelectors";
+import { SubscriptionInterface } from "@/lib/features/subscriptions/subscriptionInterface";
 
 export default function SubscriptionContainer() {
   const dispatch = useAppDispatch();
-  const { subscribeLoading, subscribeResponse, subscribeLoadingError } = useSubscribe()
+  const { subscriptionLoading, subscriptionResponse, subscriptionLoadingError } = useSubscription()
   const t = useI18n();
 
   useEffect(() => {
-    dispatch(fetchSubscribe());
+    dispatch(fetchSubscription());
   }, []);
 
   return (
     <>
-      {!subscribeLoading && subscribeResponse !== undefined && (
+      {!subscriptionLoading && subscriptionResponse !== undefined && (
         <Row gutter={[24, 24]} justify="start" style={{ margin: 0 }}>
-          {subscribeResponse?.result?.map((row: SubscribeInterface) => (
+          {subscriptionResponse?.result?.map((row: SubscriptionInterface) => (
             <Col
               key={row.id}
               xs={24}
@@ -35,7 +35,7 @@ export default function SubscriptionContainer() {
           ))}
         </Row>
       )}
-      {subscribeLoading && subscribeResponse === undefined &&
+      {subscriptionLoading && subscriptionResponse === undefined &&
         <Col
           xs={24}
           sm={12}
@@ -47,12 +47,12 @@ export default function SubscriptionContainer() {
           <Card loading={true} style={{ minWidth: 300 }} />
         </Col>
       }
-      {!subscribeLoading && subscribeLoadingError &&
-          <Result
-            status="500"
-            title={t('error')}
-            subTitle={t('subTitleError')}
-          />}
+      {!subscriptionLoading && subscriptionLoadingError &&
+        <Result
+          status="500"
+          title={t('error')}
+          subTitle={t('subTitleError')}
+        />}
     </>
   );
 }
