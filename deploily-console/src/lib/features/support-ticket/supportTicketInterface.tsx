@@ -1,4 +1,4 @@
-import { SubscribeInterface } from "../subscribe/subscribeInterface";
+import { SubscriptionInterface } from "../subscriptions/subscriptionInterface";
 
 export interface SupportTicketResponse {
   count: number;
@@ -15,7 +15,7 @@ export interface SupportTicket {
   id: number;
   key: number;
   subscribe_id: number;
-  subscribe: SubscribeInterface;
+  subscribe: SubscriptionInterface;
   title: string;
   description: string;
   status: string;

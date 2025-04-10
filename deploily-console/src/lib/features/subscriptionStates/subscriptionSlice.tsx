@@ -1,16 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ProfileServiceInterface } from "../profileService/profileServiceInterface";
+import { PaymentProfileInterface } from "../payment-profiles/paymentProfilesInterface";
 
 interface SubscriptionStates {
   promoCode: string,
   duration: number,
-  isBalanceSufficient: boolean|null,
+  isBalanceSufficient: boolean | null,
   totalAmount: number,
   promoCodeRate?: number,
   promoColor: string,
   payment_method: string,
   price: number,
-  selectedProfile?: ProfileServiceInterface
+  selectedProfile?: PaymentProfileInterface
 }
 
 const initialState: SubscriptionStates = {

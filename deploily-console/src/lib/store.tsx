@@ -1,27 +1,25 @@
 import { configureStore } from "@reduxjs/toolkit";
-import apiServiceSlice from "./features/apiService/apiServiceSlice";
 import favoriteServiceSlice from "./features/favorites/favoriteServiceSlice";
-import serviceParametersSlice from "./features/serviceParameters/serviceParametersSlice";
 import serviceParameterValuesSlice from "./features/subscribeParameterValues/subscribeParameterValuesSlice";
 import supportTicketSlice from "./features/support-ticket/supportTicketSlice"
-import subscribeSlice from "./features/subscribe/subscribeSlice"
-import servicePlanSlice from "./features/servicePlan/servicePlanSlice"
-import profileServiceSlice from "./features/profileService/profileServiceSlice"
+import subscriptionSlice from "./features/subscriptions/subscriptionSlice"
+import servicePlanSlice from "./features/service-plans/servicePlanSlice"
+import profileServiceSlice from "./features/payment-profiles/paymentProfilesSlice"
 import paymentSlice from "./features/payments/paymentSlice";
-import PormoCodeSlice from "./features/promoCode/promoCodeSlice"
+import PormoCodeSlice from "./features/promo-code/promoCodeSlice"
 import epaymentSlice from "./features/epayment/epaymentSlice";
 import subscriptionStatesSlice from './features/subscriptionStates/subscriptionSlice'
-import cicdServiceSlice from "./features/cicdService/cicdServiceSlice";
+import apiServiceSlice from "./features/api-service/apiServiceSlice";
+import cicdServiceSlice from "./features/ci-cd-service/cicdServiceSlice";
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       apiService: apiServiceSlice,
       favoriteService: favoriteServiceSlice,
-      serviceParameters: serviceParametersSlice,
       serviceParameterValues: serviceParameterValuesSlice,
       supportTicket: supportTicketSlice,
-      subscribe: subscribeSlice,
+      subscription: subscriptionSlice,
       servicePlan: servicePlanSlice,
       profileService: profileServiceSlice,
       payment: paymentSlice,

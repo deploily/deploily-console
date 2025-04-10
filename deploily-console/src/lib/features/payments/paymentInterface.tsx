@@ -1,5 +1,5 @@
-import { ProfileServiceInterface } from "../profileService/profileServiceInterface";
-import { SubscribeInterface } from "../subscribe/subscribeInterface";
+import { PaymentProfileInterface } from "../payment-profiles/paymentProfilesInterface";
+import { SubscriptionInterface } from "../subscriptions/subscriptionInterface";
 
 export interface PaymentResponse {
     count: number;
@@ -13,8 +13,8 @@ export interface PaymentResponse {
 }
 export interface PaymentInterface {
     id: string;
-    profile: ProfileServiceInterface;
-    subscription: SubscribeInterface;
+    profile: PaymentProfileInterface;
+    subscription: SubscriptionInterface;
     amount: number;
     status: string;
     payment_method: string;

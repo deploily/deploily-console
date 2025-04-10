@@ -1,6 +1,6 @@
 "use client";
 
-import SubscriptionSettingContant from "./components/subscriptionSettingContant";
+import SubscriptionSettingContent from "./components/subscriptionSettingContent";
 
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
 export default function Page({ params: { id } }: Props) {
   return (
     <>
-      <SubscriptionSettingContant subscribe_id={id} />
+      <SubscriptionSettingContent subscribe_id={id} />
     </>
   );
 }

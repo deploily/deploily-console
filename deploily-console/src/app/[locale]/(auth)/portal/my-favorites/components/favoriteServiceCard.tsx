@@ -31,7 +31,7 @@ export default function FavoriteServiceCard({ favoriteService }: { favoriteServi
         <Card style={{
             height: "100%", width: "100%", padding: 0, cursor: "pointer"
         }}
-            onClick={() => router.push(`/portal/service/${favoriteService.service.id}`)} >
+            onClick={() => router.push(`/portal/api-services/${favoriteService.service.id}`)} >
             <div style={{ height: "300px" }}>
                 <Row align="middle" gutter={16} style={{ height: "40%" }}>
                     <Col span={12}>
@@ -110,7 +110,7 @@ export default function FavoriteServiceCard({ favoriteService }: { favoriteServi
                     }}
                     onClick={(e) => {
                         e.stopPropagation();
-                        router.push(`/portal/service/${favoriteService.service.id}`);
+                        router.push(`/portal/api-services/${favoriteService.service.id}`);
                     }}
                     onMouseEnter={() => setHovered(true)}
                     onMouseLeave={() => setHovered(false)}

@@ -1,23 +1,21 @@
 "use client";
 
-import { Button, Row, Spin, Modal, message, Table, Upload, UploadFile, UploadProps, Result, Tag } from "antd";
+import { Row, Spin, Table, Upload, UploadFile, UploadProps, Result } from "antd";
 import { useI18n, useScopedI18n } from "../../../../../../../../locales/client";
 import { useAppDispatch } from "@/lib/hook";
 import { usePayment } from "@/lib/features/payments/paymentSelector";
 import { useEffect, useState } from "react";
-import { fetchPaymentById, deletePaymentById } from "@/lib/features/payments/paymentThunks";
-import { useRouter } from "next/navigation";
+import { fetchPaymentById } from "@/lib/features/payments/paymentThunks";
 import { CustomUploadButton } from "@/styles/components/buttonStyle";
-import { Trash } from "@phosphor-icons/react";
 import { UploadOutlined } from '@ant-design/icons';
 import { theme } from "@/styles/theme";
+import paymentDetailsData from "../../utils/paymentDetailsData";
 
 export default function PaymentDetailsPage({ paymentId }: { paymentId: string }) {
   const t = useScopedI18n("payments");
   const translate = useI18n();
 
   const dispatch = useAppDispatch();
-  const router = useRouter();
   const { currentPayment, currentPaymentLoading, currentPaymentLoadingError } = usePayment();
 
   useEffect(() => {
@@ -26,51 +24,6 @@ export default function PaymentDetailsPage({ paymentId }: { paymentId: string })
     }
   }, [paymentId, dispatch]);
 
-  const getStatusStyle = (status: string) => {
-    switch (status) {
-      case "completed":
-        return { backgroundColor: theme.token.green, color: theme.token.colorWhite, label: t("done") };
-      case "pending":
-        return { backgroundColor: theme.token.orange300, color: theme.token.colorWhite, label: t("pending") };
-      case "failed":
-        return { backgroundColor: theme.token.Error100, color: theme.token.colorWhite, label: t("failed") };
-      default:
-        return { backgroundColor: theme.token.gray200, color: theme.token.colorWhite, label: status };
-    }
-  };
-
-  const paymentDetailsData = currentPayment
-    ? [
-      { key: "1", label: t("nOrder"), value: currentPayment.id },
-      {
-        key: "2",
-        label: t("status"),
-        value: (() => {
-          const { backgroundColor, color, label } = getStatusStyle(currentPayment.status);
-          return (
-            <Tag style={{
-              backgroundColor,
-              color,
-              border: "none",
-              padding: "4px 0",
-              fontWeight: 600,
-              fontSize: 13,
-              borderRadius: "18px",
-              width: "100px",
-              textAlign: "center",
-              display: "inline-block",}}>
-              {label}
-            </Tag>
-          );
-        })()
-      },      { key: "3", label: t("profile"), value: currentPayment.profile?.name || "-" },
-      { key: "4", label: t("serviceName"), value: currentPayment.subscription?.name || "-" },
-      { key: "5", label: t("amount"), value: currentPayment.amount?.toLocaleString("fr-FR", { minimumFractionDigits: 0 }) + " DZD " || "-" },
-      { key: "6", label: t("startDate"), value: new Date(currentPayment.start_date).toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric" }) },
-      { key: "7", label: t("hour"), value: new Date(currentPayment.start_date).toLocaleString("fr-FR", { hour: "2-digit", minute: "2-digit" }) },
-      { key: "8", label: t("paymentMethod"), value: currentPayment.payment_method === "bank_transfer" ? t("bank") : t("card") },
-    ]
-    : [];
 
 
   const [fileList, setFileList] = useState<UploadFile[]>()
@@ -98,7 +51,7 @@ export default function PaymentDetailsPage({ paymentId }: { paymentId: string })
           <Spin size="large" style={{ display: "block", margin: "50px auto" }} />
         ) : (
           <Table
-            dataSource={paymentDetailsData}
+            dataSource={paymentDetailsData(t,currentPayment,theme)}
             pagination={false}
             showHeader={false}
             bordered

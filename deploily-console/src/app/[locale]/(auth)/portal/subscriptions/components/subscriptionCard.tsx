@@ -1,4 +1,4 @@
-import { SubscribeInterface } from "@/lib/features/subscribe/subscribeInterface";
+import { SubscriptionInterface } from "@/lib/features/subscriptions/subscriptionInterface";
 import { IMAGES_URL } from "@/deploilyWebsiteUrls";
 import { useI18n } from "../../../../../../../locales/client";
 import { useRouter } from "next/navigation";
@@ -6,7 +6,7 @@ import { Badge, Button, Card, Col, Image, Row, Space, Typography } from "antd";
 import { Faders, Star } from "@phosphor-icons/react";
 import Paragraph from "antd/es/typography/Paragraph";
 import { CustomBlueButton } from "@/styles/components/buttonStyle";
-export default function SubscriptionCard({ data }: { data: SubscribeInterface }) {
+export default function SubscriptionCard({ data }: { data: SubscriptionInterface }) {
 
     const t = useI18n();
     const router = useRouter();

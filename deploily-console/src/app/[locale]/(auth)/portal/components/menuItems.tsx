@@ -82,9 +82,9 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
     icon: <CalendarStar size={24} />,
   },
   {
-    key: "supportTicket",//TODO CHANGE THIS 
+    key: "support-ticket",//TODO CHANGE THIS 
     label: (
-      <Link href="/portal/supportTicket">
+      <Link href="/portal/support-ticket">
         <span style={labelStyle}>{scopedSidebar("supportTicket")} </span>
       </Link>
     ),
@@ -95,7 +95,7 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
     label: <span style={labelStyle}>{scopedSidebar("billing")}</span>,
     icon: <Invoice size={24} />,
     children: [
-      { key: "10", label: <Link href={"/portal/profile-payment"}><span style={labelStyle}>{scopedSidebar("profilePayment")}</span></Link> },
+      { key: "10", label: <Link href={"/portal/payment-profiles"}><span style={labelStyle}>{scopedSidebar("profilePayment")}</span></Link> },
       { key: "11", label: <Link href={"/portal/payments"}><span style={labelStyle}>{scopedSidebar("payments")}</span></Link> },
     ],
   },

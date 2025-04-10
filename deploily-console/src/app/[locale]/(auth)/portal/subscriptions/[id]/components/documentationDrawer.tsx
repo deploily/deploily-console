@@ -1,11 +1,11 @@
 import { theme } from "@/styles/theme";
 import { CaretDown, CaretUp } from "@phosphor-icons/react";
-import {  Collapse, Drawer, Row } from "antd";
-import { SubscribeInterface } from "@/lib/features/subscribe/subscribeInterface";
+import { Collapse, Drawer, Row } from "antd";
 
 import { subscriptionDetails } from "./subscriptionDetails";
+import { SubscriptionInterface } from "@/lib/features/subscriptions/subscriptionInterface";
 
-export default function DocumentationDrawer({ openDrawer, onClose, currentSubscribe, t }: { openDrawer: any, onClose: any, currentSubscribe: SubscribeInterface, t: any }) {
+export default function DocumentationDrawer({ openDrawer, onClose, currentSubscription, t }: { openDrawer: any, onClose: any, currentSubscription: SubscriptionInterface, t: any }) {
     return (
         <Drawer
             title="Documentation"
@@ -16,7 +16,7 @@ export default function DocumentationDrawer({ openDrawer, onClose, currentSubscr
             width={600}
 
         >
-            <Row gutter={[16, 10]} key={currentSubscribe.id}  >
+            <Row gutter={[16, 10]} key={currentSubscription.id}  >
                 <Collapse
                     bordered={false}
                     defaultActiveKey={["1", "2"]}
@@ -26,7 +26,7 @@ export default function DocumentationDrawer({ openDrawer, onClose, currentSubscr
                         background: theme.token.darkGray, border: "1px solid",
                         borderColor: theme.token.gray100, width: "100%"
                     }}
-                    items={subscriptionDetails(currentSubscribe, t)}
+                    items={subscriptionDetails(currentSubscription, t)}
                 />
             </Row>
         </Drawer>
