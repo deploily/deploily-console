@@ -13,7 +13,7 @@ export const fetchPaymentProfiles = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axios.get(`${deploilyApiUrls.PROFILE_URL}`, {
+      const response = await axios.get(`${deploilyApiUrls.PAYMENT_PROFILE_URL}`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
@@ -40,7 +40,7 @@ export const getPaymentProfileById = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axios.get(`${deploilyApiUrls.PROFILE_URL}${profile_id}`, {
+      const response = await axios.get(`${deploilyApiUrls.PAYMENT_PROFILE_URL}${profile_id}`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
