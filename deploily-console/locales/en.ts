@@ -130,6 +130,7 @@ export default {
     'payments.uploadReceived': 'Upload received',
     'payments.paymentDetails': 'Payment details',
     'payments.totalToPay': 'Total to pay',
+    'payments.pay': 'Pay',
 
     'subscription.title': 'Subscribe',
     'subscription.serviceName': 'Service Name :',
@@ -154,8 +155,8 @@ export default {
     "bankPayment.address":"Address",
     "bankPayment.agency":"Agency",
     "bankPayment.rib":"RIB",
-    "bankPayment.al_salam":"Al Salam",
-    "bankPayment.ain_temouchent":"Ain temouchent",
+    "bankPayment.AGB":"AGB",
+    "bankPayment.ain_temouchent":"N°21, Bloc E3, Lot 10, 220 CNEP Housing Estate, Ain Témouchent, Algeria",
     "bankPayment.oran":"Oran"
 
 } as const

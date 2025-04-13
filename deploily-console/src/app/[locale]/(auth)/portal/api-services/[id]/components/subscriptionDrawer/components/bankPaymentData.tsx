@@ -1,7 +1,7 @@
 const bankPaymentInfo=(t:any)=>[
     {
      "title":t("name"),
-     "value": "deploily"
+     "value": "Transformatek"
     },   
      {
      "title":t("address"),
@@ -9,7 +9,7 @@ const bankPaymentInfo=(t:any)=>[
     },
     {
      "title":t("bank"),
-     "value": t("al_salam")
+     "value": t("AGB")
     },  
     {
      "title":t("agency"),
