@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PaymentInterface, PaymentResponse } from "./paymentInterface";
-import { deletePaymentById, deletePayments, fetchPaymentById, fetchPayments } from "./paymentThunks";
+import { fetchPaymentById, fetchPayments } from "./paymentThunks";
 
 interface PaymentState {
   paymentsList?: PaymentResponse;
@@ -53,36 +53,6 @@ const PaymentSlice = createSlice({
       .addCase(fetchPayments.rejected, (state, { payload }) => {
         state.isLoadingPayments = false;
         state.paymentsLoadingError = payload;
-      })
-      .addCase(deletePaymentById.pending, (state) => {
-        state.deletePaymentByIdLoading = true;
-        state.paymentByIdDeleted = false;
-        state.deletePaymentByIdError = null;
-      })
-      .addCase(deletePaymentById.fulfilled, (state) => {
-        state.deletePaymentByIdLoading = false;
-        state.paymentByIdDeleted = true;
-        state.deletePaymentByIdError = null;
-      })
-      .addCase(deletePaymentById.rejected, (state, { payload }) => {
-        state.deletePaymentByIdLoading = false;
-        state.paymentByIdDeleted = false;
-        state.deletePaymentByIdError = payload;
-      })
-      .addCase(deletePayments.pending, (state) => {
-        state.deletePaymentByIdLoading = true;
-        state.paymentByIdDeleted = false;
-        state.deletePaymentByIdError = null;
-      })
-      .addCase(deletePayments.fulfilled, (state) => {
-        state.deletePaymentByIdLoading = false;
-        state.paymentByIdDeleted = true;
-        state.deletePaymentByIdError = null;
-      })
-      .addCase(deletePayments.rejected, (state, { payload }) => {
-        state.deletePaymentByIdLoading = false;
-        state.paymentByIdDeleted = false;
-        state.deletePaymentByIdError = payload;
       })
       .addCase(fetchPaymentById.pending, (state) => {
         state.currentPaymentLoading = true;

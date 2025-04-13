@@ -17,7 +17,6 @@ import FundBalanceDrawer from "./fundBalanceDrawer";
 
 export default function ProfilePayementContainer() {
     const dispatch = useAppDispatch();
-    // const t = useScopedI18n('supportTicket')
     const t = useScopedI18n("profilePayment");
     const traslate = useI18n();
     const [openDrawer, setOpenDrawer] = useState(false);

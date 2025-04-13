@@ -58,5 +58,31 @@ export const getPaymentProfileById = createAsyncThunk(
 );
 
 
+export const postPaymentProfile = createAsyncThunk(
+  "paymentProgile/postPaymentProfile",
+  async (data: any, thunkConfig) => {
 
+    try {
+      const session = await getSession();
+      if (!session) {
+        return thunkConfig.rejectWithValue("session expired");
+      }
+      const token = session.accessToken;
 
+      const response = await axios.post(`${deploilyApiUrls.PAYMENT_PROFILE_URL}`, data, {
+
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        return thunkConfig.rejectWithValue("Failed to add payment profile");
+      }
+    } catch (error: any) {
+      return thunkConfig.rejectWithValue(error.message);
+    }
+  },
+);

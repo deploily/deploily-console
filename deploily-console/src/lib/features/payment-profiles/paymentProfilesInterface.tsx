@@ -44,9 +44,15 @@ export interface User {
   login_count: number;
   password: string;
   username: string;
+}             
 
-
+export interface newPaymentProfileResponse {
+  id: number;
+  name: string;
+  balance: number;
+  phone: string;
+  company_name: string;
+  company_registration_number: string;
+  user_id: number;
+  user: User;
 }
-
-
-
