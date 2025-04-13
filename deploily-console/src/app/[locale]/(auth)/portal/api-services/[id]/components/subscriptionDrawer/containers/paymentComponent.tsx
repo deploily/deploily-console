@@ -44,7 +44,7 @@ export default function PaymentComponent({ selectedPlan }: { selectedPlan: any }
       </Flex>
       {payment_method === "card" ?
         <CardPaymentComponent handleSubscribe={handleSubscribe} />
-        : <BankTransfertComponent />}
+        : <BankTransfertComponent selectedPlan={selectedPlan}/>}
     </>
   )
 }

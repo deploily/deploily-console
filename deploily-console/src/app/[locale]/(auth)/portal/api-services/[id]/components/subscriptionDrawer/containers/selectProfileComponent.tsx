@@ -9,7 +9,7 @@ import { useSubscriptionStates } from "@/lib/features/subscription-states/subscr
 import { usePaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesSelectors";
 
 export default function SelectProfileComponent() {
-  const { selectedProfile } = useSubscriptionStates()
+  const { selectedProfile ,isBalanceSufficient} = useSubscriptionStates()
   const translate = useScopedI18n('subscription');
   const { Option } = Select;
   const dispatch = useAppDispatch();
@@ -29,6 +29,8 @@ export default function SelectProfileComponent() {
 
   return (
     <>
+{ (selectedProfile&& selectedProfile.is_default_profile==true&&  isBalanceSufficient!==true)? <>
+
       <Typography.Title level={4} style={{ paddingTop: 30, paddingBottom: 20 }}>{translate("selectProfile")}</Typography.Title>
       <ConfigProvider theme={{
         components: {
@@ -93,6 +95,11 @@ export default function SelectProfileComponent() {
               ))}</>)}
         </Select>}
       </ConfigProvider>
+    </>:
+    <>
+    
+    </>
+    }
     </>
   )
 }

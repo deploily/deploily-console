@@ -29,6 +29,7 @@ export interface PaymentProfileInterface {
   company_registration_number: string;
   user_id: number;
   user: User;
+  is_default_profile?: boolean | null;
 }
 
 export interface User {
