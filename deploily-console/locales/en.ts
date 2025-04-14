@@ -81,8 +81,9 @@ export default {
     'createSupportTicket.description': 'Description*',
     'createSupportTicket.createTicket': 'Create a ticket',
     'createSupportTicket.uploadFile': 'Upload file',
-
+    
     'profilePayment.profilePayment': 'Payment profile',
+    'profilePayment.addPaymentProfile': 'Add payment profile',
     'profilePayment.createProfile': 'Create a profile ',
     'profilePayment.fundBalance': 'Fund balance',
     "profilePayment.profileInformation":"Profile information",
@@ -96,7 +97,9 @@ export default {
     "profilePayment.wilaya":"Wilaya",
     "profilePayment.country":"Country",
     "profilePayment.phone":"Phone",
-    "profilePayment.isCompany":"Is Company   ",
+    "profilePayment.isCompany":"Is Company  ?",
+    "profilePayment.yes": "Yes", 
+    "profilePayment.no": "No",
     "profilePayment.taxCoordinate":"Tax coordinate",
     "profilePayment.commercialRegister":"Commercial register",
     "profilePayment.taxArticle":"Tax Article (AI)",
@@ -105,6 +108,7 @@ export default {
     "profilePayment.choosePaymentMethod":"Choose the payment method",
     "profilePayment.balanceRecharge":"Balance recharge",
     "profilePayment.others":"Others",
+    "profilePayment.save":"Save",
 
     'payments.paymentList': 'Payment list',
     'payments.nOrder': 'N° Order',
