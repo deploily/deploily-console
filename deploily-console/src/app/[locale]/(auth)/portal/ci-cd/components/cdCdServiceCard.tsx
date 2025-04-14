@@ -44,7 +44,7 @@ export default function CiCdServiceCard({ data }: any) {
                             offset={[-12, 12]}
                         >
                             <Image
-                                src="/images/logo_service.png"
+                                src={data.image}
                                 width={100}
                                 height={100}
                                 preview={false}
