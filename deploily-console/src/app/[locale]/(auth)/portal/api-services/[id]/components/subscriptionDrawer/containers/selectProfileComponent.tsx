@@ -1,5 +1,5 @@
 "use client";
-import { ConfigProvider, Divider, Select, Typography } from "antd";
+import {  ConfigProvider, Divider, Select, Typography } from "antd";
 import { theme } from "@/styles/theme";
 import { useEffect } from "react";
 import { useScopedI18n } from "../../../../../../../../../../locales/client";
@@ -9,8 +9,9 @@ import { useSubscriptionStates } from "@/lib/features/subscription-states/subscr
 import { usePaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesSelectors";
 
 export default function SelectProfileComponent() {
-  const { selectedProfile ,isBalanceSufficient} = useSubscriptionStates()
+  const { selectedProfile} = useSubscriptionStates()
   const translate = useScopedI18n('subscription');
+  
   const { Option } = Select;
   const dispatch = useAppDispatch();
   const { isLoading, paymentProfilesList } = usePaymentProfiles();
@@ -29,8 +30,7 @@ export default function SelectProfileComponent() {
 
   return (
     <>
-{ (selectedProfile&& selectedProfile.is_default_profile==true&&  isBalanceSufficient!==true)? <>
-
+{ <>
       <Typography.Title level={4} style={{ paddingTop: 30, paddingBottom: 20 }}>{translate("selectProfile")}</Typography.Title>
       <ConfigProvider theme={{
         components: {
@@ -95,9 +95,6 @@ export default function SelectProfileComponent() {
               ))}</>)}
         </Select>}
       </ConfigProvider>
-    </>:
-    <>
-    
     </>
     }
     </>

@@ -4,14 +4,31 @@ import { useState } from "react";
 import { theme } from "@/styles/theme";
 import { useSubscriptionStates } from "@/lib/features/subscription-states/subscriptionSelectors";
 import { useScopedI18n } from "../../../../../../../../../../locales/client";
+import { postSubscription } from "@/lib/features/subscriptions/subscriptionThunks";
+import { useAppDispatch } from "@/lib/hook";
 
-export default function CardPaymentComponent({ handleSubscribe }: { handleSubscribe: any }) {
+export default function CardPaymentComponent({ selectedPlan }: { selectedPlan: any }) {
     const [value, setValue] = useState(false);
     const onChangeCheckbox = (e: CheckboxChangeEvent) => {
-        setValue(e.target.value);
+        setValue(e.target.checked);
     };
     const { totalAmount } = useSubscriptionStates()
     const tPayments = useScopedI18n("payments");
+    const subscriptionStates = useSubscriptionStates();
+    const dispatch = useAppDispatch();
+
+
+    const handleSubscribe = async () => {
+        const newSubscriptionObject = {
+            duration: subscriptionStates.duration,
+            total_amount: subscriptionStates.totalAmount,
+            promo_code: subscriptionStates.promoCode,
+            payment_method: "card",
+            service_plan_selected_id: selectedPlan.id,
+            profile_id: subscriptionStates.selectedProfile != null ? subscriptionStates.selectedProfile.id : 1
+        };
+        dispatch(postSubscription(newSubscriptionObject));
+    };
 
     return (
         <>
@@ -47,7 +64,7 @@ export default function CardPaymentComponent({ handleSubscribe }: { handleSubscr
                         }} >
                         captcha
                     </Button>
-                    <Checkbox style={{ padding: 15 }} onChange={onChangeCheckbox} value={value}>
+                    <Checkbox style={{ padding: 15 }} onChange={onChangeCheckbox} checked={value}>
                         I accept the general conditions of use
                     </Checkbox>
                     <Button

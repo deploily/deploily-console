@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useScopedI18n } from "../../../../../../../../../locales/client";
 import { useAppDispatch } from "@/lib/hook";
 import PaymentComponent from "./containers/paymentComponent";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useSubscription } from "@/lib/features/subscriptions/subscriptionSelectors";
 import NewSubscriptionInfo from "./containers/newSubscriptionInfo";
 import SelectProfileComponent from "./containers/selectProfileComponent";
@@ -19,10 +19,13 @@ export default function SubscriptionDrawer({ openDrawer, onClose, planSelected }
   const translate = useScopedI18n('subscription');
   const { newSubscriptionResponse } = useSubscription();
   const dispatch = useAppDispatch();
-  // const router = useRouter();
+  const router = useRouter();
+
+  const tPayments = useScopedI18n('payments');
+  const tProfilePayment = useScopedI18n('profilePayment');
 
   useEffect(() => {
-    if (newSubscriptionResponse && !isBalanceSufficient) {
+    if (newSubscriptionResponse && payment_method === "card") {
       if (newSubscriptionResponse.form_url !== null) {
         redirect(newSubscriptionResponse.form_url);
       } else {
@@ -30,7 +33,7 @@ export default function SubscriptionDrawer({ openDrawer, onClose, planSelected }
         console.log("Error in payment registration");
       }
     } else {
-      // if (newSubscriptionResponse !== undefined) { router.push(`/portal/subscriptions/${newSubscriptionResponse?.subscription.id}`) }
+      if (newSubscriptionResponse !== undefined) { router.push(`/portal/subscriptions/${newSubscriptionResponse?.subscription.id}`) }
     }
     dispatch(fetchPaymentProfiles());
   }, [newSubscriptionResponse]);
@@ -41,7 +44,7 @@ export default function SubscriptionDrawer({ openDrawer, onClose, planSelected }
       duration: duration,
       total_amount: totalAmount,
       promo_code: promoCode,
-      payment_method: payment_method,
+      payment_method: "cloud_credit",
       service_plan_selected_id: planSelected.id,
       profile_id: selectedProfile != null ? selectedProfile.id : 1
     };
@@ -65,6 +68,7 @@ export default function SubscriptionDrawer({ openDrawer, onClose, planSelected }
         <Col style={{ padding: 20 }}>
           <NewSubscriptionInfo planSelected={planSelected} />
           <SelectProfileComponent></SelectProfileComponent>
+          <div style={{ padding: '10px' }}></div>
           {(isBalanceSufficient !== null && selectedProfile && selectedProfile.id !== 0) ? (isBalanceSufficient === true) ?
             (<><Typography.Text style={{
               color: theme.token.green, paddingTop: 30, display: "flex",
@@ -119,16 +123,37 @@ export default function SubscriptionDrawer({ openDrawer, onClose, planSelected }
             </>)
             :
             (
-              <Typography.Text style={{
-                color: theme.token.red500, paddingTop: 30, display: "flex",
-                justifyContent: "center",
-              }}>{translate("insufficientBalance")}
-              </Typography.Text>
+              selectedProfile.is_default_profile !== true ?
+                <Typography.Text style={{
+                  color: theme.token.red500, paddingTop: 30, display: "flex",
+                  justifyContent: "center",
+                }}>{translate("insufficientBalance")}
+                </Typography.Text> :
+                <div style={{ flexDirection: "row", display: "flex", justifyContent: "space-between", gap: "10px", alignItems: 'center' }}>
+                  <span style={{ fontWeight: "bold" }}>{tPayments("noProfile")}</span>
+                  <Button
+                    style={{
+                      color: theme.token.colorWhite,
+                      backgroundColor: theme.token.orange600,
+                      border: "none",
+                      paddingBlock: 15,
+                      fontWeight: 600,
+                      fontSize: 18,
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      borderRadius: '15px',
+                      height: '40px'
+                    }}
+                    onClick={() => router.push(`/portal/payment-profiles/new?selectedPlan=${planSelected.id}`)}//TODO push new profile page 
+                  >
+                    {tProfilePayment("createProfile")}
+                  </Button>
+                </div>
             )
             :
             null
           }
-          {(isBalanceSufficient === false) &&
+          {(isBalanceSufficient === false && selectedProfile?.is_default_profile !== true) &&
             <PaymentComponent selectedPlan={planSelected} />
           }
         </Col>

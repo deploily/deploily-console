@@ -20,7 +20,7 @@ export default function BankTransfertComponent({selectedPlan}:{selectedPlan: any
       duration: subscriptionStates.duration,
       total_amount: subscriptionStates.totalAmount,
       promo_code: subscriptionStates.promoCode,
-      payment_method: subscriptionStates.payment_method,
+      payment_method: "bank_transfer",
       service_plan_selected_id: selectedPlan.id,
       profile_id: subscriptionStates.selectedProfile != null ? subscriptionStates.selectedProfile.id : 1
     };

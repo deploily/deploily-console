@@ -32,9 +32,7 @@ export default function FundBalanceDrawer({ openDrawer, onClose }: { openDrawer:
     };
 
     const onChangeCheckbox = (e: CheckboxChangeEvent) => {
-
-        setValue(e.target.value);
-
+        setValue(e.target.checked);//TODO RE-CHECK THIS CHANGE 
     };
 
 
@@ -83,13 +81,13 @@ export default function FundBalanceDrawer({ openDrawer, onClose }: { openDrawer:
                                 display: 'flex',
                                 flexDirection: 'row',
                                 gap: 8,
-                                flexWrap:"wrap"
+                                flexWrap: "wrap"
                             }}
-                           
+
                             onChange={onChangeSelectBalance}
                             value={value}
                             options={[
-                                { value: 1000, label:  '1 000' },
+                                { value: 1000, label: '1 000' },
                                 { value: 2000, label: '2 000' },
                                 { value: 3000, label: ' 3 000' },
                                 { value: 5000, label: ' 5 000' },
@@ -101,11 +99,11 @@ export default function FundBalanceDrawer({ openDrawer, onClose }: { openDrawer:
                                             Others...
                                             {selectBalance === 4 && (
                                                 <Input
-                                                type="number"
+                                                    type="number"
                                                     variant="filled"
                                                     placeholder="please input"
                                                     style={{ width: 120, marginInlineStart: 12 }}
-                                                    onChange={(e)=>setBalance(parseFloat(e.target.value))}
+                                                    onChange={(e) => setBalance(parseFloat(e.target.value))}
                                                 />
                                             )}
                                         </>
@@ -130,7 +128,7 @@ export default function FundBalanceDrawer({ openDrawer, onClose }: { openDrawer:
                                 alignItems: "center",
                                 gap: "6px",
                             }} > captcha</Button>
-                        <Checkbox style={{ padding: 15 }} onChange={onChangeCheckbox} value={value}>I accept the general conditions of use</Checkbox>
+                        <Checkbox style={{ padding: 15 }} onChange={onChangeCheckbox} checked={value}>I accept the general conditions of use</Checkbox>
 
                         <PayButton
                             icon={<Image src="/images/paymentIcon.png" alt="Recharge" preview={false} style={{ width: 60, height: 35 }} />}

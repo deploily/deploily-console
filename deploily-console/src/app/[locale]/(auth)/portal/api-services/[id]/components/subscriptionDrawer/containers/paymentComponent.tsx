@@ -4,7 +4,6 @@ import { theme } from "@/styles/theme";
 import BankTransfertComponent from "../components/bankTransfertComponent";
 import { useScopedI18n } from "../../../../../../../../../../locales/client";
 import { useAppDispatch } from "@/lib/hook";
-import { postSubscription } from "@/lib/features/subscriptions/subscriptionThunks";
 import CardPaymentComponent from "../components/cardPaymentComponent";
 import { useSubscriptionStates } from "@/lib/features/subscription-states/subscriptionSelectors";
 
@@ -15,19 +14,8 @@ export default function PaymentComponent({ selectedPlan }: { selectedPlan: any }
   const onChange = (e: RadioChangeEvent) => {
     dispatch({ type: "SubscriptionStates/updateSubscriptionStates", payload: { "payment_method": e.target.value } })
   };
-  const subscriptionStates = useSubscriptionStates()
 
-  const handleSubscribe = async () => {
-    const newSubscriptionObject = {
-      duration: subscriptionStates.duration,
-      total_amount: subscriptionStates.totalAmount,
-      promo_code: subscriptionStates.promoCode,
-      payment_method: subscriptionStates.payment_method,
-      service_plan_selected_id: selectedPlan.id,
-      profile_id: subscriptionStates.selectedProfile != null ? subscriptionStates.selectedProfile.id : 1
-    };
-    dispatch(postSubscription(newSubscriptionObject));
-  };
+
   const t = useScopedI18n("payments");
 
   return (
@@ -43,8 +31,8 @@ export default function PaymentComponent({ selectedPlan }: { selectedPlan: any }
 
       </Flex>
       {payment_method === "card" ?
-        <CardPaymentComponent handleSubscribe={handleSubscribe} />
-        : <BankTransfertComponent selectedPlan={selectedPlan}/>}
+        <CardPaymentComponent selectedPlan={selectedPlan}/>
+        : <BankTransfertComponent selectedPlan={selectedPlan} />}
     </>
   )
 }

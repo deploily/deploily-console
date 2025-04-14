@@ -56,6 +56,7 @@ const SubscriptionSlice = createSlice({
         state.subscriptionLoadingError = payload;
       })
       .addCase(fetchSubscriptionById.pending, (state) => {
+        state.newSubscriptionResponse = undefined;
         state.currentSubscriptionLoading = true;
         state.currentSubscriptionLoadingError = null;
         state.generateTokenSuccess = undefined;
