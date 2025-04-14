@@ -126,6 +126,7 @@ export default {
   'payments.uploadReceived': 'Télécharger le reçu',
   'payments.totalToPay': 'Total à payer',
   'payments.pay': 'Payer',
+  'payments.noProfile': 'Vous devez sélectionner un autre profil de paiement ou en créer un nouveau pour continuer.',
 
   'subscription.title': "S'abonner",
   'subscription.serviceName': 'Nom du service :',
