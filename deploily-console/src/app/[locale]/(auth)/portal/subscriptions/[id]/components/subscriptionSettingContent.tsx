@@ -11,7 +11,7 @@ import dayjs from "dayjs";
 import { useI18n, useScopedI18n } from "../../../../../../../../locales/client";
 import { CustomTypography } from "@/styles/components/typographyStyle";
 import { DatePickerStyle } from "@/styles/components/datePickerStyle";
-import { CustomErrorButton, CustomOrangeButton } from "@/styles/components/buttonStyle";
+import { CustomErrorButton, CustomTransparentOrangeButton } from "@/styles/components/buttonStyle";
 import { CustomSubscripionInput } from "@/styles/components/inputStyle";
 
 import DocumentationDrawer from "./documentationDrawer";
@@ -124,9 +124,9 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                                     justifyContent: "end",
                                     alignSelf: "start"
                                 }}>
-                                    <CustomOrangeButton onClick={() => setOpenDrawer(true)} >
+                                    <CustomTransparentOrangeButton onClick={() => setOpenDrawer(true)} >
                                         {t('details')}
-                                    </CustomOrangeButton>
+                                    </CustomTransparentOrangeButton>
 
 
                                 </Col>

@@ -1,4 +1,4 @@
-import { CustomOrangeButton } from "@/styles/components/buttonStyle";
+import { CustomTransparentOrangeButton } from "@/styles/components/buttonStyle";
 import { Col, Form, Radio, Result, Row, Skeleton, Tag } from "antd";
 import Title from "antd/es/typography/Title";
 import { useI18n, useScopedI18n } from "../../../../../../../../locales/client";
@@ -40,11 +40,11 @@ export default function ProfileDetailsContainer({ profile_id }: { profile_id: st
 
                 </Col>
                 <Col span={10} style={{ display: "flex", justifyContent: "end" }}>
-                    <CustomOrangeButton
+                    <CustomTransparentOrangeButton
                         onClick={() => setOpenDrawer(true)}
                     >
                         {t('fundBalance')}
-                    </CustomOrangeButton>
+                    </CustomTransparentOrangeButton>
                 </Col>
             </Row>
             <Row style={{ padding: 20 }}>
@@ -80,13 +80,13 @@ export default function ProfileDetailsContainer({ profile_id }: { profile_id: st
                     >
                         <Row gutter={[16, 16]} >
                             <Col md={12} xs={24} >
-                                <Form.Item label={t('firstName')} name="firstName" >
-                                    <CustomPayementInput defaultValue={currentProfile.user.first_name} style={{ color: theme.token.colorWhite }} disabled />
+                                <Form.Item label={t('firstName')} name="name" >
+                                    <CustomPayementInput defaultValue={currentProfile.name} style={{ color: theme.token.colorWhite }} disabled />
                                 </Form.Item>
                             </Col>
                             <Col md={12} xs={24} >
                                 <Form.Item label={t('lastName')} name="lastName" >
-                                    <CustomPayementInput defaultValue={currentProfile.user.last_name} style={{ color: theme.token.colorWhite }} disabled />
+                                    <CustomPayementInput defaultValue={currentProfile.last_name} style={{ color: theme.token.colorWhite }} disabled />
                                 </Form.Item>
                             </Col>
                         </Row>
@@ -119,7 +119,7 @@ export default function ProfileDetailsContainer({ profile_id }: { profile_id: st
                             <CustomPayementInput defaultValue={currentProfile.phone} style={{ color: theme.token.colorWhite }} disabled />
                         </Form.Item>
 
-                        <Radio checked={currentProfile.user.active} > {t('isCompany')} </Radio>
+                        <Radio checked={currentProfile.is_company} > {t('isCompany')} </Radio>
 
                         <Row style={{ padding: 20 }}>
                             <span
