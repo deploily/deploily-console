@@ -1,4 +1,3 @@
-"use client";
 
 import SubscriptionSettingContent from "./components/subscriptionSettingContent";
 

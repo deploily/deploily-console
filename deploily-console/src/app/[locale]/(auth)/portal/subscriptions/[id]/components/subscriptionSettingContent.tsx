@@ -1,3 +1,4 @@
+"use client"
 import { useSubscription } from "@/lib/features/subscriptions/subscriptionSelectors";
 import { fetchSubscriptionById } from "@/lib/features/subscriptions/subscriptionThunks";
 import { useAppDispatch } from "@/lib/hook";

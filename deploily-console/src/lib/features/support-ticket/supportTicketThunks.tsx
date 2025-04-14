@@ -3,9 +3,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { getSession } from "next-auth/react";
 
-
 export const fetchSupportTicket = createAsyncThunk(
-    "apiServices/getSupportTicket",
+    "supportTicket/getSupportTicket",
     async (_, thunkConfig) => {
       try {
         const session = await getSession();
@@ -32,7 +31,7 @@ export const fetchSupportTicket = createAsyncThunk(
   );
 
   export const postSupportTicket = createAsyncThunk(
-    "apiServices/postSupportTicket",
+    "supportTicket/postSupportTicket",
     async (newsupportTicket: any, thunkConfig) => {
       
       try {
@@ -49,7 +48,7 @@ export const fetchSupportTicket = createAsyncThunk(
             Authorization: `Bearer ${token}`,
           },
         });
-        if (response.status === 200) {
+        if (response.status === 201) {
           return response.data;
         } else {
           return thunkConfig.rejectWithValue("Failed to create new support ticket");
@@ -59,3 +58,32 @@ export const fetchSupportTicket = createAsyncThunk(
       }
     },
   );
+
+
+
+export const fetchSupportTicketById = createAsyncThunk(
+  "supportTicket/getSupportTicketById",
+  async (support_ticket_id, thunkConfig) => {
+    try {
+      const session = await getSession();
+      if (!session) {
+        return thunkConfig.rejectWithValue("session expired");
+      }
+      const token = session.accessToken;
+
+      const response = await axios.get(`${deploilyApiUrls.SUPPORT_TICKET_URL}${support_ticket_id}`, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        return thunkConfig.rejectWithValue("Failed to fetch support ticket by id");
+      }
+    } catch (error: any) {
+      return thunkConfig.rejectWithValue(error.message);
+    }
+  },
+);

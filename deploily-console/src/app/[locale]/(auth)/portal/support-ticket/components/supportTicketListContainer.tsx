@@ -4,14 +4,14 @@ import { useScopedI18n } from "../../../../../../../locales/client";
 import { ArrowRight, Plus } from "@phosphor-icons/react";
 import { useAppDispatch } from "@/lib/hook";
 import { useEffect, useState } from "react";
-import { fetchSupportTicket } from "@/lib/features/support-ticket/supportTicketThanks";
+import { fetchSupportTicket } from "@/lib/features/support-ticket/supportTicketThunks";
 import { SupportTicket } from "@/lib/features/support-ticket/supportTicketInterface";
 import { useSupportTicket } from "@/lib/features/support-ticket/supportTicketSelector";
 import { useRouter } from "next/navigation";
 import { SubscriptionInterface } from "@/lib/features/subscriptions/subscriptionInterface";
 import { CustomBlueRoundedButton } from "@/styles/components/buttonStyle";
 
-export default function GetSupportTecket() {
+export default function SupportTicketListContainer() {
     const dispatch = useAppDispatch();
     const t = useScopedI18n('supportTicket')
     const translate = useScopedI18n('createSupportTicket')
@@ -134,6 +134,10 @@ export default function GetSupportTecket() {
                 className="custom-table"
                 style={{ marginTop: 40, borderRadius: 0 }}
                 scroll={{ y: 55 * 5 }}
+                onRow={(record) => ({
+                    onClick: () => router.push(`/portal/support-ticket/${record.id}`),
+                    style: { cursor: "pointer" },
+                })}
             />
 
         </>

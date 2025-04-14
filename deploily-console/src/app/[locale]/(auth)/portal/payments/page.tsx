@@ -1,7 +1,7 @@
 "use client";
 import {Row} from "antd";
 import { useScopedI18n } from "../../../../../../locales/client";
-import PaymentListeContainer from "./components/paymentsListContainer";
+import PaymentListContainer from "./components/paymentsListContainer";
 
 export default function Page() {
   const t = useScopedI18n('payments')
@@ -19,7 +19,7 @@ export default function Page() {
                   {t("paymentList")}
         </span>
       </Row>
-      <PaymentListeContainer/>
+      <PaymentListContainer/>
     </>
   );
 }
