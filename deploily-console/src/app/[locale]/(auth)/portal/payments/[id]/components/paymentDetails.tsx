@@ -5,7 +5,7 @@ import { useI18n, useScopedI18n } from "../../../../../../../../locales/client";
 import { useAppDispatch } from "@/lib/hook";
 import { usePayment } from "@/lib/features/payments/paymentSelector";
 import { useEffect, useState } from "react";
-import { fetchPaymentById } from "@/lib/features/payments/paymentThunks";
+import { fetchPaymentById, uploadPaymentReceipt } from "@/lib/features/payments/paymentThunks";
 import { CustomUploadButton } from "@/styles/components/buttonStyle";
 import { UploadOutlined } from '@ant-design/icons';
 import { theme } from "@/styles/theme";
@@ -27,12 +27,19 @@ export default function PaymentDetailsPage({ paymentId }: { paymentId: string })
 
 
   const [fileList, setFileList] = useState<UploadFile[]>()
-  const handleChange: UploadProps['onChange'] = ({ fileList: newFile }) =>
+  const handleChange: UploadProps['onChange'] = ({ fileList: newFile }) => {
     setFileList(newFile);
+    if (newFile.length > 0) {
+      const formData = new FormData();
+      formData.append('fileData', newFile[0].originFileObj as any);
+      formData.append('payment_id', paymentId);
+      dispatch(uploadPaymentReceipt(formData));
+    }
+  }
   return (
     <div style={{ padding: 20, margin: "0 auto" }}>
       <Row style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
-        <span style={{ color: "white", fontFamily: "Inter, sans-serif", fontSize: "24px", fontWeight: 800 }}>
+        <span style={{ color: "white", fontSize: "24px", fontWeight: 800 }}>
           {t("paymentDetails")}
         </span>
       </Row>
@@ -51,7 +58,7 @@ export default function PaymentDetailsPage({ paymentId }: { paymentId: string })
           <Spin size="large" style={{ display: "block", margin: "50px auto" }} />
         ) : (
           <Table
-            dataSource={paymentDetailsData(t,currentPayment,theme)}
+            dataSource={paymentDetailsData(t, currentPayment, theme)}
             pagination={false}
             showHeader={false}
             bordered
@@ -101,7 +108,7 @@ export default function PaymentDetailsPage({ paymentId }: { paymentId: string })
           >
             <CustomUploadButton
               style={{
-               
+
                 paddingInline: 10,
               }}
             >
