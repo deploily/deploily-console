@@ -156,6 +156,7 @@ export default {
     'subscription.cancel': 'Cancel',
     'subscription.sufficientBalance': 'Your account balance is sufficient to complete this payment.',
     'subscription.insufficientBalance': 'Your account balance is insufficient to complete this payment.',
+    'subscription.balance': 'Balance',
     'subscription.profile': 'Profile',
 
     "bankPayment.title": "Payment by Bank",
