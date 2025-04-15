@@ -1,32 +1,32 @@
 "use client";
-import { Button, Card, Typography, } from "antd";
-import { theme } from "@/styles/theme";
 import { useSubscriptionStates } from "@/lib/features/subscription-states/subscriptionSelectors";
-import bankPaymentInfo from "./bankPaymentData";
-import { useScopedI18n } from "../../../../../../../../../../locales/client";
 import { postSubscription } from "@/lib/features/subscriptions/subscriptionThunks";
 import { useAppDispatch } from "@/lib/hook";
+import { theme } from "@/styles/theme";
+import { Button, Card, Typography, } from "antd";
+import { useScopedI18n } from "../../../../../../../../../../locales/client";
+import bankPaymentInfo from "./bankPaymentData";
 
-export default function BankTransfertComponent({selectedPlan}:{selectedPlan: any}) {
+export default function BankTransfertComponent({ selectedPlan }: { selectedPlan: any }) {
     const { totalAmount } = useSubscriptionStates()
     const tBankPayment = useScopedI18n("bankPayment");
     const tPayments = useScopedI18n("payments");
     const subscriptionStates = useSubscriptionStates()
     const dispatch = useAppDispatch();
-    
 
-  const handleSubscribe = async () => {
-    const newSubscriptionObject = {
-      duration: subscriptionStates.duration,
-      total_amount: subscriptionStates.totalAmount,
-      promo_code: subscriptionStates.promoCode,
-      payment_method: "bank_transfer",
-      service_plan_selected_id: selectedPlan.id,
-      profile_id: subscriptionStates.selectedProfile != null ? subscriptionStates.selectedProfile.id : 1
+
+    const handleSubscribe = async () => {
+        const newSubscriptionObject = {
+            duration: subscriptionStates.duration,
+            total_amount: subscriptionStates.totalAmount,
+            promo_code: subscriptionStates.promoCode,
+            payment_method: "bank_transfer",
+            service_plan_selected_id: selectedPlan.id,
+            profile_id: subscriptionStates.selectedProfile != null ? subscriptionStates.selectedProfile.id : 1
+        };
+        dispatch(postSubscription(newSubscriptionObject));
     };
-    dispatch(postSubscription(newSubscriptionObject));
-  };
-    
+
 
     return (
         <Card
@@ -99,7 +99,7 @@ export default function BankTransfertComponent({selectedPlan}:{selectedPlan: any
                         }}
                         onClick={() => handleSubscribe()}
                     >
-                        {tPayments('pay')} 
+                        {tPayments('confirm')}
                     </Button>
                 </div>
             </div>

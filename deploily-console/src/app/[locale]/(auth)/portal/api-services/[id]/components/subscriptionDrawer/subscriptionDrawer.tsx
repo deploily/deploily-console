@@ -1,17 +1,17 @@
 "use client";
-import { Button, Col, Drawer, Typography } from "antd";
+import { fetchPaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesThunks";
+import { useSubscriptionStates } from "@/lib/features/subscription-states/subscriptionSelectors";
+import { useSubscription } from "@/lib/features/subscriptions/subscriptionSelectors";
+import { postSubscription } from "@/lib/features/subscriptions/subscriptionThunks";
+import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
+import { Button, Col, Drawer, Typography } from "antd";
+import { redirect, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useScopedI18n } from "../../../../../../../../../locales/client";
-import { useAppDispatch } from "@/lib/hook";
-import PaymentComponent from "./containers/paymentComponent";
-import { redirect, useRouter } from "next/navigation";
-import { useSubscription } from "@/lib/features/subscriptions/subscriptionSelectors";
 import NewSubscriptionInfo from "./containers/newSubscriptionInfo";
+import PaymentComponent from "./containers/paymentComponent";
 import SelectProfileComponent from "./containers/selectProfileComponent";
-import { postSubscription } from "@/lib/features/subscriptions/subscriptionThunks";
-import { useSubscriptionStates } from "@/lib/features/subscription-states/subscriptionSelectors";
-import { fetchPaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesThunks";
 
 export default function SubscriptionDrawer({ openDrawer, onClose, planSelected }: { openDrawer: any, onClose: any, planSelected: any }) {
 
@@ -144,7 +144,7 @@ export default function SubscriptionDrawer({ openDrawer, onClose, planSelected }
                       borderRadius: '15px',
                       height: '40px'
                     }}
-                    onClick={() => router.push(`/portal/payment-profiles/new?selectedPlan=${planSelected.id}`)}//TODO push new profile page 
+                    onClick={() => router.push(`/portal/payment-profiles/add?selectedPlan=${planSelected.id}`)}//TODO push new profile page 
                   >
                     {tProfilePayment("createProfile")}
                   </Button>

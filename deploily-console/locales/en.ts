@@ -139,6 +139,7 @@ export default {
     'payments.paymentDetails': 'Payment details',
     'payments.totalToPay': 'Total to pay',
     'payments.pay': 'Pay',
+    'payments.confirm': 'Confirm',
     'payments.noProfile': 'You need to select a different payment profile or create a new one to proceed.',
 
     'subscription.title': 'Subscribe',

@@ -47,18 +47,6 @@ export default function ProfileDetailsContainer({ profile_id }: { profile_id: st
                     </CustomOrangeButton>
                 </Col>
             </Row>
-            <Row style={{ padding: 20 }}>
-                <span
-                    style={{
-                        color: "white",
-
-                        fontSize: "18px",
-                        fontWeight: 800,
-                    }}
-                >
-                    {t("profileInformation")}
-                </span>
-            </Row>
             {currentProfileLoading && !currentProfile &&
                 <Row gutter={[10, 10]}>
                     <Col span={2}><Skeleton active paragraph={{ rows: 0.5 }} /></Col>
@@ -84,10 +72,7 @@ export default function ProfileDetailsContainer({ profile_id }: { profile_id: st
                         </Col>
                     </Row>
 
-                    <Radio.Group value={currentProfile.is_company} >
-                        <Radio value={false}>{t("isIndividual")}</Radio>
-                        <Radio value={true}>{t("isCompany")}</Radio>
-                    </Radio.Group>
+
                     <Row style={{ padding: 20 }}>
                         <span style={{
                             color: "white",
@@ -98,7 +83,12 @@ export default function ProfileDetailsContainer({ profile_id }: { profile_id: st
                             {t("profileInformation")}
                         </span>
                     </Row>
-
+                    <div style={{ paddingInline: 20, marginBottom: 20  }}>
+                        {currentProfile.is_company ?
+                            <Radio checked={true} >{t("isCompany")}</Radio> :
+                            <Radio checked={true} >{t("isIndividual")}</Radio>
+                        }
+                    </div>
                     <Form
                         name="wrap"
                         labelCol={{ flex: '110px' }}
@@ -106,7 +96,7 @@ export default function ProfileDetailsContainer({ profile_id }: { profile_id: st
                         labelWrap
                         wrapperCol={{ flex: 0 }}
                         colon={false}
-                        style={{ paddingInline: 20 }}
+                        style={{ paddingInline: 20}}
                     >
                         <Row gutter={[16, 16]}>
                             <Col md={12} xs={24}>

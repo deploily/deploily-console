@@ -134,6 +134,7 @@ export default {
   'payments.uploadReceived': 'Télécharger le reçu',
   'payments.totalToPay': 'Total à payer',
   'payments.pay': 'Payer',
+  'payments.confirm': 'Confirmer',
   'payments.noProfile': 'Vous devez sélectionner un autre profil de paiement ou en créer un nouveau pour continuer.',
 
   'subscription.title': "S'abonner",
@@ -152,7 +153,7 @@ export default {
   'subscription.insufficientBalance': 'Votre solde est insuffisant pour effectuer ce paiement.',
   'subscription.profile': 'Profil',
   'subscription.balance': 'Solde',
-  
+
   "bankPayment.title": "Paiement par virement bancaire",
   "bankPayment.message": "Ceci est notre compte bancaire, vous pouvez transférer le montant !",
   "bankPayment.name": "Nom de l'entreprise",
