@@ -11,14 +11,14 @@ export const data = {
         result: [
             {
                 name: "Github",
-                price: "1000 DZD",
+                price: "1 000 DZD",
                 description:
                     "GitHub CI/CD automates code build, test, and deployment workflows using GitHub Actions.",
                 image : "/images/github.png",
             },
             {
                 name: "Gitlab",
-                price: "1000 DZD",
+                price: "1 000 DZD",
                 description:
                     "GitLab CI/CD automates the process of building, testing, and deploying code using GitLab's built-in pipeline features.",
                 image : "/images/gitlab.png",
