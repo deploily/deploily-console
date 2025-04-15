@@ -27,7 +27,7 @@ export default {
   'sidebar.sponsoring': 'Sponsoring',
   'sidebar.account': 'Compte',
   'sidebar.profile': 'Profile',
-  'sidebar.logout': 'logout',
+  'sidebar.logout': 'déconnexion',
   'sidebar.collapse': 'Réduire la barre',
   'login': 'CONNEXION',
   'logout': 'DÉCONNECTION',

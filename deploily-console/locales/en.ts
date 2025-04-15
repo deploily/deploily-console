@@ -27,7 +27,7 @@ export default {
     'sidebar.sponsoring': 'Sponsoring',
     'sidebar.account': 'Account',
     'sidebar.profile': 'Profile',
-    'sidebar.logout': 'logout',
+    'sidebar.logout': 'Logout',
     'sidebar.collapse': 'Collapse sidebar',
     'login': 'LOGIN',
     'logout': 'LOGOUT',
@@ -97,6 +97,7 @@ export default {
     "profilePayment.wilaya":"Wilaya",
     "profilePayment.country":"Country",
     "profilePayment.phone":"Phone",
+    "profilePayment.isIndividual":"Is Individual ?",
     "profilePayment.isCompany":"Is Company  ?",
     "profilePayment.yes": "Yes", 
     "profilePayment.no": "No",
@@ -109,6 +110,7 @@ export default {
     "profilePayment.balanceRecharge":"Balance recharge",
     "profilePayment.others":"Others",
     "profilePayment.save":"Save",
+    'profilePayment.balance': 'Balance',
 
     'payments.paymentList': 'Payment list',
     'payments.nOrder': 'N° Order',
@@ -150,7 +152,6 @@ export default {
     'subscription.sufficientBalance': 'Your account balance is sufficient to complete this payment.',
     'subscription.insufficientBalance': 'Your account balance is insufficient to complete this payment.',
     'subscription.profile': 'Profile',
-    'subscription.balance': 'Balance',
 
     "bankPayment.title": "Payment by Bank",
     "bankPayment.message": "This is our bank account, you can transfer the amount! ",

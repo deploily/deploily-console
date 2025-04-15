@@ -9,10 +9,7 @@ import { useRouter } from "next/navigation";
 import { PaymentProfileInterface } from "@/lib/features/payment-profiles/paymentProfilesInterface";
 import { usePaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesSelectors";
 import { fetchPaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesThunks";
-import {
-    CustomBlueRoundedButton,
-    CustomOrangeButton,
-} from "@/styles/components/buttonStyle";
+import { CustomBlueRoundedButton, CustomOrangeButton} from "@/styles/components/buttonStyle";
 import { theme } from "@/styles/theme";
 import { CustomTypography } from "@/styles/components/typographyStyle";
 import FundBalanceDrawer from "./fundBalanceDrawer";
@@ -46,7 +43,6 @@ export default function ProfilePayementContainer() {
                     key: element,
                     render: (balance: any) => (
                         <CustomTypography>
-                            {/* {balance} */}
                             {Intl.NumberFormat("fr-FR", { useGrouping: true }).format(balance)}
                         </CustomTypography>
                     )
@@ -77,12 +73,12 @@ export default function ProfilePayementContainer() {
                 dataIndex: "",
                 key: "val",
                 render: () =>
-                    (
-                            <CustomTypography style={{ display: "flex", justifyContent: "start", paddingInline: 5, alignItems: "center" }}>
-                                DZD
-                                <Coins size={"28px"} style={{ color: theme.token.colorWhite, marginLeft: 4 }} />
-                            </CustomTypography>
-                        )
+                (
+                    <CustomTypography style={{ display: "flex", justifyContent: "start", paddingInline: 5, alignItems: "center" }}>
+                        DZD
+                        <Coins size={"28px"} style={{ color: theme.token.colorWhite, marginLeft: 4 }} />
+                    </CustomTypography>
+                )
             },
             {
                 title: <CustomTypography>{""}</CustomTypography>,
@@ -151,14 +147,18 @@ export default function ProfilePayementContainer() {
                     size="middle"
                     className="custom-table"
                     style={{ marginTop: 40, borderRadius: 0 }}
-                    scroll={{ y: 55 * 5 }}
                     onRow={(element) => ({
-                        onClick: () => router.push(`/portal/payment-profiles/${element.id}`),
-                        style: { cursor: "pointer" },
+                        onClick: element.name?.toLowerCase() !== "default"
+                            ? () => router.push(`/portal/payment-profiles/${element.id}`)
+                            : undefined,
+                        style: {
+                            cursor: element.name?.toLowerCase() !== "default" ? "pointer" : "default",
+                            backgroundColor: element.name?.toLowerCase() === "default" ? "transparent" : undefined,
+                        },
+                        className: element.name?.toLowerCase() === "default" ? "no-hover" : "",
                     })}
                 />
             }
-
             {!isLoading && paymentProfilesLoadingError &&
                 <Result
                     status="500"
@@ -168,6 +168,11 @@ export default function ProfilePayementContainer() {
             }
 
             <FundBalanceDrawer openDrawer={openDrawer} onClose={onClose} />
+            <style jsx global>{`
+                        .ant-table-row.no-hover:hover {
+                        background-color: inherit !important;
+                      }
+            `}</style>
         </>
     );
 }
