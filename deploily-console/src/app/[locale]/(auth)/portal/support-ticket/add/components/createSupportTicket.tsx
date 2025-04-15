@@ -13,6 +13,7 @@ import { useSubscription } from "@/lib/features/subscriptions/subscriptionSelect
 import { SubscriptionInterface } from "@/lib/features/subscriptions/subscriptionInterface";
 import { postSupportTicket } from "@/lib/features/support-ticket/supportTicketThunks";
 import { useSupportTicket } from "@/lib/features/support-ticket/supportTicketSelector";
+import { useRouter } from "next/navigation";
 const { Option } = Select;
 
 export default function CreateSupportTicket() {
@@ -21,10 +22,8 @@ export default function CreateSupportTicket() {
     const dispatch = useAppDispatch();
     const { subscriptionResponse } = useSubscription()
     const { addSupportTicketSuccess, addSupportTicketError } = useSupportTicket()
-    // const [file, setFile] = useState(null);
-    // const [fileList, setFileList] = useState<UploadFile[]>()
     const [messageApi] = message.useMessage();
-
+    const router = useRouter()
     useEffect(() => {
         dispatch(fetchSubscription());
         if (addSupportTicketSuccess) {
@@ -47,13 +46,11 @@ export default function CreateSupportTicket() {
             subscribe_id: values.subscription,//TODO CHANGE TO subscription_id
             title: values.subject,
             description: values.description,
-            // image: (fileList && fileList.length > 0) ? fileList[0].thumbUrl : null,
-            // status: "open"//TODO UNCOMMENT THIS AFTER BACKEND FIX 
+            status: "open"
         })).then(() => {
             form.resetFields();
+            router.back()
         })
-
-
     };
 
 

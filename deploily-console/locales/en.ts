@@ -71,6 +71,8 @@ export default {
     'supportTicket.details': 'Details',
     'supportTicket.title': 'Title',
     'supportTicket.status': 'Status',
+    'supportTicket.open': 'Open',
+    'supportTicket.closed': 'Closed',
     'supportTicket.service': 'Service',
     'supportTicket.created_on': 'Creation date',
 
