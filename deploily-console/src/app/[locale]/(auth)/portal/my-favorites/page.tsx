@@ -11,7 +11,7 @@ export default function Page() {
         <span
           style={{
             color: "white",
-            fontFamily: "Inter, sans-serif",
+
             fontSize: "24px",
             fontWeight: 800,
           }}

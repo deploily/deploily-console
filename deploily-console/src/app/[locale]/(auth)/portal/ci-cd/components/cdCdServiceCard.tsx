@@ -14,7 +14,7 @@ export default function CiCdServiceCard({ data }: any) {
             hoverable
             style={{
                 position: "relative",
-                fontFamily: "Inter, sans-serif",
+
                 height: "100%",
                 width: "100%",
                 padding: 0,
@@ -58,7 +58,7 @@ export default function CiCdServiceCard({ data }: any) {
                             display: "flex",
                             justifyContent: "flex-end",
                             alignItems: "flex-start", // aligns to the top within the Row
-                            fontFamily: "Inter, sans-serif",
+
                         }}
                     >
                         <p
@@ -128,7 +128,7 @@ export default function CiCdServiceCard({ data }: any) {
                             fontWeight: 600,
                             paddingRight: 4,
                             transition: "color 0.3s ease",
-                            fontFamily: "Inter, sans-serif",
+
                         }}
                     >
                         {t("details")}

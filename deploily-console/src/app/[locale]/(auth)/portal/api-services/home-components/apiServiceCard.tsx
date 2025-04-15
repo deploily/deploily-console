@@ -76,7 +76,7 @@ export default function ApiServiceCard({ service }: { service: ApiServiceInterfa
             style={{
               height: "100%",
               fontWeight: "bold",
-              fontFamily: "Inter, sans-serif",
+
               justifyContent: "end",
               display: "flex",
             }}>
@@ -121,7 +121,6 @@ export default function ApiServiceCard({ service }: { service: ApiServiceInterfa
           <span
             style={{
               color: hovered ? theme.token.colorPrimary : theme.token.gray200,
-              fontFamily: "Inter, sans-serif",
               fontSize: "16px",
               fontWeight: 600,
               paddingRight: 3,

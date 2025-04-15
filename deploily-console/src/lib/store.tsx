@@ -10,6 +10,7 @@ import epaymentSlice from "./features/epayment/epaymentSlice";
 import subscriptionStatesSlice from './features/subscription-states/subscriptionSlice'
 import apiServiceSlice from "./features/api-service/apiServiceSlice";
 import cicdServiceSlice from "./features/ci-cd-service/cicdServiceSlice";
+import supportTicketResponsesSlice from "./features/support-ticket -responses/supportTicketResponsesSlice";
 
 export const makeStore = () => {
   return configureStore({
@@ -25,6 +26,7 @@ export const makeStore = () => {
       epayment: epaymentSlice,
       subscriptionStatesSlice: subscriptionStatesSlice,
       cicdService: cicdServiceSlice,
+      supportTicketResponses: supportTicketResponsesSlice,
     },
   });
 };

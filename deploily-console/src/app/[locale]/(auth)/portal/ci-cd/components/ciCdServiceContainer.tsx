@@ -1,7 +1,7 @@
 "use client";
-import {Row, Col} from "antd";
-import {useEffect} from "react";
-import {useAppDispatch} from "@/lib/hook";
+import { Row, Col } from "antd";
+import { useEffect } from "react";
+import { useAppDispatch } from "@/lib/hook";
 import CiCdServiceCard from "./cdCdServiceCard";
 import { fetchCiCdServices } from "@/lib/features/ci-cd-service/cicdServiceThunks";
 import { useCiCdService } from "@/lib/features/ci-cd-service/cicdServiceSelectors";
@@ -17,11 +17,11 @@ export default function CiCdServiceContainer() {
 
   return (
     <>
-      <Row style={{padding: 20}}>
+      <Row style={{ padding: 20 }}>
         <span
           style={{
             color: "white",
-            fontFamily: "Inter, sans-serif",
+
             fontSize: "24px",
             fontWeight: 800,
           }}
@@ -31,7 +31,7 @@ export default function CiCdServiceContainer() {
       </Row>
 
       {!isLoading && cicdServiceResponse !== undefined && (
-        <Row gutter={[24, 24]} justify="start" style={{margin: 0}}>
+        <Row gutter={[24, 24]} justify="start" style={{ margin: 0 }}>
           {cicdServiceResponse?.result?.map((row: CiCdServiceInterface) => (
             <Col
               key={row.id}
@@ -40,7 +40,7 @@ export default function CiCdServiceContainer() {
               md={10}
               lg={8}
               xl={6}
-              style={{display: "flex", justifyContent: "center"}}
+              style={{ display: "flex", justifyContent: "center" }}
             >
               <CiCdServiceCard data={row} />
             </Col>

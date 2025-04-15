@@ -7,6 +7,24 @@ import "antd/dist/reset.css";
 import { StoreProvider } from "../storeProvider";
 import { Providers } from "../provider";
 import SessionGuard from "@/components/sessionGuard";
+import { DM_Sans } from 'next/font/google';
+import { JetBrains_Mono } from 'next/font/google';
+
+const mdSans = DM_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+  display: 'swap',
+  variable: '--font-dm-sans',
+  style: ['normal', 'italic'],
+});
+const jetBrains_Mono = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+  display: 'swap',
+  variable: '--font-jetbrains-mono',
+  style: ['normal', 'italic'],
+});
+
 
 export const generateViewport = () => ({
   width: "device-width",
@@ -23,7 +41,7 @@ export default async function RootLayout({
   const { locale } = await params;
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className={`${mdSans.className} ${jetBrains_Mono.variable}`}>
       <body suppressHydrationWarning={true} style={{ margin: "0px" }}>
         <Providers>
           <SessionGuard>

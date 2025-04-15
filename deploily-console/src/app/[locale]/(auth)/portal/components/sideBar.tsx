@@ -36,7 +36,7 @@ export function MainSideBar() {
       icon: <SignOut size={24} />,
     },
   ]
-  
+
   return (
     <Sider
       collapsible
@@ -107,7 +107,7 @@ export function MainSideBar() {
               <span
                 style={{
                   color: "rgba(220, 233, 245, 0.88)",
-                  fontFamily: "Inter, sans-serif",
+
                   fontSize: "16px",
                   fontWeight: 600,
                 }}
@@ -153,7 +153,7 @@ export function MainSideBarMobile() {
           <span
             style={{
               color: "rgba(220, 233, 245, 0.88)",
-              fontFamily: "Inter, sans-serif",
+
               fontSize: "16px",
               fontWeight: 600,
             }}
@@ -184,7 +184,7 @@ export function MainSideBarMobile() {
           <span
             style={{
               color: "rgba(220, 233, 245, 0.88)",
-              fontFamily: "Inter, sans-serif",
+
               fontSize: "16px",
               fontWeight: 600,
             }}

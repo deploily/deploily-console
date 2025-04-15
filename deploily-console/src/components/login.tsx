@@ -5,11 +5,11 @@ import { Button } from "antd";
 
 
 export default function Login() {
-  const t = useI18n();
+    const t = useI18n();
     const locale = useCurrentLocale();
-    
+
     return (
-        
+
         <Button
             style={{
                 width: "100%",
@@ -25,7 +25,7 @@ export default function Login() {
             <span
                 style={{
                     color: "rgba(220, 233, 245, 0.88)",
-                    fontFamily: "Inter, sans-serif",
+
                     fontSize: "16px",
                     fontWeight: 600,
                 }}

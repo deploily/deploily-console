@@ -51,7 +51,7 @@ export default function ProfileDetailsContainer({ profile_id }: { profile_id: st
                 <span
                     style={{
                         color: "white",
-                        fontFamily: "Inter, sans-serif",
+
                         fontSize: "18px",
                         fontWeight: 800,
                     }}
@@ -125,7 +125,7 @@ export default function ProfileDetailsContainer({ profile_id }: { profile_id: st
                             <span
                                 style={{
                                     color: "white",
-                                    fontFamily: "Inter, sans-serif",
+
                                     fontSize: "18px",
                                     fontWeight: 800,
                                 }}

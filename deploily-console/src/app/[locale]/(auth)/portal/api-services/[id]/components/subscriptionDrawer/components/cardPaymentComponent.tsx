@@ -80,7 +80,7 @@ export default function CardPaymentComponent({ selectedPlan }: { selectedPlan: a
                         icon={<Image src="/images/paymentIcon.png" alt="PAY" style={{ width: 60, height: 35 }} preview={false} />}
                         onClick={handleSubscribe}
                     >
-                        <span style={{ fontFamily: "Inter, sans-serif", fontSize: "16px", fontWeight: 600 }}>
+                        <span style={{  fontSize: "16px", fontWeight: 600 }}>
                             PAY
                         </span>
                     </Button>

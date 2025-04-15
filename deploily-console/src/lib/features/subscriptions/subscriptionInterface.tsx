@@ -14,10 +14,10 @@ export interface NewSubscriptionResponse {
   form_url: string;
   order_id: string;
   subscription: SubscriptionInterface;
-  }
+}
 
 export interface SubscriptionInterface {
-  id: number; 
+  id: number;
   duration_month: number;
   name: string;
   price: number
@@ -43,12 +43,12 @@ export interface ServiceDetails {
   short_description: string;
   specifications: string;
   curl_command: string;
-  api_key:string;
+  api_key: string;
 
 }
 export interface ServicePlan {
   id: number;
-  price:number;
+  price: number;
   subscription_category: string;
 }
 

@@ -13,7 +13,7 @@ import type { MenuProps } from "antd";
 import Link from "next/link";
 
 const labelStyle = {
-  fontFamily: "Inter, sans-serif",
+
   fontSize: "16px",
   fontWeight: 600,
 };
