@@ -38,7 +38,7 @@ export const CustomBlueRoundedButton = styled(Button)` &&
 }
 `;
 
-export const CustomOrangeButton = styled(Button)`
+export const CustomTransparentOrangeButton = styled(Button)`
   && {
     color: ${theme.token.orange400};
     background-color: transparent;
@@ -105,7 +105,23 @@ export const PayButton = styled(Button)` &&
 }
 `;
 
+export const CustomOrangeButton = styled(Button)` &&
+ {  
+    color: ${theme.token.colorWhite};
+    background-color: ${theme.token.orange400};
+    border: none;
+    border-raduis:10px;
+    padding: 10px 30px;
+    transition: background-color 0.3s ease;
 
+     &:hover {
+      background-color: ${theme.token.orange400} !important;
+      color: ${theme.token.colorWhite} !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+}
+`;
 
 
 

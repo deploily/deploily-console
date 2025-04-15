@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { PaymentProfileInterface, PaymentProfilesResponse } from "./paymentProfilesInterface";
-import { fetchPaymentProfiles, getPaymentProfileById } from "./paymentProfilesThunks";
+import { newPaymentProfileResponse, PaymentProfileInterface, PaymentProfilesResponse } from "./paymentProfilesInterface";
+import { fetchPaymentProfiles, getPaymentProfileById, postPaymentProfile } from "./paymentProfilesThunks";
 
 interface PaymentProfileState {
   paymentProfilesList?: PaymentProfilesResponse;
@@ -9,6 +9,9 @@ interface PaymentProfileState {
   currentProfile?: PaymentProfileInterface;
   currentProfileLoading?: boolean;
   currentProfileError?: any;
+  isPaymentProfileCreatedSuccess: boolean;
+  isPaymentProfileCreatedFailed: boolean;
+  newPaymentProfileResponse?: newPaymentProfileResponse;
 }
 
 const initialState: PaymentProfileState = {
@@ -18,7 +21,9 @@ const initialState: PaymentProfileState = {
   currentProfile: undefined,
   currentProfileLoading: false,
   currentProfileError: undefined,
-
+  isPaymentProfileCreatedSuccess: false,
+  isPaymentProfileCreatedFailed: false,
+  newPaymentProfileResponse: undefined,
 };
 const PaymentProfileSlice = createSlice({
   name: "PaymentProfileSlice",
@@ -56,6 +61,23 @@ const PaymentProfileSlice = createSlice({
         state.currentProfileLoading = false;
         state.currentProfileError = payload;
       })
+      .addCase(postPaymentProfile.pending, (state) => {
+        state.isLoading = true;
+        state.isPaymentProfileCreatedSuccess = false;
+        state.isPaymentProfileCreatedFailed = false;
+      
+            })
+      .addCase(postPaymentProfile.rejected, (state) => {
+        state.isLoading = false;
+        state.isPaymentProfileCreatedFailed = true;
+        state.isPaymentProfileCreatedSuccess = false;
+            })
+      .addCase(postPaymentProfile.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.isPaymentProfileCreatedSuccess = true;
+        state.newPaymentProfileResponse = payload;
+        state.isPaymentProfileCreatedFailed = false;
+            });
 
   },
 });

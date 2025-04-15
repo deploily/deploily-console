@@ -19,5 +19,6 @@ export const deploilyApiUrls = {
   PAYMENT_RECEIPT: `/upload-receipt/`,
   SERVICE_SUBSCRIPTION: `${process.env.API_BASE_URL}/service-subscription/subscribe`,
   CHECK_PROMO_CODE: `${process.env.API_BASE_URL}/promo-code/`,
-  EPAYMENT_STATUS: ` ${process.env.API_BASE_URL}/service-subscription/payment-status`,
+  EPAYMENT_STATUS: `${process.env.API_BASE_URL}/service-subscription/payment-status`,
+  CONTACT_US: `${process.env.API_BASE_URL}/contact-us/`,
 };
