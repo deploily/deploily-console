@@ -161,6 +161,9 @@ export default {
     "bankPayment.rib":"RIB",
     "bankPayment.al_salam":"Al Salam",
     "bankPayment.ain_temouchent":"Ain temouchent",
-    "bankPayment.oran":"Oran"
+    "bankPayment.oran":"Oran",
 
+    "Feedback.title": 'Feedback',
+    "Feedback.send": 'Send'
+    
 } as const

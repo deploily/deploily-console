@@ -10,6 +10,7 @@ import epaymentSlice from "./features/epayment/epaymentSlice";
 import subscriptionStatesSlice from './features/subscription-states/subscriptionSlice'
 import apiServiceSlice from "./features/api-service/apiServiceSlice";
 import cicdServiceSlice from "./features/ci-cd-service/cicdServiceSlice";
+import contactUsSlice from "./features/contact-us/contactUsSlice";
 
 export const makeStore = () => {
   return configureStore({
@@ -25,9 +26,12 @@ export const makeStore = () => {
       epayment: epaymentSlice,
       subscriptionStatesSlice: subscriptionStatesSlice,
       cicdService: cicdServiceSlice,
+      contactUs: contactUsSlice
     },
   });
 };
 export type AppStore = ReturnType<typeof makeStore>;
 export type RootState = ReturnType<AppStore["getState"]>;
 export type AppDispatch = AppStore["dispatch"];
+
+

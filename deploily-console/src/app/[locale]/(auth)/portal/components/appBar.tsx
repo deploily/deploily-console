@@ -12,6 +12,7 @@ import { useI18n } from "../../../../../../locales/client";
 import { usePaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesSelectors";
 import { useAppDispatch } from "@/lib/hook";
 import { fetchPaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesThunks";
+import FeedbackAlert from "../feed-back/feedBackAlert";
 
 export function AppAppBarDesktop() {
   const [theme] = useState("dark");
@@ -173,26 +174,8 @@ export function AppAppBarDesktop() {
                 </div>
 
                 {/* Navigation Button */}
-                <Button
-                  style={{
-                    color: "#fff",
-                    backgroundColor: "#D85912",
-                    border: "none",
-                  }}
-                >
-                  <Link href="/portal/home" data-testid="mocked-link">
-                    <span
-                      style={{
-                        color: "rgba(220, 233, 245, 0.88)",
-                        fontFamily: "Inter, sans-serif",
-                        fontSize: "16px",
-                        fontWeight: 600,
-                      }}
-                    >
-                      {t("ondemand")}
-                    </span>
-                  </Link>
-                </Button>
+      
+                  <FeedbackAlert/>
 
                 {/* Language Switcher */}
                 <LocaleSwitcher color={appBarColor} />
