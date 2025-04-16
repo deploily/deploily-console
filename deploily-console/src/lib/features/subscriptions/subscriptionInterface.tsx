@@ -37,6 +37,7 @@ export interface ServiceDetails {
   name: string;
   description: string;
   documentation_url: string;
+  api_playground_url: string;
   unit_price: number;
   service_url: string;
   image_service: string;

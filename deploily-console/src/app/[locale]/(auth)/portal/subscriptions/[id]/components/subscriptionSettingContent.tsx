@@ -1,28 +1,31 @@
 "use client"
+import { IMAGES_URL } from "@/deploilyWebsiteUrls";
 import { useSubscription } from "@/lib/features/subscriptions/subscriptionSelectors";
 import { fetchSubscriptionById } from "@/lib/features/subscriptions/subscriptionThunks";
 import { useAppDispatch } from "@/lib/hook";
-import { CalendarDots, Star } from "@phosphor-icons/react";
-import { Badge, Button, Col, Image, Result, Row, Skeleton, Space, Typography } from "antd";
-import { useEffect, useState } from "react";
-import { IMAGES_URL } from "@/deploilyWebsiteUrls";
+import { CustomTransparentOrangeButton } from "@/styles/components/buttonStyle";
+import { DatePickerStyle } from "@/styles/components/datePickerStyle";
+import { CustomSubscripionInput } from "@/styles/components/inputStyle";
+import { CustomTypography } from "@/styles/components/typographyStyle";
 import { theme } from "@/styles/theme";
+import { CalendarDots, Star } from "@phosphor-icons/react";
+import { Badge, Button, Col, Image, Result, Row, Skeleton, Space, Tag, Typography } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import dayjs from "dayjs";
+import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../../locales/client";
-import { CustomTypography } from "@/styles/components/typographyStyle";
-import { DatePickerStyle } from "@/styles/components/datePickerStyle";
-import { CustomErrorButton, CustomTransparentOrangeButton } from "@/styles/components/buttonStyle";
-import { CustomSubscripionInput } from "@/styles/components/inputStyle";
 
-import DocumentationDrawer from "./documentationDrawer";
+
 import Link from "next/link";
-import { subscriptionItems } from "./subscriptionItems";
+import { subscriptionStatusStyle } from "../../utils/subscriptionsConst";
+import DocumentationDrawer from "./documentationDrawer";
 import GenerateTokenComponent from "./generateTokenComponent";
+import { subscriptionItems } from "./subscriptionItems";
 
 export default function SubscriptionSettingContent({ subscription_id }: { subscription_id: string }) {
     const t = useI18n();
-    const translate = useScopedI18n('subscription')
+    const tSubscription = useScopedI18n('subscription');
+
     const dispatch = useAppDispatch();
     const { currentSubscription, currentSubscriptionLoading, currentSubscriptionLoadingError } = useSubscription()
     const [openDrawer, setOpenDrawer] = useState(false);
@@ -33,9 +36,9 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
         setOpenDrawer(false);
     };
     useEffect(() => {
-                  dispatch(fetchSubscriptionById(subscription_id));
+        dispatch(fetchSubscriptionById(subscription_id));
     }, [subscription_id])
-    
+
     useEffect(() => {
         if (currentSubscription !== undefined) {
             setRemainingDuration(getRemainingDuration(currentSubscription.start_date, currentSubscription.duration_month));
@@ -132,21 +135,26 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
 
                                 </Col>
                             </Row>
-
-
                         </Col>
                     </Row>
-                    <Row gutter={16} style={{ marginTop: 0 }} >
-
+                    <Row gutter={16} style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        width: "100%",
+                    }}>
                         <Typography.Title level={2}>{currentSubscription.service_details.name}</Typography.Title>
-
+                        <Tag bordered={false} color={subscriptionStatusStyle(currentSubscription.status)} style={{ height: 'fit-content', fontSize: '14px', fontWeight: "bold",borderRadius: 20 ,padding: "5px 20px", textTransform: "capitalize" }}>
+                            {tSubscription(currentSubscription.status as "active" | "inactive")}
+                        </Tag>
                     </Row>
+
                     <Row gutter={16} style={{ marginTop: 0 }} >
                         <Paragraph style={{ fontSize: 14 }} >
                             {currentSubscription.service_details.short_description}
                             {t("viewDocumentation")}&nbsp;
                             <Link
-                                href={currentSubscription.service_details.documentation_url}
+                            href={currentSubscription.service_details.api_playground_url}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 onMouseEnter={() => setIsHovered(true)}
@@ -162,56 +170,81 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                                         margin: 0
                                     }}
                                 >
-                                    {t("documentation")}
+                                {t("ApiDocumentation")}
                                 </Typography.Title>
                             </Link>
                         </Paragraph>
                     </Row>
-                    <Row gutter={[16, 10]}>
-                        <Col md={4} xs={24} style={{ display: "flex", alignItems: "center" }} >
-                            <CustomTypography >
-                                {t('startDate')}
-                            </CustomTypography>
+                    <Row
+                        gutter={[16, 24]}
+                        style={{
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                        }}
+                    >
+                        {/* Start Date */}
+                        <Col xs={24} md={12} lg={8}>
+                            <Row gutter={[16, 10]} align="middle">
+                                <Col xs={24} md={8}>
+                                    <CustomTypography>
+                                        {t('startDate')}
+                                    </CustomTypography>
+                                </Col>
+                                <Col xs={24} md={16}>
+                                    <DatePickerStyle
+                                        style={{ width: 160, color: theme.token.colorWhite }}
+                                        defaultValue={dayjs(currentSubscription.start_date, "YYYY-MM-DD")}
+                                        disabled
+                                        suffixIcon={<CalendarDots size={24} style={{ color: theme.token.blue200 }} />}
+                                    />
+                                </Col>
+                            </Row>
                         </Col>
-                        <Col md={4} xs={24}>
-                            <DatePickerStyle
-                                style={{ width: 160, color: theme.token.colorWhite }}
-                                defaultValue={dayjs(currentSubscription.start_date, "YYYY-MM-DD")}
-                                disabled
-                                suffixIcon={<CalendarDots size={24} style={{ color: theme.token.blue200 }} />}
-                            />
+                        {/* Duration */}
+                        <Col xs={24} md={12} lg={8}>
+                            <Row gutter={[16, 10]} align="middle">
+                                <Col xs={24} md={8}>
+                                    <CustomTypography>
+                                        {t('duration')}
+                                    </CustomTypography>
+                                </Col>
+                                <Col xs={24} md={16}>
+                                    <CustomSubscripionInput
+                                        defaultValue={`${currentSubscription.duration_month} / month(s)`}
+                                        style={{ width: 160, color: theme.token.colorWhite }}
+                                        disabled
+                                    />
+                                </Col>
+                            </Row>
                         </Col>
-                    </Row>
-                    <Row gutter={[16, 10]}>
-                        <Col md={4} xs={24} style={{ display: "flex", alignItems: "center" }}>
-                            <CustomTypography >
-                                {t('duration')}
-                            </CustomTypography>
-                        </Col>
-                        <Col md={20} xs={24}>
-                            <CustomSubscripionInput
-                                defaultValue={`${currentSubscription.duration_month} / month(s)`}
-                                style={{ width: 160, color: theme.token.colorWhite }} disabled />
+
+                        {/* Remaining Duration */}
+                        <Col xs={24} md={12} lg={8}>
+                            <Row gutter={[16, 10]} align="middle">
+                                <Col xs={24} md={8}>
+                                    <CustomTypography>
+                                        {t('remainingDuration')}
+                                    </CustomTypography>
+                                </Col>
+                                <Col xs={24} md={16}>
+                                    <CustomSubscripionInput
+                                        defaultValue={`${getRemainingDuration(currentSubscription.start_date, currentSubscription.duration_month)} / month(s)`}
+                                        style={{
+                                            width: 160,
+                                            color:
+                                                remainingDuration !== undefined && remainingDuration <= 1
+                                                    ? theme.token.colorError
+                                                    : theme.token.colorWhite,
+                                        }}
+                                        disabled
+                                    />
+                                </Col>
+                            </Row>
                         </Col>
                     </Row>
 
-                    <Row gutter={[16, 10]}>
-                        <Col md={4} xs={24} style={{ display: "flex", alignItems: "center" }}>
-                            <CustomTypography >
-                                {t('remainingDuration')}
-                            </CustomTypography>
-                        </Col>
-                        <Col md={20} xs={24}>
-                            <CustomSubscripionInput
-                                defaultValue={`${getRemainingDuration(currentSubscription.start_date, currentSubscription.duration_month)} / month(s)`}
-                                style={{
-                                    width: 160,
-                                    color: remainingDuration !== undefined && remainingDuration <= 1 ? theme.token.colorError : theme.token.colorWhite
-                                }} disabled />
-                        </Col>
-                    </Row>
 
-                    {remainingDuration !== undefined && remainingDuration <= 1 &&
+                    {/* {remainingDuration !== undefined && remainingDuration <= 1 &&//TODO WAIT FOR BACKEND
                         <Row gutter={[16, 10]}>
                             <Col md={16} xs={24} style={{ display: "flex", alignItems: "center" }}>
                                 <CustomTypography >
@@ -222,17 +255,21 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                                 <CustomErrorButton> {translate('renewNow')} </CustomErrorButton>
                             </Col>
                         </Row>
-                    }
-                    <GenerateTokenComponent subscription_id={subscription_id} />
-                    <Row gutter={[16, 10]} key={currentSubscription.id}  >
-                        {subscriptionItems(currentSubscription, t).map((item, index) => (
-                            <div key={index} style={{ width: '100%' }}>
-                                {item.label}
-                                {item.children}
-                            </div>
-                        ))}
-                    </Row>
+                    } */}
 
+                    {
+                        currentSubscription.status == 'active' && <>
+                            <GenerateTokenComponent subscription_id={subscription_id} />
+                            <Row gutter={[16, 10]} key={currentSubscription.id}  >
+                                {subscriptionItems(currentSubscription, t).map((item, index) => (
+                                    <div key={index} style={{ width: '100%' }}>
+                                        {item.label}
+                                        {item.children}
+                                    </div>
+                                ))}
+                            </Row>
+                        </>
+                    }
                     <DocumentationDrawer openDrawer={openDrawer} onClose={onClose} currentSubscription={currentSubscription} t={t} />
                 </>
             }
