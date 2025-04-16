@@ -135,7 +135,7 @@ export default {
     'payments.done': 'Done',
     'payments.pending': 'Pending',
     'payments.failed': 'Failed',
-    'payments.uploadReceived': 'Upload received',
+    'payments.uploadReceived': 'Upload receipt',
     'payments.paymentDetails': 'Payment details',
     'payments.totalToPay': 'Total to pay',
     'payments.pay': 'Pay',
@@ -158,6 +158,9 @@ export default {
     'subscription.insufficientBalance': 'Your account balance is insufficient to complete this payment.',
     'subscription.balance': 'Balance',
     'subscription.profile': 'Profile',
+    'subscription.active': 'Active',
+    'subscription.inactive': 'Inactive',
+    'subscription.apiKey': 'API key',
 
     "bankPayment.title": "Payment by Bank",
     "bankPayment.message": "This is our bank account, you can transfer the amount! ",

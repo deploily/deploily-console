@@ -44,7 +44,7 @@ export default {
   'description': 'Description',
   'featuresSpecifications': 'Fonctionnalités et spécifications',
   'documentation': 'Documentation',
-  'viewDocumentation': 'Vous pouvez explorer ses capacités et en apprendre davantage dans le',
+  'viewDocumentation': 'Vous pouvez explorer ses capacités et en apprendre davantage dans la',
   'duration': 'Durée',
   "remainingDuration": "Durée restante",
   'mois': 'mois',
@@ -153,6 +153,9 @@ export default {
   'subscription.insufficientBalance': 'Votre solde est insuffisant pour effectuer ce paiement.',
   'subscription.profile': 'Profil',
   'subscription.balance': 'Solde',
+  'subscription.active': 'Active',
+  'subscription.inactive': 'Inactive',
+  'subscription.apiKey': 'Clé API',
 
   "bankPayment.title": "Paiement par virement bancaire",
   "bankPayment.message": "Ceci est notre compte bancaire, vous pouvez transférer le montant !",
