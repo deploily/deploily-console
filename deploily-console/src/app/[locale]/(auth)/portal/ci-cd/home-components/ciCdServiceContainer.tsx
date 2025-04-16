@@ -28,6 +28,9 @@ export default function CiCdServiceContainer() {
         >
           CICD
         </span>
+        <span style={{ color: "white", fontSize: "16px", marginLeft: 10 , paddingTop: 4 }}>
+          (comming soon)  
+        </span>
       </Row>
 
       {!isLoading && cicdServiceResponse !== undefined && (
