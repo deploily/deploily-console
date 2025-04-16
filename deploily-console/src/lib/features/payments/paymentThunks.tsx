@@ -63,6 +63,8 @@ export const fetchPaymentById = createAsyncThunk(
 export const uploadPaymentReceipt = createAsyncThunk(
   "payment/uploadPaymentReceipt",
   async (receiptData: any, thunkConfig) => {
+    console.log("uploadPaymentReceipt", receiptData);
+    console.log("uploadPaymentReceipt", receiptData.paymentId);
     try {
       const session = await getSession();
       if (!session) {
@@ -70,14 +72,14 @@ export const uploadPaymentReceipt = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axios.post(`${deploilyApiUrls.PAYMENT}${receiptData.payment_id}${deploilyApiUrls.PAYMENT_RECEIPT}`,
-        {"receipt":receiptData.fileData},
+      const response = await axios.post(`${deploilyApiUrls.PAYMENT}${receiptData.paymentId}${deploilyApiUrls.PAYMENT_RECEIPT}`,
+        receiptData.fileData,
         {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
-        }
-      });
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          }
+        });
       if (response.status === 200) {
         return response.data;
       } else {

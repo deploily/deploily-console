@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PaymentInterface, PaymentResponse } from "./paymentInterface";
-import { fetchPaymentById, fetchPayments } from "./paymentThunks";
+import { fetchPaymentById, fetchPayments, uploadPaymentReceipt } from "./paymentThunks";
 
 interface PaymentState {
   paymentsList?: PaymentResponse;
@@ -15,6 +15,9 @@ interface PaymentState {
   currentPaymentLoading: boolean;
   currentPaymentLoadingError?: any;
   currentPayment?: PaymentInterface;
+  uploadSuccess?: boolean;
+  uploadLoading?: boolean;
+  uploadFailed?: boolean;
 }
 
 const initialState: PaymentState = {
@@ -55,6 +58,7 @@ const PaymentSlice = createSlice({
         state.paymentsLoadingError = payload;
       })
       .addCase(fetchPaymentById.pending, (state) => {
+        state.uploadSuccess= false;
         state.currentPaymentLoading = true;
         state.currentPaymentLoadingError = null;
       })
@@ -66,6 +70,19 @@ const PaymentSlice = createSlice({
       .addCase(fetchPaymentById.rejected, (state, { payload }) => {
         state.currentPaymentLoading = false;
         state.currentPaymentLoadingError = payload;
+      })
+      .addCase(uploadPaymentReceipt.pending, (state) => {
+        state.uploadLoading = true;
+      })
+      .addCase(uploadPaymentReceipt.fulfilled, (state) => {
+        state.uploadLoading = false;
+        state.uploadSuccess = true;
+
+      })
+      .addCase(uploadPaymentReceipt.rejected, (state) => {
+        state.uploadLoading = false;
+        state.uploadFailed = true;
+        state.uploadSuccess = false;
       })
   },
 });

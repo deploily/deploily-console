@@ -19,4 +19,5 @@ export interface PaymentInterface {
     status: string;
     payment_method: string;
     start_date: Date;
+    payment_receipt?: string;
 }
