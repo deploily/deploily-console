@@ -1,11 +1,14 @@
 "use client";
-import { Button, Card, Checkbox, CheckboxChangeEvent, Image, Typography } from "antd";
-import { useState } from "react";
-import { theme } from "@/styles/theme";
+import { fetchPaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesThunks";
 import { useSubscriptionStates } from "@/lib/features/subscription-states/subscriptionSelectors";
-import { useScopedI18n } from "../../../../../../../../../../locales/client";
+import { useSubscription } from "@/lib/features/subscriptions/subscriptionSelectors";
 import { postSubscription } from "@/lib/features/subscriptions/subscriptionThunks";
 import { useAppDispatch } from "@/lib/hook";
+import { theme } from "@/styles/theme";
+import { Button, Card, Checkbox, CheckboxChangeEvent, Image, Typography } from "antd";
+import { redirect } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useScopedI18n } from "../../../../../../../../../../locales/client";
 
 export default function CardPaymentComponent({ selectedPlan }: { selectedPlan: any }) {
     const [value, setValue] = useState(false);
@@ -16,7 +19,19 @@ export default function CardPaymentComponent({ selectedPlan }: { selectedPlan: a
     const tPayments = useScopedI18n("payments");
     const subscriptionStates = useSubscriptionStates();
     const dispatch = useAppDispatch();
-
+    const { newSubscriptionResponse } = useSubscription();
+    useEffect(() => {
+        console.log("newSubscriptionResponse");
+        if (newSubscriptionResponse) {
+            if (newSubscriptionResponse.form_url !== null) {
+                redirect(newSubscriptionResponse.form_url);
+            } else {
+                // TODO display error in a toast
+                console.log("Error in payment registration");
+            }
+        }
+        dispatch(fetchPaymentProfiles());
+    }, [newSubscriptionResponse]);
 
     const handleSubscribe = async () => {
         const newSubscriptionObject = {
@@ -80,7 +95,7 @@ export default function CardPaymentComponent({ selectedPlan }: { selectedPlan: a
                         icon={<Image src="/images/paymentIcon.png" alt="PAY" style={{ width: 60, height: 35 }} preview={false} />}
                         onClick={handleSubscribe}
                     >
-                        <span style={{  fontSize: "16px", fontWeight: 600 }}>
+                        <span style={{ fontSize: "16px", fontWeight: 600 }}>
                             PAY
                         </span>
                     </Button>

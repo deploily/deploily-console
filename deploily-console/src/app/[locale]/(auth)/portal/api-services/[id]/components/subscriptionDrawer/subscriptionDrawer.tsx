@@ -24,20 +24,6 @@ export default function SubscriptionDrawer({ openDrawer, onClose, planSelected }
   const tPayments = useScopedI18n('payments');
   const tProfilePayment = useScopedI18n('profilePayment');
 
-  useEffect(() => {
-    if (newSubscriptionResponse && payment_method === "card") {
-      if (newSubscriptionResponse.form_url !== null) {
-        redirect(newSubscriptionResponse.form_url);
-      } else {
-        // TODO display error in a toast
-        console.log("Error in payment registration");
-      }
-    } else {
-      if (newSubscriptionResponse !== undefined) { router.push(`/portal/subscriptions/${newSubscriptionResponse?.subscription.id}`) }
-    }
-    dispatch(fetchPaymentProfiles());
-  }, [newSubscriptionResponse]);
-
 
   const handleSubscription = async () => {
     const newSubscriptionObject = {
@@ -48,7 +34,11 @@ export default function SubscriptionDrawer({ openDrawer, onClose, planSelected }
       service_plan_selected_id: planSelected.id,
       profile_id: selectedProfile != null ? selectedProfile.id : 1
     };
-    dispatch(postSubscription(newSubscriptionObject));
+    dispatch(postSubscription(newSubscriptionObject)).then((response: any) => {
+      if (response.meta.requestStatus === "fulfilled") {
+        router.push(`/portal/subscriptions/`);
+      }}
+      );
   };
 
   return (

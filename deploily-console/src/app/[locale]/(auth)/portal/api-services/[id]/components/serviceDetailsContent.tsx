@@ -44,6 +44,8 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
   const { servicePlanResponse, servicePlanLoading, servicePlanError } = useServicePlan()
 
   useEffect(() => {
+    console.log("favoriteServiceAdded,favoriteServiceDeleted");
+    
     dispatch(getApiServiceById(serviceId));
     dispatch(fetchServicePlans(serviceId))
   }, [favoriteServiceAdded, favoriteServiceDeleted]);
