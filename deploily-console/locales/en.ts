@@ -113,6 +113,8 @@ export default {
     "profilePayment.others": "Others",
     "profilePayment.save": "Save",
     'profilePayment.balance': 'Balance',
+    'profilePayment.updateSuccess': 'Update success',
+    'profilePayment.updateError': 'Update error',
 
     'payments.paymentList': 'Payment list',
     'payments.nOrder': 'N° Order',
