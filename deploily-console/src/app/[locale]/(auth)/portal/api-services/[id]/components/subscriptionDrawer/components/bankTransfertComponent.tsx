@@ -4,6 +4,7 @@ import { postSubscription } from "@/lib/features/subscriptions/subscriptionThunk
 import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
 import { Button, Card, Typography, } from "antd";
+import { useRouter } from "next/navigation";
 import { useScopedI18n } from "../../../../../../../../../../locales/client";
 import bankPaymentInfo from "./bankPaymentData";
 
@@ -13,8 +14,7 @@ export default function BankTransfertComponent({ selectedPlan }: { selectedPlan:
     const tPayments = useScopedI18n("payments");
     const subscriptionStates = useSubscriptionStates()
     const dispatch = useAppDispatch();
-
-
+    const router = useRouter()
     const handleSubscribe = async () => {
         const newSubscriptionObject = {
             duration: subscriptionStates.duration,
@@ -24,7 +24,13 @@ export default function BankTransfertComponent({ selectedPlan }: { selectedPlan:
             service_plan_selected_id: selectedPlan.id,
             profile_id: subscriptionStates.selectedProfile != null ? subscriptionStates.selectedProfile.id : 1
         };
-        dispatch(postSubscription(newSubscriptionObject));
+        console.log("newSubscriptionObject BankTransfertComponent", newSubscriptionObject);
+        dispatch(postSubscription(newSubscriptionObject)).then((response: any) => {
+            if (response.meta.requestStatus === "fulfilled") {
+                router.push(`/portal/subscriptions/`);
+            }
+        }
+        );
     };
 
 

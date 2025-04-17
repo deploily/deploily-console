@@ -40,6 +40,7 @@ const SubscriptionSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchSubscription.pending, (state) => {
+        state.newSubscriptionResponse = undefined;
         state.subscriptionLoading = true;
       })
       .addCase(fetchSubscription.fulfilled, (state, action) => {
@@ -72,6 +73,7 @@ const SubscriptionSlice = createSlice({
       })
       //GENRATE API TOKEN 
       .addCase(generateTokenThunk.pending, (state) => {
+        state.newSubscriptionResponse = undefined;
         state.generateTokenLoading = true;
         state.generateTokenSuccess = undefined;
         state.generatedToken = undefined;

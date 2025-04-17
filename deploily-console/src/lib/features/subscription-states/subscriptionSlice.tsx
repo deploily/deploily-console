@@ -8,7 +8,6 @@ interface SubscriptionStates {
   totalAmount: number,
   promoCodeRate?: number,
   promoColor: string,
-  payment_method: string,
   price: number,
   selectedProfile?: PaymentProfileInterface
 }
@@ -22,7 +21,6 @@ const initialState: SubscriptionStates = {
   duration: 1,
   price: 0,
   selectedProfile: undefined,
-  payment_method: "card",
 };
 
 const SubscriptionStatesSlice = createSlice({

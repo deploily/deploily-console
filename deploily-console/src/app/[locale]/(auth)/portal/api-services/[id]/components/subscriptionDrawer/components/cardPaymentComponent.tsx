@@ -1,5 +1,4 @@
 "use client";
-import { fetchPaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesThunks";
 import { useSubscriptionStates } from "@/lib/features/subscription-states/subscriptionSelectors";
 import { useSubscription } from "@/lib/features/subscriptions/subscriptionSelectors";
 import { postSubscription } from "@/lib/features/subscriptions/subscriptionThunks";
@@ -30,7 +29,6 @@ export default function CardPaymentComponent({ selectedPlan }: { selectedPlan: a
                 console.log("Error in payment registration");
             }
         }
-        dispatch(fetchPaymentProfiles());
     }, [newSubscriptionResponse]);
 
     const handleSubscribe = async () => {
@@ -42,6 +40,8 @@ export default function CardPaymentComponent({ selectedPlan }: { selectedPlan: a
             service_plan_selected_id: selectedPlan.id,
             profile_id: subscriptionStates.selectedProfile != null ? subscriptionStates.selectedProfile.id : 1
         };
+        console.log("newSubscriptionObject CardPaymentComponent", newSubscriptionObject);
+
         dispatch(postSubscription(newSubscriptionObject));
     };
 
