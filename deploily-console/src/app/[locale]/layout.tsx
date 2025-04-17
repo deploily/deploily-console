@@ -1,14 +1,13 @@
-import React, { ReactElement } from "react";
+import SessionGuard from "@/components/sessionGuard";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ConfigProvider } from "antd";
-import { theme } from "../../styles/theme";
-import { I18nProviderClient } from "../../../locales/client";
 import "antd/dist/reset.css";
-import { StoreProvider } from "../storeProvider";
+import { DM_Sans, JetBrains_Mono } from 'next/font/google';
+import { ReactElement } from "react";
+import { I18nProviderClient } from "../../../locales/client";
+import { theme } from "../../styles/theme";
 import { Providers } from "../provider";
-import SessionGuard from "@/components/sessionGuard";
-import { DM_Sans } from 'next/font/google';
-import { JetBrains_Mono } from 'next/font/google';
+import { StoreProvider } from "../storeProvider";
 
 const mdSans = DM_Sans({
   subsets: ['latin'],
@@ -42,7 +41,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} className={`${mdSans.className} ${jetBrains_Mono.variable}`}>
-      <body suppressHydrationWarning={true} style={{ margin: "0px" }}>
+      <body suppressHydrationWarning={true} style={{ margin: "0px", backgroundColor: theme.token.darkGray, fontFamily: "DM Sans" }}>
         <Providers>
           <SessionGuard>
             <StoreProvider>
@@ -52,7 +51,7 @@ export default async function RootLayout({
                 </AntdRegistry>
               </I18nProviderClient>
             </StoreProvider>
-           </SessionGuard>
+          </SessionGuard>
         </Providers>
       </body>
     </html >

@@ -33,6 +33,7 @@ export default {
   'logout': 'DÉCONNECTION',
   'gotoSite': 'ACCÉDER AU SITE WEB',
   'details': 'Détails',
+  'moreDetails': 'Plus de détails...',
   'offeredBy': 'Offert par',
   'TryForFree': 'ESSAYER GRATUITEMENT',
   'oneMonthFree': 'UN MOIS GRATUIT',
@@ -110,7 +111,7 @@ export default {
   "profilePayment.save": "Enregistrer",
   'profilePayment.updateSuccess': 'Réussite de la mise à jour',
   'profilePayment.updateError': 'Erreur de mise à jour',
-  
+
   'payments.paymentList': 'Liste des paiements',
   'payments.nOrder': 'N° de commande',
   'payments.serviceName': 'Nom du service',
@@ -158,6 +159,7 @@ export default {
   'subscription.active': 'Active',
   'subscription.inactive': 'Inactive',
   'subscription.apiKey': 'Clé API',
+  'subscription.inactiveMessage': "Votre inscription est inactive, please verify your payments.",
 
   "bankPayment.title": "Paiement par virement bancaire",
   "bankPayment.message": "Ceci est notre compte bancaire, vous pouvez transférer le montant !",

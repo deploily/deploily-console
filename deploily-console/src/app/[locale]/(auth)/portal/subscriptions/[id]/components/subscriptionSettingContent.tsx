@@ -129,7 +129,7 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                                     alignSelf: "start"
                                 }}>
                                     <CustomTransparentOrangeButton onClick={() => setOpenDrawer(true)} >
-                                        {t('details')}
+                                        {t('moreDetails')}
                                     </CustomTransparentOrangeButton>
 
 
@@ -144,7 +144,7 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                         width: "100%",
                     }}>
                         <Typography.Title level={2}>{currentSubscription.service_details.name}</Typography.Title>
-                        <Tag bordered={false} color={subscriptionStatusStyle(currentSubscription.status)} style={{ height: 'fit-content', fontSize: '14px', fontWeight: "bold",borderRadius: 20 ,padding: "5px 20px", textTransform: "capitalize" }}>
+                        <Tag bordered={false} color={subscriptionStatusStyle(currentSubscription.status)} style={{ height: 'fit-content', fontSize: '14px', fontWeight: "bold", borderRadius: 20, padding: "5px 20px", textTransform: "capitalize" }}>
                             {tSubscription(currentSubscription.status as "active" | "inactive")}
                         </Tag>
                     </Row>
@@ -154,7 +154,7 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                             {currentSubscription.service_details.short_description}
                             {t("viewDocumentation")}&nbsp;
                             <Link
-                            href={currentSubscription.service_details.api_playground_url}
+                                href={currentSubscription.service_details.api_playground_url}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 onMouseEnter={() => setIsHovered(true)}
@@ -170,7 +170,7 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                                         margin: 0
                                     }}
                                 >
-                                {t("ApiDocumentation")}
+                                    {t("ApiDocumentation")}
                                 </Typography.Title>
                             </Link>
                         </Paragraph>
@@ -258,7 +258,7 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                     } */}
 
                     {
-                        currentSubscription.status == 'active' && <>
+                        currentSubscription.status == 'active' ? <>
                             <GenerateTokenComponent subscription_id={subscription_id} />
                             <Row gutter={[16, 10]} key={currentSubscription.id}  >
                                 {subscriptionItems(currentSubscription, t).map((item, index) => (
@@ -268,7 +268,13 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                                     </div>
                                 ))}
                             </Row>
-                        </>
+                        </> :
+                            <Row gutter={[16, 10]} key={currentSubscription.id}  >
+
+                                <Typography.Title level={4} style={{ color: theme.token.colorError, fontSize: 16, textAlign: "center", marginTop: 20 }}>
+                                    {tSubscription('inactiveMessage')}
+                                </Typography.Title >
+                            </Row>
                     }
                     <DocumentationDrawer openDrawer={openDrawer} onClose={onClose} currentSubscription={currentSubscription} t={t} />
                 </>

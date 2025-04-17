@@ -33,6 +33,7 @@ export default {
     'logout': 'LOGOUT',
     'gotoSite': 'GO TO THE WEBSITE',
     'details': 'Details',
+    'moreDetails': 'More Details ...',
     'offeredBy': 'Offered by',
     'TryForFree': 'TRY FOR FREE',
     'oneMonthFree': 'ONE MONTH FREE',
@@ -163,6 +164,7 @@ export default {
     'subscription.active': 'Active',
     'subscription.inactive': 'Inactive',
     'subscription.apiKey': 'API key',
+    'subscription.inactiveMessage': 'Your subscription is inactive. Please verify your payments.',
 
     "bankPayment.title": "Payment by Bank",
     "bankPayment.message": "This is our bank account, you can transfer the amount! ",
