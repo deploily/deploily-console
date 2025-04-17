@@ -1,12 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { EpaymentStatusResult } from "./epaymentInterface";
-import {  checkEpaymentStatus } from "./epaymentThunks";
+import { EpaymentResult } from "./epaymentInterface";
+import { checkEpaymentStatus } from "./epaymentThunks";
 
 interface PaymentState {
   isLoading: boolean;
   isError?: any;
-  
-  paymentStatus?: EpaymentStatusResult;
+  paymentStatus?: EpaymentResult;
 }
 
 const initialState: PaymentState = {
@@ -20,7 +19,7 @@ const EpaymentSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      
+
 
       .addCase(checkEpaymentStatus.pending, (state) => {
         state.isLoading = true;
@@ -29,7 +28,7 @@ const EpaymentSlice = createSlice({
       .addCase(checkEpaymentStatus.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = null;
-        state.paymentStatus = action.payload ;
+        state.paymentStatus = action.payload;
 
       })
       .addCase(checkEpaymentStatus.rejected, (state, { payload }) => {
