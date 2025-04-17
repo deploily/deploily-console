@@ -2,17 +2,17 @@
 import { Row, Col } from "antd";
 import { useEffect } from "react";
 import { useAppDispatch } from "@/lib/hook";
-import CiCdServiceCard from "./cdCdServiceCard";
-import { fetchCiCdServices } from "@/lib/features/ci-cd-service/cicdServiceThunks";
-import { useCiCdService } from "@/lib/features/ci-cd-service/cicdServiceSelectors";
-import { CiCdServiceInterface } from "@/lib/features/ci-cd-service/cicdServiceInterface";
+import { fetchCloudResources } from "@/lib/features/cloud-resource/cloudResourceThunks";
+import { useCloudResource } from "@/lib/features/cloud-resource/cloudResourceSelectors";
+import { CloudResourceInterface } from "@/lib/features/cloud-resource/cloudResourceInterface";
+import CloudResourceCard from "./cloudResourceCard";
 
-export default function CiCdServiceContainer() {
-  const { isLoading, cicdServiceResponse } = useCiCdService();
+export default function CloudResourceContainer() {
+  const { isLoading, cloudResourceResponse } = useCloudResource();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchCiCdServices());
+    dispatch(fetchCloudResources());
   }, []);
 
   return (
@@ -26,16 +26,16 @@ export default function CiCdServiceContainer() {
             fontWeight: 800,
           }}
         >
-          CICD
+          Cloud Resource 
         </span>
-        <span style={{ color: "white", fontSize: "16px", marginLeft: 10 , paddingTop: 4 }}>
-          (comming soon)  
+        <span style={{ color: "white", fontSize: "16px", marginLeft: 10, paddingTop: 4 }}>
+          (comming soon)
         </span>
       </Row>
 
-      {!isLoading && cicdServiceResponse !== undefined && (
+      {!isLoading && cloudResourceResponse !== undefined && (
         <Row gutter={[24, 24]} justify="start" style={{ margin: 0 }}>
-          {cicdServiceResponse?.result?.map((row: CiCdServiceInterface) => (
+          {cloudResourceResponse?.result?.map((row: CloudResourceInterface) => (
             <Col
               key={row.id}
               xs={24}
@@ -45,7 +45,7 @@ export default function CiCdServiceContainer() {
               xl={6}
               style={{ display: "flex", justifyContent: "center" }}
             >
-              <CiCdServiceCard data={row} />
+              <CloudResourceCard data={row} />
             </Col>
           ))}
         </Row>

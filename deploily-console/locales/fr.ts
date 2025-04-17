@@ -108,7 +108,9 @@ export default {
   "profilePayment.balanceRecharge": "Rechargement du solde",
   "profilePayment.others": "Autres",
   "profilePayment.save": "Enregistrer",
-
+  'profilePayment.updateSuccess': 'Réussite de la mise à jour',
+  'profilePayment.updateError': 'Erreur de mise à jour',
+  
   'payments.paymentList': 'Liste des paiements',
   'payments.nOrder': 'N° de commande',
   'payments.serviceName': 'Nom du service',
