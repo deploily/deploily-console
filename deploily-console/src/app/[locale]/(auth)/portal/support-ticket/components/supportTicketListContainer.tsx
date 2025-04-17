@@ -1,22 +1,23 @@
-import { Button, Col, Row, Skeleton, Table } from "antd";
+import { Button, Col, Result, Row, Skeleton, Table } from "antd";
 import Title from "antd/es/typography/Title";
-import { useScopedI18n } from "../../../../../../../locales/client";
+import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import { ArrowRight, Plus } from "@phosphor-icons/react";
 import { useAppDispatch } from "@/lib/hook";
 import { useEffect, useState } from "react";
-import { fetchSupportTicket } from "@/lib/features/support-ticket/supportTicketThanks";
+import { fetchSupportTicket } from "@/lib/features/support-ticket/supportTicketThunks";
 import { SupportTicket } from "@/lib/features/support-ticket/supportTicketInterface";
 import { useSupportTicket } from "@/lib/features/support-ticket/supportTicketSelector";
 import { useRouter } from "next/navigation";
 import { SubscriptionInterface } from "@/lib/features/subscriptions/subscriptionInterface";
 import { CustomBlueRoundedButton } from "@/styles/components/buttonStyle";
+import { supportTicketStatus } from "../utils/supportTicketConst";
 
-export default function GetSupportTecket() {
+export default function SupportTicketListContainer() {
     const dispatch = useAppDispatch();
-    const t = useScopedI18n('supportTicket')
+    const tSupportTicket = useScopedI18n('supportTicket')
     const translate = useScopedI18n('createSupportTicket')
     const [columns] = useState([]);
-    const { supportTicketList, isLoading } = useSupportTicket()
+    const { supportTicketList, isLoading,getSupportTicketError } = useSupportTicket()
     const router = useRouter();
 
     useEffect(() => {
@@ -30,7 +31,7 @@ export default function GetSupportTecket() {
         let columns = list.map((element: any) => {
             if (element === "created_on") {
                 return {
-                    title: t(element),
+                    title: tSupportTicket(element),
                     dataIndex: element,
                     key: element,
                     render: (date: Date) => (date ? new Date(date).toLocaleDateString("fr-FR") : "-"),
@@ -38,22 +39,26 @@ export default function GetSupportTecket() {
             }
             else if (element === "status")
                 return {
-                    title: t(element),
+                    title: tSupportTicket(element),
                     dataIndex: element,
                     key: element,
-                    render: (status: any) => (status === "open" ? <span style={{ color: "#28B609" }} >{status}</span> : <span>{status}</span>),
+                    render: (status: any) => (
+                        <span style={{ color: supportTicketStatus[status as "open" | "closed"] }} >
+                            {tSupportTicket(status as "open" | "closed")}
+                        </span>
+                    ),
                 };
-            else if (element == "subscribe")
+            else if (element == "subscription")
                 return {
-                    title: t("service"),
+                    title: tSupportTicket("service"),
                     dataIndex: element,
                     key: element,
-                    render: (subscribe: SubscriptionInterface) => (subscribe !== undefined && subscribe.name),
+                    render: (subscription: SubscriptionInterface) => (subscription !== undefined && subscription.name),
 
                 }
             else
                 return {
-                    title: t(element),
+                    title: tSupportTicket(element),
                     dataIndex: element,
                     key: element,
                 };
@@ -81,13 +86,13 @@ export default function GetSupportTecket() {
                                 <span
                                     style={{
                                         color: "rgba(220, 233, 245, 0.88)",
-                                        fontFamily: "Inter, sans-serif",
+
                                         fontSize: "14px",
                                         fontWeight: 600,
                                         paddingRight: 3
                                     }}
                                 >
-                                    {t("details")}
+                                    {tSupportTicket("details")}
                                 </span>
                             </Button>
                         </div>
@@ -108,17 +113,27 @@ export default function GetSupportTecket() {
             key: `col${index}`,
             render: () => <Skeleton.Input active={true} />,
         }));
+    const t = useI18n();
+        
     return (
         <>
+             {!isLoading && getSupportTicketError &&
+                        <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+                          <Result
+                            status="500"
+                            title={t('error')}
+                            subTitle={t('subTitleError')}
+                          />
+                        </div>
+            }
             <Row gutter={16} style={{ marginTop: 20 }} >
                 <Col span={14}>
                     <Title level={3} style={{ fontWeight: 700, color: '#ffff' }}>
-                        {t("supportTicket")}
+                        {tSupportTicket("supportTicket")}
                     </Title>
                 </Col>
                 <Col span={10} style={{ display: "flex", justifyContent: "end" }}>
                     <CustomBlueRoundedButton
-
                         onClick={() => router.push(`/portal/support-ticket/add`)}
                     >
                         <Plus size={20} style={{ color: "rgba(220, 233, 245, 0.88)" }} />
@@ -134,6 +149,10 @@ export default function GetSupportTecket() {
                 className="custom-table"
                 style={{ marginTop: 40, borderRadius: 0 }}
                 scroll={{ y: 55 * 5 }}
+                onRow={(record) => ({
+                    onClick: () => router.push(`/portal/support-ticket/${record.id}`),
+                    style: { cursor: "pointer" },
+                })}
             />
 
         </>

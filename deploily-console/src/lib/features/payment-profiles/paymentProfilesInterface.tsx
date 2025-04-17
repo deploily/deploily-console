@@ -23,12 +23,24 @@ export interface ProfileByIdResponse {
 export interface PaymentProfileInterface {
   id: number;
   name: string;
+  last_name: string;
   balance: number;
   phone: string;
   company_name: string;
   company_registration_number: string;
   user_id: number;
   user: User;
+  address: string;
+  city: string;
+  postal_code: string;
+  country: string;
+  wilaya: string;
+  tax_article: string;
+  nif: string;
+  nis: string;
+  is_company: boolean;
+  is_default_profile: boolean;
+
 }
 
 export interface User {
@@ -44,9 +56,26 @@ export interface User {
   login_count: number;
   password: string;
   username: string;
-
-
 }
 
-
-
+export interface newPaymentProfileResponse {
+  id: number;
+  name: string;
+  last_name: string;
+  balance: number;
+  phone: string;
+  company_name: string;
+  company_registration_number: string;
+  user_id: number;
+  user: User;
+  address: string;
+  city: string;
+  postal_code: string;
+  country: string;
+  wilaya: string;
+  tax_article: string;
+  nif: string;
+  nis: string;
+  is_company: boolean;
+  is_default_profile: boolean;
+}

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PaymentInterface, PaymentResponse } from "./paymentInterface";
-import { deletePaymentById, deletePayments, fetchPaymentById, fetchPayments } from "./paymentThunks";
+import { fetchPaymentById, fetchPayments, uploadPaymentReceipt } from "./paymentThunks";
 
 interface PaymentState {
   paymentsList?: PaymentResponse;
@@ -15,6 +15,9 @@ interface PaymentState {
   currentPaymentLoading: boolean;
   currentPaymentLoadingError?: any;
   currentPayment?: PaymentInterface;
+  uploadSuccess?: boolean;
+  uploadLoading?: boolean;
+  uploadFailed?: boolean;
 }
 
 const initialState: PaymentState = {
@@ -54,37 +57,8 @@ const PaymentSlice = createSlice({
         state.isLoadingPayments = false;
         state.paymentsLoadingError = payload;
       })
-      .addCase(deletePaymentById.pending, (state) => {
-        state.deletePaymentByIdLoading = true;
-        state.paymentByIdDeleted = false;
-        state.deletePaymentByIdError = null;
-      })
-      .addCase(deletePaymentById.fulfilled, (state) => {
-        state.deletePaymentByIdLoading = false;
-        state.paymentByIdDeleted = true;
-        state.deletePaymentByIdError = null;
-      })
-      .addCase(deletePaymentById.rejected, (state, { payload }) => {
-        state.deletePaymentByIdLoading = false;
-        state.paymentByIdDeleted = false;
-        state.deletePaymentByIdError = payload;
-      })
-      .addCase(deletePayments.pending, (state) => {
-        state.deletePaymentByIdLoading = true;
-        state.paymentByIdDeleted = false;
-        state.deletePaymentByIdError = null;
-      })
-      .addCase(deletePayments.fulfilled, (state) => {
-        state.deletePaymentByIdLoading = false;
-        state.paymentByIdDeleted = true;
-        state.deletePaymentByIdError = null;
-      })
-      .addCase(deletePayments.rejected, (state, { payload }) => {
-        state.deletePaymentByIdLoading = false;
-        state.paymentByIdDeleted = false;
-        state.deletePaymentByIdError = payload;
-      })
       .addCase(fetchPaymentById.pending, (state) => {
+        state.uploadSuccess= false;
         state.currentPaymentLoading = true;
         state.currentPaymentLoadingError = null;
       })
@@ -96,6 +70,19 @@ const PaymentSlice = createSlice({
       .addCase(fetchPaymentById.rejected, (state, { payload }) => {
         state.currentPaymentLoading = false;
         state.currentPaymentLoadingError = payload;
+      })
+      .addCase(uploadPaymentReceipt.pending, (state) => {
+        state.uploadLoading = true;
+      })
+      .addCase(uploadPaymentReceipt.fulfilled, (state) => {
+        state.uploadLoading = false;
+        state.uploadSuccess = true;
+
+      })
+      .addCase(uploadPaymentReceipt.rejected, (state) => {
+        state.uploadLoading = false;
+        state.uploadFailed = true;
+        state.uploadSuccess = false;
       })
   },
 });

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { SupportTicketResponse } from "./supportTicketInterface";
-import { fetchSupportTicket, postSupportTicket } from "./supportTicketThanks";
+import { SupportTicket, SupportTicketResponse } from "./supportTicketInterface";
+import { fetchSupportTicket, fetchSupportTicketById, postSupportTicket } from "./supportTicketThunks";
 
 interface SupportTicketState {
   supportTicketList?: SupportTicketResponse;
@@ -9,7 +9,10 @@ interface SupportTicketState {
   addSupportTicketLoading: boolean;
   addSupportTicketSuccess: any;
   addSupportTicketError: any;
-
+  getSupportTicketLoading: any;
+  getSupportTicketSuccess: any;
+  getSupportTicketError: any;
+  currentSupportTicket?: SupportTicket;
 }
 
 const initialState: SupportTicketState = {
@@ -19,6 +22,10 @@ const initialState: SupportTicketState = {
   addSupportTicketLoading: false,
   addSupportTicketSuccess: false,
   addSupportTicketError: false,
+  currentSupportTicket: undefined,
+  getSupportTicketLoading: false,
+  getSupportTicketSuccess: false,
+  getSupportTicketError: false,
 };
 const SupportTicketSlice = createSlice({
   name: "supportTicket",
@@ -56,6 +63,22 @@ const SupportTicketSlice = createSlice({
         state.addSupportTicketLoading = false;
         state.addSupportTicketSuccess = false;
         state.addSupportTicketError = payload;
+      })
+      // FETCH SUPPORT TICKET BY ID
+      .addCase(fetchSupportTicketById.pending, (state) => {
+        state.getSupportTicketLoading = true;
+        state.getSupportTicketSuccess = null;
+        state.getSupportTicketError = null;
+      })
+      .addCase(fetchSupportTicketById.fulfilled, (state, { payload }) => {
+        state.getSupportTicketLoading = false;
+        state.getSupportTicketSuccess = true;
+        state.currentSupportTicket = { ...payload.result, ...{ id: payload.id } };
+      })
+      .addCase(fetchSupportTicketById.rejected, (state, { payload }) => {
+        state.getSupportTicketLoading = false;
+        state.getSupportTicketSuccess = false;
+        state.getSupportTicketError = payload;
       });
 
   },

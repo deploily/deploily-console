@@ -1,25 +1,25 @@
 "use client";
-import { Col, Row, Image, Typography, Collapse, Button, Space, Skeleton, Badge, Card, Result } from "antd";
+import { useAppDispatch } from "@/lib/hook";
 import { CaretDown, CaretUp, Star } from "@phosphor-icons/react";
+import { Badge, Button, Card, Col, Collapse, Image, Result, Row, Skeleton, Space, Typography } from "antd";
+import { useEffect } from "react";
 import { useI18n } from "../../../../../../../../locales/client";
 import { getItems } from "./getItems";
-import { useEffect } from "react";
-import { useAppDispatch } from "@/lib/hook";
 // import { useRouter } from "next/navigation";
-import Paragraph from "antd/es/typography/Paragraph";
 import { IMAGES_URL } from "@/deploilyWebsiteUrls";
-import { postFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
-import { useFavoriteServices } from "@/lib/features/favorites/favoriteServiceSelectors";
-import { theme } from "@/styles/theme";
-import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThanks";
-import { useServicePlan } from "@/lib/features/service-plans/servicePlanSelector";
-import { ServicePlan } from "@/lib/features/service-plans/servicePlanInterface";
-import ServicePlanCard from "./servicePlanCard";
-import { useState } from "react";
-import SubscribeDrawer from "./subscriptionDrawer/subscriptionDrawer";
-import Link from "next/link";
 import { useApiServices } from "@/lib/features/api-service/apiServiceSelectors";
 import { getApiServiceById } from "@/lib/features/api-service/apiServiceThunks";
+import { useFavoriteServices } from "@/lib/features/favorites/favoriteServiceSelectors";
+import { postFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
+import { ServicePlan } from "@/lib/features/service-plans/servicePlanInterface";
+import { useServicePlan } from "@/lib/features/service-plans/servicePlanSelector";
+import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThanks";
+import { theme } from "@/styles/theme";
+import Paragraph from "antd/es/typography/Paragraph";
+import Link from "next/link";
+import { useState } from "react";
+import ServicePlanCard from "./servicePlanCard";
+import SubscribeDrawer from "./subscriptionDrawer/subscriptionDrawer";
 
 export default function ServiceDetailsContentPage({ serviceId }: { serviceId: string }) {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -73,8 +73,12 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
           </>}
         {!serviceLoading && currentService !== undefined &&
           <>
-            <Row gutter={16} >
-              <Col md={5} xs={24} style={{ display: "flex", justifyContent: "start" }}>
+            <Row gutter={[16, 24]}
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+              }} >
+              <Col style={{ display: "flex", justifyContent: "start" }}>
                 <Badge
                   count={
                     <Button
@@ -111,7 +115,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
               </Col>
 
               {/* Name and Price */}
-              <Col md={19} xs={24} style={{ flexDirection: "column", justifyContent: "start" }}>
+              <Col style={{ flexDirection: "column", justifyContent: "start" }}>
                 <Typography.Title level={3} style={{ marginBottom: 8 }}>
                   {currentService.name}
                 </Typography.Title>

@@ -1,17 +1,17 @@
 "use client";
-import * as React from "react";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import { Button, Col, Drawer, Row, Select } from "antd";
-import { Header } from "antd/es/layout/layout";
 import LocaleSwitcher from "@/components/locale/localeSwitcher";
-import { Coins, List } from "@phosphor-icons/react";
-import { MainSideBarMobile } from "./sideBar";
-import Link from "next/link";
-import { useI18n } from "../../../../../../locales/client";
 import { usePaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesSelectors";
-import { useAppDispatch } from "@/lib/hook";
 import { fetchPaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesThunks";
+import { useAppDispatch } from "@/lib/hook";
+import { Coins, List } from "@phosphor-icons/react";
+import { Col, Drawer, Row, Select } from "antd";
+import { Header } from "antd/es/layout/layout";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useI18n } from "../../../../../../locales/client";
+import FeedbackAlert from "../feed-back/feedBackAlert";
+import { MainSideBarMobile } from "./sideBar";
 
 export function AppAppBarDesktop() {
   const [theme] = useState("dark");
@@ -173,27 +173,7 @@ export function AppAppBarDesktop() {
                 </div>
 
                 {/* Navigation Button */}
-                <Button
-                  style={{
-                    color: "#fff",
-                    backgroundColor: "#D85912",
-                    border: "none",
-                  }}
-                >
-                  <Link href="/portal/home" data-testid="mocked-link">
-                    <span
-                      style={{
-                        color: "rgba(220, 233, 245, 0.88)",
-                        fontFamily: "Inter, sans-serif",
-                        fontSize: "16px",
-                        fontWeight: 600,
-                      }}
-                    >
-                      {t("ondemand")}
-                    </span>
-                  </Link>
-                </Button>
-
+                <FeedbackAlert />
                 {/* Language Switcher */}
                 <LocaleSwitcher color={appBarColor} />
               </Row>

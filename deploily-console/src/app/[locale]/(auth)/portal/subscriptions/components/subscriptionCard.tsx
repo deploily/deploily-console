@@ -1,13 +1,14 @@
-import { SubscriptionInterface } from "@/lib/features/subscriptions/subscriptionInterface";
 import { IMAGES_URL } from "@/deploilyWebsiteUrls";
-import { useI18n } from "../../../../../../../locales/client";
-import { useRouter } from "next/navigation";
-import { Badge, Button, Card, Col, Image, Row, Space, Typography } from "antd";
-import { Faders, Star } from "@phosphor-icons/react";
-import Paragraph from "antd/es/typography/Paragraph";
+import { SubscriptionInterface } from "@/lib/features/subscriptions/subscriptionInterface";
 import { CustomBlueButton } from "@/styles/components/buttonStyle";
+import { Faders, Star } from "@phosphor-icons/react";
+import { Badge, Button, Card, Col, Image, Row, Space, Tag, Typography } from "antd";
+import Paragraph from "antd/es/typography/Paragraph";
+import { useRouter } from "next/navigation";
+import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
+import { subscriptionStatusStyle } from "../utils/subscriptionsConst";
 export default function SubscriptionCard({ data }: { data: SubscriptionInterface }) {
-
+    const tSubscription = useScopedI18n('subscription');
     const t = useI18n();
     const router = useRouter();
 
@@ -49,9 +50,6 @@ export default function SubscriptionCard({ data }: { data: SubscriptionInterface
                                 preview={false}
                             />
                         </Badge>
-
-
-
                     </Col>
                     <Col span={12}
                         style={{
@@ -68,9 +66,19 @@ export default function SubscriptionCard({ data }: { data: SubscriptionInterface
 
                 <Row style={{ height: "40%" }}>
                     <div>
-                        <Paragraph ellipsis={{ rows: 2, expandable: false }} style={{ fontSize: 20, }}>
-                            {data.service_details.name}
-                        </Paragraph>
+                        <Row gutter={16} style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            width: "100%",
+                        }}>
+                            <Paragraph ellipsis={{ rows: 1, expandable: false }} style={{ fontSize: 20, }}>
+                                {data.service_details.name}
+                            </Paragraph>
+                            <Tag bordered={false} color={subscriptionStatusStyle(data.status)} style={{ height: 'fit-content', fontSize: '14px', fontWeight: "bold", borderRadius: 20, padding: "2px 10px", textTransform: "capitalize" }}>
+                                {tSubscription(data.status as "active" | "inactive")}
+                            </Tag>
+                        </Row>
                         <Paragraph ellipsis={{ rows: 3, expandable: false }} style={{ paddingTop: "0px" }}>
                             {data.service_details.short_description}
                         </Paragraph>

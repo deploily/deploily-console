@@ -1,12 +1,29 @@
-import React, { ReactElement } from "react";
+import SessionGuard from "@/components/sessionGuard";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ConfigProvider } from "antd";
-import { theme } from "../../styles/theme";
-import { I18nProviderClient } from "../../../locales/client";
 import "antd/dist/reset.css";
-import { StoreProvider } from "../storeProvider";
+import { DM_Sans, JetBrains_Mono } from 'next/font/google';
+import { ReactElement } from "react";
+import { I18nProviderClient } from "../../../locales/client";
+import { theme } from "../../styles/theme";
 import { Providers } from "../provider";
-import SessionGuard from "@/components/sessionGuard";
+import { StoreProvider } from "../storeProvider";
+
+const mdSans = DM_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+  display: 'swap',
+  variable: '--font-dm-sans',
+  style: ['normal', 'italic'],
+});
+const jetBrains_Mono = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+  display: 'swap',
+  variable: '--font-jetbrains-mono',
+  style: ['normal', 'italic'],
+});
+
 
 export const generateViewport = () => ({
   width: "device-width",
@@ -23,8 +40,8 @@ export default async function RootLayout({
   const { locale } = await params;
 
   return (
-    <html lang={locale}>
-      <body suppressHydrationWarning={true} style={{ margin: "0px" }}>
+    <html lang={locale} className={`${mdSans.className} ${jetBrains_Mono.variable}`}>
+      <body suppressHydrationWarning={true} style={{ margin: "0px", backgroundColor: theme.token.darkGray, fontFamily: "DM Sans" }}>
         <Providers>
           <SessionGuard>
             <StoreProvider>
@@ -34,7 +51,7 @@ export default async function RootLayout({
                 </AntdRegistry>
               </I18nProviderClient>
             </StoreProvider>
-           </SessionGuard>
+          </SessionGuard>
         </Providers>
       </body>
     </html >

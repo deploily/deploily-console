@@ -6,7 +6,7 @@ import { Card, Col, Row, Image, Badge, Button, Space } from "antd";
 import Meta from "antd/es/card/Meta";
 import { theme } from "@/styles/theme";
 
-export default function CiCdServiceCard({ data }: any) {
+export default function ApplicationServiceCard({ data }: any) {
     const t = useI18n();
 
     return (
@@ -14,7 +14,7 @@ export default function CiCdServiceCard({ data }: any) {
             hoverable
             style={{
                 position: "relative",
-                fontFamily: "Inter, sans-serif",
+
                 height: "100%",
                 width: "100%",
                 padding: 0,
@@ -44,7 +44,7 @@ export default function CiCdServiceCard({ data }: any) {
                             offset={[-12, 12]}
                         >
                             <Image
-                                src="/images/logo_service.png"
+                                src={data.image}
                                 width={100}
                                 height={100}
                                 preview={false}
@@ -58,7 +58,7 @@ export default function CiCdServiceCard({ data }: any) {
                             display: "flex",
                             justifyContent: "flex-end",
                             alignItems: "flex-start", // aligns to the top within the Row
-                            fontFamily: "Inter, sans-serif",
+
                         }}
                     >
                         <p
@@ -128,7 +128,7 @@ export default function CiCdServiceCard({ data }: any) {
                             fontWeight: 600,
                             paddingRight: 4,
                             transition: "color 0.3s ease",
-                            fontFamily: "Inter, sans-serif",
+
                         }}
                     >
                         {t("details")}

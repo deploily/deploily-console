@@ -7,6 +7,7 @@ import { useAppDispatch } from "@/lib/hook";
 import { checkPromoCode } from "@/lib/features/promo-code/promoCodeThunks";
 import { usePromoCode } from "@/lib/features/promo-code/promoCodeSelectors";
 import { useSubscriptionStates } from "@/lib/features/subscription-states/subscriptionSelectors";
+import { options } from "../../../../utils/apiServicesConst";
 
 export default function NewSubscriptionInfo({ planSelected }: { planSelected: any }) {
   const { totalAmount, promoColor, duration } = useSubscriptionStates()
@@ -15,14 +16,6 @@ export default function NewSubscriptionInfo({ planSelected }: { planSelected: an
   const [promoCode, setPromoCode] = useState({ promo_code: "" });
   const dispatch = useAppDispatch();
   const { promoCodeResponse } = usePromoCode();
-
-
-  const options = [
-    { value: 1, label: '1 Month' },//TODO TRANSLATE THIS 
-    { value: 3, label: '3 Months' },
-    { value: 6, label: '6 Months' },
-    { value: 12, label: '1 Year' },
-  ];
 
   const handleChangeDuration = (value: number) => {
     dispatch({

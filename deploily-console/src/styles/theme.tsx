@@ -3,9 +3,10 @@ const primaryColor = "#D85912";
 
 export const theme = {
   token: {
+    fontFamily: 'var(--font-dm-sans)',
     colorPrimary: primaryColor,
-    colorWhite:"white",
-    colorBlack:"black",
+    colorWhite: "white",
+    colorBlack: "black",
     colorInfo: "#206fba",
     colorSuccess: "#2b7904",
     colorWarning: "#fadb14",
@@ -22,14 +23,13 @@ export const theme = {
     orange600: "#D85912",
     darkGray: "#202227",
     gray50: "#4E4E4E",
-    gray100: "#D0CECE",   
-    gray200:"rgba(125, 125, 125, 1)",
-    Error100:"#EA1919",
-    red500:"#C63131",
-    green:"#28b609",
+    gray100: "#D0CECE",
+    gray200: "rgba(125, 125, 125, 1)",
+    Error100: "#EA1919",
+    red500: "#C63131",
+    green: "#28b609",
     borderRadius: 8,
     fontSize: 14,
-    fontFamily: "Inter, sans-serif",
     headingFontSize: {
       h1: 35,
       h2: 30,
@@ -41,7 +41,7 @@ export const theme = {
   },
   components: {
     Typography: {
-      fontFamily: "Inter, sans-serif",
+
       titleMarginBottom: 8,
     },
     Rate: {
@@ -49,7 +49,7 @@ export const theme = {
     },
     Collapse: {
       colorTextHeading: primaryColor,
-      fontFamily: "Inter, sans-serif",
+
       fontSizeIcon: 20,
       fontSize: 20,
       borderRadiusLG: 10,
@@ -57,12 +57,13 @@ export const theme = {
     },
     algorithm: "dark",
     Button: {
+      fontfamily: "var(--font-jetbrains-mono)",
       borderColorDisabled: "rgb(76,150,215)",
       defaultActiveBorderColor: "rgb(76,150,215)",
       colorText: "rgba(0,0,0,0)",
     },
     Select: {
-     
+
       optionSelectedBg: "#D85912",
       optionActiveBg: "#DD8859",
     },
@@ -70,13 +71,13 @@ export const theme = {
     Radio: {
       colorBgContainer: "#ffffff",
       colorPrimary: "#28b609",
-      
+
     },
-    Checkbox:{
-      colorBgContainer: "#ffffff", 
+    Checkbox: {
+      colorBgContainer: "#ffffff",
       colorPrimary: "#28b609",
     }
-   
+
   },
-  
+
 };

@@ -1,17 +1,49 @@
 "use client";
-import { Button, Card, Checkbox, CheckboxChangeEvent, Image, Typography } from "antd";
-import { useState } from "react";
-import { theme } from "@/styles/theme";
 import { useSubscriptionStates } from "@/lib/features/subscription-states/subscriptionSelectors";
+import { useSubscription } from "@/lib/features/subscriptions/subscriptionSelectors";
+import { postSubscription } from "@/lib/features/subscriptions/subscriptionThunks";
+import { useAppDispatch } from "@/lib/hook";
+import { theme } from "@/styles/theme";
+import { Button, Card, Checkbox, CheckboxChangeEvent, Image, Typography } from "antd";
+import { redirect } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useScopedI18n } from "../../../../../../../../../../locales/client";
 
-export default function CardPaymentComponent({ handleSubscribe }: { handleSubscribe: any }) {
+export default function CardPaymentComponent({ selectedPlan }: { selectedPlan: any }) {
     const [value, setValue] = useState(false);
     const onChangeCheckbox = (e: CheckboxChangeEvent) => {
-        setValue(e.target.value);
+        setValue(e.target.checked);
     };
     const { totalAmount } = useSubscriptionStates()
     const tPayments = useScopedI18n("payments");
+    const subscriptionStates = useSubscriptionStates();
+    const dispatch = useAppDispatch();
+    const { newSubscriptionResponse } = useSubscription();
+    useEffect(() => {
+        console.log("newSubscriptionResponse");
+        if (newSubscriptionResponse) {
+            if (newSubscriptionResponse.form_url !== null) {
+                redirect(newSubscriptionResponse.form_url);
+            } else {
+                // TODO display error in a toast
+                console.log("Error in payment registration");
+            }
+        }
+    }, [newSubscriptionResponse]);
+
+    const handleSubscribe = async () => {
+        const newSubscriptionObject = {
+            duration: subscriptionStates.duration,
+            total_amount: subscriptionStates.totalAmount,
+            promo_code: subscriptionStates.promoCode,
+            payment_method: "card",
+            service_plan_selected_id: selectedPlan.id,
+            profile_id: subscriptionStates.selectedProfile != null ? subscriptionStates.selectedProfile.id : 1
+        };
+        console.log("newSubscriptionObject CardPaymentComponent", newSubscriptionObject);
+
+        dispatch(postSubscription(newSubscriptionObject));
+    };
 
     return (
         <>
@@ -47,7 +79,7 @@ export default function CardPaymentComponent({ handleSubscribe }: { handleSubscr
                         }} >
                         captcha
                     </Button>
-                    <Checkbox style={{ padding: 15 }} onChange={onChangeCheckbox} value={value}>
+                    <Checkbox style={{ padding: 15 }} onChange={onChangeCheckbox} checked={value}>
                         I accept the general conditions of use
                     </Checkbox>
                     <Button
@@ -63,7 +95,7 @@ export default function CardPaymentComponent({ handleSubscribe }: { handleSubscr
                         icon={<Image src="/images/paymentIcon.png" alt="PAY" style={{ width: 60, height: 35 }} preview={false} />}
                         onClick={handleSubscribe}
                     >
-                        <span style={{ fontFamily: "Inter, sans-serif", fontSize: "16px", fontWeight: 600 }}>
+                        <span style={{ fontSize: "16px", fontWeight: 600 }}>
                             PAY
                         </span>
                     </Button>

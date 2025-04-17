@@ -31,14 +31,14 @@ export default function LandingPageContent({ loginLogoutButton }: { loginLogoutB
             height: "40px",
             backgroundColor: "#5394CC",
             border: "none",
-            
+
           }}
           href="https://deploily.cloud/en"
         >
           <span
             style={{
               color: "rgba(220, 233, 245, 0.88)",
-              fontFamily: "Inter, sans-serif",
+
               fontSize: "16px",
               fontWeight: 600,
             }}

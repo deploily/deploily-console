@@ -1,31 +1,29 @@
 // import { useI18n } from "../../../../../../../locales/client";
 
 import { Plus } from "@phosphor-icons/react";
-import { Button, Form, Input, message, Row, Select, Typography, Upload, UploadFile, UploadProps } from "antd";
+import { Button, Form, Input, message, Row, Select, Typography } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import Title from "antd/es/typography/Title";
 import { useScopedI18n } from "../../../../../../../../locales/client";
 
-import { useEffect, useState } from 'react';
-import { UploadOutlined } from '@ant-design/icons';
+import { useEffect } from 'react';
 import { useAppDispatch } from "@/lib/hook";
 import { fetchSubscription } from "@/lib/features/subscriptions/subscriptionThunks";
 import { useSubscription } from "@/lib/features/subscriptions/subscriptionSelectors";
 import { SubscriptionInterface } from "@/lib/features/subscriptions/subscriptionInterface";
-import { postSupportTicket } from "@/lib/features/support-ticket/supportTicketThanks";
+import { postSupportTicket } from "@/lib/features/support-ticket/supportTicketThunks";
 import { useSupportTicket } from "@/lib/features/support-ticket/supportTicketSelector";
+import { useRouter } from "next/navigation";
 const { Option } = Select;
 
-export default function CreateSupportTecket() {
+export default function CreateSupportTicket() {
     const t = useScopedI18n('createSupportTicket')
     const [form] = Form.useForm();
     const dispatch = useAppDispatch();
     const { subscriptionResponse } = useSubscription()
     const { addSupportTicketSuccess, addSupportTicketError } = useSupportTicket()
-    // const [file, setFile] = useState(null);
-    const [fileList, setFileList] = useState<UploadFile[]>()
     const [messageApi] = message.useMessage();
-
+    const router = useRouter()
     useEffect(() => {
         dispatch(fetchSubscription());
         if (addSupportTicketSuccess) {
@@ -43,22 +41,16 @@ export default function CreateSupportTecket() {
 
         }
     }, [addSupportTicketSuccess, addSupportTicketError]);
-
-    const handleChange: UploadProps['onChange'] = ({ fileList: newFile }) =>
-        setFileList(newFile);
     const onFinish = (values: any) => {
         dispatch(postSupportTicket({
-            subscription_id: values.subscription,
+            subscribe_id: values.subscription,//TODO CHANGE TO subscription_id
             title: values.subject,
             description: values.description,
-            image: (fileList && fileList.length > 0) ? fileList[0].thumbUrl : null,
             status: "open"
         })).then(() => {
-            setFileList([]);
             form.resetFields();
+            router.back()
         })
-
-
     };
 
 
@@ -106,28 +98,6 @@ export default function CreateSupportTecket() {
                         autoSize={{ minRows: 5, maxRows: 10 }}
 
                     />
-                </Form.Item>
-                <Form.Item name="image" rules={[{ required: true }]}>
-                    <div style={{ marginBlock: 20, }}>
-                        <Upload style={{ border: "none" }}
-                            accept="image/png, image/jpeg"
-                            listType="picture"
-                            maxCount={1}
-                            fileList={fileList}
-                            beforeUpload={() => false}
-                            onChange={handleChange}
-                        >
-                            <Button style={{
-                                color: "#fff",
-                                backgroundColor: "#D85912",
-                                border: "none",
-                                paddingInline: 10,
-                            }}>
-                                <UploadOutlined />
-                                {t('uploadFile')}
-                            </Button>
-                        </Upload>
-                    </div>
                 </Form.Item>
                 <Form.Item>
                     <Row style={{ display: "flex", justifyContent: "end" }} >
