@@ -1,12 +1,12 @@
 "use client";
 
-import { Col, Form, Input, Row, Button, message, Radio } from "antd";
-import Title from "antd/es/typography/Title";
-import { useAppDispatch } from "@/lib/hook";
 import { postPaymentProfile } from "@/lib/features/payment-profiles/paymentProfilesThunks";
-import { useScopedI18n } from "../../../../../../../../locales/client";
-import { useState } from "react";
+import { useAppDispatch } from "@/lib/hook";
+import { Button, Col, Form, Input, message, Radio, Row } from "antd";
+import Title from "antd/es/typography/Title";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useScopedI18n } from "../../../../../../../../locales/client";
 
 export default function AddPaymentProfile() {
     const t = useScopedI18n("profilePayment");
@@ -21,7 +21,7 @@ export default function AddPaymentProfile() {
                 ...values,
                 is_company: isCompany,
             };
-            const response = await dispatch(postPaymentProfile(payload)).unwrap();
+            const response = await dispatch(postPaymentProfile({ ...payload, "profile_type": isCompany ? "company" : "personal" })).unwrap();
             message.success("Payment profile created successfully!");
             setIsCompany(false);
             if (response?.id) {
