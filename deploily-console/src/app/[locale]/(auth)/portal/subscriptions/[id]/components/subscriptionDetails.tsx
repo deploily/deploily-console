@@ -3,6 +3,7 @@
 import { CollapseProps, Typography } from "antd";
 import { theme } from "@/styles/theme";
 import { SubscriptionInterface } from "@/lib/features/subscriptions/subscriptionInterface";
+import ReactMarkdown from "react-markdown";
 
 export const subscriptionDetails = (row: SubscriptionInterface, t: any): CollapseProps["items"] => [
   {
@@ -26,10 +27,12 @@ export const subscriptionDetails = (row: SubscriptionInterface, t: any): Collaps
       </Typography.Title>
     ),
     children: (
-      <Typography.Paragraph style={{ fontWeight: 600 }}>
-        {row.service_details.specifications}
-      </Typography.Paragraph>
-    ),
+  <div style={{ fontWeight: 600, fontSize: 14, }}>
+   <ReactMarkdown >       
+     {row.service_details.specifications}
+   </ReactMarkdown> 
+        </div>
+      ),
   },
 
 ];

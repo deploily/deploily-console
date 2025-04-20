@@ -1,9 +1,9 @@
 "use client";
 
-import { CollapseProps, Typography } from "antd";
 import { ApiServiceInterface } from "@/lib/features/api-service/apiServiceInterface";
-import Link from "next/link";
 import { theme } from "@/styles/theme";
+import { CollapseProps, Typography } from "antd";
+import ReactMarkdown from "react-markdown";
 
 export const getItems = (row: ApiServiceInterface, t: any): CollapseProps["items"] => [
   {
@@ -27,9 +27,11 @@ export const getItems = (row: ApiServiceInterface, t: any): CollapseProps["items
       </Typography.Title>
     ),
     children: (
-      <Typography.Paragraph style={{ fontWeight: 600 }}>
-        {row.specifications}
-      </Typography.Paragraph>
+      <div style={{ fontWeight: 600, fontSize: 14, }}>
+        <ReactMarkdown>
+          {row.specifications}
+        </ReactMarkdown>
+      </div>
     ),
   },
 
