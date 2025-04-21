@@ -2,7 +2,7 @@
 // const BASE_URL = "http://192.168.1.21:5000"; // for DEV  
 // TODO find a solution to get different URLs for dev and for PROD
 // const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;  // for PROD
-const BASE_URL = "https://console.deploily.cloud";  // for PROD
+const BASE_URL = "https://console.dev.deploily.cloud";  // for PROD
 
 const API_BASE_URL = `${BASE_URL}/api/v1`;
 export const IMAGES_URL = `${BASE_URL}/static/uploads/`;
