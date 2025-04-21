@@ -1,6 +1,6 @@
 
 // const BASE_URL = "http://192.168.1.21:5000"; // for DEV  
-const BASE_URL = "https://console.dev.deploily.cloud";  // for PROD
+const BASE_URL = process.env.BASE_URL;  // for PROD
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
