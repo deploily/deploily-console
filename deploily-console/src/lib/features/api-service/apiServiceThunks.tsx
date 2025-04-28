@@ -13,8 +13,9 @@ export const fetchApiServices = createAsyncThunk(
         return thunkConfig.rejectWithValue("session expired");
       }
       const token = session.accessToken;
+      console.log(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/service/`);
       
-      const response = await axios.get(`${deploilyApiUrls.SERVICE_URL}`, {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/service/`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
