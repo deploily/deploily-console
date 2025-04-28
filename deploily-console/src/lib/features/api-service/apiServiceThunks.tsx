@@ -1,3 +1,4 @@
+import axiosInstance from "@/app/api/axios-instance";
 import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
@@ -15,7 +16,7 @@ export const fetchApiServices = createAsyncThunk(
       const token = session.accessToken;
       console.log(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/service/`);
 
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/service/`, {
+      const response = await axiosInstance.get(`/api/v1/service/`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
