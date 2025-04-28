@@ -79,7 +79,7 @@ export default {
 
     'createSupportTicket.title': 'Create a new support ticket',
     'createSupportTicket.typography': 'Please assist us in directing your query to the appropriate team by selecting a server related to your request.',
-    'createSupportTicket.selectService': 'Select service*',
+    'createSupportTicket.selectSubscription': 'Select subscription*',
     'createSupportTicket.subject': 'Subject*',
     'createSupportTicket.description': 'Description*',
     'createSupportTicket.createTicket': 'Create a ticket',
@@ -176,6 +176,11 @@ export default {
     "bankPayment.ain_temouchent": "N°21, Bloc E3, Lot 10, 220 CNEP Housing Estate, Ain Témouchent, Algeria",
     "bankPayment.oran": "Oran",
     "Feedback.title": 'Feedback',
-    "Feedback.send": 'Send'
+    "Feedback.send": 'Send',
+
+    "profile.firstName": 'First name',
+    "profile.lastName": 'Last name',
+    "profile.email": 'Email',
+    "profile.username": 'Username',
 
 } as const
