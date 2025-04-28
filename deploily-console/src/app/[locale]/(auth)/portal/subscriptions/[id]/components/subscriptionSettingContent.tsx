@@ -20,7 +20,7 @@ import { subscriptionStatusStyle } from "../../utils/subscriptionsConst";
 import DocumentationDrawer from "./documentationDrawer";
 import GenerateTokenComponent from "./generateTokenComponent";
 import { subscriptionItems } from "./subscriptionItems";
-import { IMAGES_BASE_URL } from "@/app/api/axios-instance";
+import { getImageUrl } from "@/app/api/axios-instance";
 
 export default function SubscriptionSettingContent({ subscription_id }: { subscription_id: string }) {
     const t = useI18n();
@@ -49,7 +49,7 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
         return (
             image_service ? image_service.startsWith("http")
                 ? image_service
-                : `${IMAGES_BASE_URL}${image_service}`
+                : getImageUrl(`${image_service}`)
                 : "/images/logo_service.png"
         )
     }

@@ -9,7 +9,7 @@ import { ApiServiceInterface } from "@/lib/features/api-service/apiServiceInterf
 import { postFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
-import { IMAGES_BASE_URL } from "@/app/api/axios-instance";
+import { getImageUrl } from "@/app/api/axios-instance";
 
 export default function ApiServiceCard({ service }: { service: ApiServiceInterface }) {
   const t = useI18n();
@@ -20,7 +20,7 @@ export default function ApiServiceCard({ service }: { service: ApiServiceInterfa
   const imageUrl = service.image_service
     ? service.image_service.startsWith("http")
       ? service.image_service
-      : `${IMAGES_BASE_URL}${service.image_service}`
+      : `${getImageUrl(service.image_service)}`
     : "/images/logo_service.png";
 
   const handleFavoriteService = (service_id: number) => {

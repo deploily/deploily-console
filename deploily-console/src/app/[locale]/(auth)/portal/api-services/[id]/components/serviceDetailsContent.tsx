@@ -19,7 +19,7 @@ import Link from "next/link";
 import { useState } from "react";
 import ServicePlanCard from "./servicePlanCard";
 import SubscribeDrawer from "./subscriptionDrawer/subscriptionDrawer";
-import { IMAGES_BASE_URL } from "@/app/api/axios-instance";
+import { getImageUrl } from "@/app/api/axios-instance";
 
 export default function ServiceDetailsContentPage({ serviceId }: { serviceId: string }) {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -52,7 +52,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
     return (
       image_service ? image_service.startsWith("http")
         ? image_service
-        : `${IMAGES_BASE_URL}${image_service}`
+        : `${getImageUrl(`${image_service}`)}`
         : "/images/logo_service.png"
     )
   }

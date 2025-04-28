@@ -14,7 +14,7 @@ export const fetchApiServices = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axiosInstance.get(`/api/v1/service/`, {
+      const response = await axiosInstance.get(`${deploilyApiUrls.SERVICE_URL }`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,

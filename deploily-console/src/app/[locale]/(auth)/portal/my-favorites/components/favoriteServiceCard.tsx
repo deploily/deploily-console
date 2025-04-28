@@ -9,7 +9,7 @@ import { useI18n } from "../../../../../../../locales/client";
 import { deleteFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
 import { FavoriteServiceInterface } from "@/lib/features/favorites/favoriteServiceInterface";
 import { theme } from "@/styles/theme";
-import { IMAGES_BASE_URL } from "@/app/api/axios-instance";
+import { getImageUrl } from "@/app/api/axios-instance";
 
 export default function FavoriteServiceCard({ favoriteService }: { favoriteService: FavoriteServiceInterface }) {
     const t = useI18n();
@@ -20,7 +20,7 @@ export default function FavoriteServiceCard({ favoriteService }: { favoriteServi
     const imageUrl = favoriteService.service.image_service
         ? favoriteService.service.image_service.startsWith("http")
             ? favoriteService.service.image_service
-            : `${IMAGES_BASE_URL}${favoriteService.service.image_service}`
+            : getImageUrl(`${favoriteService.service.image_service}`)
         : "/images/logo_service.png";
 
     const handleDeleteFavorite = () => {
