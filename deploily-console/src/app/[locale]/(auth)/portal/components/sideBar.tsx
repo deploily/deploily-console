@@ -27,7 +27,10 @@ export function MainSideBar() {
   const items = [
     {
       key: "profile",
-      label: scopedSidebar("profile"),
+      label:
+        < Link href="/portal/profile" >
+          <span >{scopedSidebar("profile")}</span>
+        </Link >,
       icon: <User size={24} />,
     },
     {
@@ -129,7 +132,10 @@ export function MainSideBarMobile() {
   const items = [
     {
       key: "profile",
-      label: scopedSidebar("profile"),
+      label:
+        <Link href="/portal/profile" >
+          <span >{scopedSidebar("profile")}</span>
+        </Link >,
       icon: <User size={24} />,
     },
     {
