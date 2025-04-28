@@ -59,7 +59,6 @@ export default function FeedbackAlert() {
                 <span
                     style={{
                         color: "rgba(220, 233, 245, 0.88)",
-                        fontFamily: "Inter, sans-serif",
                         fontSize: "16px",
                         fontWeight: 600,
                     }}
