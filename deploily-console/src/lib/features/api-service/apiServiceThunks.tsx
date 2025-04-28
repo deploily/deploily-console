@@ -1,7 +1,6 @@
 import axiosInstance from "@/app/api/axios-instance";
 import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import { getSession } from "next-auth/react";
 
 export const fetchApiServices = createAsyncThunk(
@@ -14,7 +13,6 @@ export const fetchApiServices = createAsyncThunk(
         return thunkConfig.rejectWithValue("session expired");
       }
       const token = session.accessToken;
-      console.log(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/service/`);
 
       const response = await axiosInstance.get(`/api/v1/service/`, {
         headers: {
@@ -41,7 +39,7 @@ export const getApiServiceById = createAsyncThunk(
         return thunkConfig.rejectWithValue("session expired");
       }
       const token = session.accessToken;
-      const response = await axios.get(`${deploilyApiUrls.SERVICE_URL}${service_id}`, {
+      const response = await axiosInstance.get(`${deploilyApiUrls.SERVICE_URL}${service_id}`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,

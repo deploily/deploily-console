@@ -1,3 +1,4 @@
+import axiosInstance from "@/app/api/axios-instance";
 import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
@@ -14,7 +15,7 @@ export const checkEpaymentStatus = createAsyncThunk(
       const token = session.accessToken;
 
 
-      const response = await axios.get(`${deploilyApiUrls.EPAYMENT_STATUS}?order_id=${satim_order_id}`, {
+      const response = await axiosInstance.get(`${deploilyApiUrls.EPAYMENT_STATUS}?order_id=${satim_order_id}`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,

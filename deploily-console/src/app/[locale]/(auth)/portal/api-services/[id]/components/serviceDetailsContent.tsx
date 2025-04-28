@@ -6,7 +6,6 @@ import { useEffect } from "react";
 import { useI18n } from "../../../../../../../../locales/client";
 import { getItems } from "./getItems";
 // import { useRouter } from "next/navigation";
-import { IMAGES_URL } from "@/deploilyWebsiteUrls";
 import { useApiServices } from "@/lib/features/api-service/apiServiceSelectors";
 import { getApiServiceById } from "@/lib/features/api-service/apiServiceThunks";
 import { useFavoriteServices } from "@/lib/features/favorites/favoriteServiceSelectors";
@@ -20,6 +19,7 @@ import Link from "next/link";
 import { useState } from "react";
 import ServicePlanCard from "./servicePlanCard";
 import SubscribeDrawer from "./subscriptionDrawer/subscriptionDrawer";
+import { IMAGES_BASE_URL } from "@/app/api/axios-instance";
 
 export default function ServiceDetailsContentPage({ serviceId }: { serviceId: string }) {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -52,7 +52,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
     return (
       image_service ? image_service.startsWith("http")
         ? image_service
-        : `${IMAGES_URL}${image_service}`
+        : `${IMAGES_BASE_URL}${image_service}`
         : "/images/logo_service.png"
     )
   }

@@ -1,6 +1,5 @@
 "use client";
 
-import { IMAGES_URL } from "@/deploilyWebsiteUrls";
 import { usePayment } from "@/lib/features/payments/paymentSelector";
 import { fetchPaymentById, uploadPaymentReceipt } from "@/lib/features/payments/paymentThunks";
 import { useAppDispatch } from "@/lib/hook";
@@ -11,6 +10,7 @@ import { RcFile } from "antd/es/upload";
 import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../../locales/client";
 import paymentDetailsData from "../../utils/paymentDetailsData";
+import { IMAGES_BASE_URL } from "@/app/api/axios-instance";
 
 export default function PaymentDetailsPage({ paymentId }: { paymentId: string }) {
   const t = useScopedI18n("payments");
@@ -48,7 +48,7 @@ export default function PaymentDetailsPage({ paymentId }: { paymentId: string })
 
   const imageUrl = (payment_receipt: string) => payment_receipt.startsWith("http")
     ? payment_receipt
-    : `${IMAGES_URL}${payment_receipt}`;
+    : `${IMAGES_BASE_URL}${payment_receipt}`;
 
   return (
     <div style={{ padding: 20, margin: "0 auto" }}>

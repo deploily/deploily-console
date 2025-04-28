@@ -1,4 +1,3 @@
-import { IMAGES_URL } from "@/deploilyWebsiteUrls";
 import { SubscriptionInterface } from "@/lib/features/subscriptions/subscriptionInterface";
 import { CustomBlueButton } from "@/styles/components/buttonStyle";
 import { Faders, Star } from "@phosphor-icons/react";
@@ -7,6 +6,7 @@ import Paragraph from "antd/es/typography/Paragraph";
 import { useRouter } from "next/navigation";
 import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import { subscriptionStatusStyle } from "../utils/subscriptionsConst";
+import { IMAGES_BASE_URL } from "@/app/api/axios-instance";
 export default function SubscriptionCard({ data }: { data: SubscriptionInterface }) {
     const tSubscription = useScopedI18n('subscription');
     const t = useI18n();
@@ -15,7 +15,7 @@ export default function SubscriptionCard({ data }: { data: SubscriptionInterface
     const imageUrl = data?.service_details.image_service?.startsWith("http")
         ? data.service_details.image_service
         : data?.service_details.image_service
-            ? `${IMAGES_URL}${data.service_details.image_service}`
+            ? `${IMAGES_BASE_URL}${data.service_details.image_service}`
             : "/images/logo_service.png";
     return (
         <Card style={{ height: "100%", width: "100%", padding: 0, cursor: "pointer", position: "relative" }}

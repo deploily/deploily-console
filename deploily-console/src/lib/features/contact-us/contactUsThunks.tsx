@@ -1,3 +1,4 @@
+import axiosInstance from "@/app/api/axios-instance";
 import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
@@ -22,7 +23,7 @@ export const postFeedBack = createAsyncThunk(
         email: user.email,
       };
        console.log("data", data);
-      const response = await axios.post(`${deploilyApiUrls.CONTACT_US}`, data, {
+      const response = await axiosInstance.post(`${deploilyApiUrls.CONTACT_US}`, data, {
 
         headers: {
           Accept: "application/json",

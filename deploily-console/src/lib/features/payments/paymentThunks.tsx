@@ -1,6 +1,6 @@
+import axiosInstance from "@/app/api/axios-instance";
 import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import { getSession } from "next-auth/react";
 
 
@@ -14,7 +14,7 @@ export const fetchPayments = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axios.get(`${deploilyApiUrls.PAYMENT}`, {
+      const response = await axiosInstance.get(`${deploilyApiUrls.PAYMENT}`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
@@ -42,7 +42,7 @@ export const fetchPaymentById = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axios.get(`${deploilyApiUrls.PAYMENT}${payment_id}`, {
+      const response = await axiosInstance.get(`${deploilyApiUrls.PAYMENT}${payment_id}`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
@@ -72,7 +72,7 @@ export const uploadPaymentReceipt = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axios.post(`${deploilyApiUrls.PAYMENT}${receiptData.paymentId}${deploilyApiUrls.PAYMENT_RECEIPT}`,
+      const response = await axiosInstance.post(`${deploilyApiUrls.PAYMENT}${receiptData.paymentId}${deploilyApiUrls.PAYMENT_RECEIPT}`,
         receiptData.fileData,
         {
           headers: {

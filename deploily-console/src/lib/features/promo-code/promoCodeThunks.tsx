@@ -1,6 +1,6 @@
+import axiosInstance from "@/app/api/axios-instance";
 import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import { getSession } from "next-auth/react";
 
 export const checkPromoCode = createAsyncThunk(
@@ -15,7 +15,7 @@ export const checkPromoCode = createAsyncThunk(
       const token = session.accessToken;
 
 
-      const response = await axios.post(`${deploilyApiUrls.CHECK_PROMO_CODE}`, data, {
+      const response = await axiosInstance.post(`${deploilyApiUrls.CHECK_PROMO_CODE}`, data, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,

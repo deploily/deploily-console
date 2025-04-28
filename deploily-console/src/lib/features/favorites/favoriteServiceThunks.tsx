@@ -1,3 +1,4 @@
+import axiosInstance from "@/app/api/axios-instance";
 import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
@@ -13,7 +14,7 @@ export const fetchMyFavoriteServices = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axios.get(`${deploilyApiUrls.MY_FAVORITE_URL}`, {
+      const response = await axiosInstance.get(`${deploilyApiUrls.MY_FAVORITE_URL}`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
@@ -41,7 +42,7 @@ export const postFavoriteService = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axios.post(`${deploilyApiUrls.POST_FAVORITE_SERVICE_URL}`, newFavData, {
+      const response = await axiosInstance.post(`${deploilyApiUrls.POST_FAVORITE_SERVICE_URL}`, newFavData, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
@@ -68,7 +69,7 @@ export const deleteFavoriteService = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axios.delete(`${deploilyApiUrls.MY_FAVORITE_URL}${fav_id}`, {
+      const response = await axiosInstance.delete(`${deploilyApiUrls.MY_FAVORITE_URL}${fav_id}`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,

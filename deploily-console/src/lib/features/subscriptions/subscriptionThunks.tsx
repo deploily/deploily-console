@@ -1,6 +1,6 @@
+import axiosInstance from "@/app/api/axios-instance";
 import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import { getSession } from "next-auth/react";
 
 export const fetchSubscription = createAsyncThunk(
@@ -14,7 +14,7 @@ export const fetchSubscription = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axios.get(`${deploilyApiUrls.SUBSCRIBE_URL}`, {
+      const response = await axiosInstance.get(`${deploilyApiUrls.SUBSCRIBE_URL}`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
@@ -45,7 +45,7 @@ export const fetchSubscriptionById = createAsyncThunk(
           }
           const token = session.accessToken;
 
-          const response = await axios.get(`${deploilyApiUrls.SUBSCRIBE_URL}${myService_id}`, {
+        const response = await axiosInstance.get(`${deploilyApiUrls.SUBSCRIBE_URL}${myService_id}`, {
               headers: {
                   Accept: "application/json",
                   Authorization: `Bearer ${token}`,
@@ -73,7 +73,7 @@ export const postSubscription = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axios.post(`${deploilyApiUrls.SERVICE_SUBSCRIPTION}`, data, {
+      const response = await axiosInstance.post(`${deploilyApiUrls.SERVICE_SUBSCRIPTION}`, data, {
 
         headers: {
           Accept: "application/json",
@@ -101,7 +101,7 @@ export const generateTokenThunk = createAsyncThunk(
           }
           const token = session.accessToken;
           
-          const response = await axios.post(`${deploilyApiUrls.SUBSCRIBE_URL}${subscription_id}/token`, {}, {
+        const response = await axiosInstance.post(`${deploilyApiUrls.SUBSCRIBE_URL}${subscription_id}/token`, {}, {
               headers: {
                   Accept: "application/json",
                   Authorization: `Bearer ${token}`,

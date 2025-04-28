@@ -1,6 +1,6 @@
+import axiosInstance from "@/app/api/axios-instance";
 import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import { getSession } from "next-auth/react";
 
 export const fetchSupportTicket = createAsyncThunk(
@@ -13,7 +13,7 @@ export const fetchSupportTicket = createAsyncThunk(
         }
         const token = session.accessToken;
   
-        const response = await axios.get(`${deploilyApiUrls.SUPPORT_TICKET_URL}`, {
+        const response = await axiosInstance.get(`${deploilyApiUrls.SUPPORT_TICKET_URL}`, {
           headers: {
             Accept: "application/json",
             Authorization: `Bearer ${token}`,
@@ -41,7 +41,7 @@ export const fetchSupportTicket = createAsyncThunk(
         }
         const token = session.accessToken;
   
-        const response = await axios.post(`${deploilyApiUrls.SUPPORT_TICKET_URL}`, newsupportTicket, {
+        const response = await axiosInstance.post(`${deploilyApiUrls.SUPPORT_TICKET_URL}`, newsupportTicket, {
           headers: {
             Accept: "application/json",
             // "Content-Type": "multipart/form-data",
@@ -71,7 +71,7 @@ export const fetchSupportTicketById = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axios.get(`${deploilyApiUrls.SUPPORT_TICKET_URL}${support_ticket_id}`, {
+      const response = await axiosInstance.get(`${deploilyApiUrls.SUPPORT_TICKET_URL}${support_ticket_id}`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,

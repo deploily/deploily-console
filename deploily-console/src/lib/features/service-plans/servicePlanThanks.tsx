@@ -1,6 +1,6 @@
+import axiosInstance from "@/app/api/axios-instance";
 import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import { getSession } from "next-auth/react";
 
 
@@ -15,7 +15,7 @@ export const fetchServicePlans = createAsyncThunk(
         const token = session.accessToken;
         // const query= `?q=(filters:!(col:service_id,opr:eq,value:${serviceId}))`
         const query = `?q=(filters:!((col:service,opr:rel_o_m,value:${service_id})))`;
-                const response = await axios.get(`${deploilyApiUrls.SERVICE_PLAN_URL}/${query}`, {
+        const response = await axiosInstance.get(`${deploilyApiUrls.SERVICE_PLAN_URL}/${query}`, {
           headers: {
             Accept: "application/json",
             Authorization: `Bearer ${token}`,

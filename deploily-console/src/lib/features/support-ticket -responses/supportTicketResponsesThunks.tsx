@@ -1,6 +1,6 @@
+import axiosInstance from "@/app/api/axios-instance";
 import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import { getSession } from "next-auth/react";
 
 export const postSupportTicketResponse = createAsyncThunk(
@@ -14,7 +14,7 @@ export const postSupportTicketResponse = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axios.post(`${deploilyApiUrls.SUPPORT_TICKET_RESPONSES_URL}`, newsupportTicketResponse, {
+      const response = await axiosInstance.post(`${deploilyApiUrls.SUPPORT_TICKET_RESPONSES_URL}`, newsupportTicketResponse, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
