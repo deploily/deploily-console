@@ -1,4 +1,3 @@
-"use client";
 
 import ProfileDetailsContainer from "./components/paymentProfileDetailsContainer";
 

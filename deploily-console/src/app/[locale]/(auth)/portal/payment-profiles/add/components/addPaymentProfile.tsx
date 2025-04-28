@@ -2,7 +2,7 @@
 
 import { postPaymentProfile } from "@/lib/features/payment-profiles/paymentProfilesThunks";
 import { useAppDispatch } from "@/lib/hook";
-import { Button, Col, Form, Input, message, Radio, Row } from "antd";
+import { Button, Col, Form, Input, InputNumber, message, Radio, Row } from "antd";
 import Title from "antd/es/typography/Title";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -130,7 +130,12 @@ export default function AddPaymentProfile() {
                             rules={[{ required: true }]}
                             required={false}
                         >
-                            <Input />
+                            <Input
+                                onChange={(e) => {
+                                    const value = e.target.value.replace(/\D/g, '');
+                                    form.setFieldsValue({ postal_code: value });
+                                }}
+                            />
                         </Form.Item>
                     </Col>
                 </Row>
@@ -169,7 +174,14 @@ export default function AddPaymentProfile() {
                             rules={[{ required: true }]}
                             required={false}
                         >
-                            <Input />
+                            <Input
+                                onChange={(e) => {
+                                    let value = e.target.value;
+                                    value = value.replace(/^(\+)?\D/g, '$1').replace(/[^\d+]/g, '');
+                                    form.setFieldsValue({ phone: value });
+                                }}
+                                maxLength={12}
+                            />
                         </Form.Item>
                     </Col>
                 </Row>
