@@ -79,3 +79,9 @@ export interface newPaymentProfileResponse {
   is_company: boolean;
   is_default_profile: boolean;
 }
+
+export interface NewFundBalanceResponse {
+  id: number;
+  form_url: string;
+  order_id: string;
+}

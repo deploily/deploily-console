@@ -4,7 +4,7 @@ import axios from "axios";
 import { getSession } from "next-auth/react";
 
 export const fetchPaymentProfiles = createAsyncThunk(
-  "apiServices/getPaymentProfiles",
+  "paymentProfile/getPaymentProfiles",
   async (_, thunkConfig) => {
     try {
       const session = await getSession();
@@ -31,7 +31,7 @@ export const fetchPaymentProfiles = createAsyncThunk(
 );
 
 export const getPaymentProfileById = createAsyncThunk(
-  "apiServices/getPaymentProfileById",
+  "paymentProfile/getPaymentProfileById",
   async (profile_id: string, thunkConfig) => {
     try {
       const session = await getSession();
@@ -59,7 +59,7 @@ export const getPaymentProfileById = createAsyncThunk(
 
 
 export const postPaymentProfile = createAsyncThunk(
-  "paymentProgile/postPaymentProfile",
+  "paymentProfile/postPaymentProfile",
   async (data: any, thunkConfig) => {
 
     try {
@@ -87,7 +87,7 @@ export const postPaymentProfile = createAsyncThunk(
   },
 );
 export const updatePaymentProfile = createAsyncThunk(
-  "paymentProgile/updatePaymentProfile",
+  "paymentProfile/updatePaymentProfile",
   async (data: any, thunkConfig) => {
     try {
       const session = await getSession();
@@ -106,6 +106,36 @@ export const updatePaymentProfile = createAsyncThunk(
         return response.data;
       } else {
         return thunkConfig.rejectWithValue("Failed to update payment profile");
+      }
+    } catch (error: any) {
+      return thunkConfig.rejectWithValue(error.message);
+    }
+  },
+);
+
+
+export const postFundBalance = createAsyncThunk(
+  "paymentProfile/postFundBalance",
+  async (data: any, thunkConfig) => {
+
+    try {
+      const session = await getSession();
+      if (!session) {
+        return thunkConfig.rejectWithValue("session expired");
+      }
+      const token = session.accessToken;
+
+      const response = await axios.post(`${deploilyApiUrls.FUND_BALANCE}`, data, {
+
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        return thunkConfig.rejectWithValue("Failed to add fund balance");
       }
     } catch (error: any) {
       return thunkConfig.rejectWithValue(error.message);

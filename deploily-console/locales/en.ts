@@ -172,6 +172,7 @@ export default {
     "bankPayment.address": "Address",
     "bankPayment.agency": "Agency",
     "bankPayment.rib": "RIB",
+    "bankPayment.bank": "Bank",
     "bankPayment.AGB": "AGB",
     "bankPayment.ain_temouchent": "N°21, Bloc E3, Lot 10, 220 CNEP Housing Estate, Ain Témouchent, Algeria",
     "bankPayment.oran": "Oran",

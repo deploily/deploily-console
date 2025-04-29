@@ -19,6 +19,7 @@ export default function ProfilePayementContainer() {
     const t = useScopedI18n("profilePayment");
     const traslate = useI18n();
     const [openDrawer, setOpenDrawer] = useState(false);
+    const [selectedProfile, setSelectedProfile] = useState(null);
 
     const [columns] = useState([]);
     const { paymentProfilesList, isLoading, paymentProfilesLoadingError } = usePaymentProfiles();
@@ -89,7 +90,10 @@ export default function ProfilePayementContainer() {
                         ? <></> as JSX.Element
                         : (
                             <div style={{ display: "flex", justifyContent: "end", paddingInline: 5 }}>
-                                <CustomOrangeButton onClick={() => setOpenDrawer(true)}>
+                                <CustomOrangeButton onClick={() => {
+                                    setSelectedProfile(element.id)
+                                    setOpenDrawer(true)
+                                }}>
                                     {t('fundBalance')}
                                 </CustomOrangeButton>
                             </div>
@@ -167,7 +171,7 @@ export default function ProfilePayementContainer() {
                 />
             }
 
-            <FundBalanceDrawer openDrawer={openDrawer} onClose={onClose} />
+            <FundBalanceDrawer openDrawer={openDrawer} onClose={onClose} selectedProfile={selectedProfile} />
             <style jsx global>{`
                         .ant-table-row.no-hover:hover {
                         background-color: inherit !important;

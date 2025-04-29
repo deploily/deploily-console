@@ -1,8 +1,8 @@
 
-const BASE_URL = "http://192.168.1.16:5000"; // for DEV  
+// const BASE_URL = "http://192.168.1.22:5000"; // for DEV  
 // TODO find a solution to get different URLs for dev and for PROD  / my be we must use it in client/server components
 // const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;  // for PROD
-// const BASE_URL = "https://console.dev.deploily.cloud";  // for PROD
+const BASE_URL = "https://console.dev.deploily.cloud";  // for PROD
 
 const API_BASE_URL = `${BASE_URL}/api/v1`;
 export const IMAGES_URL = `${BASE_URL}/static/uploads/`;
@@ -28,4 +28,5 @@ export const deploilyApiUrls = {
   EPAYMENT_STATUS: `${API_BASE_URL}/service-subscription/payment-status`,
   CONTACT_US: `${API_BASE_URL}/contact-us/`,
   USER: `${API_BASE_URL}/user/me`,
+  FUND_BALANCE: `${API_BASE_URL}/balance/fund-balance`,
 };
