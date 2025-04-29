@@ -10,7 +10,7 @@ import { RcFile } from "antd/es/upload";
 import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../../locales/client";
 import paymentDetailsData from "../../utils/paymentDetailsData";
-import { getImageUrl } from "@/app/api/axios-instance";
+import ImageFetcher from "@/lib/utils/imageFetcher";
 
 export default function PaymentDetailsPage({ paymentId }: { paymentId: string }) {
   const t = useScopedI18n("payments");
@@ -45,10 +45,6 @@ export default function PaymentDetailsPage({ paymentId }: { paymentId: string })
       'paymentId': paymentId,
     }));
   }
-
-  const imageUrl = (payment_receipt: string) => payment_receipt.startsWith("http")
-    ? payment_receipt
-    : getImageUrl(`${payment_receipt}`);
 
   return (
     <div style={{ padding: 20, margin: "0 auto" }}>
@@ -118,12 +114,9 @@ export default function PaymentDetailsPage({ paymentId }: { paymentId: string })
                   /></span>
                 :
                   currentPayment.payment_receipt !== undefined && currentPayment.payment_receipt !== null ?
-                    <Image
-                      alt="Logo"
-                      src={imageUrl(currentPayment?.payment_receipt)}
-                    width={250}
-                    style={{ borderRadius: 8 }}
-                    />
+                    <ImageFetcher
+                    imagePath={currentPayment?.payment_receipt}
+                    width={250} height={250}                    />
                 :
                   <div>
                   </div>

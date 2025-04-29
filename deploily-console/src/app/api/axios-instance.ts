@@ -7,7 +7,3 @@ const axiosInstance = axios.create({
 });
 
 export default axiosInstance;
-
-export const getImageUrl = (path: string) => {
-    return `${process.env.NEXT_PUBLIC_BASE_URL}/static/uploads/${path}`;
-};

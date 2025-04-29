@@ -9,7 +9,7 @@ import { useI18n } from "../../../../../../../locales/client";
 import { deleteFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
 import { FavoriteServiceInterface } from "@/lib/features/favorites/favoriteServiceInterface";
 import { theme } from "@/styles/theme";
-import { getImageUrl } from "@/app/api/axios-instance";
+import ImageFetcher from "@/lib/utils/imageFetcher";
 
 export default function FavoriteServiceCard({ favoriteService }: { favoriteService: FavoriteServiceInterface }) {
     const t = useI18n();
@@ -17,11 +17,7 @@ export default function FavoriteServiceCard({ favoriteService }: { favoriteServi
     const router = useRouter();
     const [hovered, setHovered] = useState(false);
 
-    const imageUrl = favoriteService.service.image_service
-        ? favoriteService.service.image_service.startsWith("http")
-            ? favoriteService.service.image_service
-            : getImageUrl(`${favoriteService.service.image_service}`)
-        : "/images/logo_service.png";
+
 
     const handleDeleteFavorite = () => {
         dispatch(deleteFavoriteService(favoriteService.id));
@@ -57,12 +53,10 @@ export default function FavoriteServiceCard({ favoriteService }: { favoriteServi
                             }
                             offset={[-12, 12]}
                         >
-                            <Image
-                                alt="Logo"
-                                src={imageUrl}
+                            <ImageFetcher
+                                imagePath={favoriteService.service.image_service}
                                 width={100}
                                 height={100}
-                                preview={false}
                             />
                         </Badge>
                     </Col>

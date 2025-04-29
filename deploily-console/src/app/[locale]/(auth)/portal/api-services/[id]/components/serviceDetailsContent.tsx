@@ -1,7 +1,7 @@
 "use client";
 import { useAppDispatch } from "@/lib/hook";
 import { CaretDown, CaretUp, Star } from "@phosphor-icons/react";
-import { Badge, Button, Card, Col, Collapse, Image, Result, Row, Skeleton, Space, Typography } from "antd";
+import { Badge, Button, Card, Col, Collapse, Result, Row, Skeleton, Space, Typography } from "antd";
 import { useEffect } from "react";
 import { useI18n } from "../../../../../../../../locales/client";
 import { getItems } from "./getItems";
@@ -19,7 +19,7 @@ import Link from "next/link";
 import { useState } from "react";
 import ServicePlanCard from "./servicePlanCard";
 import SubscribeDrawer from "./subscriptionDrawer/subscriptionDrawer";
-import { getImageUrl } from "@/app/api/axios-instance";
+import ImageFetcher from "@/lib/utils/imageFetcher";
 
 export default function ServiceDetailsContentPage({ serviceId }: { serviceId: string }) {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -48,14 +48,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
     dispatch(fetchServicePlans(serviceId))
   }, [favoriteServiceAdded, favoriteServiceDeleted]);
 
-  const imageUrl = (image_service: string) => {
-    return (
-      image_service ? image_service.startsWith("http")
-        ? image_service
-        : `${getImageUrl(`${image_service}`)}`
-        : "/images/logo_service.png"
-    )
-  }
+ 
 
   const handleFavoriteService = (service_id: number) => {
     dispatch(postFavoriteService({ "service_id": service_id }));
@@ -104,12 +97,10 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
                   }
                   offset={[-20, 20]}
                 >
-                  <Image
-                    alt="Logo"
-                    src={imageUrl(currentService?.image_service)}
+                <ImageFetcher
+                    imagePath={currentService?.image_service}
                     width={220}
                     height={220}
-                    preview={false}
                   />
                 </Badge>
               </Col>

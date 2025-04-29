@@ -1,22 +1,16 @@
 import { SubscriptionInterface } from "@/lib/features/subscriptions/subscriptionInterface";
 import { CustomBlueButton } from "@/styles/components/buttonStyle";
 import { Faders, Star } from "@phosphor-icons/react";
-import { Badge, Button, Card, Col, Image, Row, Space, Tag, Typography } from "antd";
+import { Badge, Button, Card, Col, Row, Space, Tag, Typography } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import { useRouter } from "next/navigation";
 import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import { subscriptionStatusStyle } from "../utils/subscriptionsConst";
-import { getImageUrl } from "@/app/api/axios-instance";
+import ImageFetcher from "@/lib/utils/imageFetcher";
 export default function SubscriptionCard({ data }: { data: SubscriptionInterface }) {
     const tSubscription = useScopedI18n('subscription');
     const t = useI18n();
     const router = useRouter();
-
-    const imageUrl = data?.service_details.image_service?.startsWith("http")
-        ? data.service_details.image_service
-        : data?.service_details.image_service
-            ? getImageUrl(`${data.service_details.image_service}`)
-            : "/images/logo_service.png";
     return (
         <Card style={{ height: "100%", width: "100%", padding: 0, cursor: "pointer", position: "relative" }}
             onClick={() => router.push(`/portal/subscriptions/${data.id}`)}
@@ -42,12 +36,10 @@ export default function SubscriptionCard({ data }: { data: SubscriptionInterface
                             }
                             offset={[-12, 12]}
                         >
-                            <Image
-                                alt="Logo"
-                                src={imageUrl}
+                            <ImageFetcher
+                                imagePath={data.service_details.image_service}
                                 width={100}
                                 height={100}
-                                preview={false}
                             />
                         </Badge>
                     </Col>

@@ -8,7 +8,7 @@ import { CustomSubscripionInput } from "@/styles/components/inputStyle";
 import { CustomTypography } from "@/styles/components/typographyStyle";
 import { theme } from "@/styles/theme";
 import { CalendarDots, Star } from "@phosphor-icons/react";
-import { Badge, Button, Col, Image, Result, Row, Skeleton, Space, Tag, Typography } from "antd";
+import { Badge, Button, Col, Result, Row, Skeleton, Space, Tag, Typography } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
@@ -20,7 +20,7 @@ import { subscriptionStatusStyle } from "../../utils/subscriptionsConst";
 import DocumentationDrawer from "./documentationDrawer";
 import GenerateTokenComponent from "./generateTokenComponent";
 import { subscriptionItems } from "./subscriptionItems";
-import { getImageUrl } from "@/app/api/axios-instance";
+import ImageFetcher from "@/lib/utils/imageFetcher";
 
 export default function SubscriptionSettingContent({ subscription_id }: { subscription_id: string }) {
     const t = useI18n();
@@ -44,15 +44,6 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
             setRemainingDuration(getRemainingDuration(currentSubscription.start_date, currentSubscription.duration_month));
         }
     }, [currentSubscription]);
-
-    const imageUrl = (image_service: string) => {
-        return (
-            image_service ? image_service.startsWith("http")
-                ? image_service
-                : getImageUrl(`${image_service}`)
-                : "/images/logo_service.png"
-        )
-    }
 
     function getRemainingDuration(startDate: Date, durationMonths: number) {
         const start = new Date(startDate);
@@ -100,13 +91,10 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                                     />
                                 }
                                 offset={[-20, 20]}>
-                                <Image
-                                    alt="Logo"
-                                    src={imageUrl(currentSubscription.service_details.image_service)}
+                                <ImageFetcher
+                                    imagePath={currentSubscription.service_details.image_service}
                                     width={220}
                                     height={220}
-                                    preview={false}
-
                                 />
                             </Badge>
                         </Col>

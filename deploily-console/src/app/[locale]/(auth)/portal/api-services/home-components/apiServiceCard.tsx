@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { ArrowRight, Star } from "@phosphor-icons/react";
-import { Card, Col, Row, Image, Button, Space, Badge } from "antd";
+import { Card, Col, Row, Button, Space, Badge } from "antd";
 import { useI18n } from "../../../../../../../locales/client";
 import Paragraph from "antd/es/typography/Paragraph";
 import { useRouter } from "next/navigation";
@@ -9,7 +9,7 @@ import { ApiServiceInterface } from "@/lib/features/api-service/apiServiceInterf
 import { postFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
-import { getImageUrl } from "@/app/api/axios-instance";
+import ImageFetcher from "@/lib/utils/imageFetcher";
 
 export default function ApiServiceCard({ service }: { service: ApiServiceInterface }) {
   const t = useI18n();
@@ -17,11 +17,6 @@ export default function ApiServiceCard({ service }: { service: ApiServiceInterfa
   const dispatch = useAppDispatch();
   const [hovered, setHovered] = useState(false);
 
-  const imageUrl = service.image_service
-    ? service.image_service.startsWith("http")
-      ? service.image_service
-      : `${getImageUrl(service.image_service)}`
-    : "/images/logo_service.png";
 
   const handleFavoriteService = (service_id: number) => {
     dispatch(postFavoriteService({ "service_id": service_id }));
@@ -62,12 +57,11 @@ export default function ApiServiceCard({ service }: { service: ApiServiceInterfa
               }
               offset={[-12, 12]}
             >
-              <Image
-                alt="Logo"
-                src={imageUrl}
+              <ImageFetcher
+                imagePath={service.image_service}
+             
                 width={100}
                 height={100}
-                preview={false}
               />
             </Badge>
 

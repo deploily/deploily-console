@@ -63,8 +63,6 @@ export const fetchPaymentById = createAsyncThunk(
 export const uploadPaymentReceipt = createAsyncThunk(
   "payment/uploadPaymentReceipt",
   async (receiptData: any, thunkConfig) => {
-    console.log("uploadPaymentReceipt", receiptData);
-    console.log("uploadPaymentReceipt", receiptData.paymentId);
     try {
       const session = await getSession();
       if (!session) {
