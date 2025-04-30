@@ -34,6 +34,7 @@ export default function FeedbackAlert() {
                 <Button
                     type="primary"
                     style={{
+                        width: "100%",
                         backgroundColor: "#D85912",
                         border: "none",
                         boxShadow: "none"
