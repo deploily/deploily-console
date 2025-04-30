@@ -12,8 +12,9 @@ import subscriptionStatesSlice from './features/subscription-states/subscription
 import subscriptionSlice from "./features/subscriptions/subscriptionSlice";
 import supportTicketResponsesSlice from "./features/support-ticket -responses/supportTicketResponsesSlice";
 import supportTicketSlice from "./features/support-ticket/supportTicketSlice";
-import CloudResourceSlice from "./features/cloud-resource/cloudResourceSlice";
-import ApplicationServiceSlice from "./features/application/applicationServiceSlice";
+import cloudResourceSlice from "./features/cloud-resource/cloudResourceSlice";
+import applicationServiceSlice from "./features/application/applicationServiceSlice";
+import profileSlice from "./features/profile/profileSlice";
 
 export const makeStore = () => {
   return configureStore({
@@ -29,10 +30,11 @@ export const makeStore = () => {
       epayment: epaymentSlice,
       subscriptionStatesSlice: subscriptionStatesSlice,
       cicdService: cicdServiceSlice,
-      cloudResource: CloudResourceSlice,
-      applicationService: ApplicationServiceSlice,
+      cloudResource: cloudResourceSlice,
+      applicationService: applicationServiceSlice,
       supportTicketResponses: supportTicketResponsesSlice,
-      contactUs: contactUsSlice
+      contactUs: contactUsSlice,
+      profile: profileSlice
     },
   });
 };

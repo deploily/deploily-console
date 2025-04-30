@@ -1,3 +1,4 @@
+"use client"
 import { usePaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesSelectors";
 import { getPaymentProfileById, updatePaymentProfile } from "@/lib/features/payment-profiles/paymentProfilesThunks";
 import { useAppDispatch } from "@/lib/hook";
@@ -227,7 +228,7 @@ console.log(form.getFieldsValue());
                     subTitle={traslate('subTitleError')}
                 />
             }
-            <FundBalanceDrawer openDrawer={openDrawer} onClose={onClose} />
+            <FundBalanceDrawer openDrawer={openDrawer} onClose={onClose} selectedProfile={profile_id} />
         </div>
 
     )

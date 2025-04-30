@@ -1,11 +1,11 @@
 "use client";
-import { Row, Col } from "antd";
-import { useEffect } from "react";
-import { useAppDispatch } from "@/lib/hook";
-import CiCdServiceCard from "./cdCdServiceCard";
-import { fetchCiCdServices } from "@/lib/features/ci-cd-service/cicdServiceThunks";
-import { useCiCdService } from "@/lib/features/ci-cd-service/cicdServiceSelectors";
 import { CiCdServiceInterface } from "@/lib/features/ci-cd-service/cicdServiceInterface";
+import { useCiCdService } from "@/lib/features/ci-cd-service/cicdServiceSelectors";
+import { fetchCiCdServices } from "@/lib/features/ci-cd-service/cicdServiceThunks";
+import { useAppDispatch } from "@/lib/hook";
+import { Col, Row } from "antd";
+import { useEffect } from "react";
+import CiCdServiceCard from "./cdCdServiceCard";
 
 export default function CiCdServiceContainer() {
   const { isLoading, cicdServiceResponse } = useCiCdService();
@@ -28,8 +28,8 @@ export default function CiCdServiceContainer() {
         >
           CICD
         </span>
-        <span style={{ color: "white", fontSize: "16px", marginLeft: 10 , paddingTop: 4 }}>
-          (comming soon)  
+        <span style={{ color: "white", fontSize: "16px", marginLeft: 10, paddingTop: 4 }}>
+          (coming soon)
         </span>
       </Row>
 

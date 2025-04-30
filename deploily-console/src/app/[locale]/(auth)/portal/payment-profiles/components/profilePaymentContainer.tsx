@@ -19,6 +19,7 @@ export default function ProfilePayementContainer() {
     const t = useScopedI18n("profilePayment");
     const traslate = useI18n();
     const [openDrawer, setOpenDrawer] = useState(false);
+    const [selectedProfile, setSelectedProfile] = useState(null);
 
     const [columns] = useState([]);
     const { paymentProfilesList, isLoading, paymentProfilesLoadingError } = usePaymentProfiles();
@@ -89,7 +90,10 @@ export default function ProfilePayementContainer() {
                         ? <></> as JSX.Element
                         : (
                             <div style={{ display: "flex", justifyContent: "end", paddingInline: 5 }}>
-                                <CustomOrangeButton onClick={() => setOpenDrawer(true)}>
+                                <CustomOrangeButton onClick={() => {
+                                    setSelectedProfile(element.id)
+                                    setOpenDrawer(true)
+                                }}>
                                     {t('fundBalance')}
                                 </CustomOrangeButton>
                             </div>
@@ -113,8 +117,8 @@ export default function ProfilePayementContainer() {
         }));
 
     return (
-        <>
-            <Row gutter={16} style={{ marginTop: 30 }}>
+        <>  <div style={{ padding: 12 }}>
+            <Row gutter={16} style={{ marginTop: 30}}>
                 <Col span={14}>
                     <Title level={3} style={{ fontWeight: 700, color: '#ffff' }}>
                         {t("profilePayment")}
@@ -130,7 +134,8 @@ export default function ProfilePayementContainer() {
                 </Col>
             </Row>
 
-            {!paymentProfilesLoadingError &&
+          
+                {!paymentProfilesLoadingError &&
                 <Table<PaymentProfileInterface>
                     columns={
                         isLoading
@@ -159,20 +164,20 @@ export default function ProfilePayementContainer() {
                     })}
                 />
             }
-            {!isLoading && paymentProfilesLoadingError &&
-                <Result
-                    status="500"
-                    title={traslate('error')}
-                    subTitle={traslate('subTitleError')}
-                />
-            }
+                {!isLoading && paymentProfilesLoadingError &&
+                    <Result
+                        status="500"
+                        title={traslate('error')}
+                        subTitle={traslate('subTitleError')}
+                    />
+                }
 
-            <FundBalanceDrawer openDrawer={openDrawer} onClose={onClose} />
-            <style jsx global>{`
+                <FundBalanceDrawer openDrawer={openDrawer} onClose={onClose} selectedProfile={selectedProfile} />
+                <style jsx global>{`
                         .ant-table-row.no-hover:hover {
                         background-color: inherit !important;
                       }
-            `}</style>
+            `}</style></div>
         </>
     );
 }

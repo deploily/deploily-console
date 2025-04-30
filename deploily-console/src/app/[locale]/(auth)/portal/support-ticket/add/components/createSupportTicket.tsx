@@ -75,7 +75,7 @@ export default function CreateSupportTicket() {
                     <Select
                         allowClear
                         style={{ width: "100%", height: 40 }}
-                        placeholder={t("selectService")}
+                        placeholder={t("selectSubscription")}
 
                     >
                         {subscriptionResponse !== undefined ? subscriptionResponse?.result?.map((value: SubscriptionInterface) => (

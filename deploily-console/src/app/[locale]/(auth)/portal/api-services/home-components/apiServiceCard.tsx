@@ -52,7 +52,10 @@ export default function ApiServiceCard({ service }: { service: ApiServiceInterfa
                       <Star size={20} weight="fill" color="#FC3232" /> :
                       <Star size={20} weight="fill" color="#7D7D7D" />
                   }
-                  onClick={() => handleFavoriteService(service.id)}
+                  onClick={(e) => {
+                    e.stopPropagation(); // Prevent Card onClick
+                    handleFavoriteService(service.id);
+                  }}
                 />
               }
               offset={[-12, 12]}

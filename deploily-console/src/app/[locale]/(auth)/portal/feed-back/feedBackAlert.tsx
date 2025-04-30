@@ -34,6 +34,7 @@ export default function FeedbackAlert() {
                 <Button
                     type="primary"
                     style={{
+                        width: "100%",
                         backgroundColor: "#D85912",
                         border: "none",
                         boxShadow: "none"
@@ -59,7 +60,6 @@ export default function FeedbackAlert() {
                 <span
                     style={{
                         color: "rgba(220, 233, 245, 0.88)",
-                        fontFamily: "Inter, sans-serif",
                         fontSize: "16px",
                         fontWeight: 600,
                     }}

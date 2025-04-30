@@ -8,6 +8,7 @@ import { menuItems } from "./menuItems";
 import { useI18n, useScopedI18n } from "../../../../../../locales/client";
 import federatedLogout from "@/lib/utils/federatedLogout";
 import { usePathname } from "next/navigation";
+import FeedbackAlert from "../feed-back/feedBackAlert";
 
 const { Sider } = Layout;
 
@@ -27,7 +28,10 @@ export function MainSideBar() {
   const items = [
     {
       key: "profile",
-      label: scopedSidebar("profile"),
+      label:
+        < Link href="/portal/profile" >
+          <span >{scopedSidebar("profile")}</span>
+        </Link >,
       icon: <User size={24} />,
     },
     {
@@ -129,7 +133,10 @@ export function MainSideBarMobile() {
   const items = [
     {
       key: "profile",
-      label: scopedSidebar("profile"),
+      label:
+        <Link href="/portal/profile" >
+          <span >{scopedSidebar("profile")}</span>
+        </Link >,
       icon: <User size={24} />,
     },
     {
@@ -141,27 +148,11 @@ export function MainSideBarMobile() {
 
   return (
     <>
-      <Button
-        style={{
-          width: "100%",
-          color: "#fff",
-          backgroundColor: "#D85912",
-          border: "none",
-        }}
-      >
-        <Link href="/portal/home">
-          <span
-            style={{
-              color: "rgba(220, 233, 245, 0.88)",
 
-              fontSize: "16px",
-              fontWeight: 600,
-            }}
-          >
-            {t("ondemand")}
-          </span>
-        </Link>
-      </Button>
+      <div style={{ textAlign: "center" }}>
+        <FeedbackAlert />
+      </div>
+
       <Menu
         defaultSelectedKeys={["1"]}
         defaultOpenKeys={["sub1"]}

@@ -1,10 +1,10 @@
 "use client";
-import { Row, Col } from "antd";
-import { useEffect } from "react";
-import { useAppDispatch } from "@/lib/hook";
-import { fetchCloudResources } from "@/lib/features/cloud-resource/cloudResourceThunks";
-import { useCloudResource } from "@/lib/features/cloud-resource/cloudResourceSelectors";
 import { CloudResourceInterface } from "@/lib/features/cloud-resource/cloudResourceInterface";
+import { useCloudResource } from "@/lib/features/cloud-resource/cloudResourceSelectors";
+import { fetchCloudResources } from "@/lib/features/cloud-resource/cloudResourceThunks";
+import { useAppDispatch } from "@/lib/hook";
+import { Col, Row } from "antd";
+import { useEffect } from "react";
 import CloudResourceCard from "./cloudResourceCard";
 
 export default function CloudResourceContainer() {
@@ -26,10 +26,10 @@ export default function CloudResourceContainer() {
             fontWeight: 800,
           }}
         >
-          Cloud Resource 
+          Cloud Resource
         </span>
         <span style={{ color: "white", fontSize: "16px", marginLeft: 10, paddingTop: 4 }}>
-          (comming soon)
+          (coming soon)
         </span>
       </Row>
 

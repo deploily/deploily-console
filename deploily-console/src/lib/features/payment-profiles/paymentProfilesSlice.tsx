@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { newPaymentProfileResponse, PaymentProfileInterface, PaymentProfilesResponse } from "./paymentProfilesInterface";
-import { fetchPaymentProfiles, getPaymentProfileById, postPaymentProfile } from "./paymentProfilesThunks";
+import { NewFundBalanceResponse, newPaymentProfileResponse, PaymentProfileInterface, PaymentProfilesResponse } from "./paymentProfilesInterface";
+import { fetchPaymentProfiles, getPaymentProfileById, postFundBalance, postPaymentProfile } from "./paymentProfilesThunks";
 
 interface PaymentProfileState {
   paymentProfilesList?: PaymentProfilesResponse;
@@ -12,6 +12,10 @@ interface PaymentProfileState {
   isPaymentProfileCreatedSuccess: boolean;
   isPaymentProfileCreatedFailed: boolean;
   newPaymentProfileResponse?: newPaymentProfileResponse;
+  isFundBalanceSuccess: boolean;
+  isFundBalanceFailed: boolean;
+  newFundBalanceResponse?: NewFundBalanceResponse;
+
 }
 
 const initialState: PaymentProfileState = {
@@ -24,6 +28,10 @@ const initialState: PaymentProfileState = {
   isPaymentProfileCreatedSuccess: false,
   isPaymentProfileCreatedFailed: false,
   newPaymentProfileResponse: undefined,
+  isFundBalanceSuccess: false,
+  isFundBalanceFailed: false,
+  newFundBalanceResponse: undefined,
+
 };
 const PaymentProfileSlice = createSlice({
   name: "PaymentProfileSlice",
@@ -77,6 +85,30 @@ const PaymentProfileSlice = createSlice({
         state.isPaymentProfileCreatedSuccess = true;
         state.newPaymentProfileResponse = payload;
         state.isPaymentProfileCreatedFailed = false;
+      })
+      .addCase(postFundBalance.pending, (state) => {
+        state.isLoading = true;
+        state.isFundBalanceSuccess = false;
+        state.isFundBalanceFailed = false;
+      
+            })
+      .addCase(postFundBalance.rejected, (state) => {
+        state.isLoading = false;
+        state.isFundBalanceFailed = true;
+        state.isFundBalanceSuccess = false;
+            })
+      .addCase(postFundBalance.fulfilled, (state, { payload }) => {
+        console.log("postFundBalance.fulfilled", payload );
+        
+        state.isLoading = false;
+
+        state.isFundBalanceSuccess = true;
+        
+        state.newFundBalanceResponse = payload;
+        console.log("postFundBalanceeeeeeeeeeeeeeeeeeeeeeeeee" );
+        console.log("postFundBalance.fulfilleddddddddddddddd", state.newFundBalanceResponse );
+
+        state.isFundBalanceFailed = false;
             });
 
   },
