@@ -1,10 +1,10 @@
 "use client";
-import { Row, Col } from "antd";
-import { useEffect } from "react";
-import { useAppDispatch } from "@/lib/hook";
-import { fetchApplicationServices } from "@/lib/features/application/applicationServiceThunks";
-import { useApplicationService } from "@/lib/features/application/applicationServiceSelectors";
 import { ApplicationServiceInterface } from "@/lib/features/application/applicationServiceInterface";
+import { useApplicationService } from "@/lib/features/application/applicationServiceSelectors";
+import { fetchApplicationServices } from "@/lib/features/application/applicationServiceThunks";
+import { useAppDispatch } from "@/lib/hook";
+import { Col, Row } from "antd";
+import { useEffect } from "react";
 import ApplicationServiceCard from "./applicationServiceCard";
 
 export default function ApplicationServiceContainer() {
@@ -26,10 +26,10 @@ export default function ApplicationServiceContainer() {
             fontWeight: 800,
           }}
         >
-          Cloud Resource 
+          Cloud Resource
         </span>
         <span style={{ color: "white", fontSize: "16px", marginLeft: 10, paddingTop: 4 }}>
-          (comming soon)
+          (coming soon)
         </span>
       </Row>
 
