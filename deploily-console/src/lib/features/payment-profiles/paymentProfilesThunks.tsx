@@ -125,7 +125,7 @@ export const postFundBalance = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axios.post(`${deploilyApiUrls.FUND_BALANCE}`, data, {
+      const response = await axiosInstance.post(`${deploilyApiUrls.FUND_BALANCE}`, data, {
 
         headers: {
           Accept: "application/json",

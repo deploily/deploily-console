@@ -1,6 +1,6 @@
+import axiosInstance from "@/app/api/axios-instance";
 import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import { getSession } from "next-auth/react";
 
 export const getProfile = createAsyncThunk(
@@ -13,7 +13,7 @@ export const getProfile = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axios.get(`${deploilyApiUrls.USER}`, {
+      const response = await axiosInstance.get(`${deploilyApiUrls.USER}`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
