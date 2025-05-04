@@ -17,19 +17,19 @@ export default function ProfileContentDetails() {
 
     useEffect(() => {
         dispatch(getProfile());
-    }, [dispatch]);
+        
+    }, []);
 
     useEffect(() => {
         if (currentProfile) {
             const currentValues = form.getFieldsValue();
             const isFormEmpty = !currentValues.name && !currentValues.lastName && !currentValues.email && !currentValues.username;
 
-            if (isFormEmpty) {
+            if (!isFormEmpty) {
                 form.setFieldsValue({
                     name: currentProfile.first_name || "",
                     lastName: currentProfile.last_name || "",
                     email: currentProfile.email || "",
-                    password: "", // not displayed, but placeholder
                     username: currentProfile.username || "",
                 });
             }

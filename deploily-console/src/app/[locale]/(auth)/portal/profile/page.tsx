@@ -1,5 +1,6 @@
 "use client";
 import { Row } from "antd";
+import ProfileContentDetails from "./components/profileContentDetails";
 
 export default function Page() {
 
@@ -17,6 +18,8 @@ export default function Page() {
           Profile
         </span>
       </Row>
+      <ProfileContentDetails />
+
     </>
   );
 }
