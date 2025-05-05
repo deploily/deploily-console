@@ -7,10 +7,17 @@ import { useRouter } from "next/navigation";
 import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import { subscriptionStatusStyle } from "../utils/subscriptionsConst";
 import ImageFetcher from "@/lib/utils/imageFetcher";
+import { postFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
+import { useAppDispatch } from "@/lib/hook";
 export default function SubscriptionCard({ data }: { data: SubscriptionInterface }) {
     const tSubscription = useScopedI18n('subscription');
     const t = useI18n();
     const router = useRouter();
+    const dispatch = useAppDispatch();
+
+    const handleFavoriteService = (service_id: number) => {
+        dispatch(postFavoriteService({ "service_id": service_id }));
+    }
     return (
         <Card style={{ height: "100%", width: "100%", padding: 0, cursor: "pointer", position: "relative" }}
             onClick={() => router.push(`/portal/subscriptions/${data.id}`)}
@@ -32,6 +39,10 @@ export default function SubscriptionCard({ data }: { data: SubscriptionInterface
                                         minWidth: 24
                                     }}
                                     icon={<Star size={25} weight="fill" color="#7D7D7D" />}
+                                    onClick={(e) => {
+                                        e.stopPropagation(); // Prevent Card onClick
+                                        handleFavoriteService(data.id);
+                                    }}
                                 />
                             }
                             offset={[-12, 12]}
