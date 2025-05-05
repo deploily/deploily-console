@@ -1,7 +1,7 @@
 "use client";
 
 import { CustomPayementInput } from "@/styles/components/inputStyle";
-import { Col, Form, Row, Spin, Alert } from "antd";
+import { Col, Form, Row } from "antd";
 import { useScopedI18n } from "../../../../../../../locales/client";
 import { theme } from "@/styles/theme";
 import { useEffect } from "react";
@@ -17,26 +17,18 @@ export default function ProfileContentDetails() {
 
     useEffect(() => {
         dispatch(getProfile());
-        
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         if (currentProfile) {
-            const currentValues = form.getFieldsValue();
-            const isFormEmpty = !currentValues.name && !currentValues.lastName && !currentValues.email && !currentValues.username;
-
-            if (!isFormEmpty) {
-                form.setFieldsValue({
-                    name: currentProfile.first_name || "",
-                    lastName: currentProfile.last_name || "",
-                    email: currentProfile.email || "",
-                    username: currentProfile.username || "",
-                });
-            }
+            form.setFieldsValue({
+                name: currentProfile.first_name || "",
+                lastName: currentProfile.last_name || "",
+                email: currentProfile.email || "",
+                username: currentProfile.username || "",
+            });
         }
-    }, []);
-
-
+    }, [currentProfile, form]);
 
     return (
         <Form
