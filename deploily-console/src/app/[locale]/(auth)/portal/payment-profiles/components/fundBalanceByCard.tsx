@@ -16,6 +16,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 
 export default function FundBalanceByCard({ selectedProfile }: { selectedProfile: any }) {
     const t = useScopedI18n("profilePayment");
+   const  NEXT_PUBLIC_SITE_KEY = "6Ldb_i8rAAAAAAbj8Z8zS9cx23EX_wVX7D30FdSM"
 
     const [selectBalance, setSelectBalance] = useState<number | null>(null);
     const [customBalance, setCustomBalance] = useState<number>(0);
@@ -126,8 +127,7 @@ export default function FundBalanceByCard({ selectedProfile }: { selectedProfile
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10, marginTop: 20 }}>
 
                 <ReCAPTCHA
-                    sitekey="6Ldb_i8rAAAAAAbj8Z8zS9cx23EX_wVX7D30FdSM"
-{/*                     sitekey={process.env.NEXT_PUBLIC_SITE_KEY} */}
+                   sitekey={NEXT_PUBLIC_SITE_KEY} 
                     ref={recaptchaRef}
                     onChange={handleCaptchaChange}
                 />
