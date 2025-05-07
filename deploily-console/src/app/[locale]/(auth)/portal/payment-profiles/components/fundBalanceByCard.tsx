@@ -126,8 +126,8 @@ export default function FundBalanceByCard({ selectedProfile }: { selectedProfile
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10, marginTop: 20 }}>
 
                 <ReCAPTCHA
-                    // sitekey="6Ldb_i8rAAAAAAbj8Z8zS9cx23EX_wVX7D30FdSM"
-                    sitekey={process.env.NEXT_PUBLIC_SITE_KEY}
+                    sitekey="6Ldb_i8rAAAAAAbj8Z8zS9cx23EX_wVX7D30FdSM"
+{/*                     sitekey={process.env.NEXT_PUBLIC_SITE_KEY} */}
                     ref={recaptchaRef}
                     onChange={handleCaptchaChange}
                 />
