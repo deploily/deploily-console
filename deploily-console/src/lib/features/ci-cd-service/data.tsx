@@ -3,7 +3,7 @@ export const data = {
     data: {
         count: 1,
         description_columns: "",
-        ids: [0, 1],
+        ids: [0, 1, 2],
         label_columns: "",
         list_columns: [],
         list_title: "",
@@ -14,16 +14,23 @@ export const data = {
                 price: "1 000 DZD",
                 description:
                     "GitHub CI/CD automates code build, test, and deployment workflows using GitHub Actions.",
-                image : "/images/github.png",
+                image: "/images/github.png",
             },
             {
                 name: "Gitlab",
                 price: "1 000 DZD",
                 description:
                     "GitLab CI/CD automates the process of building, testing, and deploying code using GitLab's built-in pipeline features.",
-                image : "/images/gitlab.png",
+                image: "/images/gitlab.png",
             },
-            
+            {
+                name: "Docker compose",
+                price: "1 000 DZD",
+                description:
+                    "Docker Compose is a tool for defining and running multi-container applications. It is the key to unlocking a streamlined and efficient development and deployment experience.",
+                image: "/images/docker.png",
+            },
+
         ],
     },
 };
