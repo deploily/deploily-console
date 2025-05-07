@@ -2,7 +2,7 @@ export default {
   'platformName': 'Deploily',
   'ondemand': 'SUR DEMANDE',
   'comingSoon': "Dans les coulisses, nous créons quelque chose de spécial. Restez à l'écoute pour ce qui est à venir !",
-  'APIService': 'APIs',
+  'APIService': 'API Service',
   'Members': 'Membres',
   'myFavorites': 'Mes favoris',
   'myServices': 'Mes services',
