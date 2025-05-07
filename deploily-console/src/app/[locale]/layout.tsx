@@ -2,6 +2,7 @@ import SessionGuard from "@/components/sessionGuard";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ConfigProvider } from "antd";
 import "antd/dist/reset.css";
+import type { Metadata } from "next";
 import { DM_Sans, JetBrains_Mono } from 'next/font/google';
 import { ReactElement } from "react";
 import { I18nProviderClient } from "../../../locales/client";
@@ -29,6 +30,26 @@ export const generateViewport = () => ({
   width: "device-width",
   initialScale: 1,
 });
+
+export const metadata: Metadata = {
+  title: "Deploily - Deploy to Sovereign Infrastructure ",
+  description: "Deploily helps you deploy and manage your web applications easily in the cloud with just a few clicks.",
+  keywords: "Deploily, Cloud Deployment, App Hosting, CI/CD, Web App Management, Cloud Proxy Solution, Application Deployment, Open Source Platform, Algerian Data Protection, Local Cloud Hosting, Local API Alternatives",
+  viewport: "width=device-width, initial-scale=1",
+  openGraph: {
+    type: "website",
+    url: "https://console.deploily.cloud/en",
+    title: "Deploily - Deploy to Sovereign Infrastructure ",
+    siteName: "Deploily",
+    description: "Launch your apps in the cloud effortlessly with Deploily. Streamlined tools for developers to deploy, scale, and monitor web applications.",
+    images: [{
+      url: "https://console.deploily.cloud/images/Logo.jpg",
+      alt: "Deploily Logo"
+    }],
+    locale: "en_US"
+  },
+};
+
 export default async function RootLayout({
   children,
   params,
