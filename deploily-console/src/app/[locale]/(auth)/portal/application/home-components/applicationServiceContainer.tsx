@@ -26,7 +26,7 @@ export default function ApplicationServiceContainer() {
             fontWeight: 800,
           }}
         >
-          Cloud Resource
+          Applications
         </span>
         <span style={{ color: "white", fontSize: "16px", marginLeft: 10, paddingTop: 4 }}>
           (coming soon)

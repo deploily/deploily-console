@@ -7,9 +7,11 @@ export default function Page() {
   return (
     <>
       <ApiServiceContainer />
-      <CiCdServiceContainer />
-      <ApplicationServiceContainer />
-      <CloudResourceContainer />
+      <div style={{ opacity: 0.5, pointerEvents: "none" }}>
+        <CloudResourceContainer />
+        <CiCdServiceContainer />
+        <ApplicationServiceContainer />
+      </div>
     </>
   );
 }
