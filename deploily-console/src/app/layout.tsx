@@ -12,12 +12,12 @@ export const metadata: Metadata = {
   viewport: "width=device-width, initial-scale=1",
   openGraph: {
     type: "website",
-    url: "https://deploily.cloud/en",
+    url: "https://console.deploily.cloud/en",
     title: "Deploily - Deploy to Sovereign Infrastructure ",
     siteName: "Deploily",
     description: "Launch your apps in the cloud effortlessly with Deploily. Streamlined tools for developers to deploy, scale, and monitor web applications.",
     images: [{
-      url: "https://deploily.cloud/images/Logo.jpg",
+      url: "https://console.deploily.cloud/images/Logo.jpg",
       alt: "Deploily Logo"
     }],
     locale: "en_US"
