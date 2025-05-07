@@ -6,10 +6,13 @@ import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
 import { Button, Card, Checkbox, CheckboxChangeEvent, Image, Typography } from "antd";
 import { redirect } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useScopedI18n } from "../../../../../../../../../../locales/client";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default function CardPaymentComponent({ selectedPlan }: { selectedPlan: any }) {
+    const NEXT_PUBLIC_SITE_KEY = "6Ldb_i8rAAAAAAbj8Z8zS9cx23EX_wVX7D30FdSM"
+
     const [value, setValue] = useState(false);
     const onChangeCheckbox = (e: CheckboxChangeEvent) => {
         setValue(e.target.checked);
@@ -31,8 +34,15 @@ export default function CardPaymentComponent({ selectedPlan }: { selectedPlan: a
         }
     }, [newSubscriptionResponse]);
 
+    const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+
+    const recaptchaRef = useRef<ReCAPTCHA>(null);
+    const handleCaptchaChange = (value: string | null) => {
+        setCaptchaToken(value);
+    };
     const handleSubscribe = async () => {
         const newSubscriptionObject = {
+            captcha_token: captchaToken,
             duration: subscriptionStates.duration,
             total_amount: subscriptionStates.totalAmount,
             promo_code: subscriptionStates.promoCode,
@@ -66,19 +76,13 @@ export default function CardPaymentComponent({ selectedPlan }: { selectedPlan: a
                         </Typography.Text>
                         DZD
                     </Typography.Title>
-                    <Button
-                        onClick={() => console.log("captcha")}
-                        style={{
-                            color: "#fff",
-                            backgroundColor: "#D85912",
-                            border: "none",
-                            padding: "4px 8px",
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "6px",
-                        }} >
-                        captcha
-                    </Button>
+
+                    <ReCAPTCHA
+                        sitekey={NEXT_PUBLIC_SITE_KEY}
+                        ref={recaptchaRef}
+                        onChange={handleCaptchaChange}
+                    />
+
                     <Checkbox style={{ padding: 15 }} onChange={onChangeCheckbox} checked={value}>
                         I accept the general conditions of use
                     </Checkbox>
