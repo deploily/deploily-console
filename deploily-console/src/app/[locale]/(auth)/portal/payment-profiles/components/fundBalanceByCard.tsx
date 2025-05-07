@@ -6,18 +6,25 @@ import { theme } from "@/styles/theme";
 import { Button, Card, Checkbox, Radio, Image, Input } from "antd";
 import type { RadioChangeEvent } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useScopedI18n } from "../../../../../../../locales/client";
 import { postFundBalance } from "@/lib/features/payment-profiles/paymentProfilesThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { usePaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesSelectors";
 import { redirect } from "next/navigation";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default function FundBalanceByCard({ selectedProfile }: { selectedProfile: any }) {
     const t = useScopedI18n("profilePayment");
 
     const [selectBalance, setSelectBalance] = useState<number | null>(null);
     const [customBalance, setCustomBalance] = useState<number>(0);
+    const [value, setValue] = useState(false);
+    const { newFundBalanceResponse } = usePaymentProfiles();
+    const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+    const recaptchaRef = useRef<ReCAPTCHA>(null);
+
+
     const [values, setValues] = useState({
         payment_method: "card",
         balanceRechage: 0,
@@ -37,14 +44,12 @@ export default function FundBalanceByCard({ selectedProfile }: { selectedProfile
             setValues(prev => ({ ...prev, balanceRechage: val }));
         }
     };
-    const [value, setValue] = useState(false);
 
     const onChangeCheckbox = (e: CheckboxChangeEvent) => {
         setValue(e.target.checked);
     };
     const dispatch = useAppDispatch();
-    const { newFundBalanceResponse } = usePaymentProfiles();
-    
+
     useEffect(() => {
         if (newFundBalanceResponse) {
             if (newFundBalanceResponse.form_url !== null) {
@@ -57,11 +62,16 @@ export default function FundBalanceByCard({ selectedProfile }: { selectedProfile
     }, [newFundBalanceResponse]);
 
  
+    const handleCaptchaChange = (value: string | null) => {
+        setCaptchaToken(value);
+    };
+
     const handleBalanceRecharge = async () => {
         const newFundBalanceObject = {
             payment_method: "card",
             total_amount: selectBalance === 4 ? customBalance : selectBalance,
             profile_id: selectedProfile,
+            captcha_token: captchaToken,
         };
         dispatch(postFundBalance(newFundBalanceObject));
         console.log(newFundBalanceObject);
@@ -114,21 +124,13 @@ export default function FundBalanceByCard({ selectedProfile }: { selectedProfile
             </div>
 
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10, marginTop: 20 }}>
-                <Button
-                    onClick={() => console.log(values)}
-                    style={{
-                        color: "#fff",
-                        backgroundColor: "#D85912",
-                        border: "none",
-                        padding: "4px 8px",
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "6px",
-                    }}
-                >
-                    captcha
-                </Button>
 
+                <ReCAPTCHA
+                    // sitekey="6Ldb_i8rAAAAAAbj8Z8zS9cx23EX_wVX7D30FdSM"
+                    sitekey={process.env.NEXT_PUBLIC_SITE_KEY}
+                    ref={recaptchaRef}
+                    onChange={handleCaptchaChange}
+                />
                 <Checkbox style={{ padding: 15 }} onChange={onChangeCheckbox} checked={value}>
                     I accept the general conditions of use
                 </Checkbox>
