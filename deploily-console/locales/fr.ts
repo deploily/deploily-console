@@ -64,6 +64,10 @@ export default {
   "viewApiDocumentation": "View API documentation",
   "subscription.clickToRenewNow": "Maintenez votre service actif sans interruption. Cliquez pour renouveler maintenant.",
   "subscription.renewNow": "Renouveler maintenant",
+  "seeAll": "Tout afficher",
+
+  "serviceApi.search": "Rechercher",
+  "serviceApi.filter": "Filtrer",
 
   'supportTicket.supportTicket': "Ticket d'assistance",
   'supportTicket.details': 'Détails',
