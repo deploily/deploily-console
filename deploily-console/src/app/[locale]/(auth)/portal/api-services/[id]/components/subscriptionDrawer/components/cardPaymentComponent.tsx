@@ -87,18 +87,30 @@ export default function CardPaymentComponent({ selectedPlan }: { selectedPlan: a
                         I accept the general conditions of use
                     </Checkbox>
                     <Button
+                        disabled={process.env.NEXT_PUBLIC_PAYMENT_ENABLED === "false" ? true : false}
                         style={{
                             color: "#fff",
-                            backgroundColor: theme.token.blue300,
+                            backgroundColor:
+                               ( process.env.NEXT_PUBLIC_PAYMENT_ENABLED === "false" ? true : false )
+                                    ? "#d9d9d9" 
+                                    : theme.token.blue300,
                             border: "none",
                             padding: "25px 10px",
                             display: "flex",
                             alignItems: "center",
                             gap: "10px",
                         }}
-                        icon={<Image src="/images/paymentIcon.png" alt="PAY" style={{ width: 60, height: 35 }} preview={false} />}
+                        icon={
+                            <Image
+                                src="/images/paymentIcon.png"
+                                alt="PAY"
+                                style={{ width: 60, height: 35 }}
+                                preview={false}
+                            />
+                        }
                         onClick={handleSubscribe}
                     >
+                      
                         <span style={{ fontSize: "16px", fontWeight: 600 }}>
                             PAY
                         </span>
