@@ -9,9 +9,9 @@ import { redirect } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useScopedI18n } from "../../../../../../../../../../locales/client";
 import ReCAPTCHA from "react-google-recaptcha";
+import { NEXT_PUBLIC_SITE_KEY } from "@/deploilyWebsiteUrls";
 
 export default function CardPaymentComponent({ selectedPlan }: { selectedPlan: any }) {
-    const NEXT_PUBLIC_SITE_KEY = "6Ldb_i8rAAAAAAbj8Z8zS9cx23EX_wVX7D30FdSM"
 
     const [value, setValue] = useState(false);
     const onChangeCheckbox = (e: CheckboxChangeEvent) => {
@@ -87,18 +87,30 @@ export default function CardPaymentComponent({ selectedPlan }: { selectedPlan: a
                         I accept the general conditions of use
                     </Checkbox>
                     <Button
+                        disabled={process.env.NEXT_PUBLIC_PAYMENT_ENABLED === "false" ? true : false}
                         style={{
                             color: "#fff",
-                            backgroundColor: theme.token.blue300,
+                            backgroundColor:
+                               ( process.env.NEXT_PUBLIC_PAYMENT_ENABLED === "false" ? true : false )
+                                    ? "#d9d9d9" 
+                                    : theme.token.blue300,
                             border: "none",
                             padding: "25px 10px",
                             display: "flex",
                             alignItems: "center",
                             gap: "10px",
                         }}
-                        icon={<Image src="/images/paymentIcon.png" alt="PAY" style={{ width: 60, height: 35 }} preview={false} />}
+                        icon={
+                            <Image
+                                src="/images/paymentIcon.png"
+                                alt="PAY"
+                                style={{ width: 60, height: 35 }}
+                                preview={false}
+                            />
+                        }
                         onClick={handleSubscribe}
                     >
+                      
                         <span style={{ fontSize: "16px", fontWeight: 600 }}>
                             PAY
                         </span>

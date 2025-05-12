@@ -2,7 +2,7 @@ export default {
     'platformName': 'Deploily',
     'ondemand': 'ON DEMAND',
     'comingSoon': "Behind the scenes, we're crafting something special. Stay tuned for what's to come!",
-    'APIService': 'APIs',
+    'APIService': 'API Service',
     'Members': 'Members',
     'myFavorites': 'My favorites',
     'myServices': 'My services',
@@ -61,7 +61,10 @@ export default {
     "subscribe": "SUBSCRIBE",
     "error": "Error",
     "subTitleError": "Sorry, something went wrong.",
-
+    "seeAll": "See all",
+    
+    'serviceApi.search': 'Search',
+    'serviceApi.filter': 'Filter',
 
     "viewApiDocumentation": "View API documentation",
     "subscription.clickToRenewNow": "Keep your service active without interruptions. Click to renew now.",
@@ -184,4 +187,7 @@ export default {
     "profile.email": 'Email',
     "profile.username": 'Username',
 
+    "epayment.sendByEmail": 'Send by Email',
+    "epayment.download": 'Download',
+    "epayment.print": 'Print',
 } as const

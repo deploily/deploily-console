@@ -1,5 +1,5 @@
 "use client";
-import { Row, Col, Space, Card, Result } from "antd";
+import { Row, Col, Space, Card, Result, Button } from "antd";
 import ApiServiceCard from "./apiServiceCard";
 import { useEffect } from "react";
 import { useAppDispatch } from "@/lib/hook";
@@ -8,12 +8,13 @@ import { useFavoriteServices } from "@/lib/features/favorites/favoriteServiceSel
 import { useApiServices } from "@/lib/features/api-service/apiServiceSelectors";
 import { ApiServiceInterface } from "@/lib/features/api-service/apiServiceInterface";
 import { fetchApiServices } from "@/lib/features/api-service/apiServiceThunks";
-
+import { useRouter } from "next/navigation";
 export default function ApiServiceContainer() {
   const t = useI18n();
   const { apiServiceResponse, isLoadingServiceResponse, apiServiceLoadingError } = useApiServices();
   const dispatch = useAppDispatch();
   const { favoriteServiceAdded, favoriteServiceDeleted } = useFavoriteServices()
+  const router = useRouter();
 
 
   useEffect(() => {
@@ -23,17 +24,36 @@ export default function ApiServiceContainer() {
     <>
       <Space direction="vertical" size="middle" style={{ display: 'flex', paddingTop: 15 }} >
 
-        <Row style={{ padding: 20 }}>
+        <Row style={{ paddingTop: 20 }} justify="space-between" align="middle">
           <span
             style={{
+              paddingLeft: "20px",
               color: "white",
-
               fontSize: "24px",
               fontWeight: 800,
             }}
           >
             {t("APIService")}
           </span>
+
+          <Button
+            style={{
+              backgroundColor: "#6caff0",
+              color: "white",
+              fontWeight: "bold",
+              padding: "10px 20px",
+              fontSize: "16px",       // Increased font size
+              borderRadius: "6px",    // Slightly reduced border radius
+              border: "none",
+              cursor: "pointer",
+              minWidth: "120px",      // Ensures a good width
+              height: "40px",         // Sets a comfortable height
+            }}
+            onClick={() => router.push("/portal/api-services")}
+          >
+            {t("seeAll")}
+          </Button>
+
         </Row>
 
         <Row gutter={[24, 24]} justify="start" style={{ margin: 0 }}>

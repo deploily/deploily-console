@@ -110,7 +110,7 @@ export default function CiCdServiceCard({ data }: any) {
 
             {/* Details Button */}
             <Space style={{ position: "absolute", bottom: 16, right: 16 }}>
-                <Button
+                {/* <Button
                     style={{
                         color: "#fff",
                         border: "none",
@@ -140,7 +140,7 @@ export default function CiCdServiceCard({ data }: any) {
                             transition: "color 0.3s ease",
                         }}
                     />
-                </Button>
+                </Button> */}
             </Space>
         </Card>
     );
