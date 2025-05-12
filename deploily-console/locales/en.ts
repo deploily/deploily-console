@@ -187,4 +187,7 @@ export default {
     "profile.email": 'Email',
     "profile.username": 'Username',
 
+    "epayment.sendByEmail": 'Send by Email',
+    "epayment.download": 'Download',
+    "epayment.print": 'Print',
 } as const

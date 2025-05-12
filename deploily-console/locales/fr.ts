@@ -180,4 +180,8 @@ export default {
   "profile.lastName": 'Nom',
   "profile.email": 'E-mail',
   "profile.username": "Nom d'utilisateur",
+  
+  "epayment.sendByEmail": "Envoyer par email",
+  "epayment.download": "Télécharger",
+  "epayment.print": 'Impression',
 } as const
