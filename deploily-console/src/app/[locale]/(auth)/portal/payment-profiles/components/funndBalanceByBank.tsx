@@ -4,7 +4,7 @@ import { Button, Card, Input, message, Radio, RadioChangeEvent, Typography } fro
 import { useScopedI18n } from "../../../../../../../locales/client";
 import { theme } from "@/styles/theme";
 import bankPaymentInfo from "../../api-services/[id]/components/subscriptionDrawer/components/bankPaymentData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Upload, { RcFile } from "antd/es/upload";
 import { useAppDispatch } from "@/lib/hook";
 import { DeleteOutlined, SendOutlined, UploadOutlined } from '@ant-design/icons';
@@ -26,11 +26,6 @@ export default function FundBalanceByBank({ selectedProfile }: { selectedProfile
     console.log("file upload", file);
 
     const [showUploadSection, setShowUploadSection] = useState(false);
-
-    const handleFileChange = (info: any) => {
-        const selectedFile = info as RcFile;
-        setFile(selectedFile);
-    };
 
     const { newFundBalanceResponse } = usePaymentProfiles();
 
@@ -81,6 +76,26 @@ export default function FundBalanceByBank({ selectedProfile }: { selectedProfile
         setShowUploadSection(true);
     };
 
+       const [bankTransfertInformation, setBankTransfertInformation] = useState<any>(undefined)
+        useEffect(() => {
+            const fetchBankTransfertInfo = async () => {
+                try {
+                    const res = await fetch(`/api/bank-cred`);
+                    const data = await res.json();
+                    if (data.data === undefined) {
+                        console.error("Bank account information is not configured");
+                        return;
+                    } else {
+                        setBankTransfertInformation(data.data);
+                    }
+                } catch (err) {
+                    console.error("Failed to fetch BankTransfertInfo", err);
+                }
+            };
+    
+            fetchBankTransfertInfo();
+        }, []);
+
     return (
         <>
             <Card
@@ -117,12 +132,12 @@ export default function FundBalanceByBank({ selectedProfile }: { selectedProfile
                             onChange={onChangeSelectBalance}
                             value={selectBalance}
                         >
-                            <Radio value={1000}>1 000</Radio>
-                            <Radio value={2000}>2 000</Radio>
-                            <Radio value={3000}>3 000</Radio>
-                            <Radio value={5000}>5 000</Radio>
-                            <Radio value={10000}>10 000</Radio>
-                            <Radio value={4}>
+                            <Radio key={'1000'} value={1000}>1 000</Radio>
+                            <Radio key={'2000'}  value={2000}>2 000</Radio>
+                            <Radio key={'3000'} value={3000}>3 000</Radio>
+                            <Radio key={'5000'} value={5000}>5 000</Radio>
+                            <Radio key={'10000'} value={10000}>10 000</Radio>
+                            <Radio key={'4'} value={4}>
                                 Others...
                                 {selectBalance === 4 && (
                                     <Input
@@ -157,7 +172,7 @@ export default function FundBalanceByBank({ selectedProfile }: { selectedProfile
                             textAlign: 'left',
                         }}
                     >
-                        {bankPaymentInfo(tBankPayment).map((info, index) => (
+                        {bankTransfertInformation&&bankPaymentInfo(tBankPayment, bankTransfertInformation).map((info, index) => (
                             <Typography key={index} style={{ fontWeight: 600 }}>
                                 {info.title} :
                                 <Typography.Text style={{ fontWeight: 400, marginLeft: 5 }}>

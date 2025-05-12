@@ -1,23 +1,23 @@
-const bankPaymentInfo=(t:any)=>[
+const bankPaymentInfo = (t: any, bankTransfertInformation:any)=>[
     {
      "title":t("name"),
-     "value": "Transformatek"
+        "value": bankTransfertInformation.accountHolderName
     },   
      {
      "title":t("address"),
-     "value": t("ain_temouchent")
+         "value": bankTransfertInformation.accountHolderAddress
     },
     {
      "title":t("bank"),
-     "value": t("AGB")
+     "value": bankTransfertInformation.bankName
     },  
     {
      "title":t("agency"),
-     "value": t("oran")
+     "value": bankTransfertInformation.bankAgency
     },
     {
      "title":t("rib"),
-     "value":"0321 425 31445 424 46"
+    "value": bankTransfertInformation.accountNumber
     },
 
 

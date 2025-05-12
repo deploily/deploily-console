@@ -1,9 +1,8 @@
 "use client";
 
-import { PayButton } from "@/styles/components/buttonStyle";
-import { InterBold18, InterRegular16 } from "@/styles/components/typographyStyle";
+import { InterRegular16 } from "@/styles/components/typographyStyle";
 import { theme } from "@/styles/theme";
-import { Button, Card, Checkbox, Radio, Image, Input } from "antd";
+import { Card, Checkbox, Radio, Input } from "antd";
 import type { RadioChangeEvent } from 'antd';
 import type { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { useEffect, useRef, useState } from "react";
@@ -14,6 +13,7 @@ import { usePaymentProfiles } from "@/lib/features/payment-profiles/paymentProfi
 import { redirect } from "next/navigation";
 import ReCAPTCHA from "react-google-recaptcha";
 import { NEXT_PUBLIC_SITE_KEY } from "@/deploilyWebsiteUrls";
+import EpayButton from "./epayButton";
 
 export default function FundBalanceByCard({ selectedProfile }: { selectedProfile: any }) {
     const t = useScopedI18n("profilePayment");
@@ -25,25 +25,14 @@ export default function FundBalanceByCard({ selectedProfile }: { selectedProfile
     const [captchaToken, setCaptchaToken] = useState<string | null>(null);
     const recaptchaRef = useRef<ReCAPTCHA>(null);
 
-
-    const [values, setValues] = useState({
-        payment_method: "card",
-        balanceRechage: 0,
-    });
-
     const onChangeSelectBalance = (e: RadioChangeEvent) => {
         const selected = e.target.value;
         setSelectBalance(selected);
-        const recharge = selected === 4 ? customBalance : selected;
-        setValues(prev => ({ ...prev, balanceRechage: recharge }));
     };
 
     const onChangeCustomBalance = (e: React.ChangeEvent<HTMLInputElement>) => {
         const val = parseFloat(e.target.value) || 0;
         setCustomBalance(val);
-        if (selectBalance === 4) {
-            setValues(prev => ({ ...prev, balanceRechage: val }));
-        }
     };
 
     const onChangeCheckbox = (e: CheckboxChangeEvent) => {
@@ -134,14 +123,7 @@ export default function FundBalanceByCard({ selectedProfile }: { selectedProfile
                 <Checkbox style={{ padding: 15 }} onChange={onChangeCheckbox} checked={value}>
                     I accept the general conditions of use
                 </Checkbox>
-
-                <PayButton
-                    icon={<Image src="/images/paymentIcon.png" alt="Recharge" preview={false} style={{ width: 60, height: 35 }} />}
-                    onClick={handleBalanceRecharge}
-
-                >
-                    <InterBold18>Recharge</InterBold18>
-                </PayButton>
+                <EpayButton handleBalanceRecharge={handleBalanceRecharge}/>
             </div>
         </Card>
     );

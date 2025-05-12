@@ -5,6 +5,7 @@ import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
 import { Button, Card, Typography, } from "antd";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useScopedI18n } from "../../../../../../../../../../locales/client";
 import bankPaymentInfo from "./bankPaymentData";
 
@@ -32,6 +33,26 @@ export default function BankTransfertComponent({ selectedPlan }: { selectedPlan:
         }
         );
     };
+    const [bankTransfertInformation, setBankTransfertInformation] = useState<any>(undefined)
+    useEffect(() => {
+        const fetchBankTransfertInfo = async () => {
+            try {
+                const res = await fetch(`/api/bank-cred`);
+                const data = await res.json();
+                if (data.data === undefined) {
+                    console.error("Bank account information is not configured");
+                    return;
+                } else {
+                    setBankTransfertInformation(data.data);
+                }
+            } catch (err) {
+                console.error("Failed to fetch BankTransfertInfo", err);
+            }
+        };
+
+        fetchBankTransfertInfo();
+    }, []);
+
 
 
     return (
@@ -82,7 +103,7 @@ export default function BankTransfertComponent({ selectedPlan }: { selectedPlan:
                         paddingLeft: 20,
                     }}
                 >
-                    {bankPaymentInfo(tBankPayment).map((info, index) => (
+                    {bankTransfertInformation && bankPaymentInfo(tBankPayment, bankTransfertInformation).map((info, index) => (
                         <Typography key={index} style={{ fontWeight: 600 }}>
                             {info.title} :
                             <Typography.Text style={{ fontWeight: 400, marginLeft: 5 }}>
