@@ -24,10 +24,10 @@ export const data = {
                 image: "/images/gitlab.png",
             },
             {
-                name: "Docker compose",
+                name: "Docker Desktop",
                 price: "1 000 DZD",
                 description:
-                    "Docker Compose is a tool for defining and running multi-container applications. It is the key to unlocking a streamlined and efficient development and deployment experience.",
+                    "Docker Desktop is a one-click app for Mac, Windows, and Linux that lets you easily build, run, and manage containerized applications.",
                 image: "/images/docker.png",
             },
 
