@@ -9,9 +9,9 @@ import { redirect } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useScopedI18n } from "../../../../../../../../../../locales/client";
 import ReCAPTCHA from "react-google-recaptcha";
+import { NEXT_PUBLIC_SITE_KEY } from "@/deploilyWebsiteUrls";
 
 export default function CardPaymentComponent({ selectedPlan }: { selectedPlan: any }) {
-    const NEXT_PUBLIC_SITE_KEY = "6Ldb_i8rAAAAAAbj8Z8zS9cx23EX_wVX7D30FdSM"
 
     const [value, setValue] = useState(false);
     const onChangeCheckbox = (e: CheckboxChangeEvent) => {

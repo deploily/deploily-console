@@ -3,6 +3,7 @@
 // TODO find a solution to get different URLs for dev and for PROD  / my be we must use it in client/server components
 // const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;  // for PROD
 
+export const NEXT_PUBLIC_SITE_KEY = "6Ldb_i8rAAAAAAbj8Z8zS9cx23EX_wVX7D30FdSM";
 
 const API_BASE_URL = `/api/v1`;
 export const DOC_URL = "https://docs.deploily.cloud";
@@ -28,4 +29,6 @@ export const deploilyApiUrls = {
   CONTACT_US: `${API_BASE_URL}/contact-us/`,
   USER: `${API_BASE_URL}/user/me`,
   FUND_BALANCE: `${API_BASE_URL}/balance/fund-balance`,
+  GENERATE_PDF_RECEIPT: `${API_BASE_URL}/service-subscription/generate-pdf-receipt`,
+  SEND_PDF_RECEIPT_EMAIL: `${API_BASE_URL}/service-subscription/send-pdf-receipt_mail`,
 };

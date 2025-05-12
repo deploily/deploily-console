@@ -13,10 +13,10 @@ import { useAppDispatch } from "@/lib/hook";
 import { usePaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesSelectors";
 import { redirect } from "next/navigation";
 import ReCAPTCHA from "react-google-recaptcha";
+import { NEXT_PUBLIC_SITE_KEY } from "@/deploilyWebsiteUrls";
 
 export default function FundBalanceByCard({ selectedProfile }: { selectedProfile: any }) {
     const t = useScopedI18n("profilePayment");
-   const  NEXT_PUBLIC_SITE_KEY = "6Ldb_i8rAAAAAAbj8Z8zS9cx23EX_wVX7D30FdSM"
 
     const [selectBalance, setSelectBalance] = useState<number | null>(null);
     const [customBalance, setCustomBalance] = useState<number>(0);
