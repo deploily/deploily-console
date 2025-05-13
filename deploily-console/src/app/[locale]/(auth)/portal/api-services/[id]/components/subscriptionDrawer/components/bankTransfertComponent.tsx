@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useScopedI18n } from "../../../../../../../../../../locales/client";
 import bankPaymentInfo from "./bankPaymentData";
+import { getBankCredEnvVars } from "@/actions/getBankCredEnvVars";
 
 export default function BankTransfertComponent({ selectedPlan }: { selectedPlan: any }) {
     const { totalAmount } = useSubscriptionStates()
@@ -36,22 +37,9 @@ export default function BankTransfertComponent({ selectedPlan }: { selectedPlan:
     const [bankTransfertInformation, setBankTransfertInformation] = useState<any>(undefined)
     useEffect(() => {
         const fetchBankTransfertInfo = async () => {
-            try {
-                const res = await fetch(`/api/bank-cred`);
-                const data = await res.json();
-                console.log("Bank account information", data);
-                
-                if (data.data === undefined) {
-                    console.error("Bank account information is not configured");
-                    return;
-                } else {
-                    setBankTransfertInformation(data.data);
-                }
-            } catch (err) {
-                console.error("Failed to fetch BankTransfertInfo", err);
-            }
+          const vars  =await getBankCredEnvVars()
+          setBankTransfertInformation(vars);
         };
-
         fetchBankTransfertInfo();
     }, []);
 
