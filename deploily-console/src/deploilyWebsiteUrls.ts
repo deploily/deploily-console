@@ -1,8 +1,4 @@
 
-// const BASE_URL = "http://192.168.1.22:5000"; // for DEV  
-// TODO find a solution to get different URLs for dev and for PROD  / my be we must use it in client/server components
-// const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;  // for PROD
-
 export const NEXT_PUBLIC_SITE_KEY = "6Ldb_i8rAAAAAAbj8Z8zS9cx23EX_wVX7D30FdSM";
 
 const API_BASE_URL = `/api/v1`;
