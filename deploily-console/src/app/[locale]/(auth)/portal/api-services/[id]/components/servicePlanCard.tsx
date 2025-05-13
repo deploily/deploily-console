@@ -1,8 +1,8 @@
 import { ServicePlan, ServicePlanOption } from "@/lib/features/service-plans/servicePlanInterface";
-import { Button, Card, Col, Row, Typography } from "antd";
 import { theme } from "@/styles/theme";
-import { useScopedI18n } from "../../../../../../../../locales/client";
 import { Check } from "@phosphor-icons/react/dist/ssr";
+import { Button, Card, Col, Row, Typography } from "antd";
+import { useScopedI18n } from "../../../../../../../../locales/client";
 
 export default function ServicePlanCard({ servicePlan, showDrawer }: { servicePlan: ServicePlan, showDrawer: any }) {
     const t = useScopedI18n('subscription');

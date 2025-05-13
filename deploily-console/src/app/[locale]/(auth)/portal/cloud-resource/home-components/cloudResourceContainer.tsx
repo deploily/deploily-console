@@ -21,16 +21,15 @@ export default function CloudResourceContainer() {
         <span
           style={{
             color: "white",
-
             fontSize: "24px",
             fontWeight: 800,
           }}
         >
           Cloud Resource
         </span>
-        <span style={{ color: "white", fontSize: "16px", marginLeft: 10, paddingTop: 4 }}>
+        {/* <span style={{ color: "white", fontSize: "16px", marginLeft: 10, paddingTop: 4 }}>
           (coming soon)
-        </span>
+        </span> */}
       </Row>
 
       {!isLoading && cloudResourceResponse !== undefined && (
@@ -45,7 +44,7 @@ export default function CloudResourceContainer() {
               xl={6}
               style={{ display: "flex", justifyContent: "center" }}
             >
-              <CloudResourceCard data={row} />
+              <CloudResourceCard resource={row} />
             </Col>
           ))}
         </Row>

@@ -13,4 +13,5 @@ export interface CloudResourceInterface {
     name: string;
     price: string;
     description: string;
+    logo: string;
 }

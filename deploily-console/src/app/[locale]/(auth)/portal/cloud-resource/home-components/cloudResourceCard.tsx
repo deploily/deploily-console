@@ -1,13 +1,16 @@
 "use client";
 
-import { useI18n } from "../../../../../../../locales/client";
-import { ArrowRight, Star } from "@phosphor-icons/react";
-import { Card, Col, Row, Image, Badge, Button, Space } from "antd";
-import Meta from "antd/es/card/Meta";
+import ImageFetcher from "@/lib/utils/imageFetcher";
 import { theme } from "@/styles/theme";
+import { ArrowRight, Star } from "@phosphor-icons/react";
+import { Badge, Button, Card, Col, Row, Space } from "antd";
+import Meta from "antd/es/card/Meta";
+import { useRouter } from "next/navigation";
+import { useI18n } from "../../../../../../../locales/client";
 
-export default function CloudResourceCard({ data }: any) {
+export default function CloudResourceCard({ resource }: any) {
     const t = useI18n();
+    const router = useRouter();
 
     return (
         <Card
@@ -43,11 +46,11 @@ export default function CloudResourceCard({ data }: any) {
                             }
                             offset={[-12, 12]}
                         >
-                            <Image
-                                src={data.image}
+                            <ImageFetcher
+                                imagePath={resource.logo}
+
                                 width={100}
                                 height={100}
-                                preview={false}
                             />
                         </Badge>
                     </Col>
@@ -57,8 +60,7 @@ export default function CloudResourceCard({ data }: any) {
                         style={{
                             display: "flex",
                             justifyContent: "flex-end",
-                            alignItems: "flex-start", // aligns to the top within the Row
-
+                            alignItems: "flex-start",
                         }}
                     >
                         <p
@@ -70,12 +72,10 @@ export default function CloudResourceCard({ data }: any) {
                                 alignSelf: "flex-start", // ensures it's pinned to top within Col
                             }}
                         >
-                            {data.price}
+                            {resource.price}
                         </p>
                     </Col>
-
                 </Row>
-
                 {/* Title & Description */}
                 <Row style={{ height: "40%" }}>
                     <Col span={24}>
@@ -89,7 +89,7 @@ export default function CloudResourceCard({ data }: any) {
                                         paddingTop: 12,
                                     }}
                                 >
-                                    {data.name}
+                                    {resource.name}
                                 </p>
                             }
                             description={
@@ -100,7 +100,7 @@ export default function CloudResourceCard({ data }: any) {
                                         marginBottom: 0,
                                     }}
                                 >
-                                    {data.description}
+                                    {resource.description}
                                 </p>
                             }
                         />
@@ -108,9 +108,8 @@ export default function CloudResourceCard({ data }: any) {
                 </Row>
             </div>
 
-            {/* Details Button */}
             <Space style={{ position: "absolute", bottom: 16, right: 16 }}>
-                {/* <Button
+                <Button
                     style={{
                         color: "#fff",
                         border: "none",
@@ -120,6 +119,10 @@ export default function CloudResourceCard({ data }: any) {
                         display: "flex",
                         alignItems: "center",
                     }}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        router.push(`/portal/cloud-resource/${resource.id}`);
+                    }}
                 >
                     <span
                         style={{
@@ -128,7 +131,6 @@ export default function CloudResourceCard({ data }: any) {
                             fontWeight: 600,
                             paddingRight: 4,
                             transition: "color 0.3s ease",
-
                         }}
                     >
                         {t("details")}
@@ -140,7 +142,7 @@ export default function CloudResourceCard({ data }: any) {
                             transition: "color 0.3s ease",
                         }}
                     />
-                </Button> */}
+                </Button>
             </Space>
         </Card>
     );
