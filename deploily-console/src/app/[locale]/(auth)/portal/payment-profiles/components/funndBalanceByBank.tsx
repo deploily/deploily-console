@@ -12,6 +12,7 @@ import { uploadPaymentReceipt } from "@/lib/features/payments/paymentThunks";
 import { postFundBalance } from "@/lib/features/payment-profiles/paymentProfilesThunks";
 import { InterRegular16 } from "@/styles/components/typographyStyle";
 import { usePaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesSelectors";
+import { getBankCredEnvVars } from "@/actions/getBankCredEnvVars";
 
 
 
@@ -44,25 +45,17 @@ export default function FundBalanceByBank({ selectedProfile }: { selectedProfile
     const [selectBalance, setSelectBalance] = useState<number | null>(null);
 
     const [customBalance, setCustomBalance] = useState<number>(0);
-    const [values, setValues] = useState({
-        payment_method: "bank_transfer",
-        balanceRechage: 0,
-    });
 
 
     const onChangeSelectBalance = (e: RadioChangeEvent) => {
         const selected = e.target.value;
         setSelectBalance(selected);
-        const recharge = selected === 4 ? customBalance : selected;
-        setValues(prev => ({ ...prev, balanceRechage: recharge }));
     };
 
     const onChangeCustomBalance = (e: React.ChangeEvent<HTMLInputElement>) => {
         const val = parseFloat(e.target.value) || 0;
         setCustomBalance(val);
-        if (selectBalance === 4) {
-            setValues(prev => ({ ...prev, balanceRechage: val }));
-        }
+      
     };
 
     const handleBalanceRecharge = async () => {
@@ -78,22 +71,11 @@ export default function FundBalanceByBank({ selectedProfile }: { selectedProfile
 
        const [bankTransfertInformation, setBankTransfertInformation] = useState<any>(undefined)
         useEffect(() => {
-            const fetchBankTransfertInfo = async () => {
-                try {
-                    const res = await fetch(`/api/bank-cred`);
-                    const data = await res.json();
-                    if (data.data === undefined) {
-                        console.error("Bank account information is not configured");
-                        return;
-                    } else {
-                        setBankTransfertInformation(data.data);
-                    }
-                } catch (err) {
-                    console.error("Failed to fetch BankTransfertInfo", err);
-                }
-            };
-    
-            fetchBankTransfertInfo();
+         const fetchBankTransfertInfo = async () => {
+               const vars  =await getBankCredEnvVars()
+               setBankTransfertInformation(vars);
+             };
+             fetchBankTransfertInfo();
         }, []);
 
     return (

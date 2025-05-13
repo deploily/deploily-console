@@ -1,4 +1,5 @@
 "use client";
+import { getEpaymentPermission } from "@/actions/getEpaymentPermission";
 import { PayButton } from "@/styles/components/buttonStyle";
 import { InterBold18 } from "@/styles/components/typographyStyle";
 import { theme } from "@/styles/theme";
@@ -8,26 +9,14 @@ import { useEffect, useState } from "react";
 export default function EpayButton({ handleBalanceRecharge }: { handleBalanceRecharge: () => void }) {
 
     const [isPaymentEnabled, setIsPaymentEnabled] = useState<any>(undefined)
-        useEffect(() => {
-            const fetchBankTransfertInfo = async () => {
-                try {
-                    const res = await fetch(`/api/e-payment/check`);
-                    const data = await res.json();
-                    if (data.paymentEnabled === undefined) {
-                        setIsPaymentEnabled(false);
-                        console.error("Payment is not configured");
-                        return;
-                    } else {
-                        setIsPaymentEnabled(data.paymentEnabled);
-                    }
-                  
-                } catch (err) {
-                    console.error("Failed to fetch BankTransfertInfo", err);
-                }
-            };
-    
-            fetchBankTransfertInfo();
-        }, []);
+       useEffect(() => {
+              const checkEpaymentPermission = async () => {
+                  const paymentEnabled  =await getEpaymentPermission() 
+                  setIsPaymentEnabled(paymentEnabled);
+          };
+              checkEpaymentPermission();   
+       
+          }, []);
     return (
         <>
          <PayButton
