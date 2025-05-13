@@ -39,6 +39,8 @@ export default function BankTransfertComponent({ selectedPlan }: { selectedPlan:
             try {
                 const res = await fetch(`/api/bank-cred`);
                 const data = await res.json();
+                console.log("Bank account information", data);
+                
                 if (data.data === undefined) {
                     console.error("Bank account information is not configured");
                     return;
