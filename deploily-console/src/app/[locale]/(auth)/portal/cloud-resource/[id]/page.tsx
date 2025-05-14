@@ -6,7 +6,7 @@ type Props = {
 export default function Page({ params: { id } }: Props) {
     return (
         <>
-            <ResourceDetailsContentPage resourceId={id} />
+            <ResourceDetailsContentPage resource_id={id} />
 
         </>
     );

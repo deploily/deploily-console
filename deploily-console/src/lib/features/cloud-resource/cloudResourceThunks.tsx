@@ -14,7 +14,7 @@ export const fetchCloudResources = createAsyncThunk(
                 return thunkConfig.rejectWithValue("session expired");
             }
             const token = session.accessToken;
-            const response = await axiosInstance.get(`${deploilyApiUrls.SERVICE_RESSOURCE_PROVIDERS}`, {
+            const response = await axiosInstance.get(`${deploilyApiUrls.SERVICE_RESSOURCE}`, {
                 headers: {
                     Accept: "application/json",
                     Authorization: `Bearer ${token}`,
@@ -30,6 +30,58 @@ export const fetchCloudResources = createAsyncThunk(
             }
         } catch (error: any) {
             return thunkConfig.rejectWithValue(error.message);
+        }
+    },
+);
+
+
+export const getResourceById = createAsyncThunk(
+    "cloudresources/getResourceById",
+    async (resource_id: string, thunkConfig) => {
+        try {
+            const session = await getSession();
+            if (!session) {
+                return thunkConfig.rejectWithValue("session expired");
+            }
+            const token = session.accessToken;
+            const response = await axiosInstance.get(`${deploilyApiUrls.SERVICE_RESSOURCE}${resource_id}`, {
+                headers: {
+                    Accept: "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            if (response.status == 200) {
+                return response.data;
+            } else {
+                return thunkConfig.rejectWithValue("error");
+            }
+        } catch (error: any) {
+            return thunkConfig.rejectWithValue(error.response.data.message);
+        }
+    },
+);
+export const getProviderById = createAsyncThunk(
+    "cloudresources/getProviderById",
+    async (provider_id: string, thunkConfig) => {
+        try {
+            const session = await getSession();
+            if (!session) {
+                return thunkConfig.rejectWithValue("session expired");
+            }
+            const token = session.accessToken;
+            const response = await axiosInstance.get(`${deploilyApiUrls.PROVIDER_URL}${provider_id}`, {
+                headers: {
+                    Accept: "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            if (response.status == 200) {
+                return response.data;
+            } else {
+                return thunkConfig.rejectWithValue("error");
+            }
+        } catch (error: any) {
+            return thunkConfig.rejectWithValue(error.response.data.message);
         }
     },
 );
