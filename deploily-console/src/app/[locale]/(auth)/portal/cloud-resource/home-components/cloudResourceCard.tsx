@@ -6,11 +6,13 @@ import { ArrowRight, Star } from "@phosphor-icons/react";
 import { Badge, Button, Card, Col, Row, Space } from "antd";
 import Meta from "antd/es/card/Meta";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useI18n } from "../../../../../../../locales/client";
 
 export default function CloudResourceCard({ resource }: any) {
     const t = useI18n();
     const router = useRouter();
+    const [hovered, setHovered] = useState(false);
 
     return (
         <Card
@@ -47,7 +49,7 @@ export default function CloudResourceCard({ resource }: any) {
                             offset={[-12, 12]}
                         >
                             <ImageFetcher
-                                imagePath={resource.logo}
+                                imagePath={resource.image_service}
 
                                 width={100}
                                 height={100}
@@ -123,10 +125,12 @@ export default function CloudResourceCard({ resource }: any) {
                         e.stopPropagation();
                         router.push(`/portal/cloud-resource/${resource.id}`);
                     }}
+                    onMouseEnter={() => setHovered(true)}
+                    onMouseLeave={() => setHovered(false)}
                 >
                     <span
                         style={{
-                            color: theme.token.gray200,
+                            color: hovered ? theme.token.colorPrimary : theme.token.gray200,
                             fontSize: 16,
                             fontWeight: 600,
                             paddingRight: 4,
@@ -138,7 +142,7 @@ export default function CloudResourceCard({ resource }: any) {
                     <ArrowRight
                         size={20}
                         style={{
-                            color: theme.token.gray200,
+                            color: hovered ? theme.token.colorPrimary : theme.token.gray200,
                             transition: "color 0.3s ease",
                         }}
                     />

@@ -62,7 +62,7 @@ export default {
     "error": "Error",
     "subTitleError": "Sorry, something went wrong.",
     "seeAll": "See all",
-    
+
     'serviceApi.search': 'Search',
     'serviceApi.filter': 'Filter',
 
@@ -190,4 +190,7 @@ export default {
     "epayment.sendByEmail": 'Send by Email',
     "epayment.download": 'Download',
     "epayment.print": 'Print',
+    "whoIs": "Who is",
+    "contactProvider": "Contact provider"
+
 } as const
