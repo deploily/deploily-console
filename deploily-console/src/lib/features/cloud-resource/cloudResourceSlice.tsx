@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { CloudResourceResponse, ResourceInterface } from "./cloudResourceInterface";
-import { fetchCloudResources, getResourceById } from "./cloudResourceThunks";
+import { fetchCloudResources, getResourceById, postAffiliation } from "./cloudResourceThunks";
 
 interface CloudResourceState {
     cloudResourceResponse?: CloudResourceResponse;
@@ -8,6 +8,8 @@ interface CloudResourceState {
     cloudResourceLoadingError?: any;
     currentResource?: ResourceInterface;
     resource_id?: number;
+    isAffiliationCreatedSuccess: boolean;
+
 
 }
 
@@ -17,6 +19,8 @@ const initialState: CloudResourceState = {
     currentResource: undefined,
     cloudResourceLoadingError: undefined,
     resource_id: undefined,
+    isAffiliationCreatedSuccess: false,
+
 };
 const CloudResourceSlice = createSlice({
     name: "cloudResource",
@@ -53,7 +57,25 @@ const CloudResourceSlice = createSlice({
             .addCase(getResourceById.rejected, (state, { payload }) => {
                 state.isLoading = false;
                 state.cloudResourceLoadingError = payload;
+            })
+
+            .addCase(postAffiliation.pending, (state) => {
+                state.isLoading = true;
+                state.isAffiliationCreatedSuccess = false;
+                state.cloudResourceLoadingError = false;
+            })
+            .addCase(postAffiliation.rejected, (state) => {
+                state.isLoading = false;
+                state.cloudResourceLoadingError = true;
+                state.isAffiliationCreatedSuccess = false;
+            })
+            .addCase(postAffiliation.fulfilled, (state) => {
+                state.isLoading = false;
+                state.isAffiliationCreatedSuccess = true;
+                state.cloudResourceLoadingError = false;
             });
     },
 });
+
+
 export default CloudResourceSlice.reducer;

@@ -3,7 +3,7 @@
 import { useCloudResource } from "@/lib/features/cloud-resource/cloudResourceSelectors";
 import { getResourceById } from "@/lib/features/cloud-resource/cloudResourceThunks";
 import { postFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
-import { ServicePlan } from "@/lib/features/service-plans/servicePlanInterface";
+import { ResourcePlan } from "@/lib/features/service-plans/servicePlanInterface";
 import { useServicePlan } from "@/lib/features/service-plans/servicePlanSelector";
 import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThanks";
 import { useAppDispatch } from "@/lib/hook";
@@ -15,6 +15,7 @@ import Paragraph from "antd/es/typography/Paragraph";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useI18n } from "../../../../../../../../locales/client";
+import AffiliationDrawer from "./affilitationDrawer";
 import { getResourceItems } from "./getResourceItems";
 import RessourcePlanCard from "./ressourcePlanCard";
 
@@ -22,19 +23,37 @@ export default function ResourceDetailsContentPage({ resource_id }: { resource_i
     const dispatch = useAppDispatch();
     const t = useI18n();
     const [isHovered, setIsHovered] = useState(false);
-
+    const [openDrawer, setOpenDrawer] = useState(false);
+    const [planSelected, setSelectedPlan] = useState(undefined);
     const { currentResource, isLoading, cloudResourceLoadingError } = useCloudResource();
-    const { servicePlanResponse, servicePlanLoading, servicePlanError } = useServicePlan()
+    const { resourcePlanResponse, servicePlanLoading, servicePlanError } = useServicePlan()
 
     const handleFavoriteService = (resource_id: number) => {
         dispatch(postFavoriteService({ "service_id": resource_id }));
     }
     useEffect(() => {
+
+        if (!isLoading && cloudResourceLoadingError) {
+            console.log(isLoading);
+            console.log(cloudResourceLoadingError);
+            console.log(!isLoading && cloudResourceLoadingError);
+            console.log("_________________________________________________________________");
+
+        }
         dispatch(getResourceById(resource_id));
         dispatch(fetchServicePlans(resource_id));
     }, [dispatch, resource_id]);
 
-
+    const showDrawer = (plan: any | null) => {
+        if (plan !== null) {
+            setSelectedPlan(plan);
+            dispatch({ type: "SubscriptionStates/updateSubscriptionStates", payload: { "price": plan.price } });
+        }
+        setOpenDrawer(true);
+    };
+    const onClose = () => {
+        setOpenDrawer(false);
+    };
 
     return (
         <>
@@ -137,53 +156,60 @@ export default function ResourceDetailsContentPage({ resource_id }: { resource_i
                             />
 
                         </Row>
-                        {servicePlanLoading && servicePlanResponse?.result === undefined &&
-                            <Col
-                                xs={24}
-                                sm={12}
-                                md={10}
-                                lg={8}
-                                xl={8}
-                                style={{ display: "flex", justifyContent: "center" }}
-                            >
-                                <Card loading={true} style={{ minWidth: 300 }} />
+                        <Row gutter={[16, 24]} justify="start">
+                            <Col span={24}>
+                                <Typography.Title level={2} style={{ color: theme.token.blue100, fontSize: 24, }}>
+                                    {t('SelectServicePlan')}
+                                </Typography.Title>
                             </Col>
-                        }
-                        {!servicePlanLoading && servicePlanResponse?.result !== undefined &&
-                            <>
-                                {servicePlanResponse?.result?.map((row: ServicePlan) => (
-                                    <Col
-                                        key={row.id}
-                                        xs={24}
-                                        sm={12}
-                                        md={10}
-                                        lg={8}
-                                        xl={8}
-                                        style={{ display: "flex", justifyContent: "center" }}
-                                    >
-                                        {row.plan && (
-                                            <div style={{ width: "100%", maxWidth: 340 }}>
-                                                <RessourcePlanCard
-                                                    key={row.id}
-                                                // servicePlan={row}
-                                                // showDrawer={() => showDrawer(row)}
-                                                />
-                                            </div>
-                                        )}
-                                    </Col>
+                            {servicePlanLoading && resourcePlanResponse?.result === undefined &&
+                                <Col
+                                    xs={24}
+                                    sm={12}
+                                    md={10}
+                                    lg={8}
+                                    xl={8}
+                                    style={{ display: "flex", justifyContent: "center" }}
+                                >
+                                    <Card loading={true} style={{ minWidth: 300 }} />
+                                </Col>
+                            }
+                            {!servicePlanLoading && resourcePlanResponse?.result !== undefined &&
+                                <>
+                                    {resourcePlanResponse?.result?.map((row: ResourcePlan) => (
+                                        <Col
+                                            key={row.id}
+                                            xs={24}
+                                            sm={12}
+                                            md={10}
+                                            lg={8}
+                                            xl={8}
+                                            style={{ display: "flex", justifyContent: "center" }}
+                                        >
+                                            {row.plan && (
+                                                <div style={{ width: "100%", maxWidth: 340 }}>
+                                                    <RessourcePlanCard
+                                                        key={row.id}
+                                                        resourcePlan={row}
+                                                        showDrawer={() => showDrawer(row)}
+                                                    />
+                                                </div>
+                                            )}
+                                        </Col>
 
-                                ))}
-                            </>
-                        }
-                        {!servicePlanLoading && servicePlanError &&
-                            <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
-                                <Result
-                                    status="500"
-                                    title={t('error')}
-                                    subTitle={t('subTitleError')}
-                                />
-                            </div>
-                        }
+                                    ))}
+                                </>
+                            }
+                            {!servicePlanLoading && servicePlanError &&
+                                <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+                                    <Result
+                                        status="500"
+                                        title={t('error')}
+                                        subTitle={t('subTitleError')}
+                                    />
+                                </div>
+                            }</Row>
+                        <AffiliationDrawer openDrawer={openDrawer} onClose={onClose} planSelected={planSelected} provider={currentResource.provider} />
                     </>
                 }
                 {!isLoading && cloudResourceLoadingError &&

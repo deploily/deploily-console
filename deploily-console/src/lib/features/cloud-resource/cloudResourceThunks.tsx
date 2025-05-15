@@ -85,3 +85,32 @@ export const getProviderById = createAsyncThunk(
         }
     },
 );
+
+
+export const postAffiliation = createAsyncThunk(
+    "affiliation/postAffiliation",
+    async (data: any, thunkConfig) => {
+        try {
+            const session = await getSession();
+            if (!session) {
+                return thunkConfig.rejectWithValue("session expired");
+            }
+            const token = session.accessToken;
+
+            const response = await axiosInstance.post(`${deploilyApiUrls.AFFILIATION_URL}`, data, {
+
+                headers: {
+                    Accept: "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            if (response.status === 201) {
+                return response.data;
+            } else {
+                return thunkConfig.rejectWithValue("Failed to create new affiliation");
+            }
+        } catch (error: any) {
+            return thunkConfig.rejectWithValue(error.message);
+        }
+    },
+);
