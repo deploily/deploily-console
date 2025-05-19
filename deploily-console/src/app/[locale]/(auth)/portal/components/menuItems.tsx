@@ -1,13 +1,13 @@
 import { DOC_URL } from "@/deploilyWebsiteUrls";
 import {
-  HouseLine,
-  HardDrives,
-  CalendarStar,
-  Question,
   Books,
-  Invoice,
-  UserList,
+  CalendarStar,
   Handshake,
+  HardDrives,
+  HouseLine,
+  Invoice,
+  Question,
+  UserList,
 } from "@phosphor-icons/react/dist/ssr";
 import type { MenuProps } from "antd";
 import Link from "next/link";
@@ -71,6 +71,15 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
     //     ),
     //   },
     // ],
+  },
+  {
+    key: "my-resources",
+    label: (
+      <Link href="/portal/my-resources">
+        <span style={labelStyle}>{scopedSidebar("myResources")}</span>
+      </Link>
+    ),
+    icon: <CalendarStar size={24} />,
   },
   {
     key: "my-favorites",

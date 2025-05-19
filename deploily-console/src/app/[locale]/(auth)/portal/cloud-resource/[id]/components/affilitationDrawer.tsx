@@ -1,56 +1,38 @@
 "use client";
+import { Provider, ResourceInterface } from "@/lib/features/cloud-resource/cloudResourceInterface";
 import { postAffiliation } from "@/lib/features/cloud-resource/cloudResourceThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
-import { Button, Card, Col, Collapse, CollapseProps, Drawer, Row, Space, Typography } from "antd";
+import { Button, Card, Col, Collapse, Drawer, Row, Space, Typography } from "antd";
 import { useEffect, useState } from "react";
+import { useScopedI18n } from "../../../../../../../../locales/client";
+import { getItemsHelp } from "./itemsHelp";
 
 
-export default function AffiliationDrawer({ openDrawer, onClose, planSelected, provider }: { openDrawer: any, onClose: any, planSelected: any, provider: any }) {
-    const itemsHelp: CollapseProps['items'] = [
-        {
-            key: '1',
-            label: 'How it work ?',
-            children: 'Deploily establishes a contract with a cloud provider to obtain exclusive discounts.',
-        },
-        {
-            key: '2',
-            label: 'Comment avoir remise ?',
-            children: 'Vous devez avoir un compte approuvé par l’équipe Deploily.',
-        },
-        {
-            key: '3',
-            label: 'Comment appliquer remise ?',
-            children: 'La remise est automatiquement appliquée une fois connecté.',
-        },
-        {
-            key: '4',
-            label: 'Pourqui on peut pas commender sur deploily ?',
-            children: 'Certains fournisseurs ne permettent pas encore la commande directe.',
-        },
-        {
-            key: '5',
-            label: 'Mission Deploily ?',
-            children: 'Faciliter l’accès aux ressources cloud à prix réduit.',
-        },
-    ];
+export default function AffiliationDrawer({ openDrawer, onClose, planSelected, currentResource }: { openDrawer: any, onClose: any, planSelected: any, currentResource: ResourceInterface }) {
+    const t = useScopedI18n("itemsHelp");
+    const translate = useScopedI18n('subscription');
+    const itemsHelp = getItemsHelp(t);
     const dispatch = useAppDispatch();
     const [affiliation, setAffiliation] = useState<any>(null);
+    const [provider, setProvider] = useState<Provider>();
     const customExpandIcon = (panelProps: any) =>
         panelProps.isActive ? <MinusOutlined /> : <PlusOutlined />;
 
+    function applyDiscount(price: number, percentage: number): number {
+        return Math.round(price * (1 - percentage / 100));
+    }
     useEffect(() => {
+        setProvider(currentResource.provider)
 
-        if (planSelected && provider) {
+        if (planSelected) {
             setAffiliation({
-                provider: provider.id,
-                service_plan: planSelected.id,
-                total_price: planSelected.price,
-                Affiliation_state: "pending",
+                service_plan_selected_id: planSelected.id,
+                total_price: applyDiscount(planSelected!.price, currentResource.discount)
             });
         }
-    }, [planSelected, provider]);
+    }, [currentResource.discount, currentResource.provider, planSelected]);
     const handleAffiliation = async () => {
         dispatch(postAffiliation(affiliation))
     };
@@ -103,7 +85,10 @@ export default function AffiliationDrawer({ openDrawer, onClose, planSelected, p
                                 </Row>
                                 <Row gutter={16} align="top" >
                                     <Col span={14} >  <Typography.Text strong > Price :</Typography.Text></Col>
-                                    <Col span={10} > <Typography.Text >{planSelected.price}</Typography.Text></Col>
+                                    <Col span={10} > <Typography.Text >
+                                        {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(applyDiscount(planSelected!.price, currentResource.discount))}
+                                        <span style={{ fontSize: 12, fontWeight: 400 }}> DZD/{translate("month")}</span>
+                                    </Typography.Text></Col>
                                 </Row>
                             </Space>
                         }
@@ -137,7 +122,7 @@ export default function AffiliationDrawer({ openDrawer, onClose, planSelected, p
                             borderRadius: 12,
                             overflow: 'hidden',
                         }}
-                        items={itemsHelp.map(({ key, label, children }) => ({
+                        items={(itemsHelp ?? []).map(({ key, label, children }) => ({
                             key,
                             label: (
                                 <Typography.Text style={{ color: '#fff', fontWeight: 600 }}>

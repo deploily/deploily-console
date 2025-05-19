@@ -1,29 +1,30 @@
+// components/AffiliationDrawer/itemsHelp.ts
 import { CollapseProps } from "antd";
 
-export const itemsHelp: CollapseProps['items'] = [
+export const getItemsHelp = (t: any): CollapseProps['items'] => [
     {
         key: '1',
-        label: 'How it work ?',
-        children: 'Deploily establishes a contract with a cloud provider to obtain exclusive discounts.',
+        label: t('label1'),
+        children: t('children1'),
     },
     {
         key: '2',
-        label: 'Comment avoir remise ?',
-        children: 'Vous devez avoir un compte approuvé par l’équipe Deploily.',
+        label: t('label2'),
+        children: t('children2'),
     },
     {
         key: '3',
-        label: 'Comment appliquer remise ?',
-        children: 'La remise est automatiquement appliquée une fois connecté.',
+        label: t('label3'),
+        children: t('children3'),
     },
     {
         key: '4',
-        label: 'Pourqui on peut pas commender sur deploily ?',
-        children: 'Certains fournisseurs ne permettent pas encore la commande directe.',
+        label: t('label4'),
+        children: t('children4'),
     },
     {
         key: '5',
-        label: 'Mission Deploily ?',
-        children: 'Faciliter l’accès aux ressources cloud à prix réduit.',
+        label: t('label5'),
+        children: t('children5'),
     },
 ];

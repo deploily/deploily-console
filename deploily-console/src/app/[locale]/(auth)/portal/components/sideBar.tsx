@@ -1,14 +1,14 @@
 "use client";
-import { Button, Dropdown, Layout, Menu, Space } from "antd";
-import React, { useState } from "react";
-import { SignOut, ArrowLeft, ArrowRight } from "@phosphor-icons/react/dist/ssr";
-import { CaretUp, User } from "@phosphor-icons/react";
-import Link from "next/link";
-import { menuItems } from "./menuItems";
-import { useI18n, useScopedI18n } from "../../../../../../locales/client";
 import federatedLogout from "@/lib/utils/federatedLogout";
+import { CaretUp, User } from "@phosphor-icons/react";
+import { ArrowLeft, ArrowRight, SignOut } from "@phosphor-icons/react/dist/ssr";
+import { Button, Dropdown, Layout, Menu, Space } from "antd";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
+import { useScopedI18n } from "../../../../../../locales/client";
 import FeedbackAlert from "../feed-back/feedBackAlert";
+import { menuItems } from "./menuItems";
 
 const { Sider } = Layout;
 
@@ -129,7 +129,6 @@ export function MainSideBar() {
 
 export function MainSideBarMobile() {
   const scopedSidebar = useScopedI18n("sidebar");
-  const t = useI18n();
   const items = [
     {
       key: "profile",

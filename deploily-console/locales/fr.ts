@@ -5,6 +5,7 @@ export default {
   'APIService': 'API Service',
   'Members': 'Membres',
   'myFavorites': 'Mes favoris',
+  'myResources': 'Mes ressources',
   'myServices': 'Mes services',
   'subscriptions': 'Abonnements',
   'supportTicket': "Ticket d'assistance",
@@ -12,6 +13,7 @@ export default {
   'sidebar.home': 'Accueil',
   'sidebar.members': 'Membres',
   'sidebar.myFavorites': 'Mes favoris',
+  'sidebar.myResources': 'Mes ressources',
   'sidebar.supportTicket': "Ticket d'assistance",
   'sidebar.myServices': 'Mes services',
   'sidebar.subscriptions': 'Abonnements',
@@ -185,6 +187,25 @@ export default {
   "epayment.download": "Télécharger",
   "epayment.print": 'Impression',
   "whoIs": "Qui est",
-  "contactProvider": "Contacter le fournisseur"
+  "contactProvider": "Contacter le fournisseur",
+  "itemsHelp.label1": "Comment ça fonctionne ?",
+  "itemsHelp.children1": "Deploily établit un contrat avec un fournisseur cloud pour obtenir des remises exclusives.",
+
+  "itemsHelp.label2": "Comment obtenir une remise ?",
+  "itemsHelp.children2": "Vous devez avoir un compte approuvé par l’équipe Deploily.",
+
+  "itemsHelp.label3": "Comment appliquer la remise ?",
+  "itemsHelp.children3": "La remise est automatiquement appliquée une fois connecté.",
+
+  "itemsHelp.label4": "Pourquoi ne peut-on pas commander sur Deploily ?",
+  "itemsHelp.children4": "Certains fournisseurs ne permettent pas encore la commande directe.",
+
+  "itemsHelp.label5": "Quelle est la mission de Deploily ?",
+  "itemsHelp.children5": "Faciliter l’accès aux ressources cloud à prix réduit.",
+  "affiliation.name": "Nom du service",
+  "affiliation.providerName": "Nom du fournisseur",
+  "affiliation.amount": "Montant",
+  "affiliation.status": "Statut",
+  "affiliation.created_on": "Date",
 
 } as const

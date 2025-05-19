@@ -1,3 +1,5 @@
+import { ServicePlan } from "../service-plans/servicePlanInterface";
+
 export interface CloudResourceResponse {
     count: number;
     description_columns: any;
@@ -28,6 +30,7 @@ export interface ResourceInterface {
     curl_command: string;
     is_in_favorite?: boolean;
     provider?: Provider;
+    discount: number;
 }
 
 export interface Provider {
@@ -47,5 +50,25 @@ export interface Provider {
     phone_support: string;
     short_description: string;
     website: string;
+}
 
+
+export interface MyResourcesResponses {
+    count: number;
+    description_columns: any;
+    ids: number[];
+    label_columns: any;
+    list_columns: string[];
+    list_title: string;
+    order_columns: string[];
+    result: MyResourcesList[];
+}
+
+export interface MyResourcesList {
+    id: number;
+    Affiliation_state: string;
+    provider: Provider;
+    total_price: number;
+    service_plan: ServicePlan;
+    created_on: string;
 }

@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { CloudResourceResponse, ResourceInterface } from "./cloudResourceInterface";
-import { fetchCloudResources, getResourceById, postAffiliation } from "./cloudResourceThunks";
+import { CloudResourceResponse, MyResourcesResponses, ResourceInterface } from "./cloudResourceInterface";
+import { fetchCloudResources, getMyResources, getResourceById, postAffiliation } from "./cloudResourceThunks";
 
 interface CloudResourceState {
     cloudResourceResponse?: CloudResourceResponse;
+    myResourcesResponse?: MyResourcesResponses;
     isLoading: boolean;
     cloudResourceLoadingError?: any;
     currentResource?: ResourceInterface;
@@ -15,6 +16,7 @@ interface CloudResourceState {
 
 const initialState: CloudResourceState = {
     cloudResourceResponse: undefined,
+    myResourcesResponse: undefined,
     isLoading: false,
     currentResource: undefined,
     cloudResourceLoadingError: undefined,
@@ -72,6 +74,22 @@ const CloudResourceSlice = createSlice({
             .addCase(postAffiliation.fulfilled, (state) => {
                 state.isLoading = false;
                 state.isAffiliationCreatedSuccess = true;
+                state.cloudResourceLoadingError = false;
+            })
+
+            .addCase(getMyResources.pending, (state) => {
+                state.isLoading = true;
+                state.myResourcesResponse = undefined;
+                state.cloudResourceLoadingError = false;
+            })
+            .addCase(getMyResources.rejected, (state) => {
+                state.isLoading = false;
+                state.cloudResourceLoadingError = true;
+                state.myResourcesResponse = undefined;
+            })
+            .addCase(getMyResources.fulfilled, (state, { payload }) => {
+                state.isLoading = false;
+                state.myResourcesResponse = payload;
                 state.cloudResourceLoadingError = false;
             });
     },

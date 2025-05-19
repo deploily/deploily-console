@@ -97,7 +97,7 @@ export const postAffiliation = createAsyncThunk(
             }
             const token = session.accessToken;
 
-            const response = await axiosInstance.post(`${deploilyApiUrls.AFFILIATION_URL}`, data, {
+            const response = await axiosInstance.post(`${deploilyApiUrls.CREATE_AFFILIATION_URL}`, data, {
 
                 headers: {
                     Accept: "application/json",
@@ -110,6 +110,41 @@ export const postAffiliation = createAsyncThunk(
                 return thunkConfig.rejectWithValue("Failed to create new affiliation");
             }
         } catch (error: any) {
+            return thunkConfig.rejectWithValue(error.message);
+        }
+    },
+);
+
+export const getMyResources = createAsyncThunk(
+    "resources/getMyResources",
+    async (_, thunkConfig) => {
+        console.log("00000000000000");
+
+        try {
+            const session = await getSession();
+            if (!session) {
+                return thunkConfig.rejectWithValue("session expired");
+            }
+            const token = session.accessToken;
+            const response = await axiosInstance.get(`${deploilyApiUrls.AFFILIATION_URL}`, {
+                headers: {
+                    Accept: "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            console.log(response.status);
+            console.log(response.data);
+
+            if (response.status === 200) {
+                console.log(response.data);
+
+                return response.data;
+            } else {
+                return thunkConfig.rejectWithValue("Failed to fetch my resources");
+            }
+        } catch (error: any) {
+            console.log(error);
+
             return thunkConfig.rejectWithValue(error.message);
         }
     },

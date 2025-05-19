@@ -1,10 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ResourcePlanResponse, ServicePlanResponse } from "./servicePlanInterface";
+import { ServicePlanResponse } from "./servicePlanInterface";
 import { fetchServicePlans } from "./servicePlanThanks";
 
 interface ServicePlanState {
   servicePlanResponse?: ServicePlanResponse;
-  resourcePlanResponse?: ResourcePlanResponse;
   servicePlanLoading: boolean;
   servicePlanError: any;
 
@@ -12,7 +11,6 @@ interface ServicePlanState {
 
 const initialState: ServicePlanState = {
   servicePlanResponse: undefined,
-  resourcePlanResponse: undefined,
   servicePlanLoading: false,
   servicePlanError: undefined,
 };
@@ -33,7 +31,6 @@ const ServicePlanSlice = createSlice({
         );
         const payload = Object.assign({}, action.payload, { result: result });
         state.servicePlanResponse = payload;
-        state.resourcePlanResponse = payload;
       })
       .addCase(fetchServicePlans.rejected, (state, { payload }) => {
         state.servicePlanLoading = false;

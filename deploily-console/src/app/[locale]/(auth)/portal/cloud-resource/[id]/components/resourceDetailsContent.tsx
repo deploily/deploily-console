@@ -3,7 +3,7 @@
 import { useCloudResource } from "@/lib/features/cloud-resource/cloudResourceSelectors";
 import { getResourceById } from "@/lib/features/cloud-resource/cloudResourceThunks";
 import { postFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
-import { ResourcePlan } from "@/lib/features/service-plans/servicePlanInterface";
+import { ServicePlan } from "@/lib/features/service-plans/servicePlanInterface";
 import { useServicePlan } from "@/lib/features/service-plans/servicePlanSelector";
 import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThanks";
 import { useAppDispatch } from "@/lib/hook";
@@ -26,20 +26,12 @@ export default function ResourceDetailsContentPage({ resource_id }: { resource_i
     const [openDrawer, setOpenDrawer] = useState(false);
     const [planSelected, setSelectedPlan] = useState(undefined);
     const { currentResource, isLoading, cloudResourceLoadingError } = useCloudResource();
-    const { resourcePlanResponse, servicePlanLoading, servicePlanError } = useServicePlan()
+    const { servicePlanResponse, servicePlanLoading, servicePlanError } = useServicePlan()
 
     const handleFavoriteService = (resource_id: number) => {
         dispatch(postFavoriteService({ "service_id": resource_id }));
     }
     useEffect(() => {
-
-        if (!isLoading && cloudResourceLoadingError) {
-            console.log(isLoading);
-            console.log(cloudResourceLoadingError);
-            console.log(!isLoading && cloudResourceLoadingError);
-            console.log("_________________________________________________________________");
-
-        }
         dispatch(getResourceById(resource_id));
         dispatch(fetchServicePlans(resource_id));
     }, [dispatch, resource_id]);
@@ -162,7 +154,7 @@ export default function ResourceDetailsContentPage({ resource_id }: { resource_i
                                     {t('SelectServicePlan')}
                                 </Typography.Title>
                             </Col>
-                            {servicePlanLoading && resourcePlanResponse?.result === undefined &&
+                            {servicePlanLoading && servicePlanResponse?.result === undefined &&
                                 <Col
                                     xs={24}
                                     sm={12}
@@ -174,9 +166,9 @@ export default function ResourceDetailsContentPage({ resource_id }: { resource_i
                                     <Card loading={true} style={{ minWidth: 300 }} />
                                 </Col>
                             }
-                            {!servicePlanLoading && resourcePlanResponse?.result !== undefined &&
+                            {!servicePlanLoading && servicePlanResponse?.result !== undefined &&
                                 <>
-                                    {resourcePlanResponse?.result?.map((row: ResourcePlan) => (
+                                    {servicePlanResponse?.result?.map((row: ServicePlan) => (
                                         <Col
                                             key={row.id}
                                             xs={24}
@@ -191,6 +183,7 @@ export default function ResourceDetailsContentPage({ resource_id }: { resource_i
                                                     <RessourcePlanCard
                                                         key={row.id}
                                                         resourcePlan={row}
+                                                        currentResource={currentResource}
                                                         showDrawer={() => showDrawer(row)}
                                                     />
                                                 </div>
@@ -209,7 +202,7 @@ export default function ResourceDetailsContentPage({ resource_id }: { resource_i
                                     />
                                 </div>
                             }</Row>
-                        <AffiliationDrawer openDrawer={openDrawer} onClose={onClose} planSelected={planSelected} provider={currentResource.provider} />
+                        <AffiliationDrawer openDrawer={openDrawer} onClose={onClose} planSelected={planSelected} currentResource={currentResource} />
                     </>
                 }
                 {!isLoading && cloudResourceLoadingError &&

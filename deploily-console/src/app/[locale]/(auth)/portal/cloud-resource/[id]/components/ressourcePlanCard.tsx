@@ -1,5 +1,6 @@
 import { ServicePlan, ServicePlanOption } from "@/lib/features/service-plans/servicePlanInterface";
 
+import { ResourceInterface } from "@/lib/features/cloud-resource/cloudResourceInterface";
 import { theme } from "@/styles/theme";
 import { Check } from "@phosphor-icons/react";
 import { Button, Card, Col, Row, Typography } from 'antd';
@@ -7,9 +8,8 @@ import { useScopedI18n } from "../../../../../../../../locales/client";
 
 const { Text } = Typography;
 
-export default function RessourcePlanCard({ resourcePlan, showDrawer }: { resourcePlan: ServicePlan, showDrawer: any }) {
+export default function RessourcePlanCard({ resourcePlan, currentResource, showDrawer }: { resourcePlan: ServicePlan, currentResource: ResourceInterface, showDrawer: any }) {
     const t = useScopedI18n('subscription');
-    const percentage = 5;
 
     return (
         <Card
@@ -53,7 +53,7 @@ export default function RessourcePlanCard({ resourcePlan, showDrawer }: { resour
                     alignItems: 'center',
                 }}
             >
-                <Text style={{ fontSize: 18, color: 'white', lineHeight: 1 }}>{percentage}%</Text>
+                <Text style={{ fontSize: 18, color: 'white', lineHeight: 1 }}>{currentResource.discount}%</Text>
                 <Text style={{ fontSize: 16, color: 'white', lineHeight: 1.2 }}>Special Offer</Text>
             </div>
             <Text
@@ -69,7 +69,7 @@ export default function RessourcePlanCard({ resourcePlan, showDrawer }: { resour
                 <span style={{ fontSize: 16, fontWeight: 400 }}> DZD/{t("month")}</span>
             </Text>
             <Typography.Paragraph style={{ fontSize: 25, fontWeight: 600, color: theme.token.orange400, textAlign: "center" }}>
-                {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(applyDiscount(resourcePlan!.price, percentage))}
+                {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(applyDiscount(resourcePlan!.price, currentResource.discount))}
                 <span style={{ fontSize: 16, fontWeight: 400 }}> DZD/{t("month")}</span>
             </Typography.Paragraph>
 
