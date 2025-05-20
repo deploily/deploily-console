@@ -1,7 +1,6 @@
-import { MyResourcesList, Provider } from "@/lib/features/cloud-resource/cloudResourceInterface";
+import { MyResourcesList } from "@/lib/features/cloud-resource/cloudResourceInterface";
 import { useCloudResource } from "@/lib/features/cloud-resource/cloudResourceSelectors";
 import { getMyResources } from "@/lib/features/cloud-resource/cloudResourceThunks";
-import { ServicePlan } from "@/lib/features/service-plans/servicePlanInterface";
 import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
 import { Skeleton, Table, Tag } from "antd";
@@ -15,9 +14,7 @@ import getStatusStyle from "./status";
 export default function MyResourcesContainer() {
     const dispatch = useAppDispatch();
     const t = useScopedI18n('affiliation');
-
     const { myResourcesResponse, isLoading, cloudResourceLoadingError } = useCloudResource();
-
     useEffect(() => {
         dispatch(getMyResources());
     }, [dispatch]);
@@ -25,30 +22,30 @@ export default function MyResourcesContainer() {
         return [
             {
                 title: t("name"),
-                dataIndex: "servicePlan",
-                key: "servicePlan",
-                render: (servicePlan: ServicePlan) => servicePlan?.service.name.charAt(0).toUpperCase() + servicePlan.service.name.slice(1) || "-",
+                dataIndex: "service_name",
+                key: "service_name",
+                render: (service_name: string) => service_name.charAt(0).toUpperCase() + service_name.slice(1) || "-",
             },
             {
                 title: t("providerName"),
-                dataIndex: "provider",
-                key: "provider",
-                render: (provider: Provider) => provider?.name.charAt(0).toUpperCase() + provider.name.slice(1) || "-",
+                dataIndex: "provider_name",
+                key: "provider_name",
+                render: (provider_name: string) => provider_name.charAt(0).toUpperCase() + provider_name.slice(1) || "-",
             },
             {
                 title: t("amount"),
-                dataIndex: "amount",
-                key: "amount",
+                dataIndex: "total_price",
+                key: "total_price",
                 render: (total_price: number) =>
                     total_price ? total_price.toLocaleString("fr-FR", { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + " DZD " : "-",
             },
             {
                 title: t("status"),
-                dataIndex: "status",
-                key: "status",
-                render: (Affiliation_state: string) => {
+                dataIndex: "affiliation_state",
+                key: "affiliation_state",
+                render: (affiliation_state: string) => {
 
-                    const { backgroundColor, color, label } = getStatusStyle(Affiliation_state, theme, t);
+                    const { backgroundColor, color, label } = getStatusStyle(affiliation_state, theme, t);
 
                     return (
                         <Tag style={{
@@ -81,7 +78,7 @@ export default function MyResourcesContainer() {
             },
 
         ];
-    }, []);
+    }, [t]);
 
     const skeletonColumns = useMemo(() => (
         isLoading
@@ -98,7 +95,7 @@ export default function MyResourcesContainer() {
             {!cloudResourceLoadingError && myResourcesResponse &&
                 <Table<MyResourcesList>
                     columns={skeletonColumns}
-                    dataSource={isLoading ? Array(3).fill({ key: Math.random() }) : myResourcesResponse?.result}
+                    dataSource={isLoading ? Array(3).fill({ key: Math.random() }) : myResourcesResponse}
                     size="middle"
                     className="custom-table"
                     style={{ marginTop: 40, borderRadius: 0 }}

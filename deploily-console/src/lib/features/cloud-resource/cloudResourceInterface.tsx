@@ -1,4 +1,3 @@
-import { ServicePlan } from "../service-plans/servicePlanInterface";
 
 export interface CloudResourceResponse {
     count: number;
@@ -66,9 +65,9 @@ export interface MyResourcesResponses {
 
 export interface MyResourcesList {
     id: number;
-    Affiliation_state: string;
-    provider: Provider;
+    affiliation_state: string;
+    provider_name: string;
+    service_name: string;
     total_price: number;
-    service_plan: ServicePlan;
     created_on: string;
 }

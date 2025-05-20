@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { CloudResourceResponse, MyResourcesResponses, ResourceInterface } from "./cloudResourceInterface";
+import { CloudResourceResponse, MyResourcesList, ResourceInterface } from "./cloudResourceInterface";
 import { fetchCloudResources, getMyResources, getResourceById, postAffiliation } from "./cloudResourceThunks";
 
 interface CloudResourceState {
     cloudResourceResponse?: CloudResourceResponse;
-    myResourcesResponse?: MyResourcesResponses;
+    myResourcesResponse?: MyResourcesList[];
     isLoading: boolean;
     cloudResourceLoadingError?: any;
     currentResource?: ResourceInterface;
@@ -87,9 +87,9 @@ const CloudResourceSlice = createSlice({
                 state.cloudResourceLoadingError = true;
                 state.myResourcesResponse = undefined;
             })
-            .addCase(getMyResources.fulfilled, (state, { payload }) => {
+            .addCase(getMyResources.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.myResourcesResponse = payload;
+                state.myResourcesResponse = action.payload;
                 state.cloudResourceLoadingError = false;
             });
     },

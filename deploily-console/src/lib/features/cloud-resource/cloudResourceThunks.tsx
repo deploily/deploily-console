@@ -22,8 +22,6 @@ export const fetchCloudResources = createAsyncThunk(
             });
 
             if (response.status === 200) {
-                console.log(response.data);
-
                 return response.data;
             } else {
                 return thunkConfig.rejectWithValue("Failed to fetch service ressource providers");
@@ -118,8 +116,6 @@ export const postAffiliation = createAsyncThunk(
 export const getMyResources = createAsyncThunk(
     "resources/getMyResources",
     async (_, thunkConfig) => {
-        console.log("00000000000000");
-
         try {
             const session = await getSession();
             if (!session) {
@@ -132,19 +128,12 @@ export const getMyResources = createAsyncThunk(
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log(response.status);
-            console.log(response.data);
-
             if (response.status === 200) {
-                console.log(response.data);
-
                 return response.data;
             } else {
                 return thunkConfig.rejectWithValue("Failed to fetch my resources");
             }
         } catch (error: any) {
-            console.log(error);
-
             return thunkConfig.rejectWithValue(error.message);
         }
     },

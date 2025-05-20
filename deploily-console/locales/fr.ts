@@ -207,5 +207,7 @@ export default {
   "affiliation.amount": "Montant",
   "affiliation.status": "Statut",
   "affiliation.created_on": "Date",
+  "affiliation.confirmed": "Confirmée",
+  "affiliation.pending": "En attente"
 
 } as const
