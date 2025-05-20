@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CloudResourceResponse, MyResourcesList, ResourceInterface } from "./cloudResourceInterface";
 import { fetchCloudResources, getMyResources, getResourceById, postAffiliation } from "./cloudResourceThunks";
 
@@ -11,6 +11,7 @@ interface CloudResourceState {
     resource_id?: number;
     isAffiliationCreatedSuccess: boolean;
     isAffiliationCreatedFailed: boolean;
+    searchValue?: string;
 
 
 }
@@ -24,12 +25,17 @@ const initialState: CloudResourceState = {
     resource_id: undefined,
     isAffiliationCreatedSuccess: false,
     isAffiliationCreatedFailed: false,
+    searchValue: "",
 
 };
 const CloudResourceSlice = createSlice({
     name: "cloudResource",
     initialState,
-    reducers: {},
+    reducers: {
+        updateCloudResourcesSearchValue: (state, action: PayloadAction<string>) => {
+            state.searchValue = action.payload;
+        },
+    },
 
     extraReducers: (builder) => {
         builder
@@ -107,5 +113,6 @@ const CloudResourceSlice = createSlice({
     },
 });
 
+export const { updateCloudResourcesSearchValue } = CloudResourceSlice.actions;
 
 export default CloudResourceSlice.reducer;

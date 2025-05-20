@@ -3,6 +3,7 @@ export default {
     'ondemand': 'ON DEMAND',
     'comingSoon': "Behind the scenes, we're crafting something special. Stay tuned for what's to come!",
     'APIService': 'API Service',
+    "cloudResources": "Cloud Resources",
     'Members': 'Members',
     'myFavorites': 'My favorites',
     'myResources': 'My resources',

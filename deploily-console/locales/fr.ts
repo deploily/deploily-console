@@ -3,6 +3,7 @@ export default {
   'ondemand': 'SUR DEMANDE',
   'comingSoon': "Dans les coulisses, nous créons quelque chose de spécial. Restez à l'écoute pour ce qui est à venir !",
   'APIService': 'API Service',
+  "cloudResources": "Ressources cloud",
   'Members': 'Membres',
   'myFavorites': 'Mes favoris',
   'myResources': 'Mes ressources',
@@ -209,7 +210,10 @@ export default {
   "affiliation.created_on": "Date",
   "affiliation.confirmed": "Confirmée",
   "affiliation.pending": "En attente",
+  "toast.titleFailed": "Échec de la création de l'élément",
   "toast.failed": "Échec de la création de l'élément",
-  "toast.success": "Element créé avec succès"
+  "toast.success": "Vérifiez votre boîte de réception pour plus d'instructions.",
+  "toast.titleSuccess": "E-mail envoyé avec succès",
+
 
 } as const

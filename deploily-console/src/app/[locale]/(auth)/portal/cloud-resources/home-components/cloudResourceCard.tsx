@@ -88,7 +88,7 @@ export default function CloudResourceCard({ resource }: any) {
                                 alignSelf: "flex-start", // ensures it's pinned to top within Col
                             }}
                         >
-                            {resource.price}
+                            {resource.unit_price}
                         </p>
                     </Col>
                 </Row>
@@ -137,7 +137,7 @@ export default function CloudResourceCard({ resource }: any) {
                     }}
                     onClick={(e) => {
                         e.stopPropagation();
-                        router.push(`/portal/cloud-resource/${resource.id}`);
+                        router.push(`/portal/cloud-resources/${resource.id}`);
                     }}
                     onMouseEnter={() => setHovered(true)}
                     onMouseLeave={() => setHovered(false)}
