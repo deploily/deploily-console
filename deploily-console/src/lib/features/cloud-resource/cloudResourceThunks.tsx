@@ -7,14 +7,14 @@ import { getSession } from "next-auth/react";
 
 export const fetchCloudResources = createAsyncThunk(
     "cloudresources/getcloudresources",
-    async (_, thunkConfig) => {
+    async (limit: number, thunkConfig) => {
         const state = thunkConfig.getState() as RootState;
 
         const searchValue = state.cloudResource.searchValue?.trim();
 
         const filters = searchValue
-            ? `(filters:!((col:name,opr:ct,value:'${searchValue}')),page_size:10)`
-            : `(page_size:10)`;
+            ? `(filters:!((col:name,opr:ct,value:'${searchValue}')),page_size:${limit})`
+            : `(page_size:${limit})`;
 
         const query = `?q=${encodeURIComponent(filters)}`;
 

@@ -25,13 +25,13 @@ export default function AllCloudResourcesContainer() {
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 6;
     useEffect(() => {
-        dispatch(fetchCloudResources());
+        dispatch(fetchCloudResources(10));
     }, [favoriteServiceAdded, favoriteServiceDeleted]);
 
     useEffect(() => {
         const delayDebounceFn = setTimeout(() => {
             dispatch(updateCloudResourcesSearchValue(searchTerm));
-            dispatch(fetchCloudResources());
+            dispatch(fetchCloudResources(10));
         }, 800);
 
         return () => clearTimeout(delayDebounceFn);

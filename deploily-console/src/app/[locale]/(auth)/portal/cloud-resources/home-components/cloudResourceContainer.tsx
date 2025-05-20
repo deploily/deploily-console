@@ -18,7 +18,7 @@ export default function CloudResourceContainer() {
   const router = useRouter();
 
   useEffect(() => {
-    dispatch(fetchCloudResources());
+    dispatch(fetchCloudResources(4));
   }, [favoriteServiceAdded, favoriteServiceDeleted]);
 
   return (

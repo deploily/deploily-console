@@ -23,13 +23,13 @@ export default function AllApiServiceContainer() {
   const services = apiServiceResponse?.result || [];
 
   useEffect(() => {
-    dispatch(fetchApiServices());
+    dispatch(fetchApiServices(10));
   }, []);
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       dispatch(updateApiServiceSearchValue(searchTerm));
-      dispatch(fetchApiServices());
+      dispatch(fetchApiServices(10));
     }, 800);
 
     return () => clearTimeout(delayDebounceFn);
@@ -71,7 +71,7 @@ export default function AllApiServiceContainer() {
             }}
             onClick={() => {
               dispatch(updateApiServiceSearchValue(searchTerm));
-              dispatch(fetchApiServices());
+              dispatch(fetchApiServices(10));
             }}
           >
             {tServiceApi("filter")}
