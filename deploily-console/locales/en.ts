@@ -18,6 +18,7 @@ export default {
     'sidebar.supportTicket': 'Support Ticket',
     'sidebar.myServices': 'My services',
     'sidebar.subscriptions': 'Subscriptions',
+    'sidebar.myApi': 'My APIs',
     'sidebar.api': 'API',
     'sidebar.cicd': 'CI/CD',
     'sidebar.databases': 'Databases',

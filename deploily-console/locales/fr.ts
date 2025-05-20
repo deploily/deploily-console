@@ -19,6 +19,7 @@ export default {
   'sidebar.myServices': 'Mes services',
   'sidebar.subscriptions': 'Abonnements',
   'sidebar.api': 'API',
+  "sidebar.myApi": "Mes API",
   'sidebar.cicd': 'CI/CD',
   'sidebar.databases': 'Bases de données',
   'sidebar.erpcrm': 'ERP/CRM',

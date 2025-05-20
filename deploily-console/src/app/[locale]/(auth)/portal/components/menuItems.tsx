@@ -31,56 +31,57 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
   {
     key: "subscriptions",
     label: (
-      <Link href="/portal/subscriptions">
-        {" "}
-        <span style={labelStyle}>{scopedSidebar("subscriptions")}</span>{" "}
-      </Link>
+      // <Link href="/portal/subscriptions">
+      //   {" "}
+      <span style={labelStyle}>{scopedSidebar("subscriptions")}</span>
+      // {" "}
+      // </Link>
     ),
     icon: <HardDrives size={24} />,
-    // children: [
-    //   {
-    //     key: "1",
-    //     label: (
-    //       <Link href="/portal/subscriptions">
-    //         <span style={labelStyle}>{scopedSidebar("api")}</span>
-    //       </Link>
-    //     ),
-    //   },
-    //   {
-    //     key: "2",
-    //     label: (
-    //       <Link href="/portal/subscriptions">
-    //         <span style={labelStyle}>{scopedSidebar("cicd")}</span>
-    //       </Link>
-    //     ),
-    //   },
-    //   {
-    //     key: "3",
-    //     label: (
-    //       <Link href="/portal/subscriptions">
-    //         <span style={labelStyle}>{scopedSidebar("databases")}</span>
-    //       </Link>
-    //     ),
-    //   },
-    //   {
-    //     key: "4",
-    //     label: (
-    //       <Link href="/portal/subscriptions">
-    //         <span style={labelStyle}>{scopedSidebar("erpcrm")}</span>
-    //       </Link>
-    //     ),
-    //   },
-    // ],
+    children: [
+      {
+        key: "1",
+        label: (
+          <Link href="/portal/subscriptions">
+            <span style={labelStyle}>{scopedSidebar("myApi")}</span>
+          </Link>
+        ),
+      },
+      {
+        key: "2",
+        label: (
+          <Link href="/portal/my-resources">
+            <span style={labelStyle}>{scopedSidebar("myResources")}</span>
+          </Link>
+        ),
+      },
+      // {
+      //   key: "3",
+      //   label: (
+      //     <Link href="/portal/subscriptions">
+      //       <span style={labelStyle}>{scopedSidebar("databases")}</span>
+      //     </Link>
+      //   ),
+      // },
+      // {
+      //   key: "4",
+      //   label: (
+      //     <Link href="/portal/subscriptions">
+      //       <span style={labelStyle}>{scopedSidebar("erpcrm")}</span>
+      //     </Link>
+      //   ),
+      // },
+    ],
   },
-  {
-    key: "my-resources",
-    label: (
-      <Link href="/portal/my-resources">
-        <span style={labelStyle}>{scopedSidebar("myResources")}</span>
-      </Link>
-    ),
-    icon: <CalendarStar size={24} />,
-  },
+  // {
+  //   key: "my-resources",
+  //   label: (
+  //     <Link href="/portal/my-resources">
+  //       <span style={labelStyle}>{scopedSidebar("myResources")}</span>
+  //     </Link>
+  //   ),
+  //   icon: <CalendarStar size={24} />,
+  // },
   {
     key: "my-favorites",
     label: (
