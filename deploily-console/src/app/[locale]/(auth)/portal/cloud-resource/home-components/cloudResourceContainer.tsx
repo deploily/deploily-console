@@ -4,12 +4,14 @@ import { useCloudResource } from "@/lib/features/cloud-resource/cloudResourceSel
 import { fetchCloudResources } from "@/lib/features/cloud-resource/cloudResourceThunks";
 import { useFavoriteServices } from "@/lib/features/favorites/favoriteServiceSelectors";
 import { useAppDispatch } from "@/lib/hook";
-import { Col, Row } from "antd";
+import { Card, Col, Result, Row } from "antd";
 import { useEffect } from "react";
+import { useI18n } from "../../../../../../../locales/client";
 import CloudResourceCard from "./cloudResourceCard";
 
 export default function CloudResourceContainer() {
-  const { isLoading, cloudResourceResponse } = useCloudResource();
+  const t = useI18n();
+  const { isLoading, cloudResourceResponse, cloudResourceLoadingError } = useCloudResource();
   const dispatch = useAppDispatch();
   const { favoriteServiceAdded, favoriteServiceDeleted } = useFavoriteServices()
 
@@ -33,6 +35,19 @@ export default function CloudResourceContainer() {
           (coming soon)
         </span> */}
       </Row>
+      {isLoading && cloudResourceResponse?.result === undefined &&
+
+        <Col
+          xs={24}
+          sm={12}
+          md={10}
+          lg={8}
+          xl={8}
+          style={{ display: "flex", justifyContent: "center" }}
+        >
+          <Card loading={true} style={{ minWidth: 300 }} />
+        </Col>
+      }
 
       {!isLoading && cloudResourceResponse !== undefined && (
         <Row gutter={[24, 24]} justify="start" style={{ margin: 0 }}>
@@ -50,7 +65,15 @@ export default function CloudResourceContainer() {
             </Col>
           ))}
         </Row>
+
       )}
+      {!isLoading && cloudResourceLoadingError &&
+        <Result
+          status="500"
+          title={t('error')}
+          subTitle={t('subTitleError')}
+        />}
+
     </>
   );
 }

@@ -1,19 +1,23 @@
 "use client";
 import { Provider, ResourceInterface } from "@/lib/features/cloud-resource/cloudResourceInterface";
+import { useCloudResource } from "@/lib/features/cloud-resource/cloudResourceSelectors";
 import { postAffiliation } from "@/lib/features/cloud-resource/cloudResourceThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
-import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
-import { Button, Card, Col, Collapse, Drawer, Row, Space, Typography } from "antd";
+import { CloseCircleTwoTone, MinusOutlined, PlusOutlined } from '@ant-design/icons';
+import { Button, Card, Col, Collapse, Drawer, notification, Row, Space, Typography } from "antd";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useScopedI18n } from "../../../../../../../../locales/client";
 import { getItemsHelp } from "./itemsHelp";
-
-
 export default function AffiliationDrawer({ openDrawer, onClose, planSelected, currentResource }: { openDrawer: any, onClose: any, planSelected: any, currentResource: ResourceInterface }) {
     const t = useScopedI18n("itemsHelp");
     const translate = useScopedI18n('subscription');
+    const toastTranslate = useScopedI18n('toast');
     const itemsHelp = getItemsHelp(t);
+    const { isAffiliationCreatedSuccess, isAffiliationCreatedFailed } = useCloudResource();
+    const router = useRouter();
+
     const dispatch = useAppDispatch();
     const [affiliation, setAffiliation] = useState<any>(null);
     const [provider, setProvider] = useState<Provider>();
@@ -23,7 +27,41 @@ export default function AffiliationDrawer({ openDrawer, onClose, planSelected, c
     function applyDiscount(price: number, percentage: number): number {
         return Math.round(price * (1 - percentage / 100));
     }
+
+
+
+    const [api, contextHolder] = notification.useNotification();
+
+    const openNotification = () => {
+        api.open({
+            message: (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <CloseCircleTwoTone twoToneColor="#ff4d4f" style={{ fontSize: 20 }} />
+                    <span style={{ color: '#000', fontWeight: 600 }}> {toastTranslate("titleFailed")}</span>
+                </div>
+            ),
+            description: (
+                <div style={{ color: '#888' }}>
+                    {toastTranslate("failed")}
+                </div>
+            ),
+            duration: 4,
+            style: {
+                backgroundColor: '#fff',
+                borderRadius: 12,
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+            },
+        });
+    };
+
+
     useEffect(() => {
+        if (isAffiliationCreatedSuccess) {
+            router.replace("/portal/my-resources");
+        } if (isAffiliationCreatedFailed) {
+            openNotification();
+        }
+
         setProvider(currentResource.provider)
 
         if (planSelected) {
@@ -32,13 +70,14 @@ export default function AffiliationDrawer({ openDrawer, onClose, planSelected, c
                 total_price: applyDiscount(planSelected!.price, currentResource.discount)
             });
         }
-    }, [currentResource.discount, currentResource.provider, planSelected]);
+    }, [currentResource.discount, currentResource.provider, planSelected, router, toastTranslate]);
     const handleAffiliation = async () => {
         dispatch(postAffiliation(affiliation))
     };
 
     return (
         <>
+            {contextHolder}
             <Drawer
                 placement="right"
                 closable={true}
@@ -51,6 +90,7 @@ export default function AffiliationDrawer({ openDrawer, onClose, planSelected, c
                     body: { padding: 0, backgroundColor: theme.token.darkGray },
                 }}
             >
+
                 <Col style={{ padding: 20 }}>
                     <Typography.Title level={4} style={{ paddingBottom: 30 }}>Order Resource </Typography.Title>
                     <Card style={{

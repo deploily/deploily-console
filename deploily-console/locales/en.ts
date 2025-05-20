@@ -210,5 +210,9 @@ export default {
     "affiliation.status": "Status",
     "affiliation.created_on": "Date",
     "affiliation.confirmed": "Confirmed",
-    "affiliation.pending": "Pending"
+    "affiliation.pending": "Pending",
+    "toast.titleFailed": "Failed to Create item",
+    "toast.failed": "Failed to Create item",
+    "toast.success": "Check your inbox for further instructions.",
+    "toast.titleSuccess": "Email Sent Successfully"
 } as const

@@ -3,7 +3,8 @@ import { useCloudResource } from "@/lib/features/cloud-resource/cloudResourceSel
 import { getMyResources } from "@/lib/features/cloud-resource/cloudResourceThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
-import { Skeleton, Table, Tag } from "antd";
+import { CheckCircleTwoTone } from '@ant-design/icons';
+import { Skeleton, Table, Tag, notification } from "antd";
 import { useEffect, useMemo } from "react";
 import { useScopedI18n } from "../../../../../../../locales/client";
 import getStatusStyle from "./status";
@@ -15,9 +16,43 @@ export default function MyResourcesContainer() {
     const dispatch = useAppDispatch();
     const t = useScopedI18n('affiliation');
     const { myResourcesResponse, isLoading, cloudResourceLoadingError } = useCloudResource();
+    const { isAffiliationCreatedSuccess } = useCloudResource();
+    const toastTranslate = useScopedI18n('toast');
+
+
+    const [api, contextHolder] = notification.useNotification();
+
+    const openNotification = () => {
+        api.open({
+            message: (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <CheckCircleTwoTone twoToneColor="#52c41a" style={{ fontSize: 20 }} />
+                    <span style={{ color: '#000', fontWeight: 600 }}> {toastTranslate("titleSuccess")}</span>
+                </div>
+            ),
+            description: (
+                <div style={{ color: '#888', fontSize: 14 }}>
+
+                    {toastTranslate("success")}
+                </div>
+            ),
+            duration: 5,
+            style: {
+                backgroundColor: '#ffffff',
+                borderRadius: 12,
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+            },
+        });
+    };
     useEffect(() => {
         dispatch(getMyResources());
     }, [dispatch]);
+
+    useEffect(() => {
+        if (isAffiliationCreatedSuccess) {
+            openNotification();
+        }
+    }, []);
     const columns = useMemo(() => {
         return [
             {
@@ -92,6 +127,7 @@ export default function MyResourcesContainer() {
 
     return (
         <>
+            {contextHolder}
             {!cloudResourceLoadingError && myResourcesResponse &&
                 <Table<MyResourcesList>
                     columns={skeletonColumns}

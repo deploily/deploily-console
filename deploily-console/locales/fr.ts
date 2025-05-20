@@ -208,6 +208,8 @@ export default {
   "affiliation.status": "Statut",
   "affiliation.created_on": "Date",
   "affiliation.confirmed": "Confirmée",
-  "affiliation.pending": "En attente"
+  "affiliation.pending": "En attente",
+  "toast.failed": "Échec de la création de l'élément",
+  "toast.success": "Element créé avec succès"
 
 } as const
