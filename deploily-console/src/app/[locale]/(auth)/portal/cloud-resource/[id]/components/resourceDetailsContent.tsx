@@ -2,6 +2,7 @@
 
 import { useCloudResource } from "@/lib/features/cloud-resource/cloudResourceSelectors";
 import { getResourceById } from "@/lib/features/cloud-resource/cloudResourceThunks";
+import { useFavoriteServices } from "@/lib/features/favorites/favoriteServiceSelectors";
 import { postFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
 import { ServicePlan } from "@/lib/features/service-plans/servicePlanInterface";
 import { useServicePlan } from "@/lib/features/service-plans/servicePlanSelector";
@@ -27,6 +28,7 @@ export default function ResourceDetailsContentPage({ resource_id }: { resource_i
     const [planSelected, setSelectedPlan] = useState(undefined);
     const { currentResource, isLoading, cloudResourceLoadingError } = useCloudResource();
     const { servicePlanResponse, servicePlanLoading, servicePlanError } = useServicePlan()
+    const { favoriteServiceAdded, favoriteServiceDeleted } = useFavoriteServices()
 
     const handleFavoriteService = (resource_id: number) => {
         dispatch(postFavoriteService({ "service_id": resource_id }));
@@ -34,7 +36,7 @@ export default function ResourceDetailsContentPage({ resource_id }: { resource_i
     useEffect(() => {
         dispatch(getResourceById(resource_id));
         dispatch(fetchServicePlans(resource_id));
-    }, [dispatch, resource_id]);
+    }, [dispatch, resource_id, favoriteServiceAdded, favoriteServiceDeleted]);
 
     const showDrawer = (plan: any | null) => {
         if (plan !== null) {

@@ -2,6 +2,7 @@
 import { CloudResourceInterface } from "@/lib/features/cloud-resource/cloudResourceInterface";
 import { useCloudResource } from "@/lib/features/cloud-resource/cloudResourceSelectors";
 import { fetchCloudResources } from "@/lib/features/cloud-resource/cloudResourceThunks";
+import { useFavoriteServices } from "@/lib/features/favorites/favoriteServiceSelectors";
 import { useAppDispatch } from "@/lib/hook";
 import { Col, Row } from "antd";
 import { useEffect } from "react";
@@ -10,10 +11,11 @@ import CloudResourceCard from "./cloudResourceCard";
 export default function CloudResourceContainer() {
   const { isLoading, cloudResourceResponse } = useCloudResource();
   const dispatch = useAppDispatch();
+  const { favoriteServiceAdded, favoriteServiceDeleted } = useFavoriteServices()
 
   useEffect(() => {
     dispatch(fetchCloudResources());
-  }, []);
+  }, [favoriteServiceAdded, favoriteServiceDeleted]);
 
   return (
     <>

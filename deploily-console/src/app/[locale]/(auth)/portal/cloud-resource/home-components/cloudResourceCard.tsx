@@ -1,5 +1,7 @@
 "use client";
 
+import { postFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
+import { useAppDispatch } from "@/lib/hook";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { theme } from "@/styles/theme";
 import { ArrowRight, Star } from "@phosphor-icons/react";
@@ -12,8 +14,12 @@ import { useI18n } from "../../../../../../../locales/client";
 export default function CloudResourceCard({ resource }: any) {
     const t = useI18n();
     const router = useRouter();
-    const [hovered, setHovered] = useState(false);
+    const dispatch = useAppDispatch();
 
+    const [hovered, setHovered] = useState(false);
+    const handleFavoriteService = (resource_id: number) => {
+        dispatch(postFavoriteService({ "service_id": resource_id }));
+    }
     return (
         <Card
             hoverable
@@ -43,7 +49,15 @@ export default function CloudResourceCard({ resource }: any) {
                                         height: 24,
                                         minWidth: 24,
                                     }}
-                                    icon={<Star size={20} weight="fill" color="#7D7D7D" />}
+                                    icon={
+                                        resource.is_in_favorite === true ?
+                                            <Star size={20} weight="fill" color="#FC3232" /> :
+                                            <Star size={20} weight="fill" color="#7D7D7D" />
+                                    }
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleFavoriteService(resource.id);
+                                    }}
                                 />
                             }
                             offset={[-12, 12]}
