@@ -1,5 +1,6 @@
 'use client';
 
+import { getImageUrl } from '@/actions/getImageUrl';
 import { Image } from 'antd';
 import { useEffect, useState } from 'react';
 
@@ -10,22 +11,25 @@ type Props = {
 };
 
 export default function ImageFetcher({ imagePath, width ,height }: Props) {
-    const [imageUrl, setImageUrl] = useState<string>("/images/logo_service.png"); // default fallback
+    const defaultImagePath = "/images/logo_service.png";
+    const [imageUrl, setImageUrl] = useState<string|undefined>(undefined); // default fallback
 
     useEffect(() => {
         const resolveImage = async () => {
             if (!imagePath) return;
-
             if (imagePath.startsWith("http")) {
                 setImageUrl(imagePath);
             } else {
                 try {
-                    const res = await fetch(`/api/image?imagePath=${encodeURIComponent(imagePath)}`);
-                    const data = await res.json();
-                    if (data?.url) {
-                        setImageUrl(data.url);
+                    const res = await getImageUrl(imagePath);
+                    if (res) {
+                        setImageUrl(res);
+                    }
+                    else {
+                        setImageUrl(defaultImagePath);
                     }
                 } catch (err) {
+                    setImageUrl(defaultImagePath);
                     console.error("Failed to fetch image URL", err);
                 }
             }
@@ -35,5 +39,8 @@ export default function ImageFetcher({ imagePath, width ,height }: Props) {
     }, [imagePath]);
     
 
-    return <Image src={imageUrl} alt={`${imagePath}`} height={height} width={width} preview={false}/>;
+    return  <>
+{imageUrl !== undefined&&
+    <Image loading= "lazy" src={imageUrl} alt={`${imagePath}`} height={height} width={width} preview={false}/>
+ } </>
 }
