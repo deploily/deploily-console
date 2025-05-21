@@ -24,7 +24,7 @@ export const fetchApiServices = createAsyncThunk(
 
       const token = session.accessToken;
 
-      const response = await axiosInstance.get(`${deploilyApiUrls.SERVICE_URL}${query}`, {
+      const response = await axiosInstance.get(`${deploilyApiUrls.API_SERVICE_URL}${query}`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
@@ -51,7 +51,7 @@ export const getApiServiceById = createAsyncThunk(
         return thunkConfig.rejectWithValue("session expired");
       }
       const token = session.accessToken;
-      const response = await axiosInstance.get(`${deploilyApiUrls.SERVICE_URL}${service_id}`, {
+      const response = await axiosInstance.get(`${deploilyApiUrls.API_SERVICE_URL}${service_id}`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,

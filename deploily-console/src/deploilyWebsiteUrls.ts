@@ -6,6 +6,7 @@ export const DOC_URL = "https://docs.deploily.cloud";
 
 export const deploilyApiUrls = {
   SERVICE_URL: `${API_BASE_URL}/service/`,
+  API_SERVICE_URL: `${API_BASE_URL}/api_service/`,
   SERVICE_PLAN_URL: `${API_BASE_URL}/service-plan`,
   SUBSCRIBE_URL: `${API_BASE_URL}/subscription/`,
   MY_FAVORITE_URL: `${API_BASE_URL}/my-favorites/`,
