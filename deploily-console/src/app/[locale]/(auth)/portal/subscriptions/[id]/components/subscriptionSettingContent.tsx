@@ -15,12 +15,12 @@ import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../../locales/client";
 
 
+import ImageFetcher from "@/lib/utils/imageFetcher";
 import Link from "next/link";
 import { subscriptionStatusStyle } from "../../utils/subscriptionsConst";
 import DocumentationDrawer from "./documentationDrawer";
 import GenerateTokenComponent from "./generateTokenComponent";
 import { subscriptionItems } from "./subscriptionItems";
-import ImageFetcher from "@/lib/utils/imageFetcher";
 
 export default function SubscriptionSettingContent({ subscription_id }: { subscription_id: string }) {
     const t = useI18n();
@@ -142,7 +142,7 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                             {currentSubscription.service_details.short_description}
                             {t("viewDocumentation")}&nbsp;
                             <Link
-                                href={currentSubscription.service_details.api_playground_url}
+                                href={currentSubscription?.service_details.api_playground_url ?? "https://docs.deploily.cloud/#/"}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 onMouseEnter={() => setIsHovered(true)}

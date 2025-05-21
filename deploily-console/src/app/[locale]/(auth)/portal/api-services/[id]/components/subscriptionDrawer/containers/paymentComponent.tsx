@@ -1,19 +1,19 @@
 "use client";
-import { Flex, Radio, RadioChangeEvent, Typography, } from "antd";
 import { theme } from "@/styles/theme";
-import BankTransfertComponent from "../components/bankTransfertComponent";
-import { useScopedI18n } from "../../../../../../../../../../locales/client";
-import CardPaymentComponent from "../components/cardPaymentComponent";
+import { Flex, Radio, RadioChangeEvent, Typography, } from "antd";
 import { useState } from "react";
+import { useScopedI18n } from "../../../../../../../../../../locales/client";
+import BankTransfertComponent from "../components/bankTransfertComponent";
+import CardPaymentComponent from "../components/cardPaymentComponent";
 
 export default function PaymentComponent({ selectedPlan }: { selectedPlan: any }) {
   const translate = useScopedI18n('subscription');
   const [paymentMethod, setPaymentMethod] = useState("card")
   const onChange = (e: RadioChangeEvent) => {
-    setPaymentMethod(e.target.value );
+    setPaymentMethod(e.target.value);
   };
   const t = useScopedI18n("payments");
-  
+
   return (
     <>
       <Typography.Text style={{
@@ -26,13 +26,13 @@ export default function PaymentComponent({ selectedPlan }: { selectedPlan: any }
         <Radio.Group block defaultValue={paymentMethod}
           onChange={onChange}
           value={paymentMethod}>
-          <Radio value="card"  >{t("card")}</Radio>
           <Radio value="bank_transfer">{t("bank")}</Radio>
+          <Radio value="card" disabled >{t("card")}</Radio>
         </Radio.Group>
 
       </Flex>
       {paymentMethod === "card" ?
-        <CardPaymentComponent selectedPlan={selectedPlan}/>
+        <CardPaymentComponent selectedPlan={selectedPlan} />
         : <BankTransfertComponent selectedPlan={selectedPlan} />}
     </>
   )
