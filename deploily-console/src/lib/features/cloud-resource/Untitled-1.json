@@ -1,0 +1,28 @@
+{
+    "Affiliation_state": "pending",
+    "id": 71,
+    "provider": {
+        "contact_number": "",
+        "extra_info": "",
+        "facebook_page": "",
+        "id": 1,
+        "instagram_page": "",
+        "linkedin_page": "",
+        "logo": "0de986d6-3002-11f0-9258-0242ac120002_sep_vps.png",
+        "mail_partnership": "",
+        "mail_sailes": "kawthertransformatek@gmail.com",
+        "mail_support": "aichouchec40@gmail.com",
+        "name": "kawther",
+        "phone_partnership": "",
+        "phone_sailes": "0111111111111111",
+        "phone_support": "0555583090",
+        "short_description": "aaaaaaaaaaaaaaaaa    aaaaaaaaaaa",
+        "website": "https://test.com"
+    },
+    "service_plan": {
+        "id": 1,
+        "price": 1000,
+        "subscription_category": "monthly"
+    },
+    "total_price": null
+}

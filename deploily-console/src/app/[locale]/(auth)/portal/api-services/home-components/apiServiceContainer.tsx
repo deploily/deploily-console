@@ -1,14 +1,14 @@
 "use client";
-import { Row, Col, Space, Card, Result, Button } from "antd";
-import ApiServiceCard from "./apiServiceCard";
-import { useEffect } from "react";
-import { useAppDispatch } from "@/lib/hook";
-import { useI18n } from "../../../../../../../locales/client";
-import { useFavoriteServices } from "@/lib/features/favorites/favoriteServiceSelectors";
-import { useApiServices } from "@/lib/features/api-service/apiServiceSelectors";
 import { ApiServiceInterface } from "@/lib/features/api-service/apiServiceInterface";
+import { useApiServices } from "@/lib/features/api-service/apiServiceSelectors";
 import { fetchApiServices } from "@/lib/features/api-service/apiServiceThunks";
+import { useFavoriteServices } from "@/lib/features/favorites/favoriteServiceSelectors";
+import { useAppDispatch } from "@/lib/hook";
+import { Button, Card, Col, Result, Row, Space } from "antd";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useI18n } from "../../../../../../../locales/client";
+import ApiServiceCard from "./apiServiceCard";
 export default function ApiServiceContainer() {
   const t = useI18n();
   const { apiServiceResponse, isLoadingServiceResponse, apiServiceLoadingError } = useApiServices();
@@ -18,7 +18,7 @@ export default function ApiServiceContainer() {
 
 
   useEffect(() => {
-    dispatch(fetchApiServices());
+    dispatch(fetchApiServices(4));
   }, [favoriteServiceAdded, favoriteServiceDeleted])
   return (
     <>

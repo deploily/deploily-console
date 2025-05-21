@@ -5,13 +5,13 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getSession } from "next-auth/react";
 export const fetchApiServices = createAsyncThunk(
   "apiServices/getapiServices",
-  async (_, thunkConfig) => {
+  async (limit: number, thunkConfig) => {
     const state = thunkConfig.getState() as RootState;
     const searchValue = state.apiService.searchValue?.trim();
 
     const filters = searchValue
-      ? `(filters:!((col:name,opr:ct,value:'${searchValue}')),page_size:10)`
-      : `(page_size:10)`;
+      ? `(filters:!((col:name,opr:ct,value:'${searchValue}')),page_size:${limit})`
+      : `(page_size:${limit})`;
 
     const query = `?q=${encodeURIComponent(filters)}`;
 
@@ -24,7 +24,7 @@ export const fetchApiServices = createAsyncThunk(
 
       const token = session.accessToken;
 
-      const response = await axiosInstance.get(`${deploilyApiUrls.SERVICE_URL}${query}`, {
+      const response = await axiosInstance.get(`${deploilyApiUrls.API_SERVICE_URL}${query}`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
@@ -51,14 +51,14 @@ export const getApiServiceById = createAsyncThunk(
         return thunkConfig.rejectWithValue("session expired");
       }
       const token = session.accessToken;
-      const response = await axiosInstance.get(`${deploilyApiUrls.SERVICE_URL}${service_id}`, {
+      const response = await axiosInstance.get(`${deploilyApiUrls.API_SERVICE_URL}${service_id}`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
         },
       });
       if (response.status == 200) {
-        thunkConfig.dispatch(fetchApiServices());
+        thunkConfig.dispatch(fetchApiServices(10));
         return response.data;
       } else {
         return thunkConfig.rejectWithValue("error");

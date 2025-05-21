@@ -1,15 +1,15 @@
 "use client";
-import { useState } from "react";
-import { ArrowRight, Star } from "@phosphor-icons/react";
-import { Card, Col, Row, Button, Space, Badge } from "antd";
-import { useI18n } from "../../../../../../../locales/client";
-import Paragraph from "antd/es/typography/Paragraph";
-import { useRouter } from "next/navigation";
 import { ApiServiceInterface } from "@/lib/features/api-service/apiServiceInterface";
 import { postFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
 import { useAppDispatch } from "@/lib/hook";
-import { theme } from "@/styles/theme";
 import ImageFetcher from "@/lib/utils/imageFetcher";
+import { theme } from "@/styles/theme";
+import { ArrowRight, Star } from "@phosphor-icons/react";
+import { Badge, Button, Card, Col, Row, Space } from "antd";
+import Paragraph from "antd/es/typography/Paragraph";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useI18n } from "../../../../../../../locales/client";
 
 export default function ApiServiceCard({ service }: { service: ApiServiceInterface }) {
   const t = useI18n();
@@ -53,7 +53,7 @@ export default function ApiServiceCard({ service }: { service: ApiServiceInterfa
                       <Star size={20} weight="fill" color="#7D7D7D" />
                   }
                   onClick={(e) => {
-                    e.stopPropagation(); // Prevent Card onClick
+                    e.stopPropagation();
                     handleFavoriteService(service.id);
                   }}
                 />
@@ -62,7 +62,7 @@ export default function ApiServiceCard({ service }: { service: ApiServiceInterfa
             >
               <ImageFetcher
                 imagePath={service.image_service}
-             
+
                 width={100}
                 height={100}
               />
