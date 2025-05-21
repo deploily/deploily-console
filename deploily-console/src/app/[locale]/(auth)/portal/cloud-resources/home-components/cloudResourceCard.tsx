@@ -6,7 +6,7 @@ import ImageFetcher from "@/lib/utils/imageFetcher";
 import { theme } from "@/styles/theme";
 import { ArrowRight, Star } from "@phosphor-icons/react";
 import { Badge, Button, Card, Col, Row, Space } from "antd";
-import Meta from "antd/es/card/Meta";
+import Paragraph from "antd/es/typography/Paragraph";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useI18n } from "../../../../../../../locales/client";
@@ -71,56 +71,28 @@ export default function CloudResourceCard({ resource }: any) {
                         </Badge>
                     </Col>
 
-                    <Col
-                        span={12}
+                    <Col span={12}
                         style={{
+                            height: "100%",
+                            fontWeight: "bold",
+
+                            justifyContent: "end",
                             display: "flex",
-                            justifyContent: "flex-end",
-                            alignItems: "flex-start",
-                        }}
-                    >
-                        <p
-                            style={{
-                                color: "#DD8859",
-                                fontWeight: "bold",
-                                fontSize: 18,
-                                margin: 0,
-                                alignSelf: "flex-start", // ensures it's pinned to top within Col
-                            }}
-                        >
-                            {resource.unit_price}
-                        </p>
+                        }}>
+                        <Paragraph style={{ color: "#DD8859", fontSize: 16, }}>
+                            {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(resource.unit_price)} DZD
+                        </Paragraph>
                     </Col>
                 </Row>
-                {/* Title & Description */}
                 <Row style={{ height: "40%" }}>
-                    <Col span={24}>
-                        <Meta
-                            title={
-                                <p
-                                    style={{
-                                        fontSize: 20,
-                                        fontWeight: 500,
-                                        marginBottom: 4,
-                                        paddingTop: 12,
-                                    }}
-                                >
-                                    {resource.name}
-                                </p>
-                            }
-                            description={
-                                <p
-                                    style={{
-                                        fontSize: 14,
-                                        color: "#fff",
-                                        marginBottom: 0,
-                                    }}
-                                >
-                                    {resource.description}
-                                </p>
-                            }
-                        />
-                    </Col>
+                    <div>
+                        <Paragraph ellipsis={{ rows: 2, expandable: false }} style={{ fontSize: 20, }}>
+                            {resource.name}
+                        </Paragraph>
+                        <Paragraph ellipsis={{ rows: 3, expandable: false }} style={{ paddingTop: "0px" }}>
+                            {resource.short_description}
+                        </Paragraph>
+                    </div>
                 </Row>
             </div>
 
@@ -129,7 +101,7 @@ export default function CloudResourceCard({ resource }: any) {
                     style={{
                         color: "#fff",
                         border: "none",
-                        padding: 4,
+                        padding: "4px",
                         boxShadow: "none",
                         background: "transparent",
                         display: "flex",
@@ -145,9 +117,9 @@ export default function CloudResourceCard({ resource }: any) {
                     <span
                         style={{
                             color: hovered ? theme.token.colorPrimary : theme.token.gray200,
-                            fontSize: 16,
+                            fontSize: "16px",
                             fontWeight: 600,
-                            paddingRight: 4,
+                            paddingRight: 3,
                             transition: "color 0.3s ease",
                         }}
                     >
