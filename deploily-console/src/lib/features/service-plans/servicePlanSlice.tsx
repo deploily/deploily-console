@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchServicePlans } from "./servicePlanThanks";
 import { ServicePlanResponse } from "./servicePlanInterface";
+import { fetchServicePlans } from "./servicePlanThanks";
 
 interface ServicePlanState {
   servicePlanResponse?: ServicePlanResponse;

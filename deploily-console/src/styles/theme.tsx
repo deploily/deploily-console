@@ -76,7 +76,8 @@ export const theme = {
     Checkbox: {
       colorBgContainer: "#ffffff",
       colorPrimary: "#28b609",
-    }
+    },
+
 
   },
 

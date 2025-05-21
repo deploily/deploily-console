@@ -5,13 +5,13 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getSession } from "next-auth/react";
 export const fetchApiServices = createAsyncThunk(
   "apiServices/getapiServices",
-  async (_, thunkConfig) => {
+  async (limit: number, thunkConfig) => {
     const state = thunkConfig.getState() as RootState;
     const searchValue = state.apiService.searchValue?.trim();
 
     const filters = searchValue
-      ? `(filters:!((col:name,opr:ct,value:'${searchValue}')),page_size:10)`
-      : `(page_size:10)`;
+      ? `(filters:!((col:name,opr:ct,value:'${searchValue}')),page_size:${limit})`
+      : `(page_size:${limit})`;
 
     const query = `?q=${encodeURIComponent(filters)}`;
 
@@ -58,7 +58,7 @@ export const getApiServiceById = createAsyncThunk(
         },
       });
       if (response.status == 200) {
-        thunkConfig.dispatch(fetchApiServices());
+        thunkConfig.dispatch(fetchApiServices(10));
         return response.data;
       } else {
         return thunkConfig.rejectWithValue("error");

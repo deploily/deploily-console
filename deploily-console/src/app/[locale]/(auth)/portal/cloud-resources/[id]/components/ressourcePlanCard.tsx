@@ -1,11 +1,16 @@
 import { ServicePlan, ServicePlanOption } from "@/lib/features/service-plans/servicePlanInterface";
+
+import { ResourceInterface } from "@/lib/features/cloud-resource/cloudResourceInterface";
 import { theme } from "@/styles/theme";
-import { Check } from "@phosphor-icons/react/dist/ssr";
-import { Button, Card, Col, Row, Typography } from "antd";
+import { Check } from "@phosphor-icons/react";
+import { Button, Card, Col, Row, Typography } from 'antd';
 import { useScopedI18n } from "../../../../../../../../locales/client";
 
-export default function ServicePlanCard({ servicePlan, showDrawer }: { servicePlan: ServicePlan, showDrawer: any }) {
+const { Text } = Typography;
+
+export default function RessourcePlanCard({ resourcePlan, currentResource, showDrawer }: { resourcePlan: ServicePlan, currentResource: ResourceInterface, showDrawer: any }) {
     const t = useScopedI18n('subscription');
+
     return (
         <Card
             style={{
@@ -29,16 +34,47 @@ export default function ServicePlanCard({ servicePlan, showDrawer }: { servicePl
         >
 
             <Typography.Title level={3} style={{ textAlign: "center" }}>
-                {(servicePlan.plan !== null) ? servicePlan.plan.name : ""}
+                {(resourcePlan.plan !== null) ? resourcePlan.plan.name : ""}
             </Typography.Title>
-
+            <div
+                style={{
+                    width: '100%',
+                    height: 80,
+                    backgroundImage: "url('/images/ellipse.png')",
+                    backgroundRepeat: 'no-repeat',
+                    backgroundPosition: 'center',
+                    backgroundSize: 'contain',
+                    marginBottom: 20,
+                    fontWeight: 'bold',
+                    color: 'white',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}
+            >
+                <Text style={{ fontSize: 18, color: 'white', lineHeight: 1 }}>{currentResource.discount}%</Text>
+                <Text style={{ fontSize: 16, color: 'white', lineHeight: 1.2 }}>Special Offer</Text>
+            </div>
+            <Text
+                delete
+                style={{
+                    color: '#999999',
+                    fontSize: 16,
+                    display: 'block', textAlign: "center", marginBottom: 0,
+                    lineHeight: 1.2,
+                }}
+            >
+                {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(resourcePlan!.price)}
+                <span style={{ fontSize: 16, fontWeight: 400 }}> DZD/{t("month")}</span>
+            </Text>
             <Typography.Paragraph style={{ fontSize: 25, fontWeight: 600, color: theme.token.orange400, textAlign: "center" }}>
-                {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(servicePlan.price)}
+                {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(applyDiscount(resourcePlan!.price, currentResource.discount))}
                 <span style={{ fontSize: 16, fontWeight: 400 }}> DZD/{t("month")}</span>
             </Typography.Paragraph>
 
             <div style={{ flex: 1, paddingBottom: "16px" }}>
-                {servicePlan.options.map((row: ServicePlanOption) => (
+                {resourcePlan.options.map((row: ServicePlanOption) => (
                     <Row gutter={16} key={row.id} align="middle">
                         <Col span={3}  >
                             <Check size={24} color={theme.token.gray100} />
@@ -64,7 +100,6 @@ export default function ServicePlanCard({ servicePlan, showDrawer }: { servicePl
 
                 ))}
             </div>
-
             <div
                 style={{
                     padding: "16px",
@@ -84,16 +119,15 @@ export default function ServicePlanCard({ servicePlan, showDrawer }: { servicePl
                     }}
                 >
 
-                    {t("title")}
+                    Order Now
                 </Button>
             </div>
+
+
+
         </Card>
-
-
-
-
-
-
-
-    )
+    );
+}
+function applyDiscount(price: number, percentage: number): number {
+    return Math.round(price * (1 - percentage / 100));
 }

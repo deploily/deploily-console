@@ -1,14 +1,14 @@
 "use client";
-import { Row, Col, Space, Card, Result, Pagination, Input, Button, Select } from "antd";
-import { useEffect, useState } from "react";
-import { useAppDispatch } from "@/lib/hook";
-import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
-import { useApiServices } from "@/lib/features/api-service/apiServiceSelectors";
 import { ApiServiceInterface } from "@/lib/features/api-service/apiServiceInterface";
-import { fetchApiServices } from "@/lib/features/api-service/apiServiceThunks";
-import { Funnel, MagnifyingGlass } from "@phosphor-icons/react";
-import ApiServiceCard from "../home-components/apiServiceCard";
+import { useApiServices } from "@/lib/features/api-service/apiServiceSelectors";
 import { updateApiServiceSearchValue } from "@/lib/features/api-service/apiServiceSlice";
+import { fetchApiServices } from "@/lib/features/api-service/apiServiceThunks";
+import { useAppDispatch } from "@/lib/hook";
+import { Funnel, MagnifyingGlass } from "@phosphor-icons/react";
+import { Button, Card, Col, Input, Pagination, Result, Row, Space } from "antd";
+import { useEffect, useState } from "react";
+import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
+import ApiServiceCard from "../home-components/apiServiceCard";
 
 export default function AllApiServiceContainer() {
   const t = useI18n();
@@ -23,13 +23,13 @@ export default function AllApiServiceContainer() {
   const services = apiServiceResponse?.result || [];
 
   useEffect(() => {
-    dispatch(fetchApiServices());
+    dispatch(fetchApiServices(10));
   }, []);
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       dispatch(updateApiServiceSearchValue(searchTerm));
-      dispatch(fetchApiServices());
+      dispatch(fetchApiServices(10));
     }, 800);
 
     return () => clearTimeout(delayDebounceFn);
@@ -43,7 +43,7 @@ export default function AllApiServiceContainer() {
         </span>
 
         {/* Search and Filter */}
-        
+
         <Space>
           <Input
             placeholder={tServiceApi("search")}
@@ -71,7 +71,7 @@ export default function AllApiServiceContainer() {
             }}
             onClick={() => {
               dispatch(updateApiServiceSearchValue(searchTerm));
-              dispatch(fetchApiServices());
+              dispatch(fetchApiServices(10));
             }}
           >
             {tServiceApi("filter")}

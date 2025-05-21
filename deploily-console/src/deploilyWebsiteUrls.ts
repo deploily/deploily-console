@@ -27,4 +27,9 @@ export const deploilyApiUrls = {
   FUND_BALANCE: `${API_BASE_URL}/balance/fund-balance`,
   GENERATE_PDF_RECEIPT: `${API_BASE_URL}/service-subscription/generate-pdf-receipt`,
   SEND_PDF_RECEIPT_EMAIL: `${API_BASE_URL}/service-subscription/send-pdf-receipt_mail`,
+  SERVICE_RESSOURCE: `${API_BASE_URL}/ressource_service/`,
+  PROVIDER_URL: `${API_BASE_URL}/service-ressource-providers/`,
+  CREATE_AFFILIATION_URL: `${API_BASE_URL}/affiliation/create`,
+  AFFILIATION_URL: `${API_BASE_URL}/affiliation/all`,
+
 };

@@ -1,14 +1,25 @@
 "use client";
 
-import { useI18n } from "../../../../../../../locales/client";
-import { ArrowRight, Star } from "@phosphor-icons/react";
-import { Card, Col, Row, Image, Badge, Button, Space } from "antd";
-import Meta from "antd/es/card/Meta";
+import { postFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
+import { useAppDispatch } from "@/lib/hook";
+import ImageFetcher from "@/lib/utils/imageFetcher";
 import { theme } from "@/styles/theme";
+import { ArrowRight, Star } from "@phosphor-icons/react";
+import { Badge, Button, Card, Col, Row, Space } from "antd";
+import Meta from "antd/es/card/Meta";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useI18n } from "../../../../../../../locales/client";
 
-export default function CloudResourceCard({ data }: any) {
+export default function CloudResourceCard({ resource }: any) {
     const t = useI18n();
+    const router = useRouter();
+    const dispatch = useAppDispatch();
 
+    const [hovered, setHovered] = useState(false);
+    const handleFavoriteService = (resource_id: number) => {
+        dispatch(postFavoriteService({ "service_id": resource_id }));
+    }
     return (
         <Card
             hoverable
@@ -38,16 +49,24 @@ export default function CloudResourceCard({ data }: any) {
                                         height: 24,
                                         minWidth: 24,
                                     }}
-                                    icon={<Star size={20} weight="fill" color="#7D7D7D" />}
+                                    icon={
+                                        resource.is_in_favorite === true ?
+                                            <Star size={20} weight="fill" color="#FC3232" /> :
+                                            <Star size={20} weight="fill" color="#7D7D7D" />
+                                    }
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleFavoriteService(resource.id);
+                                    }}
                                 />
                             }
                             offset={[-12, 12]}
                         >
-                            <Image
-                                src={data.image}
+                            <ImageFetcher
+                                imagePath={resource.image_service}
+
                                 width={100}
                                 height={100}
-                                preview={false}
                             />
                         </Badge>
                     </Col>
@@ -57,8 +76,7 @@ export default function CloudResourceCard({ data }: any) {
                         style={{
                             display: "flex",
                             justifyContent: "flex-end",
-                            alignItems: "flex-start", // aligns to the top within the Row
-
+                            alignItems: "flex-start",
                         }}
                     >
                         <p
@@ -70,12 +88,10 @@ export default function CloudResourceCard({ data }: any) {
                                 alignSelf: "flex-start", // ensures it's pinned to top within Col
                             }}
                         >
-                            {data.price}
+                            {resource.unit_price}
                         </p>
                     </Col>
-
                 </Row>
-
                 {/* Title & Description */}
                 <Row style={{ height: "40%" }}>
                     <Col span={24}>
@@ -89,7 +105,7 @@ export default function CloudResourceCard({ data }: any) {
                                         paddingTop: 12,
                                     }}
                                 >
-                                    {data.name}
+                                    {resource.name}
                                 </p>
                             }
                             description={
@@ -100,7 +116,7 @@ export default function CloudResourceCard({ data }: any) {
                                         marginBottom: 0,
                                     }}
                                 >
-                                    {data.description}
+                                    {resource.description}
                                 </p>
                             }
                         />
@@ -108,9 +124,8 @@ export default function CloudResourceCard({ data }: any) {
                 </Row>
             </div>
 
-            {/* Details Button */}
             <Space style={{ position: "absolute", bottom: 16, right: 16 }}>
-                {/* <Button
+                <Button
                     style={{
                         color: "#fff",
                         border: "none",
@@ -120,15 +135,20 @@ export default function CloudResourceCard({ data }: any) {
                         display: "flex",
                         alignItems: "center",
                     }}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        router.push(`/portal/cloud-resources/${resource.id}`);
+                    }}
+                    onMouseEnter={() => setHovered(true)}
+                    onMouseLeave={() => setHovered(false)}
                 >
                     <span
                         style={{
-                            color: theme.token.gray200,
+                            color: hovered ? theme.token.colorPrimary : theme.token.gray200,
                             fontSize: 16,
                             fontWeight: 600,
                             paddingRight: 4,
                             transition: "color 0.3s ease",
-
                         }}
                     >
                         {t("details")}
@@ -136,11 +156,11 @@ export default function CloudResourceCard({ data }: any) {
                     <ArrowRight
                         size={20}
                         style={{
-                            color: theme.token.gray200,
+                            color: hovered ? theme.token.colorPrimary : theme.token.gray200,
                             transition: "color 0.3s ease",
                         }}
                     />
-                </Button> */}
+                </Button>
             </Space>
         </Card>
     );
