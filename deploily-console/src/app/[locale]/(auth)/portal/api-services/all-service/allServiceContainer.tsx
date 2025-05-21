@@ -3,6 +3,7 @@ import { ApiServiceInterface } from "@/lib/features/api-service/apiServiceInterf
 import { useApiServices } from "@/lib/features/api-service/apiServiceSelectors";
 import { updateApiServiceSearchValue } from "@/lib/features/api-service/apiServiceSlice";
 import { fetchApiServices } from "@/lib/features/api-service/apiServiceThunks";
+import { useFavoriteServices } from "@/lib/features/favorites/favoriteServiceSelectors";
 import { useAppDispatch } from "@/lib/hook";
 import { Funnel, MagnifyingGlass } from "@phosphor-icons/react";
 import { Button, Card, Col, Input, Pagination, Result, Row, Space } from "antd";
@@ -21,10 +22,11 @@ export default function AllApiServiceContainer() {
   const itemsPerPage = 6;
   const [searchTerm, setSearchTerm] = useState("");
   const services = apiServiceResponse?.result || [];
+  const { favoriteServiceAdded, favoriteServiceDeleted } = useFavoriteServices()
 
   useEffect(() => {
     dispatch(fetchApiServices(10));
-  }, []);
+  }, [favoriteServiceAdded, favoriteServiceDeleted]);
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {

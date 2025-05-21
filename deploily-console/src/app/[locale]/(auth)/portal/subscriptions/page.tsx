@@ -1,13 +1,14 @@
 "use client";
-import {Row} from "antd";
-import {useI18n} from "../../../../../../locales/client";
+import { Row } from "antd";
+import { useScopedI18n } from "../../../../../../locales/client";
 import SubscriptionContainer from "./components/subscriptionContainer";
 
 export default function Page() {
-  const t = useI18n();
+  const t = useScopedI18n('sidebar');
+
   return (
     <>
-      <Row style={{padding: 20}}>
+      <Row style={{ padding: 20 }}>
         <span
           style={{
             color: "white",
@@ -16,7 +17,7 @@ export default function Page() {
             fontWeight: 800,
           }}
         >
-          {t("subscriptions")}
+          {t("myApi")}
         </span>
       </Row>
       <SubscriptionContainer />
