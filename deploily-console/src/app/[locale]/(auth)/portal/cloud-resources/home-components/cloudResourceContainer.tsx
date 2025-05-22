@@ -27,12 +27,13 @@ export default function CloudResourceContainer() {
         <Row style={{ paddingTop: 20 }} justify="space-between" align="middle">
           <span
             style={{
+              paddingLeft: "20px",
               color: "white",
               fontSize: "24px",
               fontWeight: 800,
             }}
           >
-            Cloud Resource
+            {t('cloudResources')}
           </span>
           <Button
             style={{
