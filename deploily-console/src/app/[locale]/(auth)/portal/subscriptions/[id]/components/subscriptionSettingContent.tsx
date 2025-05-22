@@ -1,7 +1,4 @@
 "use client"
-import { ApiServiceInterface } from "@/lib/features/api-service/apiServiceInterface";
-import { useApiServices } from "@/lib/features/api-service/apiServiceSelectors";
-import { getApiServiceById } from "@/lib/features/api-service/apiServiceThunks";
 import { useSubscription } from "@/lib/features/subscriptions/subscriptionSelectors";
 import { fetchSubscriptionById } from "@/lib/features/subscriptions/subscriptionThunks";
 import { useAppDispatch } from "@/lib/hook";
@@ -18,6 +15,7 @@ import dayjs from "dayjs";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../../locales/client";
+
 import { subscriptionStatusStyle } from "../../utils/subscriptionsConst";
 import DocumentationDrawer from "./documentationDrawer";
 import GenerateTokenComponent from "./generateTokenComponent";
@@ -29,10 +27,8 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
 
     const dispatch = useAppDispatch();
     const { currentSubscription, currentSubscriptionLoading, currentSubscriptionLoadingError } = useSubscription()
-    const { currentService } = useApiServices()
     const [openDrawer, setOpenDrawer] = useState(false);
     const [remainingDuration, setRemainingDuration] = useState<number>()
-    const [serviceDetails, setServiceDetails] = useState<ApiServiceInterface>();
 
     const [isHovered, setIsHovered] = useState(false);
     const onClose = () => {
@@ -40,27 +36,15 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
     };
     useEffect(() => {
         dispatch(fetchSubscriptionById(subscription_id));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-
-
-
-
 
     useEffect(() => {
         if (currentSubscription !== undefined) {
-            dispatch(getApiServiceById(`${currentSubscription.service_details.id}`));
             setRemainingDuration(getRemainingDuration(currentSubscription.start_date, currentSubscription.duration_month));
         }
     }, [currentSubscription]);
 
-
-
-    useEffect(() => {
-
-        if (currentService !== undefined) {
-            setServiceDetails(currentService);
-        }
-    }, [currentService])
 
     function getRemainingDuration(startDate: Date, durationMonths: number) {
         const start = new Date(startDate);
@@ -84,7 +68,6 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                 <>
                     <Skeleton.Image active />
                     <Skeleton active paragraph={{ rows: 2 }} />
-
                 </>
             }
             {!currentSubscriptionLoading && currentSubscription !== undefined &&
@@ -108,8 +91,8 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                                     />
                                 }
                                 offset={[-20, 20]}>
-                                {serviceDetails && <ImageFetcher
-                                    imagePath={serviceDetails.image_service}
+                                {currentSubscription.service_details && <ImageFetcher
+                                    imagePath={currentSubscription.service_details.image_service}
                                     width={220}
                                     height={220}
                                 />}
@@ -148,18 +131,18 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                         alignItems: "center",
                         width: "100%",
                     }}>
-                        {serviceDetails && <Typography.Title level={2}>{serviceDetails.name}</Typography.Title>}
+                        {currentSubscription.service_details && <Typography.Title level={2}>{currentSubscription.service_details.name}</Typography.Title>}
                         <Tag bordered={false} color={subscriptionStatusStyle(currentSubscription.status)} style={{ height: 'fit-content', fontSize: '14px', fontWeight: "bold", borderRadius: 20, padding: "5px 20px", textTransform: "capitalize" }}>
                             {tSubscription(currentSubscription.status as "active" | "inactive")}
                         </Tag>
                     </Row>
 
-                    {serviceDetails && <Row gutter={16} style={{ marginTop: 0 }} >
+                    {currentSubscription.service_details && <Row gutter={16} style={{ marginTop: 0 }} >
                         <Paragraph style={{ fontSize: 14 }} >
-                            {serviceDetails.short_description}
+                            {currentSubscription.service_details.short_description}
                             {t("viewDocumentation")}&nbsp;
                             <Link
-                                href={currentSubscription?.service_details.api_playground_url ?? "https://docs.deploily.cloud/#/"}
+                                href={currentSubscription.service_details.api_playground_url ?? "https://docs.deploily.cloud/#/"}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 onMouseEnter={() => setIsHovered(true)}
@@ -262,11 +245,11 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                         </Row>
                     } */}
 
-                    {serviceDetails &&
+                    {currentSubscription.service_details &&
                         currentSubscription.status == 'active' ? <>
                         <GenerateTokenComponent subscription_id={subscription_id} />
                         <Row gutter={[16, 10]} key={currentSubscription.id}  >
-                            {subscriptionItems(currentSubscription, serviceDetails, t).map((item, index) => (
+                            {subscriptionItems(currentSubscription, currentSubscription.service_details, t).map((item, index) => (
                                 <div key={index} style={{ width: '100%' }}>
                                     {item.label}
                                     {item.children}

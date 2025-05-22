@@ -28,8 +28,6 @@ export default function AffiliationDrawer({ openDrawer, onClose, planSelected, c
         return Math.round(price * (1 - percentage / 100));
     }
 
-
-
     const [api, contextHolder] = notification.useNotification();
 
     const openNotification = () => {
@@ -53,7 +51,6 @@ export default function AffiliationDrawer({ openDrawer, onClose, planSelected, c
             },
         });
     };
-
 
     useEffect(() => {
         if (isAffiliationCreatedSuccess) {
@@ -109,7 +106,7 @@ export default function AffiliationDrawer({ openDrawer, onClose, planSelected, c
                                 </Row>
                                 <Row gutter={16} align="top" >
                                     <Col span={14} >  <Typography.Text strong >Email : </Typography.Text></Col>
-                                    <Col span={10} > <Typography.Text >{provider.mail_support}</Typography.Text></Col>
+                                    <Col span={10} > <Typography.Text >{provider.mail_sailes}</Typography.Text></Col>
                                 </Row>
                                 <Row gutter={16} align="top" >
                                     <Col span={14} >  <Typography.Text strong >Phone : </Typography.Text></Col>

@@ -1,11 +1,11 @@
-import { useEffect } from "react";
-import { Row, Col, Card, Result } from "antd";
-import { useAppDispatch } from "@/lib/hook";
-import SubscriptionCard from "./subscriptionCard";
-import { useI18n } from "../../../../../../../locales/client";
-import { fetchSubscription } from "@/lib/features/subscriptions/subscriptionThunks";
-import { useSubscription } from "@/lib/features/subscriptions/subscriptionSelectors";
 import { SubscriptionInterface } from "@/lib/features/subscriptions/subscriptionInterface";
+import { useSubscription } from "@/lib/features/subscriptions/subscriptionSelectors";
+import { fetchSubscription } from "@/lib/features/subscriptions/subscriptionThunks";
+import { useAppDispatch } from "@/lib/hook";
+import { Card, Col, Result, Row } from "antd";
+import { useEffect } from "react";
+import { useI18n } from "../../../../../../../locales/client";
+import SubscriptionCard from "./subscriptionCard";
 
 export default function SubscriptionContainer() {
   const dispatch = useAppDispatch();
@@ -14,6 +14,7 @@ export default function SubscriptionContainer() {
 
   useEffect(() => {
     dispatch(fetchSubscription());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

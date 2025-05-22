@@ -8,7 +8,8 @@ import CardPaymentComponent from "../components/cardPaymentComponent";
 
 export default function PaymentComponent({ selectedPlan }: { selectedPlan: any }) {
   const translate = useScopedI18n('subscription');
-  const [paymentMethod, setPaymentMethod] = useState("card")
+  const translateProfile = useScopedI18n('profilePayment');
+  const [paymentMethod, setPaymentMethod] = useState("bank_transfer")
   const onChange = (e: RadioChangeEvent) => {
     setPaymentMethod(e.target.value);
   };
@@ -21,13 +22,13 @@ export default function PaymentComponent({ selectedPlan }: { selectedPlan: any }
         justifyContent: "center",
       }}>{translate("insufficientBalance")}
       </Typography.Text>
-      <Typography.Title level={4} style={{ paddingTop: 20, paddingBottom: 20 }}>Choose the payment method</Typography.Title>
+      <Typography.Title level={4} style={{ paddingTop: 20, paddingBottom: 20 }}>{translateProfile("choosePaymentMethod")}</Typography.Title>
       <Flex vertical gap="start" style={{ padding: 10, backgroundColor: theme.token.colorBgBase, }}>
         <Radio.Group block defaultValue={paymentMethod}
           onChange={onChange}
           value={paymentMethod}>
           <Radio value="bank_transfer">{t("bank")}</Radio>
-          <Radio value="card" disabled >{t("card")}</Radio>
+          <Radio value="card" disabled>{t("card")}</Radio>
         </Radio.Group>
 
       </Flex>

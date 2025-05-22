@@ -13,13 +13,13 @@ import { postFavoriteService } from "@/lib/features/favorites/favoriteServiceThu
 import { ServicePlan } from "@/lib/features/service-plans/servicePlanInterface";
 import { useServicePlan } from "@/lib/features/service-plans/servicePlanSelector";
 import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThanks";
+import ImageFetcher from "@/lib/utils/imageFetcher";
 import { theme } from "@/styles/theme";
 import Paragraph from "antd/es/typography/Paragraph";
 import Link from "next/link";
 import { useState } from "react";
 import ServicePlanCard from "./servicePlanCard";
 import SubscribeDrawer from "./subscriptionDrawer/subscriptionDrawer";
-import ImageFetcher from "@/lib/utils/imageFetcher";
 
 export default function ServiceDetailsContentPage({ serviceId }: { serviceId: string }) {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -48,7 +48,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
     dispatch(fetchServicePlans(serviceId))
   }, [favoriteServiceAdded, favoriteServiceDeleted]);
 
- 
+
 
   const handleFavoriteService = (service_id: number) => {
     dispatch(postFavoriteService({ "service_id": service_id }));
@@ -97,7 +97,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
                   }
                   offset={[-20, 20]}
                 >
-                <ImageFetcher
+                  <ImageFetcher
                     imagePath={currentService?.image_service}
                     width={220}
                     height={220}
