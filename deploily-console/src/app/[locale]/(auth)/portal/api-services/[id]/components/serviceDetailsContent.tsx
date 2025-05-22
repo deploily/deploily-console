@@ -46,6 +46,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
   useEffect(() => {
     dispatch(getApiServiceById(serviceId));
     dispatch(fetchServicePlans(serviceId))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [favoriteServiceAdded, favoriteServiceDeleted]);
 
 
@@ -179,26 +180,23 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
               {!servicePlanLoading && servicePlanResponse?.result !== undefined &&
                 <>
                   {servicePlanResponse?.result?.map((row: ServicePlan) => (
+
+
                     <Col
                       key={row.id}
-                      xs={24}
-                      sm={12}
-                      md={10}
-                      lg={8}
-                      xl={8}
-                      style={{ display: "flex", justifyContent: "center" }}
+                      xs={24} sm={24} md={12} lg={10} xl={8} xxl={6}
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        padding: "0.5rem",
+                      }}
                     >
-                      {row.plan && (
-                        <div style={{ width: "100%", maxWidth: 340 }}>
-                          <ServicePlanCard
-                            key={row.id}
-                            servicePlan={row}
-                            showDrawer={() => showDrawer(row)}
-                          />
-                        </div>
-                      )}
+                      <div style={{ width: "100%", display: "flex", justifyContent: "center", maxWidth: 350, }}>
+                        <ServicePlanCard
+                          servicePlan={row}
+                          showDrawer={() => showDrawer(row)}
+                        /></div>
                     </Col>
-
                   ))}
                 </>
               }

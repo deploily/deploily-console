@@ -12,6 +12,7 @@ export default function ServicePlanCard({ servicePlan, showDrawer }: { servicePl
                 display: "flex",
                 flexDirection: "column",
                 height: "100%",
+                width: "100%",
                 borderColor: theme.token.gray50,
                 boxShadow: "none"
             }}
@@ -27,6 +28,7 @@ export default function ServicePlanCard({ servicePlan, showDrawer }: { servicePl
                 e.currentTarget.style.boxShadow = "none";
             }}
         >
+
 
             <Typography.Title level={3} style={{ textAlign: "center" }}>
                 {(servicePlan.plan !== null) ? servicePlan.plan.name : ""}

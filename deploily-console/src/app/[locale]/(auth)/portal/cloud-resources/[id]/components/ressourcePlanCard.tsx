@@ -2,13 +2,41 @@ import { ServicePlan, ServicePlanOption } from "@/lib/features/service-plans/ser
 
 import { ResourceInterface } from "@/lib/features/cloud-resource/cloudResourceInterface";
 import { theme } from "@/styles/theme";
+import { keyframes } from '@emotion/react';
+import styled from '@emotion/styled';
 import { Check } from "@phosphor-icons/react";
-import { Button, Card, Col, Row, Typography } from 'antd';
+import { Button, Card, Col, Row, Tag, Typography } from 'antd';
 import { useScopedI18n } from "../../../../../../../../locales/client";
-
 const { Text } = Typography;
 
+
+
+
 export default function RessourcePlanCard({ resourcePlan, currentResource, showDrawer }: { resourcePlan: ServicePlan, currentResource: ResourceInterface, showDrawer: any }) {
+    const pulseBorder = keyframes`
+    0% {
+    box-shadow: 0 0 0 0 rgba(0, 87, 216, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 10px 6px rgba(0, 87, 216, 1);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 87, 216, 0);
+  }
+  `;
+
+    const StyledTag = styled(Tag)`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    font-weight: bold;
+    border-radius: 8px;
+    border: 2px solid orange;
+    animation: ${pulseBorder} 2s infinite ease-in-out;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  `;
     const t = useScopedI18n('subscription');
 
     return (
@@ -38,24 +66,36 @@ export default function RessourcePlanCard({ resourcePlan, currentResource, showD
             </Typography.Title>
             <div
                 style={{
-                    width: '100%',
-                    height: 80,
-                    backgroundImage: "url('/images/ellipse.png')",
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'center',
-                    backgroundSize: 'contain',
-                    marginBottom: 20,
-                    fontWeight: 'bold',
-                    color: 'white',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'center',
                     alignItems: 'center',
+                    marginBottom: 20,
                 }}
             >
-                <Text style={{ fontSize: 18, color: 'white', lineHeight: 1 }}>{currentResource.discount}%</Text>
-                <Text style={{ fontSize: 16, color: 'white', lineHeight: 1.2 }}>Special Offer</Text>
+                <StyledTag color={theme.token.blue300}>
+                    <Text
+                        style={{
+                            fontSize: 18,
+                            color: "white",
+                            lineHeight: 1,
+                            marginRight: 4,
+                        }}
+                    >
+                        {currentResource.discount}%
+                    </Text>
+                    <Text
+                        style={{
+                            fontSize: 16,
+                            color: "white",
+                            lineHeight: 1.2,
+                        }}
+                    >
+                        {t('specialOffer')}
+                    </Text>
+                </StyledTag>
             </div>
+
             <Text
                 delete
                 style={{

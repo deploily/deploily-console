@@ -153,6 +153,7 @@ export default {
     'payments.noProfile': 'You need to select a different payment profile or create a new one to proceed.',
 
     'subscription.title': 'Subscribe',
+    'subscription.specialOffer': 'Special Offer',
     'subscription.serviceName': 'Service Name :',
     'subscription.servicePlanSelected': 'Service Plan selected :',
     'subscription.duration': 'Duration :',
