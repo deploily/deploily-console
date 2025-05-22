@@ -1,5 +1,6 @@
 "use client";
 
+import { ApiServiceInterface } from "@/lib/features/api-service/apiServiceInterface";
 import { SubscriptionInterface } from "@/lib/features/subscriptions/subscriptionInterface";
 import { handleCopy } from "@/lib/utils/handleCopy";
 import { CustomTypography } from "@/styles/components/typographyStyle";
@@ -11,7 +12,7 @@ import { dracula } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 
 
-export const subscriptionItems = (row: SubscriptionInterface, t: any) => [
+export const subscriptionItems = (row: SubscriptionInterface, serviceDetails: ApiServiceInterface, t: any) => [
     {
         key: "1",
         label: (
@@ -22,10 +23,10 @@ export const subscriptionItems = (row: SubscriptionInterface, t: any) => [
         children: (
             <Row>
                 <Col span={20} style={{ display: "flex", justifyContent: "start" }} >
-                    <CustomTypography> {row.service_details.service_url} </CustomTypography>
+                    <CustomTypography> {serviceDetails.service_url} </CustomTypography>
                 </Col>
                 <Col span={4} style={{ display: "flex", alignItems: "start", justifyContent: "end" }} >
-                    <Button type="primary" style={{ boxShadow: "none" }} icon={<Copy />} onClick={() => handleCopy(row.service_details.service_url)} />
+                    <Button type="primary" style={{ boxShadow: "none" }} icon={<Copy />} onClick={() => handleCopy(serviceDetails.service_url)} />
                 </Col>
             </Row>
         ),
@@ -41,11 +42,11 @@ export const subscriptionItems = (row: SubscriptionInterface, t: any) => [
         ),
         children: (
             <>
-                {row.service_details.curl_command !== undefined && row.service_details.curl_command !== "" &&
+                {serviceDetails.curl_command !== undefined && serviceDetails.curl_command !== "" &&
                     <div style={{ position: 'relative', maxHeight: '400px', overflowY: 'auto', borderRadius: '8px' }}>
-                            <SyntaxHighlighter language="bash" style={dracula} customStyle={{ height: "100%" }} wrapLongLines >
-                                {row.service_details.curl_command}
-                            </SyntaxHighlighter>
+                        <SyntaxHighlighter language="bash" style={dracula} customStyle={{ height: "100%" }} wrapLongLines >
+                            {serviceDetails.curl_command}
+                        </SyntaxHighlighter>
                         <Button type="primary" style={{
                             boxShadow: "none",
                             position: 'absolute',
@@ -59,7 +60,7 @@ export const subscriptionItems = (row: SubscriptionInterface, t: any) => [
                             borderRadius: '4px',
                             cursor: 'pointer',
                             fontSize: '0.85rem',
-                        }} icon={<Copy />} onClick={() => handleCopy(row.service_details.curl_command)} />
+                        }} icon={<Copy />} onClick={() => handleCopy(serviceDetails.curl_command)} />
                     </div>
                 }
             </>

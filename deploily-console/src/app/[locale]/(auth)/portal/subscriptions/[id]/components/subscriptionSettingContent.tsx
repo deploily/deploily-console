@@ -1,7 +1,11 @@
 "use client"
+import { ApiServiceInterface } from "@/lib/features/api-service/apiServiceInterface";
+import { useApiServices } from "@/lib/features/api-service/apiServiceSelectors";
+import { getApiServiceById } from "@/lib/features/api-service/apiServiceThunks";
 import { useSubscription } from "@/lib/features/subscriptions/subscriptionSelectors";
 import { fetchSubscriptionById } from "@/lib/features/subscriptions/subscriptionThunks";
 import { useAppDispatch } from "@/lib/hook";
+import ImageFetcher from "@/lib/utils/imageFetcher";
 import { CustomTransparentOrangeButton } from "@/styles/components/buttonStyle";
 import { DatePickerStyle } from "@/styles/components/datePickerStyle";
 import { CustomSubscripionInput } from "@/styles/components/inputStyle";
@@ -11,12 +15,9 @@ import { CalendarDots, Star } from "@phosphor-icons/react";
 import { Badge, Button, Col, Result, Row, Skeleton, Space, Tag, Typography } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import dayjs from "dayjs";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../../locales/client";
-
-
-import ImageFetcher from "@/lib/utils/imageFetcher";
-import Link from "next/link";
 import { subscriptionStatusStyle } from "../../utils/subscriptionsConst";
 import DocumentationDrawer from "./documentationDrawer";
 import GenerateTokenComponent from "./generateTokenComponent";
@@ -28,8 +29,10 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
 
     const dispatch = useAppDispatch();
     const { currentSubscription, currentSubscriptionLoading, currentSubscriptionLoadingError } = useSubscription()
+    const { currentService } = useApiServices()
     const [openDrawer, setOpenDrawer] = useState(false);
     const [remainingDuration, setRemainingDuration] = useState<number>()
+    const [serviceDetails, setServiceDetails] = useState<ApiServiceInterface>();
 
     const [isHovered, setIsHovered] = useState(false);
     const onClose = () => {
@@ -37,13 +40,27 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
     };
     useEffect(() => {
         dispatch(fetchSubscriptionById(subscription_id));
-    }, [subscription_id])
+    }, [])
+
+
+
+
 
     useEffect(() => {
         if (currentSubscription !== undefined) {
+            dispatch(getApiServiceById(`${currentSubscription.service_details.id}`));
             setRemainingDuration(getRemainingDuration(currentSubscription.start_date, currentSubscription.duration_month));
         }
     }, [currentSubscription]);
+
+
+
+    useEffect(() => {
+
+        if (currentService !== undefined) {
+            setServiceDetails(currentService);
+        }
+    }, [currentService])
 
     function getRemainingDuration(startDate: Date, durationMonths: number) {
         const start = new Date(startDate);
@@ -91,11 +108,11 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                                     />
                                 }
                                 offset={[-20, 20]}>
-                                <ImageFetcher
-                                    imagePath={currentSubscription.service_details.image_service}
+                                {serviceDetails && <ImageFetcher
+                                    imagePath={serviceDetails.image_service}
                                     width={220}
                                     height={220}
-                                />
+                                />}
                             </Badge>
                         </Col>
 
@@ -131,15 +148,15 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                         alignItems: "center",
                         width: "100%",
                     }}>
-                        <Typography.Title level={2}>{currentSubscription.service_details.name}</Typography.Title>
+                        {serviceDetails && <Typography.Title level={2}>{serviceDetails.name}</Typography.Title>}
                         <Tag bordered={false} color={subscriptionStatusStyle(currentSubscription.status)} style={{ height: 'fit-content', fontSize: '14px', fontWeight: "bold", borderRadius: 20, padding: "5px 20px", textTransform: "capitalize" }}>
                             {tSubscription(currentSubscription.status as "active" | "inactive")}
                         </Tag>
                     </Row>
 
-                    <Row gutter={16} style={{ marginTop: 0 }} >
+                    {serviceDetails && <Row gutter={16} style={{ marginTop: 0 }} >
                         <Paragraph style={{ fontSize: 14 }} >
-                            {currentSubscription.service_details.short_description}
+                            {serviceDetails.short_description}
                             {t("viewDocumentation")}&nbsp;
                             <Link
                                 href={currentSubscription?.service_details.api_playground_url ?? "https://docs.deploily.cloud/#/"}
@@ -162,7 +179,7 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                                 </Typography.Title>
                             </Link>
                         </Paragraph>
-                    </Row>
+                    </Row>}
                     <Row
                         gutter={[16, 24]}
                         style={{
@@ -245,24 +262,24 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                         </Row>
                     } */}
 
-                    {
+                    {serviceDetails &&
                         currentSubscription.status == 'active' ? <>
-                            <GenerateTokenComponent subscription_id={subscription_id} />
-                            <Row gutter={[16, 10]} key={currentSubscription.id}  >
-                                {subscriptionItems(currentSubscription, t).map((item, index) => (
-                                    <div key={index} style={{ width: '100%' }}>
-                                        {item.label}
-                                        {item.children}
-                                    </div>
-                                ))}
-                            </Row>
-                        </> :
-                            <Row gutter={[16, 10]} key={currentSubscription.id}  >
+                        <GenerateTokenComponent subscription_id={subscription_id} />
+                        <Row gutter={[16, 10]} key={currentSubscription.id}  >
+                            {subscriptionItems(currentSubscription, serviceDetails, t).map((item, index) => (
+                                <div key={index} style={{ width: '100%' }}>
+                                    {item.label}
+                                    {item.children}
+                                </div>
+                            ))}
+                        </Row>
+                    </> :
+                        <Row gutter={[16, 10]} key={currentSubscription.id}  >
 
-                                <Typography.Title level={4} style={{ color: theme.token.colorError, fontSize: 16, textAlign: "center", marginTop: 20 }}>
-                                    {tSubscription('inactiveMessage')}
-                                </Typography.Title >
-                            </Row>
+                            <Typography.Title level={4} style={{ color: theme.token.colorError, fontSize: 16, textAlign: "center", marginTop: 20 }}>
+                                {tSubscription('inactiveMessage')}
+                            </Typography.Title >
+                        </Row>
                     }
                     <DocumentationDrawer openDrawer={openDrawer} onClose={onClose} currentSubscription={currentSubscription} t={t} />
                 </>
