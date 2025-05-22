@@ -173,15 +173,20 @@ export default function ResourceDetailsContentPage({ resource_id }: { resource_i
                                     {servicePlanResponse?.result?.map((row: ServicePlan) => (
                                         <Col
                                             key={row.id}
-                                            xs={24}
-                                            sm={12}
-                                            md={10}
-                                            lg={8}
-                                            xl={8}
-                                            style={{ display: "flex", justifyContent: "center" }}
+                                            xs={24} sm={24} md={12} lg={10} xl={8} xxl={6}
+                                            style={{
+                                                display: "flex",
+                                                justifyContent: "center",
+                                                padding: "0.5rem",
+                                            }}
                                         >
                                             {row.plan && (
-                                                <div style={{ width: "100%", maxWidth: 340 }}>
+                                                <div style={{
+                                                    width: "100%",
+                                                    maxWidth: 350,
+                                                    display: "flex",
+                                                    justifyContent: "center",
+                                                }}>
                                                     <RessourcePlanCard
                                                         key={row.id}
                                                         resourcePlan={row}

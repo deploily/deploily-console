@@ -13,13 +13,13 @@ import { postFavoriteService } from "@/lib/features/favorites/favoriteServiceThu
 import { ServicePlan } from "@/lib/features/service-plans/servicePlanInterface";
 import { useServicePlan } from "@/lib/features/service-plans/servicePlanSelector";
 import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThanks";
+import ImageFetcher from "@/lib/utils/imageFetcher";
 import { theme } from "@/styles/theme";
 import Paragraph from "antd/es/typography/Paragraph";
 import Link from "next/link";
 import { useState } from "react";
 import ServicePlanCard from "./servicePlanCard";
 import SubscribeDrawer from "./subscriptionDrawer/subscriptionDrawer";
-import ImageFetcher from "@/lib/utils/imageFetcher";
 
 export default function ServiceDetailsContentPage({ serviceId }: { serviceId: string }) {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -46,9 +46,10 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
   useEffect(() => {
     dispatch(getApiServiceById(serviceId));
     dispatch(fetchServicePlans(serviceId))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [favoriteServiceAdded, favoriteServiceDeleted]);
 
- 
+
 
   const handleFavoriteService = (service_id: number) => {
     dispatch(postFavoriteService({ "service_id": service_id }));
@@ -97,7 +98,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
                   }
                   offset={[-20, 20]}
                 >
-                <ImageFetcher
+                  <ImageFetcher
                     imagePath={currentService?.image_service}
                     width={220}
                     height={220}
@@ -179,26 +180,23 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
               {!servicePlanLoading && servicePlanResponse?.result !== undefined &&
                 <>
                   {servicePlanResponse?.result?.map((row: ServicePlan) => (
+
+
                     <Col
                       key={row.id}
-                      xs={24}
-                      sm={12}
-                      md={10}
-                      lg={8}
-                      xl={8}
-                      style={{ display: "flex", justifyContent: "center" }}
+                      xs={24} sm={24} md={12} lg={10} xl={8} xxl={6}
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        padding: "0.5rem",
+                      }}
                     >
-                      {row.plan && (
-                        <div style={{ width: "100%", maxWidth: 340 }}>
-                          <ServicePlanCard
-                            key={row.id}
-                            servicePlan={row}
-                            showDrawer={() => showDrawer(row)}
-                          />
-                        </div>
-                      )}
+                      <div style={{ width: "100%", display: "flex", justifyContent: "center", maxWidth: 350, }}>
+                        <ServicePlanCard
+                          servicePlan={row}
+                          showDrawer={() => showDrawer(row)}
+                        /></div>
                     </Col>
-
                   ))}
                 </>
               }

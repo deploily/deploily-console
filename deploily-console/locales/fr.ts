@@ -149,6 +149,7 @@ export default {
   'payments.noProfile': 'Vous devez sélectionner un autre profil de paiement ou en créer un nouveau pour continuer.',
 
   'subscription.title': "S'abonner",
+  'subscription.specialOffer': 'Offre spéciale',
   'subscription.serviceName': 'Nom du service :',
   'subscription.servicePlanSelected': 'Plan de service sélectionné :',
   'subscription.duration': 'Durée :',

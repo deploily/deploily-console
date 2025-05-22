@@ -19,6 +19,7 @@ export default function ApiServiceContainer() {
 
   useEffect(() => {
     dispatch(fetchApiServices(4));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [favoriteServiceAdded, favoriteServiceDeleted])
   return (
     <>

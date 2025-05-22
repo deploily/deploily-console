@@ -1,4 +1,7 @@
+import { postFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
 import { SubscriptionInterface } from "@/lib/features/subscriptions/subscriptionInterface";
+import { useAppDispatch } from "@/lib/hook";
+import ImageFetcher from "@/lib/utils/imageFetcher";
 import { CustomBlueButton } from "@/styles/components/buttonStyle";
 import { Faders, Star } from "@phosphor-icons/react";
 import { Badge, Button, Card, Col, Row, Space, Tag, Typography } from "antd";
@@ -6,9 +9,6 @@ import Paragraph from "antd/es/typography/Paragraph";
 import { useRouter } from "next/navigation";
 import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import { subscriptionStatusStyle } from "../utils/subscriptionsConst";
-import ImageFetcher from "@/lib/utils/imageFetcher";
-import { postFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
-import { useAppDispatch } from "@/lib/hook";
 export default function SubscriptionCard({ data }: { data: SubscriptionInterface }) {
     const tSubscription = useScopedI18n('subscription');
     const t = useI18n();
