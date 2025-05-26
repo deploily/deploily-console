@@ -169,6 +169,7 @@ export default {
   'subscription.inactive': 'Inactive',
   'subscription.apiKey': 'Clé API',
   'subscription.inactiveMessage': "Votre inscription est inactive, please verify your payments.",
+  "subscription.confirmAffiliation": "Je confirme que j'accepte de partager mes données personnelles (nom, email) avec les partenaires de confiance de Deploily dans le but de fournir des services pertinents.",
 
   "bankPayment.title": "Paiement par virement bancaire",
   "bankPayment.message": "Ceci est notre compte bancaire, vous pouvez transférer le montant !",
