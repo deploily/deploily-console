@@ -81,6 +81,7 @@ export default function AffiliationDrawer({
                 total_price: applyDiscount(planSelected!.price, currentResource.discount),
             });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentResource.discount, currentResource.provider, planSelected, isAffiliationCreatedSuccess, isAffiliationCreatedFailed]);
 
     const handleConfirm = () => {
@@ -196,7 +197,7 @@ export default function AffiliationDrawer({
                                         boxShadow: "none",
                                     }}
                                 >
-                                    Accept 
+                                    Accept
                                 </Button>
                             </div>
                         </div>
