@@ -37,7 +37,6 @@ export const getResourceItems = (currentResource: ResourceInterface, t: any,): C
 
 **Support Email:** [${currentResource.provider?.mail_support}](mailto:${currentResource.provider?.mail_support})  
 **Sales Email:** [${currentResource.provider?.mail_sailes}](mailto:${currentResource.provider?.mail_sailes})  
-**Partnership Email:** ${currentResource.provider?.mail_partnership || "_N/A_"}  
 
 **Support Phone:** ${currentResource.provider?.phone_support || "_N/A_"}  
 **Sales Phone:** ${currentResource.provider?.phone_sailes || "_N/A_"}  
