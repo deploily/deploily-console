@@ -1,18 +1,22 @@
 import { ServicePlan, ServicePlanOption } from "@/lib/features/service-plans/servicePlanInterface";
 
 import { ResourceInterface } from "@/lib/features/cloud-resource/cloudResourceInterface";
+import { postFeedBack } from "@/lib/features/contact-us/contactUsThunks";
+import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Check } from "@phosphor-icons/react";
-import { Button, Card, Col, Row, Tag, Typography } from 'antd';
-import { useScopedI18n } from "../../../../../../../../locales/client";
+import { Button, Card, Col, Input, Modal, Row, Tag, Typography } from 'antd';
+import { useState } from "react";
+import { useI18n, useScopedI18n } from "../../../../../../../../locales/client";
 const { Text } = Typography;
 
 
 
 
 export default function RessourcePlanCard({ resourcePlan, currentResource, showDrawer }: { resourcePlan: ServicePlan, currentResource: ResourceInterface, showDrawer: any }) {
+
     const pulseBorder = keyframes`
     0% {
     box-shadow: 0 0 0 0 rgba(0, 87, 216, 0.7);
@@ -38,6 +42,25 @@ export default function RessourcePlanCard({ resourcePlan, currentResource, showD
   
   `;
     const t = useScopedI18n('subscription');
+    const translate = useI18n();
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [comment, setComment] = useState('');
+    const dispatch = useAppDispatch();
+    const handleCancel = () => {
+        setIsModalOpen(false);
+        setComment('');
+    };
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleContactUs = () => {
+        setIsModalOpen(false);
+        dispatch(postFeedBack(`${translate("interstedCustomPlan")} :  ${comment}`));
+        setComment('');
+    };
+
 
     return (
         <Card
@@ -62,57 +85,76 @@ export default function RessourcePlanCard({ resourcePlan, currentResource, showD
         >
 
             <Typography.Title level={3} style={{ textAlign: "center" }}>
-                {(resourcePlan.plan !== null) ? resourcePlan.plan.name : ""}
+                {(resourcePlan.is_custom) ? translate("resourceOnDemand") : (resourcePlan.plan !== null) ? resourcePlan.plan.name : ""}
             </Typography.Title>
-            <div
-                style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginBottom: 20,
-                }}
-            >
-                <StyledTag color={theme.token.blue300}>
-                    <Text
+            {!(resourcePlan.is_custom) && (
+                <div>
+                    {currentResource.discount !== null && (
+                        <div
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                marginBottom: 20,
+                            }}
+                        >
+                            <StyledTag color={theme.token.blue300}>
+                                <Text
+                                    style={{
+                                        fontSize: 18,
+                                        color: "white",
+                                        lineHeight: 1,
+                                        marginRight: 4
+                                    }}
+                                >
+                                    {currentResource.discount}%
+                                </Text>
+                                <Text
+                                    style={{
+                                        fontSize: 16,
+                                        color: "white",
+                                        lineHeight: 1.2,
+                                    }}
+                                >
+                                    {t('specialOffer')}
+                                </Text>
+                            </StyledTag>
+                            <Text
+                                delete
+                                style={{
+                                    color: '#999999',
+                                    fontSize: 16,
+                                    display: 'block',
+                                    textAlign: "center",
+                                    marginBottom: 0,
+                                    lineHeight: 1.2, marginTop: 20,
+                                }}
+                            >
+                                {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(resourcePlan!.price)}
+                                <span style={{ fontSize: 16, fontWeight: 400 }}> DZD/{t("month")}</span>
+
+                            </Text>
+                        </div>
+
+
+                    )}
+
+                    <Typography.Paragraph
                         style={{
-                            fontSize: 18,
-                            color: "white",
-                            lineHeight: 1,
-                            marginRight: 4,
+                            fontSize: 25,
+                            fontWeight: 600,
+                            color: theme.token.orange400,
+                            textAlign: "center",
                         }}
                     >
-                        {currentResource.discount}%
-                    </Text>
-                    <Text
-                        style={{
-                            fontSize: 16,
-                            color: "white",
-                            lineHeight: 1.2,
-                        }}
-                    >
-                        {t('specialOffer')}
-                    </Text>
-                </StyledTag>
-            </div>
-
-            <Text
-                delete
-                style={{
-                    color: '#999999',
-                    fontSize: 16,
-                    display: 'block', textAlign: "center", marginBottom: 0,
-                    lineHeight: 1.2,
-                }}
-            >
-                {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(resourcePlan!.price)}
-                <span style={{ fontSize: 16, fontWeight: 400 }}> DZD/{t("month")}</span>
-            </Text>
-            <Typography.Paragraph style={{ fontSize: 25, fontWeight: 600, color: theme.token.orange400, textAlign: "center" }}>
-                {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(applyDiscount(resourcePlan!.price, currentResource.discount))}
-                <span style={{ fontSize: 16, fontWeight: 400 }}> DZD/{t("month")}</span>
-            </Typography.Paragraph>
-
+                        {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(
+                            applyDiscount(resourcePlan!.price, currentResource.discount)
+                        )}
+                        <span style={{ fontSize: 16, fontWeight: 400 }}> DZD/{t("month")}</span>
+                    </Typography.Paragraph>
+                </div>
+            )}
             <div style={{ flex: 1, paddingBottom: "16px" }}>
                 {resourcePlan.options.map((row: ServicePlanOption) => (
                     <Row gutter={16} key={row.id} align="middle">
@@ -147,7 +189,7 @@ export default function RessourcePlanCard({ resourcePlan, currentResource, showD
                 }}
             >
                 <Button
-                    onClick={showDrawer}
+                    onClick={resourcePlan.is_custom ? showModal : showDrawer}
                     style={{
                         color: theme.token.colorWhite,
                         backgroundColor: theme.token.orange600,
@@ -158,9 +200,34 @@ export default function RessourcePlanCard({ resourcePlan, currentResource, showD
                         fontSize: 20,
                     }}
                 >
-
-                    Order Now
+                    {resourcePlan.is_custom ? "Contactez-nous" : "details"}
                 </Button>
+                <Modal
+                    title="Contactez-nous"
+                    open={isModalOpen}
+                    onOk={handleContactUs}
+                    okText="Send"
+                    onCancel={handleCancel}
+                    footer={[
+                        <Button style={{
+                            color: theme.token.colorWhite,
+                            backgroundColor: theme.token.orange600,
+                            border: "none",
+                            paddingBlock: 20,
+                            fontWeight: 600,
+                            fontSize: 20,
+                        }} key="submit" onClick={handleContactUs}>
+                            {translate("send")}
+                        </Button>,
+                    ]}
+                >
+                    <Input.TextArea
+                        rows={4}
+                        placeholder={translate("whriteMessage")}
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                    />
+                </Modal>
             </div>
 
 
