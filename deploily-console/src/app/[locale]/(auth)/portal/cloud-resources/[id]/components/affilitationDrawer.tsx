@@ -5,7 +5,7 @@ import { postAffiliation } from "@/lib/features/cloud-resource/cloudResourceThun
 import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
 import { CloseCircleTwoTone, MinusOutlined, PlusOutlined } from '@ant-design/icons';
-import { Button, Card, Col, Collapse, Drawer, notification, Row, Space, Typography } from "antd";
+import { Button, Card, Checkbox, Col, Collapse, Drawer, notification, Row, Space, Typography } from "antd";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useScopedI18n } from "../../../../../../../../locales/client";
@@ -23,7 +23,7 @@ export default function AffiliationDrawer({
     currentResource: ResourceInterface;
 }) {
     const t = useScopedI18n("itemsHelp");
-    const translate = useScopedI18n("subscription");
+    const translate = useScopedI18n("affiliation");
     const toastTranslate = useScopedI18n("toast");
     const itemsHelp = getItemsHelp(t);
     const { isAffiliationCreatedSuccess, isAffiliationCreatedFailed } = useCloudResource();
@@ -35,6 +35,10 @@ export default function AffiliationDrawer({
     const [showTerms, setShowTerms] = useState(false);
     const [isConfirmed, setIsConfirmed] = useState(false);
     const [api, contextHolder] = notification.useNotification();
+
+    const preventToggle = (e: React.MouseEvent<HTMLElement>) => {
+        e.stopPropagation();
+    };
 
     const customExpandIcon = (panelProps: any) =>
         panelProps.isActive ? <MinusOutlined /> : <PlusOutlined />;
@@ -109,7 +113,7 @@ export default function AffiliationDrawer({
                 }}
             >
                 <Col style={{ padding: 20 }}>
-                    <Typography.Title level={4} style={{ paddingBottom: 30 }}>Order Resource</Typography.Title>
+                    <Typography.Title level={4} style={{ paddingBottom: 30 }}>{translate("orderResource")}</Typography.Title>
 
                     <Card
                         style={{
@@ -123,27 +127,27 @@ export default function AffiliationDrawer({
                         {(planSelected && provider) &&
                             <Space direction="vertical" style={{ width: "100%" }}>
                                 <Row gutter={16} align="top">
-                                    <Col span={14}><Typography.Text strong>Provider Name:</Typography.Text></Col>
+                                    <Col span={14}><Typography.Text strong>{translate("providerName")}</Typography.Text></Col>
                                     <Col span={10}><Typography.Text>{provider.name}</Typography.Text></Col>
                                 </Row>
                                 <Row gutter={16} align="top">
-                                    <Col span={14}><Typography.Text strong>Email:</Typography.Text></Col>
+                                    <Col span={14}><Typography.Text strong>{translate("email")}</Typography.Text></Col>
                                     <Col span={10}><Typography.Text>{provider.mail_sailes}</Typography.Text></Col>
                                 </Row>
                                 <Row gutter={16} align="top">
-                                    <Col span={14}><Typography.Text strong>Phone:</Typography.Text></Col>
+                                    <Col span={14}><Typography.Text strong>{translate("phone")}</Typography.Text></Col>
                                     <Col span={10}><Typography.Text>{provider.phone_support}</Typography.Text></Col>
                                 </Row>
                                 <Row gutter={16} align="top">
-                                    <Col span={14}><Typography.Text strong>Website:</Typography.Text></Col>
+                                    <Col span={14}><Typography.Text strong>{translate("website")}</Typography.Text></Col>
                                     <Col span={10}><Typography.Text>{provider.website}</Typography.Text></Col>
                                 </Row>
                                 <Row gutter={16} align="top">
-                                    <Col span={14}><Typography.Text strong>Service Plan selected:</Typography.Text></Col>
+                                    <Col span={14}><Typography.Text strong>{translate("servicePlanSelected")}</Typography.Text></Col>
                                     <Col span={10}><Typography.Text>{planSelected.plan.name}</Typography.Text></Col>
                                 </Row>
                                 <Row gutter={16} align="top">
-                                    <Col span={14}><Typography.Text strong>Price:</Typography.Text></Col>
+                                    <Col span={14}><Typography.Text strong>{translate("price")}</Typography.Text></Col>
                                     <Col span={10}>
                                         <Typography.Text>
                                             {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(
@@ -157,7 +161,7 @@ export default function AffiliationDrawer({
                         }
                     </Card>
 
-                    <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 24, marginBottom: 24 }}>
+                    {!isConfirmed && <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 24, marginBottom: 24 }}>
                         <Button
                             onClick={handleConfirm}
                             disabled={isConfirmed}
@@ -173,15 +177,20 @@ export default function AffiliationDrawer({
                                 cursor: isConfirmed ? "not-allowed" : "pointer",
                             }}
                         >
-                            Confirm & Order Now
+                            {translate("confirm&OrderNow")}
                         </Button>
-                    </div>
+                    </div>}
 
                     {showTerms && (
-                        <div style={{ margin: 16 }}>
-                            <Typography.Text style={{ color: theme.token.gray100, fontSize: 14 }}>
-                                {translate("confirmAffiliation")}
-                            </Typography.Text>
+                        <div style={{ margin: 16, marginTop: 24, }} className="white-checkbox-label">
+                            <Space direction="vertical" style={{ marginTop: 8 }}>
+                                <Typography.Text style={{ color: theme.token.gray100, fontSize: 14 }}>
+                                    {translate("confirmAffiliation")}
+                                </Typography.Text>
+                                <Checkbox checked onClick={preventToggle} style={{ marginLeft: 24, pointerEvents: 'none', }}> {translate("userName")}</Checkbox>
+                                <Checkbox checked onClick={preventToggle} style={{ marginLeft: 24, pointerEvents: 'none', }}> {translate("phone")}</Checkbox>
+                                <Checkbox checked onClick={preventToggle} style={{ marginLeft: 24, pointerEvents: 'none', }}> {translate("email")}</Checkbox>
+                            </Space>
                             <div style={{ marginTop: 12, display: "flex", justifyContent: "flex-end" }}>
                                 <Button
                                     type="primary"
@@ -197,7 +206,7 @@ export default function AffiliationDrawer({
                                         boxShadow: "none",
                                     }}
                                 >
-                                    Accept
+                                    {translate("iAgree")}
                                 </Button>
                             </div>
                         </div>
