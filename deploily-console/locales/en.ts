@@ -173,7 +173,7 @@ export default {
     'subscription.inactive': 'Inactive',
     'subscription.apiKey': 'API key',
     'subscription.inactiveMessage': 'Your subscription is inactive. Please verify your payments.',
-    "subscription.confirmAffiliation": "I confirm that I agree to share my personal data (name, email) with Deploily's trusted partners for the purpose of providing relevant services.",
+
 
     "bankPayment.title": "Payment by Bank",
     "bankPayment.message": "This is our bank account, you can transfer the amount! ",
@@ -215,6 +215,31 @@ export default {
     "affiliation.created_on": "Date",
     "affiliation.confirmed": "Confirmed",
     "affiliation.pending": "Pending",
+    'affiliation.website': 'Website ',
+    "affiliation.phone": "Phone ",
+    "affiliation.email": "Email",
+    "affiliation.confirm&OrderNow": "Confirm & Order Now",
+    'affiliation.servicePlanSelected': 'Service Plan selected ',
+    'affiliation.price': 'Price ',
+    'affiliation.month': 'Month',
+    "affiliation.userName": "Name",
+    "affiliation.confirmAffiliation": "I agree to share my informations : ",
+    // "affiliation.confirmAffiliation": "I confirm that I agree to share my personal data (name, email) with Deploily's trusted partners for the purpose of providing relevant services.",
+    'affiliation.iAgree': 'I agree',
+    'affiliation.orderResource': 'Order Resource',
+
+
+
+    "interstedCustomPlan": "I am interested in a custom plan for",
+    "resourceOnDemand": "Resource On Demand",
+    "send": "Send",
+    "whriteMessage": "Écrivez votre message ici...",
+    "supportEmail": "Support Email",
+    "salesEmail": "Sales Email",
+    "supportPhone": "Support Phone",
+    "salesPhone": "Sales Phone",
+
+
     "toast.titleFailed": "Failed to Create item",
     "toast.failed": "Failed to Create item",
     "toast.success": "Check your inbox for further instructions.",
