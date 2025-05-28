@@ -1,7 +1,6 @@
 import axiosInstance from "@/app/api/axios-instance";
 import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import { getSession } from "next-auth/react";
 
 
@@ -22,9 +21,8 @@ export const postFeedBack = createAsyncThunk(
         name: user.name,
         email: user.email,
       };
-       console.log("data", data);
       const response = await axiosInstance.post(`${deploilyApiUrls.CONTACT_US}`, data, {
-
+        timeout: 20000,
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,

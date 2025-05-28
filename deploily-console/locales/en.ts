@@ -238,10 +238,15 @@ export default {
     "salesEmail": "Sales Email",
     "supportPhone": "Support Phone",
     "salesPhone": "Sales Phone",
+    "contactUs": "Contact Us",
 
 
     "toast.titleFailed": "Failed to Create item",
     "toast.failed": "Failed to Create item",
     "toast.success": "Check your inbox for further instructions.",
-    "toast.titleSuccess": "Email Sent Successfully"
+    "toast.titleSuccess": "Email Sent Successfully",
+    "toast.msgSuccess": "Success",
+    "toast.titleMsgSuccess": "Message Sent Successfully",
+    "toast.msgFailed": "Failed",
+    "toast.titleMsgFailed": "Message Failed to Send"
 } as const

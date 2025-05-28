@@ -1,17 +1,22 @@
 "use client";
 
-import { Button, Popover } from "antd";
-import TextArea from "antd/es/input/TextArea";
-import { useScopedI18n } from "../../../../../../locales/client";
-import { useAppDispatch } from "@/lib/hook";
-import { useState } from "react";
+import { useContactUs } from "@/lib/features/contact-us/contactUsSelectors";
 import { postFeedBack } from "@/lib/features/contact-us/contactUsThunks";
+import { useAppDispatch } from "@/lib/hook";
+import { Button, notification, Popover } from "antd";
+import TextArea from "antd/es/input/TextArea";
+import { useEffect, useState } from "react";
+import { useScopedI18n } from "../../../../../../locales/client";
+import { openNotification } from "../cloud-resources/utils/notification";
 
 export default function FeedbackAlert() {
     const t = useScopedI18n("Feedback");
     const dispatch = useAppDispatch();
 
     const [feedbackMessage, setFeedbackMessage] = useState("");
+    const { contactUsResponse, isError } = useContactUs();
+    const [api, contextHolder] = notification.useNotification();
+    const toastTranslate = useScopedI18n('toast');
 
     const handleSendFeedback = () => {
         if (!feedbackMessage) {
@@ -21,6 +26,17 @@ export default function FeedbackAlert() {
         dispatch(postFeedBack(feedbackMessage));
         setFeedbackMessage(""); // Clear input after sending
     };
+    useEffect(() => {
+        if (contactUsResponse !== undefined && contactUsResponse !== null) {
+            openNotification(api, true, toastTranslate);
+        } else if (isError) {
+            openNotification(api, false, toastTranslate);
+
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [contactUsResponse]);
+
+
 
     const content = (
         <div style={{ maxWidth: "300px" }}>
@@ -48,13 +64,14 @@ export default function FeedbackAlert() {
     );
 
     return (
-        <Popover content={content}trigger="click">
+        <Popover content={content} trigger="click" >
+            {contextHolder}
             <Button
                 type="primary"
                 style={{
                     backgroundColor: "#D85912",
                     border: "none",
-                    boxShadow:"none"
+                    boxShadow: "none"
                 }}
             >
                 <span
