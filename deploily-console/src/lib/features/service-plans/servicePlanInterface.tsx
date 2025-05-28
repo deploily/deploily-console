@@ -22,6 +22,7 @@ export interface ServicePlan {
   service_id: number;
   service: ApiServiceInterface;
   options: ServicePlanOption[];
+  is_custom: boolean
 }
 
 export interface Plan {
