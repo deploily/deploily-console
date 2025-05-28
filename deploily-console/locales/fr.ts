@@ -234,7 +234,7 @@ export default {
   "salesEmail": "E-mail commercial",
   "supportPhone": "Téléphone du support",
   "salesPhone": "Téléphone commercial",
-
+  "contactUs": "Contactez-nous",
 
   "toast.titleFailed": "Échec de la création de l'élément",
   "toast.failed": "Échec de la création de l'élément",

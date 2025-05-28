@@ -238,6 +238,7 @@ export default {
     "salesEmail": "Sales Email",
     "supportPhone": "Support Phone",
     "salesPhone": "Sales Phone",
+    "contactUs": "Contact Us",
 
 
     "toast.titleFailed": "Failed to Create item",

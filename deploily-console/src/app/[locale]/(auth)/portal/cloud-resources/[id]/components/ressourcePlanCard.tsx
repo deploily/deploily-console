@@ -200,7 +200,7 @@ export default function RessourcePlanCard({ resourcePlan, currentResource, showD
                         fontSize: 20,
                     }}
                 >
-                    {resourcePlan.is_custom ? "Contactez-nous" : "details"}
+                    {resourcePlan.is_custom ? translate("contactUs") : translate("details")}
                 </Button>
                 <Modal
                     title="Contactez-nous"
