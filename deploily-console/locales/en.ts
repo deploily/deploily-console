@@ -230,7 +230,7 @@ export default {
 
 
 
-    "interstedCustomPlan": "I intersted by custom plan",
+    "interstedCustomPlan": "I am interested in a custom plan for",
     "resourceOnDemand": "Resource On Demand",
     "send": "Send",
     "whriteMessage": "Écrivez votre message ici...",

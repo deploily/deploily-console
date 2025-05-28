@@ -50,10 +50,14 @@ export const getResourceItems = (
             {`
 ### ${currentResource.provider?.name}
 
-**${t('supportEmail')}:** [${currentResource.provider?.mail_support}](mailto:${currentResource.provider?.mail_support})  
-**${t('supportEmail')}:** [${currentResource.provider?.mail_sailes}](mailto:${currentResource.provider?.mail_sailes})  
 
-**${t('salesPhone')}:** ${currentResource.provider?.phone_support || "_N/A_"}  
+
+**${t('supportEmail')}:** ${currentResource.provider?.mail_support ? `[${currentResource.provider.mail_support}](mailto:${currentResource.provider.mail_support})` : "_N/A_"}
+
+**${t('salesEmail')}:** ${currentResource.provider?.mail_sailes ? `[${currentResource.provider.mail_support}](mailto:${currentResource.provider.mail_sailes})` : "_N/A_"}
+   
+**${t('supportPhone')}:** ${currentResource.provider?.phone_support || "_N/A_"}  
+
 **${t('salesPhone')}:** ${currentResource.provider?.phone_sailes || "_N/A_"}  
 
         `}

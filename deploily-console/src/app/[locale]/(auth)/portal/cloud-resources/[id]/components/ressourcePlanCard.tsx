@@ -57,7 +57,7 @@ export default function RessourcePlanCard({ resourcePlan, currentResource, showD
 
     const handleContactUs = () => {
         setIsModalOpen(false);
-        dispatch(postFeedBack(`${translate("interstedCustomPlan")} :  ${comment}`));
+        dispatch(postFeedBack(`${translate("interstedCustomPlan")} ${currentResource.name} :  ${comment}`));
         setComment('');
     };
 

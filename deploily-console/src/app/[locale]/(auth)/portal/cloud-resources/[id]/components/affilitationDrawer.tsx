@@ -180,36 +180,47 @@ export default function AffiliationDrawer({
                             {translate("confirm&OrderNow")}
                         </Button>
                     </div>}
+                    <Card
+                        style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            height: "100%",
+                            borderColor: theme.token.gray50,
+                            boxShadow: "none",
+                            marginTop: 24,
+                        }}
+                    >
+                        {showTerms && (
+                            <div style={{ margin: 6, }} className="white-checkbox-label">
+                                <Space direction="vertical">
+                                    <Typography.Text style={{ color: theme.token.gray100, fontSize: 14 }}>
+                                        {translate("confirmAffiliation")}
+                                    </Typography.Text>
+                                    <Checkbox checked onClick={preventToggle} style={{ marginLeft: 24, pointerEvents: 'none', }}> {translate("userName")}</Checkbox>
+                                    <Checkbox checked onClick={preventToggle} style={{ marginLeft: 24, pointerEvents: 'none', }}> {translate("phone")}</Checkbox>
+                                    <Checkbox checked onClick={preventToggle} style={{ marginLeft: 24, pointerEvents: 'none', }}> {translate("email")}</Checkbox>
+                                </Space>
+                            </div>)}
+                    </Card>
+                    {showTerms && (<div style={{ marginTop: 24, marginBottom: 24, display: "flex", justifyContent: "flex-end" }}>
+                        <Button
+                            type="primary"
+                            onClick={handleAccept}
+                            style={{
+                                backgroundColor: theme.token.orange600,
+                                paddingInline: 20,
+                                paddingBlock: 10,
+                                fontWeight: 600,
+                                fontSize: 14,
+                                color: theme.token.colorWhite,
+                                border: "none",
+                                boxShadow: "none",
+                            }}
+                        >
+                            {translate("iAgree")}
+                        </Button>
+                    </div>
 
-                    {showTerms && (
-                        <div style={{ margin: 16, marginTop: 24, }} className="white-checkbox-label">
-                            <Space direction="vertical" style={{ marginTop: 8 }}>
-                                <Typography.Text style={{ color: theme.token.gray100, fontSize: 14 }}>
-                                    {translate("confirmAffiliation")}
-                                </Typography.Text>
-                                <Checkbox checked onClick={preventToggle} style={{ marginLeft: 24, pointerEvents: 'none', }}> {translate("userName")}</Checkbox>
-                                <Checkbox checked onClick={preventToggle} style={{ marginLeft: 24, pointerEvents: 'none', }}> {translate("phone")}</Checkbox>
-                                <Checkbox checked onClick={preventToggle} style={{ marginLeft: 24, pointerEvents: 'none', }}> {translate("email")}</Checkbox>
-                            </Space>
-                            <div style={{ marginTop: 12, display: "flex", justifyContent: "flex-end" }}>
-                                <Button
-                                    type="primary"
-                                    onClick={handleAccept}
-                                    style={{
-                                        backgroundColor: theme.token.orange600,
-                                        paddingInline: 20,
-                                        paddingBlock: 10,
-                                        fontWeight: 600,
-                                        fontSize: 14,
-                                        color: theme.token.colorWhite,
-                                        border: "none",
-                                        boxShadow: "none",
-                                    }}
-                                >
-                                    {translate("iAgree")}
-                                </Button>
-                            </div>
-                        </div>
                     )}
 
                     <Collapse

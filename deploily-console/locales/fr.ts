@@ -226,6 +226,15 @@ export default {
   "affiliation.iAgree": "J'accepte",
   "affiliation.orderResource": "Commander la ressource",
 
+  "interstedCustomPlan": "Je suis intéressé par une offre personnalisée pour",
+  "resourceOnDemand": "Ressource à la demande",
+  "send": "Envoyer",
+  "whriteMessage": "Écrivez votre message ici...",
+  "supportEmail": "E-mail du support",
+  "salesEmail": "E-mail commercial",
+  "supportPhone": "Téléphone du support",
+  "salesPhone": "Téléphone commercial",
+
 
   "toast.titleFailed": "Échec de la création de l'élément",
   "toast.failed": "Échec de la création de l'élément",
