@@ -1,15 +1,18 @@
 import { ServicePlan, ServicePlanOption } from "@/lib/features/service-plans/servicePlanInterface";
 
 import { ResourceInterface } from "@/lib/features/cloud-resource/cloudResourceInterface";
+import { useContactUs } from "@/lib/features/contact-us/contactUsSelectors";
 import { postFeedBack } from "@/lib/features/contact-us/contactUsThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Check } from "@phosphor-icons/react";
-import { Button, Card, Col, Input, Modal, Row, Tag, Typography } from 'antd';
-import { useState } from "react";
+import { Button, Card, Col, Input, Modal, notification, Row, Tag, Typography } from 'antd';
+import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../../locales/client";
+import { openNotification } from "../../utils/notification";
+
 const { Text } = Typography;
 
 
@@ -42,10 +45,14 @@ export default function RessourcePlanCard({ resourcePlan, currentResource, showD
   
   `;
     const t = useScopedI18n('subscription');
+    const toastTranslate = useScopedI18n('toast');
     const translate = useI18n();
+    const { contactUsResponse, isError } = useContactUs();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [comment, setComment] = useState('');
+    const [api, contextHolder] = notification.useNotification();
+
     const dispatch = useAppDispatch();
     const handleCancel = () => {
         setIsModalOpen(false);
@@ -60,6 +67,20 @@ export default function RessourcePlanCard({ resourcePlan, currentResource, showD
         dispatch(postFeedBack(`${translate("interstedCustomPlan")} ${currentResource.name} :  ${comment}`));
         setComment('');
     };
+
+
+
+
+    useEffect(() => {
+        if (contactUsResponse !== undefined && contactUsResponse !== null) {
+            openNotification(api, true, toastTranslate);
+        } else if (isError) {
+            openNotification(api, false, toastTranslate);
+
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [contactUsResponse]);
+
 
 
     return (
@@ -83,7 +104,7 @@ export default function RessourcePlanCard({ resourcePlan, currentResource, showD
                 e.currentTarget.style.boxShadow = "none";
             }}
         >
-
+            {contextHolder}
             <Typography.Title level={3} style={{ textAlign: "center" }}>
                 {(resourcePlan.is_custom) ? translate("resourceOnDemand") : (resourcePlan.plan !== null) ? resourcePlan.plan.name : ""}
             </Typography.Title>

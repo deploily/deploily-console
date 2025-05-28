@@ -240,6 +240,10 @@ export default {
   "toast.failed": "Échec de la création de l'élément",
   "toast.success": "Vérifiez votre boîte de réception pour plus d'instructions.",
   "toast.titleSuccess": "E-mail envoyé avec succès",
+  "toast.msgSuccess": "Succès",
+  "toast.titleMsgSuccess": "Message envoyé avec succès",
+  "toast.msgFailed": "Échec",
+  "toast.titleMsgFailed": "Échec de l'envoi du message"
 
 
 } as const

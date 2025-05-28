@@ -9,14 +9,12 @@ import { Header } from "antd/es/layout/layout";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useI18n } from "../../../../../../locales/client";
 import FeedbackAlert from "../feed-back/feedBackAlert";
 import { MainSideBarMobile } from "./sideBar";
 
 export function AppAppBarDesktop() {
   const [theme] = useState("dark");
   const appBarColor = theme == "dark" ? "#2c82d4" : "#eda879";
-  const t = useI18n();
   const { isLoading, paymentProfilesList } = usePaymentProfiles();
 
   const { Option } = Select;
