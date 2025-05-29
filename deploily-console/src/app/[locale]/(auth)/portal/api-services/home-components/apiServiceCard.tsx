@@ -4,7 +4,7 @@ import { postFavoriteService } from "@/lib/features/favorites/favoriteServiceThu
 import { useAppDispatch } from "@/lib/hook";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { theme } from "@/styles/theme";
-import { ArrowRight, Star } from "@phosphor-icons/react";
+import { ArrowRight, HeartStraight } from "@phosphor-icons/react";
 import { Badge, Button, Card, Col, Row, Space } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import { useRouter } from "next/navigation";
@@ -17,23 +17,25 @@ export default function ApiServiceCard({ service }: { service: ApiServiceInterfa
   const dispatch = useAppDispatch();
   const [hovered, setHovered] = useState(false);
 
-
   const handleFavoriteService = (service_id: number) => {
-    dispatch(postFavoriteService({ "service_id": service_id }));
-  }
+    dispatch(postFavoriteService({ service_id }));
+  };
+
   return (
     <Card
+      hoverable
       style={{
-        height: "100%",
-        width: "100%",
-        padding: 0,
-        cursor: "pointer",
+        flex: "0 0 auto",
+        width: 270,
+        height: 350,
+        position: "relative",
+        marginRight: 16,
       }}
-      onClick={() => router.push(`/portal/api-services/${service.id}`)}
+      bodyStyle={{ padding: 16, height: "100%" }}
     >
-      <div style={{ height: "300px" }}>
-        <Row align="middle" gutter={16} style={{ height: "40%" }} >
-          <Col span={12} style={{ height: "100%", }} >
+      <div style={{ height: "100%" }}>
+        <Row align="middle" gutter={16} style={{ height: "40%" }}>
+          <Col span={12} style={{ height: "100%" }}>
             <Badge
               count={
                 <Button
@@ -45,12 +47,14 @@ export default function ApiServiceCard({ service }: { service: ApiServiceInterfa
                     padding: 0,
                     width: 24,
                     height: 24,
-                    minWidth: 24
+                    minWidth: 24,
                   }}
                   icon={
-                    service.is_in_favorite === true ?
-                      <Star size={20} weight="fill" color="#FC3232" /> :
-                      <Star size={20} weight="fill" color="#7D7D7D" />
+                    service.is_in_favorite ? (
+                      <HeartStraight size={20} weight="fill" color="#FC3232" />
+                    ) : (
+                      <HeartStraight size={20} weight="fill" color="#7D7D7D" />
+                    )
                   }
                   onClick={(e) => {
                     e.stopPropagation();
@@ -62,79 +66,93 @@ export default function ApiServiceCard({ service }: { service: ApiServiceInterfa
             >
               <ImageFetcher
                 imagePath={service.image_service}
-
                 width={100}
                 height={100}
               />
             </Badge>
-
           </Col>
-          <Col span={12}
+          <Col
+            span={12}
             style={{
               height: "100%",
               fontWeight: "bold",
 
               justifyContent: "end",
               display: "flex",
-            }}>
-            <Paragraph style={{ color: "#DD8859", fontSize: 16, }}>
-              {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(service.unit_price)} DZD
+            }}
+          >
+            <Paragraph style={{ color: "#DD8859", fontSize: 16, margin: 0 }}>
+              {Intl.NumberFormat("fr-FR", {
+                useGrouping: true,
+              }).format(service.unit_price)}{" "}
+              DZD
             </Paragraph>
           </Col>
         </Row>
 
         <Row style={{ height: "40%" }}>
-          <div>
-            <Paragraph ellipsis={{ rows: 2, expandable: false }} style={{ fontSize: 20, }}>
+          <Col span={24}>
+            <Paragraph
+              ellipsis={{ rows: 2 }}
+              style={{ fontSize: 20, marginBottom: 0 }}
+            >
               {service.name}
             </Paragraph>
-            <Paragraph ellipsis={{ rows: 3, expandable: false }} style={{ paddingTop: "0px" }}>
+            <Paragraph ellipsis={{ rows: 3 }} style={{ margin: 0 }}>
               {service.short_description}
             </Paragraph>
-          </div>
+          </Col>
         </Row>
-      </div>
-      <Space
-        style={{ position: "absolute", bottom: "20px", right: "20px" }}
-      >
-        <Button
-          style={{
-            color: "#fff",
-            border: "none",
-            padding: "4px",
-            boxShadow: "none",
-            background: "transparent",
-            display: "flex",
-            alignItems: "center",
-          }}
-          onClick={(e) => {
-            e.stopPropagation();
-            router.push(`/portal/api-services/${service.id}`);
-          }}
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
-        >
 
-          <span
+        <Space
+          style={{
+            position: "absolute",
+            bottom: 16,
+            right: 16,
+          }}
+        >
+          <Button
             style={{
-              color: hovered ? theme.token.colorPrimary : theme.token.gray200,
-              fontSize: "16px",
-              fontWeight: 600,
-              paddingRight: 3,
-              transition: "color 0.3s ease",
+              color: "#fff",
+              border: "none",
+              padding: "4px",
+              boxShadow: "none",
+              background: "transparent",
+              display: "flex",
+              alignItems: "center",
             }}
+            onClick={(e) => {
+              e.stopPropagation();
+              router.push(`/portal/api-services/${service.id}`);
+            }}
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
           >
-            {t("details")}
-          </span>
-          <ArrowRight
-            size={20}
-            style={{
-              color: hovered ? theme.token.colorPrimary : theme.token.gray200,
-              transition: "color 0.3s ease",
-            }}
-          />
-        </Button>
-      </Space>
+            <span
+              style={{
+                color: hovered
+                  ? theme.token.colorPrimary
+                  : theme.token.gray200,
+                fontSize: "16px",
+                fontWeight: 600,
+                paddingRight: 3,
+                transition: "color 0.3s ease",
+              }}
+            >
+              {t("details")}
+            </span>
+            <ArrowRight
+              size={20}
+              style={{
+                color: hovered
+                  ? theme.token.colorPrimary
+                  : theme.token.gray200,
+                transition: "color 0.3s ease",
+              }}
+            />
+          </Button>
+        </Space>
+      </div>
     </Card>
   );
 }

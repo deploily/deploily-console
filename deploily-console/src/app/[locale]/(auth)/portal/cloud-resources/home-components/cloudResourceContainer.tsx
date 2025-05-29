@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useI18n } from "../../../../../../../locales/client";
 import CloudResourceCard from "./cloudResourceCard";
+import HomeCarousel from "../../components/homeCarousel";
 
 export default function CloudResourceContainer() {
   const t = useI18n();
@@ -66,25 +67,23 @@ export default function CloudResourceContainer() {
             <Card loading={true} style={{ minWidth: 300 }} />
           </Col>
         }
-
-        {!isLoading && cloudResourceResponse !== undefined && (
-          <Row gutter={[24, 24]} justify="start" style={{ margin: 0 }}>
-            {cloudResourceResponse?.result?.map((row: CloudResourceInterface) => (
-              <Col
-                key={row.id}
-                xs={24}
-                sm={12}
-                md={10}
-                lg={8}
-                xl={6}
-                style={{ display: "flex", justifyContent: "center" }}
+      <div style={{ position: 'relative', padding: '0 2rem' }}>
+        <HomeCarousel>
+            {!isLoading && cloudResourceResponse !== undefined &&cloudResourceResponse?.result?.map((row: CloudResourceInterface,index) => (
+              <div
+                key={index}
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  margin: "0 10px",
+                }}
               >
                 <CloudResourceCard resource={row} />
-              </Col>
+              </div>
             ))}
-          </Row>
-
-        )}
+        </HomeCarousel>
+        </div>
         {!isLoading && cloudResourceLoadingError &&
           <Result
             status="500"

@@ -4,7 +4,7 @@ import { postFavoriteService } from "@/lib/features/favorites/favoriteServiceThu
 import { useAppDispatch } from "@/lib/hook";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { theme } from "@/styles/theme";
-import { ArrowRight, Star } from "@phosphor-icons/react";
+import { ArrowRight, HeartStraight } from "@phosphor-icons/react";
 import { Badge, Button, Card, Col, Row, Space } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import { useRouter } from "next/navigation";
@@ -24,13 +24,13 @@ export default function CloudResourceCard({ resource }: any) {
         <Card
             hoverable
             style={{
+                flex: "0 0 auto",
+                width: 270,
+                height: 350,
                 position: "relative",
-
-                height: "100%",
-                width: "100%",
-                padding: 0,
-                cursor: "default",
+                marginRight: 16,
             }}
+            bodyStyle={{ padding: 16, height: "100%" }}
         >
             <div style={{ height: "280px" }}>
                 {/* Header */}
@@ -51,8 +51,8 @@ export default function CloudResourceCard({ resource }: any) {
                                     }}
                                     icon={
                                         resource.is_in_favorite === true ?
-                                            <Star size={20} weight="fill" color="#FC3232" /> :
-                                            <Star size={20} weight="fill" color="#7D7D7D" />
+                                            <HeartStraight size={20} weight="fill" color="#FC3232" /> :
+                                            <HeartStraight size={20} weight="fill" color="#7D7D7D" />
                                     }
                                     onClick={(e) => {
                                         e.stopPropagation();
@@ -80,7 +80,7 @@ export default function CloudResourceCard({ resource }: any) {
                             display: "flex",
                         }}>
                         <Paragraph style={{ color: "#DD8859", fontSize: 16, }}>
-                            {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(resource.unit_price)} DZD
+                            {resource.unit_price != undefined ? (Intl.NumberFormat('fr-FR', { useGrouping: true }).format(resource.unit_price) + " DZD") : t('affiliation.onDemand')}
                         </Paragraph>
                     </Col>
                 </Row>

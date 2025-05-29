@@ -10,7 +10,7 @@ import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThank
 import { useAppDispatch } from "@/lib/hook";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { theme } from "@/styles/theme";
-import { CaretDown, CaretUp, Star } from "@phosphor-icons/react";
+import { CaretDown, CaretUp, HeartStraight } from "@phosphor-icons/react";
 import { Badge, Button, Card, Col, Collapse, Result, Row, Skeleton, Space, Typography } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import Link from "next/link";
@@ -82,9 +82,9 @@ export default function ResourceDetailsContentPage({ resource_id }: { resource_i
                                             }}
                                             icon={
                                                 currentResource.is_in_favorite === true ? (
-                                                    <Star size={35} weight="fill" color="#FC3232" />
+                                                    <HeartStraight size={35} weight="fill" color="#FC3232" />
                                                 ) : (
-                                                    <Star size={35} color="#7D7D7D" />
+                                                    <HeartStraight size={35} color="#7D7D7D" />
                                                 )
                                             }
                                             onClick={() => handleFavoriteService(currentResource.id)}
@@ -106,7 +106,7 @@ export default function ResourceDetailsContentPage({ resource_id }: { resource_i
                                     {currentResource.name}
                                 </Typography.Title>
                                 <Typography.Title level={4} style={{ color: theme.token.orange400, margin: 0 }}>
-                                    {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(currentResource.unit_price)} DZD
+                                {currentResource.unit_price != undefined ? (Intl.NumberFormat('fr-FR', { useGrouping: true }).format(currentResource.unit_price) + " DZD") : t('affiliation.onDemand')}
                                 </Typography.Title>
                             </Col>
                         </Row>

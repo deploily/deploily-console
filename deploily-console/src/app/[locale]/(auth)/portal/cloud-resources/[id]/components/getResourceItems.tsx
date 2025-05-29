@@ -54,11 +54,11 @@ export const getResourceItems = (
 
 **${t('supportEmail')}:** ${currentResource.provider?.mail_support ? `[${currentResource.provider.mail_support}](mailto:${currentResource.provider.mail_support})` : "_N/A_"}
 
-**${t('salesEmail')}:** ${currentResource.provider?.mail_sailes ? `[${currentResource.provider.mail_support}](mailto:${currentResource.provider.mail_sailes})` : "_N/A_"}
+**${t('salesEmail')}:** ${currentResource.provider?.mail_sales ? `[${currentResource.provider.mail_support}](mailto:${currentResource.provider.mail_sales})` : "_N/A_"}
    
 **${t('supportPhone')}:** ${currentResource.provider?.phone_support || "_N/A_"}  
 
-**${t('salesPhone')}:** ${currentResource.provider?.phone_sailes || "_N/A_"}  
+**${t('salesPhone')}:** ${currentResource.provider?.phone_sales || "_N/A_"}  
 
         `}
           </ReactMarkdown>

@@ -1,25 +1,22 @@
 "use client";
 
-import { useI18n } from "../../../../../../../locales/client";
-import { ArrowRight, Star } from "@phosphor-icons/react";
+import { HeartStraight } from "@phosphor-icons/react";
 import { Card, Col, Row, Image, Badge, Button, Space } from "antd";
 import Meta from "antd/es/card/Meta";
-import { theme } from "@/styles/theme";
 
 export default function ApplicationServiceCard({ data }: any) {
-    const t = useI18n();
 
     return (
         <Card
             hoverable
             style={{
+                flex: "0 0 auto",
+                width: 270,
+                height: 350,
                 position: "relative",
-
-                height: "100%",
-                width: "100%",
-                padding: 0,
-                cursor: "default",
+                marginRight: 16,
             }}
+            bodyStyle={{ padding: 16, height: "100%" }}
         >
             <div style={{ height: "280px" }}>
                 {/* Header */}
@@ -38,7 +35,7 @@ export default function ApplicationServiceCard({ data }: any) {
                                         height: 24,
                                         minWidth: 24,
                                     }}
-                                    icon={<Star size={20} weight="fill" color="#7D7D7D" />}
+                                    icon={<HeartStraight size={20} weight="fill" color="#7D7D7D" />}
                                 />
                             }
                             offset={[-12, 12]}
