@@ -221,10 +221,11 @@ export default {
   "affiliation.price": "Prix ",
   "affiliation.month": "Mois",
   "affiliation.userName": "Nom",
-  "affiliation.confirmAffiliation": "J'accepte de partager mes informations : ",
+  "affiliation.confirmAffiliation": "J'accepte de partager mes informations avec {providerName} :",
   // "affiliation.confirmAffiliation": "Je confirme que j'accepte de partager mes données personnelles (nom, e-mail) avec les partenaires de confiance de Deploily dans le but de fournir des services pertinents.",
   "affiliation.iAgree": "J'accepte",
   "affiliation.orderResource": "Commander la ressource",
+  'affiliation.onDemand': 'Sur demande',
 
   "interstedCustomPlan": "Je suis intéressé par une offre personnalisée pour",
   "resourceOnDemand": "Ressource à la demande",
