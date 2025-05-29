@@ -3,9 +3,10 @@ import { ApplicationServiceInterface } from "@/lib/features/application/applicat
 import { useApplicationService } from "@/lib/features/application/applicationServiceSelectors";
 import { fetchApplicationServices } from "@/lib/features/application/applicationServiceThunks";
 import { useAppDispatch } from "@/lib/hook";
-import { Col, Row } from "antd";
+import { Row } from "antd";
 import { useEffect } from "react";
 import ApplicationServiceCard from "./applicationServiceCard";
+import HomeCarousel from "../../components/homeCarousel";
 
 export default function ApplicationServiceContainer() {
   const { isLoading, applicationServiceResponse } = useApplicationService();
@@ -32,24 +33,25 @@ export default function ApplicationServiceContainer() {
           (coming soon)
         </span>
       </Row>
-
-      {!isLoading && applicationServiceResponse !== undefined && (
-        <Row gutter={[24, 24]} justify="start" style={{ margin: 0 }}>
-          {applicationServiceResponse?.result?.map((row: ApplicationServiceInterface) => (
-            <Col
-              key={row.id}
-              xs={24}
-              sm={12}
-              md={10}
-              lg={8}
-              xl={6}
-              style={{ display: "flex", justifyContent: "center" }}
+ <div style={{ position: 'relative', padding: '0 2rem' }}>
+        <HomeCarousel>
+      {!isLoading && applicationServiceResponse !== undefined && 
+          applicationServiceResponse?.result?.map((row: ApplicationServiceInterface,index) => (
+            <div
+              key={index}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                margin: "0 10px",
+              }}
             >
-              <ApplicationServiceCard data={row} />
-            </Col>
+              <ApplicationServiceCard data={row}/>
+              </div>
           ))}
-        </Row>
-      )}
+        </HomeCarousel>
+        </div>
+   
     </>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 import { useAppDispatch } from "@/lib/hook";
-import { CaretDown, CaretUp, Star } from "@phosphor-icons/react";
+import { CaretDown, CaretUp, HeartStraight } from "@phosphor-icons/react";
 import { Badge, Button, Card, Col, Collapse, Result, Row, Skeleton, Space, Typography } from "antd";
 import { useEffect } from "react";
 import { useI18n } from "../../../../../../../../locales/client";
@@ -88,9 +88,9 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
                       }}
                       icon={
                         currentService.is_in_favorite === true ? (
-                          <Star size={35} weight="fill" color="#FC3232" />
+                          <HeartStraight size={35} weight="fill" color="#FC3232" />
                         ) : (
-                          <Star size={35} color="#7D7D7D" />
+                          <HeartStraight size={35} color="#7D7D7D" />
                         )
                       }
                       onClick={() => handleFavoriteService(currentService.id)}

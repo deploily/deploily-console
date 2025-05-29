@@ -1,15 +1,15 @@
 "use client";
-import { useState } from "react";
-import { ArrowRight, Star } from "@phosphor-icons/react";
-import { Card, Col, Row, Image, Button, Space, Badge } from "antd";
+import { FavoriteServiceInterface } from "@/lib/features/favorites/favoriteServiceInterface";
+import { deleteFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
+import { useAppDispatch } from "@/lib/hook";
+import ImageFetcher from "@/lib/utils/imageFetcher";
+import { theme } from "@/styles/theme";
+import { ArrowRight, HeartStraight } from "@phosphor-icons/react";
+import { Badge, Button, Card, Col, Row, Space } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import { useRouter } from "next/navigation";
-import { useAppDispatch } from "@/lib/hook";
+import { useState } from "react";
 import { useI18n } from "../../../../../../../locales/client";
-import { deleteFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
-import { FavoriteServiceInterface } from "@/lib/features/favorites/favoriteServiceInterface";
-import { theme } from "@/styles/theme";
-import ImageFetcher from "@/lib/utils/imageFetcher";
 
 export default function FavoriteServiceCard({ favoriteService }: { favoriteService: FavoriteServiceInterface }) {
     const t = useI18n();
@@ -44,7 +44,7 @@ export default function FavoriteServiceCard({ favoriteService }: { favoriteServi
                                         height: 24,
                                         minWidth: 24,
                                     }}
-                                    icon={<Star size={20} weight="fill" color="#FC3232" />}
+                                    icon={<HeartStraight size={20} weight="fill" color="#FC3232" />}
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         handleDeleteFavorite();
