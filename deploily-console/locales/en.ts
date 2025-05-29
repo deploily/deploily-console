@@ -223,10 +223,11 @@ export default {
     'affiliation.price': 'Price ',
     'affiliation.month': 'Month',
     "affiliation.userName": "Name",
-    "affiliation.confirmAffiliation": "I agree to share my informations : ",
+    "affiliation.confirmAffiliation": "I agree to share my information with {providerName} :",
     // "affiliation.confirmAffiliation": "I confirm that I agree to share my personal data (name, email) with Deploily's trusted partners for the purpose of providing relevant services.",
     'affiliation.iAgree': 'I agree',
     'affiliation.orderResource': 'Order Resource',
+    'affiliation.onDemand': 'On Demand',
 
 
 

@@ -1,10 +1,8 @@
-import { postFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
 import { SubscriptionInterface } from "@/lib/features/subscriptions/subscriptionInterface";
-import { useAppDispatch } from "@/lib/hook";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { CustomBlueButton } from "@/styles/components/buttonStyle";
-import { Faders, Star } from "@phosphor-icons/react";
-import { Badge, Button, Card, Col, Row, Space, Tag, Typography } from "antd";
+import { Faders } from "@phosphor-icons/react";
+import { Badge, Card, Col, Row, Space, Tag, Typography } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import { useRouter } from "next/navigation";
 import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
@@ -13,11 +11,6 @@ export default function SubscriptionCard({ data }: { data: SubscriptionInterface
     const tSubscription = useScopedI18n('subscription');
     const t = useI18n();
     const router = useRouter();
-    const dispatch = useAppDispatch();
-
-    const handleFavoriteService = (service_id: number) => {
-        dispatch(postFavoriteService({ "service_id": service_id }));
-    }
     return (
         <Card style={{ height: "100%", width: "100%", padding: 0, cursor: "pointer", position: "relative" }}
             onClick={() => router.push(`/portal/subscriptions/${data.id}`)}
@@ -26,25 +19,6 @@ export default function SubscriptionCard({ data }: { data: SubscriptionInterface
                 <Row align="middle" gutter={16} style={{ height: "40%" }} >
                     <Col span={12} style={{ height: "100%", }} >
                         <Badge
-                            count={
-                                <Button
-                                    style={{
-                                        border: "none",
-                                        backgroundColor: "#fff",
-                                        boxShadow: "0 0 4px rgba(0,0,0,0.1)",
-                                        borderRadius: "50%",
-                                        padding: 0,
-                                        width: 24,
-                                        height: 24,
-                                        minWidth: 24
-                                    }}
-                                    icon={<Star size={25} weight="fill" color="#7D7D7D" />}
-                                    onClick={(e) => {
-                                        e.stopPropagation(); // Prevent Card onClick
-                                        handleFavoriteService(data.id);
-                                    }}
-                                />
-                            }
                             offset={[-12, 12]}
                         >
                             <ImageFetcher

@@ -42,10 +42,10 @@ export interface Provider {
     instagram_page: string;
     linkedin_page: string;
     mail_partnership: string;
-    mail_sailes: string;
+    mail_sales: string;
     mail_support: string;
     phone_partnership: string;
-    phone_sailes: string;
+    phone_sales: string;
     phone_support: string;
     short_description: string;
     website: string;

@@ -8,8 +8,8 @@ import { DatePickerStyle } from "@/styles/components/datePickerStyle";
 import { CustomSubscripionInput } from "@/styles/components/inputStyle";
 import { CustomTypography } from "@/styles/components/typographyStyle";
 import { theme } from "@/styles/theme";
-import { CalendarDots, Star } from "@phosphor-icons/react";
-import { Badge, Button, Col, Result, Row, Skeleton, Space, Tag, Typography } from "antd";
+import { CalendarDots } from "@phosphor-icons/react";
+import { Badge, Col, Result, Row, Skeleton, Space, Tag, Typography } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import dayjs from "dayjs";
 import Link from "next/link";
@@ -74,23 +74,7 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                 <>
                     <Row gutter={16}  >
                         <Col md={16} xs={24} >
-                            <Badge
-                                count={
-                                    <Button style={{
-                                        border: "none",
-                                        backgroundColor: "#fff",
-                                        boxShadow: "0 0 4px rgba(0,0,0,0.1)",
-                                        borderRadius: "50%",
-                                        padding: 0,
-                                        width: 40,
-                                        height: 40,
-                                        minWidth: 40
-                                    }}
-                                        icon={
-                                            <Star size={35} weight="fill" color="#7D7D7D" />}
-                                    />
-                                }
-                                offset={[-20, 20]}>
+                            <Badge offset={[-20, 20]}>
                                 {currentSubscription.service_details && <ImageFetcher
                                     imagePath={currentSubscription.service_details.image_service}
                                     width={220}

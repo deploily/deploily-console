@@ -5,13 +5,13 @@ import CloudResourceContainer from "../cloud-resources/home-components/cloudReso
 
 export default function Page() {
   return (
-    <>
+    <div style={{padding:'6px'}}>
       <ApiServiceContainer />
       <CloudResourceContainer />
       <div style={{ opacity: 0.5, pointerEvents: "none" }}>
         <CiCdServiceContainer />
         <ApplicationServiceContainer />
       </div>
-    </>
+    </div>
   );
 }

@@ -4,7 +4,7 @@ import { useCloudResource } from "@/lib/features/cloud-resource/cloudResourceSel
 import { postAffiliation } from "@/lib/features/cloud-resource/cloudResourceThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
-import { CloseCircleTwoTone, MinusOutlined, PlusOutlined } from '@ant-design/icons';
+import { CheckCircleTwoTone, CloseCircleTwoTone, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Card, Checkbox, Col, Collapse, Drawer, notification, Row, Space, Typography } from "antd";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -132,7 +132,7 @@ export default function AffiliationDrawer({
                                 </Row>
                                 <Row gutter={16} align="top">
                                     <Col span={14}><Typography.Text strong>{translate("email")}</Typography.Text></Col>
-                                    <Col span={10}><Typography.Text>{provider.mail_sailes}</Typography.Text></Col>
+                                    <Col span={10}><Typography.Text>{provider.mail_sales}</Typography.Text></Col>
                                 </Row>
                                 <Row gutter={16} align="top">
                                     <Col span={14}><Typography.Text strong>{translate("phone")}</Typography.Text></Col>
@@ -180,48 +180,51 @@ export default function AffiliationDrawer({
                             {translate("confirm&OrderNow")}
                         </Button>
                     </div>}
-                    <Card
-                        style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            height: "100%",
-                            borderColor: theme.token.gray50,
-                            boxShadow: "none",
-                            marginTop: 24,
-                        }}
-                    >
+                
                         {showTerms && (
-                            <div style={{ margin: 6, }} className="white-checkbox-label">
-                                <Space direction="vertical">
-                                    <Typography.Text style={{ color: theme.token.gray100, fontSize: 14 }}>
-                                        {translate("confirmAffiliation")}
-                                    </Typography.Text>
-                                    <Checkbox checked onClick={preventToggle} style={{ marginLeft: 24, pointerEvents: 'none', }}> {translate("userName")}</Checkbox>
-                                    <Checkbox checked onClick={preventToggle} style={{ marginLeft: 24, pointerEvents: 'none', }}> {translate("phone")}</Checkbox>
-                                    <Checkbox checked onClick={preventToggle} style={{ marginLeft: 24, pointerEvents: 'none', }}> {translate("email")}</Checkbox>
-                                </Space>
-                            </div>)}
-                    </Card>
-                    {showTerms && (<div style={{ marginTop: 24, marginBottom: 24, display: "flex", justifyContent: "flex-end" }}>
-                        <Button
-                            type="primary"
-                            onClick={handleAccept}
+                   
+                    <div style={{  margin: '5px',paddingTop:"10px",paddingBottom:"10px" }}>
+                        <div
                             style={{
-                                backgroundColor: theme.token.orange600,
-                                paddingInline: 20,
-                                paddingBlock: 10,
-                                fontWeight: 600,
-                                fontSize: 14,
-                                color: theme.token.colorWhite,
-                                border: "none",
-                                boxShadow: "none",
+                                backgroundColor: '#4c4d52',
+                                borderRadius: 2,
+                                color: '#fff',
+                                boxShadow: '0 4px 12px rgba(0,0,0,0.4)',
+                                padding:'10px'
                             }}
                         >
-                            {translate("iAgree")}
-                        </Button>
-                    </div>
+                            <Typography.Title level={5} style={{ color: '#fff', marginBottom: 12 ,fontWeight:500}}>
+                                    ⚠️ &nbsp; {translate('confirmAffiliation', { providerName: <strong style={{ fontWeight: 600, fontSize: '19px', color: "white" }}>{provider?.name}</strong> })}
+                            </Typography.Title>
 
-                    )}
+                            <Space direction="vertical" size="middle" style={{ marginBottom: 2,marginLeft:'10px' }}>
+                                <Typography.Text style={{ color: '#fff' }}>
+                                        &nbsp; ✔️ &nbsp;{translate("userName")}
+                                </Typography.Text>
+                                <Typography.Text style={{ color: '#fff' }}>
+                                        &nbsp; ✔️ &nbsp;{translate("email")}
+                                </Typography.Text>
+                            </Space>
+                            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                            <Button
+                                type="primary"
+                                onClick={handleAccept}
+                                style={{
+                                    backgroundColor: theme.token.orange600,
+                                    paddingInline: 20,
+                                    paddingBlock: 10,
+                                    fontWeight: 600,
+                                    fontSize: 14,
+                                    color: theme.token.colorWhite,
+                                    border: "none",
+                                    boxShadow: "none",
+                                }}
+                            >
+                                {translate("iAgree")}
+                            </Button>
+                            </div>
+                        </div>
+                    </div>     )}
 
                     <Collapse
                         accordion
