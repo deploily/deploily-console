@@ -190,7 +190,7 @@ export default function AffiliationDrawer({
                                 }}
                             >
                                 <Typography.Title level={5} style={{ color: '#fff', marginBottom: 12, fontWeight: 500 }}>
-                                    👍 &nbsp; {translate('confirmAffiliation', { providerName: <strong style={{ fontWeight: 600, fontSize: '19px', color: "white" }}>{provider?.name}</strong> })}
+                                    {translate('confirmAffiliation', { providerName: <strong style={{ fontWeight: 600, fontSize: '19px', color: "white" }}>{provider?.name}</strong> })}
                                 </Typography.Title>
 
                                 <Space direction="vertical" size="middle" style={{ marginBottom: 2, marginLeft: '10px' }}>
