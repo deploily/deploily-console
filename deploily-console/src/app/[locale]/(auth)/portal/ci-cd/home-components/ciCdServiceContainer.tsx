@@ -3,9 +3,10 @@ import { CiCdServiceInterface } from "@/lib/features/ci-cd-service/cicdServiceIn
 import { useCiCdService } from "@/lib/features/ci-cd-service/cicdServiceSelectors";
 import { fetchCiCdServices } from "@/lib/features/ci-cd-service/cicdServiceThunks";
 import { useAppDispatch } from "@/lib/hook";
-import { Col, Row } from "antd";
+import { Row } from "antd";
 import { useEffect } from "react";
 import CiCdServiceCard from "./cdCdServiceCard";
+import HomeCarousel from "../../components/homeCarousel";
 
 export default function CiCdServiceContainer() {
   const { isLoading, cicdServiceResponse } = useCiCdService();
@@ -33,23 +34,23 @@ export default function CiCdServiceContainer() {
         </span>
       </Row>
 
-      {!isLoading && cicdServiceResponse !== undefined && (
-        <Row gutter={[24, 24]} justify="start" style={{ margin: 0 }}>
-          {cicdServiceResponse?.result?.map((row: CiCdServiceInterface) => (
-            <Col
-              key={row.id}
-              xs={24}
-              sm={12}
-              md={10}
-              lg={8}
-              xl={6}
-              style={{ display: "flex", justifyContent: "center" }}
-            >
+  <div style={{ position: 'relative', padding: '0 2rem' }}>
+        <HomeCarousel>
+          {!isLoading && cicdServiceResponse !== undefined && cicdServiceResponse?.result?.map((row: CiCdServiceInterface,index) => (
+            <div
+              key={index}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                margin: "0 10px",
+              }}
+                >
               <CiCdServiceCard data={row} />
-            </Col>
-          ))}
-        </Row>
-      )}
+              </div>
+          ))}    
+          </HomeCarousel>
+          </div>
     </>
   );
 }

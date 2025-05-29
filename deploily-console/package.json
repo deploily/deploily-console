@@ -47,6 +47,7 @@
     "react-dom": "^18",
     "react-google-recaptcha": "^3.1.0",
     "react-leaflet": "^4.2.1",
+    "react-multi-carousel": "^2.8.6",
     "react-redux": "^9.0.4",
     "react-slick": "^0.30.2",
     "react-syntax-highlighter": "^15.6.1",

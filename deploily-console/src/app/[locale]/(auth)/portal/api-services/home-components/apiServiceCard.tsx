@@ -4,7 +4,7 @@ import { postFavoriteService } from "@/lib/features/favorites/favoriteServiceThu
 import { useAppDispatch } from "@/lib/hook";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { theme } from "@/styles/theme";
-import { ArrowRight, Star } from "@phosphor-icons/react";
+import { ArrowRight, HeartStraight } from "@phosphor-icons/react";
 import { Badge, Button, Card, Col, Row, Space } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import { useRouter } from "next/navigation";
@@ -26,8 +26,8 @@ export default function ApiServiceCard({ service }: { service: ApiServiceInterfa
       hoverable
       style={{
         flex: "0 0 auto",
-        width: 250,
-        height: 300,
+        width: 270,
+        height: 350,
         position: "relative",
         marginRight: 16,
       }}
@@ -51,9 +51,9 @@ export default function ApiServiceCard({ service }: { service: ApiServiceInterfa
                   }}
                   icon={
                     service.is_in_favorite ? (
-                      <Star size={20} weight="fill" color="#FC3232" />
+                      <HeartStraight size={20} weight="fill" color="#FC3232" />
                     ) : (
-                      <Star size={20} weight="fill" color="#7D7D7D" />
+                      <HeartStraight size={20} weight="fill" color="#7D7D7D" />
                     )
                   }
                   onClick={(e) => {
@@ -76,9 +76,9 @@ export default function ApiServiceCard({ service }: { service: ApiServiceInterfa
             style={{
               height: "100%",
               fontWeight: "bold",
+
               justifyContent: "end",
               display: "flex",
-              alignItems: "center",
             }}
           >
             <Paragraph style={{ color: "#DD8859", fontSize: 16, margin: 0 }}>
