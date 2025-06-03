@@ -7,6 +7,7 @@ import { Row } from "antd";
 import { useEffect } from "react";
 import ApplicationServiceCard from "./applicationServiceCard";
 import HomeCarousel from "../../components/homeCarousel";
+import { Button } from "deploily-ui-components";
 
 export default function ApplicationServiceContainer() {
   const { isLoading, applicationServiceResponse } = useApplicationService();
@@ -18,6 +19,8 @@ export default function ApplicationServiceContainer() {
 
   return (
     <>
+      <Button type="primary" label="Click Me" onClick={()=>{}} />
+
       <Row style={{ padding: 20 }}>
         <span
           style={{

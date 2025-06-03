@@ -1,0 +1,6 @@
+[submodule "deploily-console/shared-ui-components"]
+	path = deploily-console/shared-ui-components
+	url = https://github.com/deploily/deploily-ui-components.git
+[submodule "deploily-console/deploily-ui-components"]
+	path = deploily-console/deploily-ui-components
+	url = https://github.com/deploily/deploily-ui-components.git
