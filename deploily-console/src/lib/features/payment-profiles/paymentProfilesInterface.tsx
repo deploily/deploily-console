@@ -23,6 +23,7 @@ export interface ProfileByIdResponse {
 export interface PaymentProfileInterface {
   id: number;
   name: string;
+  profile_type: string;
   last_name: string;
   balance: number;
   phone: string;

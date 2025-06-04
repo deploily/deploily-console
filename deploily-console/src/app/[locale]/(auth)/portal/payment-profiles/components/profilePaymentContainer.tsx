@@ -86,7 +86,7 @@ export default function ProfilePayementContainer() {
                 dataIndex: "",
                 key: "actions",
                 render: (element: any) =>
-                    element?.name?.toLowerCase() === "default"
+                    element?.profile_type === "default"
                         ? <></> as JSX.Element
                         : (
                             <div style={{ display: "flex", justifyContent: "end", paddingInline: 5 }}>
@@ -153,14 +153,14 @@ export default function ProfilePayementContainer() {
                     className="custom-table"
                     style={{ marginTop: 40, borderRadius: 0 }}
                     onRow={(element) => ({
-                        onClick: element.name?.toLowerCase() !== "default"
+                        onClick: element.profile_type !== "default"
                             ? () => router.push(`/portal/payment-profiles/${element.id}`)
                             : undefined,
                         style: {
-                            cursor: element.name?.toLowerCase() !== "default" ? "pointer" : "default",
-                            backgroundColor: element.name?.toLowerCase() === "default" ? "transparent" : undefined,
+                            cursor: element.profile_type !== "default" ? "pointer" : "default",
+                            backgroundColor: element.profile_type === "default" ? "transparent" : undefined,
                         },
-                        className: element.name?.toLowerCase() === "default" ? "no-hover" : "",
+                        className: element.profile_type === "default" ? "no-hover" : "",
                     })}
                 />
             }
