@@ -29,13 +29,13 @@ export function AppAppBarDesktop() {
   // Set the default selected profile when the profile list is loaded
   useEffect(() => {
     if (!isLoading && paymentProfilesList?.result?.length) {
-      // Find the profile with type "Default"
-      const defaultProfile = paymentProfilesList.result.find((profile) => profile.profile_type === "Default");
+      // Find the profile with type "default"
+      const defaultProfile = paymentProfilesList.result.find((profile) => profile.profile_type === "default");
 
       if (defaultProfile) {
         setProfileSelected(defaultProfile.id);
       } else {
-        // If "Default" profile is not found, select the first available profile
+        // If "default" profile is not found, select the first available profile
         const firstProfile = paymentProfilesList.result[0];
         setProfileSelected(firstProfile.id);
       }
