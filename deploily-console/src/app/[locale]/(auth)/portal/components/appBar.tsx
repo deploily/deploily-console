@@ -19,10 +19,6 @@ export function AppAppBarDesktop() {
 
   const { Option } = Select;
   const [profileSelected, setProfileSelected] = useState<number | undefined>(undefined);
-  const [values, setValues] = useState<{ total_amount: number; profile_id: number }>({
-    total_amount: 0,
-    profile_id: 0,
-  });
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -33,17 +29,15 @@ export function AppAppBarDesktop() {
   // Set the default selected profile when the profile list is loaded
   useEffect(() => {
     if (!isLoading && paymentProfilesList?.result?.length) {
-      // Find the profile with name "Default"
-      const defaultProfile = paymentProfilesList.result.find((profile) => profile.name === "Default");
+      // Find the profile with type "default"
+      const defaultProfile = paymentProfilesList.result.find((profile) => profile.profile_type === "default");
 
       if (defaultProfile) {
         setProfileSelected(defaultProfile.id);
-        setValues((prevValues) => ({ ...prevValues, profile_id: defaultProfile.id }));
       } else {
-        // If "Default" profile is not found, select the first available profile
+        // If "default" profile is not found, select the first available profile
         const firstProfile = paymentProfilesList.result[0];
         setProfileSelected(firstProfile.id);
-        setValues((prevValues) => ({ ...prevValues, profile_id: firstProfile.id }));
       }
     }
   }, [isLoading, paymentProfilesList]);
@@ -53,7 +47,6 @@ export function AppAppBarDesktop() {
     const selectedProfile = paymentProfilesList?.result?.find((profile) => profile.id === value);
 
     if (selectedProfile) {
-      setValues((prevValues) => ({ ...prevValues, profile_id: selectedProfile.id }));
       setProfileSelected(selectedProfile.id);
     }
   };
@@ -98,8 +91,24 @@ export function AppAppBarDesktop() {
                     value={{
                       key: profileSelected?.toString() || "",
                       label: (
-                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                          <span style={{ color: "#D85912" }}>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            width: "100%", // ensure it stretches correctly in parent
+                          }}
+                        >
+                          <span
+                            style={{
+                              color: "#D85912",
+                              maxWidth: "60%",            // Prevents it from growing too wide
+                              overflow: "hidden",         // Hides the overflow
+                              textOverflow: "ellipsis",   // Adds the "..."
+                              whiteSpace: "nowrap",       // Prevents wrapping
+                              display: "inline-block",    // Required for ellipsis to work
+                            }}
+                          >
                             {(() => {
                               const name = paymentProfilesList?.result?.find((p) => p.id === profileSelected)?.name;
                               return name ? name.charAt(0).toUpperCase() + name.slice(1) : "...";
@@ -108,7 +117,7 @@ export function AppAppBarDesktop() {
 
                           <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
                             <span style={{ color: "#D85912" }}>
-                              {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(
+                              {Intl.NumberFormat("fr-FR", { useGrouping: true }).format(
                                 paymentProfilesList?.result?.find((p) => p.id === profileSelected)?.balance ?? 0
                               )}
                             </span>
@@ -148,14 +157,26 @@ export function AppAppBarDesktop() {
                               display: "flex",
                               justifyContent: "space-between",
                               alignItems: "center",
-                              width: "100%",
-                              paddingLeft: 10,
-                              paddingRight: 10,
+                              width: "100%", 
                             }}
                           >
-                            <span style={{ color: "#D85912" }}>
-                              {profile.name.charAt(0).toUpperCase() + profile.name.slice(1)}
+                            <span
+                              style={{
+                                color: "#D85912",
+                                maxWidth: "60%",            // Prevents it from growing too wide
+                                overflow: "hidden",         // Hides the overflow
+                                textOverflow: "ellipsis",  
+                                whiteSpace: "nowrap",      
+                                display: "inline-block",    
+                              }}
+                            >
+                              {(() => {
+                                const name= profile.name.charAt(0).toUpperCase() + profile.name.slice(1)
+
+                                return name ? name.charAt(0).toUpperCase() + name.slice(1) : "...";
+                              })()}
                             </span>
+
                             <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
                               <span style={{ color: "#D85912" }}>
                                 {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(profile.balance)}
