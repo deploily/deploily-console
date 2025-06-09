@@ -1,5 +1,4 @@
 'use client';
-
 import { SubscriptionOption, SubscriptionDurationSelector } from 'deploily-ui-components';
 const options: SubscriptionOption[] = [//TODO GET FROM BACKEND 
     { label: '1 month', price: '1 000 DZD', value: '1' },
@@ -11,7 +10,6 @@ const options: SubscriptionOption[] = [//TODO GET FROM BACKEND
 export default function SelectDurationContainer() {
     const handleDurationChange = (val: string) => {
         console.log('Selected duration:', val);
-        // You can save it to state or send it to backend
     };
 
     return (
