@@ -1,6 +1,10 @@
 import { MediasCarousel, Rating } from "deploily-ui-components";
+import ApplicationDetailsCollapseContainer from "./containers/applicationDetailsCollapseContainer";
 import ApplicationDescriptionContainer from "./containers/descriptionContainer";
 import SelectDurationContainer from "./containers/selectDurationContainer";
+import SelectProviderContainer from "./containers/selectProviderContainer";
+import SelectVpsPlanContainer from "./containers/selectVpsPlanContainer";
+import SelectVpsTypeContainer from "./containers/selectVpsTypeContainer";
 
 export default function Page() {
     return (
@@ -24,6 +28,10 @@ export default function Page() {
                 }
             ]} />
             <Rating ratingValue={3.5} />
+            <ApplicationDetailsCollapseContainer />
+            <SelectProviderContainer />
+            <SelectVpsTypeContainer />
+            <SelectVpsPlanContainer />
             <SelectDurationContainer />
         </>
     );
