@@ -1,30 +1,29 @@
 'use client';
-import {  Typography } from 'antd';
+import { useProvider } from '@/lib/features/provider/providerSelectors';
+import { updateSelectedValues } from '@/lib/features/provider/providerSlice';
+import { useAppDispatch } from '@/lib/hook';
+import {  Skeleton, Typography } from 'antd';
 import { OptionsCollapse } from 'deploily-ui-components';
-import { useState } from 'react';
 
 export default function SelectVpsTypeContainer() {
-    // TODO : Replace the options with real data from the API
     //TODO : ADD TRANSLATION
-    const options = [
-        {
-            id: 1,
-            title: "FleXCompute - Starter",
-            range: " (2 900 DZD - 4900 DZD)"
-        },
-        {
-            id: 2,
-            title: "FleXCompute - Performance",
-            range: " (7 100 DZD - 15 500 DZD)",
-        }];
-    const [selectedVpsType, setSelectedVpsType] = useState("")
+
+
+        const dispatch = useAppDispatch();
+        const {selectedValues, resourcesIsloading,resourcesloadingError,resourcesListByProviderId } = useProvider()
     return (
-        <div style={{ padding: 24 }}>
+        <>
+            {
+                resourcesIsloading ?
+                    <Skeleton active /> :
+                    resourcesloadingError ?
+                        <Typography.Text type="danger">Error loading resources</Typography.Text> :
+                        resourcesListByProviderId &&
             <OptionsCollapse title={
                 "Select a vps type"
             }
                 options={
-                    options.map(option => ({
+                    resourcesListByProviderId.result.map(option => ({
                         key: option.id.toString(),
                         value: option.id.toString(),
                         title: (
@@ -36,7 +35,7 @@ export default function SelectVpsTypeContainer() {
                                     fontFamily: "Inter, sans-serif",
                                 }}
                             >
-                                {option.title}
+                                {option.name}
                             </Typography.Text>
                         ),
                         trailing: (
@@ -48,17 +47,16 @@ export default function SelectVpsTypeContainer() {
                                     fontFamily: "Inter, sans-serif",
                                 }}
                             >
-                                {option.range}
+                                {option.price} DZD / month
                             </Typography.Text>
                         )
                     })
                     )}
-                selectedOption={`${selectedVpsType}`}
-                onChange={(value) => {
-                    setSelectedVpsType(`${value}`);
-                    console.log("Selected provider ID:", value);
+                    selectedOption={selectedValues.resourceId ?`${selectedValues.resourceId}`:undefined}
+                    onChange={(value) => {dispatch(updateSelectedValues({ resourceId:`${value}`}));
+                    console.log("Selected resource ID:", value);
                 }} />
-
-        </div>
+            }
+        </>
     );
 }

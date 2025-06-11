@@ -1,30 +1,27 @@
 'use client';
-import {  Typography } from 'antd';
+import { useProvider } from '@/lib/features/provider/providerSelectors';
+import { updateSelectedValues } from '@/lib/features/provider/providerSlice';
+import { useAppDispatch } from '@/lib/hook';
+import {  Skeleton, Typography } from 'antd';
 import { OptionsCollapse } from 'deploily-ui-components';
-import { useState } from 'react';
 
 export default function SelectVpsPlanContainer() {
-    // TODO : Replace the options with real data from the API
+
     //TODO : ADD TRANSLATION
-    const options = [
+        const dispatch = useAppDispatch();
+    const { selectedValues, servicePlanIsloading, servicePlanloadingError, servicePlansByResourceId } = useProvider()
+    return (    <>
         {
-            id: 1,
-            title: " 2 vCPU / 4Go",
-            range: "2 900 DZD"
-        },
-        {
-            id: 2,
-            title: " 4 vCPU / 8Go",
-            range: " 7 100 DZD",
-        }];
-    const [selectedVpsPlan, setSelectedVpsPlan] = useState("")
-    return (
-        <div style={{ padding: 24 }}>
+            servicePlanIsloading ?
+                <Skeleton active /> :
+                servicePlanloadingError ?
+                    <Typography.Text type="danger">Error loading resources</Typography.Text> :
+                    servicePlansByResourceId &&
             <OptionsCollapse title={
-                "Select a vps type"
+                "Select Plan"
             }
                 options={
-                    options.map(option => ({
+                    servicePlansByResourceId.result.map(option => ({
                         key: option.id.toString(),
                         value: option.id.toString(),
                         title: (
@@ -36,7 +33,7 @@ export default function SelectVpsPlanContainer() {
                                     fontFamily: "Inter, sans-serif",
                                 }}
                             >
-                                {option.title}
+                                {option.options.map((opt) => opt.html_content).join("/")}
                             </Typography.Text>
                         ),
                         trailing: (
@@ -48,17 +45,17 @@ export default function SelectVpsPlanContainer() {
                                     fontFamily: "Inter, sans-serif",
                                 }}
                             >
-                                {option.range}
+                                {option.price}
                             </Typography.Text>
                         )
                     })
                     )}
-                selectedOption={`${selectedVpsPlan}`}
-                onChange={(value) => {
-                    setSelectedVpsPlan(`${value}`);
-                    console.log("Selected provider ID:", value);
+                        selectedOption={selectedValues.planId ? `${selectedValues.planId}`:undefined}
+                        onChange={(value) => {
+                            dispatch(updateSelectedValues({ planId:`${value}`}));
+                            console.log("Selected plan ID:", value);
                 }} />
-
-        </div>
+        }
+    </>
     );
 }
