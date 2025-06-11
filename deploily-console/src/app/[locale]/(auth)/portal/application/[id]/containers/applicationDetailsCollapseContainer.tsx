@@ -3,7 +3,6 @@ import {DetailsCollapse } from 'deploily-ui-components';
 
 export default function ApplicationDetailsCollapseContainer() {    
     return (
-        <div style={{ padding: 24 }}>
             <DetailsCollapse
             items={
                 [
@@ -23,6 +22,5 @@ export default function ApplicationDetailsCollapseContainer() {
             }
             />
 
-        </div>
     );
 }

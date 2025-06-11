@@ -13,13 +13,11 @@ export default function SelectDurationContainer() {
     };
 
     return (
-        <div style={{ padding: 24 }}>
             <SubscriptionDurationSelector
                 title="Subscription duration"//TODO TRANSLATE 
                 options={options}
                 initialValue="6"
                 onChange={handleDurationChange}
             />
-        </div>
     );
 }
