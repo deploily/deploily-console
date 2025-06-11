@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, Middleware } from "@reduxjs/toolkit";
 import apiServiceSlice from "./features/api-service/apiServiceSlice";
 import cicdServiceSlice from "./features/ci-cd-service/cicdServiceSlice";
 import contactUsSlice from "./features/contact-us/contactUsSlice";
@@ -15,6 +15,8 @@ import supportTicketSlice from "./features/support-ticket/supportTicketSlice";
 import cloudResourceSlice from "./features/cloud-resource/cloudResourceSlice";
 import applicationServiceSlice from "./features/application/applicationServiceSlice";
 import profileSlice from "./features/profile/profileSlice";
+import ProviderSlice from "./features/provider/providerSlice";
+import providersMiddleware from "./features/provider/planSelectionMiddleWare";
 
 export const makeStore = () => {
   return configureStore({
@@ -34,8 +36,11 @@ export const makeStore = () => {
       applicationService: applicationServiceSlice,
       supportTicketResponses: supportTicketResponsesSlice,
       contactUs: contactUsSlice,
-      profile: profileSlice
+      profile: profileSlice,
+      provider: ProviderSlice
     },
+    middleware: getDefaultMiddleware =>
+      getDefaultMiddleware().prepend(providersMiddleware  as Middleware),
   });
 };
 export type AppStore = ReturnType<typeof makeStore>;
