@@ -30,7 +30,6 @@ export default function SelectVpsPlanContainer() {
                                     color: "white",
                                     fontSize: "14px",
                                     fontWeight: 300,
-                                    fontFamily: "Inter, sans-serif",
                                 }}
                             >
                                 {option.options.map((opt) => opt.html_content).join("/")}
@@ -42,7 +41,6 @@ export default function SelectVpsPlanContainer() {
                                     color: "white",
                                     fontSize: "14px",
                                     fontWeight: 300,
-                                    fontFamily: "Inter, sans-serif",
                                 }}
                             >
                                 {option.price}

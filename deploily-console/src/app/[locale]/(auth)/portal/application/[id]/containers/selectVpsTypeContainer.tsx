@@ -32,7 +32,6 @@ export default function SelectVpsTypeContainer() {
                                     color: "white",
                                     fontSize: "14px",
                                     fontWeight: 300,
-                                    fontFamily: "Inter, sans-serif",
                                 }}
                             >
                                 {option.name}
@@ -44,7 +43,6 @@ export default function SelectVpsTypeContainer() {
                                     color: "white",
                                     fontSize: "14px",
                                     fontWeight: 300,
-                                    fontFamily: "Inter, sans-serif",
                                 }}
                             >
                                 {option.price} DZD / month

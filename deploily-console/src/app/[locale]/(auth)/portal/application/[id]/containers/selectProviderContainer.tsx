@@ -41,7 +41,6 @@ export default function SelectProviderContainer() {
                                                 fontSize: "16px",
                                                 fontWeight: 400,
                                                 marginLeft: 15,
-                                                fontFamily: "Inter, sans-serif",
                                             }}
                                         >
                                             {option.name}
@@ -60,7 +59,6 @@ export default function SelectProviderContainer() {
                                                 fontSize: "16px",
                                                 fontWeight: 400,
                                                 marginLeft: 8,
-                                                fontFamily: "Inter, sans-serif",
                                             }}
                                         >
                                             Link
