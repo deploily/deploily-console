@@ -3,20 +3,33 @@ import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
 import { RootState } from "@/lib/store";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getSession } from "next-auth/react";
-// import { data } from "./data";
-
 export const fetchCloudResources = createAsyncThunk(
     "cloudresources/getcloudresources",
     async (limit: number, thunkConfig) => {
         const state = thunkConfig.getState() as RootState;
 
         const searchValue = state.cloudResource.searchValue?.trim();
+        const providerFilterValue = state.cloudResource.filter?.provider;
+        const categoryFilterValue = state.cloudResource.filter?.category;
 
-        const filters = searchValue
-            ? `(filters:!((col:name,opr:ct,value:'${searchValue}')),page_size:${limit})`
-            : `(page_size:${limit})`;
+        const filters = [];
 
-        const query = `?q=${encodeURIComponent(filters)}`;
+        if (searchValue) {
+            filters.push(`(col:name,opr:ct,value:${searchValue})`);
+        }
+
+        if (providerFilterValue) {
+            filters.push(`(col:provider,opr:rel_o_m,value:${providerFilterValue})`);
+        }
+
+        if (categoryFilterValue) {
+            filters.push(`(col:ressouce_category,opr:rel_o_m,value:${categoryFilterValue})`);
+        }
+
+        const filterQuery = `filters:!(${filters.join(',')})`;
+        const fullQuery = `(${filterQuery},page_size:${limit})`;
+
+        const query = `?q=${encodeURIComponent(fullQuery)}`;
 
         try {
             const session = await getSession();
@@ -68,16 +81,16 @@ export const getResourceById = createAsyncThunk(
         }
     },
 );
-export const getProviderById = createAsyncThunk(
-    "cloudresources/getProviderById",
-    async (provider_id: string, thunkConfig) => {
+export const getProvidersList = createAsyncThunk(
+    "cloudresources/getProviders",
+    async (_, thunkConfig) => {
         try {
             const session = await getSession();
             if (!session) {
                 return thunkConfig.rejectWithValue("session expired");
             }
             const token = session.accessToken;
-            const response = await axiosInstance.get(`${deploilyApiUrls.PROVIDER_URL}${provider_id}`, {
+            const response = await axiosInstance.get(`${deploilyApiUrls.PROVIDER_URL}`, {
                 headers: {
                     Accept: "application/json",
                     Authorization: `Bearer ${token}`,
@@ -142,6 +155,29 @@ export const getMyResources = createAsyncThunk(
                 return response.data;
             } else {
                 return thunkConfig.rejectWithValue("Failed to fetch my resources");
+            }
+        } catch (error: any) {
+            return thunkConfig.rejectWithValue(error.message);
+        }
+    },
+);
+export const fetchResourceCategories = createAsyncThunk(
+    "resourceCategories/fetchResourceCategories",
+    async (_, thunkConfig) => {
+
+        try {
+
+            const response = await axiosInstance.get(
+
+                `${deploilyApiUrls.RESOURCE_CATEGORY_URL}`,
+                {
+
+                }
+            );
+            if (response.status == 200) {
+                return response.data;
+            } else {
+                return thunkConfig.rejectWithValue("error");
             }
         } catch (error: any) {
             return thunkConfig.rejectWithValue(error.message);

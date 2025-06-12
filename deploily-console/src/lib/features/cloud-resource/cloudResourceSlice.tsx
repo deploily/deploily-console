@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CloudResourceResponse, MyResourcesList, ResourceInterface } from "./cloudResourceInterface";
-import { fetchCloudResources, getMyResources, getResourceById, postAffiliation } from "./cloudResourceThunks";
+import { CloudResourceResponse, Filter, MyResourcesList, ProvidersListResponse, ResourceCategoriesResponse, ResourceInterface } from "./cloudResourceInterface";
+import { fetchCloudResources, fetchResourceCategories, getMyResources, getProvidersList, getResourceById, postAffiliation } from "./cloudResourceThunks";
 
 interface CloudResourceState {
     cloudResourceResponse?: CloudResourceResponse;
+    providersListResponse?: ProvidersListResponse;
     myResourcesResponse?: MyResourcesList[];
     isLoading: boolean;
     cloudResourceLoadingError?: any;
@@ -12,6 +13,9 @@ interface CloudResourceState {
     isAffiliationCreatedSuccess: boolean;
     isAffiliationCreatedFailed: boolean;
     searchValue?: string;
+    filter?: Filter;
+    resourceCategoriesResponse?: ResourceCategoriesResponse;
+
 
 
 }
@@ -26,6 +30,8 @@ const initialState: CloudResourceState = {
     isAffiliationCreatedSuccess: false,
     isAffiliationCreatedFailed: false,
     searchValue: "",
+    filter: {},
+    resourceCategoriesResponse: undefined,
 
 };
 const CloudResourceSlice = createSlice({
@@ -35,6 +41,9 @@ const CloudResourceSlice = createSlice({
         updateCloudResourcesSearchValue: (state, action: PayloadAction<string>) => {
             state.searchValue = action.payload;
         },
+        updateResourceFilter: (state, action: PayloadAction<Filter>) => {
+            state.filter = action.payload;
+        }
     },
 
     extraReducers: (builder) => {
@@ -109,10 +118,41 @@ const CloudResourceSlice = createSlice({
                 state.isLoading = false;
                 state.myResourcesResponse = action.payload;
                 state.cloudResourceLoadingError = false;
+            })
+
+
+            .addCase(getProvidersList.pending, (state) => {
+                state.isLoading = true;
+                state.providersListResponse = undefined;
+                state.cloudResourceLoadingError = false;
+            })
+            .addCase(getProvidersList.rejected, (state) => {
+                state.isLoading = false;
+                state.cloudResourceLoadingError = true;
+                state.providersListResponse = undefined;
+            })
+            .addCase(getProvidersList.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.providersListResponse = action.payload;
+                state.cloudResourceLoadingError = false;
+            })
+
+            .addCase(fetchResourceCategories.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(fetchResourceCategories.fulfilled, (state, action) => {
+
+                state.isLoading = false;
+                state.resourceCategoriesResponse = action.payload;
+            })
+            .addCase(fetchResourceCategories.rejected, (state) => {
+
+                state.isLoading = false;
+                state.cloudResourceLoadingError = true;
             });
     },
 });
 
-export const { updateCloudResourcesSearchValue } = CloudResourceSlice.actions;
+export const { updateCloudResourcesSearchValue, updateResourceFilter } = CloudResourceSlice.actions;
 
 export default CloudResourceSlice.reducer;

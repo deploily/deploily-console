@@ -32,5 +32,6 @@ export const deploilyApiUrls = {
   PROVIDER_URL: `${API_BASE_URL}/service-ressource-providers/`,
   CREATE_AFFILIATION_URL: `${API_BASE_URL}/affiliation/create`,
   AFFILIATION_URL: `${API_BASE_URL}/affiliation/all`,
+  RESOURCE_CATEGORY_URL: `${API_BASE_URL}/ressource-category/all`,
 
 };
