@@ -71,3 +71,33 @@ export interface MyResourcesList {
     total_price: number;
     created_on: string;
 }
+export interface Filter {
+    provider?: number;
+    category?: number;
+}
+
+
+export interface ProvidersListResponse {
+    count: number;
+    description_columns: any;
+    ids: number[];
+    label_columns: any;
+    list_columns: string[];
+    list_title: string;
+    order_columns: string[];
+    result: Provider[];
+}
+
+export interface ResourceCategoriesResponse {
+
+    result: ResourceCategory[];
+}
+
+
+export interface ResourceCategory {
+    id?: number;
+    description?: number;
+    name?: string;
+    short_description?: string;
+    logo?: string;
+}

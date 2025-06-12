@@ -1,15 +1,15 @@
-import { Button, Col, Result, Row, Skeleton, Table } from "antd";
-import Title from "antd/es/typography/Title";
-import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
-import { ArrowRight, Plus } from "@phosphor-icons/react";
-import { useAppDispatch } from "@/lib/hook";
-import { useEffect, useState } from "react";
-import { fetchSupportTicket } from "@/lib/features/support-ticket/supportTicketThunks";
+import { SubscriptionInterface } from "@/lib/features/subscriptions/subscriptionInterface";
 import { SupportTicket } from "@/lib/features/support-ticket/supportTicketInterface";
 import { useSupportTicket } from "@/lib/features/support-ticket/supportTicketSelector";
-import { useRouter } from "next/navigation";
-import { SubscriptionInterface } from "@/lib/features/subscriptions/subscriptionInterface";
+import { fetchSupportTicket } from "@/lib/features/support-ticket/supportTicketThunks";
+import { useAppDispatch } from "@/lib/hook";
 import { CustomBlueRoundedButton } from "@/styles/components/buttonStyle";
+import { ArrowRight, Plus } from "@phosphor-icons/react";
+import { Button, Col, Result, Row, Skeleton, Table } from "antd";
+import Title from "antd/es/typography/Title";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import { supportTicketStatus } from "../utils/supportTicketConst";
 
 export default function SupportTicketListContainer() {
@@ -17,7 +17,7 @@ export default function SupportTicketListContainer() {
     const tSupportTicket = useScopedI18n('supportTicket')
     const translate = useScopedI18n('createSupportTicket')
     const [columns] = useState([]);
-    const { supportTicketList, isLoading,getSupportTicketError } = useSupportTicket()
+    const { supportTicketList, isLoading, getSupportTicketError } = useSupportTicket()
     const router = useRouter();
 
     useEffect(() => {
@@ -26,7 +26,7 @@ export default function SupportTicketListContainer() {
     }, []);
 
     const keysToColumn = () => {
-        const list = ["title", "subscribe", "status", "created_on"]
+        const list = ["title", "subscription", "status", "created_on"]
 
         let columns = list.map((element: any) => {
             if (element === "created_on") {
@@ -48,14 +48,16 @@ export default function SupportTicketListContainer() {
                         </span>
                     ),
                 };
-            else if (element == "subscription")
+            else if (element === "subscription")
                 return {
                     title: tSupportTicket("service"),
                     dataIndex: element,
                     key: element,
-                    render: (subscription: SubscriptionInterface) => (subscription !== undefined && subscription.name),
-
-                }
+                    render: (subscription: SubscriptionInterface | undefined | null) =>
+                        subscription && subscription.name
+                            ? subscription.name
+                            : "__"
+                };
             else
                 return {
                     title: tSupportTicket(element),
@@ -114,17 +116,16 @@ export default function SupportTicketListContainer() {
             render: () => <Skeleton.Input active={true} />,
         }));
     const t = useI18n();
-        
     return (
         <>
-             {!isLoading && getSupportTicketError &&
-                        <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
-                          <Result
-                            status="500"
-                            title={t('error')}
-                            subTitle={t('subTitleError')}
-                          />
-                        </div>
+            {!isLoading && getSupportTicketError &&
+                <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+                    <Result
+                        status="500"
+                        title={t('error')}
+                        subTitle={t('subTitleError')}
+                    />
+                </div>
             }
             <Row gutter={16} style={{ marginTop: 20 }} >
                 <Col span={14}>

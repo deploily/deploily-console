@@ -6,14 +6,14 @@ import TextArea from "antd/es/input/TextArea";
 import Title from "antd/es/typography/Title";
 import { useScopedI18n } from "../../../../../../../../locales/client";
 
-import { useEffect } from 'react';
-import { useAppDispatch } from "@/lib/hook";
-import { fetchSubscription } from "@/lib/features/subscriptions/subscriptionThunks";
-import { useSubscription } from "@/lib/features/subscriptions/subscriptionSelectors";
 import { SubscriptionInterface } from "@/lib/features/subscriptions/subscriptionInterface";
-import { postSupportTicket } from "@/lib/features/support-ticket/supportTicketThunks";
+import { useSubscription } from "@/lib/features/subscriptions/subscriptionSelectors";
+import { fetchSubscription } from "@/lib/features/subscriptions/subscriptionThunks";
 import { useSupportTicket } from "@/lib/features/support-ticket/supportTicketSelector";
+import { postSupportTicket } from "@/lib/features/support-ticket/supportTicketThunks";
+import { useAppDispatch } from "@/lib/hook";
 import { useRouter } from "next/navigation";
+import { useEffect } from 'react';
 const { Option } = Select;
 
 export default function CreateSupportTicket() {
@@ -43,7 +43,7 @@ export default function CreateSupportTicket() {
     }, [addSupportTicketSuccess, addSupportTicketError]);
     const onFinish = (values: any) => {
         dispatch(postSupportTicket({
-            subscribe_id: values.subscription,//TODO CHANGE TO subscription_id
+            subscription_id: values.subscription,
             title: values.subject,
             description: values.description,
             status: "open"
