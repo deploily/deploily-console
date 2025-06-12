@@ -1,6 +1,5 @@
 "use client";
 import { ApplicationServiceInterface } from "@/lib/features/application/applicationServiceInterface";
-import { useApplicationService } from "@/lib/features/application/applicationServiceSelectors";
 import { fetchApplicationServices } from "@/lib/features/application/applicationServiceThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { Row } from "antd";
@@ -8,9 +7,10 @@ import { useEffect } from "react";
 import ApplicationServiceCard from "./applicationServiceCard";
 import HomeCarousel from "../../components/homeCarousel";
 import { Button } from "deploily-ui-components";
+import { useApplicationServicesList } from "@/lib/features/application/applicationServiceSelectors";
 
 export default function ApplicationServiceContainer() {
-  const { isLoading, applicationServiceResponse } = useApplicationService();
+  const { isLoading, applicationServicesList } = useApplicationServicesList();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -38,8 +38,8 @@ export default function ApplicationServiceContainer() {
       </Row>
  <div style={{ position: 'relative', padding: '0 2rem' }}>
         <HomeCarousel>
-      {!isLoading && applicationServiceResponse !== undefined && 
-          applicationServiceResponse?.result?.map((row: ApplicationServiceInterface,index) => (
+          {!isLoading && applicationServicesList !== undefined && 
+            applicationServicesList?.result?.map((row: ApplicationServiceInterface,index) => (
             <div
               key={index}
               style={{
