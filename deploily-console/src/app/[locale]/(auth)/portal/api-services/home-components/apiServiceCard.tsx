@@ -32,6 +32,7 @@ export default function ApiServiceCard({ service }: { service: ApiServiceInterfa
         marginRight: 16,
       }}
       bodyStyle={{ padding: 16, height: "100%" }}
+      onClick={() => router.push(`/portal/api-services/${service.id}`)}
     >
       <div style={{ height: "100%" }}>
         <Row align="middle" gutter={16} style={{ height: "40%" }}>

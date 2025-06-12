@@ -9,23 +9,26 @@ import {
 import { fetchCloudResources, fetchResourceCategories, getProvidersList } from "@/lib/features/cloud-resource/cloudResourceThunks";
 import { useFavoriteServices } from "@/lib/features/favorites/favoriteServiceSelectors";
 import { useAppDispatch } from "@/lib/hook";
+import { DownOutlined, HomeOutlined } from '@ant-design/icons';
+import { MagnifyingGlass } from "@phosphor-icons/react";
+import { Card, Col, Input, Pagination, Result, Row, Select, Space } from "antd";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import CloudResourceCard from "../home-components/cloudResourceCard";
-
-import { DownOutlined } from '@ant-design/icons';
-import { MagnifyingGlass } from "@phosphor-icons/react";
-import { Card, Col, Input, Pagination, Result, Row, Select, Space } from "antd";
 
 export default function AllCloudResourcesContainer() {
     // ===== Hooks =====
     const dispatch = useAppDispatch();
     const tServiceApi = useScopedI18n("serviceApi");
     const t = useI18n();
+    const router = useRouter();
 
     // ===== Local State =====
     const [searchTerm, setSearchTerm] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
+    const [hover, setHover] = useState(false);
+
     const itemsPerPage = 6;
 
     // ===== Redux Selectors =====
@@ -48,6 +51,7 @@ export default function AllCloudResourcesContainer() {
     };
 
     // ===== Effects =====
+
     useEffect(() => {
         dispatch(fetchResourceCategories());
         dispatch(fetchCloudResources(10));
@@ -56,7 +60,7 @@ export default function AllCloudResourcesContainer() {
     }, [favoriteServiceAdded, favoriteServiceDeleted]);
 
     useEffect(() => {
-
+        sessionStorage.setItem("fromPage", "seeAll");
         const delayDebounceFn = setTimeout(() => {
             dispatch(updateCloudResourcesSearchValue(searchTerm));
             dispatch(fetchCloudResources(10));
@@ -76,6 +80,12 @@ export default function AllCloudResourcesContainer() {
                     <Row>
                         <Col span={24} style={{ marginBottom: 12 }}>
                             <span style={{ color: "white", fontSize: "24px", fontWeight: 800, }}>
+                                <HomeOutlined
+                                    style={{ cursor: 'pointer', color: hover ? "orange" : 'white', }}
+                                    onClick={() => router.back()}
+                                    onMouseEnter={() => setHover(true)}
+                                    onMouseLeave={() => setHover(false)}
+                                /> / {"\t"}
                                 {t("cloudResources")}
                             </span>
                         </Col>
@@ -172,7 +182,8 @@ export default function AllCloudResourcesContainer() {
                             xl={6}
                             style={{ display: "flex", justifyContent: "center" }}
                         >
-                            <CloudResourceCard resource={row} />
+
+                            <CloudResourceCard resource={row} from={"seeAll"} />
                         </Col>
                     ))}
             </Row>

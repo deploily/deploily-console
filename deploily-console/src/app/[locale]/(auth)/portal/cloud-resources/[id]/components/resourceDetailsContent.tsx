@@ -10,15 +10,18 @@ import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThank
 import { useAppDispatch } from "@/lib/hook";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { theme } from "@/styles/theme";
+import { HomeOutlined } from '@ant-design/icons';
 import { CaretDown, CaretUp, HeartStraight } from "@phosphor-icons/react";
 import { Badge, Button, Card, Col, Collapse, Result, Row, Skeleton, Space, Typography } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useI18n } from "../../../../../../../../locales/client";
 import AffiliationDrawer from "./affilitationDrawer";
 import { getResourceItems } from "./getResourceItems";
 import RessourcePlanCard from "./ressourcePlanCard";
+
 
 export default function ResourceDetailsContentPage({ resource_id }: { resource_id: string }) {
     const dispatch = useAppDispatch();
@@ -27,12 +30,18 @@ export default function ResourceDetailsContentPage({ resource_id }: { resource_i
     const [openDrawer, setOpenDrawer] = useState(false);
     const [planSelected, setSelectedPlan] = useState(undefined);
     const { currentResource, isLoading, cloudResourceLoadingError } = useCloudResource();
-    const { servicePlanResponse, servicePlanLoading, servicePlanError } = useServicePlan()
-    const { favoriteServiceAdded, favoriteServiceDeleted } = useFavoriteServices()
+    const { servicePlanResponse, servicePlanLoading, servicePlanError } = useServicePlan();
+    const { favoriteServiceAdded, favoriteServiceDeleted } = useFavoriteServices();
+    const [hover, setHover] = useState(false);
+    const router = useRouter();
+    const [fromPage, setFromPage] = useState<"seeAll" | "home" | null>(null);
+
+
 
     const handleFavoriteService = (resource_id: number) => {
         dispatch(postFavoriteService({ "service_id": resource_id }));
     }
+
     useEffect(() => {
         dispatch(getResourceById(resource_id));
         dispatch(fetchServicePlans(resource_id));
@@ -49,10 +58,40 @@ export default function ResourceDetailsContentPage({ resource_id }: { resource_i
         setOpenDrawer(false);
     };
 
+    useEffect(() => {
+        const storedFrom = sessionStorage.getItem("fromPage");
+        console.log("Stored from page:", storedFrom);
+
+        if (storedFrom === "home" || storedFrom === "seeAll") {
+            setFromPage(storedFrom);
+        }
+    }, []);
+
     return (
         <>
             <Space direction="vertical" size="large"
                 style={{ paddingInline: 40, marginBlock: 10, width: "100%", marginBottom: 50, paddingTop: 20 }}>
+                <Col xs={24} sm={24} md={24} lg={12}>
+                    <Row>
+                        <Col span={24} style={{ marginBottom: 12 }}>
+                            <span style={{ color: "white", fontSize: "24px", fontWeight: 800, }}>
+                                <span
+                                    style={{ cursor: "pointer", color: hover ? "orange" : "white" }}
+                                    onClick={() => router.back()}
+                                    onMouseEnter={() => setHover(true)}
+                                    onMouseLeave={() => setHover(false)}
+                                >
+                                    {fromPage === "home" ? (
+                                        <HomeOutlined style={{ marginRight: 4 }} />
+                                    ) : (
+                                        t("seeAll")
+                                    )}
+                                </span> / {"\t"}
+                                {t("details")}
+                            </span>
+                        </Col>
+                    </Row>
+                </Col>
                 {isLoading && currentResource === undefined &&
                     <>
                         <Skeleton.Image active />
@@ -106,7 +145,7 @@ export default function ResourceDetailsContentPage({ resource_id }: { resource_i
                                     {currentResource.name}
                                 </Typography.Title>
                                 <Typography.Title level={4} style={{ color: theme.token.orange400, margin: 0 }}>
-                                {currentResource.unit_price != undefined ? (Intl.NumberFormat('fr-FR', { useGrouping: true }).format(currentResource.unit_price) + " DZD") : t('affiliation.onDemand')}
+                                    {currentResource.unit_price != undefined ? (Intl.NumberFormat('fr-FR', { useGrouping: true }).format(currentResource.unit_price) + " DZD") : t('affiliation.onDemand')}
                                 </Typography.Title>
                             </Col>
                         </Row>

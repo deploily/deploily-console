@@ -31,6 +31,9 @@ export default function CloudResourceCard({ resource }: any) {
                 marginRight: 16,
             }}
             bodyStyle={{ padding: 16, height: "100%" }}
+            onClick={() => {
+                router.push(`/portal/cloud-resources/${resource.id}`);
+            }}
         >
             <div style={{ height: "280px" }}>
                 {/* Header */}
