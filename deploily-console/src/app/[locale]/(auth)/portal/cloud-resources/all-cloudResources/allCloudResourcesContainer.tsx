@@ -1,34 +1,62 @@
 "use client";
-import { CloudResourceInterface } from "@/lib/features/cloud-resource/cloudResourceInterface";
+
+import { CloudResourceInterface, Filter } from "@/lib/features/cloud-resource/cloudResourceInterface";
 import { useCloudResource } from "@/lib/features/cloud-resource/cloudResourceSelectors";
-import { updateCloudResourcesSearchValue } from "@/lib/features/cloud-resource/cloudResourceSlice";
-import { fetchCloudResources } from "@/lib/features/cloud-resource/cloudResourceThunks";
+import {
+    updateCloudResourcesSearchValue,
+    updateResourceFilter,
+} from "@/lib/features/cloud-resource/cloudResourceSlice";
+import { fetchCloudResources, fetchResourceCategories, getProvidersList } from "@/lib/features/cloud-resource/cloudResourceThunks";
 import { useFavoriteServices } from "@/lib/features/favorites/favoriteServiceSelectors";
 import { useAppDispatch } from "@/lib/hook";
-import { MagnifyingGlass } from "@phosphor-icons/react";
-import { Card, Col, Input, Pagination, Result, Row, Space } from "antd";
 import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import CloudResourceCard from "../home-components/cloudResourceCard";
 
+import { DownOutlined } from '@ant-design/icons';
+import { MagnifyingGlass } from "@phosphor-icons/react";
+import { Card, Col, Input, Pagination, Result, Row, Select, Space } from "antd";
+
 export default function AllCloudResourcesContainer() {
-    const [searchTerm, setSearchTerm] = useState("");
+    // ===== Hooks =====
+    const dispatch = useAppDispatch();
     const tServiceApi = useScopedI18n("serviceApi");
     const t = useI18n();
-    const dispatch = useAppDispatch();
 
-    const { isLoading, cloudResourceResponse, cloudResourceLoadingError } = useCloudResource();
-
-    const resources = cloudResourceResponse?.result || [];
-    const { favoriteServiceAdded, favoriteServiceDeleted } = useFavoriteServices()
-
+    // ===== Local State =====
+    const [searchTerm, setSearchTerm] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 6;
-    useEffect(() => {
+
+    // ===== Redux Selectors =====
+    const { isLoading, cloudResourceResponse, cloudResourceLoadingError, filter, providersListResponse, resourceCategoriesResponse } = useCloudResource();
+    const { favoriteServiceAdded, favoriteServiceDeleted } = useFavoriteServices();
+
+    // ===== Data =====
+    const resources = cloudResourceResponse?.result || [];
+
+    // ===== Handlers =====
+    const handleChange = (value: string | number | null, field: keyof Filter) => {
+
+        const updatedFilter = {
+            ...filter,
+            [field]: value ? value.toString() : undefined,
+        };
+
+        dispatch(updateResourceFilter(updatedFilter));
         dispatch(fetchCloudResources(10));
+    };
+
+    // ===== Effects =====
+    useEffect(() => {
+        dispatch(fetchResourceCategories());
+        dispatch(fetchCloudResources(10));
+        dispatch(getProvidersList());
+
     }, [favoriteServiceAdded, favoriteServiceDeleted]);
 
     useEffect(() => {
+
         const delayDebounceFn = setTimeout(() => {
             dispatch(updateCloudResourcesSearchValue(searchTerm));
             dispatch(fetchCloudResources(10));
@@ -36,32 +64,95 @@ export default function AllCloudResourcesContainer() {
 
         return () => clearTimeout(delayDebounceFn);
     }, [searchTerm, dispatch]);
+
+    // ===== Render =====
+
     return (
         <Space direction="vertical" size="middle" style={{ display: "flex", paddingTop: 15 }}>
+
+            {/* Title */}
             <Row justify="space-between" align="middle" style={{ padding: "0 20px" }}>
-                <span style={{ color: "white", fontSize: "24px", fontWeight: 800 }}>
-                    {t("cloudResources")}
-                </span>
+                <Col xs={24} sm={24} md={24} lg={12}>
+                    <Row>
+                        <Col span={24} style={{ marginBottom: 12 }}>
+                            <span style={{ color: "white", fontSize: "24px", fontWeight: 800, }}>
+                                {t("cloudResources")}
+                            </span>
+                        </Col>
+                    </Row>
+                </Col>
 
-                {/* Search and Filter */}
-                <Space>
-                    <Input
-                        placeholder={tServiceApi("search")}
-                        allowClear
-                        prefix={<MagnifyingGlass style={{ color: "#8c8c8c" }} />}
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        style={{
-                            backgroundColor: "#1f1f1f",
-                            color: "#fff",
-                            border: "1px solid #333",
-                            borderRadius: "6px",
-                            width: 220,
-                        }}
-                    />
+                <Col xs={24} sm={24} md={24} lg={12}>
 
+                    <Row gutter={[16, 16]}>
+                        <Col xs={24} sm={24} md={24} lg={10}>
+                            <Input
+                                placeholder={tServiceApi("search")}
+                                allowClear
+                                prefix={<MagnifyingGlass style={{ color: "#8c8c8c" }} />}
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                style={{
+                                    backgroundColor: "#1f1f1f",
+                                    color: "#fff",
+                                    border: "1px solid #333",
+                                    borderRadius: "6px",
 
-                </Space>
+                                }}
+                            />
+                        </Col>
+
+                        <Col xs={24} sm={12} md={12} lg={7}>
+                            <Select
+                                allowClear
+                                onChange={(value) => handleChange(value, "category")}
+                                options={resourceCategoriesResponse && resourceCategoriesResponse.result.map((provider) => ({
+                                    value: provider.id,
+                                    label: provider.name,
+                                }))}
+                                placeholder="Select Category"
+                                suffixIcon={<DownOutlined style={{ color: 'orange' }} />}
+                                style={{
+                                    width: '100%',
+                                    color: 'white',
+                                    backgroundColor: '#1e1e1e',
+                                    border: '2px solid #FF6600',
+                                    borderRadius: '10px',
+                                }}
+                                dropdownStyle={{
+                                    backgroundColor: '#1e1e1e',
+                                    color: 'white',
+                                }}
+                            />
+                        </Col>
+
+                        <Col xs={24} sm={12} md={12} lg={7}>
+                            <Select
+                                allowClear
+
+                                onChange={(value) => handleChange(value, "provider")}
+                                options={providersListResponse && providersListResponse.result.map((provider) => ({
+                                    value: provider.id,
+                                    label: provider.name,
+                                }))}
+                                placeholder="Select Provider"
+                                suffixIcon={<DownOutlined style={{ color: 'orange' }} />}
+                                style={{
+                                    width: '100%',
+                                    color: 'white',
+                                    backgroundColor: '#1e1e1e',
+                                    border: '2px solid #FF6600',
+                                    borderRadius: '10px',
+                                }}
+                                dropdownStyle={{
+                                    backgroundColor: '#1e1e1e',
+                                    color: 'white',
+                                }}
+                                optionLabelProp="label"
+                            />
+                        </Col>
+                    </Row>
+                </Col>
             </Row>
             <Row gutter={[24, 24]} justify="start" style={{ margin: 0 }}>
                 {isLoading && resources.length === 0 && (

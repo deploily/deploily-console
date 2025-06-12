@@ -22,7 +22,7 @@ export default function AllApiServiceContainer() {
   const itemsPerPage = 6;
   const [searchTerm, setSearchTerm] = useState("");
   const services = apiServiceResponse?.result || [];
-  const { favoriteServiceAdded, favoriteServiceDeleted } = useFavoriteServices()
+  const { favoriteServiceAdded, favoriteServiceDeleted } = useFavoriteServices();
 
   useEffect(() => {
     dispatch(fetchApiServices(10));
