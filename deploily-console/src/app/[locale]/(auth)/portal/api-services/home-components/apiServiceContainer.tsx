@@ -8,18 +8,20 @@ import { Button, Card, Col, Result, Row, Space } from 'antd';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useI18n } from '../../../../../../../locales/client';
-import ApiServiceCard from './apiServiceCard';
 import HomeCarousel from '../../components/homeCarousel';
+import ApiServiceCard from './apiServiceCard';
 
 export default function ApiServiceContainer() {
   const router = useRouter();
   const t = useI18n();
 
-  const { apiServiceResponse,isLoadingServiceResponse,apiServiceLoadingError } = useApiServices();
+  const { apiServiceResponse, isLoadingServiceResponse, apiServiceLoadingError } = useApiServices();
   const dispatch = useAppDispatch();
   const { favoriteServiceAdded, favoriteServiceDeleted } = useFavoriteServices()
 
   useEffect(() => {
+    sessionStorage.setItem("fromPage", "home");
+
     dispatch(fetchApiServices(4));
   }, [favoriteServiceAdded, favoriteServiceDeleted])
 
