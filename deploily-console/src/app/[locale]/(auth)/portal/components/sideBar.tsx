@@ -35,9 +35,17 @@ export function MainSideBar() {
       icon: <User size={24} />,
     },
     {
+
       key: "logout",
-      label: <span onClick={() => federatedLogout()}>{scopedSidebar("logout")}</span>,
-      icon: <SignOut size={24} />,
+      label: (
+        <div
+          onClick={() => federatedLogout()}
+          style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer" }}
+        >
+          <SignOut size={24} />
+          <span>{scopedSidebar("logout")}</span>
+        </div>
+      ),
     },
   ]
 
@@ -140,8 +148,15 @@ export function MainSideBarMobile() {
     },
     {
       key: "logout",
-      label: <span onClick={() => federatedLogout()}>{scopedSidebar("logout")}</span>,
-      icon: <SignOut size={24} />,
+      label: (
+        <div
+          onClick={() => federatedLogout()}
+          style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer" }}
+        >
+          <SignOut size={24} />
+          <span>{scopedSidebar("logout")}</span>
+        </div>
+      ),
     },
   ]
 
