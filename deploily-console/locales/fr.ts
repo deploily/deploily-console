@@ -221,7 +221,7 @@ export default {
   "affiliation.price": "Prix ",
   "affiliation.month": "Mois",
   "affiliation.userName": "Nom",
-  "affiliation.confirmAffiliation": "J'accepte de partager mes informations avec {providerName} :",
+  "affiliation.confirmAffiliation": "J'accepte de partager mes informations avec le fournisseur {providerName} afin d'avoir une remise",
   // "affiliation.confirmAffiliation": "Je confirme que j'accepte de partager mes données personnelles (nom, e-mail) avec les partenaires de confiance de Deploily dans le but de fournir des services pertinents.",
   "affiliation.iAgree": "J'accepte",
   "affiliation.orderResource": "Commander la ressource",

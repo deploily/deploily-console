@@ -49,6 +49,7 @@ export default function AllCloudResourcesContainer() {
             ...prevFilter,
             [field]: value === null ? undefined : field === "searchTerm" ? String(value) : Number(value),
         }));
+
     };
 
     // ===== Effects =====
@@ -58,6 +59,7 @@ export default function AllCloudResourcesContainer() {
 
         dispatch(fetchResourceCategories());
         dispatch(fetchCloudResources({ limit: 50 }));
+
         dispatch(getProvidersList());
 
     }, [favoriteServiceAdded, favoriteServiceDeleted]);
@@ -65,6 +67,7 @@ export default function AllCloudResourcesContainer() {
     useEffect(() => {
         dispatch(fetchCloudResources(filterParams));
     }, [filterParams, dispatch]);
+
 
     // ===== Render =====
 
