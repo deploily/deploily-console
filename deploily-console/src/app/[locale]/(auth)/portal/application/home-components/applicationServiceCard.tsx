@@ -1,10 +1,13 @@
 "use client";
 
-import { HeartStraight } from "@phosphor-icons/react";
-import { Card, Col, Row, Image, Badge, Button, Space } from "antd";
+import { theme } from "@/styles/theme";
+import { ArrowRight, HeartStraight } from "@phosphor-icons/react";
+import { Badge, Button, Card, Col, Image, Row, Space } from "antd";
 import Meta from "antd/es/card/Meta";
+import { useRouter } from "next/navigation";
 
 export default function ApplicationServiceCard({ data }: any) {
+    const router = useRouter();
 
     return (
         <Card
@@ -107,7 +110,7 @@ export default function ApplicationServiceCard({ data }: any) {
 
             {/* Details Button */}
             <Space style={{ position: "absolute", bottom: 16, right: 16 }}>
-                {/* <Button
+                <Button
                     style={{
                         color: "#fff",
                         border: "none",
@@ -116,6 +119,11 @@ export default function ApplicationServiceCard({ data }: any) {
                         background: "transparent",
                         display: "flex",
                         alignItems: "center",
+
+                    }}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        router.push(`/portal/application/${data.id}`);
                     }}
                 >
                     <span
@@ -128,7 +136,9 @@ export default function ApplicationServiceCard({ data }: any) {
 
                         }}
                     >
-                        {t("details")}
+                        {/* //TODO ADD TRANSLATION */}
+                        {"details"}
+
                     </span>
                     <ArrowRight
                         size={20}
@@ -137,7 +147,7 @@ export default function ApplicationServiceCard({ data }: any) {
                             transition: "color 0.3s ease",
                         }}
                     />
-                </Button> */}
+                </Button>
             </Space>
         </Card>
     );
