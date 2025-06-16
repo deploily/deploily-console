@@ -47,14 +47,14 @@ export default function AllCloudResourcesContainer() {
         };
 
         dispatch(updateResourceFilter(updatedFilter));
-        dispatch(fetchCloudResources(10));
+        dispatch(fetchCloudResources(50));
     };
 
     // ===== Effects =====
 
     useEffect(() => {
         dispatch(fetchResourceCategories());
-        dispatch(fetchCloudResources(10));
+        dispatch(fetchCloudResources(50));
         dispatch(getProvidersList());
 
     }, [favoriteServiceAdded, favoriteServiceDeleted]);
@@ -63,7 +63,7 @@ export default function AllCloudResourcesContainer() {
         sessionStorage.setItem("fromPage", "seeAll");
         const delayDebounceFn = setTimeout(() => {
             dispatch(updateCloudResourcesSearchValue(searchTerm));
-            dispatch(fetchCloudResources(10));
+            dispatch(fetchCloudResources(50));
         }, 800);
 
         return () => clearTimeout(delayDebounceFn);
