@@ -1,20 +1,20 @@
 'use client';
 import { ApplicationDescription } from 'deploily-ui-components';
+import React from 'react';
 
-export default function ApplicationDescriptionContainer() {
-    const applicationInfo = {
-        title: `TTK Epay`,
-        avatar: `https://api.dicebear.com/7.x/miniavs/svg?seed=1`,
-        description:
-            'TTK epay is a payment gateway that allows you to accept payments online.'
-    }
-
+export default function ApplicationDescriptionContainer({ title,
+    description,
+    logo, }: {
+        title: string;
+        description: string;
+        logo: React.ReactNode;
+    }) {
     return (
         <div style={{ padding: 24 }}>
             <ApplicationDescription
-                title={applicationInfo.title}
-                description={applicationInfo.description}
-                logo={applicationInfo.avatar}
+                title={title}
+                description={description}
+                avatar={logo}
             />
         </div>
     );
