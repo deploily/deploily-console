@@ -2,10 +2,6 @@
 
 import { CloudResourceInterface, Filter } from "@/lib/features/cloud-resource/cloudResourceInterface";
 import { useCloudResource } from "@/lib/features/cloud-resource/cloudResourceSelectors";
-import {
-    updateCloudResourcesSearchValue,
-    updateResourceFilter,
-} from "@/lib/features/cloud-resource/cloudResourceSlice";
 import { fetchCloudResources, fetchResourceCategories, getProvidersList } from "@/lib/features/cloud-resource/cloudResourceThunks";
 import { useFavoriteServices } from "@/lib/features/favorites/favoriteServiceSelectors";
 import { useAppDispatch } from "@/lib/hook";
@@ -25,49 +21,50 @@ export default function AllCloudResourcesContainer() {
     const router = useRouter();
 
     // ===== Local State =====
-    const [searchTerm, setSearchTerm] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [hover, setHover] = useState(false);
+    const [filterParams, setFilter] = useState(
+        {
+            limit: 50,
+            provider: undefined,
+            category: undefined,
+            searchTerm: "",
+        },
+    );
+
 
     const itemsPerPage = 6;
 
     // ===== Redux Selectors =====
-    const { isLoading, cloudResourceResponse, cloudResourceLoadingError, filter, providersListResponse, resourceCategoriesResponse } = useCloudResource();
+    const { isLoading, cloudResourceResponse, cloudResourceLoadingError, providersListResponse, resourceCategoriesResponse } = useCloudResource();
     const { favoriteServiceAdded, favoriteServiceDeleted } = useFavoriteServices();
 
     // ===== Data =====
     const resources = cloudResourceResponse?.result || [];
 
+
     // ===== Handlers =====
     const handleChange = (value: string | number | null, field: keyof Filter) => {
-
-        const updatedFilter = {
-            ...filter,
-            [field]: value ? value.toString() : undefined,
-        };
-
-        dispatch(updateResourceFilter(updatedFilter));
-        dispatch(fetchCloudResources(10));
+        setFilter((prevFilter) => ({
+            ...prevFilter,
+            [field]: value === null ? undefined : field === "searchTerm" ? String(value) : Number(value),
+        }));
     };
 
     // ===== Effects =====
 
     useEffect(() => {
+        sessionStorage.setItem("fromPage", "seeAll");
+
         dispatch(fetchResourceCategories());
-        dispatch(fetchCloudResources(10));
+        dispatch(fetchCloudResources({ limit: 50 }));
         dispatch(getProvidersList());
 
     }, [favoriteServiceAdded, favoriteServiceDeleted]);
 
     useEffect(() => {
-        sessionStorage.setItem("fromPage", "seeAll");
-        const delayDebounceFn = setTimeout(() => {
-            dispatch(updateCloudResourcesSearchValue(searchTerm));
-            dispatch(fetchCloudResources(10));
-        }, 800);
-
-        return () => clearTimeout(delayDebounceFn);
-    }, [searchTerm, dispatch]);
+        dispatch(fetchCloudResources(filterParams));
+    }, [filterParams, dispatch]);
 
     // ===== Render =====
 
@@ -100,8 +97,8 @@ export default function AllCloudResourcesContainer() {
                                 placeholder={tServiceApi("search")}
                                 allowClear
                                 prefix={<MagnifyingGlass style={{ color: "#8c8c8c" }} />}
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
+                                value={filterParams.searchTerm}
+                                onChange={(e) => handleChange(e.target.value, "searchTerm")}
                                 style={{
                                     backgroundColor: "#1f1f1f",
                                     color: "#fff",

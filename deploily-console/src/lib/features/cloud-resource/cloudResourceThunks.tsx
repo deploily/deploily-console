@@ -1,16 +1,15 @@
 import axiosInstance from "@/app/api/axios-instance";
 import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
-import { RootState } from "@/lib/store";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getSession } from "next-auth/react";
+import { Filter } from "./cloudResourceInterface";
 export const fetchCloudResources = createAsyncThunk(
     "cloudresources/getcloudresources",
-    async (limit: number, thunkConfig) => {
-        const state = thunkConfig.getState() as RootState;
+    async (filterParams: Filter, thunkConfig) => {
 
-        const searchValue = state.cloudResource.searchValue?.trim();
-        const providerFilterValue = state.cloudResource.filter?.provider;
-        const categoryFilterValue = state.cloudResource.filter?.category;
+        const searchValue = filterParams.searchTerm;
+        const providerFilterValue = filterParams.provider;
+        const categoryFilterValue = filterParams.category;
 
         const filters = [];
 
@@ -27,7 +26,7 @@ export const fetchCloudResources = createAsyncThunk(
         }
 
         const filterQuery = `filters:!(${filters.join(',')})`;
-        const fullQuery = `(${filterQuery},page_size:${limit})`;
+        const fullQuery = `(${filterQuery},page_size:${filterParams.limit})`;
 
         const query = `?q=${encodeURIComponent(fullQuery)}`;
 

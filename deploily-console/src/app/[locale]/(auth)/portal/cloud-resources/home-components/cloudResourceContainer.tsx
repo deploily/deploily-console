@@ -21,7 +21,7 @@ export default function CloudResourceContainer() {
   useEffect(() => {
     sessionStorage.setItem("fromPage", "home");
 
-    dispatch(fetchCloudResources(4));
+    dispatch(fetchCloudResources({ limit: 4 }));
   }, [favoriteServiceAdded, favoriteServiceDeleted]);
 
   return (
