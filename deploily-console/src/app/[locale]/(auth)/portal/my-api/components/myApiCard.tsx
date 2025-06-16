@@ -7,7 +7,7 @@ import Paragraph from "antd/es/typography/Paragraph";
 import { useRouter } from "next/navigation";
 import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import { subscriptionStatusStyle } from "../utils/subscriptionsConst";
-export default function SubscriptionCard({ data }: { data: SubscriptionInterface }) {
+export default function MyApiCard({ data }: { data: SubscriptionInterface }) {
     const tSubscription = useScopedI18n('subscription');
     const t = useI18n();
     const router = useRouter();

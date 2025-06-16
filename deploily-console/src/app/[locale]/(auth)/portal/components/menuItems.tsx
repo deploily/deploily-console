@@ -42,8 +42,8 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
       {
         key: "1",
         label: (
-          <Link href="/portal/subscriptions">
-            <span style={labelStyle}>{scopedSidebar("myApi")}</span>
+          <Link href="/portal/my-api">
+            <span style={labelStyle}>{scopedSidebar("myApis")}</span>
           </Link>
         ),
       },
@@ -55,14 +55,14 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
           </Link>
         ),
       },
-      // {
-      //   key: "3",
-      //   label: (
-      //     <Link href="/portal/subscriptions">
-      //       <span style={labelStyle}>{scopedSidebar("databases")}</span>
-      //     </Link>
-      //   ),
-      // },
+      {
+        key: "3",
+        label: (
+          <Link href="/portal/my-applications">
+            <span style={labelStyle}>{scopedSidebar("myApplications")}</span>
+          </Link>
+        ),
+      },
       // {
       //   key: "4",
       //   label: (
