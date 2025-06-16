@@ -24,13 +24,11 @@ export default function CardPaymentComponent({ selectedPlan }: { selectedPlan: a
     const dispatch = useAppDispatch();
     const { newSubscriptionResponse } = useSubscription();
     useEffect(() => {
-        console.log("newSubscriptionResponse");
         if (newSubscriptionResponse) {
             if (newSubscriptionResponse.form_url !== null) {
                 redirect(newSubscriptionResponse.form_url);
             } else {
                 // TODO display error in a toast
-                console.log("Error in payment registration");
             }
         }
     }, [newSubscriptionResponse]);
@@ -51,7 +49,6 @@ export default function CardPaymentComponent({ selectedPlan }: { selectedPlan: a
             service_plan_selected_id: selectedPlan.id,
             profile_id: subscriptionStates.selectedProfile != null ? subscriptionStates.selectedProfile.id : 1
         };
-        console.log("newSubscriptionObject CardPaymentComponent", newSubscriptionObject);
 
         dispatch(postSubscription(newSubscriptionObject));
     };

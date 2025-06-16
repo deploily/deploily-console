@@ -26,7 +26,6 @@ export default function BankTransfertComponent({ selectedPlan }: { selectedPlan:
             service_plan_selected_id: selectedPlan.id,
             profile_id: subscriptionStates.selectedProfile != null ? subscriptionStates.selectedProfile.id : 1
         };
-        console.log("newSubscriptionObject BankTransfertComponent", newSubscriptionObject);
         dispatch(postSubscription(newSubscriptionObject)).then((response: any) => {
             if (response.meta.requestStatus === "fulfilled") {
                 router.push(`/portal/subscriptions/`);

@@ -36,7 +36,6 @@ export default function ProfileDetailsContainer({ profile_id }: { profile_id: st
         });
     };
 
-console.log(form.getFieldsValue());
 
     const onClose = () => {
         setOpenDrawer(false);

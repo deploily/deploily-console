@@ -21,7 +21,6 @@ export default function IsBalanceSufficientComponent({ onClose, planSelected }: 
             service_plan_selected_id: planSelected.id,
             profile_id: selectedProfile != null ? selectedProfile.id : 1
         };
-        console.log("newSubscriptionObject IsBalanceSufficientComponent", newSubscriptionObject);
 
         dispatch(postSubscription(newSubscriptionObject)).then((response: any) => {
             if (response.meta.requestStatus === "fulfilled") {

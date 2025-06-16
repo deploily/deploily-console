@@ -46,7 +46,6 @@ export default function FundBalanceByCard({ selectedProfile }: { selectedProfile
                 redirect(newFundBalanceResponse.form_url);
             } else {
                 // TODO display error in a toast
-                console.log("Error in payment registration");
             }
         }
     }, [newFundBalanceResponse]);

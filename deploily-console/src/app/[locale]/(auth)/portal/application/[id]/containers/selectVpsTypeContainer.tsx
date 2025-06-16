@@ -52,7 +52,6 @@ export default function SelectVpsTypeContainer() {
                     )}
                     selectedOption={selectedValues.resourceId ?`${selectedValues.resourceId}`:undefined}
                     onChange={(value) => {dispatch(updateSelectedValues({ resourceId:`${value}`}));
-                    console.log("Selected resource ID:", value);
                 }} />
             }
         </>
