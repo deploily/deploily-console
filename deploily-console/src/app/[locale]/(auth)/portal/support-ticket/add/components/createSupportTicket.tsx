@@ -79,7 +79,7 @@ export default function CreateSupportTicket() {
 
                     >
                         {subscriptionResponse !== undefined ? subscriptionResponse?.result?.map((value: SubscriptionInterface) => (
-                            <Option key={value.id} value={value.id}>{value.name}</Option>
+                            <Option key={value.id} value={value.id}>{value.service_details.name} / {value.name}</Option>
                         )) : null}
 
                     </Select>
