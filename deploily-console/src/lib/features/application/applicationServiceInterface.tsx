@@ -16,7 +16,7 @@ export interface ApplicationServiceInterface {//TODO RECHECK THIS INTERFACE TO C
     name: string;
     price: string;
     description: string;
-    average_rating: string;
+    average_rating: number;
     documentation_url: string;
     image_service: string;
     is_in_favorite: boolean;
@@ -25,7 +25,7 @@ export interface ApplicationServiceInterface {//TODO RECHECK THIS INTERFACE TO C
     recommended_apps: {
         id: number;
     };
-    service_details: string;
+    service_details: string;//TODO RECHECK THIS FIELD 
     short_description: string;
     specifications: string;
     ssh_access: string;
@@ -35,7 +35,7 @@ export interface ApplicationServiceInterface {//TODO RECHECK THIS INTERFACE TO C
 
 export interface NewApplicationSubscriptionState {//TODO RECHECK THIS INTERFACE TO CONFORM TO THE API RESPONSE
     duration: number;
-    price?: number;
+    price: number;
     resource_service_plan_id?: number;
     service_plan_selected_id?: number;
     totalAmount: number,

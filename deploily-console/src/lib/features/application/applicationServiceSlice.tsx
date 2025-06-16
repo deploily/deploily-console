@@ -6,7 +6,6 @@ interface ApplicationServiceState {
     applicationServices: ApplicationServicesState;
     applicationServicesById: ApplicationServiceByIdState;
     newAppSubscriptionState: NewApplicationSubscriptionState;
-
 }
 
 const initialState: ApplicationServiceState = {
@@ -35,7 +34,7 @@ const ApplicationServiceSlice = createSlice({
     name: "applicationService",
     initialState,
     reducers: {
-        updateApiServiceSearchValue: (state, action: PayloadAction<any>) => {
+        updateNewAppSubscriptionState: (state, action: PayloadAction<any>) => {
             //TODO : RECHECK THIS FUNCTION & ADD RESOURCE PALN PRICE TO THE PRICE CALCULATION
             let updatedState = { ...state.newAppSubscriptionState, ...action.payload }
             const updatedAmount = updatedState.duration * updatedState.price
@@ -49,6 +48,8 @@ const ApplicationServiceSlice = createSlice({
                 }
             }
             state.newAppSubscriptionState = updatedState;
+            console.log(state.newAppSubscriptionState);
+
             return state;
         },
 
@@ -77,7 +78,7 @@ const ApplicationServiceSlice = createSlice({
             .addCase(fetchApplicationServiceById.fulfilled, (state, action) => {
                 state.applicationServicesById.isLoading = false;
                 state.applicationServicesById.loadingError = null;
-                state.applicationServicesById.applicationServiceById = action.payload;
+                state.applicationServicesById.applicationServiceById = action.payload.result;
             })
             .addCase(fetchApplicationServiceById.rejected, (state, { payload }) => {
                 state.applicationServicesById.isLoading = false;
@@ -86,6 +87,6 @@ const ApplicationServiceSlice = createSlice({
     },
 });
 
-export const { updateApiServiceSearchValue } = ApplicationServiceSlice.actions;
+export const { updateNewAppSubscriptionState } = ApplicationServiceSlice.actions;
 
 export default ApplicationServiceSlice.reducer;
