@@ -15,6 +15,7 @@ import supportTicketSlice from "./features/support-ticket/supportTicketSlice";
 import cloudResourceSlice from "./features/cloud-resource/cloudResourceSlice";
 import applicationServiceSlice from "./features/application/applicationServiceSlice";
 import profileSlice from "./features/profile/profileSlice";
+import myApplicationSlice from "./features/my-applications/myApplicationSlice"
 
 export const makeStore = () => {
   return configureStore({
@@ -34,7 +35,8 @@ export const makeStore = () => {
       applicationService: applicationServiceSlice,
       supportTicketResponses: supportTicketResponsesSlice,
       contactUs: contactUsSlice,
-      profile: profileSlice
+      profile: profileSlice,
+      myApplication: myApplicationSlice,
     },
   });
 };
