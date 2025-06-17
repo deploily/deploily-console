@@ -11,9 +11,7 @@ import ApplicationDetailsCollapseContainer from "./containers/applicationDetails
 import ApplicationPlansContainer from "./containers/applicationPlansContainer";
 import ApplicationDescriptionContainer from "./containers/descriptionContainer";
 import SelectDurationContainer from "./containers/selectDurationContainer";
-import SelectProviderContainer from "./containers/selectProviderContainer";
-import SelectVpsPlanContainer from "./containers/selectVpsPlanContainer";
-import SelectVpsTypeContainer from "./containers/selectVpsTypeContainer";
+import SelectVpsPlanTable from "./containers/selectVpsPlanTable";
 
 export default function ApplicationDetailsPageContent({ applicationId }: { applicationId: any }) {
 
@@ -37,7 +35,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                 loadingError ? <div>Error: {loadingError}</div> :
                     !applicationServiceById ? <div>No application found</div> :
                         <Row style={{ justifyContent: 'center' }} gutter={[16, 16]}>
-                            <Col style={{ justifyContent: 'space-between', alignItems: 'center', paddingTop: '120px' }} span={8}>
+                            <Col style={{ justifyContent: 'space-between', alignItems: 'center', paddingTop: '120px' }} span={10}>
                                 <div style={{ padding: '8px 0' }}>
                                     <MediasCarousel medias={applicationServiceById.medias} />
                                 </div>
@@ -52,9 +50,9 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                         monitoring={applicationServiceById.monitoring} />
                                 </div>
 
-                                {/* <SelectVpsPlanTable /> */}
+                                <SelectVpsPlanTable />
                             </Col>
-                            <Col span={8} >
+                            <Col span={10} >
                                 <div style={{ padding: '8px 0' }}>
                                     <ApplicationDescriptionContainer
                                         title={applicationServiceById.name}
@@ -78,20 +76,10 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                 <div style={{ padding: '8px 0' }}>
                                     <ApplicationPlansContainer />
                                 </div>
-                                <div style={{ padding: '8px 0' }}>
-                                    {/* //TODO : OPTIONSCONTAINER */}
-                                    <SelectProviderContainer />
-                                </div>
-                                <div style={{ padding: '8px 0' }}>
-                                    <SelectVpsTypeContainer />
-                                </div>
-                                <div style={{ padding: '8px 0' }}>
-                                    <SelectVpsPlanContainer />
-                                </div>
                                 {/* //TODO : RECOMENDATIONs CONTAINER */}
 
                             </Col>
-                            <Col span={8} >
+                            <Col span={4} >
                                 <PaymentSideBar 
                                     price={totalAmount}
                                     buttonText={'confirm'}//TODO ADD TRANSLATION

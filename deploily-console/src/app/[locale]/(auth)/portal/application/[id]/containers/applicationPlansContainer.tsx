@@ -26,7 +26,7 @@ export default function ApplicationPlansContainer() {
                                 }))
                             }
                             title={plan.plan.name}
-                            onClick={() => dispatch(updateNewAppSubscriptionState({ service_plan_selected_id: plan.id }))}
+                            onClick={() => dispatch(updateNewAppSubscriptionState({ app_service_plan: plan }))}
                         />
                     </Col>
                 }
