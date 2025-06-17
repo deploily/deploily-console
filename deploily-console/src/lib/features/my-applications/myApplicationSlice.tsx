@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchMyApplications } from "./myApplicationThunks";
-import {  MyApplicationState } from "./myApplicationInterface";
+import { fetchMyApplicationById, fetchMyApplications } from "./myApplicationThunks";
+import { MyApplicationByIdState, MyApplicationState } from "./myApplicationInterface";
 
 interface ApplicationServiceState {
   myApplications: MyApplicationState;
+  myApplicationById: MyApplicationByIdState;
 
 }
 
@@ -13,7 +14,11 @@ const initialState: ApplicationServiceState = {
     isLoading: false,
     loadingError: null,
   },
-  
+  myApplicationById: {
+    myApplicationsById: undefined,
+    isLoading: false,
+    loadingError: null,
+  },
 
 };
 const ApplicationServiceSlice = createSlice({
@@ -38,7 +43,21 @@ const ApplicationServiceSlice = createSlice({
         state.myApplications.isLoading = false;
         state.myApplications.loadingError = payload;
       })
-     
+
+      .addCase(fetchMyApplicationById.pending, (state) => {
+        state.myApplicationById.isLoading = true;
+      })
+      .addCase(fetchMyApplicationById.fulfilled, (state, action) => {
+        state.myApplicationById.isLoading = false;
+        state.myApplicationById.loadingError = null;
+        state.myApplicationById.myApplicationsById = action.payload.result;
+      })
+      .addCase(fetchMyApplicationById.rejected, (state, { payload }) => {
+        state.myApplicationById.isLoading = false;
+        state.myApplicationById.loadingError = payload;
+      });
+
+
   },
 });
 
