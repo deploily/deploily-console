@@ -15,8 +15,8 @@ import supportTicketSlice from "./features/support-ticket/supportTicketSlice";
 import cloudResourceSlice from "./features/cloud-resource/cloudResourceSlice";
 import applicationServiceSlice from "./features/application/applicationServiceSlice";
 import profileSlice from "./features/profile/profileSlice";
-import ProviderSlice from "./features/provider/providerSlice";
-import providersMiddleware from "./features/provider/planSelectionMiddleWare";
+import resourceServicesPlansSlice from "./features/resourceServicePlans/resourceServicesPlansSlice";
+import resourceServicesPlansMiddleware from "./features/resourceServicePlans/resourceServicesPlansMiddleware";
 
 export const makeStore = () => {
   return configureStore({
@@ -37,10 +37,10 @@ export const makeStore = () => {
       supportTicketResponses: supportTicketResponsesSlice,
       contactUs: contactUsSlice,
       profile: profileSlice,
-      provider: ProviderSlice
+      resourceServicesPlans: resourceServicesPlansSlice
     },
     middleware: getDefaultMiddleware =>
-      getDefaultMiddleware().prepend(providersMiddleware  as Middleware),
+      getDefaultMiddleware().prepend(resourceServicesPlansMiddleware  as Middleware),
   });
 };
 export type AppStore = ReturnType<typeof makeStore>;

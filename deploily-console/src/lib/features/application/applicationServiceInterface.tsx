@@ -1,5 +1,6 @@
 import { ServiceMediaInterface } from "../commons_interfaces";
 import { PaymentProfileInterface } from "../payment-profiles/paymentProfilesInterface";
+import { ServicePlan } from "../service-plans/servicePlanInterface";
 
 export interface ApplicationServiceResponse {
     count: number;
@@ -41,6 +42,9 @@ export interface NewApplicationSubscriptionState {//TODO RECHECK THIS INTERFACE 
     totalAmount: number,
     selectedProfile?: PaymentProfileInterface,
     isBalanceSufficient: boolean | null,
+    resource_service_plan?: ServicePlan,
+    // resource_service_plan_id: undefined,
+    app_service_plan?: ServicePlan,
 }
 
 export interface ApplicationServicesState {

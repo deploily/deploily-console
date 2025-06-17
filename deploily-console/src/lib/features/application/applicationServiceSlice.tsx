@@ -20,10 +20,13 @@ const initialState: ApplicationServiceState = {
         loadingError: null,
     },
     newAppSubscriptionState: {
+        //TODO PROMOCODE ??
         duration: 1,
         price: 0,
-        resource_service_plan_id: undefined,
-        service_plan_selected_id: undefined,
+        resource_service_plan: undefined,
+        // resource_service_plan_id: undefined,
+        app_service_plan: undefined,
+        // service_plan_selected_id: undefined,
         totalAmount: 0,
         selectedProfile: undefined,
         isBalanceSufficient: null,
@@ -35,21 +38,25 @@ const ApplicationServiceSlice = createSlice({
     initialState,
     reducers: {
         updateNewAppSubscriptionState: (state, action: PayloadAction<any>) => {
-            //TODO : RECHECK THIS FUNCTION & ADD RESOURCE PALN PRICE TO THE PRICE CALCULATION
-            let updatedState = { ...state.newAppSubscriptionState, ...action.payload }
-            const updatedAmount = updatedState.duration * updatedState.price
-            updatedState = { ...updatedState, totalAmount: updatedAmount }
-
+            let updatedState: NewApplicationSubscriptionState = { ...state.newAppSubscriptionState, ...action.payload }
+            let updatedAmount = 0;
+            if (updatedState.app_service_plan != undefined) {
+                updatedAmount = updatedState.duration * updatedState.app_service_plan.price;
+                updatedState = { ...updatedState, totalAmount: updatedAmount }
+                if (updatedState.resource_service_plan != undefined) {
+                    updatedAmount += updatedState.duration * updatedState.resource_service_plan.price;
+                    updatedState = { ...updatedState, totalAmount: updatedAmount }
+                }
+            }
             if (state.newAppSubscriptionState?.selectedProfile != undefined) {
                 if ((state.newAppSubscriptionState?.selectedProfile.balance - updatedState.totalAmount) >= 0) {
-                    updatedState.newAppSubscriptionState.isBalanceSufficient = true;
+                    updatedState.isBalanceSufficient = true;
                 } else {
-                    updatedState.newAppSubscriptionState.isBalanceSufficient = false;
+                    updatedState.isBalanceSufficient = false;
                 }
             }
             state.newAppSubscriptionState = updatedState;
-            console.log(state.newAppSubscriptionState);
-
+            console.log(state.newAppSubscriptionState)
             return state;
         },
 
