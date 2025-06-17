@@ -14,7 +14,9 @@ export default function ServicePlanCard({ servicePlan, showDrawer }: { servicePl
                 height: "100%",
                 width: "100%",
                 borderColor: theme.token.gray50,
-                boxShadow: "none"
+                boxShadow: "none",
+                minWidth: 250,
+                maxWidth: 300,
             }}
             styles={{
                 body: { flex: 1, display: "flex", flexDirection: "column", paddingBottom: 0 },
@@ -48,7 +50,8 @@ export default function ServicePlanCard({ servicePlan, showDrawer }: { servicePl
                 {servicePlan.options.map((row: ServicePlanOption) => (
                     <Row gutter={16} key={row.id} align="middle">
                         <Col span={3}  >
-                            <Check size={24} color={theme.token.gray100} />
+                            {row.icon ? row.icon : <Check size={24} color={theme.token.gray100} />}
+
                         </Col>
                         <Col span={21}>
                             <Typography.Paragraph

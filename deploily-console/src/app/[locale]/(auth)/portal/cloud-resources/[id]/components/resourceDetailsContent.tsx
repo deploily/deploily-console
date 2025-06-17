@@ -84,10 +84,10 @@ export default function ResourceDetailsContentPage({ resource_id }: { resource_i
                                     {fromPage === "home" ? (
                                         <HomeOutlined style={{ marginRight: 4 }} />
                                     ) : (
-                                        t("seeAll")
+                                        t("cloudResources")
                                     )}
                                 </span> / {"\t"}
-                                {t("details")}
+                                {currentResource !== undefined && currentResource.name}
                             </span>
                         </Col>
                     </Row>
