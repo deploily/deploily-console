@@ -13,7 +13,7 @@ export default function MyApiCard({ data }: { data: SubscriptionInterface }) {
     const router = useRouter();
     return (
         <Card style={{ height: "100%", width: "100%", padding: 0, cursor: "pointer", position: "relative" }}
-            onClick={() => router.push(`/portal/subscriptions/${data.id}`)}
+            onClick={() => router.push(`/portal/my-api/${data.id}`)}
         >
             <div style={{ height: "300px" }}>
                 <Row align="middle" gutter={16} style={{ height: "40%" }} >
@@ -66,7 +66,7 @@ export default function MyApiCard({ data }: { data: SubscriptionInterface }) {
                 style={{ position: "absolute", bottom: "20px", right: "20px" }}
             >
                 <CustomBlueButton
-                    onClick={() => router.push(`/portal/subscriptions/${data.id}`)}
+                    onClick={() => router.push(`/portal/my-api/${data.id}`)}
                 >
                     <Faders size={20} />
                     <Typography
