@@ -153,7 +153,12 @@ export default function RessourcePlanCard({ resourcePlan, currentResource, showD
                                 }}
                             >
                                 {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(resourcePlan!.price)}
-                                <span style={{ fontSize: 16, fontWeight: 400 }}> DZD/{t("month")}</span>
+                                <span style={{ fontSize: 16, fontWeight: 400 }}> DZD/
+                                    {resourcePlan!.subscription_category === "monthly" ? t("month")
+                                        : resourcePlan!.subscription_category === "yearly" ? t("year")
+                                            : t("month")
+                                    }
+                                </span>
 
                             </Text>
                         </div>
@@ -172,7 +177,11 @@ export default function RessourcePlanCard({ resourcePlan, currentResource, showD
                         {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(
                             applyDiscount(resourcePlan!.price, currentResource.discount)
                         )}
-                        <span style={{ fontSize: 16, fontWeight: 400 }}> DZD/{t("month")}</span>
+                        <span style={{ fontSize: 16, fontWeight: 400 }}> DZD/
+                            {resourcePlan!.subscription_category === "monthly" ? t("month")
+                                : resourcePlan!.subscription_category === "yearly" ? t("year")
+                                    : t("month")
+                            }</span>
                     </Typography.Paragraph>
                 </div>
             )}

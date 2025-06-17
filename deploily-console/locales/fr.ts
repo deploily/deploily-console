@@ -159,6 +159,7 @@ export default {
   'subscription.selectProfile': 'Sélectionner un profil',
   'subscription.subscribeService': "S'abonner au service",
   'subscription.month': 'Mois',
+  'subscription.year': 'Année',
   'subscription.confirm': 'Confirmer',
   'subscription.cancel': 'Annuler',
   'subscription.sufficientBalance': 'Votre solde est suffisant pour effectuer ce paiement.',
