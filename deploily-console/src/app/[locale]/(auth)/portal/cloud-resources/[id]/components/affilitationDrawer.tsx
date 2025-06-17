@@ -33,6 +33,7 @@ export default function AffiliationDrawer({
     const [affiliation, setAffiliation] = useState<any>(null);
     const [provider, setProvider] = useState<Provider>();
     const [showTerms, setShowTerms] = useState(false);
+    const [isAgree, setAgree] = useState(false);
     const [isConfirmed, setIsConfirmed] = useState(false);
     const [api, contextHolder] = notification.useNotification();
 
@@ -79,6 +80,7 @@ export default function AffiliationDrawer({
             setAffiliation({
                 service_plan_selected_id: planSelected.id,
                 total_price: applyDiscount(planSelected!.price, currentResource.discount),
+
             });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -178,7 +180,6 @@ export default function AffiliationDrawer({
                     </div>}
 
                     {showTerms && (
-
                         <div style={{ margin: '5px', paddingTop: "10px", paddingBottom: "10px" }}>
                             <div
                                 style={{
@@ -189,8 +190,21 @@ export default function AffiliationDrawer({
                                     padding: '10px'
                                 }}
                             >
-                                <Typography.Title level={5} style={{ color: '#fff', marginBottom: 12, fontWeight: 500 }}>
-                                    {translate('confirmAffiliation', { providerName: <strong style={{ fontWeight: 600, fontSize: '19px', color: "white" }}>{provider?.name}</strong> })}
+                                <Typography.Title
+                                    level={5}
+                                    style={{
+                                        color: '#fff',
+                                        marginBottom: 12,
+                                        fontWeight: 500
+                                    }}
+                                >
+                                    {translate('confirmAffiliation', {
+                                        providerName: (
+                                            <strong style={{ fontWeight: 600, fontSize: '19px', color: "white" }}>
+                                                {provider?.name}
+                                            </strong>
+                                        )
+                                    })}
                                 </Typography.Title>
 
                                 <Space direction="vertical" size="middle" style={{ marginBottom: 2, marginLeft: '10px' }}>
@@ -200,13 +214,49 @@ export default function AffiliationDrawer({
                                     <Typography.Text style={{ color: '#fff' }}>
                                         &nbsp; ✅  &nbsp;{translate("email")}
                                     </Typography.Text>
+
+
+                                    {/* Phone Field */}
+                                    <div>
+                                        <Typography.Text style={{ color: '#fff', display: 'block', marginBottom: 4 }}>
+                                            &nbsp; ✅  &nbsp;{translate("phone")}
+                                        </Typography.Text>
+
+                                        <input
+                                            type="text"
+                                            placeholder={translate("phone")}
+                                            inputMode="numeric"
+                                            maxLength={10}
+                                            style={{
+                                                width: "100%",
+                                                padding: "8px",
+                                                backgroundColor: "#1f1f1f",
+                                                color: "#fff",
+                                                border: "1px solid #333",
+                                                borderRadius: "6px",
+                                                marginTop: 10,
+                                            }}
+                                            onChange={(e) => {
+                                                const value = e.target.value.replace(/\D/g, ""); // Remove non-digits
+                                                setAffiliation({ ...affiliation, phone_number: value });
+                                                if (/^\d{9,10}$/.test(value)) {
+                                                    setAgree(true);
+                                                } else {
+                                                    setAgree(false);
+                                                }
+                                            }}
+                                            value={affiliation.phone_number}
+                                        />
+                                    </div>
                                 </Space>
+
                                 <div style={{ display: "flex", justifyContent: "flex-end" }}>
                                     <Button
                                         type="primary"
                                         onClick={handleAccept}
+                                        disabled={!isAgree}
                                         style={{
-                                            backgroundColor: theme.token.orange600,
+                                            backgroundColor: isAgree ? theme.token.orange600 : theme.token.gray200,
                                             paddingInline: 20,
                                             paddingBlock: 10,
                                             fontWeight: 600,
@@ -220,7 +270,9 @@ export default function AffiliationDrawer({
                                     </Button>
                                 </div>
                             </div>
-                        </div>)}
+                        </div>
+                    )}
+
 
                     <Collapse
                         accordion
