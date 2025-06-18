@@ -22,13 +22,14 @@ const initialState: ApplicationServiceState = {
 
 };
 const ApplicationServiceSlice = createSlice({
-  name: "applicationService",
+  name: "myApplicationService",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchMyApplications.pending, (state) => {
         state.myApplications.isLoading = true;
+
       })
       .addCase(fetchMyApplications.fulfilled, (state, action) => {
         state.myApplications.isLoading = false;
