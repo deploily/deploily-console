@@ -244,7 +244,15 @@ export default {
   "toast.msgSuccess": "Succès",
   "toast.titleMsgSuccess": "Message envoyé avec succès",
   "toast.msgFailed": "Échec",
-  "toast.titleMsgFailed": "Échec de l'envoi du message"
+  "toast.titleMsgFailed": "Échec de l'envoi du message",
+
+  "applications.svc": "Nom du service",
+  "applications.plan": "Forfait",
+  "applications.duration": "Durée",
+  "applications.provider": "Fournisseur de ressources",
+  "applications.vpsType": "Type de VPS",
+  "applications.resourcePlan": "Plan de ressource",
+  "applications.total": "Montant total"
 
 
 } as const
