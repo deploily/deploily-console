@@ -17,6 +17,7 @@ import applicationServiceSlice from "./features/application/applicationServiceSl
 import profileSlice from "./features/profile/profileSlice";
 import resourceServicesPlansSlice from "./features/resourceServicePlans/resourceServicesPlansSlice";
 import resourceServicesPlansMiddleware from "./features/resourceServicePlans/resourceServicesPlansMiddleware";
+import paymentProfileMiddleware from "./features/payment-profiles/paymentProfileMiddleware";
 
 export const makeStore = () => {
   return configureStore({
@@ -40,7 +41,7 @@ export const makeStore = () => {
       resourceServicesPlans: resourceServicesPlansSlice
     },
     middleware: getDefaultMiddleware =>
-      getDefaultMiddleware().prepend(resourceServicesPlansMiddleware  as Middleware),
+      getDefaultMiddleware().prepend(resourceServicesPlansMiddleware as Middleware).prepend(paymentProfileMiddleware as Middleware),
   });
 };
 export type AppStore = ReturnType<typeof makeStore>;
