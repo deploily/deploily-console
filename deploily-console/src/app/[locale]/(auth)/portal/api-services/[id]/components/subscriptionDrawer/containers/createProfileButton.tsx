@@ -4,7 +4,7 @@ import { Button, Typography } from "antd";
 import { useRouter } from "next/navigation";
 import { useScopedI18n } from "../../../../../../../../../../locales/client";
 
-export default function CreateProfileButton({ planSelected }: { openDrawer: any, onClose: any, planSelected: any }) {
+export default function CreateProfileButton({ planSelected }: { openDrawer: any, onClose: any, planSelected: any }) {//TODO REMOVE PLANSELECTED FROM OTHER CALLS 
   const translate = useScopedI18n('subscription');
   const router = useRouter();
 
@@ -36,7 +36,7 @@ export default function CreateProfileButton({ planSelected }: { openDrawer: any,
                       borderRadius: '15px',
                       height: '40px'
                     }}
-                    onClick={() => router.push(`/portal/payment-profiles/add?selectedPlan=${planSelected.id}`)}//TODO push new profile page 
+                    onClick={() => router.push(`/portal/payment-profiles/add`)} 
                   >
                     {tProfilePayment("createProfile")}
                   </Button>
