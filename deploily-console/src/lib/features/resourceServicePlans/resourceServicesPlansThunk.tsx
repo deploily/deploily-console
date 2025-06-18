@@ -6,7 +6,7 @@ import { getSession } from "next-auth/react";
 export interface PaginationParams {
     page: number;
     page_size: number;
-    planType: string
+    service_plan_type: string
 }
 
 /**
@@ -30,7 +30,7 @@ export const fetchServicePlansByType = createAsyncThunk(
             }
             const token = session.accessToken;
             //TODO ADD serviceCategory TO THE FILTER and recheck function and field name 
-            const filters = `(filters:!((col:type,opr:eq,value:'${paginationParams.planType}')),page:${paginationParams.page},page_size:${paginationParams.page_size})`;
+            const filters = `(filters:!((col:service_plan_type,opr:eq,value:'${paginationParams.service_plan_type}')),page:${paginationParams.page},page_size:${paginationParams.page_size})`;
             // const filters = `(page:${paginationParams.page},page_size:${paginationParams.page_size})`;
 
             const query = `?q=${encodeURIComponent(filters)}`;

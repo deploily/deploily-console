@@ -4,11 +4,8 @@ import { updateNewAppSubscriptionState } from "../application/applicationService
 
 const resourceServicesPlansMiddleware = (store: MiddlewareAPI<ThunkDispatch<any, any, Action>, any>) => {
     return (next: Dispatch<any>) => async (action: any) => {
-        //TODO  : RETEST THIS MIDDLEWARE
-        // This middleware listens for specific actions related to providers and updates the state accordingly.
-        // It fetches cloud resources and plans based on the selected provider, resource, and plan IDs.
         switch (action.type) {
-            case 'ResourceServicesPlansState/updateSelectedPlan/fulfilled':
+            case 'resourceServicesPlansSlice/updateSelectedPlan':
                 if (action.payload !== undefined) {
                     console.log(action.payload);
                     store.dispatch(updateNewAppSubscriptionState({ "resource_service_plan": action.payload }));

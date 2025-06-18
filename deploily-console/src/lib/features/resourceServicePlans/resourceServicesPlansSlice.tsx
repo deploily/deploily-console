@@ -21,7 +21,7 @@ const initialState: ResourceServicesPlansState = {
     selectedPlan: undefined,
 };
 const ResourceServicesPlansSlice = createSlice({
-    name: "ResourceServicesPlansState",
+    name: "resourceServicesPlansSlice",
     initialState,
     reducers: {
         updateSelectedPlan: (state, action) => {
