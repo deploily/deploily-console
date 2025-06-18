@@ -1,6 +1,6 @@
 "use client";
+import { useApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSelectors";
 import { usePaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesSelectors";
-import { useSubscriptionStates } from "@/lib/features/subscription-states/subscriptionSelectors";
 import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
 import { Coins } from "@phosphor-icons/react";
@@ -9,8 +9,8 @@ import { useEffect } from "react";
 import { useScopedI18n } from "../../../../../../../../../../locales/client";
 
 export default function SelectProfileComponent() {
-  const { selectedProfile } = useSubscriptionStates()
-  const translate = useScopedI18n('subscription');
+  const { selectedProfile } = useApiServiceSubscriptionStates()
+  const translate = useScopedI18n('apiServiceSubscription');
 
   const { Option } = Select;
   const dispatch = useAppDispatch();
@@ -19,12 +19,12 @@ export default function SelectProfileComponent() {
     const newSelectedProfile = paymentProfilesList?.result.find(
       (profile) => profile.id === value
     );
-    dispatch({ type: "SubscriptionStates/updateSelectedProfile", payload: newSelectedProfile })
+    dispatch({ type: "ApiServiceSubscriptionStates/updateSelectedProfile", payload: newSelectedProfile })
   };
 
   useEffect(() => {
     if (paymentProfilesList?.result && paymentProfilesList?.result?.length > 0 && selectedProfile === undefined) {
-      dispatch({ type: "SubscriptionStates/updateSelectedProfile", payload: paymentProfilesList.result[0] })
+      dispatch({ type: "ApiServiceSubscriptionStates/updateSelectedProfile", payload: paymentProfilesList.result[0] })
     }
   }, [paymentProfilesList?.result]);
 

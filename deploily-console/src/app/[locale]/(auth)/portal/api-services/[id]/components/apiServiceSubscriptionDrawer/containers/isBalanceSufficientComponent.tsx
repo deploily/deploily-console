@@ -1,6 +1,6 @@
+import { useApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSelectors";
+import { postApiServiceSubscription } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionThunks";
 import { fetchPaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesThunks";
-import { useSubscriptionStates } from "@/lib/features/subscription-states/subscriptionSelectors";
-import { postSubscription } from "@/lib/features/subscriptions/subscriptionThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
 import { Button, Typography } from "antd";
@@ -8,12 +8,12 @@ import { useRouter } from "next/navigation";
 import { useScopedI18n } from "../../../../../../../../../../locales/client";
 
 export default function IsBalanceSufficientComponent({ onClose, planSelected }: { onClose: any, planSelected: any }) {
-    const { selectedProfile, duration, totalAmount, promoCode } = useSubscriptionStates()
-    const translate = useScopedI18n('subscription');
+    const { selectedProfile, duration, totalAmount, promoCode } = useApiServiceSubscriptionStates()
+    const translate = useScopedI18n('apiServiceSubscription');
     const dispatch = useAppDispatch();
     const router = useRouter()
-    const handleSubscription = async () => {
-        const newSubscriptionObject = {
+    const handleApiServiceSubscription = async () => {
+        const newApiServiceSubscriptionObject = {
             duration: duration,
             total_amount: totalAmount,
             promo_code: promoCode,
@@ -21,12 +21,13 @@ export default function IsBalanceSufficientComponent({ onClose, planSelected }: 
             service_plan_selected_id: planSelected.id,
             profile_id: selectedProfile != null ? selectedProfile.id : 1
         };
-        console.log("newSubscriptionObject IsBalanceSufficientComponent", newSubscriptionObject);
 
-        dispatch(postSubscription(newSubscriptionObject)).then((response: any) => {
+        dispatch(postApiServiceSubscription(newApiServiceSubscriptionObject)).then((response: any) => {
             if (response.meta.requestStatus === "fulfilled") {
                 dispatch(fetchPaymentProfiles());
                 router.push(`/portal/subscriptions/`);
+                //TODO replace with my api service
+
             }
         }
         );;
@@ -76,7 +77,7 @@ export default function IsBalanceSufficientComponent({ onClose, planSelected }: 
                         borderRadius: '15px',
                         height: '40px'
                     }}
-                    onClick={() => handleSubscription()}
+                    onClick={() => handleApiServiceSubscription()}
                 >
                     {translate("confirm")}
                 </Button>

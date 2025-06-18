@@ -1,5 +1,5 @@
+import { ApiServiceSubscriptionInterface } from "../api-service-subscriptions/apiServiceSubscriptionInterface";
 import { PaymentProfileInterface } from "../payment-profiles/paymentProfilesInterface";
-import { SubscriptionInterface } from "../subscriptions/subscriptionInterface";
 
 export interface PaymentResponse {
     count: number;
@@ -14,7 +14,7 @@ export interface PaymentResponse {
 export interface PaymentInterface {
     id: string;
     profile: PaymentProfileInterface;
-    subscription: SubscriptionInterface;
+    subscription: ApiServiceSubscriptionInterface;
     amount: number;
     status: string;
     payment_method: string;

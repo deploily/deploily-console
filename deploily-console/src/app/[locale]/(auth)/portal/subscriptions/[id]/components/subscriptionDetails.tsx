@@ -2,10 +2,10 @@
 
 import { CollapseProps, Typography } from "antd";
 import { theme } from "@/styles/theme";
-import { SubscriptionInterface } from "@/lib/features/subscriptions/subscriptionInterface";
 import ReactMarkdown from "react-markdown";
+import { ApiServiceSubscriptionInterface } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionInterface";
 
-export const subscriptionDetails = (row: SubscriptionInterface, t: any): CollapseProps["items"] => [
+export const subscriptionDetails = (row: ApiServiceSubscriptionInterface, t: any): CollapseProps["items"] => [
   {
     key: "1",
     label: (

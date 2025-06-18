@@ -59,8 +59,9 @@ export default function MyResourcesContainer() {
                 title: t("name"),
                 dataIndex: "service_name",
                 key: "service_name",
-                render: (service_name: string) => service_name.charAt(0).toUpperCase() + service_name.slice(1) || "-",
-            },
+                render: (service_name: string | null | undefined) =>
+                    service_name ? service_name.charAt(0).toUpperCase() + service_name.slice(1) : "-"
+                              },
             {
                 title: t("providerName"),
                 dataIndex: "provider_name",

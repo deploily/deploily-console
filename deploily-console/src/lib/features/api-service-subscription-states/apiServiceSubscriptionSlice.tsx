@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { PaymentProfileInterface } from "../payment-profiles/paymentProfilesInterface";
 
-interface SubscriptionStates {
+interface ApiServiceSubscriptionStates {
   promoCode: string,
   duration: number,
   isBalanceSufficient: boolean | null,
@@ -12,7 +12,7 @@ interface SubscriptionStates {
   selectedProfile?: PaymentProfileInterface
 }
 
-const initialState: SubscriptionStates = {
+const initialState: ApiServiceSubscriptionStates = {
   promoCode: "",
   isBalanceSufficient: null,
   totalAmount: 0,
@@ -23,11 +23,11 @@ const initialState: SubscriptionStates = {
   selectedProfile: undefined,
 };
 
-const SubscriptionStatesSlice = createSlice({
-  name: "SubscriptionStates",
+const apiServiceSubscriptionStatesSlice = createSlice({
+  name: "ApiServiceSubscriptionStates",
   initialState,
   reducers: {
-    updateSubscriptionStates: (state, action: PayloadAction<any>) => {
+    updateApiServiceSubscriptionStates: (state, action: PayloadAction<any>) => {
       let updatedState = { ...state, ...action.payload }
       let updatedAmount = updatedState.duration * updatedState.price
       if (updatedState.promoCodeRate != undefined) {
@@ -58,4 +58,4 @@ const SubscriptionStatesSlice = createSlice({
     }
   },
 });
-export default SubscriptionStatesSlice.reducer;
+export default apiServiceSubscriptionStatesSlice.reducer;

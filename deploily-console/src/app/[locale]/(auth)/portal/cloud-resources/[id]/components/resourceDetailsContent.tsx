@@ -50,7 +50,7 @@ export default function ResourceDetailsContentPage({ resource_id }: { resource_i
     const showDrawer = (plan: any | null) => {
         if (plan !== null) {
             setSelectedPlan(plan);
-            dispatch({ type: "SubscriptionStates/updateSubscriptionStates", payload: { "price": plan.price } });
+            dispatch({ type: "ApiServiceSubscriptionStates/updateApiServiceSubscriptionStates", payload: { "price": plan.price } });
         }
         setOpenDrawer(true);
     };

@@ -1,37 +1,37 @@
 "use client";
-import { Card, Col, ConfigProvider, Input, Row, Select, Space, Typography } from "antd";
+import { useApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSelectors";
+import { usePromoCode } from "@/lib/features/promo-code/promoCodeSelectors";
+import { checkPromoCode } from "@/lib/features/promo-code/promoCodeThunks";
+import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
+import { Card, Col, ConfigProvider, Input, Row, Select, Space, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { useScopedI18n } from "../../../../../../../../../../locales/client";
-import { useAppDispatch } from "@/lib/hook";
-import { checkPromoCode } from "@/lib/features/promo-code/promoCodeThunks";
-import { usePromoCode } from "@/lib/features/promo-code/promoCodeSelectors";
-import { useSubscriptionStates } from "@/lib/features/subscription-states/subscriptionSelectors";
 import { options } from "../../../../utils/apiServicesConst";
 
-export default function NewSubscriptionInfo({ planSelected }: { planSelected: any }) {
-  const { totalAmount, promoColor, duration } = useSubscriptionStates()
+export default function NewApiServiceSubscriptionInfo({ planSelected }: { planSelected: any }) {
+  const { totalAmount, promoColor, duration } = useApiServiceSubscriptionStates()
 
-  const translate = useScopedI18n('subscription');
+  const translate = useScopedI18n('apiServiceSubscription');
   const [promoCode, setPromoCode] = useState({ promo_code: "" });
   const dispatch = useAppDispatch();
   const { promoCodeResponse } = usePromoCode();
 
   const handleChangeDuration = (value: number) => {
     dispatch({
-      type: "SubscriptionStates/updateSubscriptionStates", payload: { duration: value }
+      type: "ApiServiceSubscriptionStates/updateApiServiceSubscriptionStates", payload: { duration: value }
     });
   };
   // Handles updating promo percent and color based on promoCodeResponse
   useEffect(() => {
     if (promoCodeResponse?.rate !== undefined) {
-      dispatch({ type: "SubscriptionStates/updateSubscriptionStates", payload: { "promoCodeRate": promoCodeResponse.rate } })
+      dispatch({ type: "ApiServiceSubscriptionStates/updateApiServiceSubscriptionStates", payload: { "promoCodeRate": promoCodeResponse.rate } })
     }
   }, [promoCodeResponse]);
 
   // Checks the promo code when its length reaches 10
   useEffect(() => {
-    dispatch({ type: "SubscriptionStates/updateSubscriptionStates", payload: { "promoCode": promoCode.promo_code } })
+    dispatch({ type: "ApiServiceSubscriptionStates/updateApiServiceSubscriptionStates", payload: { "promoCode": promoCode.promo_code } })
     if (promoCode.promo_code.length === 10) {
       dispatch(checkPromoCode(promoCode));
     }

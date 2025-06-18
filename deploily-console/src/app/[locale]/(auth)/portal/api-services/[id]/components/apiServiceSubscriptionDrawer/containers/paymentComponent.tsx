@@ -7,7 +7,7 @@ import BankTransfertComponent from "../components/bankTransfertComponent";
 import CardPaymentComponent from "../components/cardPaymentComponent";
 
 export default function PaymentComponent({ selectedPlan }: { selectedPlan: any }) {
-  const translate = useScopedI18n('subscription');
+  const translate = useScopedI18n('apiServiceSubscription');
   const translateProfile = useScopedI18n('profilePayment');
   const [paymentMethod, setPaymentMethod] = useState("bank_transfer")
   const onChange = (e: RadioChangeEvent) => {

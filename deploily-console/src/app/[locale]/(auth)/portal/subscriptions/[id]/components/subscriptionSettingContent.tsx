@@ -1,6 +1,4 @@
 "use client"
-import { useSubscription } from "@/lib/features/subscriptions/subscriptionSelectors";
-import { fetchSubscriptionById } from "@/lib/features/subscriptions/subscriptionThunks";
 import { useAppDispatch } from "@/lib/hook";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { CustomTransparentOrangeButton } from "@/styles/components/buttonStyle";
@@ -16,17 +14,19 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../../locales/client";
 
-import { subscriptionStatusStyle } from "../../utils/subscriptionsConst";
 import DocumentationDrawer from "./documentationDrawer";
 import GenerateTokenComponent from "./generateTokenComponent";
+import { useApiServiceSubscription } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionSelectors";
+import { fetchApiServiceSubscriptionById } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionThunks";
+import { subscriptionStatusStyle } from "../../utils/subscriptionsConst";
 import { subscriptionItems } from "./subscriptionItems";
 
-export default function SubscriptionSettingContent({ subscription_id }: { subscription_id: string }) {
+export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscription_id }: { apiServiceSubscription_id: string }) {
     const t = useI18n();
-    const tSubscription = useScopedI18n('subscription');
+    const tApiServiceSubscription = useScopedI18n('apiServiceSubscription');
 
     const dispatch = useAppDispatch();
-    const { currentSubscription, currentSubscriptionLoading, currentSubscriptionLoadingError } = useSubscription()
+    const { currentApiServiceSubscription, currentApiServiceSubscriptionLoading, currentApiServiceSubscriptionLoadingError } = useApiServiceSubscription()
     const [openDrawer, setOpenDrawer] = useState(false);
     const [remainingDuration, setRemainingDuration] = useState<number>()
 
@@ -35,15 +35,15 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
         setOpenDrawer(false);
     };
     useEffect(() => {
-        dispatch(fetchSubscriptionById(subscription_id));
+        dispatch(fetchApiServiceSubscriptionById(apiServiceSubscription_id));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
-        if (currentSubscription !== undefined) {
-            setRemainingDuration(getRemainingDuration(currentSubscription.start_date, currentSubscription.duration_month));
+        if (currentApiServiceSubscription !== undefined) {
+            setRemainingDuration(getRemainingDuration(currentApiServiceSubscription.start_date, currentApiServiceSubscription.duration_month));
         }
-    }, [currentSubscription]);
+    }, [currentApiServiceSubscription]);
 
 
     function getRemainingDuration(startDate: Date, durationMonths: number) {
@@ -64,19 +64,19 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
 
     return (
         <Space direction="vertical" size="large" style={{ paddingInline: 40, marginBlock: 10, width: "100%", marginBottom: 50, paddingTop: 20 }}>
-            {currentSubscriptionLoading && currentSubscription === undefined &&
+            {currentApiServiceSubscriptionLoading && currentApiServiceSubscription === undefined &&
                 <>
                     <Skeleton.Image active />
                     <Skeleton active paragraph={{ rows: 2 }} />
                 </>
             }
-            {!currentSubscriptionLoading && currentSubscription !== undefined &&
+            {!currentApiServiceSubscriptionLoading && currentApiServiceSubscription !== undefined &&
                 <>
                     <Row gutter={16}  >
                         <Col md={16} xs={24} >
                             <Badge offset={[-20, 20]}>
-                                {currentSubscription.service_details && <ImageFetcher
-                                    imagePath={currentSubscription.service_details.image_service}
+                                {currentApiServiceSubscription.service_details && <ImageFetcher
+                                    imagePath={currentApiServiceSubscription.service_details.image_service}
                                     width={220}
                                     height={220}
                                 />}
@@ -91,7 +91,7 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                                     alignSelf: "start"
                                 }}>
                                     <Typography.Title level={2} style={{ color: theme.token.orange400 }}>
-                                        {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(currentSubscription.total_amount)} DZD
+                                        {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(currentApiServiceSubscription.total_amount)} DZD
 
                                     </Typography.Title>
                                 </Col>
@@ -115,18 +115,18 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                         alignItems: "center",
                         width: "100%",
                     }}>
-                        {currentSubscription.service_details && <Typography.Title level={2}>{currentSubscription.service_details.name}</Typography.Title>}
-                        <Tag bordered={false} color={subscriptionStatusStyle(currentSubscription.status)} style={{ height: 'fit-content', fontSize: '14px', fontWeight: "bold", borderRadius: 20, padding: "5px 20px", textTransform: "capitalize" }}>
-                            {tSubscription(currentSubscription.status as "active" | "inactive")}
+                        {currentApiServiceSubscription.service_details && <Typography.Title level={2}>{currentApiServiceSubscription.service_details.name}</Typography.Title>}
+                        <Tag bordered={false} color={subscriptionStatusStyle(currentApiServiceSubscription.status)} style={{ height: 'fit-content', fontSize: '14px', fontWeight: "bold", borderRadius: 20, padding: "5px 20px", textTransform: "capitalize" }}>
+                        {tApiServiceSubscription(currentApiServiceSubscription.status as "active" | "inactive")}
                         </Tag>
                     </Row>
 
-                    {currentSubscription.service_details && <Row gutter={16} style={{ marginTop: 0 }} >
+                    {currentApiServiceSubscription.service_details && <Row gutter={16} style={{ marginTop: 0 }} >
                         <Paragraph style={{ fontSize: 14 }} >
-                            {currentSubscription.service_details.short_description}
+                            {currentApiServiceSubscription.service_details.short_description}
                             {t("viewDocumentation")}&nbsp;
                             <Link
-                                href={currentSubscription.service_details.api_playground_url ?? "https://docs.deploily.cloud/#/"}
+                                href={currentApiServiceSubscription.service_details.api_playground_url ?? "https://docs.deploily.cloud/#/"}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 onMouseEnter={() => setIsHovered(true)}
@@ -165,7 +165,7 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                                 <Col xs={24} md={16}>
                                     <DatePickerStyle
                                         style={{ width: 160, color: theme.token.colorWhite }}
-                                        defaultValue={dayjs(currentSubscription.start_date, "YYYY-MM-DD")}
+                                        defaultValue={dayjs(currentApiServiceSubscription.start_date, "YYYY-MM-DD")}
                                         disabled
                                         suffixIcon={<CalendarDots size={24} style={{ color: theme.token.blue200 }} />}
                                     />
@@ -182,7 +182,7 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                                 </Col>
                                 <Col xs={24} md={16}>
                                     <CustomSubscripionInput
-                                        defaultValue={`${currentSubscription.duration_month} / month(s)`}
+                                        defaultValue={`${currentApiServiceSubscription.duration_month} / month(s)`}
                                         style={{ width: 160, color: theme.token.colorWhite }}
                                         disabled
                                     />
@@ -200,7 +200,7 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                                 </Col>
                                 <Col xs={24} md={16}>
                                     <CustomSubscripionInput
-                                        defaultValue={`${getRemainingDuration(currentSubscription.start_date, currentSubscription.duration_month)} / month(s)`}
+                                        defaultValue={`${getRemainingDuration(currentApiServiceSubscription.start_date, currentApiServiceSubscription.duration_month)} / month(s)`}
                                         style={{
                                             width: 160,
                                             color:
@@ -229,11 +229,11 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                         </Row>
                     } */}
 
-                    {currentSubscription.service_details &&
-                        currentSubscription.status == 'active' ? <>
-                        <GenerateTokenComponent subscription_id={subscription_id} />
-                        <Row gutter={[16, 10]} key={currentSubscription.id}  >
-                            {subscriptionItems(currentSubscription, currentSubscription.service_details, t).map((item, index) => (
+                    {currentApiServiceSubscription.service_details &&
+                        currentApiServiceSubscription.status == 'active' ? <>
+                        <GenerateTokenComponent apiServiceSubscription_id={apiServiceSubscription_id} />
+                        <Row gutter={[16, 10]} key={currentApiServiceSubscription.id}  >
+                            {subscriptionItems(currentApiServiceSubscription, currentApiServiceSubscription.service_details, t).map((item, index) => (
                                 <div key={index} style={{ width: '100%' }}>
                                     {item.label}
                                     {item.children}
@@ -241,17 +241,17 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                             ))}
                         </Row>
                     </> :
-                        <Row gutter={[16, 10]} key={currentSubscription.id}  >
+                        <Row gutter={[16, 10]} key={currentApiServiceSubscription.id}  >
 
                             <Typography.Title level={4} style={{ color: theme.token.colorError, fontSize: 16, textAlign: "center", marginTop: 20 }}>
-                                {tSubscription('inactiveMessage')}
+                                {tApiServiceSubscription('inactiveMessage')}
                             </Typography.Title >
                         </Row>
                     }
-                    <DocumentationDrawer openDrawer={openDrawer} onClose={onClose} currentSubscription={currentSubscription} t={t} />
+                    <DocumentationDrawer openDrawer={openDrawer} onClose={onClose} currentApiServiceSubscription={currentApiServiceSubscription} t={t} />
                 </>
             }
-            {!currentSubscriptionLoading && currentSubscriptionLoadingError &&
+            {!currentApiServiceSubscriptionLoading && currentApiServiceSubscriptionLoadingError &&
                 <Result
                     status="500"
                     title={t('error')}
