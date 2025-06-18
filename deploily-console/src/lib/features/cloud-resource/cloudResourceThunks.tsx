@@ -14,7 +14,8 @@ export const fetchCloudResources = createAsyncThunk(
         const filters = [];
 
         if (searchValue) {
-            filters.push(`(col:name,opr:ct,value:${searchValue})`);
+            const encodedValue = encodeURIComponent(searchValue);
+            filters.push(`(col:name,opr:ct,value:${encodedValue})`);
         }
 
         if (providerFilterValue) {
