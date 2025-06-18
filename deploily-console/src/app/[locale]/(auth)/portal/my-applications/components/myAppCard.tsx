@@ -1,17 +1,25 @@
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { CustomBlueButton } from "@/styles/components/buttonStyle";
 import { Faders, HeartStraight } from "@phosphor-icons/react";
-import { Badge, Button, Card, Col, Row, Space,  Typography } from "antd";
+import { Badge, Button, Card, Col, Row, Space, Typography } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import { useRouter } from "next/navigation";
 import { useI18n } from "../../../../../../../locales/client";
 import { myApplicationInterface } from "@/lib/features/my-applications/myApplicationInterface";
+import { myApplicationsUrls } from "../utils/myApplicationsUrls";
 export default function MyAppCard({ data }: { data: myApplicationInterface }) {
     const t = useI18n();
     const router = useRouter();
+
+    const handleClick = async (url_segment: string) => {
+        
+        router.push(`/portal/my-applications/${myApplicationsUrls(url_segment)}/${data.id}`)
+
+    }
+
     return (
         <Card style={{ height: "100%", width: "100%", padding: 0, cursor: "pointer", position: "relative" }}
-            onClick={() => router.push(`/portal/my-applications/${data.id}`)}
+            onClick={() => handleClick(data.url_segment)}
         >
             <div style={{ height: "300px" }}>
                 <Row align="middle" gutter={16} style={{ height: "40%" }} >
@@ -96,7 +104,7 @@ export default function MyAppCard({ data }: { data: myApplicationInterface }) {
                 style={{ position: "absolute", bottom: "20px", right: "20px" }}
             >
                 <CustomBlueButton
-                    onClick={() => router.push(`/portal/my-applications/${data.id}`)}
+                    onClick={() => handleClick(data.url_segment)}
                 >
                     <Faders size={20} />
                     <Typography
