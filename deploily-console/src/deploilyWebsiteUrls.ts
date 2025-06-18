@@ -8,7 +8,7 @@ export const deploilyApiUrls = {
   SERVICE_URL: `${API_BASE_URL}/service/`,
   API_SERVICE_URL: `${API_BASE_URL}/api_service/`,
   SERVICE_PLAN_URL: `${API_BASE_URL}/service-plan`,
-  SUBSCRIBE_URL: `${API_BASE_URL}/subscription/`,
+  SUBSCRIBE_URL: `${API_BASE_URL}/api-service-subscription/`,
   MY_FAVORITE_URL: `${API_BASE_URL}/my-favorites/`,
   POST_FAVORITE_SERVICE_URL: `${API_BASE_URL}/my-favorites/service`,
   SUPPORT_TICKET_URL: `${API_BASE_URL}/support-ticket/`,
@@ -20,7 +20,7 @@ export const deploilyApiUrls = {
   PAYMENT_PROFILE_URL: `${API_BASE_URL}/payment-profile/`,
   PAYMENT: `${API_BASE_URL}/payments/`,
   PAYMENT_RECEIPT: `/upload-receipt`,
-  SERVICE_SUBSCRIPTION: `${API_BASE_URL}/service-subscription/subscribe`,
+  SERVICE_SUBSCRIPTION: `${API_BASE_URL}/api-service-subscription/subscribe`,
   CHECK_PROMO_CODE: `${API_BASE_URL}/promo-code/`,
   EPAYMENT_STATUS: `${API_BASE_URL}/service-subscription/payment-status`,
   CONTACT_US: `${API_BASE_URL}/contact-us/`,
@@ -33,6 +33,7 @@ export const deploilyApiUrls = {
   CREATE_AFFILIATION_URL: `${API_BASE_URL}/affiliation/create`,
   AFFILIATION_URL: `${API_BASE_URL}/affiliation/all`,
   RESOURCE_CATEGORY_URL: `${API_BASE_URL}/ressource-category/all`,
-  APPS_SERVICE_SUBSCRIPTION_URL: `${API_BASE_URL}/app-service-subscription/`
+  APPS_SERVICE_SUBSCRIPTION_URL: `${API_BASE_URL}/app-service-subscription/`,
+  TTK_EPAY_APP_SUBSCRIPTION_URL: `${API_BASE_URL}/ttk-epay-app-service-subscription`
 
 };
