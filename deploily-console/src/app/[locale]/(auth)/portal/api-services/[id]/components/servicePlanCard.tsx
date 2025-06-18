@@ -39,8 +39,8 @@ export default function ServicePlanCard({ servicePlan, showDrawer }: { servicePl
             <Typography.Paragraph style={{ fontSize: 25, fontWeight: 600, color: theme.token.orange400, textAlign: "center" }}>
                 {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(servicePlan.price)}
                 <span style={{ fontSize: 16, fontWeight: 400 }}> DZD/
-                    {servicePlan!.apiServiceSubscription_category === "monthly" ? t("month")
-                        : servicePlan!.apiServiceSubscription_category === "yearly" ? t("year")
+                    {servicePlan!.subscription_category === "monthly" ? t("month")
+                        : servicePlan!.subscription_category === "yearly" ? t("year")
                             : t("month")
                     }
                 </span>
