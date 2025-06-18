@@ -2,7 +2,6 @@
 import { useServicePlansByType } from '@/lib/features/resourceServicePlans/resourceServicesPlansSelectors';
 import { updateSelectedPlan } from '@/lib/features/resourceServicePlans/resourceServicesPlansSlice';
 import { fetchServicePlansByType } from '@/lib/features/resourceServicePlans/resourceServicesPlansThunk';
-import { ServicePlan } from '@/lib/features/service-plans/servicePlanInterface';
 import { useAppDispatch } from '@/lib/hook';
 import { Typography } from 'antd';
 import { TableComponentWithSelection } from 'deploily-ui-components';
@@ -13,7 +12,7 @@ export default function SelectVpsPlanTable() {
 
 
   useEffect(() => {
-    dispatch(fetchServicePlansByType({ page: 0, page_size: 10, planType: 'ressource' }));
+    dispatch(fetchServicePlansByType({ page: 0, page_size: 10, service_plan_type: 'ressource' }));
   }, [])
 
 
@@ -22,10 +21,10 @@ export default function SelectVpsPlanTable() {
 
 
 
-  const handlePlanChange = (selectedPlan: ServicePlan) => {
+  const handlePlanChange = (selectedPlan: any) => {
     console.log(selectedPlan);
 
-    dispatch(updateSelectedPlan(selectedPlan))
+    dispatch(updateSelectedPlan(servicePlansList?.result.find((element) => element.id > selectedPlan.key)))
   };
 
   return (
@@ -33,10 +32,10 @@ export default function SelectVpsPlanTable() {
       {servicePlansList !== undefined && <TableComponentWithSelection
         onChange={handlePlanChange}
         data={
-          servicePlansList?.result ? servicePlansList?.result.map((plan, index) => {
+          servicePlansList?.result ? servicePlansList?.result.map((plan) => {
             if (plan.provider_info !== undefined && plan.service != undefined) {
               return {
-                key: index,
+                key: plan.id,
                 provider: plan.provider_info,
                 resource: plan.service.name,
                 options: [plan.options.map((opt) => ([opt.html_content]))],
