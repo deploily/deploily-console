@@ -1,17 +1,17 @@
 "use client";
 
+import { PaymentProfileInterface } from "@/lib/features/payment-profiles/paymentProfilesInterface";
+import { PaymentInterface } from "@/lib/features/payments/paymentInterface";
 import { usePayment } from "@/lib/features/payments/paymentSelector";
 import { fetchPayments, } from "@/lib/features/payments/paymentThunks";
-import { SubscriptionInterface } from "@/lib/features/subscriptions/subscriptionInterface";
 import { useAppDispatch } from "@/lib/hook";
-import { Skeleton, Table, Result, Tag } from "antd";
+import { theme } from "@/styles/theme";
+import { Result, Skeleton, Table, Tag } from "antd";
+import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
-import { PaymentInterface } from "@/lib/features/payments/paymentInterface";
-import { useRouter } from "next/navigation";
-import { theme } from "@/styles/theme";
-import { PaymentProfileInterface } from "@/lib/features/payment-profiles/paymentProfilesInterface";
 import getStatusStyle from "../../utils/getStatusStyle";
+import { ApiServiceSubscriptionInterface } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionInterface";
 
 export default function PaymentsListContainer() {
 
@@ -49,9 +49,9 @@ export default function PaymentsListContainer() {
             },
             {
                 title: t("serviceName"),
-                dataIndex: "subscription",
-                key: "subscription",
-                render: (subscribe: SubscriptionInterface) => subscribe?.name || "-",
+                dataIndex: "apiServiceSubscription",
+                key: "apiServiceSubscription",
+                render: (subscribe: ApiServiceSubscriptionInterface) => subscribe?.name || "-",
             },
             {
                 title: t("amount"),

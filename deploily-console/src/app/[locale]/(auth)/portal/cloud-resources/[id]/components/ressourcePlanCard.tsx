@@ -44,7 +44,7 @@ export default function RessourcePlanCard({ resourcePlan, currentResource, showD
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   
   `;
-    const t = useScopedI18n('subscription');
+    const t = useScopedI18n('apiServiceSubscription');
     const toastTranslate = useScopedI18n('toast');
     const translate = useI18n();
     const { contactUsResponse, isError } = useContactUs();

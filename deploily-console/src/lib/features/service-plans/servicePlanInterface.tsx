@@ -18,7 +18,6 @@ export interface ServicePlan {
   price: number;
   name: string;
   plan: Plan;
-  ubscription_category: "string";
   service_id: number;
   service: ApiServiceInterface;
   options: ServicePlanOption[];

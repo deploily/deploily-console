@@ -1,27 +1,27 @@
-import { SubscriptionInterface } from "@/lib/features/subscriptions/subscriptionInterface";
-import { useSubscription } from "@/lib/features/subscriptions/subscriptionSelectors";
-import { fetchSubscription } from "@/lib/features/subscriptions/subscriptionThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { Card, Col, Result, Row } from "antd";
 import { useEffect } from "react";
 import { useI18n } from "../../../../../../../locales/client";
 import SubscriptionCard from "./subscriptionCard";
+import { useApiServiceSubscription } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionSelectors";
+import { fetchApiServiceSubscription } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionThunks";
+import { ApiServiceSubscriptionInterface } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionInterface";
 
 export default function SubscriptionContainer() {
   const dispatch = useAppDispatch();
-  const { subscriptionLoading, subscriptionResponse, subscriptionLoadingError } = useSubscription()
+  const { apiServiceSubscriptionLoading, apiServiceSubscriptionResponse, apiServiceSubscriptionLoadingError } = useApiServiceSubscription()
   const t = useI18n();
 
   useEffect(() => {
-    dispatch(fetchSubscription());
+    dispatch(fetchApiServiceSubscription());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
-      {!subscriptionLoading && subscriptionResponse !== undefined && (
+      {!apiServiceSubscriptionLoading && apiServiceSubscriptionResponse !== undefined && (
         <Row gutter={[24, 24]} justify="start" style={{ margin: 0 }}>
-          {subscriptionResponse?.result?.map((row: SubscriptionInterface) => (
+          {apiServiceSubscriptionResponse?.result?.map((row: ApiServiceSubscriptionInterface) => (
             <Col
               key={row.id}
               xs={24}
@@ -36,7 +36,7 @@ export default function SubscriptionContainer() {
           ))}
         </Row>
       )}
-      {subscriptionLoading && subscriptionResponse === undefined &&
+      {apiServiceSubscriptionLoading && apiServiceSubscriptionResponse === undefined &&
         <Col
           xs={24}
           sm={12}
@@ -48,7 +48,7 @@ export default function SubscriptionContainer() {
           <Card loading={true} style={{ minWidth: 300 }} />
         </Col>
       }
-      {!subscriptionLoading && subscriptionLoadingError &&
+      {!apiServiceSubscriptionLoading && apiServiceSubscriptionLoadingError &&
         <Result
           status="500"
           title={t('error')}

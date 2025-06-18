@@ -1,4 +1,3 @@
-import { SubscriptionInterface } from "@/lib/features/subscriptions/subscriptionInterface";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { CustomBlueButton } from "@/styles/components/buttonStyle";
 import { Faders } from "@phosphor-icons/react";
@@ -7,8 +6,9 @@ import Paragraph from "antd/es/typography/Paragraph";
 import { useRouter } from "next/navigation";
 import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import { subscriptionStatusStyle } from "../utils/subscriptionsConst";
-export default function SubscriptionCard({ data }: { data: SubscriptionInterface }) {
-    const tSubscription = useScopedI18n('subscription');
+import { ApiServiceSubscriptionInterface } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionInterface";
+export default function SubscriptionCard({ data }: { data: ApiServiceSubscriptionInterface }) {
+    const tSubscription = useScopedI18n('apiServiceSubscription');
     const t = useI18n();
     const router = useRouter();
     return (

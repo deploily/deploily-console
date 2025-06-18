@@ -21,7 +21,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import ServicePlanCard from "./servicePlanCard";
-import SubscribeDrawer from "./subscriptionDrawer/subscriptionDrawer";
+import ApiServiceSubscriptionDrawer from "./apiServiceSubscriptionDrawer/apiServiceSubscriptionDrawer";
 
 export default function ServiceDetailsContentPage({ serviceId }: { serviceId: string }) {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -35,7 +35,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
   const showDrawer = (plan: any | null) => {
     if (plan !== null) {
       setSelectedPlan(plan);
-      dispatch({ type: "SubscriptionStates/updateSubscriptionStates", payload: { "price": plan.price } });
+      dispatch({ type: "ApiServiceSubscriptionStates/updateApiServiceSubscriptionStates", payload: { "price": plan.price } });
     }
     setOpenDrawer(true);
   };
@@ -247,7 +247,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
                 </div>
               }
             </Row>
-            <SubscribeDrawer openDrawer={openDrawer} onClose={onClose} planSelected={planSelected} />
+          <ApiServiceSubscriptionDrawer openDrawer={openDrawer} onClose={onClose} planSelected={planSelected} />
           </>
         }
 

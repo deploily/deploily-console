@@ -1,5 +1,3 @@
-import { useSubscription } from "@/lib/features/subscriptions/subscriptionSelectors";
-import { fetchSubscriptionById, generateTokenThunk } from "@/lib/features/subscriptions/subscriptionThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { CustomBlueButton } from "@/styles/components/buttonStyle";
 import { theme } from "@/styles/theme";
@@ -10,36 +8,38 @@ import { useI18n, useScopedI18n } from "../../../../../../../../locales/client";
 
 import { handleCopy } from "@/lib/utils/handleCopy";
 import React from "react";
+import { useApiServiceSubscription } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionSelectors";
+import { fetchApiServiceSubscriptionById, generateTokenThunk } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionThunks";
 
-export default function GenerateTokenComponent({ subscription_id }: { subscription_id: string }) {
+export default function GenerateTokenComponent({ apiServiceSubscription_id }: { apiServiceSubscription_id: string }) {
     const t = useI18n();
-    const tSubscription = useScopedI18n('subscription');
+    const tApiServiceSubscription = useScopedI18n('apiServiceSubscription');
     const dispatch = useAppDispatch();
-    const { currentSubscription, generateTokenSuccess } = useSubscription()
+    const { currentApiServiceSubscription, generateTokenSuccess } = useApiServiceSubscription()
     useEffect(() => {
         if (generateTokenSuccess) {
-            dispatch(fetchSubscriptionById(subscription_id));
+            dispatch(fetchApiServiceSubscriptionById(apiServiceSubscription_id));
         }
     }, [generateTokenSuccess]);
 
-    const generateApiKey = () => { dispatch(generateTokenThunk(subscription_id)) }
+    const generateApiKey = () => { dispatch(generateTokenThunk(apiServiceSubscription_id)) }
     const [passwordVisible, setPasswordVisible] = React.useState(false);
 
     return (<div>
-        {currentSubscription !== undefined && <>
+        {currentApiServiceSubscription !== undefined && <>
             <Typography.Title level={4} style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange600 }}>
-                {tSubscription('apiKey')}
+                {tApiServiceSubscription('apiKey')}
             </Typography.Title>
             <div style={{ flexDirection: "row", display: "flex", justifyContent: "space-between", width: "100%" }}>
                 <Input
                     disabled
                     style={{ width: "fit" }}
-                    value={currentSubscription.api_key}
+                    value={currentApiServiceSubscription.api_key}
                     type={passwordVisible ? "text" : "password"}
-                />  {currentSubscription.api_key !== null && currentSubscription.api_key !== "" ?
+                />  {currentApiServiceSubscription.api_key !== null && currentApiServiceSubscription.api_key !== "" ?
                     <>
                 <Button type="primary" style={{ boxShadow: "none"}} icon={passwordVisible ? <EyeSlash /> : <Eye />} onClick={() => setPasswordVisible(prev => !prev)} />
-                <Button type="primary" style={{ boxShadow: "none", margin: '0px 5px' }} icon={<Copy />} onClick={() => handleCopy(currentSubscription.api_key ?? "")} />
+                <Button type="primary" style={{ boxShadow: "none", margin: '0px 5px' }} icon={<Copy />} onClick={() => handleCopy(currentApiServiceSubscription.api_key ?? "")} />
           </>: <CustomBlueButton
                             onClick={generateApiKey}
                             style={{ backgroundColor: theme.token.blue100, width: "10rem", margin: '0px 5px'  }}

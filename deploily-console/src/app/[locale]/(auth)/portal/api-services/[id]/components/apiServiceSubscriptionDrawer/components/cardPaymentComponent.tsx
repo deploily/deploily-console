@@ -1,15 +1,15 @@
 "use client";
-import { useSubscriptionStates } from "@/lib/features/subscription-states/subscriptionSelectors";
-import { useSubscription } from "@/lib/features/subscriptions/subscriptionSelectors";
-import { postSubscription } from "@/lib/features/subscriptions/subscriptionThunks";
+import { NEXT_PUBLIC_SITE_KEY } from "@/deploilyWebsiteUrls";
+import { useApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSelectors";
+import { useApiServiceSubscription } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionSelectors";
+import { postApiServiceSubscription } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
-import { Button, Card, Checkbox, CheckboxChangeEvent, Image, Typography } from "antd";
+import { Card, Checkbox, CheckboxChangeEvent, Typography } from "antd";
 import { redirect } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { useScopedI18n } from "../../../../../../../../../../locales/client";
 import ReCAPTCHA from "react-google-recaptcha";
-import { NEXT_PUBLIC_SITE_KEY } from "@/deploilyWebsiteUrls";
+import { useScopedI18n } from "../../../../../../../../../../locales/client";
 import EpayButton from "./epayButton";
 
 export default function CardPaymentComponent({ selectedPlan }: { selectedPlan: any }) {
@@ -18,22 +18,22 @@ export default function CardPaymentComponent({ selectedPlan }: { selectedPlan: a
     const onChangeCheckbox = (e: CheckboxChangeEvent) => {
         setValue(e.target.checked);
     };
-    const { totalAmount } = useSubscriptionStates()
+    const { totalAmount } = useApiServiceSubscriptionStates()
     const tPayments = useScopedI18n("payments");
-    const subscriptionStates = useSubscriptionStates();
+    const apiServiceSubscriptionStates = useApiServiceSubscriptionStates();
     const dispatch = useAppDispatch();
-    const { newSubscriptionResponse } = useSubscription();
+    const { newApiServiceSubscriptionResponse } = useApiServiceSubscription();
     useEffect(() => {
-        console.log("newSubscriptionResponse");
-        if (newSubscriptionResponse) {
-            if (newSubscriptionResponse.form_url !== null) {
-                redirect(newSubscriptionResponse.form_url);
+        console.log("newApiServiceSubscriptionResponse");
+        if (newApiServiceSubscriptionResponse) {
+            if (newApiServiceSubscriptionResponse.form_url !== null) {
+                redirect(newApiServiceSubscriptionResponse.form_url);
             } else {
                 // TODO display error in a toast
                 console.log("Error in payment registration");
             }
         }
-    }, [newSubscriptionResponse]);
+    }, [newApiServiceSubscriptionResponse]);
 
     const [captchaToken, setCaptchaToken] = useState<string | null>(null);
 
@@ -42,18 +42,18 @@ export default function CardPaymentComponent({ selectedPlan }: { selectedPlan: a
         setCaptchaToken(value);
     };
     const handleSubscribe = async () => {
-        const newSubscriptionObject = {
+        const newApiServiceSubscriptionObject = {
             captcha_token: captchaToken,
-            duration: subscriptionStates.duration,
-            total_amount: subscriptionStates.totalAmount,
-            promo_code: subscriptionStates.promoCode,
+            duration: apiServiceSubscriptionStates.duration,
+            total_amount: apiServiceSubscriptionStates.totalAmount,
+            promo_code: apiServiceSubscriptionStates.promoCode,
             payment_method: "card",
             service_plan_selected_id: selectedPlan.id,
-            profile_id: subscriptionStates.selectedProfile != null ? subscriptionStates.selectedProfile.id : 1
+            profile_id: apiServiceSubscriptionStates.selectedProfile != null ? apiServiceSubscriptionStates.selectedProfile.id : 1
         };
-        console.log("newSubscriptionObject CardPaymentComponent", newSubscriptionObject);
+        console.log("newApiServiceSubscriptionObject CardPaymentComponent", newApiServiceSubscriptionObject);
 
-        dispatch(postSubscription(newSubscriptionObject));
+        dispatch(postApiServiceSubscription(newApiServiceSubscriptionObject));
     };
 
     return (
