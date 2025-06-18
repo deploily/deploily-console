@@ -25,15 +25,13 @@ export default function AllCloudResourcesContainer() {
     const [hover, setHover] = useState(false);
     const [filterParams, setFilter] = useState(
         {
-            limit: 50,
+            page_size: 10,
+            page: 0,
             provider: undefined,
             category: undefined,
             searchTerm: "",
         },
     );
-
-
-    const itemsPerPage = 6;
 
     // ===== Redux Selectors =====
     const { isLoading, cloudResourceResponse, cloudResourceLoadingError, providersListResponse, resourceCategoriesResponse } = useCloudResource();
@@ -48,18 +46,25 @@ export default function AllCloudResourcesContainer() {
         setFilter((prevFilter) => ({
             ...prevFilter,
             [field]: value === null ? undefined : field === "searchTerm" ? String(value) : Number(value),
+
         }));
 
+    };
+
+    const handlePageChange = (pageValue: number) => {
+
+        setCurrentPage(pageValue);
+        setFilter((prev) => ({
+            ...prev,
+            page: pageValue - 1,
+        }));
     };
 
     // ===== Effects =====
 
     useEffect(() => {
         sessionStorage.setItem("fromPage", "seeAll");
-
         dispatch(fetchResourceCategories());
-        dispatch(fetchCloudResources({ limit: 50 }));
-
         dispatch(getProvidersList());
 
     }, [favoriteServiceAdded, favoriteServiceDeleted]);
@@ -192,17 +197,15 @@ export default function AllCloudResourcesContainer() {
             )}
 
             {/* Pagination */}
-            {!isLoading && resources.length > itemsPerPage && (
-                <Row justify="center">
-                    <Pagination
-                        current={currentPage}
-                        pageSize={itemsPerPage}
-                        total={resources.length}
-                        onChange={setCurrentPage}
-                        showSizeChanger={false}
-                    />
-                </Row>
-            )}
+            <Row justify="end" style={{ marginTop: 20 }}>
+                <Pagination
+                    current={currentPage}
+                    pageSize={filterParams.page_size}
+                    total={cloudResourceResponse?.count ?? 0}
+                    onChange={handlePageChange}
+                    showSizeChanger={false}
+                />
+            </Row>
         </Space>
     );
 }

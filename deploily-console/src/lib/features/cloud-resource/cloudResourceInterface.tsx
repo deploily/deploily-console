@@ -72,7 +72,8 @@ export interface MyResourcesList {
     created_on: string;
 }
 export interface Filter {
-    limit?: number;
+    page_size?: number;
+    page?: number;
     provider?: number;
     category?: number;
     searchTerm?: string;
