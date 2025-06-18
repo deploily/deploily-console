@@ -22,7 +22,8 @@ export interface ServicePlan {
   service_id: number;
   service: ApiServiceInterface;
   options: ServicePlanOption[];
-  is_custom: boolean
+  is_custom: boolean;
+  subscription_category: string;
 }
 
 export interface Plan {

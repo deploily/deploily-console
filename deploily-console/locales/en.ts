@@ -163,6 +163,8 @@ export default {
     'subscription.selectProfile': 'Select  Profile',
     'subscription.subscribeService': 'Subscribe Service',
     'subscription.month': 'Month',
+    'subscription.year': 'Year',
+
     'subscription.confirm': 'Confirm',
     'subscription.cancel': 'Cancel',
     'subscription.sufficientBalance': 'Your account balance is sufficient to complete this payment.',

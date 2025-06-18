@@ -21,7 +21,7 @@ export default function CloudResourceContainer() {
   useEffect(() => {
     sessionStorage.setItem("fromPage", "home");
 
-    dispatch(fetchCloudResources({ limit: 4 }));
+    dispatch(fetchCloudResources({ page_size: 4 }));
   }, [favoriteServiceAdded, favoriteServiceDeleted]);
 
   return (
@@ -79,10 +79,13 @@ export default function CloudResourceContainer() {
                   justifyContent: "center",
                   alignItems: "center",
                   margin: "0 10px",
+
                 }}
               >
                 <CloudResourceCard resource={row} from={"home"} />
               </div>
+
+
             ))}
           </HomeCarousel>
         </div>

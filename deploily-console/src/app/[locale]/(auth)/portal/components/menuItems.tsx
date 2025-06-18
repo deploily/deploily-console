@@ -2,12 +2,10 @@ import { DOC_URL } from "@/deploilyWebsiteUrls";
 import {
   Books,
   CalendarStar,
-  Handshake,
   HardDrives,
   HouseLine,
   Invoice,
-  Question,
-  UserList,
+  Question
 } from "@phosphor-icons/react/dist/ssr";
 import type { MenuProps } from "antd";
 import Link from "next/link";
@@ -109,24 +107,24 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
       { key: "11", label: <Link href={"/portal/payments"}><span style={labelStyle}>{scopedSidebar("payments")}</span></Link> },
     ],
   },
-  {
-    key: "members",
-    label: (
-      <Link href="/portal/members">
-        <span style={labelStyle}>{scopedSidebar("members")}</span>
-      </Link>
-    ),
-    icon: <UserList size={24} />,
-  },
-  {
-    key: "sponsoring",
-    label: (
-      <Link href="/portal/sponsoring">
-        <span style={labelStyle}>{scopedSidebar("sponsoring")}</span>
-      </Link>
-    ),
-    icon: <Handshake size={24} />,
-  },
+  // {
+  //   key: "members",
+  //   label: (
+  //     <Link href="/portal/members">
+  //       <span style={labelStyle}>{scopedSidebar("members")}</span>
+  //     </Link>
+  //   ),
+  //   icon: <UserList size={24} />,
+  // },
+  // {
+  //   key: "sponsoring",
+  //   label: (
+  //     <Link href="/portal/sponsoring">
+  //       <span style={labelStyle}>{scopedSidebar("sponsoring")}</span>
+  //     </Link>
+  //   ),
+  //   icon: <Handshake size={24} />,
+  // },
   {
     key: "documentation",
     label: (

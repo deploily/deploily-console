@@ -14,7 +14,9 @@ export default function ServicePlanCard({ servicePlan, showDrawer }: { servicePl
                 height: "100%",
                 width: "100%",
                 borderColor: theme.token.gray50,
-                boxShadow: "none"
+                boxShadow: "none",
+                minWidth: 250,
+                maxWidth: 300,
             }}
             styles={{
                 body: { flex: 1, display: "flex", flexDirection: "column", paddingBottom: 0 },
@@ -36,14 +38,20 @@ export default function ServicePlanCard({ servicePlan, showDrawer }: { servicePl
 
             <Typography.Paragraph style={{ fontSize: 25, fontWeight: 600, color: theme.token.orange400, textAlign: "center" }}>
                 {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(servicePlan.price)}
-                <span style={{ fontSize: 16, fontWeight: 400 }}> DZD/{t("month")}</span>
+                <span style={{ fontSize: 16, fontWeight: 400 }}> DZD/
+                    {servicePlan!.subscription_category === "monthly" ? t("month")
+                        : servicePlan!.subscription_category === "yearly" ? t("year")
+                            : t("month")
+                    }
+                </span>
             </Typography.Paragraph>
 
             <div style={{ flex: 1, paddingBottom: "16px" }}>
                 {servicePlan.options.map((row: ServicePlanOption) => (
                     <Row gutter={16} key={row.id} align="middle">
                         <Col span={3}  >
-                            <Check size={24} color={theme.token.gray100} />
+                            {row.icon ? row.icon : <Check size={24} color={theme.token.gray100} />}
+
                         </Col>
                         <Col span={21}>
                             <Typography.Paragraph

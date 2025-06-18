@@ -76,6 +76,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
           <Row>
             <Col span={24} style={{ marginBottom: 12 }}>
               <span style={{ color: "white", fontSize: "24px", fontWeight: 800, }}>
+
                 <span
                   style={{ cursor: "pointer", color: hover ? "orange" : "white" }}
                   onClick={() => router.back()}
@@ -85,11 +86,13 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
                   {fromPage === "home" ? (
                     <HomeOutlined style={{ marginRight: 4 }} />
                   ) : (
-                    t("seeAll")
+                    t("APIService")
                   )}
                 </span>  / {"\t"}
-                {t("details")}
+                {currentService !== undefined && currentService.name}
               </span>
+
+
             </Col>
           </Row>
         </Col>

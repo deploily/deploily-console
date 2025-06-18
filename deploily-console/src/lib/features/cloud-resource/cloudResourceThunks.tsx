@@ -26,7 +26,8 @@ export const fetchCloudResources = createAsyncThunk(
         }
 
         const filterQuery = `filters:!(${filters.join(',')})`;
-        const fullQuery = `(${filterQuery},page_size:${filterParams.limit})`;
+        const fullQuery = (filterParams.page) ? `(${filterQuery},page_size:${filterParams.page_size},page:${filterParams.page})` :
+            `(${filterQuery},page_size:${filterParams.page_size})`;
 
         const query = `?q=${encodeURIComponent(fullQuery)}`;
 

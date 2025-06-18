@@ -24,11 +24,9 @@ export default function CloudResourceCard({ resource }: any) {
         <Card
             hoverable
             style={{
-                flex: "0 0 auto",
-                width: 270,
+                minWidth: 250,
+                maxWidth: 270,
                 height: 350,
-                position: "relative",
-                marginRight: 16,
             }}
             bodyStyle={{ padding: 16, height: "100%" }}
             onClick={() => {

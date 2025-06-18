@@ -90,7 +90,9 @@ export default function RessourcePlanCard({ resourcePlan, currentResource, showD
                 flexDirection: "column",
                 height: "100%",
                 borderColor: theme.token.gray50,
-                boxShadow: "none"
+                boxShadow: "none",
+                minWidth: 250,
+                maxWidth: 300,
             }}
             styles={{
                 body: { flex: 1, display: "flex", flexDirection: "column", paddingBottom: 0 },
@@ -153,7 +155,12 @@ export default function RessourcePlanCard({ resourcePlan, currentResource, showD
                                 }}
                             >
                                 {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(resourcePlan!.price)}
-                                <span style={{ fontSize: 16, fontWeight: 400 }}> DZD/{t("month")}</span>
+                                <span style={{ fontSize: 16, fontWeight: 400 }}> DZD/
+                                    {resourcePlan!.subscription_category === "monthly" ? t("month")
+                                        : resourcePlan!.subscription_category === "yearly" ? t("year")
+                                            : t("month")
+                                    }
+                                </span>
 
                             </Text>
                         </div>
@@ -172,7 +179,11 @@ export default function RessourcePlanCard({ resourcePlan, currentResource, showD
                         {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(
                             applyDiscount(resourcePlan!.price, currentResource.discount)
                         )}
-                        <span style={{ fontSize: 16, fontWeight: 400 }}> DZD/{t("month")}</span>
+                        <span style={{ fontSize: 16, fontWeight: 400 }}> DZD/
+                            {resourcePlan!.subscription_category === "monthly" ? t("month")
+                                : resourcePlan!.subscription_category === "yearly" ? t("year")
+                                    : t("month")
+                            }</span>
                     </Typography.Paragraph>
                 </div>
             )}
