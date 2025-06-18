@@ -1,12 +1,15 @@
 "use client";
 import { useApplicationServiceById, useNewApplicationSubscription } from "@/lib/features/application/applicationServiceSelectors";
 import { fetchApplicationServiceById } from "@/lib/features/application/applicationServiceThunks";
+import { useNotDefaultPaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesSelectors";
+import { fetchNotDefaultPaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesThunks";
 import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThanks";
 import { useAppDispatch } from "@/lib/hook";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { Col, Row } from "antd";
-import { MediasCarousel, PaymentSideBar, Rating } from "deploily-ui-components";
-import { useEffect } from "react";
+import { PaymentDrawer, PaymentSideBar } from "deploily-ui-components";
+import { useEffect, useState } from "react";
+import { useScopedI18n } from "../../../../../../../locales/client";
 import ApplicationDetailsCollapseContainer from "./containers/applicationDetailsCollapseContainer";
 import ApplicationPlansContainer from "./containers/applicationPlansContainer";
 import ApplicationDescriptionContainer from "./containers/descriptionContainer";
@@ -15,17 +18,26 @@ import SelectVpsPlanTable from "./containers/selectVpsPlanTable";
 
 export default function ApplicationDetailsPageContent({ applicationId }: { applicationId: any }) {
 
+
+
     const dispatch = useAppDispatch();
 
-    const { applicationServiceById,
-        isLoading,
-        loadingError, } = useApplicationServiceById();
-    const { totalAmount,service_plan_selected_id,duration } = useNewApplicationSubscription();
+    const [openDrawer, setOpenDrawer] = useState(false);
+
+
+    const onClose = () => {
+        setOpenDrawer(false);
+    };
+
+    const { applicationServiceById, isLoading, loadingError, } = useApplicationServiceById();
+
+    const { totalAmount, service_plan_selected_id, duration } = useNewApplicationSubscription();
 
     // Fetch application service by ID and service plans when the component mounts
     useEffect(() => {
         dispatch(fetchApplicationServiceById(applicationId));
         dispatch(fetchServicePlans(applicationId));
+        dispatch(fetchNotDefaultPaymentProfiles());
     }, [])
 
 
@@ -35,24 +47,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                 loadingError ? <div>Error: {loadingError}</div> :
                     !applicationServiceById ? <div>No application found</div> :
                         <Row style={{ justifyContent: 'center' }} gutter={[16, 16]}>
-                            <Col style={{ justifyContent: 'space-between', alignItems: 'center', paddingTop: '120px' }} span={10}>
-                                <div style={{ padding: '8px 0' }}>
-                                    <MediasCarousel medias={applicationServiceById.medias} />
-                                </div>
-                                <div style={{ padding: '8px 0' }}>
-
-                                    <Rating ratingValue={3.5} />
-                                </div>
-                                <div style={{ padding: '8px 0' }}>
-                                    <ApplicationDetailsCollapseContainer
-                                        ssh={applicationServiceById.ssh_access}
-                                        description={applicationServiceById.description}
-                                        monitoring={applicationServiceById.monitoring} />
-                                </div>
-
-                                <SelectVpsPlanTable />
-                            </Col>
-                            <Col span={10} >
+                            <Col style={{ justifyContent: 'space-between', alignItems: 'center', paddingTop: '120px' }} span={16}>
                                 <div style={{ padding: '8px 0' }}>
                                     <ApplicationDescriptionContainer
                                         title={applicationServiceById.name}
@@ -76,43 +71,52 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                 <div style={{ padding: '8px 0' }}>
                                     <ApplicationPlansContainer />
                                 </div>
-                                {/* //TODO : RECOMENDATIONs CONTAINER */}
-
+                                <SelectVpsPlanTable />
+                                <div style={{ padding: '8px 0' }}>
+                                    <ApplicationDetailsCollapseContainer
+                                        ssh={applicationServiceById.ssh_access}
+                                        description={applicationServiceById.description}
+                                        monitoring={applicationServiceById.monitoring} />
+                                </div>
                             </Col>
-                            <Col span={4} >
-                                <PaymentSideBar 
+                            <Col span={6} >
+                                <PaymentSideBar
                                     price={totalAmount}
                                     buttonText={'confirm'}//TODO ADD TRANSLATION
                                     items={//TODO ADD TRANSLATION
                                         [
-                                            {   
-                                                label:"service_name",
-                                                value: applicationServiceById.name
-                                            }, 
                                             {
-                                                label:"options",
+                                                label: "service_name",
+                                                value: applicationServiceById.name
+                                            },
+                                            {
+                                                label: "options",
                                                 value: `${service_plan_selected_id}`
                                             },
                                             {
-                                                label:"duration",
+                                                label: "duration",
                                                 value: `${duration} month`
-                                            },                                            {
-                                                label:"Resource provider :",
+                                            }, {
+                                                label: "Resource provider :",
                                                 value: `issal`
                                             },
                                             {
-                                                label:"vps type :",
+                                                label: "vps type :",
                                                 value: `FleXCompute - Starter `
                                             },
                                             {
-                                                label:"plan :",
+                                                label: "plan :",
                                                 value: `2 vCPU / 4Go`
                                             },
                                         ]
                                     }
-                                    onClick={()=>{} }/>
+                                    onClick={() => setOpenDrawer(true)}
+                                />
                             </Col>
                         </Row>}
+            <PaymentDrawer
+                openDrawer={openDrawer} onClose={onClose}  />
+
 
         </>
     );
