@@ -16,7 +16,7 @@ import cloudResourceSlice from "./features/cloud-resource/cloudResourceSlice";
 import applicationServiceSlice from "./features/application/applicationServiceSlice";
 import profileSlice from "./features/profile/profileSlice";
 import myApplicationSlice from "./features/my-applications/myApplicationSlice"
-
+import ttkEpaySlice from "./features/ttk-epay/ttkEpaySlice"
 export const makeStore = () => {
   return configureStore({
     reducer: {
@@ -37,6 +37,7 @@ export const makeStore = () => {
       contactUs: contactUsSlice,
       profile: profileSlice,
       myApplication: myApplicationSlice,
+      ttkEpay: ttkEpaySlice,
     },
   });
 };
