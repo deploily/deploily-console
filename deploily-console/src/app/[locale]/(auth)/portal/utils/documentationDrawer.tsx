@@ -3,9 +3,9 @@ import { CaretDown, CaretUp } from "@phosphor-icons/react";
 import { Collapse, Drawer, Row } from "antd";
 
 import { subscriptionDetails } from "./subscriptionDetails";
-import { SubscriptionInterface } from "@/lib/features/subscriptions/subscriptionInterface";
+// import { SubscriptionInterface } from "@/lib/features/subscriptions/subscriptionInterface";
 
-export default function DocumentationDrawer({ openDrawer, onClose, currentSubscription, t }: { openDrawer: any, onClose: any, currentSubscription: SubscriptionInterface, t: any }) {
+export default function DocumentationDrawer({ openDrawer, onClose, currentSubscription, t }: { openDrawer: any, onClose: any, currentSubscription: any, t: any }) {
     return (
         <Drawer
             title="Documentation"
