@@ -4,6 +4,7 @@ export default {
     'comingSoon': "Behind the scenes, we're crafting something special. Stay tuned for what's to come!",
     'APIService': 'API Service',
     "cloudResources": "Cloud Resources",
+    "application": "Applications",
     'Members': 'Members',
     'myFavorites': 'My favorites',
     'myResources': 'My resources',
@@ -257,5 +258,8 @@ export default {
     "applications.provider": "Resource provider",
     "applications.vpsType": "VPS Type",
     "applications.resourcePlan": "Resource Plan",
-    "applications.total": "Total amount"
+    "applications.total": "Total amount",
+    "applications.search": "Search",
+    "applications.noResult": "No Results Found",
+    "applications.noResultDescription": "Try adjusting your search or filter."
 } as const

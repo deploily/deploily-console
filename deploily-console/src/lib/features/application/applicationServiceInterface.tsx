@@ -19,7 +19,7 @@ export interface ApplicationServiceInterface {//TODO RECHECK THIS INTERFACE TO C
     description: string;
     average_rating: number;
     documentation_url: string;
-    image_service: string;
+    image_service?: string;
     is_in_favorite: boolean;
     medias: ServiceMediaInterface[];
     monitoring: string;

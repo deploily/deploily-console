@@ -1,12 +1,20 @@
 import axiosInstance from "@/app/api/axios-instance";
 import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
+import { RootState } from "@/lib/store";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getSession } from "next-auth/react";
 
 export const fetchApplicationServices = createAsyncThunk(
     "applicationService/getapplicationService",
-    async (_, thunkConfig) => {
+    async (limit: number, thunkConfig) => {
+    const state = thunkConfig.getState() as RootState;
+    const searchValue = state.applicationService.searchValue?.trim();
 
+    const filters = searchValue
+      ? `(filters:!((col:name,opr:ct,value:'${searchValue}')),page_size:${limit})`
+      : `(page_size:${limit})`;
+
+    const query = `?q=${encodeURIComponent(filters)}`;
         try {
             const session = await getSession();
 
@@ -16,7 +24,7 @@ export const fetchApplicationServices = createAsyncThunk(
 
             const token = session.accessToken;
 
-            const response = await axiosInstance.get(`${deploilyApiUrls.APPP_SERVICES_URL}`, {
+            const response = await axiosInstance.get(`${deploilyApiUrls.APPP_SERVICES_URL}${query}`, {
                 headers: {
                     Accept: "application/json",
                     Authorization: `Bearer ${token}`,

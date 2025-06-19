@@ -2,34 +2,58 @@
 import { ApplicationServiceInterface } from "@/lib/features/application/applicationServiceInterface";
 import { fetchApplicationServices } from "@/lib/features/application/applicationServiceThunks";
 import { useAppDispatch } from "@/lib/hook";
-import { Row } from "antd";
+import { Button, Row } from "antd";
 import { useEffect } from "react";
 import ApplicationServiceCard from "./applicationServiceCard";
 import HomeCarousel from "../../components/homeCarousel";
 import { useApplicationServicesList } from "@/lib/features/application/applicationServiceSelectors";
+import { useI18n } from "../../../../../../../locales/client";
+import { useRouter } from "next/navigation";
 
 export default function ApplicationServiceContainer() {
+  const t = useI18n();
   const { isLoading, applicationServicesList } = useApplicationServicesList();
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   useEffect(() => {
-    dispatch(fetchApplicationServices());
+    dispatch(fetchApplicationServices(4));
   }, []);
 
   return (
     <>
 
-      <Row style={{ padding: 20 }}>
+      <Row style={{ paddingTop: 20 }} justify="space-between" align="middle">
         <span
           style={{
+            paddingLeft: "20px",
             color: "white",
-
             fontSize: "24px",
             fontWeight: 800,
           }}
         >
-          Applications
+          {t("application")}
         </span>
+
+        <Button
+          style={{
+            marginLeft: "20px",
+            backgroundColor: "#6caff0",
+            color: "white",
+            fontWeight: "bold",
+            padding: "10px 20px",
+            fontSize: "16px",       // Increased font size
+            borderRadius: "6px",    // Slightly reduced border radius
+            border: "none",
+            cursor: "pointer",
+            minWidth: "120px",      // Ensures a good width
+            height: "40px",         // Sets a comfortable height
+          }}
+          onClick={() => router.push("/portal/application")}
+        >
+          {t("seeAll")}
+        </Button>
+
       </Row>
  <div style={{ position: 'relative', padding: '0 2rem' }}>
         <HomeCarousel>
