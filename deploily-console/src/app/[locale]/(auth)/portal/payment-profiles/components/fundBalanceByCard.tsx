@@ -63,7 +63,6 @@ export default function FundBalanceByCard({ selectedProfile }: { selectedProfile
             captcha_token: captchaToken,
         };
         dispatch(postFundBalance(newFundBalanceObject));
-        console.log(newFundBalanceObject);
 
     };
     return (

@@ -24,7 +24,6 @@ export default function FundBalanceByBank({ selectedProfile }: { selectedProfile
     const dispatch = useAppDispatch();
 
     const [file, setFile] = useState<RcFile | null>(null);
-    console.log("file upload", file);
 
     const [showUploadSection, setShowUploadSection] = useState(false);
 
