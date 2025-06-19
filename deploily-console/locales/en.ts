@@ -257,5 +257,7 @@ export default {
     "applications.provider": "Resource provider",
     "applications.vpsType": "VPS Type",
     "applications.resourcePlan": "Resource Plan",
-    "applications.total": "Total amount"
+    "applications.total": "Total amount",
+    'applications.confirm': 'Confirm'
+
 } as const
