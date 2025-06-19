@@ -13,7 +13,6 @@ export default function EpayButton({ handleSubscribe }: { handleSubscribe: () =>
                 setIsPaymentEnabled(paymentEnabled);
         };
             checkEpaymentPermission();   
-     
         }, []);
     return (
         <>
@@ -42,7 +41,8 @@ export default function EpayButton({ handleSubscribe }: { handleSubscribe: () =>
                         onClick={handleSubscribe}
                     >
                       
-                        <span style={{ fontSize: "16px", fontWeight: 600 }}>
+                        <span style={{ fontSize: "16px", fontWeight: 600 }}> 
+                            {/* //TODO TRANSLATE */}
                             PAY
                         </span>
                     </Button>

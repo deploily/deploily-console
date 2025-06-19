@@ -2,6 +2,7 @@
 import { updateNewAppSubscriptionState } from '@/lib/features/application/applicationServiceSlice';
 import { useServicePlan } from '@/lib/features/service-plans/servicePlanSelector';
 import { useAppDispatch } from '@/lib/hook';
+import { theme } from '@/styles/theme';
 import { Col, Row } from 'antd';
 import { PlanCard } from 'deploily-ui-components';
 
@@ -18,6 +19,10 @@ export default function ApplicationPlansContainer() {
                     return <Col span={Math.floor(24 / servicePlanResponse.result.length)} key={plan.id.toString()}>
                         <PlanCard
                             id={plan.id}
+                            price={plan.price}
+                            styles={{
+                                boxShadow :`1px 1px 1px 1px ${theme.token.orange600}`
+                            }}
                             options={
                                 plan.options.map(opt => ({
                                     id: opt.id,

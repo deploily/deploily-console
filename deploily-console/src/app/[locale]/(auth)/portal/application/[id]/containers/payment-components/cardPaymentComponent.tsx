@@ -1,18 +1,14 @@
 "use client";
 import { useSubscriptionStates } from "@/lib/features/subscription-states/subscriptionSelectors";
-import { useSubscription } from "@/lib/features/subscriptions/subscriptionSelectors";
-import { postSubscription } from "@/lib/features/subscriptions/subscriptionThunks";
-import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
-import { Button, Card, Checkbox, CheckboxChangeEvent, Image, Typography } from "antd";
-import { redirect } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-import { useScopedI18n } from "../../../../../../../../../../locales/client";
+import {  Card, Checkbox, CheckboxChangeEvent, Typography } from "antd";
+import { useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { NEXT_PUBLIC_SITE_KEY } from "@/deploilyWebsiteUrls";
 import EpayButton from "./epayButton";
+import { useScopedI18n } from "../../../../../../../../../locales/client";
 
-export default function CardPaymentComponent({ selectedPlan }: { selectedPlan: any }) {
+export default function CardPaymentComponent({ handleSubscribe }: { handleSubscribe: (captcha_token:string) => Promise<void> }) {
 
     const [value, setValue] = useState(false);
     const onChangeCheckbox = (e: CheckboxChangeEvent) => {
@@ -20,18 +16,6 @@ export default function CardPaymentComponent({ selectedPlan }: { selectedPlan: a
     };
     const { totalAmount } = useSubscriptionStates()
     const tPayments = useScopedI18n("payments");
-    const subscriptionStates = useSubscriptionStates();
-    const dispatch = useAppDispatch();
-    const { newSubscriptionResponse } = useSubscription();
-    useEffect(() => {
-        if (newSubscriptionResponse) {
-            if (newSubscriptionResponse.form_url !== null) {
-                redirect(newSubscriptionResponse.form_url);
-            } else {
-                // TODO display error in a toast
-            }
-        }
-    }, [newSubscriptionResponse]);
 
     const [captchaToken, setCaptchaToken] = useState<string | null>(null);
 
@@ -39,23 +23,12 @@ export default function CardPaymentComponent({ selectedPlan }: { selectedPlan: a
     const handleCaptchaChange = (value: string | null) => {
         setCaptchaToken(value);
     };
-    const handleSubscribe = async () => {
-        const newSubscriptionObject = {
-            captcha_token: captchaToken,
-            duration: subscriptionStates.duration,
-            total_amount: subscriptionStates.totalAmount,
-            promo_code: subscriptionStates.promoCode,
-            payment_method: "card",
-            service_plan_selected_id: selectedPlan.id,
-            profile_id: subscriptionStates.selectedProfile != null ? subscriptionStates.selectedProfile.id : 1
-        };
-
-        dispatch(postSubscription(newSubscriptionObject));
-    };
 
     return (
         <>
-            <Card title="CIB/ E-Dahabia" style={{
+            <Card 
+            title="CIB/ E-Dahabia"//TODO TRANSLATE
+             style={{
                 marginTop: 20,
                 display: "flex",
                 flexDirection: "column",
@@ -83,8 +56,9 @@ export default function CardPaymentComponent({ selectedPlan }: { selectedPlan: a
 
                     <Checkbox style={{ padding: 15 }} onChange={onChangeCheckbox} checked={value}>
                         I accept the general conditions of use
+                        {/* //TODO TRANSLATE THIS */}
                     </Checkbox>
-                    <EpayButton handleSubscribe={handleSubscribe} />
+                    <EpayButton handleSubscribe={async ()=> await handleSubscribe(captchaToken??"")} />
                 </div>
             </Card>
         </>

@@ -8,9 +8,9 @@ import { Col, Drawer } from "antd";
 import NewSubscriptionInfo from "deploily-ui-components/components/payment/newSubscriptionInfo";
 import SelectProfileComponent from "deploily-ui-components/components/payment/selectProfile";
 import { useEffect } from "react";
-import { useScopedI18n } from "../../../../../../../../locales/client";
-import CreateProfileButton from "../../../api-services/[id]/components/subscriptionDrawer/containers/createProfileButton";
-import ApplicationPaymentComponent from "./applicationPaymentComponent";
+import { useScopedI18n } from "../../../../../../../../../locales/client";
+import CreateProfileButton from "../../../../api-services/[id]/components/subscriptionDrawer/containers/createProfileButton";
+import ApplicationPaymentComponent from "../applicationPaymentComponent";
 
 export default function PaymentDrawer({ openDrawer, onClose }:
     { openDrawer: any, onClose: any }
@@ -21,7 +21,7 @@ export default function PaymentDrawer({ openDrawer, onClose }:
     const dispatch = useAppDispatch();
     const { applicationServiceById } = useApplicationServiceById();
     const { paymentProfilesList } = useNotDefaultPaymentProfiles();
-    const { totalAmount, duration, app_service_plan, resource_service_plan, selectedProfile,isBalanceSufficient } = useNewApplicationSubscription();
+    const { totalAmount, duration, app_service_plan, resource_service_plan, selectedProfile, isBalanceSufficient } = useNewApplicationSubscription();
 
 
     const handleSelectPaymentProfile = (value: any) => {
@@ -30,6 +30,7 @@ export default function PaymentDrawer({ openDrawer, onClose }:
         );
         dispatch(updateNewAppSubscriptionState({ "selectedProfile": newSelectedProfile }))
     };
+
     useEffect(() => {
         dispatch(fetchNotDefaultPaymentProfiles());
     }, [])
@@ -73,11 +74,11 @@ export default function PaymentDrawer({ openDrawer, onClose }:
                             },
                             resourceType: {
                                 label: tApplications("vpsType"),
-                                value: `${resource_service_plan?.service.name}`
+                                value: `${resource_service_plan?.service!=undefined ?resource_service_plan?.service.name:""}`
                             },
                             resourcePlanOptions: {
                                 label: tApplications('resourcePlan'),
-                                value: `${resource_service_plan?.plan.name}`
+                                value: `${resource_service_plan?.plan != undefined ?resource_service_plan?.plan.name:""}`
                             },
                             totalAmount: {
                                 label: tApplications('total'),
@@ -89,9 +90,9 @@ export default function PaymentDrawer({ openDrawer, onClose }:
                         translations={{ title: tSubscription("selectProfile"), profile: tSubscription("profile"), balance: tSubscription("balance") }}
                         selectedProfile={selectedProfile}
                         paymentProfilesList={paymentProfilesList} onSelectProfile={handleSelectPaymentProfile} />
-                     {selectedProfile !== undefined && <div style={{ padding: '5px 0px' }}>
+                    {selectedProfile !== undefined && <div style={{ padding: '5px 0px' }}>
                         {isBalanceSufficient === true ?
-                        <></>
+                            <></>
                             // (<IsBalanceSufficientComponent onClose={onClose} planSelected={planSelected} />)
                             : selectedProfile?.is_default_profile === true ?
                                 <CreateProfileButton planSelected={undefined} openDrawer={openDrawer} onClose={onClose} />
@@ -99,7 +100,7 @@ export default function PaymentDrawer({ openDrawer, onClose }:
                                 <ApplicationPaymentComponent />
                         }
                     </div>}
-                   
+
                 </Col>
             </Drawer>
         </>

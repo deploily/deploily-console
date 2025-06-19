@@ -1,5 +1,5 @@
 'use client';
-import { ApplicationDescription } from 'deploily-ui-components';
+import { ApplicationDescriptionForConsole } from 'deploily-ui-components';
 import React from 'react';
 
 export default function ApplicationDescriptionContainer({ title,
@@ -11,7 +11,7 @@ export default function ApplicationDescriptionContainer({ title,
     }) {
     return (
         <div style={{ padding: 24 }}>
-            <ApplicationDescription
+            <ApplicationDescriptionForConsole
                 title={title}
                 description={description}
                 avatar={logo}

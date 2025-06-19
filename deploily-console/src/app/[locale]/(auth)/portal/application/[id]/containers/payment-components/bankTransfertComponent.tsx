@@ -1,38 +1,17 @@
 "use client";
 import { useSubscriptionStates } from "@/lib/features/subscription-states/subscriptionSelectors";
-import { postSubscription } from "@/lib/features/subscriptions/subscriptionThunks";
-import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
 import { Button, Card, Typography, } from "antd";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import bankPaymentInfo from "./bankPaymentData";
 import { getBankCredEnvVars } from "@/actions/getBankCredEnvVars";
 import { useScopedI18n } from "../../../../../../../../../locales/client";
 
-export default function BankTransfertComponent() {
+export default function BankTransfertComponent({ handleSubscribe }: { handleSubscribe:()=> Promise<void> }) {
     const { totalAmount } = useSubscriptionStates()
     const tBankPayment = useScopedI18n("bankPayment");
     const tPayments = useScopedI18n("payments");
-    const subscriptionStates = useSubscriptionStates()
-    const dispatch = useAppDispatch();
-    const router = useRouter()
-    const handleSubscribe = async () => {
-        // const newSubscriptionObject = {
-        //     duration: subscriptionStates.duration,
-        //     total_amount: subscriptionStates.totalAmount,
-        //     promo_code: subscriptionStates.promoCode,
-        //     payment_method: "bank_transfer",
-        //     service_plan_selected_id: selectedPlan.id,
-        //     profile_id: subscriptionStates.selectedProfile != null ? subscriptionStates.selectedProfile.id : 1
-        // };
-        // dispatch(postSubscription(newSubscriptionObject)).then((response: any) => {
-        //     if (response.meta.requestStatus === "fulfilled") {
-        //         router.push(`/portal/subscriptions/`);
-        //     }
-        // }
-        // );
-    };
+
     const [bankTransfertInformation, setBankTransfertInformation] = useState<any>(undefined)
     useEffect(() => {
         const fetchBankTransfertInfo = async () => {
@@ -41,8 +20,6 @@ export default function BankTransfertComponent() {
         };
         fetchBankTransfertInfo();
     }, []);
-
-
 
     return (
         <Card
@@ -113,7 +90,7 @@ export default function BankTransfertComponent() {
                             fontWeight: 600,
                             fontSize: 16,
                         }}
-                        onClick={() => handleSubscribe()}
+                        onClick={async () => await handleSubscribe()}
                     >
                         {tPayments('confirm')}
                     </Button>

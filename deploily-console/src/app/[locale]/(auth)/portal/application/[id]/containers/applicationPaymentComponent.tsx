@@ -1,17 +1,56 @@
 "use client";
+import { useApplicationServiceById, useNewApplicationSubscription, useNewApplicationSubscriptionResponse } from "@/lib/features/application/applicationServiceSelectors";
+import { applicationSubscribe } from "@/lib/features/application/applicationServiceThunks";
+import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
 import { Flex, Radio, RadioChangeEvent, Typography, } from "antd";
-import { useState } from "react";
+import { redirect, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useScopedI18n } from "../../../../../../../../locales/client";
+import BankTransfertComponent from "./payment-components/bankTransfertComponent";
+import CardPaymentComponent from "./payment-components/cardPaymentComponent";
 
 export default function ApplicationPaymentComponent() {
   const translate = useScopedI18n('subscription');
+  const dispatch = useAppDispatch();
   const translateProfile = useScopedI18n('profilePayment');
   const [paymentMethod, setPaymentMethod] = useState("bank_transfer")
   const onChange = (e: RadioChangeEvent) => {
     setPaymentMethod(e.target.value);
   };
   const t = useScopedI18n("payments");
+  const newApplicationSubscription = useNewApplicationSubscription()
+  const { applicationServiceById } = useApplicationServiceById()
+  const router = useRouter()
+
+  const handleApplicationSubscription = async (captchaToken?: string) => {
+    if (newApplicationSubscription.app_service_plan != undefined && newApplicationSubscription.resource_service_plan != undefined && newApplicationSubscription.selectedProfile != undefined) {
+      let newSubscriptionObject = {
+        duration: Number.parseInt(`${newApplicationSubscription.duration}`),
+        // promo_code: subscriptionStates.promoCode,
+        payment_method: paymentMethod,
+        service_plan_selected_id: newApplicationSubscription.app_service_plan.id,
+        resource_service_plan_id: newApplicationSubscription.resource_service_plan.id,
+        profile_id: newApplicationSubscription.selectedProfile.id
+      };
+      if (paymentMethod == "card") {
+        newSubscriptionObject = { ...newSubscriptionObject, ...{captcha_token: captchaToken}, }
+      }
+      dispatch(applicationSubscribe({ app_slug: applicationServiceById?.app_slug, data: newSubscriptionObject }));
+    }
+  };
+  const { newSubscriptionResponse } = useNewApplicationSubscriptionResponse();
+  useEffect(() => {
+    if (newSubscriptionResponse) {
+      if (newSubscriptionResponse.form_url !== null) {
+        redirect(newSubscriptionResponse.form_url);
+      } else {
+        router.push(`/portal/app-subscriptions/`);
+      }
+
+
+    }
+  }, [newSubscriptionResponse]);
 
   return (
     <>
@@ -31,8 +70,8 @@ export default function ApplicationPaymentComponent() {
 
       </Flex>
       {paymentMethod === "card" ?
-        <CardPaymentComponent />
-        : <BankTransfertComponent />}
+        <CardPaymentComponent handleSubscribe={(captcha_token: string) => handleApplicationSubscription(captcha_token)} />
+        : <BankTransfertComponent handleSubscribe={() => handleApplicationSubscription(undefined)} />}
     </>
   )
 }
