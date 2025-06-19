@@ -1,12 +1,10 @@
 "use client";
 import { useApplicationServiceById, useNewApplicationSubscription } from "@/lib/features/application/applicationServiceSelectors";
 import { fetchApplicationServiceById } from "@/lib/features/application/applicationServiceThunks";
-import { useNotDefaultPaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesSelectors";
-import { fetchNotDefaultPaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesThunks";
 import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThanks";
 import { useAppDispatch } from "@/lib/hook";
 import ImageFetcher from "@/lib/utils/imageFetcher";
-import { Col, Row } from "antd";
+import { Col, Row, Skeleton } from "antd";
 import { PaymentDrawer, PaymentSideBar } from "deploily-ui-components";
 import { useEffect, useState } from "react";
 import { useScopedI18n } from "../../../../../../../locales/client";
@@ -17,38 +15,31 @@ import SelectDurationContainer from "./containers/selectDurationContainer";
 import SelectVpsPlanTable from "./containers/selectVpsPlanTable";
 
 export default function ApplicationDetailsPageContent({ applicationId }: { applicationId: any }) {
-
-
-
     const dispatch = useAppDispatch();
-
     const [openDrawer, setOpenDrawer] = useState(false);
-
-
     const onClose = () => {
         setOpenDrawer(false);
     };
+    const { applicationServiceById, isLoading, loadingError} = useApplicationServiceById();
 
-    const { applicationServiceById, isLoading, loadingError, } = useApplicationServiceById();
+    const { totalAmount, duration, app_service_plan, resource_service_plan, } = useNewApplicationSubscription();
+    const tApplications = useScopedI18n('applications');
 
-    const { totalAmount, service_plan_selected_id, duration } = useNewApplicationSubscription();
 
-    // Fetch application service by ID and service plans when the component mounts
     useEffect(() => {
         dispatch(fetchApplicationServiceById(applicationId));
         dispatch(fetchServicePlans(applicationId));
-        dispatch(fetchNotDefaultPaymentProfiles());
     }, [])
 
 
     return (
         <>
-            {isLoading ? <div>Loading...</div> :
+            {isLoading ? <div> <Skeleton active /></div> :
                 loadingError ? <div>Error: {loadingError}</div> :
                     !applicationServiceById ? <div>No application found</div> :
                         <Row style={{ justifyContent: 'center' }} gutter={[16, 16]}>
-                            <Col style={{ justifyContent: 'space-between', alignItems: 'center', paddingTop: '120px' }} span={16}>
-                                <div style={{ padding: '8px 0' }}>
+                            <Col style={{ justifyContent: 'space-between', alignItems: 'center' }} span={16}>
+                                <div >
                                     <ApplicationDescriptionContainer
                                         title={applicationServiceById.name}
                                         description={applicationServiceById.short_description} logo={
@@ -59,8 +50,8 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                             }}>
                                                 <ImageFetcher
                                                     imagePath={applicationServiceById.image_service}
-                                                    width={50}
-                                                    height={50}
+                                                    width={220}
+                                                    height={220}
                                                 />
                                             </div>
                                         } />
@@ -82,32 +73,33 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                             <Col span={6} >
                                 <PaymentSideBar
                                     price={totalAmount}
-                                    buttonText={'confirm'}//TODO ADD TRANSLATION
-                                    items={//TODO ADD TRANSLATION
+                                    buttonText={tApplications('confirm')}
+                                    items={
                                         [
                                             {
-                                                label: "service_name",
+                                                label: tApplications('svc'),
                                                 value: applicationServiceById.name
                                             },
                                             {
-                                                label: "options",
-                                                value: `${service_plan_selected_id}`
+                                                label: tApplications("plan"),
+                                                value: `${app_service_plan ? app_service_plan?.plan.name : ""}`
                                             },
                                             {
-                                                label: "duration",
+                                                label: tApplications('duration'),
                                                 value: `${duration} month`
                                             }, {
-                                                label: "Resource provider :",
-                                                value: `issal`
+                                                label: tApplications('provider'),
+                                                value: `${resource_service_plan && resource_service_plan?.plan ? resource_service_plan?.provider_info?.name : ""}`
                                             },
                                             {
-                                                label: "vps type :",
-                                                value: `FleXCompute - Starter `
+                                                label: tApplications("vpsType"),
+                                                value: `${resource_service_plan && resource_service_plan?.plan ? resource_service_plan?.service.name : ""}`
+
                                             },
                                             {
-                                                label: "plan :",
-                                                value: `2 vCPU / 4Go`
-                                            },
+                                                label: tApplications('resourcePlan'),
+                                                value: `${resource_service_plan && resource_service_plan?.plan ? resource_service_plan?.plan.name : ""}`
+                                            }
                                         ]
                                     }
                                     onClick={() => setOpenDrawer(true)}
@@ -115,7 +107,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                             </Col>
                         </Row>}
             <PaymentDrawer
-                openDrawer={openDrawer} onClose={onClose}  />
+                openDrawer={openDrawer} onClose={onClose} />
 
 
         </>
