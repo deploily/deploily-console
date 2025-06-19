@@ -77,8 +77,9 @@ export const theme = {
       colorBgContainer: "#ffffff",
       colorPrimary: "#28b609",
     },
-
-
+    Table: {
+      rowSelectedBg: '#000000', // ✅ this controls the selected row background
+    }
   },
 
 };

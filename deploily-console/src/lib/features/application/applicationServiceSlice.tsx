@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ApplicationServiceByIdState, ApplicationServicesState, NewApplicationSubscriptionState } from "./applicationServiceInterface";
-import { fetchApplicationServiceById, fetchApplicationServices } from "./applicationServiceThunks";
+import { ApplicationServiceByIdState, ApplicationServicesState, NewApplicationSubscriptionResponse, NewApplicationSubscriptionState } from "./applicationServiceInterface";
+import { applicationSubscribe, fetchApplicationServiceById, fetchApplicationServices } from "./applicationServiceThunks";
 
 interface ApplicationServiceState {
     applicationServices: ApplicationServicesState;
     applicationServicesById: ApplicationServiceByIdState;
     newAppSubscriptionState: NewApplicationSubscriptionState;
+    newApplicationSubscriptionResponse: NewApplicationSubscriptionResponse;
 }
 
 const initialState: ApplicationServiceState = {
@@ -18,6 +19,11 @@ const initialState: ApplicationServiceState = {
         applicationServiceById: undefined,
         isLoading: false,
         loadingError: null,
+    },  
+    newApplicationSubscriptionResponse: {
+        newSubscriptionIsLoading: false,
+        newSubscriptionFailed: false,
+        newSubscriptionResponse: undefined
     },
     newAppSubscriptionState: {
         //TODO PROMOCODE ??
@@ -90,7 +96,23 @@ const ApplicationServiceSlice = createSlice({
             .addCase(fetchApplicationServiceById.rejected, (state, { payload }) => {
                 state.applicationServicesById.isLoading = false;
                 state.applicationServicesById.loadingError = payload;
-            });
+            })
+            .addCase(applicationSubscribe.pending, (state) => {
+                    state.newApplicationSubscriptionResponse.newSubscriptionIsLoading = true;
+                state.newApplicationSubscriptionResponse.newSubscriptionFailed = false;
+                state.newApplicationSubscriptionResponse.newSubscriptionResponse = undefined;
+            
+                  }) 
+            .addCase(applicationSubscribe.fulfilled, (state, { payload }) => {
+                state.newApplicationSubscriptionResponse.newSubscriptionIsLoading = false;
+                state.newApplicationSubscriptionResponse.newSubscriptionFailed= false;
+                state.newApplicationSubscriptionResponse.newSubscriptionResponse = payload;
+                  })
+            .addCase(applicationSubscribe.rejected, (state) => {
+                state.newApplicationSubscriptionResponse.newSubscriptionIsLoading = false;
+                state.newApplicationSubscriptionResponse.newSubscriptionFailed = true;
+                state.newApplicationSubscriptionResponse.newSubscriptionResponse = undefined;
+                  });  
     },
 });
 

@@ -7,8 +7,12 @@ const resourceServicesPlansMiddleware = (store: MiddlewareAPI<ThunkDispatch<any,
         switch (action.type) {
             case 'resourceServicesPlansSlice/updateSelectedPlan':
                 if (action.payload !== undefined) {
-                    console.log(action.payload);
                     store.dispatch(updateNewAppSubscriptionState({ "resource_service_plan": action.payload }));
+                }
+                break;
+            case 'ressourcePlans/getServicePlans/fulfilled':
+                if (action.payload !== undefined && action.payload.result.length > 0) {
+                    store.dispatch(updateNewAppSubscriptionState({ "resource_service_plan": action.payload.result[0] }));
                 }
                 break;
             default:

@@ -29,14 +29,13 @@ export const fetchServicePlansByType = createAsyncThunk(
                 return thunkConfig.rejectWithValue("session expired");
             }
             const token = session.accessToken;
-            //TODO ADD serviceCategory TO THE FILTER and recheck function and field name 
             const filters = `(filters:!((col:service_plan_type,opr:eq,value:'${paginationParams.service_plan_type}')),page:${paginationParams.page},page_size:${paginationParams.page_size})`;
             // const filters = `(page:${paginationParams.page},page_size:${paginationParams.page_size})`;
 
             const query = `?q=${encodeURIComponent(filters)}`;
             const response = await axiosInstance.get(`${deploilyApiUrls.SERVICE_PLAN_URL}/${query}`, {
                 headers: {
-                    Accept: "application/json",
+                    Accept: "application/js on",
                     Authorization: `Bearer ${token}`,
                 },
             });

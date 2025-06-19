@@ -15,6 +15,7 @@ export interface ApplicationServiceResponse {
 export interface ApplicationServiceInterface {//TODO RECHECK THIS INTERFACE TO CONFORM TO THE API RESPONSE
     id: number;
     name: string;
+    app_slug?: string;
     price: string;
     description: string;
     average_rating: number;
@@ -37,13 +38,10 @@ export interface ApplicationServiceInterface {//TODO RECHECK THIS INTERFACE TO C
 export interface NewApplicationSubscriptionState {//TODO RECHECK THIS INTERFACE TO CONFORM TO THE API RESPONSE
     duration: number;
     price: number;
-    resource_service_plan_id?: number;
-    service_plan_selected_id?: number;
     totalAmount: number,
     selectedProfile?: PaymentProfileInterface,
     isBalanceSufficient: boolean | null,
     resource_service_plan?: ServicePlan,
-    // resource_service_plan_id: undefined,
     app_service_plan?: ServicePlan,
 }
 
@@ -56,4 +54,30 @@ export interface ApplicationServiceByIdState {
     applicationServiceById?: ApplicationServiceInterface;
     isLoading: boolean;
     loadingError?: any;
+}
+
+export interface NewApplicationSubscriptionResponse{
+    newSubscriptionIsLoading: boolean,
+    newSubscriptionFailed: boolean,
+    newSubscriptionResponse?: ApplicationSubscriptionResponse
+}
+
+
+export interface ApplicationSubscriptionResponse{
+    form_url: string;
+    order_id: string;
+    subscription: ApplicationSubscriptionInterface    
+}
+
+export interface ApplicationSubscriptionInterface{
+  recommendation_app_service_id?: number,
+  ressource_service_plan_selected_id?: number,
+  id: number;
+  duration_month: number;
+  name: string;
+  price: number
+  promo_code_id: number;
+  service_plan_id: number;
+  start_date: Date;
+  status: string;
 }

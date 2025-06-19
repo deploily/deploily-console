@@ -33,5 +33,7 @@ export const deploilyApiUrls = {
   CREATE_AFFILIATION_URL: `${API_BASE_URL}/affiliation/create`,
   AFFILIATION_URL: `${API_BASE_URL}/affiliation/all`,
   APPP_SERVICES_URL: `${API_BASE_URL}/app-service/`,
-
+  APP_TTK_EPAY_SUBSCRIBE_URL: `${API_BASE_URL}/ttk-epay-app-service-subscription/subscribe`,
 };
+
+export const TTK_EPAY_SLUG ="ttk-epay";
