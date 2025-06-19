@@ -6,31 +6,42 @@ import { Filter } from "./cloudResourceInterface";
 export const fetchCloudResources = createAsyncThunk(
     "cloudresources/getcloudresources",
     async (filterParams: Filter, thunkConfig) => {
-
         const searchValue = filterParams.searchTerm;
         const providerFilterValue = filterParams.provider;
         const categoryFilterValue = filterParams.category;
 
-        const filters = [];
+        const filters: any[] = [];
 
         if (searchValue) {
-            const encodedValue = encodeURIComponent(searchValue);
-            filters.push(`(col:name,opr:ct,value:${encodedValue})`);
+            filters.push({ col: "name", opr: "ct", value: searchValue, });
         }
 
         if (providerFilterValue) {
-            filters.push(`(col:provider,opr:rel_o_m,value:${providerFilterValue})`);
+            filters.push({
+                col: "provider",
+                opr: "rel_o_m",
+                value: providerFilterValue,
+            });
         }
 
         if (categoryFilterValue) {
-            filters.push(`(col:ressouce_category,opr:rel_o_m,value:${categoryFilterValue})`);
+            filters.push({
+                col: "ressouce_category",
+                opr: "rel_o_m",
+                value: categoryFilterValue,
+            });
         }
 
-        const filterQuery = `filters:!(${filters.join(',')})`;
-        const fullQuery = (filterParams.page) ? `(${filterQuery},page_size:${filterParams.page_size},page:${filterParams.page})` :
-            `(${filterQuery},page_size:${filterParams.page_size})`;
+        const queryObject: any = {
+            filters,
+            page_size: filterParams.page_size,
+        };
 
-        const query = `?q=${encodeURIComponent(fullQuery)}`;
+        if (filterParams.page) {
+            queryObject.page = filterParams.page;
+        }
+
+        const query = `?q=${encodeURIComponent(JSON.stringify(queryObject))}`;
 
         try {
             const session = await getSession();
@@ -53,7 +64,7 @@ export const fetchCloudResources = createAsyncThunk(
         } catch (error: any) {
             return thunkConfig.rejectWithValue(error.message);
         }
-    },
+    }
 );
 
 
