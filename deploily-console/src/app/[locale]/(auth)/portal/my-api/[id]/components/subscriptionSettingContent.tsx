@@ -17,9 +17,9 @@ import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../../locales/client";
 
 import { subscriptionStatusStyle } from "../../utils/subscriptionsConst";
-import DocumentationDrawer from "./documentationDrawer";
 import GenerateTokenComponent from "./generateTokenComponent";
 import { subscriptionItems } from "./subscriptionItems";
+import DocumentationDrawer from "../../../utils/documentationDrawer";
 
 export default function SubscriptionSettingContent({ subscription_id }: { subscription_id: string }) {
     const t = useI18n();
