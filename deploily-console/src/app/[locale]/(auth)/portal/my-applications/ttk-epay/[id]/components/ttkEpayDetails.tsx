@@ -2,19 +2,23 @@
 import { useTtkEpayById } from "@/lib/features/ttk-epay/ttkEpaySelector";
 import { fetchTtkEpayById } from "@/lib/features/ttk-epay/ttkEpayThunks";
 import { useAppDispatch } from "@/lib/hook";
+import { handleCopy } from "@/lib/utils/handleCopy";
+import ImageFetcher from "@/lib/utils/imageFetcher";
+import { CustomTransparentOrangeButton } from "@/styles/components/buttonStyle";
 import { DatePickerStyle } from "@/styles/components/datePickerStyle";
 import { CustomSubscripionInput } from "@/styles/components/inputStyle";
 import { CustomTypography } from "@/styles/components/typographyStyle";
 import { theme } from "@/styles/theme";
-import { CalendarDots } from "@phosphor-icons/react";
-import { Badge, Col, Result, Row, Skeleton, Space, Tag, Typography } from "antd";
+import { CalendarDots, Copy, Eye, EyeSlash } from "@phosphor-icons/react";
+import { Badge, Button, Col, Input, Result, Row, Skeleton, Space, Tag, Typography } from "antd";
+import Paragraph from "antd/es/typography/Paragraph";
 import dayjs from "dayjs";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../../../locales/client";
-import ImageFetcher from "@/lib/utils/imageFetcher";
-import Paragraph from "antd/es/typography/Paragraph";
-import Link from "next/link";
 import { subscriptionStatusStyle } from "../../../../my-api/utils/subscriptionsConst";
+import DocumentationDrawer from "../../../../utils/documentationDrawer";
+import TtkEpayParams from "./ttkEpayParams";
 
 
 
@@ -26,6 +30,8 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
     const { ttkEpayById, isLoading, loadingError } = useTtkEpayById()
     const [remainingDuration, setRemainingDuration] = useState<number>()
     const [isHovered, setIsHovered] = useState(false);
+    const [passwordVisible, setPasswordVisible] = useState(false);
+    const [openDrawer, setOpenDrawer] = useState(false);
 
     useEffect(() => {
         dispatch(fetchTtkEpayById(my_app_id));
@@ -38,7 +44,9 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
         }
     }, [ttkEpayById]);
 
-
+    const onClose = () => {
+        setOpenDrawer(false);
+    };
     function getRemainingDuration(startDate: Date, durationMonths: number) {
         const start = new Date(startDate);
         const end = new Date(start);
@@ -77,6 +85,7 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                         </Col>
 
                         <Col md={8} xs={24}>
+
                             <Row>
                                 <Col span={24} style={{
                                     display: "flex",
@@ -93,7 +102,10 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                                     justifyContent: "end",
                                     alignSelf: "start"
                                 }}>
-                                    
+                                    <CustomTransparentOrangeButton onClick={() => setOpenDrawer(true)} >
+                                        {t('moreDetails')}
+                                    </CustomTransparentOrangeButton>
+
 
                                 </Col>
                             </Row>
@@ -137,6 +149,9 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                             </Link>
                         </Paragraph>
                     </Row>}
+
+                    <CustomTypography style={{ color: "rgba(221, 136, 89, 1)", textDecoration: "underline " }} >{tSubscription('application')}</CustomTypography>
+
                     <Row
                         gutter={[16, 24]}
                         style={{
@@ -204,6 +219,38 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                             </Row>
                         </Col>
                     </Row>
+                    <Typography.Title level={4} style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange600 }}>
+                        {tSubscription("accessUrl")}
+                    </Typography.Title>
+                    <Row>
+                        <Col span={20} style={{ display: "flex", justifyContent: "start" }} >
+                            <CustomTypography> {ttkEpayById.service_details.ssh_access} </CustomTypography>
+                        </Col>
+                        <Col span={4} style={{ display: "flex", alignItems: "start", justifyContent: "end" }} >
+                            <Button type="primary" style={{ boxShadow: "none" }} icon={<Copy />} onClick={() => handleCopy(ttkEpayById.service_details.ssh_access)} />
+                        </Col>
+                    </Row>
+
+                    <Typography.Title level={4} style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange600 }}>
+                        {tSubscription("secretKey")}
+                    </Typography.Title>
+                    <div style={{ flexDirection: "row", display: "flex", justifyContent: "space-between", width: "100%" }}>
+                        <Input
+                            disabled
+                            style={{ width: "fit" }}
+                            value={ttkEpayById.api_secret_key}
+                            type={passwordVisible ? "text" : "password"}
+                        />
+
+                        <Button type="primary" style={{ boxShadow: "none" }} icon={passwordVisible ? <EyeSlash /> : <Eye />} onClick={() => setPasswordVisible(prev => !prev)} />
+                        <Button type="primary" style={{ boxShadow: "none", margin: '0px 5px' }} icon={<Copy />} onClick={() => handleCopy(ttkEpayById.api_secret_key ?? "")} />
+
+                    </div>
+
+                    <TtkEpayParams data={ttkEpayById} />
+
+
+                    <DocumentationDrawer openDrawer={openDrawer} onClose={onClose} currentSubscription={ttkEpayById} t={t} />
 
 
                 </>
