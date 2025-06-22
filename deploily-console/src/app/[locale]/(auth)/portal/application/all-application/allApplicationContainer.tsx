@@ -61,7 +61,7 @@ export default function AllApplicationServiceContainer() {
                     {t("application")}
                 </span>
 
-                <Space>
+                {/* <Space>
                     <Input
                         placeholder={tApplication("search")}
                         allowClear
@@ -76,9 +76,8 @@ export default function AllApplicationServiceContainer() {
                             width: 220,
                         }}
                     />
-
-
-                </Space>
+                </Space> */}
+                
             </Row>
             <Row gutter={[24, 24]} justify="start" style={{ margin: 0 }}>
                 {isLoading && applications.length === 0 && (
