@@ -176,7 +176,11 @@ export default {
     'subscription.inactiveMessage': 'Your subscription is inactive. Please verify your payments.',
     'subscription.application': 'Application',
     'subscription.accessUrl': 'Access Url',
-    'subscription.secretKey': 'Secret key ',
+    'subscription.secretKey': 'Secret key',
+    'subscription.documentation': 'Documentation',
+    'subscription.processing': 'Processing',
+    'subscription.deployed': 'Deployed',
+    'subscription.error': 'Error',
 
     'ttkEpay.client_site_name': 'Client site name',
     'ttkEpay.client_site_address': 'Client site adress',
@@ -200,6 +204,7 @@ export default {
     'ttkEpay.satim_server_url': 'Satim server url',
     'ttkEpay.satim_terminal_id': 'Satim terminal id',
     'ttkEpay.satim_user_name': 'Satim user name',
+    'ttkEpay.secretKey': 'secretKey',
 
 
     "bankPayment.title": "Payment by Bank",

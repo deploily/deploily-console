@@ -174,6 +174,10 @@ export default {
   'subscription.application': 'Application',
   'subscription.accessUrl': "URL d'accès",
   'subscription.secretKey': 'Clé secrète',
+  'subscription.documentation': 'Documentation',
+  'subscription.processing': 'Traitement',
+  'subscription.deployed': 'Déployé',
+  'subscription.error': 'Erreur',
 
   'ttkEpay.client_site_name': 'Nom du site client',
   'ttkEpay.client_site_address': 'Adresse du site client',
@@ -197,6 +201,7 @@ export default {
   'ttkEpay.satim_server_url': 'URL du serveur Satim',
   'ttkEpay.satim_terminal_id': 'Identifiant du terminal Satim',
   'ttkEpay.satim_user_name': "Nom d'utilisateur Satim",
+  'ttkEpay.secretKey': 'Clé secrète',
 
   "bankPayment.title": "Paiement par virement bancaire",
   "bankPayment.message": "Ceci est notre compte bancaire, vous pouvez transférer le montant !",
