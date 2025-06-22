@@ -54,7 +54,7 @@ export default function PaymentDrawer({ openDrawer, onClose }:
             >
                 <Col style={{ padding: 20 }}>
                     <NewSubscriptionInfo
-                        title="Subscribe Service"//TODO 
+                        title={`${tApplications("order")}`}//TODO 
                         newSubscriptionInfo={{
                             applicationName: {
                                 label: tApplications('svc'),
@@ -74,11 +74,11 @@ export default function PaymentDrawer({ openDrawer, onClose }:
                             },
                             resourceType: {
                                 label: tApplications("vpsType"),
-                                value: `${resource_service_plan?.service!=undefined ?resource_service_plan?.service.name:""}`
+                                value: `${resource_service_plan?.service != undefined ? resource_service_plan?.service.name : ""}`
                             },
                             resourcePlanOptions: {
                                 label: tApplications('resourcePlan'),
-                                value: `${resource_service_plan?.plan != undefined ?resource_service_plan?.plan.name:""}`
+                                value: `${resource_service_plan?.plan != undefined ? resource_service_plan?.plan.name : ""}`
                             },
                             totalAmount: {
                                 label: tApplications('total'),
