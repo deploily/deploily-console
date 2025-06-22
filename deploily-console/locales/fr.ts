@@ -253,5 +253,12 @@ export default {
   "applications.vpsType": "Type de VPS",
   "applications.resourcePlan": "Plan de ressource",
   "applications.total": "Montant total",
-  'applications.confirm': 'Confirmer'
+  'applications.confirm': 'Confirmer', 
+  "applications.order": "Commander l'application",
+  "applications.resource": "Resource",
+  "applications.options": "Options",
+  "applications.preparation_time": "Temps de préparation",
+  "applications.price": "Prix",
+  "applications.description": "Description",
+  "applications.features": "Caractéristiques"
 } as const

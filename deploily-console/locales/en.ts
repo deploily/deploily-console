@@ -251,13 +251,19 @@ export default {
     "toast.msgFailed": "Failed",
     "toast.titleMsgFailed": "Message Failed to Send",
 
-    "applications.svc": "Service name",
+    "applications.svc": "Application name",
     "applications.plan": "Plan",
     "applications.duration": "Duration",
     "applications.provider": "Resource provider",
     "applications.vpsType": "VPS Type",
     "applications.resourcePlan": "Resource Plan",
     "applications.total": "Total amount",
-    'applications.confirm': 'Confirm'
-
+    'applications.confirm': 'Confirm',
+    "applications.order":"Order application",
+    "applications.resource":"Resource",
+    "applications.options":"Options",
+    "applications.preparation_time": "Preparation time",
+    "applications.price": "Price",
+    "applications.description": "Description",
+    "applications.features": "Features"
 } as const
