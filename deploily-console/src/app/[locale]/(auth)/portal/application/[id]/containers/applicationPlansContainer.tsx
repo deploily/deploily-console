@@ -16,11 +16,12 @@ export default function ApplicationPlansContainer() {
         <Row gutter={[16, 16]}>
             {servicePlanResponse !== undefined &&
                 servicePlanResponse.result.map(plan => {
-                    return <Col span={Math.floor(24 / servicePlanResponse.result.length)} key={plan.id.toString()}>
+                    return <Col span={Math.floor(24 / servicePlanResponse.result.length)} key={plan.id.toString()} style={{maxWidth:'280px'}}>
                         <PlanCard
                             id={plan.id}
                             price={plan.price}
                             styles={{
+                                color: theme.token.orange600,
                                 boxShadow :`1px 1px 1px 1px ${theme.token.orange600}`
                             }}
                             options={

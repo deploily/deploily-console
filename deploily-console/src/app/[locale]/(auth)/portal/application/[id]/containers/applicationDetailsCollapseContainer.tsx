@@ -1,23 +1,25 @@
 'use client';
 import { DetailsCollapse } from 'deploily-ui-components';
+import { useScopedI18n } from '../../../../../../../../locales/client';
 
-export default function ApplicationDetailsCollapseContainer({ ssh, description, monitoring }: { ssh: string, description: string, monitoring: string }) {
+export default function ApplicationDetailsCollapseContainer({  description }: {description: string}) {
+    const tApplications = useScopedI18n('applications')
     return (
         <DetailsCollapse
             items={
                 [
                     {
-                        label: 'Description',
+                        label: tApplications('description'),
                         children: description
                     },
                     {
-                        label: 'SSH access',
-                        children: ssh,
+                        label: tApplications("features"),
+                        children: "",//TODO GET FEATURE FROM APP MODEL 
                     },
-                    {
-                        label: 'Monitoring',
-                        children: monitoring,
-                    },
+                    // {
+                    //     label: 'Monitoring',
+                    //     children: monitoring,
+                    // },
                 ]
             }
         />

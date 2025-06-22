@@ -4,15 +4,17 @@ import { fetchApplicationServiceById } from "@/lib/features/application/applicat
 import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThanks";
 import { useAppDispatch } from "@/lib/hook";
 import ImageFetcher from "@/lib/utils/imageFetcher";
-import { Col, Row, Skeleton } from "antd";
+import { Card, Col, Row, Select, Skeleton } from "antd";
 import { PaymentDrawer, PaymentSideBar } from "deploily-ui-components";
 import { useEffect, useState } from "react";
 import { useScopedI18n } from "../../../../../../../locales/client";
 import ApplicationDetailsCollapseContainer from "./containers/applicationDetailsCollapseContainer";
 import ApplicationPlansContainer from "./containers/applicationPlansContainer";
 import ApplicationDescriptionContainer from "./containers/descriptionContainer";
-import SelectDurationContainer from "./containers/selectDurationContainer";
 import SelectVpsPlanTable from "./containers/selectVpsPlanTable";
+import { theme } from "@/styles/theme";
+import { options } from "../../api-services/utils/apiServicesConst";
+import { updateNewAppSubscriptionState } from "@/lib/features/application/applicationServiceSlice";
 
 export default function ApplicationDetailsPageContent({ applicationId }: { applicationId: any }) {
     const dispatch = useAppDispatch();
@@ -25,6 +27,9 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
     const { totalAmount, duration, app_service_plan, resource_service_plan, } = useNewApplicationSubscription();
     const tApplications = useScopedI18n('applications');
 
+    const handleChangeDuration = (value: number) => {
+        dispatch(updateNewAppSubscriptionState({ duration: value }));
+      };
 
     useEffect(() => {
         dispatch(fetchApplicationServiceById(applicationId));
@@ -57,17 +62,15 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                         } />
                                 </div>
                                 <div style={{ padding: '8px 0' }}>
-                                    <SelectDurationContainer />
-                                </div>
-                                <div style={{ padding: '8px 0' }}>
                                     <ApplicationPlansContainer />
                                 </div>
+                                <Card styles={{body:{ padding: 0 }}}>
                                 <SelectVpsPlanTable />
+                                </Card>
                                 <div style={{ padding: '8px 0' }}>
                                     <ApplicationDetailsCollapseContainer
-                                        ssh={applicationServiceById.ssh_access}
                                         description={applicationServiceById.description}
-                                        monitoring={applicationServiceById.monitoring} />
+                                   />
                                 </div>
                             </Col>
                             <Col span={6} >
@@ -86,7 +89,19 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                             },
                                             {
                                                 label: tApplications('duration'),
-                                                value: `${duration} month`
+                                                value: <Select
+                                                    defaultValue={duration}
+                                                    style={{
+                                                        width: 150,
+                                                        borderRadius: "10px",
+                                                    }}
+                                                    onChange={handleChangeDuration}
+                                                    dropdownStyle={{
+                                                        backgroundColor: theme.token.gray50,
+                                                        border: `2px solid ${theme.token.gray100}`
+                                                    }}
+                                                    options={options}
+                                              />
                                             }, {
                                                 label: tApplications('provider'),
                                                 value: `${resource_service_plan && resource_service_plan?.plan ? resource_service_plan?.provider_info?.name : ""}`

@@ -7,10 +7,12 @@ import { useAppDispatch } from '@/lib/hook';
 import { Typography } from 'antd';
 import { TableComponentWithSelection } from 'deploily-ui-components';
 import { useEffect } from 'react';
+import { useScopedI18n } from '../../../../../../../../locales/client';
 
 export default function SelectVpsPlanTable() {
   const dispatch = useAppDispatch();
-  
+  const tApplications = useScopedI18n('applications')
+
   useEffect(() => {
     dispatch(fetchServicePlansByType({ page: 0, page_size: 10, service_plan_type: 'ressource' }));
   }, [])
@@ -35,9 +37,10 @@ export default function SelectVpsPlanTable() {
               if (plan.provider_info !== undefined && plan.service != undefined) {
                 return {
                   key: plan.id,
-                  provider: plan.provider_info,
-                  resource: plan.service.name,
+                  resource: plan,
                   options: [plan.options.map((opt) => ([opt.html_content]))],
+                  price: plan.price,
+
                 }
               }
             }
@@ -45,28 +48,41 @@ export default function SelectVpsPlanTable() {
           //TODO TRANSLATE 
           columns={[
             {
-              title: 'provider',
-              dataIndex: "provider",
-              render: (provider) => provider != undefined ? <div style={{ color: 'white' }}><a href={provider.website}>{provider.name}</a></div> : undefined,
+              title: tApplications('resource'),
+              dataIndex: "resource",
+              render: (plan) => plan != undefined ? <div style={{ color: 'white' }}>
+                <a href={plan.provider_info.website}>
+                  {`${plan.provider_info.name}`}
+                </a>
+                {`/ ${plan.plan.name}`}
+              </div> : undefined,
+            },
+
+            {
+              title: tApplications('options'),
+              dataIndex: "options",
+              render: (options) => (
+                <>
+                  <Typography.Text>
+                    {options != undefined ? options.join(' / ') : ""}
+                  </Typography.Text>
+                </>
+              ),
             },
             {
-              title: 'resource',
-              dataIndex: "resource",
+              title: tApplications('preparation_time'),
+              dataIndex: "preparation_time",
               render: (resource) => <Typography.Text>
                 {resource}
               </Typography.Text>,
             },
             {
-              title: 'options',
-              dataIndex: "options",
-              render: (options) => (
-                <>
-                  <Typography.Text>
-                    {options != undefined && options.join(' / ')}
-                  </Typography.Text>
-                </>
-              ),
-            }
+              title: tApplications('price'),
+              dataIndex: "price",
+              render: (price) => <Typography.Text>
+                {`${price} DZD`}
+              </Typography.Text>,
+            },
           ]
           }
         />}
