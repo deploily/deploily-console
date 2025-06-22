@@ -9,16 +9,15 @@ import { DatePickerStyle } from "@/styles/components/datePickerStyle";
 import { CustomSubscripionInput } from "@/styles/components/inputStyle";
 import { CustomTypography } from "@/styles/components/typographyStyle";
 import { theme } from "@/styles/theme";
-import { CalendarDots, Copy, Eye, EyeSlash } from "@phosphor-icons/react";
-import { Badge, Button, Col, Input, Result, Row, Skeleton, Space, Tag, Typography } from "antd";
+import { CalendarDots, Circle, Copy } from "@phosphor-icons/react";
+import { Badge, Button, Col, Result, Row, Skeleton, Space, Tag, Typography } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import dayjs from "dayjs";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../../../locales/client";
-import { subscriptionStatusStyle } from "../../../../my-api/utils/subscriptionsConst";
 import DocumentationDrawer from "../../../../utils/documentationDrawer";
 import TtkEpayParams from "./ttkEpayParams";
+import { applicationStatusStyle } from "../../../../my-api/utils/subscriptionsConst";
 
 
 
@@ -30,7 +29,6 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
     const { ttkEpayById, isLoading, loadingError } = useTtkEpayById()
     const [remainingDuration, setRemainingDuration] = useState<number>()
     const [isHovered, setIsHovered] = useState(false);
-    const [passwordVisible, setPasswordVisible] = useState(false);
     const [openDrawer, setOpenDrawer] = useState(false);
 
     useEffect(() => {
@@ -108,6 +106,29 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
 
 
                                 </Col>
+                                <Col span={24} style={{
+                                    display: "flex",
+                                    justifyContent: "end",
+                                    alignSelf: "start"
+                                }}>
+                                    <CustomTransparentOrangeButton
+                                        href={ttkEpayById.service_details.documentation_url ?? "https://docs.deploily.cloud/#/"}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onMouseEnter={() => setIsHovered(true)}
+                                        onMouseLeave={() => setIsHovered(false)}
+                                        style={{
+                                            fontSize: 14,
+                                            textDecoration: isHovered ? "underline" : "none",
+                                            display: "inline-block",
+                                            margin: 0
+                                        }}
+                                    >
+                                        {t('documentation')}
+                                    </CustomTransparentOrangeButton>
+
+
+                                </Col>
                             </Row>
                         </Col>
                     </Row>
@@ -117,9 +138,15 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                         alignItems: "center",
                         width: "100%",
                     }}>
-                        {ttkEpayById.service_details && <Typography.Title level={2}>{ttkEpayById.service_details.name}</Typography.Title>}
-                        <Tag bordered={false} color={subscriptionStatusStyle(ttkEpayById.status)} style={{ height: 'fit-content', fontSize: '14px', fontWeight: "bold", borderRadius: 20, padding: "5px 20px", textTransform: "capitalize" }}>
-                            {tSubscription(ttkEpayById.status as "active" | "inactive")}
+                        {ttkEpayById.service_details &&
+                            <Typography.Title level={2}>
+                                {ttkEpayById.service_details.name}
+                                <Circle size={16} weight="fill" style={{ marginLeft: 10, color: ttkEpayById.status === "active" ? "green" : "red" }} />
+                            </Typography.Title>}
+
+                        <Tag bordered={false} color={applicationStatusStyle(ttkEpayById.application_status)}
+                            style={{ height: 'fit-content', fontSize: '14px', fontWeight: "bold", borderRadius: 20, padding: "5px 20px", textTransform: "capitalize" }}>
+                            {tSubscription(ttkEpayById.application_status as "processing" | "error" | "deployed")}
                         </Tag>
                     </Row>
 
@@ -127,26 +154,7 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                         <Paragraph style={{ fontSize: 14 }} >
                             {ttkEpayById.service_details.description}
                             {t("viewDocumentation")}&nbsp;
-                            <Link
-                                href={ttkEpayById.service_details.documentation_url ?? "https://docs.deploily.cloud/#/"}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onMouseEnter={() => setIsHovered(true)}
-                                onMouseLeave={() => setIsHovered(false)}
-                            >
-                                <Typography.Title
-                                    level={5}
-                                    style={{
-                                        fontSize: 14,
-                                        color: theme.token.blue300,
-                                        textDecoration: isHovered ? "underline" : "none",
-                                        display: "inline-block",
-                                        margin: 0
-                                    }}
-                                >
-                                    {t("ApiDocumentation")}
-                                </Typography.Title>
-                            </Link>
+
                         </Paragraph>
                     </Row>}
 
@@ -159,7 +167,6 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                             flexWrap: 'wrap',
                         }}
                     >
-                        {/* Start Date */}
                         <Col xs={24} md={12} lg={8}>
                             <Row gutter={[16, 10]} align="middle">
                                 <Col xs={24} md={8}>
@@ -177,7 +184,6 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                                 </Col>
                             </Row>
                         </Col>
-                        {/* Duration */}
                         <Col xs={24} md={12} lg={8}>
                             <Row gutter={[16, 10]} align="middle">
                                 <Col xs={24} md={8}>
@@ -195,7 +201,6 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                             </Row>
                         </Col>
 
-                        {/* Remaining Duration */}
                         <Col xs={24} md={12} lg={8}>
                             <Row gutter={[16, 10]} align="middle">
                                 <Col xs={24} md={8}>
@@ -231,21 +236,7 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                         </Col>
                     </Row>
 
-                    <Typography.Title level={4} style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange600 }}>
-                        {tSubscription("secretKey")}
-                    </Typography.Title>
-                    <div style={{ flexDirection: "row", display: "flex", justifyContent: "space-between", width: "100%" }}>
-                        <Input
-                            disabled
-                            style={{ width: "fit", color:"white" }}
-                            value={ttkEpayById.api_secret_key}
-                            type={passwordVisible ? "text" : "password"}
-                        />
-
-                        <Button type="primary" style={{ boxShadow: "none" }} icon={passwordVisible ? <EyeSlash /> : <Eye />} onClick={() => setPasswordVisible(prev => !prev)} />
-                        <Button type="primary" style={{ boxShadow: "none", margin: '0px 5px' }} icon={<Copy />} onClick={() => handleCopy(ttkEpayById.api_secret_key ?? "")} />
-
-                    </div>
+                    
 
                     <TtkEpayParams data={ttkEpayById} />
 
