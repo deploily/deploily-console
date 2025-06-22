@@ -237,7 +237,7 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                     <div style={{ flexDirection: "row", display: "flex", justifyContent: "space-between", width: "100%" }}>
                         <Input
                             disabled
-                            style={{ width: "fit" }}
+                            style={{ width: "fit", color:"white" }}
                             value={ttkEpayById.api_secret_key}
                             type={passwordVisible ? "text" : "password"}
                         />

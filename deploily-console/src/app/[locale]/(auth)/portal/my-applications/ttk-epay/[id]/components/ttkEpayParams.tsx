@@ -15,7 +15,7 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                 </Typography>
                 <Input
                     disabled
-                    style={{ width: "fit" }}
+                    style={{ width: "fit", color:"white" }}
                     value={data.client_site_name}
                 />
             </div>
@@ -25,7 +25,7 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                 </Typography>
                 <Input
                     disabled
-                    style={{ width: "fit" }}
+                    style={{ width: "fit", color:"white" }}
                     value={data.client_site_address}
                 />
             </div>
@@ -35,7 +35,7 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                 </Typography>
                 <Input
                     disabled
-                    style={{ width: "fit" }}
+                    style={{ width: "fit", color:"white" }}
                     value={data.client_site_email}
                 />
             </div>
@@ -45,7 +45,7 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                 </Typography>
                 <Input
                     disabled
-                    style={{ width: "fit" }}
+                    style={{ width: "fit" , color:"white"}}
                     value={data.client_site_logo_url}
                 />
             </div>
@@ -55,7 +55,7 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                 </Typography>
                 <Input
                     disabled
-                    style={{ width: "fit" }}
+                    style={{ width: "fit", color:"white" }}
                     value={data.client_site_phone_number}
                 />
             </div>
@@ -65,7 +65,7 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                 </Typography>
                 <Input
                     disabled
-                    style={{ width: "fit" }}
+                    style={{ width: "fit", color:"white" }}
                     value={data.client_site_privacy}
                 />
             </div>
@@ -75,7 +75,7 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                 </Typography>
                 <Input
                     disabled
-                    style={{ width: "fit" }}
+                    style={{ width: "fit", color:"white" }}
                     value={data.client_site_terms}
                 />
             </div>
@@ -85,7 +85,7 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                 </Typography>
                 <Input
                     disabled
-                    style={{ width: "fit" }}
+                    style={{ width: "fit" , color:"white"}}
                     value={data.client_site_url}
                 />
             </div>
@@ -95,7 +95,7 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                 </Typography>
                 <Input
                     disabled
-                    style={{ width: "fit" }}
+                    style={{ width: "fit" , color:"white"}}
                     value={data.mvc_satim_fail_url}
                 />
             </div>
@@ -105,7 +105,7 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                 </Typography>
                 <Input
                     disabled
-                    style={{ width: "fit" }}
+                    style={{ width: "fit" , color:"white"}}
                     value={data.mvc_satim_server_url}
                 />
             </div>
@@ -115,7 +115,7 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                 </Typography>
                 <Input
                     disabled
-                    style={{ width: "fit" }}
+                    style={{ width: "fit" , color:"white"}}
                     value={data.satim_base_url}
                 />
             </div>
@@ -126,7 +126,7 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                 </Typography>
                 <Input
                     disabled
-                    style={{ width: "fit" }}
+                    style={{ width: "fit" , color:"white"}}
                     value={data.satim_confirm_url}
                 />
             </div>
@@ -137,7 +137,7 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                 </Typography>
                 <Input
                     disabled
-                    style={{ width: "fit" }}
+                    style={{ width: "fit" , color:"white"}}
                     value={data.satim_currency}
                 />
             </div>
@@ -147,7 +147,7 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                 </Typography>
                 <Input
                     disabled
-                    style={{ width: "fit" }}
+                    style={{ width: "fit", color:"white" }}
                     value={data.satim_client_server_url}
                 />
             </div>
@@ -157,7 +157,7 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                 </Typography>
                 <Input
                     disabled
-                    style={{ width: "fit" }}
+                    style={{ width: "fit", color:"white" }}
                     value={data.satim_description}
                 />
             </div>
@@ -167,7 +167,7 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                 </Typography>
                 <Input
                     disabled
-                    style={{ width: "fit" }}
+                    style={{ width: "fit" , color:"white"}}
                     value={data.satim_client_server_url}
                 />
             </div>
@@ -177,7 +177,7 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                 </Typography>
                 <Input
                     disabled
-                    style={{ width: "fit" }}
+                    style={{ width: "fit", color:"white" }}
                     value={data.satim_fail_url}
                 />
             </div>
@@ -187,7 +187,7 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                 </Typography>
                 <Input
                     disabled
-                    style={{ width: "fit" }}
+                    style={{ width: "fit" , color:"white"}}
                     value={data.satim_json_params}
                 />
             </div>
@@ -197,7 +197,7 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                 </Typography>
                 <Input
                     disabled
-                    style={{ width: "fit" }}
+                    style={{ width: "fit" , color:"white"}}
                     value={data.satim_language}
                 />
             </div>
@@ -207,7 +207,7 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                 </Typography>
                 <Input
                     disabled
-                    style={{ width: "fit" }}
+                    style={{ width: "fit", color:"white" }}
                     value={data.satim_password}
                 />
             </div>
@@ -217,7 +217,7 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                 </Typography>
                 <Input
                     disabled
-                    style={{ width: "fit" }}
+                    style={{ width: "fit" , color:"white"}}
                     value={data.satim_server_url}
                 />
             </div>
@@ -227,7 +227,7 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                 </Typography>
                 <Input
                     disabled
-                    style={{ width: "fit" }}
+                    style={{ width: "fit", color:"white" }}
                     value={data.satim_terminal_id}
                 />
             </div>
@@ -237,7 +237,7 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                 </Typography>
                 <Input
                     disabled
-                    style={{ width: "fit" }}
+                    style={{ width: "fit", color:"white" }}
                     value={data.satim_user_name}
                 />
             </div>
