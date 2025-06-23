@@ -1,5 +1,5 @@
 
-export interface SubscriptionsResponse {
+export interface ApiServiceSubscriptionsResponse {
   count: number;
   description_columns: any;
   ids: number[];
@@ -7,10 +7,16 @@ export interface SubscriptionsResponse {
   list_columns: string[];
   list_title: string;
   order_columns: string[];
-  result: SubscriptionInterface[];
+  result: ApiServiceSubscriptionInterface[];
 }
 
-export interface SubscriptionInterface {
+export interface NewApiServiceSubscriptionResponse {
+  form_url: string;
+  order_id: string;
+  subscription: ApiServiceSubscriptionInterface;
+}
+
+export interface ApiServiceSubscriptionInterface {
   id: number;
   duration_month: number;
   name: string;

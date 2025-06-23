@@ -8,7 +8,7 @@ type Props = {
 export default function Page({ params: { id } }: Props) {
   return (
     <>
-      <SubscriptionSettingContent subscription_id={id} />
+      <SubscriptionSettingContent apiServiceSubscription_id={id} />
     </>
   );
 }

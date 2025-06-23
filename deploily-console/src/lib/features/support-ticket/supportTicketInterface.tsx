@@ -1,4 +1,4 @@
-import { SubscriptionInterface } from "../subscriptions/subscriptionInterface";
+import { ApiServiceSubscriptionInterface } from "../api-service-subscriptions/apiServiceSubscriptionInterface";
 import { SupportTicketChatResponseInterface } from "../support-ticket -responses/supportTicketResponsesInterface";
 
 export interface SupportTicketResponse {
@@ -16,7 +16,7 @@ export interface SupportTicket {
   id: number;
   key: number;
   subscribe_id: number;
-  subscription?: SubscriptionInterface;
+  subscription?: ApiServiceSubscriptionInterface;
   title: string;
   description: string;
   status: string;

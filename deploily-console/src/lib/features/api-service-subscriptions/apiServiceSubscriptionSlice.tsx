@@ -1,0 +1,110 @@
+import { createSlice } from "@reduxjs/toolkit";
+import { ApiServiceSubscriptionInterface, ApiServiceSubscriptionsResponse, NewApiServiceSubscriptionResponse } from "./apiServiceSubscriptionInterface";
+import { fetchApiServiceSubscription, fetchApiServiceSubscriptionById, generateTokenThunk, postApiServiceSubscription } from "./apiServiceSubscriptionThunks";
+
+interface ApiServiceSubscriptionState {
+  apiServiceSubscriptionResponse?: ApiServiceSubscriptionsResponse;
+  apiServiceSubscriptionLoadingError?: any;
+  apiServiceSubscriptionLoading: boolean;
+  currentApiServiceSubscription?: ApiServiceSubscriptionInterface;
+  currentApiServiceSubscriptionLoadingError?: any;
+  currentApiServiceSubscriptionLoading: boolean;
+  generateTokenLoading?: boolean;
+  generatedToken?: string;
+  generateTokenFailed?: boolean;
+  generateTokenSuccess?: boolean;
+  isApiServiceSubscriptionCreatedSuccess: boolean;
+  isApiServiceSubscriptionCreatedFailed: boolean;
+  newApiServiceSubscriptionResponse?: NewApiServiceSubscriptionResponse;
+}
+
+const initialState: ApiServiceSubscriptionState = {
+  apiServiceSubscriptionResponse: undefined,
+  apiServiceSubscriptionLoadingError: undefined,
+  apiServiceSubscriptionLoading: false,
+  currentApiServiceSubscription: undefined,
+  currentApiServiceSubscriptionLoadingError: undefined,
+  currentApiServiceSubscriptionLoading: false,
+  generateTokenLoading: undefined,
+  generatedToken: undefined,
+  generateTokenFailed: undefined,
+  generateTokenSuccess: undefined,
+  isApiServiceSubscriptionCreatedSuccess: false,
+  isApiServiceSubscriptionCreatedFailed: false,
+  newApiServiceSubscriptionResponse: undefined,
+};
+const apiServiceSubscriptionSlice = createSlice({
+  name: "apiServiceSubscription",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchApiServiceSubscription.pending, (state) => {
+        state.newApiServiceSubscriptionResponse = undefined;
+        state.apiServiceSubscriptionLoading = true;
+      })
+      .addCase(fetchApiServiceSubscription.fulfilled, (state, action) => {
+        state.apiServiceSubscriptionLoading = false;
+        state.apiServiceSubscriptionLoadingError = null;
+        const result = action.payload.ids.map((id: number, index: any) =>
+          Object.assign({}, { id: id }, action.payload.result[index]),
+        );
+        const payload = Object.assign({}, action.payload, { result: result });
+        state.apiServiceSubscriptionResponse = payload;
+      })
+      .addCase(fetchApiServiceSubscription.rejected, (state, { payload }) => {
+        state.apiServiceSubscriptionLoading = false;
+        state.apiServiceSubscriptionLoadingError = payload;
+      })
+      .addCase(fetchApiServiceSubscriptionById.pending, (state) => {
+        state.newApiServiceSubscriptionResponse = undefined;
+        state.currentApiServiceSubscriptionLoading = true;
+        state.currentApiServiceSubscriptionLoadingError = null;
+        state.generateTokenSuccess = undefined;
+      })
+      .addCase(fetchApiServiceSubscriptionById.fulfilled, (state, action) => {
+        state.currentApiServiceSubscriptionLoading = false;
+        state.currentApiServiceSubscriptionLoadingError = null;
+        state.currentApiServiceSubscription = { ...action.payload.result, ...{ id: action.payload.id } };
+      })
+      .addCase(fetchApiServiceSubscriptionById.rejected, (state, { payload }) => {
+        state.currentApiServiceSubscriptionLoading = false;
+        state.currentApiServiceSubscriptionLoadingError = payload;
+      })
+      //GENRATE API TOKEN 
+      .addCase(generateTokenThunk.pending, (state) => {
+        state.newApiServiceSubscriptionResponse = undefined;
+        state.generateTokenLoading = true;
+        state.generateTokenSuccess = undefined;
+        state.generatedToken = undefined;
+      })
+      .addCase(generateTokenThunk.fulfilled, (state, action) => {
+        state.generateTokenLoading = false;
+        state.generateTokenSuccess = true;
+        state.generatedToken = action.payload;
+      })
+      .addCase(generateTokenThunk.rejected, (state) => {
+        state.generateTokenLoading = false;
+        state.generateTokenFailed = true;
+        state.generateTokenSuccess = false;
+      })
+      .addCase(postApiServiceSubscription.pending, (state) => {
+        state.apiServiceSubscriptionLoading = true;
+        state.isApiServiceSubscriptionCreatedSuccess = false;
+        state.isApiServiceSubscriptionCreatedFailed = false;
+
+      })
+      .addCase(postApiServiceSubscription.rejected, (state) => {
+        state.apiServiceSubscriptionLoading = false;
+        state.isApiServiceSubscriptionCreatedFailed = true;
+        state.isApiServiceSubscriptionCreatedSuccess = false;
+      })
+      .addCase(postApiServiceSubscription.fulfilled, (state, { payload }) => {
+        state.apiServiceSubscriptionLoading = false;
+        state.isApiServiceSubscriptionCreatedSuccess = true;
+        state.newApiServiceSubscriptionResponse = payload;
+        state.isApiServiceSubscriptionCreatedFailed = false;
+      });
+  },
+});
+export default apiServiceSubscriptionSlice.reducer;

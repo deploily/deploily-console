@@ -2,10 +2,6 @@
 
 import { CloudResourceInterface, Filter } from "@/lib/features/cloud-resource/cloudResourceInterface";
 import { useCloudResource } from "@/lib/features/cloud-resource/cloudResourceSelectors";
-import {
-    updateCloudResourcesSearchValue,
-    updateResourceFilter,
-} from "@/lib/features/cloud-resource/cloudResourceSlice";
 import { fetchCloudResources, fetchResourceCategories, getProvidersList } from "@/lib/features/cloud-resource/cloudResourceThunks";
 import { useFavoriteServices } from "@/lib/features/favorites/favoriteServiceSelectors";
 import { useAppDispatch } from "@/lib/hook";
@@ -25,49 +21,58 @@ export default function AllCloudResourcesContainer() {
     const router = useRouter();
 
     // ===== Local State =====
-    const [searchTerm, setSearchTerm] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [hover, setHover] = useState(false);
-
-    const itemsPerPage = 6;
+    const [filterParams, setFilter] = useState(
+        {
+            page_size: 10,
+            page: 0,
+            provider: undefined,
+            category: undefined,
+            searchTerm: "",
+        },
+    );
 
     // ===== Redux Selectors =====
-    const { isLoading, cloudResourceResponse, cloudResourceLoadingError, filter, providersListResponse, resourceCategoriesResponse } = useCloudResource();
+    const { isLoading, cloudResourceResponse, cloudResourceLoadingError, providersListResponse, resourceCategoriesResponse } = useCloudResource();
     const { favoriteServiceAdded, favoriteServiceDeleted } = useFavoriteServices();
 
     // ===== Data =====
     const resources = cloudResourceResponse?.result || [];
 
+
     // ===== Handlers =====
     const handleChange = (value: string | number | null, field: keyof Filter) => {
+        setFilter((prevFilter) => ({
+            ...prevFilter,
+            [field]: value === null ? undefined : field === "searchTerm" ? String(value) : Number(value),
 
-        const updatedFilter = {
-            ...filter,
-            [field]: value ? value.toString() : undefined,
-        };
+        }));
 
-        dispatch(updateResourceFilter(updatedFilter));
-        dispatch(fetchCloudResources(10));
+    };
+
+    const handlePageChange = (pageValue: number) => {
+
+        setCurrentPage(pageValue);
+        setFilter((prev) => ({
+            ...prev,
+            page: pageValue - 1,
+        }));
     };
 
     // ===== Effects =====
 
     useEffect(() => {
+        sessionStorage.setItem("fromPage", "seeAll");
         dispatch(fetchResourceCategories());
-        dispatch(fetchCloudResources(10));
         dispatch(getProvidersList());
 
     }, [favoriteServiceAdded, favoriteServiceDeleted]);
 
     useEffect(() => {
-        sessionStorage.setItem("fromPage", "seeAll");
-        const delayDebounceFn = setTimeout(() => {
-            dispatch(updateCloudResourcesSearchValue(searchTerm));
-            dispatch(fetchCloudResources(10));
-        }, 800);
+        dispatch(fetchCloudResources(filterParams));
+    }, [filterParams, dispatch]);
 
-        return () => clearTimeout(delayDebounceFn);
-    }, [searchTerm, dispatch]);
 
     // ===== Render =====
 
@@ -100,8 +105,8 @@ export default function AllCloudResourcesContainer() {
                                 placeholder={tServiceApi("search")}
                                 allowClear
                                 prefix={<MagnifyingGlass style={{ color: "#8c8c8c" }} />}
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
+                                value={filterParams.searchTerm}
+                                onChange={(e) => handleChange(e.target.value, "searchTerm")}
                                 style={{
                                     backgroundColor: "#1f1f1f",
                                     color: "#fff",
@@ -192,17 +197,15 @@ export default function AllCloudResourcesContainer() {
             )}
 
             {/* Pagination */}
-            {!isLoading && resources.length > itemsPerPage && (
-                <Row justify="center">
-                    <Pagination
-                        current={currentPage}
-                        pageSize={itemsPerPage}
-                        total={resources.length}
-                        onChange={setCurrentPage}
-                        showSizeChanger={false}
-                    />
-                </Row>
-            )}
+            <Row justify="end" style={{ marginTop: 20 }}>
+                <Pagination
+                    current={currentPage}
+                    pageSize={filterParams.page_size}
+                    total={cloudResourceResponse?.count ?? 0}
+                    onChange={handlePageChange}
+                    showSizeChanger={false}
+                />
+            </Row>
         </Space>
     );
 }

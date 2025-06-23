@@ -1,15 +1,15 @@
 "use client";
-import { useSubscriptionStates } from "@/lib/features/subscription-states/subscriptionSelectors";
 import { theme } from "@/styles/theme";
 import { Col, Drawer } from "antd";
 import CreateProfileButton from "./containers/createProfileButton";
 import IsBalanceSufficientComponent from "./containers/isBalanceSufficientComponent";
-import NewSubscriptionInfo from "./containers/newSubscriptionInfo";
 import PaymentComponent from "./containers/paymentComponent";
 import SelectProfileComponent from "./containers/selectProfileComponent";
+import { useApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSelectors";
+import NewApiServiceSubscriptionInfo from "./containers/newApiServiceSubscriptionInfo";
 
-export default function SubscriptionDrawer({ openDrawer, onClose, planSelected }: { openDrawer: any, onClose: any, planSelected: any }) {
-  const { isBalanceSufficient, selectedProfile } = useSubscriptionStates()
+export default function ApiServiceSubscriptionDrawer({ openDrawer, onClose, planSelected }: { openDrawer: any, onClose: any, planSelected: any }) {
+  const { isBalanceSufficient, selectedProfile } = useApiServiceSubscriptionStates()
   return (
     <>
       <Drawer
@@ -25,7 +25,7 @@ export default function SubscriptionDrawer({ openDrawer, onClose, planSelected }
         }}
       >
         <Col style={{ padding: 20 }}>
-          <NewSubscriptionInfo planSelected={planSelected} />
+          <NewApiServiceSubscriptionInfo planSelected={planSelected} />
           <SelectProfileComponent></SelectProfileComponent>
           {selectedProfile !== undefined && <div style={{ padding: '5px 0px' }}>
             {isBalanceSufficient === true ?

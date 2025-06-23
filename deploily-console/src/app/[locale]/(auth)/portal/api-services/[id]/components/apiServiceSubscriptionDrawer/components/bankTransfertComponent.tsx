@@ -1,6 +1,7 @@
 "use client";
-import { useSubscriptionStates } from "@/lib/features/subscription-states/subscriptionSelectors";
-import { postSubscription } from "@/lib/features/subscriptions/subscriptionThunks";
+import { getBankCredEnvVars } from "@/actions/getBankCredEnvVars";
+import { useApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSelectors";
+import { postApiServiceSubscription } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
 import { Button, Card, Typography, } from "antd";
@@ -8,27 +9,28 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useScopedI18n } from "../../../../../../../../../../locales/client";
 import bankPaymentInfo from "./bankPaymentData";
-import { getBankCredEnvVars } from "@/actions/getBankCredEnvVars";
 
 export default function BankTransfertComponent({ selectedPlan }: { selectedPlan: any }) {
-    const { totalAmount } = useSubscriptionStates()
+    const { totalAmount } = useApiServiceSubscriptionStates()
     const tBankPayment = useScopedI18n("bankPayment");
     const tPayments = useScopedI18n("payments");
-    const subscriptionStates = useSubscriptionStates()
+    const apiServiceSubscriptionStates = useApiServiceSubscriptionStates()
     const dispatch = useAppDispatch();
     const router = useRouter()
     const handleSubscribe = async () => {
-        const newSubscriptionObject = {
-            duration: subscriptionStates.duration,
-            total_amount: subscriptionStates.totalAmount,
-            promo_code: subscriptionStates.promoCode,
+        const newApiServiceSubscriptionObject = {
+            duration: apiServiceSubscriptionStates.duration,
+            total_amount: apiServiceSubscriptionStates.totalAmount,
+            promo_code: apiServiceSubscriptionStates.promoCode,
             payment_method: "bank_transfer",
             service_plan_selected_id: selectedPlan.id,
-            profile_id: subscriptionStates.selectedProfile != null ? subscriptionStates.selectedProfile.id : 1
+            profile_id: apiServiceSubscriptionStates.selectedProfile != null ? apiServiceSubscriptionStates.selectedProfile.id : 1
         };
-        dispatch(postSubscription(newSubscriptionObject)).then((response: any) => {
+        console.log("newApiServiceSubscriptionObject BankTransfertComponent", newApiServiceSubscriptionObject);
+        dispatch(postApiServiceSubscription(newApiServiceSubscriptionObject)).then((response: any) => {
             if (response.meta.requestStatus === "fulfilled") {
                 router.push(`/portal/subscriptions/`);
+                //TODO replace with my api service
             }
         }
         );
@@ -36,13 +38,11 @@ export default function BankTransfertComponent({ selectedPlan }: { selectedPlan:
     const [bankTransfertInformation, setBankTransfertInformation] = useState<any>(undefined)
     useEffect(() => {
         const fetchBankTransfertInfo = async () => {
-          const vars  =await getBankCredEnvVars()
-          setBankTransfertInformation(vars);
+            const vars = await getBankCredEnvVars()
+            setBankTransfertInformation(vars);
         };
         fetchBankTransfertInfo();
     }, []);
-
-
 
     return (
         <Card

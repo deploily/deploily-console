@@ -1,4 +1,6 @@
 import { configureStore, Middleware } from "@reduxjs/toolkit";
+import apiServiceSubscriptionStatesSlice from './features/api-service-subscription-states/apiServiceSubscriptionSlice';
+import apiServiceSubscriptionSlice from "./features/api-service-subscriptions/apiServiceSubscriptionSlice";
 import apiServiceSlice from "./features/api-service/apiServiceSlice";
 import applicationServiceSlice from "./features/application/applicationServiceSlice";
 import cicdServiceSlice from "./features/ci-cd-service/cicdServiceSlice";
@@ -15,12 +17,11 @@ import resourceServicesPlansMiddleware from "./features/resourceServicePlans/res
 import resourceServicesPlansSlice from "./features/resourceServicePlans/resourceServicesPlansSlice";
 import servicesPlansMiddleware from "./features/service-plans/servicePlanMiddleWare";
 import servicePlanSlice from "./features/service-plans/servicePlanSlice";
-import subscriptionStatesSlice from './features/subscription-states/subscriptionSlice';
-import subscriptionSlice from "./features/subscriptions/subscriptionSlice";
 import supportTicketResponsesSlice from "./features/support-ticket -responses/supportTicketResponsesSlice";
 import supportTicketSlice from "./features/support-ticket/supportTicketSlice";
 import myApplicationSlice from "./features/my-applications/myApplicationSlice"
 import ttkEpaySlice from "./features/ttk-epay/ttkEpaySlice"
+import subscriptionSlice from "./features/subscriptions/subscriptionSlice";
 
 export const makeStore = () => {
   return configureStore({
@@ -28,13 +29,13 @@ export const makeStore = () => {
       apiService: apiServiceSlice,
       favoriteService: favoriteServiceSlice,
       supportTicket: supportTicketSlice,
-      subscription: subscriptionSlice,
+      apiServiceSubscription: apiServiceSubscriptionSlice,
       servicePlan: servicePlanSlice,
       profileService: profileServiceSlice,
       payment: paymentSlice,
       promoCode: PormoCodeSlice,
       epayment: epaymentSlice,
-      subscriptionStatesSlice: subscriptionStatesSlice,
+      apiServiceSubscriptionStates: apiServiceSubscriptionStatesSlice,
       cicdService: cicdServiceSlice,
       cloudResource: cloudResourceSlice,
       applicationService: applicationServiceSlice,
@@ -44,6 +45,8 @@ export const makeStore = () => {
       resourceServicesPlans: resourceServicesPlansSlice,
       myApplication: myApplicationSlice,
       ttkEpay: ttkEpaySlice,
+      subscription: subscriptionSlice,
+
     },
     middleware: getDefaultMiddleware =>
       getDefaultMiddleware().prepend(resourceServicesPlansMiddleware as Middleware).prepend(paymentProfileMiddleware as Middleware).prepend(servicesPlansMiddleware as Middleware),

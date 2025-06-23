@@ -73,8 +73,8 @@ export default {
     'serviceApi.filter': 'Filter',
 
     "viewApiDocumentation": "View API documentation",
-    "subscription.clickToRenewNow": "Keep your service active without interruptions. Click to renew now.",
-    "subscription.renewNow": "Renew Now",
+    "apiServiceSubscription.clickToRenewNow": "Keep your service active without interruptions. Click to renew now.",
+    "apiServiceSubscription.renewNow": "Renew Now",
 
 
     'supportTicket.supportTicket': 'Support ticket',
@@ -208,6 +208,29 @@ export default {
     'ttkEpay.secretKey': 'Secret Key',
     'ttkEpay.save': 'Save',
     'ttkEpay.reset': 'Reset',
+    'apiServiceSubscription.title': 'Subscribe',
+    'apiServiceSubscription.specialOffer': 'Special Offer',
+    'apiServiceSubscription.serviceName': 'Service Name :',
+    'apiServiceSubscription.servicePlanSelected': 'Service Plan selected :',
+    'apiServiceSubscription.duration': 'Duration :',
+    'apiServiceSubscription.totalAmount': 'Total Amount :',
+    'apiServiceSubscription.promoCode': 'Promo code :',
+    'apiServiceSubscription.price': 'Price :',
+    'apiServiceSubscription.selectProfile': 'Select  Profile',
+    'apiServiceSubscription.subscribeService': 'Subscribe Service',
+    'apiServiceSubscription.month': 'Month',
+    'apiServiceSubscription.year': 'Year',
+
+    'apiServiceSubscription.confirm': 'Confirm',
+    'apiServiceSubscription.cancel': 'Cancel',
+    'apiServiceSubscription.sufficientBalance': 'Your account balance is sufficient to complete this payment.',
+    'apiServiceSubscription.insufficientBalance': 'Your account balance is insufficient to complete this payment.',
+    'apiServiceSubscription.balance': 'Balance',
+    'apiServiceSubscription.profile': 'Profile',
+    'apiServiceSubscription.active': 'Active',
+    'apiServiceSubscription.inactive': 'Inactive',
+    'apiServiceSubscription.apiKey': 'API key',
+    'apiServiceSubscription.inactiveMessage': 'Your api Service Subscription is inactive. Please verify your payments.',
 
 
     "bankPayment.title": "Payment by Bank",

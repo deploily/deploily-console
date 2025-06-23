@@ -1,18 +1,18 @@
 "use client";
 
-import { Button, Card, Input, message, Radio, RadioChangeEvent, Typography } from "antd";
-import { useScopedI18n } from "../../../../../../../locales/client";
-import { theme } from "@/styles/theme";
-import bankPaymentInfo from "../../api-services/[id]/components/subscriptionDrawer/components/bankPaymentData";
-import { useEffect, useState } from "react";
-import Upload, { RcFile } from "antd/es/upload";
-import { useAppDispatch } from "@/lib/hook";
-import { DeleteOutlined, SendOutlined, UploadOutlined } from '@ant-design/icons';
-import { uploadPaymentReceipt } from "@/lib/features/payments/paymentThunks";
-import { postFundBalance } from "@/lib/features/payment-profiles/paymentProfilesThunks";
-import { InterRegular16 } from "@/styles/components/typographyStyle";
-import { usePaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesSelectors";
 import { getBankCredEnvVars } from "@/actions/getBankCredEnvVars";
+import { usePaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesSelectors";
+import { postFundBalance } from "@/lib/features/payment-profiles/paymentProfilesThunks";
+import { uploadPaymentReceipt } from "@/lib/features/payments/paymentThunks";
+import { useAppDispatch } from "@/lib/hook";
+import { InterRegular16 } from "@/styles/components/typographyStyle";
+import { theme } from "@/styles/theme";
+import { DeleteOutlined, SendOutlined, UploadOutlined } from '@ant-design/icons';
+import { Button, Card, Input, message, Radio, RadioChangeEvent, Typography } from "antd";
+import Upload, { RcFile } from "antd/es/upload";
+import { useEffect, useState } from "react";
+import { useScopedI18n } from "../../../../../../../locales/client";
+import bankPaymentInfo from "../../api-services/[id]/components/apiServiceSubscriptionDrawer/components/bankPaymentData";
 
 
 
@@ -54,7 +54,7 @@ export default function FundBalanceByBank({ selectedProfile }: { selectedProfile
     const onChangeCustomBalance = (e: React.ChangeEvent<HTMLInputElement>) => {
         const val = parseFloat(e.target.value) || 0;
         setCustomBalance(val);
-      
+
     };
 
     const handleBalanceRecharge = async () => {
@@ -68,14 +68,14 @@ export default function FundBalanceByBank({ selectedProfile }: { selectedProfile
         setShowUploadSection(true);
     };
 
-       const [bankTransfertInformation, setBankTransfertInformation] = useState<any>(undefined)
-        useEffect(() => {
-         const fetchBankTransfertInfo = async () => {
-               const vars  =await getBankCredEnvVars()
-               setBankTransfertInformation(vars);
-             };
-             fetchBankTransfertInfo();
-        }, []);
+    const [bankTransfertInformation, setBankTransfertInformation] = useState<any>(undefined)
+    useEffect(() => {
+        const fetchBankTransfertInfo = async () => {
+            const vars = await getBankCredEnvVars()
+            setBankTransfertInformation(vars);
+        };
+        fetchBankTransfertInfo();
+    }, []);
 
     return (
         <>
@@ -114,7 +114,7 @@ export default function FundBalanceByBank({ selectedProfile }: { selectedProfile
                             value={selectBalance}
                         >
                             <Radio key={'1000'} value={1000}>1 000</Radio>
-                            <Radio key={'2000'}  value={2000}>2 000</Radio>
+                            <Radio key={'2000'} value={2000}>2 000</Radio>
                             <Radio key={'3000'} value={3000}>3 000</Radio>
                             <Radio key={'5000'} value={5000}>5 000</Radio>
                             <Radio key={'10000'} value={10000}>10 000</Radio>
@@ -153,7 +153,7 @@ export default function FundBalanceByBank({ selectedProfile }: { selectedProfile
                             textAlign: 'left',
                         }}
                     >
-                        {bankTransfertInformation&&bankPaymentInfo(tBankPayment, bankTransfertInformation).map((info, index) => (
+                        {bankTransfertInformation && bankPaymentInfo(tBankPayment, bankTransfertInformation).map((info, index) => (
                             <Typography key={index} style={{ fontWeight: 600 }}>
                                 {info.title} :
                                 <Typography.Text style={{ fontWeight: 400, marginLeft: 5 }}>
@@ -181,110 +181,110 @@ export default function FundBalanceByBank({ selectedProfile }: { selectedProfile
                     </div>
  */}
 
-                        {!showUploadSection ? (
-                            <Button
-                                style={{
-                                    color: '#fff',
-                                    backgroundColor: theme.token.blue300,
-                                    border: 'none',
-                                    padding: '10px 30px',
-                                    fontWeight: 600,
-                                    fontSize: 16,
-                                }}
-                                onClick={handleBalanceRecharge}
-                            >
-                                {tPayments('confirm')}
-                            </Button>
-                        ) : (
-                            <>
+                    {!showUploadSection ? (
+                        <Button
+                            style={{
+                                color: '#fff',
+                                backgroundColor: theme.token.blue300,
+                                border: 'none',
+                                padding: '10px 30px',
+                                fontWeight: 600,
+                                fontSize: 16,
+                            }}
+                            onClick={handleBalanceRecharge}
+                        >
+                            {tPayments('confirm')}
+                        </Button>
+                    ) : (
+                        <>
 
-                                {/* <div style={{ display: 'flex', alignItems: 'start', gap: 10 }}> */}
-                                    {!showUploadSection ? (
-                                        <Button
-                                            style={{
-                                                color: '#fff',
-                                                backgroundColor: theme.token.blue300,
-                                                border: 'none',
-                                                padding: '10px 30px',
-                                                fontWeight: 600,
-                                                fontSize: 16,
-                                            }}
-                                            onClick={handleBalanceRecharge}
-                                        >
-                                            {tPayments('confirm')}
-                                        </Button>
-                                    ) :
+                            {/* <div style={{ display: 'flex', alignItems: 'start', gap: 10 }}> */}
+                            {!showUploadSection ? (
+                                <Button
+                                    style={{
+                                        color: '#fff',
+                                        backgroundColor: theme.token.blue300,
+                                        border: 'none',
+                                        padding: '10px 30px',
+                                        fontWeight: 600,
+                                        fontSize: 16,
+                                    }}
+                                    onClick={handleBalanceRecharge}
+                                >
+                                    {tPayments('confirm')}
+                                </Button>
+                            ) :
 
 
-                                        (
+                                (
+                                    <>
+                                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 10 }}>
+
+                                            <Upload
+                                                beforeUpload={(file) => {
+                                                    if (!file.type.startsWith("image/")) {
+                                                        message.error("Only image files are allowed");
+                                                        return false;
+                                                    }
+                                                    setFile(file);
+                                                    return false; // prevent auto upload
+                                                }}
+                                                showUploadList={false}
+                                                accept="image/*"
+                                            >
+                                                <Button
+                                                    icon={<UploadOutlined />}
+                                                    style={{
+                                                        borderColor: theme.token.orange300,
+                                                        color: theme.token.orange300,
+                                                        backgroundColor: 'transparent',
+                                                    }}
+                                                >
+                                                    {tPayments("uploadReceived")}
+                                                </Button>
+                                            </Upload>
+                                        </div>
+                                        {file && (
                                             <>
-                                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 10 }}>
+                                                <div style={{ display: 'flex', alignItems: 'start', gap: 10 }}>
+                                                    <Typography.Text style={{ color: '#ccc', display: 'flex', alignItems: 'start', gap: 6 }}>
+                                                        📎 {file.name}
+                                                    </Typography.Text>
 
-                                                    <Upload
-                                                        beforeUpload={(file) => {
-                                                            if (!file.type.startsWith("image/")) {
-                                                                message.error("Only image files are allowed");
-                                                                return false;
-                                                            }
-                                                            setFile(file);
-                                                            return false; // prevent auto upload
+                                                    <Button
+                                                        type="text"
+                                                        danger
+                                                        icon={<DeleteOutlined style={{ color: 'red', fontSize: 16 }} />}
+                                                        onClick={() => setFile(null)}
+                                                    />
+                                                </div>
+
+
+
+                                                <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 10 }}>
+                                                    <Button
+                                                        type="primary"
+                                                        icon={<SendOutlined />}
+                                                        style={{
+                                                            backgroundColor: theme.token.orange300,
+                                                            border: 'none',
+                                                            fontWeight: 600,
+                                                            boxShadow: "none",
                                                         }}
-                                                        showUploadList={false}
-                                                        accept="image/*"
+                                                        onClick={handleUpload}
                                                     >
-                                                        <Button
-                                                            icon={<UploadOutlined />}
-                                                            style={{
-                                                                borderColor: theme.token.orange300,
-                                                                color: theme.token.orange300,
-                                                                backgroundColor: 'transparent',
-                                                            }}
-                                                        >
-                                                            {tPayments("uploadReceived")}
-                                                        </Button>
-                                                    </Upload>
-</div>
-                                                    {file && (
-                                                        <>
-                                                    <div style={{ display: 'flex', alignItems: 'start', gap: 10 }}>
-                                                        <Typography.Text style={{ color: '#ccc', display: 'flex', alignItems: 'start', gap: 6 }}>
-                                                            📎 {file.name}
-                                                        </Typography.Text>
-
-                                                        <Button
-                                                            type="text"
-                                                            danger
-                                                            icon={<DeleteOutlined style={{ color: 'red', fontSize: 16 }} />}
-                                                            onClick={() => setFile(null)}
-                                                        />
-                                                    </div>
-
-                                                    
-
-                                                                <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 10 }}>
-                                                                <Button
-                                                                    type="primary"
-                                                                    icon={<SendOutlined />}
-                                                                    style={{
-                                                                        backgroundColor: theme.token.orange300,
-                                                                        border: 'none',
-                                                                        fontWeight: 600,
-                                                                        boxShadow: "none",
-                                                                    }}
-                                                                    onClick={handleUpload}
-                                                                >
-                                                                    {tPayments("confirm")}
-                                                                </Button>
-                                                            </div>
-                                                        </>
-                                                    )}
+                                                        {tPayments("confirm")}
+                                                    </Button>
+                                                </div>
                                             </>
-                                        )
-                                    }
-                                {/* </div> */}
+                                        )}
+                                    </>
+                                )
+                            }
+                            {/* </div> */}
 
-                            </>
-                        )}
+                        </>
+                    )}
 
 
                 </div>
