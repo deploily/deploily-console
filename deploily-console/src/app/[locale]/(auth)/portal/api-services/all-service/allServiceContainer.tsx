@@ -5,16 +5,22 @@ import { updateApiServiceSearchValue } from "@/lib/features/api-service/apiServi
 import { fetchApiServices } from "@/lib/features/api-service/apiServiceThunks";
 import { useFavoriteServices } from "@/lib/features/favorites/favoriteServiceSelectors";
 import { useAppDispatch } from "@/lib/hook";
+import { HomeOutlined } from '@ant-design/icons';
 import { Funnel, MagnifyingGlass } from "@phosphor-icons/react";
 import { Button, Card, Col, Input, Pagination, Result, Row, Space } from "antd";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import ApiServiceCard from "../home-components/apiServiceCard";
+
 
 export default function AllApiServiceContainer() {
   const t = useI18n();
   const tServiceApi = useScopedI18n("serviceApi");
   const dispatch = useAppDispatch();
+  const router = useRouter();
+  const [hover, setHover] = useState(false);
+
 
   const { apiServiceResponse, isLoadingServiceResponse, apiServiceLoadingError } = useApiServices();
 
@@ -22,13 +28,15 @@ export default function AllApiServiceContainer() {
   const itemsPerPage = 6;
   const [searchTerm, setSearchTerm] = useState("");
   const services = apiServiceResponse?.result || [];
-  const { favoriteServiceAdded, favoriteServiceDeleted } = useFavoriteServices()
+  const { favoriteServiceAdded, favoriteServiceDeleted } = useFavoriteServices();
 
   useEffect(() => {
     dispatch(fetchApiServices(10));
   }, [favoriteServiceAdded, favoriteServiceDeleted]);
 
   useEffect(() => {
+    sessionStorage.setItem("fromPage", "seeAll");
+
     const delayDebounceFn = setTimeout(() => {
       dispatch(updateApiServiceSearchValue(searchTerm));
       dispatch(fetchApiServices(10));
@@ -41,6 +49,12 @@ export default function AllApiServiceContainer() {
     <Space direction="vertical" size="middle" style={{ display: "flex", paddingTop: 15 }}>
       <Row justify="space-between" align="middle" style={{ padding: "0 20px" }}>
         <span style={{ color: "white", fontSize: "24px", fontWeight: 800 }}>
+          <HomeOutlined
+            style={{ cursor: 'pointer', color: hover ? "orange" : 'white', }}
+            onClick={() => router.back()}
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
+          /> / {"\t"}
           {t("APIService")}
         </span>
 

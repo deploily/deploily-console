@@ -19,6 +19,8 @@ import subscriptionStatesSlice from './features/subscription-states/subscription
 import subscriptionSlice from "./features/subscriptions/subscriptionSlice";
 import supportTicketResponsesSlice from "./features/support-ticket -responses/supportTicketResponsesSlice";
 import supportTicketSlice from "./features/support-ticket/supportTicketSlice";
+import myApplicationSlice from "./features/my-applications/myApplicationSlice"
+import ttkEpaySlice from "./features/ttk-epay/ttkEpaySlice"
 
 export const makeStore = () => {
   return configureStore({
@@ -39,7 +41,9 @@ export const makeStore = () => {
       supportTicketResponses: supportTicketResponsesSlice,
       contactUs: contactUsSlice,
       profile: profileSlice,
-      resourceServicesPlans: resourceServicesPlansSlice
+      resourceServicesPlans: resourceServicesPlansSlice,
+      myApplication: myApplicationSlice,
+      ttkEpay: ttkEpaySlice,
     },
     middleware: getDefaultMiddleware =>
       getDefaultMiddleware().prepend(resourceServicesPlansMiddleware as Middleware).prepend(paymentProfileMiddleware as Middleware).prepend(servicesPlansMiddleware as Middleware),

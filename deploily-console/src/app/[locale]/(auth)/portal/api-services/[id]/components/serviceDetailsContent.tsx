@@ -15,8 +15,10 @@ import { useServicePlan } from "@/lib/features/service-plans/servicePlanSelector
 import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThanks";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { theme } from "@/styles/theme";
+import { HomeOutlined } from '@ant-design/icons';
 import Paragraph from "antd/es/typography/Paragraph";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import ServicePlanCard from "./servicePlanCard";
 import SubscribeDrawer from "./subscriptionDrawer/subscriptionDrawer";
@@ -25,6 +27,10 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
   const [openDrawer, setOpenDrawer] = useState(false);
   const [planSelected, setSelectedPlan] = useState(undefined);
   const [isHovered, setIsHovered] = useState(false);
+  const [hover, setHover] = useState(false);
+  const router = useRouter();
+  const [fromPage, setFromPage] = useState<"seeAll" | "home" | null>(null);
+
 
   const showDrawer = (plan: any | null) => {
     if (plan !== null) {
@@ -54,11 +60,39 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
   const handleFavoriteService = (service_id: number) => {
     dispatch(postFavoriteService({ "service_id": service_id }));
   }
+  useEffect(() => {
+    const storedFrom = sessionStorage.getItem("fromPage");
+    console.log("Stored from page:", storedFrom);
 
+    if (storedFrom === "home" || storedFrom === "seeAll") {
+      setFromPage(storedFrom);
+    }
+  }, []);
   return (
     <>
       <Space direction="vertical" size="large"
         style={{ paddingInline: 40, marginBlock: 10, width: "100%", marginBottom: 50, paddingTop: 20 }}>
+        <Col xs={24} sm={24} md={24} lg={12}>
+          <Row>
+            <Col span={24} style={{ marginBottom: 12 }}>
+              <span style={{ color: "white", fontSize: "24px", fontWeight: 800, }}>
+                <span
+                  style={{ cursor: "pointer", color: hover ? "orange" : "white" }}
+                  onClick={() => router.back()}
+                  onMouseEnter={() => setHover(true)}
+                  onMouseLeave={() => setHover(false)}
+                >
+                  {fromPage === "home" ? (
+                    <HomeOutlined style={{ marginRight: 4 }} />
+                  ) : (
+                    t("seeAll")
+                  )}
+                </span>  / {"\t"}
+                {t("details")}
+              </span>
+            </Col>
+          </Row>
+        </Col>
         {serviceLoading && currentService === undefined &&
           <>
             <Skeleton.Image active />

@@ -2,7 +2,7 @@
 
 import { postPaymentProfile } from "@/lib/features/payment-profiles/paymentProfilesThunks";
 import { useAppDispatch } from "@/lib/hook";
-import { Button, Col, Form, Input, InputNumber, message, Radio, Row } from "antd";
+import { Button, Col, Form, Input, message, Radio, Row } from "antd";
 import Title from "antd/es/typography/Title";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

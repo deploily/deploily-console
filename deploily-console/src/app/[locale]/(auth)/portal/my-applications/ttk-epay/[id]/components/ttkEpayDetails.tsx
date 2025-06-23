@@ -1,51 +1,50 @@
 "use client"
-import { useSubscription } from "@/lib/features/subscriptions/subscriptionSelectors";
-import { fetchSubscriptionById } from "@/lib/features/subscriptions/subscriptionThunks";
+import { useTtkEpayById } from "@/lib/features/ttk-epay/ttkEpaySelector";
+import { fetchTtkEpayById } from "@/lib/features/ttk-epay/ttkEpayThunks";
 import { useAppDispatch } from "@/lib/hook";
+import { handleCopy } from "@/lib/utils/handleCopy";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { CustomTransparentOrangeButton } from "@/styles/components/buttonStyle";
 import { DatePickerStyle } from "@/styles/components/datePickerStyle";
 import { CustomSubscripionInput } from "@/styles/components/inputStyle";
 import { CustomTypography } from "@/styles/components/typographyStyle";
 import { theme } from "@/styles/theme";
-import { CalendarDots } from "@phosphor-icons/react";
-import { Badge, Col, Result, Row, Skeleton, Space, Tag, Typography } from "antd";
+import { CalendarDots, Circle, Copy } from "@phosphor-icons/react";
+import { Badge, Button, Col, Result, Row, Skeleton, Space, Tag, Typography } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import dayjs from "dayjs";
-import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useI18n, useScopedI18n } from "../../../../../../../../locales/client";
+import { useI18n, useScopedI18n } from "../../../../../../../../../locales/client";
+import DocumentationDrawer from "../../../../utils/documentationDrawer";
+import TtkEpayParams from "./ttkEpayParams";
+import { applicationStatusStyle } from "../../../../my-api/utils/subscriptionsConst";
 
-import { subscriptionStatusStyle } from "../../utils/subscriptionsConst";
-import DocumentationDrawer from "./documentationDrawer";
-import GenerateTokenComponent from "./generateTokenComponent";
-import { subscriptionItems } from "./subscriptionItems";
 
-export default function SubscriptionSettingContent({ subscription_id }: { subscription_id: string }) {
+
+export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
     const t = useI18n();
     const tSubscription = useScopedI18n('subscription');
 
     const dispatch = useAppDispatch();
-    const { currentSubscription, currentSubscriptionLoading, currentSubscriptionLoadingError } = useSubscription()
-    const [openDrawer, setOpenDrawer] = useState(false);
+    const { ttkEpayById, isLoading, loadingError } = useTtkEpayById()
     const [remainingDuration, setRemainingDuration] = useState<number>()
-
     const [isHovered, setIsHovered] = useState(false);
-    const onClose = () => {
-        setOpenDrawer(false);
-    };
+    const [openDrawer, setOpenDrawer] = useState(false);
+
     useEffect(() => {
-        dispatch(fetchSubscriptionById(subscription_id));
+        dispatch(fetchTtkEpayById(my_app_id));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
-        if (currentSubscription !== undefined) {
-            setRemainingDuration(getRemainingDuration(currentSubscription.start_date, currentSubscription.duration_month));
+        if (ttkEpayById !== undefined) {
+            setRemainingDuration(getRemainingDuration(ttkEpayById.start_date, ttkEpayById.duration_month));
         }
-    }, [currentSubscription]);
+    }, [ttkEpayById]);
 
-
+    const onClose = () => {
+        setOpenDrawer(false);
+    };
     function getRemainingDuration(startDate: Date, durationMonths: number) {
         const start = new Date(startDate);
         const end = new Date(start);
@@ -64,19 +63,19 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
 
     return (
         <Space direction="vertical" size="large" style={{ paddingInline: 40, marginBlock: 10, width: "100%", marginBottom: 50, paddingTop: 20 }}>
-            {currentSubscriptionLoading && currentSubscription === undefined &&
+            {isLoading && ttkEpayById === undefined &&
                 <>
                     <Skeleton.Image active />
                     <Skeleton active paragraph={{ rows: 2 }} />
                 </>
             }
-            {!currentSubscriptionLoading && currentSubscription !== undefined &&
+            {!isLoading && ttkEpayById !== undefined &&
                 <>
                     <Row gutter={16}  >
                         <Col md={16} xs={24} >
                             <Badge offset={[-20, 20]}>
-                                {currentSubscription.service_details && <ImageFetcher
-                                    imagePath={currentSubscription.service_details.image_service}
+                                {ttkEpayById.service_details && <ImageFetcher
+                                    imagePath={ttkEpayById.service_details.image_service}
                                     width={220}
                                     height={220}
                                 />}
@@ -84,6 +83,7 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                         </Col>
 
                         <Col md={8} xs={24}>
+
                             <Row>
                                 <Col span={24} style={{
                                     display: "flex",
@@ -91,7 +91,7 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                                     alignSelf: "start"
                                 }}>
                                     <Typography.Title level={2} style={{ color: theme.token.orange400 }}>
-                                        {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(currentSubscription.total_amount)} DZD
+                                        {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(ttkEpayById.total_amount)} DZD
 
                                     </Typography.Title>
                                 </Col>
@@ -106,6 +106,29 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
 
 
                                 </Col>
+                                <Col span={24} style={{
+                                    display: "flex",
+                                    justifyContent: "end",
+                                    alignSelf: "start"
+                                }}>
+                                    <CustomTransparentOrangeButton
+                                        href={ttkEpayById.service_details.documentation_url ?? "https://docs.deploily.cloud/#/"}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onMouseEnter={() => setIsHovered(true)}
+                                        onMouseLeave={() => setIsHovered(false)}
+                                        style={{
+                                            fontSize: 14,
+                                            textDecoration: isHovered ? "underline" : "none",
+                                            display: "inline-block",
+                                            margin: 0
+                                        }}
+                                    >
+                                        {t('documentation')}
+                                    </CustomTransparentOrangeButton>
+
+
+                                </Col>
                             </Row>
                         </Col>
                     </Row>
@@ -115,38 +138,28 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                         alignItems: "center",
                         width: "100%",
                     }}>
-                        {currentSubscription.service_details && <Typography.Title level={2}>{currentSubscription.service_details.name}</Typography.Title>}
-                        <Tag bordered={false} color={subscriptionStatusStyle(currentSubscription.status)} style={{ height: 'fit-content', fontSize: '14px', fontWeight: "bold", borderRadius: 20, padding: "5px 20px", textTransform: "capitalize" }}>
-                            {tSubscription(currentSubscription.status as "active" | "inactive")}
+                        {ttkEpayById.service_details &&
+                            <Typography.Title level={2}>
+                                {ttkEpayById.service_details.name}
+                                <Circle size={16} weight="fill" style={{ marginLeft: 10, color: ttkEpayById.status === "active" ? "green" : "red" }} />
+                            </Typography.Title>}
+
+                        <Tag bordered={false} color={applicationStatusStyle(ttkEpayById.application_status)}
+                            style={{ height: 'fit-content', fontSize: '14px', fontWeight: "bold", borderRadius: 20, padding: "5px 20px", textTransform: "capitalize" }}>
+                            {tSubscription(ttkEpayById.application_status as "processing" | "error" | "deployed")}
                         </Tag>
                     </Row>
 
-                    {currentSubscription.service_details && <Row gutter={16} style={{ marginTop: 0 }} >
+                    {ttkEpayById.service_details && <Row gutter={16} style={{ marginTop: 0 }} >
                         <Paragraph style={{ fontSize: 14 }} >
-                            {currentSubscription.service_details.short_description}
+                            {ttkEpayById.service_details.description}
                             {t("viewDocumentation")}&nbsp;
-                            <Link
-                                href={currentSubscription.service_details.api_playground_url ?? "https://docs.deploily.cloud/#/"}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onMouseEnter={() => setIsHovered(true)}
-                                onMouseLeave={() => setIsHovered(false)}
-                            >
-                                <Typography.Title
-                                    level={5}
-                                    style={{
-                                        fontSize: 14,
-                                        color: theme.token.blue300,
-                                        textDecoration: isHovered ? "underline" : "none",
-                                        display: "inline-block",
-                                        margin: 0
-                                    }}
-                                >
-                                    {t("ApiDocumentation")}
-                                </Typography.Title>
-                            </Link>
+
                         </Paragraph>
                     </Row>}
+
+                    <CustomTypography style={{ color: "rgba(221, 136, 89, 1)", textDecoration: "underline " }} >{tSubscription('application')}</CustomTypography>
+
                     <Row
                         gutter={[16, 24]}
                         style={{
@@ -154,7 +167,6 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                             flexWrap: 'wrap',
                         }}
                     >
-                        {/* Start Date */}
                         <Col xs={24} md={12} lg={8}>
                             <Row gutter={[16, 10]} align="middle">
                                 <Col xs={24} md={8}>
@@ -165,14 +177,13 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                                 <Col xs={24} md={16}>
                                     <DatePickerStyle
                                         style={{ width: 160, color: theme.token.colorWhite }}
-                                        defaultValue={dayjs(currentSubscription.start_date, "YYYY-MM-DD")}
+                                        defaultValue={dayjs(ttkEpayById.start_date, "YYYY-MM-DD")}
                                         disabled
                                         suffixIcon={<CalendarDots size={24} style={{ color: theme.token.blue200 }} />}
                                     />
                                 </Col>
                             </Row>
                         </Col>
-                        {/* Duration */}
                         <Col xs={24} md={12} lg={8}>
                             <Row gutter={[16, 10]} align="middle">
                                 <Col xs={24} md={8}>
@@ -182,7 +193,7 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                                 </Col>
                                 <Col xs={24} md={16}>
                                     <CustomSubscripionInput
-                                        defaultValue={`${currentSubscription.duration_month} / month(s)`}
+                                        defaultValue={`${ttkEpayById.duration_month} / month(s)`}
                                         style={{ width: 160, color: theme.token.colorWhite }}
                                         disabled
                                     />
@@ -190,7 +201,6 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                             </Row>
                         </Col>
 
-                        {/* Remaining Duration */}
                         <Col xs={24} md={12} lg={8}>
                             <Row gutter={[16, 10]} align="middle">
                                 <Col xs={24} md={8}>
@@ -200,7 +210,7 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                                 </Col>
                                 <Col xs={24} md={16}>
                                     <CustomSubscripionInput
-                                        defaultValue={`${getRemainingDuration(currentSubscription.start_date, currentSubscription.duration_month)} / month(s)`}
+                                        defaultValue={`${getRemainingDuration(ttkEpayById.start_date, ttkEpayById.duration_month)} / month(s)`}
                                         style={{
                                             width: 160,
                                             color:
@@ -214,44 +224,29 @@ export default function SubscriptionSettingContent({ subscription_id }: { subscr
                             </Row>
                         </Col>
                     </Row>
+                    <Typography.Title level={4} style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange600 }}>
+                        {tSubscription("accessUrl")}
+                    </Typography.Title>
+                    <Row>
+                        <Col span={20} style={{ display: "flex", justifyContent: "start" }} >
+                            <CustomTypography> {ttkEpayById.service_details.ssh_access} </CustomTypography>
+                        </Col>
+                        <Col span={4} style={{ display: "flex", alignItems: "start", justifyContent: "end" }} >
+                            <Button type="primary" style={{ boxShadow: "none" }} icon={<Copy />} onClick={() => handleCopy(ttkEpayById.service_details.ssh_access)} />
+                        </Col>
+                    </Row>
+
+                    
+
+                    <TtkEpayParams data={ttkEpayById} />
 
 
-                    {/* {remainingDuration !== undefined && remainingDuration <= 1 &&//TODO WAIT FOR BACKEND
-                        <Row gutter={[16, 10]}>
-                            <Col md={16} xs={24} style={{ display: "flex", alignItems: "center" }}>
-                                <CustomTypography >
-                                    &quot;{translate('clickToRenewNow')}&quot;
-                                </CustomTypography>
-                            </Col>
-                            <Col md={8} xs={24}>
-                                <CustomErrorButton> {translate('renewNow')} </CustomErrorButton>
-                            </Col>
-                        </Row>
-                    } */}
+                    <DocumentationDrawer openDrawer={openDrawer} onClose={onClose} currentSubscription={ttkEpayById} t={t} />
 
-                    {currentSubscription.service_details &&
-                        currentSubscription.status == 'active' ? <>
-                        <GenerateTokenComponent subscription_id={subscription_id} />
-                        <Row gutter={[16, 10]} key={currentSubscription.id}  >
-                            {subscriptionItems(currentSubscription, currentSubscription.service_details, t).map((item, index) => (
-                                <div key={index} style={{ width: '100%' }}>
-                                    {item.label}
-                                    {item.children}
-                                </div>
-                            ))}
-                        </Row>
-                    </> :
-                        <Row gutter={[16, 10]} key={currentSubscription.id}  >
 
-                            <Typography.Title level={4} style={{ color: theme.token.colorError, fontSize: 16, textAlign: "center", marginTop: 20 }}>
-                                {tSubscription('inactiveMessage')}
-                            </Typography.Title >
-                        </Row>
-                    }
-                    <DocumentationDrawer openDrawer={openDrawer} onClose={onClose} currentSubscription={currentSubscription} t={t} />
                 </>
             }
-            {!currentSubscriptionLoading && currentSubscriptionLoadingError &&
+            {!isLoading && loadingError &&
                 <Result
                     status="500"
                     title={t('error')}

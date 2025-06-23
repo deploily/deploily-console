@@ -5,9 +5,9 @@ import { useAppDispatch } from "@/lib/hook";
 import { Card, Col, Result, Row } from "antd";
 import { useEffect } from "react";
 import { useI18n } from "../../../../../../../locales/client";
-import SubscriptionCard from "./subscriptionCard";
+import MyApiCard from "./myApiCard";
 
-export default function SubscriptionContainer() {
+export default function MyApiContainer() {
   const dispatch = useAppDispatch();
   const { subscriptionLoading, subscriptionResponse, subscriptionLoadingError } = useSubscription()
   const t = useI18n();
@@ -31,7 +31,7 @@ export default function SubscriptionContainer() {
               xl={8}
               style={{ display: "flex", justifyContent: "center" }}
             >
-              <SubscriptionCard data={row} />
+              <MyApiCard data={row} />
             </Col>
           ))}
         </Row>

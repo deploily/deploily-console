@@ -8,8 +8,8 @@ import { Button, Card, Col, Result, Row, Space } from "antd";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useI18n } from "../../../../../../../locales/client";
-import CloudResourceCard from "./cloudResourceCard";
 import HomeCarousel from "../../components/homeCarousel";
+import CloudResourceCard from "./cloudResourceCard";
 
 export default function CloudResourceContainer() {
   const t = useI18n();
@@ -19,6 +19,8 @@ export default function CloudResourceContainer() {
   const router = useRouter();
 
   useEffect(() => {
+    sessionStorage.setItem("fromPage", "home");
+
     dispatch(fetchCloudResources(4));
   }, [favoriteServiceAdded, favoriteServiceDeleted]);
 
@@ -67,9 +69,9 @@ export default function CloudResourceContainer() {
             <Card loading={true} style={{ minWidth: 300 }} />
           </Col>
         }
-      <div style={{ position: 'relative', padding: '0 2rem' }}>
-        <HomeCarousel>
-            {!isLoading && cloudResourceResponse !== undefined &&cloudResourceResponse?.result?.map((row: CloudResourceInterface,index) => (
+        <div style={{ position: 'relative', padding: '0 2rem' }}>
+          <HomeCarousel key={`${favoriteServiceAdded}-${favoriteServiceDeleted}`}>
+            {!isLoading && cloudResourceResponse !== undefined && cloudResourceResponse?.result?.map((row: CloudResourceInterface, index) => (
               <div
                 key={index}
                 style={{
@@ -79,10 +81,10 @@ export default function CloudResourceContainer() {
                   margin: "0 10px",
                 }}
               >
-                <CloudResourceCard resource={row} />
+                <CloudResourceCard resource={row} from={"home"} />
               </div>
             ))}
-        </HomeCarousel>
+          </HomeCarousel>
         </div>
         {!isLoading && cloudResourceLoadingError &&
           <Result

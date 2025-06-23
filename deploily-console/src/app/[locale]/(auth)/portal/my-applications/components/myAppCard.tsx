@@ -1,24 +1,64 @@
-import { SubscriptionInterface } from "@/lib/features/subscriptions/subscriptionInterface";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { CustomBlueButton } from "@/styles/components/buttonStyle";
-import { Faders } from "@phosphor-icons/react";
-import { Badge, Card, Col, Row, Space, Tag, Typography } from "antd";
+import { Faders, HeartStraight } from "@phosphor-icons/react";
+import { Badge, Button, Card, Col, Row, Space, Typography } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import { useRouter } from "next/navigation";
-import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
-import { subscriptionStatusStyle } from "../utils/subscriptionsConst";
-export default function SubscriptionCard({ data }: { data: SubscriptionInterface }) {
-    const tSubscription = useScopedI18n('subscription');
+import { useI18n } from "../../../../../../../locales/client";
+import { myApplicationInterface } from "@/lib/features/my-applications/myApplicationInterface";
+import { myApplicationsUrls } from "../utils/myApplicationsUrls";
+export default function MyAppCard({ data }: { data: myApplicationInterface }) {
     const t = useI18n();
     const router = useRouter();
+
+    const handleClick = async (url_segment: string) => {
+        
+        router.push(`/portal/my-applications/${myApplicationsUrls(url_segment)}/${data.id}`)
+
+    }
+
     return (
         <Card style={{ height: "100%", width: "100%", padding: 0, cursor: "pointer", position: "relative" }}
-            onClick={() => router.push(`/portal/subscriptions/${data.id}`)}
+            onClick={() => handleClick(data.url_segment)}
         >
             <div style={{ height: "300px" }}>
                 <Row align="middle" gutter={16} style={{ height: "40%" }} >
                     <Col span={12} style={{ height: "100%", }} >
+                        {/* <Badge
+                            offset={[-12, 12]}
+                        >
+                            <ImageFetcher
+                                imagePath={data.image_service}
+                                width={100}
+                                height={100}
+                            />
+                        </Badge> */}
                         <Badge
+                            count={
+                                <Button
+                                    style={{
+                                        border: "none",
+                                        backgroundColor: "#fff",
+                                        boxShadow: "0 0 4px rgba(0,0,0,0.1)",
+                                        borderRadius: "50%",
+                                        padding: 0,
+                                        width: 24,
+                                        height: 24,
+                                        minWidth: 24,
+                                    }}
+                                    icon={
+                                        data.is_in_favorite ? (
+                                            <HeartStraight size={20} weight="fill" color="#FC3232" />
+                                        ) : (
+                                            <HeartStraight size={20} weight="fill" color="#7D7D7D" />
+                                        )
+                                    }
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        // handleFavoriteService(service.id);
+                                    }}
+                                />
+                            }
                             offset={[-12, 12]}
                         >
                             <ImageFetcher
@@ -35,7 +75,7 @@ export default function SubscriptionCard({ data }: { data: SubscriptionInterface
                             display: "flex", justifyContent: "end"
                         }}>
                         <Paragraph style={{ color: "#DD8859", fontSize: 16, }}>
-                            {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(data.total_amount)} DZD
+                            {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(data.price)} DZD
 
                         </Paragraph>
                     </Col>
@@ -50,11 +90,9 @@ export default function SubscriptionCard({ data }: { data: SubscriptionInterface
                             width: "100%",
                         }}>
                             <Paragraph ellipsis={{ rows: 1, expandable: false }} style={{ fontSize: 20, }}>
-                                {data.service_details.name}
+                                {data.name}
                             </Paragraph>
-                            <Tag bordered={false} color={subscriptionStatusStyle(data.status)} style={{ height: 'fit-content', fontSize: '14px', fontWeight: "bold", borderRadius: 20, padding: "2px 10px", textTransform: "capitalize" }}>
-                                {tSubscription(data.status as "active" | "inactive")}
-                            </Tag>
+
                         </Row>
                         <Paragraph ellipsis={{ rows: 3, expandable: false }} style={{ paddingTop: "0px" }}>
                             {data.service_details.short_description}
@@ -66,7 +104,7 @@ export default function SubscriptionCard({ data }: { data: SubscriptionInterface
                 style={{ position: "absolute", bottom: "20px", right: "20px" }}
             >
                 <CustomBlueButton
-                    onClick={() => router.push(`/portal/subscriptions/${data.id}`)}
+                    onClick={() => handleClick(data.url_segment)}
                 >
                     <Faders size={20} />
                     <Typography
