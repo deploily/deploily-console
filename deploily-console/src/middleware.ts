@@ -1,6 +1,6 @@
-import {createI18nMiddleware} from "next-international/middleware";
-import {NextRequest} from "next/server";
 import { withAuth } from "next-auth/middleware";
+import { createI18nMiddleware } from "next-international/middleware";
+import { NextRequest } from "next/server";
 
 export const locales = ["en", "fr"] as const;
 
@@ -19,22 +19,66 @@ const authMiddleware = withAuth(
       authorized: ({ token }) => token != null,
     },
     pages: {
-      signIn: "/",
+      signIn: "/auth/login",
     },
   }
 );
 
-export default function middleware(req: NextRequest) {
+export default async function middleware(req: NextRequest) {
   const excludePattern = "^(/(" + locales.join("|") + "))?/portal/?.*?$";
   const publicPathnameRegex = RegExp(excludePattern, "i");
   const isPublicPage = !publicPathnameRegex.test(req.nextUrl.pathname);
 
+  const cspHeader = `
+    default-src 'self' ${process.env.NEXT_PUBLIC_BASE_URL};
+    script-src 'self' 'unsafe-eval' 'unsafe-inline';
+    style-src 'self' 'unsafe-inline';
+    img-src * 'self' data: https:;
+    font-src 'self';
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self';
+    frame-ancestors 'none';
+    block-all-mixed-content;
+    upgrade-insecure-requests;
+    `
+  // Replace newline characters and spaces
+  const contentSecurityPolicyHeaderValue = cspHeader
+    .replace(/\s{2,}/g, " ")
+    .trim();
+
+  const requestHeaders = new Headers(req.headers);
+  const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
+
+  requestHeaders.set("x-nonce", nonce);
+
+
+  requestHeaders.set(
+    "Content-Security-Policy",
+    contentSecurityPolicyHeaderValue
+  );
+
+  let response;
   if (isPublicPage) {
-    return I18nMiddleware(req);
+    response = await I18nMiddleware(req);
   } else {
-    return (authMiddleware as any)(req);
+    response = await (authMiddleware as any)(req);
   }
+  const defaultLocale = req.headers.get("x-your-custom-locale") || "en";
+
+  response.headers.set("x-your-custom-locale", defaultLocale);
+  response.headers.set(
+    "Content-Security-Policy",
+    contentSecurityPolicyHeaderValue
+  );
+  response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+  response.headers.set("X-Frame-Options", "DENY");
+  response.headers.set("X-Content-Type-Options", "nosniff");
+  response.headers.set("Strict-Transport-Security", "max-age=63072000");
+  response.headers.set("X-XSS-Protection", "  1; mode=block");
+  return response;
 }
+
 
 
 export const config = {
