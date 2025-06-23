@@ -13,8 +13,9 @@
     "prettier:fix": "npm run prettier -- --write",
     "format": "npm run prettier:fix && npm run lint:fix",
     "pre-commit": "npm run format",
-    "test": "jest"
-  },
+    "test": "jest",
+    "postinstall": "git submodule update --init --recursive"
+},
   "dependencies": {
     "@ant-design/cssinjs": "^1.22.1",
     "@ant-design/nextjs-registry": "^1.0.2",

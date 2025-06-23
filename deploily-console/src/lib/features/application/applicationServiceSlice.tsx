@@ -7,6 +7,7 @@ interface ApplicationServiceState {
     applicationServicesById: ApplicationServiceByIdState;
     newAppSubscriptionState: NewApplicationSubscriptionState;
     newApplicationSubscriptionResponse: NewApplicationSubscriptionResponse;
+    searchValue?: string;
 }
 
 const initialState: ApplicationServiceState = {
@@ -37,6 +38,8 @@ const initialState: ApplicationServiceState = {
         selectedProfile: undefined,
         isBalanceSufficient: null,
     },
+    searchValue: "",
+
 
 };
 const ApplicationServiceSlice = createSlice({
@@ -65,7 +68,9 @@ const ApplicationServiceSlice = createSlice({
             console.log(state.newAppSubscriptionState)
             return state;
         },
-
+        updateApplicationServiceSearchValue: (state, action: PayloadAction<string>) => {
+            state.searchValue = action.payload;
+          },
     },
     extraReducers: (builder) => {
         builder
@@ -116,6 +121,6 @@ const ApplicationServiceSlice = createSlice({
     },
 });
 
-export const { updateNewAppSubscriptionState } = ApplicationServiceSlice.actions;
+export const { updateNewAppSubscriptionState, updateApplicationServiceSearchValue } = ApplicationServiceSlice.actions;
 
 export default ApplicationServiceSlice.reducer;

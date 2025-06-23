@@ -4,6 +4,7 @@ export default {
   'comingSoon': "Dans les coulisses, nous créons quelque chose de spécial. Restez à l'écoute pour ce qui est à venir !",
   'APIService': 'API Service',
   "cloudResources": "Ressources cloud",
+  "application": "Applications",
   'Members': 'Membres',
   'myFavorites': 'Mes favoris',
   'myResources': 'Mes ressources',
@@ -260,5 +261,8 @@ export default {
   "applications.preparation_time": "Temps de préparation",
   "applications.price": "Prix",
   "applications.description": "Description",
-  "applications.features": "Caractéristiques"
+  "applications.features": "Caractéristiques",
+  "applications.search": "Rechercher",
+  "applications.noResult": "Aucun résultat trouvé",
+  "applications.noResultDescription": "Essayez d'ajuster votre recherche ou votre filtre."
 } as const

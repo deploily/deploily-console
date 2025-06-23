@@ -4,6 +4,7 @@ export default {
     'comingSoon': "Behind the scenes, we're crafting something special. Stay tuned for what's to come!",
     'APIService': 'API Service',
     "cloudResources": "Cloud Resources",
+    "application": "Applications",
     'Members': 'Members',
     'myFavorites': 'My favorites',
     'myResources': 'My resources',
@@ -265,5 +266,8 @@ export default {
     "applications.preparation_time": "Preparation time",
     "applications.price": "Price",
     "applications.description": "Description",
-    "applications.features": "Features"
+    "applications.features": "Features",
+    "applications.search": "Search",
+    "applications.noResult": "No Results Found",
+    "applications.noResultDescription": "Try adjusting your search or filter."
 } as const
