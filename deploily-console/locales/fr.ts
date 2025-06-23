@@ -202,6 +202,10 @@ export default {
   'ttkEpay.satim_terminal_id': 'Identifiant du terminal Satim',
   'ttkEpay.satim_user_name': "Nom d'utilisateur Satim",
   'ttkEpay.secretKey': 'Clé secrète',
+  'ttkEpay.save': 'Enregistrer',
+  'ttkEpay.reset': 'Réinitialiser',
+
+
 
   "bankPayment.title": "Paiement par virement bancaire",
   "bankPayment.message": "Ceci est notre compte bancaire, vous pouvez transférer le montant !",

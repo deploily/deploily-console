@@ -204,7 +204,9 @@ export default {
     'ttkEpay.satim_server_url': 'Satim server url',
     'ttkEpay.satim_terminal_id': 'Satim terminal id',
     'ttkEpay.satim_user_name': 'Satim user name',
-    'ttkEpay.secretKey': 'secretKey',
+    'ttkEpay.secretKey': 'Secret Key',
+    'ttkEpay.save': 'Save',
+    'ttkEpay.reset': 'Reset',
 
 
     "bankPayment.title": "Payment by Bank",
