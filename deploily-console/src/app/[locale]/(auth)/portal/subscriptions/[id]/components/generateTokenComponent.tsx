@@ -8,6 +8,7 @@ import { Button, Input, Typography } from "antd";
 import { useEffect } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../../locales/client";
 
+
 import { handleCopy } from "@/lib/utils/handleCopy";
 import React from "react";
 
@@ -38,16 +39,22 @@ export default function GenerateTokenComponent({ subscription_id }: { subscripti
                     type={passwordVisible ? "text" : "password"}
                 />  {currentSubscription.api_key !== null && currentSubscription.api_key !== "" ?
                     <>
-                <Button type="primary" style={{ boxShadow: "none"}} icon={passwordVisible ? <EyeSlash /> : <Eye />} onClick={() => setPasswordVisible(prev => !prev)} />
-                <Button type="primary" style={{ boxShadow: "none", margin: '0px 5px' }} icon={<Copy />} onClick={() => handleCopy(currentSubscription.api_key ?? "")} />
-          </>: <CustomBlueButton
+                        <Button type="primary" style={{ boxShadow: "none" }} icon={passwordVisible ? <EyeSlash /> : <Eye />} onClick={() => setPasswordVisible(prev => !prev)} />
+                        <Button type="primary" style={{ boxShadow: "none", margin: '0px 5px' }} icon={<Copy />} onClick={() => handleCopy(currentSubscription.api_key ?? "")} />
+                        <CustomBlueButton
                             onClick={generateApiKey}
-                            style={{ backgroundColor: theme.token.blue100, width: "10rem", margin: '0px 5px'  }}
+                            style={{ backgroundColor: theme.token.blue100, width: "10rem", margin: '0px 5px' }}
                         >
-                            {t('ganerateKey')}
+                            {t('reGanerateKey')}
                         </CustomBlueButton>
-                         }
-                        </div></>
+                    </> : <CustomBlueButton
+                        onClick={generateApiKey}
+                        style={{ backgroundColor: theme.token.blue100, width: "10rem", margin: '0px 5px' }}
+                    >
+                        {t('ganerateKey')}
+                    </CustomBlueButton>
+                }
+            </div></>
         }
     </div>
     )

@@ -60,6 +60,7 @@ export default {
   'viewApi': "Afficher la documentation de l'API",
   'parameterValue': 'Valeurs des paramètres',
   'ganerateKey': 'GÉNÉRER LA CLÉ',
+  'reGanerateKey': 'RÉGÉNÉRER LA CLÉ',
   "placeholderGenerate": "Cliquer pour générer la clé",
   "SelectServicePlan": "Sélectionnez le plan de service",
   "subscribe": "SUBSCRIBE",
