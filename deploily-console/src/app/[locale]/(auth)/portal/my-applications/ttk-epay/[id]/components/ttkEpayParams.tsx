@@ -1,17 +1,45 @@
 'use client'
-import { Button, Input, Typography } from "antd";
-import { theme } from "@/styles/theme";
-import { ttkEpayInterface } from "@/lib/features/ttk-epay/ttkEpayInterface";
-import { useScopedI18n } from "../../../../../../../../../locales/client";
-import { useState } from "react";
-import { Copy, Eye, EyeSlash } from "@phosphor-icons/react";
+import { TtkEpayInterface } from "@/lib/features/ttk-epay/ttkEpayInterface";
 import { handleCopy } from "@/lib/utils/handleCopy";
 import { DivCard } from "@/styles/components/divStyle";
+import { theme } from "@/styles/theme";
+import { Copy, Eye, EyeSlash } from "@phosphor-icons/react";
+import { Button, Input, Typography } from "antd";
+import { useState } from "react";
+import { useScopedI18n } from "../../../../../../../../../locales/client";
+import { useAppDispatch } from "@/lib/hook";
+import { updateTtkEpay } from "@/lib/features/ttk-epay/ttkEpayThunks";
 
-export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
+export default function TtkEpayParams({ data }: { data: TtkEpayInterface }) {
     const tSubscription = useScopedI18n('ttkEpay');
     const [passwordVisible, setPasswordVisible] = useState(false);
-
+    const dispatch = useAppDispatch();
+    const [formValues, setFormValues] = useState({
+        api_secret_key: data.api_secret_key,
+        client_site_name: data.client_site_name,
+        client_site_address: data.client_site_address,
+        client_site_email: data.client_site_email,
+        client_site_logo_url: data.client_site_logo_url,
+        client_site_phone_number: data.client_site_phone_number,
+        client_site_privacy: data.client_site_privacy,
+        client_site_terms: data.client_site_terms,
+        client_site_url: data.client_site_url,
+        mvc_satim_fail_url: data.mvc_satim_fail_url,
+        mvc_satim_server_url: data.mvc_satim_server_url,
+        satim_base_url: data.satim_base_url,
+        satim_confirm_url: data.satim_confirm_url,
+        satim_currency: data.satim_currency,
+        satim_client_server_url: data.satim_client_server_url,
+        satim_description: data.satim_description,
+        satim_fail_url: data.satim_fail_url,
+        satim_json_params: data.satim_json_params,
+        satim_language: data.satim_language,
+        satim_password: data.satim_password,
+        satim_server_url: data.satim_server_url,
+        satim_terminal_id: data.satim_terminal_id,
+        satim_user_name: data.satim_user_name,
+    });
+    
     return (
         <>
             <DivCard style={{ backgroundColor: "#030304" }} >
@@ -25,7 +53,8 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                             <Input
                                 disabled={data.application_status == "processing"}
                                 style={{ width: "fit", color: "white", marginRight: "5px" }}
-                                value={data.api_secret_key}
+                                value={formValues.api_secret_key}
+                                onChange={(e) => setFormValues({ ...formValues, api_secret_key: e.target.value })}
                                 type={passwordVisible ? "text" : "password"}
                             />
 
@@ -44,7 +73,8 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                         <Input
                             disabled={data.application_status == "processing"}
                             style={{ width: "fit", color: "white" }}
-                            value={data.client_site_name}
+                            value={formValues.client_site_name}
+                            onChange={(e) => setFormValues({ ...formValues, client_site_name: e.target.value })}
                         />
                     </div>
                     <div style={{ marginTop: 10 }}>
@@ -54,7 +84,8 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                         <Input
                             disabled={data.application_status == "processing"}
                             style={{ width: "fit", color: "white" }}
-                            value={data.client_site_address}
+                            value={formValues.client_site_address}
+                            onChange={(e) => setFormValues({ ...formValues, client_site_address: e.target.value })}
                         />
                     </div>
                     <div style={{ marginTop: 10 }}>
@@ -64,7 +95,8 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                         <Input
                             disabled={data.application_status == "processing"}
                             style={{ width: "fit", color: "white" }}
-                            value={data.client_site_email}
+                            value={formValues.client_site_email}
+                            onChange={(e) => setFormValues({ ...formValues, client_site_email: e.target.value })}
                         />
                     </div>
                     <div style={{ marginTop: 10 }}>
@@ -74,7 +106,8 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                         <Input
                             disabled={data.application_status == "processing"}
                             style={{ width: "fit", color: "white" }}
-                            value={data.client_site_logo_url}
+                            value={formValues.client_site_logo_url}
+                            onChange={(e) => setFormValues({ ...formValues, client_site_logo_url: e.target.value })}
                         />
                     </div>
                     <div style={{ marginTop: 10 }}>
@@ -84,7 +117,8 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                         <Input
                             disabled={data.application_status == "processing"}
                             style={{ width: "fit", color: "white" }}
-                            value={data.client_site_phone_number}
+                            value={formValues.client_site_phone_number}
+                            onChange={(e) => setFormValues({ ...formValues, client_site_phone_number: e.target.value })}
                         />
                     </div>
                     <div style={{ marginTop: 10 }}>
@@ -94,7 +128,8 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                         <Input
                             disabled={data.application_status == "processing"}
                             style={{ width: "fit", color: "white" }}
-                            value={data.client_site_privacy}
+                            value={formValues.client_site_privacy}
+                            onChange={(e) => setFormValues({ ...formValues, client_site_privacy: e.target.value })}
                         />
                     </div>
                     <div style={{ marginTop: 10 }}>
@@ -104,7 +139,8 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                         <Input
                             disabled={data.application_status == "processing"}
                             style={{ width: "fit", color: "white" }}
-                            value={data.client_site_terms}
+                            value={formValues.client_site_terms}
+                            onChange={(e) => setFormValues({ ...formValues, client_site_terms: e.target.value })}
                         />
                     </div>
                     <div style={{ marginTop: 10 }}>
@@ -114,7 +150,8 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                         <Input
                             disabled={data.application_status == "processing"}
                             style={{ width: "fit", color: "white" }}
-                            value={data.client_site_url}
+                            value={formValues.client_site_url}
+                            onChange={(e) => setFormValues({ ...formValues, client_site_url: e.target.value })}
                         />
                     </div>
 
@@ -128,7 +165,9 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                         <Input
                             disabled={data.application_status == "processing"}
                             style={{ width: "fit", color: "white" }}
-                            value={data.mvc_satim_fail_url}
+                            value={formValues.mvc_satim_fail_url}
+                            onChange={(e) => setFormValues({ ...formValues, mvc_satim_fail_url: e.target.value })}
+                            
                         />
                     </div>
                     <div style={{ marginTop: 10 }}>
@@ -138,7 +177,8 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                         <Input
                             disabled={data.application_status == "processing"}
                             style={{ width: "fit", color: "white" }}
-                            value={data.mvc_satim_server_url}
+                            value={formValues.mvc_satim_server_url}
+                            onChange={(e) => setFormValues({ ...formValues, mvc_satim_server_url: e.target.value })}
                         />
                     </div>
                 </DivCard>
@@ -151,7 +191,8 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                         <Input
                             disabled={data.application_status == "processing"}
                             style={{ width: "fit", color: "white" }}
-                            value={data.satim_base_url}
+                            value={formValues.satim_base_url}
+                            onChange={(e) => setFormValues({ ...formValues, satim_base_url: e.target.value })}
                         />
                     </div>
 
@@ -162,7 +203,8 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                         <Input
                             disabled={data.application_status == "processing"}
                             style={{ width: "fit", color: "white" }}
-                            value={data.satim_confirm_url}
+                            value={formValues.satim_confirm_url}
+                            onChange={(e) => setFormValues({ ...formValues, satim_confirm_url: e.target.value })}
                         />
                     </div>
 
@@ -173,7 +215,8 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                         <Input
                             disabled={data.application_status == "processing"}
                             style={{ width: "fit", color: "white" }}
-                            value={data.satim_currency}
+                            value={formValues.satim_currency}
+                            onChange={(e) => setFormValues({ ...formValues, satim_currency: e.target.value })}
                         />
                     </div>
                     <div style={{ marginTop: 10 }}>
@@ -183,7 +226,8 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                         <Input
                             disabled={data.application_status == "processing"}
                             style={{ width: "fit", color: "white" }}
-                            value={data.satim_client_server_url}
+                            value={formValues.satim_client_server_url}
+                            onChange={(e) => setFormValues({ ...formValues, satim_client_server_url: e.target.value })}
                         />
                     </div>
                     <div style={{ marginTop: 10 }}>
@@ -193,7 +237,8 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                         <Input
                             disabled={data.application_status == "processing"}
                             style={{ width: "fit", color: "white" }}
-                            value={data.satim_description}
+                            value={formValues.satim_description}
+                            onChange={(e) => setFormValues({ ...formValues, satim_description: e.target.value })}
                         />
                     </div>
                     <div style={{ marginTop: 10 }}>
@@ -203,7 +248,8 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                         <Input
                             disabled={data.application_status == "processing"}
                             style={{ width: "fit", color: "white" }}
-                            value={data.satim_client_server_url}
+                            value={formValues.satim_client_server_url}
+                            onChange={(e) => setFormValues({ ...formValues, satim_client_server_url: e.target.value })}
                         />
                     </div>
                     <div style={{ marginTop: 10 }}>
@@ -213,7 +259,8 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                         <Input
                             disabled={data.application_status == "processing"}
                             style={{ width: "fit", color: "white" }}
-                            value={data.satim_fail_url}
+                            value={formValues.satim_fail_url}
+                            onChange={(e) => setFormValues({ ...formValues, satim_fail_url: e.target.value })}
                         />
                     </div>
                     <div style={{ marginTop: 10 }}>
@@ -223,7 +270,8 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                         <Input
                             disabled={data.application_status == "processing"}
                             style={{ width: "fit", color: "white" }}
-                            value={data.satim_json_params}
+                            value={formValues.satim_json_params}
+                            onChange={(e) => setFormValues({ ...formValues, satim_json_params: e.target.value })}
                         />
                     </div>
                     <div style={{ marginTop: 10 }}>
@@ -233,7 +281,8 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                         <Input
                             disabled={data.application_status == "processing"}
                             style={{ width: "fit", color: "white" }}
-                            value={data.satim_language}
+                            value={formValues.satim_language}
+                            onChange={(e) => setFormValues({ ...formValues, satim_language: e.target.value })}
                         />
                     </div>
                     <div style={{ marginTop: 10 }}>
@@ -243,7 +292,8 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                         <Input
                             disabled={data.application_status == "processing"}
                             style={{ width: "fit", color: "white" }}
-                            value={data.satim_password}
+                            value={formValues.satim_password}
+                            onChange={(e) => setFormValues({ ...formValues, satim_password: e.target.value })}
                         />
                     </div>
                     <div style={{ marginTop: 10 }}>
@@ -253,7 +303,8 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                         <Input
                             disabled={data.application_status == "processing"}
                             style={{ width: "fit", color: "white" }}
-                            value={data.satim_server_url}
+                            value={formValues.satim_server_url}
+                            onChange={(e) => setFormValues({ ...formValues, satim_server_url: e.target.value })}
                         />
                     </div>
                     <div style={{ marginTop: 10 }}>
@@ -263,7 +314,8 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                         <Input
                             disabled={data.application_status == "processing"}
                             style={{ width: "fit", color: "white" }}
-                            value={data.satim_terminal_id}
+                            value={formValues.satim_terminal_id}
+                            onChange={(e) => setFormValues({ ...formValues, satim_terminal_id: e.target.value })}
                         />
                     </div>
                     <div style={{ marginTop: 10 }}>
@@ -273,7 +325,8 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                         <Input
                             disabled={data.application_status == "processing"}
                             style={{ width: "fit", color: "white" }}
-                            value={data.satim_user_name}
+                            value={formValues.satim_user_name}
+                            onChange={(e) => setFormValues({ ...formValues, satim_user_name: e.target.value })}
                         />
                     </div>
                 </DivCard>
@@ -287,6 +340,7 @@ export default function TtkEpayParams({ data }: { data: ttkEpayInterface }) {
                             boxShadow: "none"
                         }}
                         disabled={data.application_status == "processing"}
+                        onClick={() => dispatch(updateTtkEpay({ id: data.id, data: formValues  }))}
                     >
                         <span
                             style={{

@@ -1,11 +1,16 @@
 
 
-export interface ttkEpayByIdState {
-  ttkEpayById?: ttkEpayInterface;
+export interface TtkEpayByIdState {
+  ttkEpayById?: TtkEpayInterface;
   isLoading: boolean;
   loadingError?: any;
 }
-export interface ttkEpayResponse {
+export interface UpdateTtkEpayState {
+  updateTtkEpay?: any;
+  isLoading: boolean;
+  loadingError?: any;
+}
+export interface TtkEpayResponse {
   count: number;
   description_columns: any;
   ids: number[];
@@ -13,10 +18,10 @@ export interface ttkEpayResponse {
   list_columns: string[];
   list_title: string;
   order_columns: string[];
-  result: ttkEpayInterface[];
+  result: TtkEpayInterface[];
 }
 
-export interface ttkEpayInterface {
+export interface TtkEpayInterface {
   id: number;
   name: string;
   api_key: string;
@@ -52,7 +57,7 @@ export interface ttkEpayInterface {
   start_date: Date,
   status: string;
   total_amount: number;
-  url_segment: string;
+  service_slug: string;
 
 }
 
