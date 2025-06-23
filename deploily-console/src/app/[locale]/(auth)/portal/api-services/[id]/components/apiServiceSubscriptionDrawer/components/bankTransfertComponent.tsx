@@ -29,7 +29,7 @@ export default function BankTransfertComponent({ selectedPlan }: { selectedPlan:
         console.log("newApiServiceSubscriptionObject BankTransfertComponent", newApiServiceSubscriptionObject);
         dispatch(postApiServiceSubscription(newApiServiceSubscriptionObject)).then((response: any) => {
             if (response.meta.requestStatus === "fulfilled") {
-                router.push(`/portal/subscriptions/`);
+                router.push(`/portal/my-api/`);
                 //TODO replace with my api service
             }
         }

@@ -60,26 +60,9 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
             <span style={labelStyle}>{scopedSidebar("myApplications")}</span>
           </Link>
         ),
-      },
-      // {
-      //   key: "4",
-      //   label: (
-      //     <Link href="/portal/subscriptions">
-      //       <span style={labelStyle}>{scopedSidebar("erpcrm")}</span>
-      //     </Link>
-      //   ),
-      // },
+      }
     ],
   },
-  // {
-  //   key: "my-resources",
-  //   label: (
-  //     <Link href="/portal/my-resources">
-  //       <span style={labelStyle}>{scopedSidebar("myResources")}</span>
-  //     </Link>
-  //   ),
-  //   icon: <CalendarStar size={24} />,
-  // },
   {
     key: "my-favorites",
     label: (

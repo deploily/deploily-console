@@ -241,7 +241,7 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                     <TtkEpayParams data={ttkEpayById} />
 
 
-                    <DocumentationDrawer openDrawer={openDrawer} onClose={onClose} currentSubscription={ttkEpayById} t={t} />
+                <DocumentationDrawer openDrawer={openDrawer} onClose={onClose} currentSubscription={ttkEpayById} t={t} />
 
 
                 </>
