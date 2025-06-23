@@ -98,7 +98,7 @@ const ApplicationServiceSlice = createSlice({
                 state.applicationServicesById.loadingError = payload;
             })
             .addCase(applicationSubscribe.pending, (state) => {
-                    state.newApplicationSubscriptionResponse.newSubscriptionIsLoading = true;
+                state.newApplicationSubscriptionResponse.newSubscriptionIsLoading = true;
                 state.newApplicationSubscriptionResponse.newSubscriptionFailed = false;
                 state.newApplicationSubscriptionResponse.newSubscriptionResponse = undefined;
             

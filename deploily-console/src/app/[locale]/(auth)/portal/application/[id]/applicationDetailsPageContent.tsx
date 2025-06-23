@@ -27,14 +27,15 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
     const { totalAmount, duration, app_service_plan, resource_service_plan, } = useNewApplicationSubscription();
     const tApplications = useScopedI18n('applications');
 
+
     const handleChangeDuration = (value: number) => {
         dispatch(updateNewAppSubscriptionState({ duration: value }));
       };
 
-    useEffect(() => {
+    useEffect(() => {        
         dispatch(fetchApplicationServiceById(applicationId));
         dispatch(fetchServicePlans(applicationId));
-    }, [])
+      }, []);
 
 
     return (

@@ -5,7 +5,7 @@ import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
 import { Flex, Radio, RadioChangeEvent, Typography, } from "antd";
 import { redirect, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useScopedI18n } from "../../../../../../../../locales/client";
 import BankTransfertComponent from "./payment-components/bankTransfertComponent";
 import CardPaymentComponent from "./payment-components/cardPaymentComponent";
@@ -22,6 +22,7 @@ export default function ApplicationPaymentComponent() {
   const newApplicationSubscription = useNewApplicationSubscription()
   const { applicationServiceById } = useApplicationServiceById()
   const router = useRouter()
+  const { newSubscriptionResponse } = useNewApplicationSubscriptionResponse();
 
   const handleApplicationSubscription = async (captchaToken?: string) => {
     if (newApplicationSubscription.app_service_plan != undefined && newApplicationSubscription.resource_service_plan != undefined && newApplicationSubscription.selectedProfile != undefined) {
@@ -34,31 +35,30 @@ export default function ApplicationPaymentComponent() {
         profile_id: newApplicationSubscription.selectedProfile.id
       };
       if (paymentMethod == "card") {
-        newSubscriptionObject = { ...newSubscriptionObject, ...{captcha_token: captchaToken}, }
+        newSubscriptionObject = { ...newSubscriptionObject, ...{ captcha_token: captchaToken }, }
       }
-      dispatch(applicationSubscribe({ app_slug: applicationServiceById?.app_slug, data: newSubscriptionObject }));
+      dispatch(applicationSubscribe({ app_slug: applicationServiceById?.app_slug, data: newSubscriptionObject })).then((response: any) => {
+        if (response.meta.requestStatus === "fulfilled") {
+          if (newSubscriptionResponse && newSubscriptionResponse.form_url !== null) {
+            redirect(newSubscriptionResponse.form_url);
+          } else {
+            router.push(`/portal/app-subscriptions/`);//TODO DOUNIA 
+          }
+        }
+      }
+      );
     }
   };
-  const { newSubscriptionResponse } = useNewApplicationSubscriptionResponse();
-  useEffect(() => {
-    if (newSubscriptionResponse) {
-      if (newSubscriptionResponse.form_url !== null) {
-        redirect(newSubscriptionResponse.form_url);
-      } else {
-        router.push(`/portal/app-subscriptions/`);
-      }
-
-
-    }
-  }, [newSubscriptionResponse]);
 
   return (
     <>
-      <Typography.Text style={{
-        color: theme.token.red500, paddingTop: 30, display: "flex",
-        justifyContent: "center",
-      }}>{translate("insufficientBalance")}
-      </Typography.Text>
+      <>
+        <Typography.Text style={{
+          color: theme.token.red500, paddingTop: 30, display: "flex",
+          justifyContent: "center",
+        }}>{translate("insufficientBalance")}
+        </Typography.Text>
+      </>
       <Typography.Title level={4} style={{ paddingTop: 20, paddingBottom: 20 }}>{translateProfile("choosePaymentMethod")}</Typography.Title>
       <Flex vertical gap="start" style={{ padding: 10, backgroundColor: theme.token.colorBgBase, }}>
         <Radio.Group block defaultValue={paymentMethod}

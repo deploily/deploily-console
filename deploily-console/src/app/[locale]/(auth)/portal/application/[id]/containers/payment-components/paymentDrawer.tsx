@@ -1,20 +1,24 @@
 "use client";
 import { useApplicationServiceById, useNewApplicationSubscription } from "@/lib/features/application/applicationServiceSelectors";
 import { updateNewAppSubscriptionState } from "@/lib/features/application/applicationServiceSlice";
+import { applicationSubscribe } from "@/lib/features/application/applicationServiceThunks";
 import { useNotDefaultPaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesSelectors";
 import { fetchNotDefaultPaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { Col, Drawer } from "antd";
 import NewSubscriptionInfo from "deploily-ui-components/components/payment/newSubscriptionInfo";
 import SelectProfileComponent from "deploily-ui-components/components/payment/selectProfile";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useScopedI18n } from "../../../../../../../../../locales/client";
 import CreateProfileButton from "../../../../api-services/[id]/components/subscriptionDrawer/containers/createProfileButton";
 import ApplicationPaymentComponent from "../applicationPaymentComponent";
+import IsBalanceSufficientComponent from "./isBalanceSufficientComponent";
 
 export default function PaymentDrawer({ openDrawer, onClose }:
     { openDrawer: any, onClose: any }
 ) {
+    const router = useRouter()
     const tApplications = useScopedI18n('applications');
     const tSubscription = useScopedI18n('subscription');
 
@@ -29,6 +33,25 @@ export default function PaymentDrawer({ openDrawer, onClose }:
             (profile) => profile.id === value
         );
         dispatch(updateNewAppSubscriptionState({ "selectedProfile": newSelectedProfile }))
+    };
+
+    const handleSubscribe = async () => {
+        if (app_service_plan != undefined && resource_service_plan != undefined && selectedProfile != undefined) {
+            const newSubscriptionObject = {
+                duration: Number.parseInt(`${duration}`),
+                // promo_code: subscriptionStates.promoCode,
+                payment_method: "cloud_credit",
+                service_plan_selected_id: app_service_plan.id,
+                resource_service_plan_id: resource_service_plan.id,
+                profile_id: selectedProfile.id
+            };
+            dispatch(applicationSubscribe({ app_slug: applicationServiceById?.app_slug, data: newSubscriptionObject })).then((response: any) => {
+                if (response.meta.requestStatus === "fulfilled") {
+                    router.push(`/portal/app-subscriptions`);
+                }
+            }
+            );
+        }
     };
 
     useEffect(() => {
@@ -54,7 +77,7 @@ export default function PaymentDrawer({ openDrawer, onClose }:
             >
                 <Col style={{ padding: 20 }}>
                     <NewSubscriptionInfo
-                        title={`${tApplications("order")}`}//TODO 
+                        title={`${tApplications("order")}`}
                         newSubscriptionInfo={{
                             applicationName: {
                                 label: tApplications('svc'),
@@ -91,9 +114,8 @@ export default function PaymentDrawer({ openDrawer, onClose }:
                         selectedProfile={selectedProfile}
                         paymentProfilesList={paymentProfilesList} onSelectProfile={handleSelectPaymentProfile} />
                     {selectedProfile !== undefined && <div style={{ padding: '5px 0px' }}>
-                        {isBalanceSufficient === true ?
-                            <></>
-                            // (<IsBalanceSufficientComponent onClose={onClose} planSelected={planSelected} />)
+                        {isBalanceSufficient === false ?
+                            <IsBalanceSufficientComponent onClose={onClose} handleSubscribe={() => handleSubscribe()} />
                             : selectedProfile?.is_default_profile === true ?
                                 <CreateProfileButton planSelected={undefined} openDrawer={openDrawer} onClose={onClose} />
                                 :
