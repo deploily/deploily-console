@@ -191,7 +191,7 @@ export default function RessourcePlanCard({ resourcePlan, currentResource, showD
                 {resourcePlan.options.map((row: ServicePlanOption) => (
                     <Row gutter={16} key={row.id} align="middle">
                         <Col span={3}  >
-                            <Check size={24} color={theme.token.gray100} />
+                            {row.icon ? row.icon : <Check size={24} color={theme.token.gray100} />}
                         </Col>
                         <Col span={21}>
                             <Typography.Paragraph

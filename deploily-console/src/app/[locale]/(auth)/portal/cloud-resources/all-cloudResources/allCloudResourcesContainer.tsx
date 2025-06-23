@@ -25,7 +25,7 @@ export default function AllCloudResourcesContainer() {
     const [hover, setHover] = useState(false);
     const [filterParams, setFilter] = useState(
         {
-            page_size: 10,
+            page_size: 8,
             page: 0,
             provider: undefined,
             category: undefined,

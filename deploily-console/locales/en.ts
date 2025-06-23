@@ -60,6 +60,7 @@ export default {
     'viewApi': 'View API documentation',
     'parameterValue': 'Parameter Values',
     'ganerateKey': 'GENERATE KEY',
+    'reGanerateKey': 'REGENERATE KEY',
     "placeholderGenerate": "Click to generate token",
     "SelectServicePlan": "Select service plan",
     "subscribe": "SUBSCRIBE",
