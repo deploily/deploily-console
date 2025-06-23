@@ -243,8 +243,8 @@ export default {
     "bankPayment.AGB": "AGB",
     "bankPayment.ain_temouchent": "N°21, Bloc E3, Lot 10, 220 CNEP Housing Estate, Ain Témouchent, Algeria",
     "bankPayment.oran": "Oran",
-    "Feedback.title": 'Feedback',
-    "Feedback.send": 'Send',
+    "feedback.title": 'Feedback',
+    "feedback.send": 'Send',
 
     "profile.firstName": 'First name',
     "profile.lastName": 'Last name',

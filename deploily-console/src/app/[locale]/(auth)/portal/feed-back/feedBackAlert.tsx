@@ -10,7 +10,7 @@ import { useScopedI18n } from "../../../../../../locales/client";
 import { openNotification } from "../cloud-resources/utils/notification";
 
 export default function FeedbackAlert() {
-    const t = useScopedI18n("Feedback");
+    const t = useScopedI18n("feedback");
     const dispatch = useAppDispatch();
 
     const [feedbackMessage, setFeedbackMessage] = useState("");
