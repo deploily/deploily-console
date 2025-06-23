@@ -1,14 +1,14 @@
 "use client";
-import { useSubscriptionStates } from "@/lib/features/subscription-states/subscriptionSelectors";
 import { theme } from "@/styles/theme";
 import { Button, Card, Typography, } from "antd";
 import { useEffect, useState } from "react";
 import bankPaymentInfo from "./bankPaymentData";
 import { getBankCredEnvVars } from "@/actions/getBankCredEnvVars";
 import { useScopedI18n } from "../../../../../../../../../locales/client";
+import { useNewApplicationSubscription } from "@/lib/features/application/applicationServiceSelectors";
 
 export default function BankTransfertComponent({ handleSubscribe }: { handleSubscribe:()=> Promise<void> }) {
-    const { totalAmount } = useSubscriptionStates()
+    const { totalAmount } = useNewApplicationSubscription()
     const tBankPayment = useScopedI18n("bankPayment");
     const tPayments = useScopedI18n("payments");
 

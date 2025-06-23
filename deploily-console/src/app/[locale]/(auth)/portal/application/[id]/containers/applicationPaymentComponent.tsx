@@ -42,7 +42,7 @@ export default function ApplicationPaymentComponent() {
           if (newSubscriptionResponse && newSubscriptionResponse.form_url !== null) {
             redirect(newSubscriptionResponse.form_url);
           } else {
-            router.push(`/portal/app-subscriptions/`);//TODO DOUNIA 
+            router.push(`/portal/my-applications/`); 
           }
         }
       }

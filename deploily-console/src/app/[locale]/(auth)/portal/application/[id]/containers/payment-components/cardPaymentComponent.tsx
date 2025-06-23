@@ -1,5 +1,4 @@
 "use client";
-import { useSubscriptionStates } from "@/lib/features/subscription-states/subscriptionSelectors";
 import { theme } from "@/styles/theme";
 import {  Card, Checkbox, CheckboxChangeEvent, Typography } from "antd";
 import { useRef, useState } from "react";
@@ -7,6 +6,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { NEXT_PUBLIC_SITE_KEY } from "@/deploilyWebsiteUrls";
 import EpayButton from "./epayButton";
 import { useScopedI18n } from "../../../../../../../../../locales/client";
+import { useNewApplicationSubscription } from "@/lib/features/application/applicationServiceSelectors";
 
 export default function CardPaymentComponent({ handleSubscribe }: { handleSubscribe: (captcha_token:string) => Promise<void> }) {
 
@@ -14,7 +14,7 @@ export default function CardPaymentComponent({ handleSubscribe }: { handleSubscr
     const onChangeCheckbox = (e: CheckboxChangeEvent) => {
         setValue(e.target.checked);
     };
-    const { totalAmount } = useSubscriptionStates()
+    const { totalAmount } = useNewApplicationSubscription()
     const tPayments = useScopedI18n("payments");
 
     const [captchaToken, setCaptchaToken] = useState<string | null>(null);

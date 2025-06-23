@@ -47,7 +47,7 @@ export default function PaymentDrawer({ openDrawer, onClose }:
             };
             dispatch(applicationSubscribe({ app_slug: applicationServiceById?.app_slug, data: newSubscriptionObject })).then((response: any) => {
                 if (response.meta.requestStatus === "fulfilled") {
-                    router.push(`/portal/app-subscriptions`);
+                    router.push(`/portal/my-applications`);
                 }
             }
             );
@@ -114,7 +114,7 @@ export default function PaymentDrawer({ openDrawer, onClose }:
                         selectedProfile={selectedProfile}
                         paymentProfilesList={paymentProfilesList} onSelectProfile={handleSelectPaymentProfile} />
                     {selectedProfile !== undefined && <div style={{ padding: '5px 0px' }}>
-                        {isBalanceSufficient === false ?
+                        {isBalanceSufficient === true ?
                             <IsBalanceSufficientComponent onClose={onClose} handleSubscribe={() => handleSubscribe()} />
                             : selectedProfile?.is_default_profile === true ?
                                 <CreateProfileButton planSelected={undefined} openDrawer={openDrawer} onClose={onClose} />
