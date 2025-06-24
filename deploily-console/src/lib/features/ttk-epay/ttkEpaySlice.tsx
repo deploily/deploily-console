@@ -16,7 +16,7 @@ const initialState: TtkEpayState = {
   },
   updateTtkEpay: {
     updateTtkEpay: undefined,
-    isLoading: false,
+    isLoadingUpdate: false,
     loadingError: null,
   },
 
@@ -43,16 +43,16 @@ const TtkEpaySlice = createSlice({
       })
       
       .addCase(updateTtkEpay.pending, (state) => {
-        state.updateTtkEpay.isLoading = true;
+        state.updateTtkEpay.isLoadingUpdate = true;
       })
       .addCase(updateTtkEpay.fulfilled, (state, action) => {
-        state.updateTtkEpay.isLoading = false;
+        state.updateTtkEpay.isLoadingUpdate = false;
         state.updateTtkEpay.loadingError = null;
         state.updateTtkEpay.updateTtkEpay = action.payload;
         
       })
       .addCase(updateTtkEpay.rejected, (state, { payload }) => {
-        state.updateTtkEpay.isLoading = false;
+        state.updateTtkEpay.isLoadingUpdate = false;
         state.updateTtkEpay.loadingError = payload;
       });
 
