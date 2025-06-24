@@ -11,15 +11,15 @@ export default function MyAppCard({ data }: { data: myApplicationInterface }) {
     const t = useI18n();
     const router = useRouter();
 
-    const handleClick = async (url_segment: string) => {
+    const handleClick = async (service_slug: string) => {
         
-        router.push(`/portal/my-applications/${myApplicationsUrls(url_segment)}/${data.id}`)
+        router.push(`/portal/my-applications/${myApplicationsUrls(service_slug)}/${data.id}`)
 
     }
 
     return (
         <Card style={{ height: "100%", width: "100%", padding: 0, cursor: "pointer", position: "relative" }}
-            onClick={() => handleClick(data.url_segment)}
+            onClick={() => handleClick(data.service_details.service_slug)}
         >
             <div style={{ height: "300px" }}>
                 <Row align="middle" gutter={16} style={{ height: "40%" }} >
@@ -104,7 +104,7 @@ export default function MyAppCard({ data }: { data: myApplicationInterface }) {
                 style={{ position: "absolute", bottom: "20px", right: "20px" }}
             >
                 <CustomBlueButton
-                    onClick={() => handleClick(data.url_segment)}
+                    onClick={() => handleClick(data.service_details.service_slug)}
                 >
                     <Faders size={20} />
                     <Typography
