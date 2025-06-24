@@ -13,10 +13,21 @@ export default function ApplicationPlansContainer() {
 
 
     return (
-        <Row gutter={[16, 16]}>
+        <Row gutter={[16, 24]} justify="start">
             {servicePlanResponse !== undefined &&
                 servicePlanResponse.result.map(plan => {
-                    return <Col span={Math.floor(24 / servicePlanResponse.result.length)} key={plan.id.toString()} style={{maxWidth:'280px'}}>
+                    return <Col xs={24} sm={24} md={12} lg={12} xl={10} xxl={8}
+                        style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            padding: "0.5rem",
+                        }}
+                        span={Math.floor(24 / servicePlanResponse.result.length)}
+                        key={plan.id.toString()}
+                        // style={{ maxWidth: '280px' }}
+                    >
+                        <div style={{ width: "100%", display: "flex", justifyContent: "center", maxWidth: 350, }}>
+
                         <PlanCard
                             id={plan.id}
                             price={plan.price}
@@ -33,7 +44,8 @@ export default function ApplicationPlansContainer() {
                             }
                             title={plan.plan.name}
                             onClick={() => dispatch(updateNewAppSubscriptionState({ app_service_plan: plan }))}
-                        />
+                            />
+                        </div>
                     </Col>
                 }
                 )
