@@ -37,7 +37,7 @@ export default function ApplicationPaymentComponent() {
       if (paymentMethod == "card") {
         newSubscriptionObject = { ...newSubscriptionObject, ...{ captcha_token: captchaToken }, }
       }
-      dispatch(applicationSubscribe({ app_slug: applicationServiceById?.app_slug, data: newSubscriptionObject })).then((response: any) => {
+      dispatch(applicationSubscribe({ service_slug: applicationServiceById?.service_slug, data: newSubscriptionObject })).then((response: any) => {
         if (response.meta.requestStatus === "fulfilled") {
           if (newSubscriptionResponse && newSubscriptionResponse.form_url !== null) {
             redirect(newSubscriptionResponse.form_url);
