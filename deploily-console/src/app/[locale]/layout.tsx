@@ -2,7 +2,7 @@ import SessionGuard from "@/components/sessionGuard";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ConfigProvider } from "antd";
 import "antd/dist/reset.css";
-import { DM_Sans, JetBrains_Mono } from 'next/font/google';
+import { DM_Sans } from 'next/font/google';
 import { ReactElement } from "react";
 import { I18nProviderClient } from "../../../locales/client";
 import { theme } from "../../styles/theme";
@@ -14,13 +14,6 @@ const mdSans = DM_Sans({
   weight: ['400', '500', '700'],
   display: 'swap',
   variable: '--font-dm-sans',
-  style: ['normal', 'italic'],
-});
-const jetBrains_Mono = JetBrains_Mono({
-  subsets: ['latin'],
-  weight: ['400', '500', '700'],
-  display: 'swap',
-  variable: '--font-jetbrains-mono',
   style: ['normal', 'italic'],
 });
 
@@ -43,7 +36,7 @@ export default async function RootLayout({
   const { locale } = await params;
 
   return (
-    <html lang={locale} className={`${mdSans.className} ${jetBrains_Mono.variable}`}>
+    <html lang={locale} className={`${mdSans.variable} `}>
       <body suppressHydrationWarning={true} style={{ margin: "0px", backgroundColor: theme.token.darkGray, fontFamily: "DM Sans" }}>
         <Providers>
           <SessionGuard>
