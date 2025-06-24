@@ -29,8 +29,10 @@ export default async function middleware(req: NextRequest) {
   const publicPathnameRegex = RegExp(excludePattern, "i");
   const isPublicPage = !publicPathnameRegex.test(req.nextUrl.pathname);
 
+  const externalSrc = `${process.env.CSP_HEADER_DEFAULT_SRC || process.env.NEXT_PUBLIC_BASE_URL}`;
+
   const cspHeader = `
-    default-src 'self' ${process.env.NEXT_PUBLIC_BASE_URL};
+    default-src 'self' ${externalSrc};
     script-src 'self' 'unsafe-eval' 'unsafe-inline';
     style-src 'self' 'unsafe-inline';
     img-src * 'self' data: https:;
@@ -39,7 +41,6 @@ export default async function middleware(req: NextRequest) {
     base-uri 'self';
     form-action 'self';
     frame-ancestors 'none';
-    block-all-mixed-content;
     upgrade-insecure-requests;
     `
   // Replace newline characters and spaces
