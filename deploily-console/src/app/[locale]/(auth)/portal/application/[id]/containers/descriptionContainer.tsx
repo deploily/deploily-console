@@ -10,7 +10,7 @@ export default function ApplicationDescriptionContainer({ title,
         logo: React.ReactNode;
     }) {
     return (
-        <div style={{ padding: 24 }}>
+        <div style={{  }}>
             <ApplicationDescriptionForConsole
                 title={title}
                 description={description}

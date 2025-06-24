@@ -30,6 +30,7 @@ export default function SelectVpsPlanTable() {
     <div>
       {servicePlansList !== undefined &&
         <TableComponentWithSelection
+
           selectedRowId={resource_service_plan != undefined ? resource_service_plan.id : undefined}
           onChange={handlePlanChange}
           data={
@@ -51,7 +52,7 @@ export default function SelectVpsPlanTable() {
               title: tApplications('resource'),
               dataIndex: "resource",
               render: (plan) => plan != undefined ? <div style={{ color: 'white' }}>
-                <a href={plan.provider_info.website}>
+                <a href={plan.provider_info?.website}>
                   {`${plan.provider_info.name}`}
                 </a>
                 {`/ ${plan.plan.name}`}
@@ -79,9 +80,11 @@ export default function SelectVpsPlanTable() {
             {
               title: tApplications('price'),
               dataIndex: "price",
-              render: (price) => <Typography.Text>
-                {`${price} DZD`}
-              </Typography.Text>,
+              fixed: 'right', // ✅ Keeps the column pinned
+              width: 100,
+              render: (price) => (
+                <Typography.Text>{`${price} DZD`}</Typography.Text>
+              ),
             },
           ]
           }
