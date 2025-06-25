@@ -12,7 +12,8 @@ import { updateTtkEpay } from "@/lib/features/ttk-epay/ttkEpayThunks";
 
 export default function TtkEpayParams({ data }: { data: TtkEpayInterface }) {
     const tSubscription = useScopedI18n('ttkEpay');
-    const [passwordVisible, setPasswordVisible] = useState(false);
+    const [secretKeyVisible, setSecretKeyVisible] = useState(false);
+    const [satimPasswordVisible, setSatimPasswordVisible] = useState(false);
     const dispatch = useAppDispatch();
     const [formValues, setFormValues] = useState({
         ttk_epay_api_secret_key: data.ttk_epay_api_secret_key,
@@ -26,6 +27,7 @@ export default function TtkEpayParams({ data }: { data: TtkEpayInterface }) {
         ttk_epay_client_site_url: data.ttk_epay_client_site_url,
         ttk_epay_mvc_satim_fail_url: data.ttk_epay_mvc_satim_fail_url,
         ttk_epay_mvc_satim_server_url: data.ttk_epay_mvc_satim_server_url,
+        ttk_epay_mvc_satim_confirm_url: data.ttk_epay_mvc_satim_confirm_url,
         ttk_epay_satim_base_url: data.ttk_epay_satim_base_url,
         ttk_epay_satim_confirm_url: data.ttk_epay_satim_confirm_url,
         ttk_epay_satim_currency: data.ttk_epay_satim_currency,
@@ -55,10 +57,10 @@ export default function TtkEpayParams({ data }: { data: TtkEpayInterface }) {
                                 style={{ width: "fit", color: "white", marginRight: "5px" }}
                                 value={formValues.ttk_epay_api_secret_key}
                                 onChange={(e) => setFormValues({ ...formValues, ttk_epay_api_secret_key: e.target.value })}
-                                type={passwordVisible ? "text" : "password"}
+                                type={secretKeyVisible ? "text" : "password"}
                             />
 
-                            <Button type="primary" style={{ boxShadow: "none" }} icon={passwordVisible ? <EyeSlash /> : <Eye />} onClick={() => setPasswordVisible(prev => !prev)} />
+                            <Button type="primary" style={{ boxShadow: "none" }} icon={secretKeyVisible ? <EyeSlash /> : <Eye />} onClick={() => setSecretKeyVisible(prev => !prev)} />
                             <Button type="primary" style={{ boxShadow: "none", margin: '0px 5px' }} icon={<Copy />} onClick={() => handleCopy(data.ttk_epay_api_secret_key ?? "")} />
 
                         </div>
@@ -181,6 +183,17 @@ export default function TtkEpayParams({ data }: { data: TtkEpayInterface }) {
                             onChange={(e) => setFormValues({ ...formValues, ttk_epay_mvc_satim_server_url: e.target.value })}
                         />
                     </div>
+                    <div style={{ marginTop: 10 }}>
+                        <Typography style={{ fontWeight: 700, fontSize: 16, color: theme.token.orange600 }}>
+                            {tSubscription("mvc_satim_confirm_url")}
+                        </Typography>
+                        <Input
+                            disabled={data.application_status == "processing"}
+                            style={{ width: "fit", color: "white" }}
+                            value={formValues.ttk_epay_mvc_satim_confirm_url}
+                            onChange={(e) => setFormValues({ ...formValues, ttk_epay_mvc_satim_confirm_url: e.target.value })}
+                        />
+                    </div>
                 </DivCard>
 
                 <DivCard>
@@ -289,12 +302,17 @@ export default function TtkEpayParams({ data }: { data: TtkEpayInterface }) {
                         <Typography style={{ fontWeight: 700, fontSize: 16, color: theme.token.orange600 }}>
                             {tSubscription("satim_password")}
                         </Typography>
-                        <Input
-                            disabled={data.application_status == "processing"}
-                            style={{ width: "fit", color: "white" }}
-                            value={formValues.ttk_epay_satim_password}
-                            onChange={(e) => setFormValues({ ...formValues, ttk_epay_satim_password: e.target.value })}
-                        />
+                        <div style={{ flexDirection: "row", display: "flex", justifyContent: "space-between", width: "100%" }}>
+                            <Input
+                                disabled={data.application_status == "processing"}
+                                style={{ width: "fit", color: "white", marginRight: "5px" }}
+                                value={formValues.ttk_epay_satim_password}
+                                onChange={(e) => setFormValues({ ...formValues, ttk_epay_satim_password: e.target.value })}
+                                type={satimPasswordVisible ? "text" : "password"}
+                            />
+
+                            <Button type="primary" style={{ boxShadow: "none" }} icon={satimPasswordVisible ? <EyeSlash /> : <Eye />} onClick={() => setSatimPasswordVisible(prev => !prev)} />
+                        </div>
                     </div>
                     <div style={{ marginTop: 10 }}>
                         <Typography style={{ fontWeight: 700, fontSize: 16, color: theme.token.orange600 }}>
@@ -360,7 +378,7 @@ export default function TtkEpayParams({ data }: { data: TtkEpayInterface }) {
                                 border: "none",
                                 boxShadow: "none"
                             }}
-                            onClick={() => dispatch(updateTtkEpay({ id: data.id, data: {application_status:"processing"} }))}
+                            onClick={() => dispatch(updateTtkEpay({ id: data.id, data: { application_status: "processing" } }))}
                         >
                             <span
                                 style={{
