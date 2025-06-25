@@ -65,7 +65,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
             >
                 <Row gutter={[24, 24]} wrap style={{ justifyContent: "center", margin: '0px' }}>
                     {/* Main Content */}
-                    <Col xs={24} md={24} lg={16} style={{ overflowY: 'auto', padding: '0px', margin: '0px' }}>
+                    <Col xs={24} md={24} lg={16} style={{ padding: '0px', margin: '0px' }}>
                         <ApplicationDescriptionContainer
                             title={applicationServiceById.name}
                             description={applicationServiceById.short_description}

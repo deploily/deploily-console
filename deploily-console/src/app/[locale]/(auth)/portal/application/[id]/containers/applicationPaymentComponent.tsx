@@ -39,7 +39,7 @@ export default function ApplicationPaymentComponent() {
       }
       dispatch(applicationSubscribe({ service_slug: applicationServiceById?.service_slug, data: newSubscriptionObject })).then((response: any) => {
         if (response.meta.requestStatus === "fulfilled") {
-          if (newSubscriptionResponse && newSubscriptionResponse.form_url !== null) {
+          if (newSubscriptionResponse && newSubscriptionResponse.form_url !== null && newSubscriptionResponse.form_url !== ""){
             redirect(newSubscriptionResponse.form_url);
           } else {
             router.push(`/portal/my-applications/`); 
