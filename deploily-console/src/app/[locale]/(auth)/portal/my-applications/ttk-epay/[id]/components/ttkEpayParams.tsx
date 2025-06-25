@@ -387,7 +387,7 @@ export default function TtkEpayParams({ data }: { data: TtkEpayInterface }) {
                                     fontWeight: 600,
                                 }}
                             >
-                                {tSubscription("reset")}
+                                {tSubscription("restart")}
                             </span>
                         </Button>
                     }

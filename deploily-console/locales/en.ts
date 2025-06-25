@@ -210,7 +210,7 @@ export default {
     'ttkEpay.satim_user_name': 'Satim user name',
     'ttkEpay.secretKey': 'Secret Key',
     'ttkEpay.save': 'Save',
-    'ttkEpay.reset': 'Reset',
+    'ttkEpay.restart': 'Restart',
     'apiServiceSubscription.title': 'Subscribe',
     'apiServiceSubscription.specialOffer': 'Special Offer',
     'apiServiceSubscription.serviceName': 'Service Name :',
