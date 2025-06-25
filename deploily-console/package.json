@@ -13,8 +13,7 @@
     "prettier:fix": "npm run prettier -- --write",
     "format": "npm run prettier:fix && npm run lint:fix",
     "pre-commit": "npm run format",
-    "test": "jest",
-    "postinstall": "git submodule update --init --recursive"
+    "test": "jest"
 },
   "dependencies": {
     "@ant-design/cssinjs": "^1.22.1",
