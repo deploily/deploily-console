@@ -109,14 +109,14 @@ export default function PaymentDrawer({ openDrawer, onClose }:
                             }
                         }
                         } />
-                    <SelectProfileComponent
+                    {paymentProfilesList?.count!=undefined  && paymentProfilesList?.count > 0&& <SelectProfileComponent
                         translations={{ title: tSubscription("selectProfile"), profile: tSubscription("profile"), balance: tSubscription("balance") }}
                         selectedProfile={selectedProfile}
-                        paymentProfilesList={paymentProfilesList} onSelectProfile={handleSelectPaymentProfile} />
-                    {selectedProfile !== undefined && <div style={{ padding: '5px 0px' }}>
+                        paymentProfilesList={paymentProfilesList} onSelectProfile={handleSelectPaymentProfile} />}
+                    {<div style={{ padding: '5px 0px' }}>
                         {isBalanceSufficient === true ?
                             <IsBalanceSufficientComponent onClose={onClose} handleSubscribe={() => handleSubscribe()} />
-                            : selectedProfile?.is_default_profile === true ?
+                            : ((paymentProfilesList?.count === 0)) ?
                                 <CreateProfileButton planSelected={undefined} openDrawer={openDrawer} onClose={onClose} />
                                 :
                                 <ApplicationPaymentComponent />

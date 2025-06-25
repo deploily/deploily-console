@@ -154,6 +154,7 @@ export default {
     'payments.pay': 'Pay',
     'payments.confirm': 'Confirm',
     'payments.noProfile': 'You need to select a different payment profile or create a new one to proceed.',
+    'payments.noOtherProfile': 'You need to create a new payment profile to proceed.',
 
     'subscription.title': 'Subscribe',
     'subscription.specialOffer': 'Special Offer',

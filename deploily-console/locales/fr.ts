@@ -153,6 +153,7 @@ export default {
   'payments.pay': 'Payer',
   'payments.confirm': 'Confirmer',
   'payments.noProfile': 'Vous devez sélectionner un autre profil de paiement ou en créer un nouveau pour continuer.',
+  'payments.noOtherProfile': 'Vous devez créer un nouveau profil de paiement pour continuer.',
 
   'subscription.title': "S'abonner",
   'subscription.specialOffer': 'Offre spéciale',
