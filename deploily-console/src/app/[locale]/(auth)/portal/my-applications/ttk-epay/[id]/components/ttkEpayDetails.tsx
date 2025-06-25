@@ -10,7 +10,7 @@ import { CustomSubscripionInput } from "@/styles/components/inputStyle";
 import { CustomTypography } from "@/styles/components/typographyStyle";
 import { theme } from "@/styles/theme";
 import { CalendarDots, Circle, Copy } from "@phosphor-icons/react";
-import { Badge, Button, Col, Result, Row, Skeleton, Space, Spin, Tag, Typography } from "antd";
+import { Alert, Badge, Button, Col, Result, Row, Skeleton, Space, Spin, Tag, Typography } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
@@ -68,7 +68,7 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
             <Spin spinning={isLoadingUpdate}>
                 {isLoading && ttkEpayById === undefined &&
                     <>
-                        <Skeleton.Image active />
+                        <Skeleton.Image active style={{ marginBottom: 10 }} />
                         <Skeleton active paragraph={{ rows: 2 }} />
                     </>
                 }
@@ -168,6 +168,7 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                             style={{
                                 display: 'flex',
                                 flexWrap: 'wrap',
+                                marginBlock: 20
                             }}
                         >
                             <Col xs={24} md={12} lg={8}>
@@ -227,12 +228,13 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                                 </Row>
                             </Col>
                         </Row>
+
                         <Typography.Title level={4} style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange600 }}>
                             {tSubscription("accessUrl")}
                         </Typography.Title>
                         <Row>
                             <Col span={20} style={{ display: "flex", justifyContent: "start" }} >
-                                <CustomTypography> {ttkEpayById.service_details.ssh_access} </CustomTypography>
+                                <CustomTypography> {ttkEpayById.access_url} </CustomTypography>
                             </Col>
                             <Col span={4} style={{ display: "flex", alignItems: "start", justifyContent: "end" }} >
                                 <Button type="primary" style={{ boxShadow: "none" }} icon={<Copy />} onClick={() => handleCopy(ttkEpayById.service_details.ssh_access)} />
@@ -240,9 +242,17 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                         </Row>
 
 
-
+                        {ttkEpayById.application_status == "error" &&
+                            <div style={{ marginBlock: 20 }} >
+                                <Alert
+                                    message={<span style={{ color: 'black' }}>{t('error')}</span>}
+                                    description={<span style={{ color: 'black' }}>{ttkEpayById.deployment_error}</span>}
+                                    type="error"
+                                    showIcon
+                                />
+                            </div>
+                        }
                         <TtkEpayParams data={ttkEpayById} />
-
 
                         <DocumentationDrawer openDrawer={openDrawer} onClose={onClose} currentSubscription={ttkEpayById} t={t} />
 
