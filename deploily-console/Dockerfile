@@ -5,6 +5,8 @@ WORKDIR /app
 
 COPY package.json package-lock.json ./
 
+RUN apk add --no-cache git
+
 RUN npm install --frozen-lockfile -legacy-peer-deps
 
 # STAGE 2: Build the App
