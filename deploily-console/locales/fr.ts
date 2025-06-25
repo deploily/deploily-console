@@ -193,6 +193,7 @@ export default {
   'ttkEpay.satim_base_url': 'URL de la base Satim',
   'ttkEpay.satim_confirm_url': 'URL de confirmation Satim',
   'ttkEpay.satim_client_server_url': 'URL du serveur client Satim',
+  'ttkEpay.mvc_satim_confirm_url': 'URL de confirmation Mvc satim',
   'ttkEpay.satim_currency': 'Devise Satim',
   'ttkEpay.satim_description': 'Description Satim',
   'ttkEpay.satim_fail_url': "URL d'échec Satim",
