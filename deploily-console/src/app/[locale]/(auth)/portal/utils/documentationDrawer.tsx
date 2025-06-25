@@ -3,9 +3,8 @@ import { CaretDown, CaretUp } from "@phosphor-icons/react";
 import { Collapse, Drawer, Row } from "antd";
 
 import { subscriptionDetails } from "./subscriptionDetails";
-import { ApiServiceSubscriptionInterface } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionInterface";
 
-export default function DocumentationDrawer({ openDrawer, onClose, currentApiServiceSubscription, t }: { openDrawer: any, onClose: any, currentApiServiceSubscription: ApiServiceSubscriptionInterface, t: any }) {
+export default function DocumentationDrawer({ openDrawer, onClose, currentSubscription, t }: { openDrawer: any, onClose: any, currentSubscription: any, t: any }) {
     return (
         <Drawer
             title="Documentation"
@@ -16,7 +15,7 @@ export default function DocumentationDrawer({ openDrawer, onClose, currentApiSer
             width={600}
 
         >
-            <Row gutter={[16, 10]} key={currentApiServiceSubscription.id}  >
+            <Row gutter={[16, 10]} key={currentSubscription.id}  >
                 <Collapse
                     bordered={false}
                     defaultActiveKey={["1", "2"]}
@@ -26,7 +25,7 @@ export default function DocumentationDrawer({ openDrawer, onClose, currentApiSer
                         background: theme.token.darkGray, border: "1px solid",
                         borderColor: theme.token.gray100, width: "100%"
                     }}
-                    items={subscriptionDetails(currentApiServiceSubscription, t)}
+                    items={subscriptionDetails(currentSubscription, t)}
                 />
             </Row>
         </Drawer>

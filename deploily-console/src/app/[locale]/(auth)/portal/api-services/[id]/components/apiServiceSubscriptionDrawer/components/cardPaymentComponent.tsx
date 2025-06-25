@@ -24,13 +24,13 @@ export default function CardPaymentComponent({ selectedPlan }: { selectedPlan: a
     const dispatch = useAppDispatch();
     const { newApiServiceSubscriptionResponse } = useApiServiceSubscription();
     useEffect(() => {
+
         console.log("newApiServiceSubscriptionResponse");
         if (newApiServiceSubscriptionResponse) {
             if (newApiServiceSubscriptionResponse.form_url !== null) {
                 redirect(newApiServiceSubscriptionResponse.form_url);
             } else {
                 // TODO display error in a toast
-                console.log("Error in payment registration");
             }
         }
     }, [newApiServiceSubscriptionResponse]);

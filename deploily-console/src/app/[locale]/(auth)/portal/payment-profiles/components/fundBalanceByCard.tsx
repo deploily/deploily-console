@@ -46,7 +46,6 @@ export default function FundBalanceByCard({ selectedProfile }: { selectedProfile
                 redirect(newFundBalanceResponse.form_url);
             } else {
                 // TODO display error in a toast
-                console.log("Error in payment registration");
             }
         }
     }, [newFundBalanceResponse]);
@@ -64,7 +63,6 @@ export default function FundBalanceByCard({ selectedProfile }: { selectedProfile
             captcha_token: captchaToken,
         };
         dispatch(postFundBalance(newFundBalanceObject));
-        console.log(newFundBalanceObject);
 
     };
     return (

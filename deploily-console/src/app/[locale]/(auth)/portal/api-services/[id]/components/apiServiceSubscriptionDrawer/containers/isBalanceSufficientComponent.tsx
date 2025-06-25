@@ -25,7 +25,7 @@ export default function IsBalanceSufficientComponent({ onClose, planSelected }: 
         dispatch(postApiServiceSubscription(newApiServiceSubscriptionObject)).then((response: any) => {
             if (response.meta.requestStatus === "fulfilled") {
                 dispatch(fetchPaymentProfiles());
-                router.push(`/portal/subscriptions/`);
+                router.push(`/portal/my-api/`);
                 //TODO replace with my api service
 
             }

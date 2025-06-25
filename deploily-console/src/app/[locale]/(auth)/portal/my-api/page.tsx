@@ -1,7 +1,7 @@
 "use client";
 import { Row } from "antd";
 import { useScopedI18n } from "../../../../../../locales/client";
-import SubscriptionContainer from "./components/subscriptionContainer";
+import MyApiContainer from "./components/myApiContainer";
 
 export default function Page() {
   const t = useScopedI18n('sidebar');
@@ -12,15 +12,14 @@ export default function Page() {
         <span
           style={{
             color: "white",
-            fontFamily: "Inter, sans-serif",
             fontSize: "24px",
             fontWeight: 800,
           }}
         >
-          {t("myApi")}
+          {t("myApis")}
         </span>
       </Row>
-      <SubscriptionContainer />
+      <MyApiContainer />
     </>
   );
 }

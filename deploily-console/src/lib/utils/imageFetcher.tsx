@@ -5,7 +5,7 @@ import { Image } from 'antd';
 import { useEffect, useState } from 'react';
 
 type Props = {
-    imagePath: string;
+    imagePath?: string;
     width: number;
     height: number;
 };

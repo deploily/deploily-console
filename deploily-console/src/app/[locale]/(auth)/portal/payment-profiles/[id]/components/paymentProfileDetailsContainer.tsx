@@ -36,7 +36,6 @@ export default function ProfileDetailsContainer({ profile_id }: { profile_id: st
         });
     };
 
-console.log(form.getFieldsValue());
 
     const onClose = () => {
         setOpenDrawer(false);
@@ -92,7 +91,6 @@ console.log(form.getFieldsValue());
                     <Row style={{ padding: 20 }}>
                         <span style={{
                             color: "white",
-                            fontFamily: "Inter, sans-serif",
                             fontSize: "18px",
                             fontWeight: 800,
                         }}>
@@ -162,7 +160,6 @@ console.log(form.getFieldsValue());
                                 <Row style={{ padding: 20 }}>
                                     <span style={{
                                         color: "white",
-                                        fontFamily: "Inter, sans-serif",
                                         fontSize: "18px",
                                         fontWeight: 800,
                                     }}>

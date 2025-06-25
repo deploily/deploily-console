@@ -13,13 +13,12 @@ import dayjs from "dayjs";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../../locales/client";
-
-import DocumentationDrawer from "./documentationDrawer";
 import GenerateTokenComponent from "./generateTokenComponent";
 import { useApiServiceSubscription } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionSelectors";
 import { fetchApiServiceSubscriptionById } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionThunks";
-import { subscriptionStatusStyle } from "../../utils/subscriptionsConst";
 import { subscriptionItems } from "./subscriptionItems";
+import DocumentationDrawer from "../../../utils/documentationDrawer";
+import { subscriptionStatusStyle } from "../../utils/subscriptionsConst";
 
 export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscription_id }: { apiServiceSubscription_id: string }) {
     const t = useI18n();
@@ -248,7 +247,7 @@ export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscri
                             </Typography.Title >
                         </Row>
                     }
-                    <DocumentationDrawer openDrawer={openDrawer} onClose={onClose} currentApiServiceSubscription={currentApiServiceSubscription} t={t} />
+                <DocumentationDrawer openDrawer={openDrawer} onClose={onClose} currentSubscription={currentApiServiceSubscription} t={t} />
                 </>
             }
             {!currentApiServiceSubscriptionLoading && currentApiServiceSubscriptionLoadingError &&

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { NewFundBalanceResponse, newPaymentProfileResponse, PaymentProfileInterface, PaymentProfilesResponse } from "./paymentProfilesInterface";
-import { fetchPaymentProfiles, getPaymentProfileById, postFundBalance, postPaymentProfile } from "./paymentProfilesThunks";
+import { fetchNotDefaultPaymentProfiles, fetchPaymentProfiles, getPaymentProfileById, postFundBalance, postPaymentProfile } from "./paymentProfilesThunks";
 
 interface PaymentProfileState {
   paymentProfilesList?: PaymentProfilesResponse;
@@ -15,6 +15,12 @@ interface PaymentProfileState {
   isFundBalanceSuccess: boolean;
   isFundBalanceFailed: boolean;
   newFundBalanceResponse?: NewFundBalanceResponse;
+
+  notDefaultaymentProfiles:{
+    paymentProfilesList?: PaymentProfilesResponse;
+    isLoading: boolean;
+    paymentProfilesLoadingError?: any;
+  }
 
 }
 
@@ -31,6 +37,11 @@ const initialState: PaymentProfileState = {
   isFundBalanceSuccess: false,
   isFundBalanceFailed: false,
   newFundBalanceResponse: undefined,
+  notDefaultaymentProfiles:{
+    isLoading: false,
+    paymentProfilesLoadingError: false,
+    paymentProfilesList: undefined
+  }
 
 };
 const PaymentProfileSlice = createSlice({
@@ -109,7 +120,24 @@ const PaymentProfileSlice = createSlice({
         console.log("postFundBalance.fulfilleddddddddddddddd", state.newFundBalanceResponse );
 
         state.isFundBalanceFailed = false;
-            });
+            }) 
+            
+      .addCase(fetchNotDefaultPaymentProfiles.pending, (state) => {
+        state.notDefaultaymentProfiles.isLoading = true;
+      })
+      .addCase(fetchNotDefaultPaymentProfiles.fulfilled, (state, action) => {
+        state.notDefaultaymentProfiles.isLoading = false;
+        state.notDefaultaymentProfiles.paymentProfilesLoadingError = null;
+        const result = action.payload.ids.map((id: number, index: any) =>
+          Object.assign({}, { id: id }, action.payload.result[index]),
+        );
+        const payload = Object.assign({}, action.payload, { result: result });
+        state.notDefaultaymentProfiles.paymentProfilesList = payload;
+      })
+      .addCase(fetchNotDefaultPaymentProfiles.rejected, (state, { payload }) => {
+        state.notDefaultaymentProfiles.isLoading = false;
+        state.notDefaultaymentProfiles.paymentProfilesLoadingError = payload;
+      });
 
   },
 });

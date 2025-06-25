@@ -1,20 +1,30 @@
 "use client";
 
-import { HeartStraight } from "@phosphor-icons/react";
-import { Card, Col, Row, Image, Badge, Button, Space } from "antd";
-import Meta from "antd/es/card/Meta";
+import ImageFetcher from "@/lib/utils/imageFetcher";
+import { theme } from "@/styles/theme";
+import { ArrowRight, HeartStraight } from "@phosphor-icons/react";
+import { Badge, Button, Card, Col, Row, Space } from "antd";
+import { useRouter } from "next/navigation";
+import { useI18n } from "../../../../../../../locales/client";
+import { useAppDispatch } from "@/lib/hook";
+import { postFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
+import Paragraph from "antd/es/typography/Paragraph";
 
 export default function ApplicationServiceCard({ data }: any) {
+    const t = useI18n();
+    const router = useRouter();
+    const dispatch = useAppDispatch();
 
+    const handleFavoriteService = (service_id: number) => {
+        dispatch(postFavoriteService({ service_id }));
+    };
     return (
         <Card
             hoverable
             style={{
-                flex: "0 0 auto",
-                width: 270,
+                minWidth: 250,
+                maxWidth: 270,
                 height: 350,
-                position: "relative",
-                marginRight: 16,
             }}
             bodyStyle={{ padding: 16, height: "100%" }}
         >
@@ -35,16 +45,23 @@ export default function ApplicationServiceCard({ data }: any) {
                                         height: 24,
                                         minWidth: 24,
                                     }}
-                                    icon={<HeartStraight size={20} weight="fill" color="#7D7D7D" />}
+                                    icon={data.is_in_favorite ? (
+                                        <HeartStraight size={20} weight="fill" color="#FC3232" />
+                                    ) : (
+                                        <HeartStraight size={20} weight="fill" color="#7D7D7D" />
+                                    )}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleFavoriteService(data.id);
+                                    }}
                                 />
                             }
                             offset={[-12, 12]}
                         >
-                            <Image
-                                src={data.image}
+                            <ImageFetcher
+                                imagePath={data.image_service}
                                 width={100}
                                 height={100}
-                                preview={false}
                             />
                         </Badge>
                     </Col>
@@ -52,23 +69,19 @@ export default function ApplicationServiceCard({ data }: any) {
                     <Col
                         span={12}
                         style={{
-                            display: "flex",
-                            justifyContent: "flex-end",
-                            alignItems: "flex-start", // aligns to the top within the Row
+                            height: "100%",
+                            fontWeight: "bold",
 
+                            justifyContent: "end",
+                            display: "flex",
                         }}
                     >
-                        <p
-                            style={{
-                                color: "#DD8859",
-                                fontWeight: "bold",
-                                fontSize: 18,
-                                margin: 0,
-                                alignSelf: "flex-start", // ensures it's pinned to top within Col
-                            }}
-                        >
-                            {data.price}
-                        </p>
+                        <Paragraph style={{ color: "#DD8859", fontSize: 16, margin: 0 }}>
+                            {Intl.NumberFormat("fr-FR", {
+                                useGrouping: true,
+                            }).format(data.unit_price)}{" "}
+                            DZD
+                        </Paragraph>
                     </Col>
 
                 </Row>
@@ -76,38 +89,22 @@ export default function ApplicationServiceCard({ data }: any) {
                 {/* Title & Description */}
                 <Row style={{ height: "40%" }}>
                     <Col span={24}>
-                        <Meta
-                            title={
-                                <p
-                                    style={{
-                                        fontSize: 20,
-                                        fontWeight: 500,
-                                        marginBottom: 4,
-                                        paddingTop: 12,
-                                    }}
-                                >
-                                    {data.name}
-                                </p>
-                            }
-                            description={
-                                <p
-                                    style={{
-                                        fontSize: 14,
-                                        color: "#fff",
-                                        marginBottom: 0,
-                                    }}
-                                >
-                                    {data.description}
-                                </p>
-                            }
-                        />
+                        <Paragraph
+                            ellipsis={{ rows: 2 }}
+                            style={{ fontSize: 20, marginBottom: 0 }}
+                        >
+                            {data.name}
+                        </Paragraph>
+                        <Paragraph ellipsis={{ rows: 3 }} style={{ margin: 0 }}>
+                            {data.short_description}
+                        </Paragraph>
                     </Col>
                 </Row>
             </div>
 
             {/* Details Button */}
             <Space style={{ position: "absolute", bottom: 16, right: 16 }}>
-                {/* <Button
+                <Button
                     style={{
                         color: "#fff",
                         border: "none",
@@ -116,6 +113,11 @@ export default function ApplicationServiceCard({ data }: any) {
                         background: "transparent",
                         display: "flex",
                         alignItems: "center",
+
+                    }}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        router.push(`/portal/application/${data.id}`);
                     }}
                 >
                     <span
@@ -128,7 +130,9 @@ export default function ApplicationServiceCard({ data }: any) {
 
                         }}
                     >
+                        {/* //TODO ADD TRANSLATION */}
                         {t("details")}
+
                     </span>
                     <ArrowRight
                         size={20}
@@ -137,7 +141,7 @@ export default function ApplicationServiceCard({ data }: any) {
                             transition: "color 0.3s ease",
                         }}
                     />
-                </Button> */}
+                </Button>
             </Space>
         </Card>
     );

@@ -68,7 +68,6 @@ export default function AddPaymentProfile() {
                 <Row style={{ padding: 20 }}>
                     <span style={{
                         color: "white",
-                        fontFamily: "Inter, sans-serif",
                         fontSize: "18px",
                         fontWeight: 800,
                     }}>
@@ -191,7 +190,6 @@ export default function AddPaymentProfile() {
                         <Row style={{ padding: 20 }}>
                             <span style={{
                                 color: "white",
-                                fontFamily: "Inter, sans-serif",
                                 fontSize: "18px",
                                 fontWeight: 800,
                             }}>

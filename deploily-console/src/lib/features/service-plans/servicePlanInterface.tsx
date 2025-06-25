@@ -21,7 +21,8 @@ export interface ServicePlan {
   service_id: number;
   service: ApiServiceInterface;
   options: ServicePlanOption[];
-  is_custom: boolean;
+  is_custom: boolean,
+  provider_info?:ServiceProviderInfo
   subscription_category: string;
 }
 
@@ -34,6 +35,11 @@ export interface ServicePlanOption {
   id: number;
   icon: string;
   html_content: string;
-
 }
 
+
+export interface ServiceProviderInfo {
+    logo: string,
+    name: string,
+    website: string
+}
