@@ -13,7 +13,6 @@ import dayjs from "dayjs";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../../locales/client";
-
 import GenerateTokenComponent from "./generateTokenComponent";
 import { useApiServiceSubscription } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionSelectors";
 import { fetchApiServiceSubscriptionById } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionThunks";
