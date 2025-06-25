@@ -76,7 +76,7 @@ export const fetchApplicationServiceById = createAsyncThunk(
 
 export const applicationSubscribe = createAsyncThunk(
     "applicationService/postApplicationSubscription",
-    async ({ data, app_slug }: { data: any, app_slug?: string }, thunkConfig) => {
+    async ({ data, service_slug }: { data: any, service_slug?: string }, thunkConfig) => {
         try {
             const session = await getSession();
             if (!session) {
@@ -84,7 +84,7 @@ export const applicationSubscribe = createAsyncThunk(
             }
             const token = session.accessToken;
 
-            const response = await axiosInstance.post(`${getSubscribeToAppUrl(app_slug)}`, data, {
+            const response = await axiosInstance.post(`${getSubscribeToAppUrl(service_slug)}`, data, {
 
                 headers: {
                     Accept: "application/json",

@@ -45,7 +45,7 @@ export default function PaymentDrawer({ openDrawer, onClose }:
                 resource_service_plan_id: resource_service_plan.id,
                 profile_id: selectedProfile.id
             };
-            dispatch(applicationSubscribe({ app_slug: applicationServiceById?.app_slug, data: newSubscriptionObject })).then((response: any) => {
+            dispatch(applicationSubscribe({ service_slug: applicationServiceById?.service_slug, data: newSubscriptionObject })).then((response: any) => {
                 if (response.meta.requestStatus === "fulfilled") {
                     router.push(`/portal/my-applications`);
                 }

@@ -15,7 +15,7 @@ export interface ApplicationServiceResponse {
 export interface ApplicationServiceInterface {//TODO RECHECK THIS INTERFACE TO CONFORM TO THE API RESPONSE
     id: number;
     name: string;
-    app_slug?: string;
+    service_slug?: string;
     price: string;
     description: string;
     average_rating: number;

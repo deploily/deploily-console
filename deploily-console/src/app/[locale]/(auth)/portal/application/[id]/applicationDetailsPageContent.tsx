@@ -1,23 +1,23 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Card, Col, Row, Select, Skeleton, Space, Grid } from "antd";
-import { useAppDispatch } from "@/lib/hook";
 import { useApplicationServiceById, useNewApplicationSubscription } from "@/lib/features/application/applicationServiceSelectors";
+import { updateNewAppSubscriptionState } from "@/lib/features/application/applicationServiceSlice";
 import { fetchApplicationServiceById } from "@/lib/features/application/applicationServiceThunks";
 import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThanks";
-import { updateNewAppSubscriptionState } from "@/lib/features/application/applicationServiceSlice";
+import { useAppDispatch } from "@/lib/hook";
 import ImageFetcher from "@/lib/utils/imageFetcher";
+import { theme } from "@/styles/theme";
+import { Card, Col, Grid, Row, Select, Skeleton, Space } from "antd";
+import { PaymentSideBar } from "deploily-ui-components";
+import { PaymentAppBar } from "deploily-ui-components/components/applications/paymentSideBar";
+import { useEffect, useState } from "react";
+import { useScopedI18n } from "../../../../../../../locales/client";
+import { options } from "../../api-services/utils/apiServicesConst";
 import ApplicationDetailsCollapseContainer from "./containers/applicationDetailsCollapseContainer";
 import ApplicationPlansContainer from "./containers/applicationPlansContainer";
 import ApplicationDescriptionContainer from "./containers/descriptionContainer";
-import SelectVpsPlanTable from "./containers/selectVpsPlanTable";
-import { PaymentSideBar } from "deploily-ui-components";
-import { PaymentAppBar } from "deploily-ui-components/components/applications/paymentSideBar";
 import PaymentDrawer from "./containers/payment-components/paymentDrawer";
-import { useScopedI18n } from "../../../../../../../locales/client";
-import { options } from "../../api-services/utils/apiServicesConst";
-import { theme } from "@/styles/theme";
+import SelectVpsPlanTable from "./containers/selectVpsPlanTable";
 
 export default function ApplicationDetailsPageContent({ applicationId }: { applicationId: any }) {
     const dispatch = useAppDispatch();
@@ -63,15 +63,15 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                     justifyContent: "center",
                 }}
             >
-                <Row gutter={[24, 24]} wrap style={{ justifyContent: "center",margin:'0px' }}>
+                <Row gutter={[24, 24]} wrap style={{ justifyContent: "center", margin: '0px' }}>
                     {/* Main Content */}
-                    <Col xs={24} md={24} lg={16} style={{ overflowY: 'auto',padding:'0px',margin:'0px' }}>
+                    <Col xs={24} md={24} lg={16} style={{ overflowY: 'auto', padding: '0px', margin: '0px' }}>
                         <ApplicationDescriptionContainer
                             title={applicationServiceById.name}
                             description={applicationServiceById.short_description}
                             logo={
                                 <div style={{ border: "1px solid #4E4E4E", borderRadius: "10px", padding: "1px" }}>
-                                    <ImageFetcher imagePath={applicationServiceById.image_service} width={220} height={220} />
+                                    <ImageFetcher imagePath={applicationServiceById.image_service || ""} width={220} height={220} />
                                 </div>
                             }
                         />
@@ -95,7 +95,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                     justifyContent: "center",
                                     backgroundColor: isScrolled ? "#202227" : "transparent",
                                     transition: "all 0.3s ease-in-out",
-                              }}
+                                }}
 
                             >
                                 <PaymentAppBar
@@ -167,7 +167,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                     )}
                 </Row>
 
-               
+
             </Space>
 
             <PaymentDrawer openDrawer={openDrawer} onClose={onClose} />

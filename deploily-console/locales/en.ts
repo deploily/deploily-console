@@ -12,6 +12,7 @@ export default {
     'subscriptions': 'Subscriptions',
     'supportTicket': 'Support Ticket',
     'sponsoring': 'Sponsoring',
+    
     'sidebar.home': 'Home',
     'sidebar.members': 'Members',
     'sidebar.myFavorites': 'My favorites',
@@ -193,6 +194,7 @@ export default {
     'ttkEpay.client_site_url': 'Client site url',
     'ttkEpay.mvc_satim_fail_url': 'Mvc satim fail url',
     'ttkEpay.mvc_satim_server_url': 'Mvc satim server url',
+    'ttkEpay.mvc_satim_confirm_url': 'Mvc satim confirm url',
     'ttkEpay.satim_base_url': 'Satim base url',
     'ttkEpay.satim_confirm_url': 'Satim confirm url',
     'ttkEpay.satim_client_server_url': 'Satim client server url',

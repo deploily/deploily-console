@@ -37,7 +37,6 @@ export interface myApplicationInterface {
   image_service: string;
   short_description: string;
   status: string;
-  url_segment	:string;
 
 }
 
