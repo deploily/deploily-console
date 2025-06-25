@@ -24,18 +24,20 @@ export interface TtkEpayResponse {
 export interface TtkEpayInterface {
   id: number;
   name: string;
+  access_url: string;
   api_key: string;
   duration_month: number;
   is_expired: boolean;
   price: number;
   service_plan: Service_plan;
+  service_plan_id: string;
   start_date: Date,
   status: string;
   total_amount: number;
-  service_slug: string;
   service_details: ServiceDetails;
   application_status: string;
   required_restart: boolean;
+  deployment_error: string;
   ttk_epay_api_secret_key: string;
   ttk_epay_client_site_address: string;
   ttk_epay_client_site_email: string;
@@ -45,6 +47,7 @@ export interface TtkEpayInterface {
   ttk_epay_client_site_privacy: string;
   ttk_epay_client_site_terms: string;
   ttk_epay_client_site_url: string;
+  ttk_epay_mvc_satim_confirm_url: string;
   ttk_epay_mvc_satim_fail_url: string;
   ttk_epay_mvc_satim_server_url: string;
   ttk_epay_satim_base_url: string;
@@ -59,8 +62,6 @@ export interface TtkEpayInterface {
   ttk_epay_satim_server_url: string;
   ttk_epay_satim_terminal_id: string;
   ttk_epay_satim_user_name: string;
-  
-  
 
 }
 
@@ -86,9 +87,9 @@ interface ServiceDetails {
   type: string;
   unit_price: number;
   is_illigible: boolean;
-  minimal_cpu:number;
-  minimal_disk:number;
-  minimal_ram:number;
+  minimal_cpu: number;
+  minimal_disk: number;
+  minimal_ram: number;
 
 }
 
