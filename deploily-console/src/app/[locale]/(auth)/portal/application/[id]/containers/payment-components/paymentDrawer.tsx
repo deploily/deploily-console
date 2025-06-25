@@ -42,7 +42,7 @@ export default function PaymentDrawer({ openDrawer, onClose }:
                 // promo_code: subscriptionStates.promoCode,
                 payment_method: "cloud_credit",
                 service_plan_selected_id: app_service_plan.id,
-                resource_service_plan_id: resource_service_plan.id,
+                ressource_service_plan_selected_id: resource_service_plan.id,
                 profile_id: selectedProfile.id
             };
             dispatch(applicationSubscribe({ service_slug: applicationServiceById?.service_slug, data: newSubscriptionObject })).then((response: any) => {

@@ -31,7 +31,7 @@ export default function ApplicationPaymentComponent() {
         // promo_code: subscriptionStates.promoCode,
         payment_method: paymentMethod,
         service_plan_selected_id: newApplicationSubscription.app_service_plan.id,
-        resource_service_plan_id: newApplicationSubscription.resource_service_plan.id,
+        ressource_service_plan_selected_id: newApplicationSubscription.resource_service_plan.id,
         profile_id: newApplicationSubscription.selectedProfile.id
       };
       if (paymentMethod == "card") {
