@@ -55,7 +55,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                                 padding: "1px"
                                             }}>
                                                 <ImageFetcher
-                                                    imagePath={applicationServiceById.image_service}
+                                                    imagePath={applicationServiceById.image_service || ""}
                                                     width={220}
                                                     height={220}
                                                 />
