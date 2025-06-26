@@ -3,14 +3,17 @@
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { theme } from "@/styles/theme";
 import { ArrowRight, HeartStraight } from "@phosphor-icons/react";
-import { Badge, Button, Card, Col, Row, Space } from "antd";
+import { Badge, Button, Card, Col, Grid, Row, Space } from "antd";
 import { useRouter } from "next/navigation";
 import { useI18n } from "../../../../../../../locales/client";
 import { useAppDispatch } from "@/lib/hook";
 import { postFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
 import Paragraph from "antd/es/typography/Paragraph";
+import { useState } from "react";
 
 export default function ApplicationServiceCard({ data }: any) {
+    const [hovered, setHovered] = useState(false);
+
     const t = useI18n();
     const router = useRouter();
     const dispatch = useAppDispatch();
@@ -18,15 +21,21 @@ export default function ApplicationServiceCard({ data }: any) {
     const handleFavoriteService = (service_id: number) => {
         dispatch(postFavoriteService({ service_id }));
     };
+
+
+    const { useBreakpoint } = Grid;
+
+    const screens = useBreakpoint();
     return (
         <Card
             hoverable
             style={{
-                minWidth: 250,
+                minWidth: 220,
                 maxWidth: 270,
                 height: 350,
             }}
             bodyStyle={{ padding: 16, height: "100%" }}
+            onClick={() => router.push(`/portal/application/${data.id}`)}
         >
             <div style={{ height: "280px" }}>
                 {/* Header */}
@@ -67,23 +76,35 @@ export default function ApplicationServiceCard({ data }: any) {
                     </Col>
 
                     <Col
-                        span={12}
+                        xs={24}
+                        sm={12}
                         style={{
-                            height: "100%",
-                            fontWeight: "bold",
-
-                            justifyContent: "end",
                             display: "flex",
+                            justifyContent: screens.xs ? "start" : "flex-end",
+                            alignItems: "start",
+                            height: "100%",
+                            paddingTop: 8,
+                            paddingBottom: 8,
                         }}
                     >
-                        <Paragraph style={{ color: "#DD8859", fontSize: 16, margin: 0 }}>
-                            {Intl.NumberFormat("fr-FR", {
-                                useGrouping: true,
-                            }).format(data.unit_price)}{" "}
-                            DZD
-                        </Paragraph>
-                    </Col>
+                        <Space direction="horizontal" size={8}>
 
+                            <Paragraph
+                                style={{
+                                    color: "#DD8859",
+                                    fontSize: 16,
+                                    margin: 0,
+                                    fontWeight: "bold",
+                                }}
+                            >
+                                {Intl.NumberFormat("fr-FR", {
+                                    useGrouping: true,
+                                }).format(data.min_apps_price)}{" "}
+                                DZD
+                            </Paragraph>
+                        </Space>
+                    </Col>
+                    
                 </Row>
 
                 {/* Title & Description */}
@@ -119,10 +140,14 @@ export default function ApplicationServiceCard({ data }: any) {
                         e.stopPropagation();
                         router.push(`/portal/application/${data.id}`);
                     }}
+                    onMouseEnter={() => setHovered(true)}
+                    onMouseLeave={() => setHovered(false)}
                 >
                     <span
                         style={{
-                            color: theme.token.gray200,
+                            color: hovered
+                                ? theme.token.colorPrimary
+                                : theme.token.gray200,
                             fontSize: 16,
                             fontWeight: 600,
                             paddingRight: 4,
@@ -137,7 +162,9 @@ export default function ApplicationServiceCard({ data }: any) {
                     <ArrowRight
                         size={20}
                         style={{
-                            color: theme.token.gray200,
+                            color: hovered
+                                ? theme.token.colorPrimary
+                                : theme.token.gray200,
                             transition: "color 0.3s ease",
                         }}
                     />
