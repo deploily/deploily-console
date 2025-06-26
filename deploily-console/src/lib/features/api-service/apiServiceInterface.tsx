@@ -20,5 +20,6 @@ export interface ApiServiceInterface {
   specifications: string;
   curl_command: string;
   is_in_favorite?: boolean;
+  is_subscribed?: boolean;
   api_playground_url?: string;
 }
