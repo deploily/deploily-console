@@ -118,7 +118,11 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                             value: (
                                                 <Select
                                                     defaultValue={duration}
-                                                    style={{ width: 150, borderRadius: "10px" }}
+                                                    style={{
+                                                        width: '100%',
+                                                        maxWidth: 700, // Adjust this based on your layout
+                                                        borderRadius: '10px',
+                                                      }}
                                                     onChange={handleChangeDuration}
                                                     dropdownStyle={{
                                                         backgroundColor: theme.token.gray50,
@@ -126,6 +130,26 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                                     }}
                                                     options={options}
                                                 />
+                                            ),
+                                        },
+                                        {
+                                            label: tApplications('version'),
+                                            value: (
+                                                <Select
+                                                    defaultValue={typeof selected_version?.id === "number" ? selected_version.id : undefined}
+                                                    style={{
+                                                        width: '100%',
+                                                        maxWidth: 700, 
+                                                        borderRadius: '10px',
+                                                    }}
+                                                    onChange={handleChangeVersion}
+                                                    dropdownStyle={{
+                                                        backgroundColor: theme.token.gray50,
+                                                        border: `2px solid ${theme.token.gray100}`,
+                                                    }}
+                                                    options={optionsVersion}
+                                                />
+
                                             ),
                                         },
 
