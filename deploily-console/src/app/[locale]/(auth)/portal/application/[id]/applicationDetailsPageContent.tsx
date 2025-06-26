@@ -27,12 +27,20 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
     const onClose = () => setOpenDrawer(false);
 
     const { applicationServiceById, isLoading, loadingError } = useApplicationServiceById();
-    const { totalAmount, duration, app_service_plan, resource_service_plan } = useNewApplicationSubscription();
+    const { totalAmount, duration, selected_version, app_service_plan, resource_service_plan } = useNewApplicationSubscription();
     const tApplications = useScopedI18n('applications');
 
     const handleChangeDuration = (value: number) => {
         dispatch(updateNewAppSubscriptionState({ duration: value }));
     };
+    const handleChangeVersion = (value: number) => {
+        dispatch(updateNewAppSubscriptionState({ selected_version: applicationServiceById?.app_versions?.find((version) => version.id === value) }));
+    };
+ 
+    const optionsVersion = applicationServiceById?.app_versions?.map((version) => ({
+        value: version.id,
+        label: version.name,
+      }));
 
     useEffect(() => {
         dispatch(fetchApplicationServiceById(applicationId));
@@ -48,6 +56,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
     if (isLoading) return <Skeleton active />;
     if (loadingError) return <div>Error: {loadingError}</div>;
     if (!applicationServiceById) return <div>No application found</div>;
+   
 
     return (
         <>
@@ -68,6 +77,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                     <Col xs={24} md={24} lg={16} style={{ padding: '0px', margin: '0px' }}>
                         <ApplicationDescriptionContainer
                             title={applicationServiceById.name}
+                            price={applicationServiceById.min_apps_price}
                             description={applicationServiceById.short_description}
                             logo={
                                 <div style={{ border: "1px solid #4E4E4E", borderRadius: "10px", padding: "1px" }}>
@@ -108,7 +118,11 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                             value: (
                                                 <Select
                                                     defaultValue={duration}
-                                                    style={{ width: 150, borderRadius: "10px" }}
+                                                    style={{
+                                                        width: '100%',
+                                                        maxWidth: 700, // Adjust this based on your layout
+                                                        borderRadius: '10px',
+                                                      }}
                                                     onChange={handleChangeDuration}
                                                     dropdownStyle={{
                                                         backgroundColor: theme.token.gray50,
@@ -116,6 +130,26 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                                     }}
                                                     options={options}
                                                 />
+                                            ),
+                                        },
+                                        {
+                                            label: tApplications('version'),
+                                            value: (
+                                                <Select
+                                                    defaultValue={typeof selected_version?.id === "number" ? selected_version.id : undefined}
+                                                    style={{
+                                                        width: '100%',
+                                                        maxWidth: 700, 
+                                                        borderRadius: '10px',
+                                                    }}
+                                                    onChange={handleChangeVersion}
+                                                    dropdownStyle={{
+                                                        backgroundColor: theme.token.gray50,
+                                                        border: `2px solid ${theme.token.gray100}`,
+                                                    }}
+                                                    options={optionsVersion}
+                                                />
+
                                             ),
                                         },
 
@@ -155,6 +189,22 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                                 }}
                                                 options={options}
                                             />
+                                        ),
+                                    },
+                                    {
+                                        label: tApplications('version'),
+                                        value: (
+                                            <Select
+                                                defaultValue={typeof selected_version?.id === "number" ? selected_version.id : undefined}
+                                                style={{ width: 150, borderRadius: "10px" }}
+                                                onChange={handleChangeVersion}
+                                                dropdownStyle={{
+                                                    backgroundColor: theme.token.gray50,
+                                                    border: `2px solid ${theme.token.gray100}`,
+                                                }}
+                                                options={optionsVersion}
+                                            />
+                                          
                                         ),
                                     },
                                     { label: tApplications('provider'), value: resource_service_plan?.provider_info?.name || "" },

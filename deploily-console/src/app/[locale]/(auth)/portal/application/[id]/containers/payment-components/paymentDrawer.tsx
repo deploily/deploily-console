@@ -25,7 +25,7 @@ export default function PaymentDrawer({ openDrawer, onClose }:
     const dispatch = useAppDispatch();
     const { applicationServiceById } = useApplicationServiceById();
     const { paymentProfilesList } = useNotDefaultPaymentProfiles();
-    const { totalAmount, duration, app_service_plan, resource_service_plan, selectedProfile, isBalanceSufficient } = useNewApplicationSubscription();
+    const { totalAmount, duration, selected_version, app_service_plan, resource_service_plan, selectedProfile, isBalanceSufficient } = useNewApplicationSubscription();
 
 
     const handleSelectPaymentProfile = (value: any) => {
@@ -43,7 +43,8 @@ export default function PaymentDrawer({ openDrawer, onClose }:
                 payment_method: "cloud_credit",
                 service_plan_selected_id: app_service_plan.id,
                 ressource_service_plan_selected_id: resource_service_plan.id,
-                profile_id: selectedProfile.id
+                profile_id: selectedProfile.id,
+                version_selected_id: selected_version?.id,
             };
             dispatch(applicationSubscribe({ service_slug: applicationServiceById?.service_slug, data: newSubscriptionObject })).then((response: any) => {
                 if (response.meta.requestStatus === "fulfilled") {
@@ -90,6 +91,10 @@ export default function PaymentDrawer({ openDrawer, onClose }:
                             duration: {
                                 label: tApplications('duration'),
                                 value: `${duration}`
+                            },
+                            version: {
+                                label: tApplications('version'),
+                                value: `${selected_version?.name}`
                             },
                             providerName: {
                                 label: tApplications('provider'),

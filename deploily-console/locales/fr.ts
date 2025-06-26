@@ -316,6 +316,7 @@ export default {
   "applications.svc": "Nom du service",
   "applications.plan": "Forfait",
   "applications.duration": "Durée",
+  "applications.version": "Version",
   "applications.provider": "Fournisseur de ressources",
   "applications.vpsType": "Type de VPS",
   "applications.resourcePlan": "Plan de ressource",

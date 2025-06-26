@@ -33,6 +33,8 @@ export interface ApplicationServiceInterface {//TODO RECHECK THIS INTERFACE TO C
     ssh_access: string;
     type: string;
     unit_price: number;
+    min_apps_price: number;
+    app_versions: AppVersionInterface[];
 }
 
 export interface NewApplicationSubscriptionState {//TODO RECHECK THIS INTERFACE TO CONFORM TO THE API RESPONSE
@@ -43,6 +45,7 @@ export interface NewApplicationSubscriptionState {//TODO RECHECK THIS INTERFACE 
     isBalanceSufficient: boolean | null,
     resource_service_plan?: ServicePlan,
     app_service_plan?: ServicePlan,
+    selected_version?: AppVersionInterface, 
 }
 
 export interface ApplicationServicesState {
@@ -56,28 +59,36 @@ export interface ApplicationServiceByIdState {
     loadingError?: any;
 }
 
-export interface NewApplicationSubscriptionResponse{
+export interface NewApplicationSubscriptionResponse {
     newSubscriptionIsLoading: boolean,
     newSubscriptionFailed: boolean,
     newSubscriptionResponse?: ApplicationSubscriptionResponse
 }
 
 
-export interface ApplicationSubscriptionResponse{
+export interface ApplicationSubscriptionResponse {
     form_url: string;
     order_id: string;
-    subscription: ApplicationSubscriptionInterface    
+    subscription: ApplicationSubscriptionInterface
 }
 
-export interface ApplicationSubscriptionInterface{
-  recommendation_app_service_id?: number,
-  ressource_service_plan_selected_id?: number,
-  id: number;
-  duration_month: number;
-  name: string;
-  price: number
-  promo_code_id: number;
-  service_plan_id: number;
-  start_date: Date;
-  status: string;
+export interface ApplicationSubscriptionInterface {
+    recommendation_app_service_id?: number,
+    ressource_service_plan_selected_id?: number,
+    id: number;
+    duration_month: number;
+    name: string;
+    price: number
+    promo_code_id: number;
+    service_plan_id: number;
+    start_date: Date;
+    status: string;
+
+}
+export interface AppVersionInterface {
+
+    id: number;
+    description: string;
+    name: string;
+
 }

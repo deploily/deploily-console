@@ -37,6 +37,7 @@ const initialState: ApplicationServiceState = {
         totalAmount: 0,
         selectedProfile: undefined,
         isBalanceSufficient: null,
+        selected_version: undefined,
     },
     searchValue: "",
 
@@ -97,6 +98,9 @@ const ApplicationServiceSlice = createSlice({
                 state.applicationServicesById.isLoading = false;
                 state.applicationServicesById.loadingError = null;
                 state.applicationServicesById.applicationServiceById = action.payload.result;
+                if (Array(state.applicationServicesById.applicationServiceById?.app_versions).length > 0) { 
+                    state.newAppSubscriptionState.selected_version = state.applicationServicesById.applicationServiceById?.app_versions[0];
+                }
             })
             .addCase(fetchApplicationServiceById.rejected, (state, { payload }) => {
                 state.applicationServicesById.isLoading = false;
