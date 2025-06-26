@@ -32,8 +32,8 @@ export default function ServicePlanCard({
         body: {flex: 1, display: "flex", flexDirection: "column", paddingBottom: 0},
       }}
       onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = theme.token.orange600;
-        e.currentTarget.style.boxShadow = `4px 4px 10px 0px ${theme.token.orange600}`;
+        e.currentTarget.style.borderColor = !currentService?.is_subscribed ? theme.token.orange600 : "none";
+        e.currentTarget.style.boxShadow = !currentService?.is_subscribed ? `4px 4px 10px 0px ${theme.token.orange600}`: "none";
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.borderColor = theme.token.gray50;

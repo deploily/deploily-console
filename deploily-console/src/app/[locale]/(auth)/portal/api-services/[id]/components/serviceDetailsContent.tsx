@@ -164,6 +164,7 @@ export default function ServiceDetailsContentPage({serviceId}: {serviceId: strin
                   <Tag
                     color="green"
                     style={{
+                      marginTop:"5px",
                       height: "fit-content",
                       fontSize: "14px",
                       fontWeight: "bold",
