@@ -11,6 +11,7 @@ export default {
     'subscriptions': 'Subscriptions',
     'supportTicket': 'Support Ticket',
     'sponsoring': 'Sponsoring',
+    'subscribed': 'Subscribed',
     'sidebar.home': 'Home',
     'sidebar.members': 'Members',
     'sidebar.myFavorites': 'My favorites',
