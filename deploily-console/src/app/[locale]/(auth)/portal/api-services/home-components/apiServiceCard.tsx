@@ -20,7 +20,7 @@ export default function ApiServiceCard({service}: {service: ApiServiceInterface}
   const handleFavoriteService = (service_id: number) => {
     dispatch(postFavoriteService({service_id}));
   };
-  
+
   return (
     <Card
       hoverable
@@ -76,76 +76,45 @@ export default function ApiServiceCard({service}: {service: ApiServiceInterface}
               display: "flex",
             }}
           >
-            <Paragraph style={{color: "#DD8859", fontSize: 16, margin: 0}}>
-              {Intl.NumberFormat("fr-FR", {
-                useGrouping: true,
-              }).format(service.unit_price)}{" "}
-              DZD
-            </Paragraph>
+            <Row>
+              <Col span={24}>
+                <Paragraph style={{color: "#DD8859", fontSize: 16, margin: 0}}>
+                  {Intl.NumberFormat("fr-FR", {
+                    useGrouping: true,
+                  }).format(service.unit_price)}{" "}
+                  DZD
+                </Paragraph>
+              </Col>
+              <Col span={24}>
+                {service.is_subscribed && (
+                  <Tag
+                    color="green"
+                    style={{
+                      height: "fit-content",
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                      borderRadius: 20,
+                      padding: "2px 10px",
+                      textTransform: "capitalize",
+                    }}
+                  >
+                    {t("subscribed")}
+                  </Tag>
+                )}
+              </Col>
+            </Row>
           </Col>
         </Row>
 
-        {/* <Row style={{ height: "40%" }}>
+        <Row style={{height: "40%"}}>
           <Col span={24}>
-            <Paragraph
-              ellipsis={{ rows: 2 }}
-              style={{ fontSize: 20, marginBottom: 0 }}
-            >
+            <Paragraph ellipsis={{rows: 2}} style={{fontSize: 20, marginBottom: 0}}>
               {service.name}
             </Paragraph>
-            <Paragraph ellipsis={{ rows: 3 }} style={{ margin: 0 }}>
+            <Paragraph ellipsis={{rows: 3}} style={{margin: 0}}>
               {service.short_description}
             </Paragraph>
           </Col>
-        </Row> */}
-        <Row style={{height: "40%"}}>
-          <div>
-            <Row
-              gutter={16}
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                width: "100%",
-              }}
-            >
-              <Paragraph ellipsis={{rows: 1, expandable: false}} style={{fontSize: 20}}>
-                {service.name}
-              </Paragraph>
-              {service.is_subscribed && (
-                <Tag
-                  color="green"
-                  style={{
-                    height: "fit-content",
-                    fontSize: "14px",
-                    fontWeight: "bold",
-                    borderRadius: 20,
-                    padding: "2px 10px",
-                    textTransform: "capitalize",
-                  }}
-                >
-                  {t("subscribed")}
-                </Tag>
-              )}
-              {/* <Tag
-                bordered={false}
-                color={subscriptionStatusStyle(data.status)}
-                style={{
-                  height: "fit-content",
-                  fontSize: "14px",
-                  fontWeight: "bold",
-                  borderRadius: 20,
-                  padding: "2px 10px",
-                  textTransform: "capitalize",
-                }}
-              >
-                {tSubscription(data.status as "active" | "inactive")}
-              </Tag> */}
-            </Row>
-            <Paragraph ellipsis={{rows: 3, expandable: false}} style={{paddingTop: "0px"}}>
-              {service.short_description}
-            </Paragraph>
-          </div>
         </Row>
 
         <Space
