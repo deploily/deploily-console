@@ -260,6 +260,7 @@ export default function ServiceDetailsContentPage({serviceId}: {serviceId: strin
                           display: "flex",
                           justifyContent: "center",
                           maxWidth: 350,
+                          opacity: currentService?.is_subscribed ? 0.5 : 1,
                         }}
                       >
                         <ServicePlanCard servicePlan={row} showDrawer={() => showDrawer(row)} />
