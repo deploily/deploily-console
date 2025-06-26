@@ -316,6 +316,7 @@ export default {
     "applications.svc": "Application name",
     "applications.plan": "Plan",
     "applications.duration": "Duration",
+    "applications.version": "Version",
     "applications.provider": "Resource provider",
     "applications.vpsType": "VPS Type",
     "applications.resourcePlan": "Resource Plan",
