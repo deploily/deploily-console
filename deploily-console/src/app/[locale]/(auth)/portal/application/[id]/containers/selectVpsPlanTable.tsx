@@ -53,7 +53,7 @@ export default function SelectVpsPlanTable() {
               dataIndex: "resource",
               render: (plan) => plan != undefined ? <div style={{ color: 'white' }}>
                 <a href={plan.provider_info?.website}>
-                  {`${plan.provider_info.name}`}
+                  {`${plan.provider_info?.name}`}
                 </a>
                 {`/ ${plan.plan.name}`}
               </div> : undefined,

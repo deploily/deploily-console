@@ -16,22 +16,20 @@ export default function AddPaymentProfile() {
     const router = useRouter();
 
     const handleFinish = async (values: any) => {
-        try {
             const payload = {
                 ...values,
                 is_company: isCompany,
-            };
-            const response = await dispatch(postPaymentProfile({ ...payload, "profile_type": isCompany ? "company" : "personal" })).unwrap();
-            message.success("Payment profile created successfully!");
-            setIsCompany(false);
-            if (response?.id) {
-                router.push(`/portal/payment-profiles/${response.id}`);
-            }
-        } catch (err: any) {
-            message.error("Failed to create payment profile: " + err);
-        }
-    };
-
+        };
+        await dispatch(postPaymentProfile({ ...payload, "profile_type": isCompany ? "company" : "personal" })).then((result) => {
+            if (result.meta.requestStatus === "fulfilled") {
+                    message.success("Payment profile created successfully!");
+                    setIsCompany(false);
+                    router.push(`/portal/payment-profiles/${result.payload.id}`);
+                } else {
+                    message.error("Failed to create payment profile");
+                }
+            });
+    }
     const renderLabel = (text: string) => (
         <>
             {text}
