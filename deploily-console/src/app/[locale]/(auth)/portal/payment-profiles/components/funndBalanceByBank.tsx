@@ -64,8 +64,6 @@ export default function FundBalanceByBank({ selectedProfile }: { selectedProfile
             profile_id: selectedProfile,
         };
         dispatch(postFundBalance(newFundBalanceObject));
-        console.log(newFundBalanceObject);
-        setShowUploadSection(true);
     };
 
     const [bankTransfertInformation, setBankTransfertInformation] = useState<any>(undefined)
@@ -76,6 +74,12 @@ export default function FundBalanceByBank({ selectedProfile }: { selectedProfile
         };
         fetchBankTransfertInfo();
     }, []);
+
+    // useEffect(() => {
+    //     if (newFundBalanceResponse) {
+    //         setShowUploadSection(true);
+    //     }
+    // }, [newFundBalanceResponse]);   
 
     return (
         <>

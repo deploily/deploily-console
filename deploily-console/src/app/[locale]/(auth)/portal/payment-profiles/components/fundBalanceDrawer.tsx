@@ -19,7 +19,6 @@ export default function FundBalanceDrawer({ openDrawer, onClose, selectedProfile
 
     const tPayments = useScopedI18n("payments");
 
-    console.log(selectedProfile);
     
 
     return (

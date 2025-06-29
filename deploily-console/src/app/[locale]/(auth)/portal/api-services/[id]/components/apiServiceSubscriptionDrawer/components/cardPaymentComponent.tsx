@@ -24,7 +24,6 @@ export default function CardPaymentComponent({ selectedPlan }: { selectedPlan: a
     const dispatch = useAppDispatch();
     const { newApiServiceSubscriptionResponse } = useApiServiceSubscription();
     useEffect(() => {
-        console.log("newApiServiceSubscriptionResponse");
         if (newApiServiceSubscriptionResponse) {
             if (newApiServiceSubscriptionResponse.form_url !== null) {
                 redirect(newApiServiceSubscriptionResponse.form_url);
@@ -50,7 +49,6 @@ export default function CardPaymentComponent({ selectedPlan }: { selectedPlan: a
             service_plan_selected_id: selectedPlan.id,
             profile_id: apiServiceSubscriptionStates.selectedProfile != null ? apiServiceSubscriptionStates.selectedProfile.id : 1
         };
-        console.log("newApiServiceSubscriptionObject CardPaymentComponent", newApiServiceSubscriptionObject);
 
         dispatch(postApiServiceSubscription(newApiServiceSubscriptionObject));
     };
