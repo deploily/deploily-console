@@ -7,7 +7,7 @@ interface ApiServiceSubscriptionStates {
   isBalanceSufficient: boolean | null,
   totalAmount: number,
   promoCodeRate?: number,
-  promoColor: string,
+  promoColor?: string,
   price: number,
   selectedProfile?: PaymentProfileInterface
 }
@@ -17,7 +17,7 @@ const initialState: ApiServiceSubscriptionStates = {
   isBalanceSufficient: null,
   totalAmount: 0,
   promoCodeRate: undefined,
-  promoColor: "red",
+  promoColor: undefined,
   duration: 1,
   price: 0,
   selectedProfile: undefined,
@@ -43,7 +43,8 @@ const apiServiceSubscriptionStatesSlice = createSlice({
           updatedState.isBalanceSufficient = false;
         }
       }
-
+      console.log(updatedState);
+      
       return updatedState;
     },
     updateSelectedProfile: (state, action) => {
@@ -58,4 +59,7 @@ const apiServiceSubscriptionStatesSlice = createSlice({
     }
   },
 });
+
+export const { updateApiServiceSubscriptionStates } = apiServiceSubscriptionStatesSlice.actions;
+
 export default apiServiceSubscriptionStatesSlice.reducer;

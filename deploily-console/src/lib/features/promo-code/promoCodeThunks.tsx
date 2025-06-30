@@ -15,7 +15,7 @@ export const checkPromoCode = createAsyncThunk(
       const token = session.accessToken;
 
 
-      const response = await axiosInstance.get(`${deploilyApiUrls.CHECK_PROMO_CODE}?promo_code=${encodeURIComponent(data.promo_code)}`, {
+      const response = await axiosInstance.get(`${deploilyApiUrls.CHECK_PROMO_CODE}?promo_code=${encodeURIComponent(data)}`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
@@ -32,7 +32,7 @@ export const checkPromoCode = createAsyncThunk(
 
 
     } catch (error: any) {
-      return thunkConfig.rejectWithValue(error.message);
+      return thunkConfig.rejectWithValue(error.error);
     }
   },
 );

@@ -28,11 +28,12 @@ export default function ApplicationPaymentComponent() {
     if (newApplicationSubscription.app_service_plan != undefined && newApplicationSubscription.resource_service_plan != undefined && newApplicationSubscription.selectedProfile != undefined) {
       let newSubscriptionObject = {
         duration: Number.parseInt(`${newApplicationSubscription.duration}`),
-        // promo_code: subscriptionStates.promoCode,
+        promo_code: newApplicationSubscription.promoCode,
         payment_method: paymentMethod,
         service_plan_selected_id: newApplicationSubscription.app_service_plan.id,
         ressource_service_plan_selected_id: newApplicationSubscription.resource_service_plan.id,
-        profile_id: newApplicationSubscription.selectedProfile.id
+        profile_id: newApplicationSubscription.selectedProfile.id,
+        version_selected_id: newApplicationSubscription.selected_version?.id,
       };
       if (paymentMethod == "card") {
         newSubscriptionObject = { ...newSubscriptionObject, ...{ captcha_token: captchaToken }, }

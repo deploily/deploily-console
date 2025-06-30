@@ -4,15 +4,15 @@ import { checkPromoCode } from "./promoCodeThunks";
 
 interface PormoCodeState {
   promoCodeResponse?: PromoCodeInterface;
-  promoCodeLoadingError?: any;
+  promoCodeLoadingError: boolean;
   promoCodeLoading: boolean;
 }
 
 const initialState: PormoCodeState = {
   promoCodeResponse: undefined,
-  promoCodeLoadingError: undefined,
+  promoCodeLoadingError: false,
   promoCodeLoading: false,
-  
+
 };
 const PormoCodeSlice = createSlice({
   name: "pormoCode",
@@ -22,18 +22,17 @@ const PormoCodeSlice = createSlice({
     builder
       .addCase(checkPromoCode.pending, (state) => {
         state.promoCodeLoading = true;
+        state.promoCodeLoadingError = false;
+        state.promoCodeResponse = undefined;
       })
       .addCase(checkPromoCode.fulfilled, (state, action) => {
-        
         state.promoCodeLoading = false;
-        state.promoCodeLoadingError = null;
+        state.promoCodeLoadingError = false;
         state.promoCodeResponse = action.payload;
-
-
       })
-      .addCase(checkPromoCode.rejected, (state, { payload }) => {
+      .addCase(checkPromoCode.rejected, (state) => {
         state.promoCodeLoading = false;
-        state.promoCodeLoadingError = payload;
+        state.promoCodeLoadingError = true;
       })
   },
 });

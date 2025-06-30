@@ -37,7 +37,7 @@ export interface ApplicationServiceInterface {//TODO RECHECK THIS INTERFACE TO C
     app_versions: AppVersionInterface[];
 }
 
-export interface NewApplicationSubscriptionState {//TODO RECHECK THIS INTERFACE TO CONFORM TO THE API RESPONSE
+export interface NewApplicationSubscriptionState {
     duration: number;
     price: number;
     totalAmount: number,
@@ -45,7 +45,11 @@ export interface NewApplicationSubscriptionState {//TODO RECHECK THIS INTERFACE 
     isBalanceSufficient: boolean | null,
     resource_service_plan?: ServicePlan,
     app_service_plan?: ServicePlan,
-    selected_version?: AppVersionInterface, 
+    selected_version?: AppVersionInterface,
+    promoCode: string,
+    promoCodeRate?: number,
+    promoColor?: string,
+
 }
 
 export interface ApplicationServicesState {

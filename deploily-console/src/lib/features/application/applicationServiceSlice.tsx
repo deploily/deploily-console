@@ -20,14 +20,13 @@ const initialState: ApplicationServiceState = {
         applicationServiceById: undefined,
         isLoading: false,
         loadingError: null,
-    },  
+    },
     newApplicationSubscriptionResponse: {
         newSubscriptionIsLoading: false,
         newSubscriptionFailed: false,
         newSubscriptionResponse: undefined
     },
     newAppSubscriptionState: {
-        //TODO PROMOCODE ??
         duration: 1,
         price: 0,
         resource_service_plan: undefined,
@@ -38,6 +37,9 @@ const initialState: ApplicationServiceState = {
         selectedProfile: undefined,
         isBalanceSufficient: null,
         selected_version: undefined,
+        promoCode: "",
+        promoCodeRate: undefined,
+        promoColor: undefined,
     },
     searchValue: "",
 
@@ -49,6 +51,8 @@ const ApplicationServiceSlice = createSlice({
     reducers: {
         updateNewAppSubscriptionState: (state, action: PayloadAction<any>) => {
             let updatedState: NewApplicationSubscriptionState = { ...state.newAppSubscriptionState, ...action.payload }
+            console.log(updatedState);
+            
             let updatedAmount = 0;
             if (updatedState.app_service_plan != undefined) {
                 updatedAmount = updatedState.duration * updatedState.app_service_plan.price;
@@ -58,19 +62,29 @@ const ApplicationServiceSlice = createSlice({
                     updatedState = { ...updatedState, totalAmount: updatedAmount }
                 }
             }
-            if (state.newAppSubscriptionState?.selectedProfile != undefined) {
-                if ((state.newAppSubscriptionState?.selectedProfile.balance - updatedState.totalAmount) >= 0) {
+
+            if (updatedState.promoCodeRate != undefined) {
+                updatedState = { ...updatedState, promoColor: "green" }
+                updatedAmount = updatedAmount - ((updatedAmount * (updatedState.promoCodeRate || 0)) / 100);
+            }
+            updatedState = { ...updatedState, totalAmount: updatedAmount }
+            if (updatedState?.selectedProfile != undefined) {
+                if ((updatedState?.selectedProfile.balance - updatedState.totalAmount) >= 0) {
                     updatedState.isBalanceSufficient = true;
                 } else {
                     updatedState.isBalanceSufficient = false;
                 }
             }
+            console.log("))))))))))))))))))))))))))))))");
+
+            console.log(updatedState);
+
             state.newAppSubscriptionState = updatedState;
             return state;
         },
         updateApplicationServiceSearchValue: (state, action: PayloadAction<string>) => {
             state.searchValue = action.payload;
-          },
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -97,7 +111,7 @@ const ApplicationServiceSlice = createSlice({
                 state.applicationServicesById.isLoading = false;
                 state.applicationServicesById.loadingError = null;
                 state.applicationServicesById.applicationServiceById = action.payload.result;
-                if (Array(state.applicationServicesById.applicationServiceById?.app_versions).length > 0) { 
+                if (Array(state.applicationServicesById.applicationServiceById?.app_versions).length > 0) {
                     state.newAppSubscriptionState.selected_version = state.applicationServicesById.applicationServiceById?.app_versions[0];
                 }
             })
@@ -109,18 +123,18 @@ const ApplicationServiceSlice = createSlice({
                 state.newApplicationSubscriptionResponse.newSubscriptionIsLoading = true;
                 state.newApplicationSubscriptionResponse.newSubscriptionFailed = false;
                 state.newApplicationSubscriptionResponse.newSubscriptionResponse = undefined;
-            
-                  }) 
+
+            })
             .addCase(applicationSubscribe.fulfilled, (state, { payload }) => {
                 state.newApplicationSubscriptionResponse.newSubscriptionIsLoading = false;
-                state.newApplicationSubscriptionResponse.newSubscriptionFailed= false;
+                state.newApplicationSubscriptionResponse.newSubscriptionFailed = false;
                 state.newApplicationSubscriptionResponse.newSubscriptionResponse = payload;
-                  })
+            })
             .addCase(applicationSubscribe.rejected, (state) => {
                 state.newApplicationSubscriptionResponse.newSubscriptionIsLoading = false;
                 state.newApplicationSubscriptionResponse.newSubscriptionFailed = true;
                 state.newApplicationSubscriptionResponse.newSubscriptionResponse = undefined;
-                  });  
+            });
     },
 });
 

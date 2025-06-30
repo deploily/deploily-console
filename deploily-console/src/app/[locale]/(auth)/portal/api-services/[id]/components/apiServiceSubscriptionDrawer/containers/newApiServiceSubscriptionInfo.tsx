@@ -1,43 +1,48 @@
 "use client";
 import { useApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSelectors";
+import { updateApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSlice";
 import { usePromoCode } from "@/lib/features/promo-code/promoCodeSelectors";
 import { checkPromoCode } from "@/lib/features/promo-code/promoCodeThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
-import { Card, Col, ConfigProvider, Input, Row, Select, Space, Typography } from "antd";
+import { Card, Col, ConfigProvider, Form, Input, Row, Select, Space, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { useScopedI18n } from "../../../../../../../../../../locales/client";
 import { options } from "../../../../utils/apiServicesConst";
 
 export default function NewApiServiceSubscriptionInfo({ planSelected }: { planSelected: any }) {
+
   const { totalAmount, promoColor, duration } = useApiServiceSubscriptionStates()
 
   const translate = useScopedI18n('apiServiceSubscription');
-  const [promoCode, setPromoCode] = useState({ promo_code: "" });
+  const [promoCode, setPromoCode] = useState('');
   const dispatch = useAppDispatch();
-  const { promoCodeResponse } = usePromoCode();
+  const { promoCodeResponse, promoCodeLoadingError } = usePromoCode();
 
   const handleChangeDuration = (value: number) => {
-    dispatch({
-      type: "ApiServiceSubscriptionStates/updateApiServiceSubscriptionStates", payload: { duration: value }
-    });
+    dispatch(updateApiServiceSubscriptionStates({ duration: value }));
   };
-  // Handles updating promo percent and color based on promoCodeResponse
+
+
   useEffect(() => {
-    if (promoCodeResponse?.rate !== undefined) {
-      dispatch({ type: "ApiServiceSubscriptionStates/updateApiServiceSubscriptionStates", payload: { "promoCodeRate": promoCodeResponse.rate } })
+    if (promoCodeLoadingError) {
+      dispatch(updateApiServiceSubscriptionStates({ promoCodeRate: undefined, promoCode: "", promoColor: undefined }));
     }
-  }, [promoCodeResponse]);
+    if (promoCodeResponse?.rate !== undefined) {
+      dispatch(updateApiServiceSubscriptionStates({ promoCodeRate: promoCodeResponse.rate, promoCode: promoCode }));
+    }
+  }, [promoCodeResponse, promoCodeLoadingError]);
 
-  // useEffect(() => {
-  //   dispatch({ type: "ApiServiceSubscriptionStates/updateApiServiceSubscriptionStates", payload: { "promoCode": promoCode.promo_code } })
-  //   if (promoCode.promo_code.length === 10) {
-  //     dispatch(checkPromoCode(promoCode));
-  //   }
-  // }, [promoCode.promo_code]);
 
-  const handleSubmitPromoCode =()=>{
-    dispatch(checkPromoCode(promoCode));
+  const handleSubmitPromoCode = () => {
+
+    if (promoCode.trim() !== "") {
+      dispatch(checkPromoCode(promoCode));
+    }
+  }
+  const handleChangePromoCode = (value: string) => {
+    setPromoCode(value);
+    dispatch(updateApiServiceSubscriptionStates({ promoCodeRate: undefined, promoCode: "", promoColor: undefined }));
   }
 
   return (
@@ -96,22 +101,26 @@ export default function NewApiServiceSubscriptionInfo({ planSelected }: { planSe
             <Row gutter={16} align="top" >
               <Col span={14} >  <Typography.Text strong >{translate("promoCode")}</Typography.Text></Col>
               <Col span={10} >
-                <Input
-                  placeholder=".........."
-                  value={promoCode.promo_code}
-                  onChange={(e) => setPromoCode({ ...promoCode, promo_code: e.target.value })}
-                  onPressEnter={handleSubmitPromoCode}
-                  onBlur={handleSubmitPromoCode}
-                  maxLength={10}
-                  style={{
-                    border: "none",
-                    outline: "none",
-                    boxShadow: "none", padding: "0px 0px",
-                    textIndent: 0,
-                    color: promoColor
-                  }}
-                />
+                <Form.Item
+                  validateStatus={promoCodeLoadingError && promoCode.trim() !== "" ? "error" : ""}
+                  help={promoCodeLoadingError && promoCode.trim() !== "" ? "Invalid promo code " : ""}
+                  style={{ marginBottom: 0 }} // optional: reduce spacing
+                >
+                  <Input
+                    placeholder={translate('promoCodePlaceHolder')}
+                    value={promoCode}
+                    onChange={(e) => handleChangePromoCode(e.target.value)}
+                    onPressEnter={handleSubmitPromoCode}
+                    onBlur={handleSubmitPromoCode}
+                    style={{
+                      boxShadow: "none",
+                      textIndent: 0,
+                      color: promoColor
+                    }}
 
+                  />
+
+                </Form.Item>
               </Col>
             </Row>
             <Row gutter={16} align="top" >
