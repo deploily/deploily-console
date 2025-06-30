@@ -26,7 +26,6 @@ export default function BankTransfertComponent({ selectedPlan }: { selectedPlan:
             service_plan_selected_id: selectedPlan.id,
             profile_id: apiServiceSubscriptionStates.selectedProfile != null ? apiServiceSubscriptionStates.selectedProfile.id : 1
         };
-        console.log("newApiServiceSubscriptionObject BankTransfertComponent", newApiServiceSubscriptionObject);
         dispatch(postApiServiceSubscription(newApiServiceSubscriptionObject)).then((response: any) => {
             if (response.meta.requestStatus === "fulfilled") {
                 router.push(`/portal/my-api/`);

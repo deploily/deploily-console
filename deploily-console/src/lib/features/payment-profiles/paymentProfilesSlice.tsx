@@ -109,15 +109,12 @@ const PaymentProfileSlice = createSlice({
         state.isFundBalanceSuccess = false;
             })
       .addCase(postFundBalance.fulfilled, (state, { payload }) => {
-        console.log("postFundBalance.fulfilled", payload );
         
         state.isLoading = false;
 
         state.isFundBalanceSuccess = true;
         
         state.newFundBalanceResponse = payload;
-        console.log("postFundBalanceeeeeeeeeeeeeeeeeeeeeeeeee" );
-        console.log("postFundBalance.fulfilleddddddddddddddd", state.newFundBalanceResponse );
 
         state.isFundBalanceFailed = false;
             }) 

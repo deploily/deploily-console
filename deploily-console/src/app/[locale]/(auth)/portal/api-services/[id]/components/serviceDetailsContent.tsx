@@ -62,7 +62,6 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
   }
   useEffect(() => {
     const storedFrom = sessionStorage.getItem("fromPage");
-    console.log("Stored from page:", storedFrom);
 
     if (storedFrom === "home" || storedFrom === "seeAll") {
       setFromPage(storedFrom);

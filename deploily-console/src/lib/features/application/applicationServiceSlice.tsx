@@ -66,7 +66,6 @@ const ApplicationServiceSlice = createSlice({
                 }
             }
             state.newAppSubscriptionState = updatedState;
-            console.log(state.newAppSubscriptionState)
             return state;
         },
         updateApplicationServiceSearchValue: (state, action: PayloadAction<string>) => {

@@ -27,7 +27,6 @@ export default function PaymentDetailsPage({ paymentId }: { paymentId: string })
   }, [paymentId, uploadSuccess]);
 
   const [file, setFile] = useState<RcFile | null>(null);
-  console.log("file upload", file);
 
   const handleFileChange = (info: any) => {
     const selectedFile = info as RcFile;

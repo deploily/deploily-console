@@ -4,7 +4,6 @@ import { updateNewAppSubscriptionState } from "../application/applicationService
 
 const paymentProfileMiddleware = (store: MiddlewareAPI<ThunkDispatch<any, any, Action>, any>) => {
     return (next: Dispatch<any>) => async (action: any) => {
-        console.log(action.type);
         
         switch (action.type) {
             case 'paymentProfile/getNotDefaultPaymentProfiles/fulfilled':
