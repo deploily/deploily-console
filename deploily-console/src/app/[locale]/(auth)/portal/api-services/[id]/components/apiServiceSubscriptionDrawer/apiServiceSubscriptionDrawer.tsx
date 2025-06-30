@@ -26,7 +26,7 @@ export default function ApiServiceSubscriptionDrawer({ openDrawer, onClose, plan
       >
         <Col style={{ padding: 20 }}>
           <NewApiServiceSubscriptionInfo planSelected={planSelected} />
-          <SelectProfileComponent></SelectProfileComponent>
+          <SelectProfileComponent/>
           {selectedProfile !== undefined && <div style={{ padding: '5px 0px' }}>
             {isBalanceSufficient === true ?
               (<IsBalanceSufficientComponent onClose={onClose} planSelected={planSelected} />)

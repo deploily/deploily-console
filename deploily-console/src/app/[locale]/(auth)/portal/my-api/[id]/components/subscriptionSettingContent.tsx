@@ -90,7 +90,7 @@ export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscri
                                     alignSelf: "start"
                                 }}>
                                     <Typography.Title level={2} style={{ color: theme.token.orange400 }}>
-                                        {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(currentApiServiceSubscription.total_amount)} DZD
+                                        {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(currentApiServiceSubscription.price)} DZD
 
                                     </Typography.Title>
                                 </Col>

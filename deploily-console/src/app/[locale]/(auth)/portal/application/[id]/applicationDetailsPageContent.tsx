@@ -16,6 +16,7 @@ import { options } from "../../api-services/utils/apiServicesConst";
 import ApplicationDetailsCollapseContainer from "./containers/applicationDetailsCollapseContainer";
 import ApplicationPlansContainer from "./containers/applicationPlansContainer";
 import ApplicationDescriptionContainer from "./containers/descriptionContainer";
+import AppPromoCodeTextField from "./containers/payment-components/appPromoCodeTextField";
 import PaymentDrawer from "./containers/payment-components/paymentDrawer";
 import SelectVpsPlanTable from "./containers/selectVpsPlanTable";
 
@@ -28,6 +29,8 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
 
     const { applicationServiceById, isLoading, loadingError } = useApplicationServiceById();
     const { totalAmount, duration, selected_version, app_service_plan, resource_service_plan } = useNewApplicationSubscription();
+    console.log(totalAmount);
+
     const tApplications = useScopedI18n('applications');
 
     const handleChangeDuration = (value: number) => {
@@ -36,11 +39,11 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
     const handleChangeVersion = (value: number) => {
         dispatch(updateNewAppSubscriptionState({ selected_version: applicationServiceById?.app_versions?.find((version) => version.id === value) }));
     };
- 
+
     const optionsVersion = applicationServiceById?.app_versions?.map((version) => ({
         value: version.id,
         label: version.name,
-      }));
+    }));
 
     useEffect(() => {
         dispatch(fetchApplicationServiceById(applicationId));
@@ -53,10 +56,12 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
+
+
+
     if (isLoading) return <Skeleton active />;
     if (loadingError) return <div>Error: {loadingError}</div>;
     if (!applicationServiceById) return <div>No application found</div>;
-   
 
     return (
         <>
@@ -81,7 +86,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                             description={applicationServiceById.short_description}
                             logo={
                                 <div style={{ border: "1px solid #4E4E4E", borderRadius: "10px", padding: "1px" }}>
-                                    <ImageFetcher imagePath={applicationServiceById.image_service || ""} width={220} height={220} />
+                                    <ImageFetcher imagePath={applicationServiceById.image_service || ""} width={190} height={190} />
                                 </div>
                             }
                         />
@@ -122,7 +127,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                                         width: '100%',
                                                         maxWidth: 700, // Adjust this based on your layout
                                                         borderRadius: '10px',
-                                                      }}
+                                                    }}
                                                     onChange={handleChangeDuration}
                                                     dropdownStyle={{
                                                         backgroundColor: theme.token.gray50,
@@ -139,7 +144,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                                     defaultValue={typeof selected_version?.id === "number" ? selected_version.id : undefined}
                                                     style={{
                                                         width: '100%',
-                                                        maxWidth: 700, 
+                                                        maxWidth: 700,
                                                         borderRadius: '10px',
                                                     }}
                                                     onChange={handleChangeVersion}
@@ -150,6 +155,12 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                                     options={optionsVersion}
                                                 />
 
+                                            ),
+                                        },
+                                        {
+                                            label: tApplications('promoCode'),
+                                            value: (
+                                                <AppPromoCodeTextField />
                                             ),
                                         },
 
@@ -204,7 +215,13 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                                 }}
                                                 options={optionsVersion}
                                             />
-                                          
+
+                                        ),
+                                    },
+                                    {
+                                        label: tApplications('promoCode'),
+                                        value: (
+                                            <AppPromoCodeTextField />
                                         ),
                                     },
                                     { label: tApplications('provider'), value: resource_service_plan?.provider_info?.name || "" },

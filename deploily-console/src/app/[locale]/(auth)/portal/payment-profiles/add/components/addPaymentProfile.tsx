@@ -1,6 +1,6 @@
 "use client";
 
-import { postPaymentProfile } from "@/lib/features/payment-profiles/paymentProfilesThunks";
+import { fetchPaymentProfiles, postPaymentProfile } from "@/lib/features/payment-profiles/paymentProfilesThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { Button, Col, Form, Input, message, Radio, Row } from "antd";
 import Title from "antd/es/typography/Title";
@@ -22,6 +22,7 @@ export default function AddPaymentProfile() {
         };
         await dispatch(postPaymentProfile({ ...payload, "profile_type": isCompany ? "company" : "personal" })).then((result) => {
             if (result.meta.requestStatus === "fulfilled") {
+                    dispatch(fetchPaymentProfiles());
                     message.success("Payment profile created successfully!");
                     setIsCompany(false);
                     router.push(`/portal/payment-profiles/${result.payload.id}`);

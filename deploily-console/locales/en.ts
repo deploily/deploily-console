@@ -219,6 +219,7 @@ export default {
     'apiServiceSubscription.duration': 'Duration :',
     'apiServiceSubscription.totalAmount': 'Total Amount :',
     'apiServiceSubscription.promoCode': 'Promo code :',
+    'apiServiceSubscription.promoCodePlaceHolder': 'Promo code ',
     'apiServiceSubscription.price': 'Price :',
     'apiServiceSubscription.selectProfile': 'Select  Profile',
     'apiServiceSubscription.subscribeService': 'Subscribe Service',
@@ -331,5 +332,7 @@ export default {
     "applications.features": "Features",
     "applications.search": "Search",
     "applications.noResult": "No Results Found",
-    "applications.noResultDescription": "Try adjusting your search or filter."
+    "applications.noResultDescription": "Try adjusting your search or filter.",
+    "applications.promoCode": "Promo code :",
+    "applications.promoCodePlaceHolder": "Promo code"
 } as const

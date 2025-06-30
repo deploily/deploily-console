@@ -22,6 +22,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import ServicePlanCard from "./servicePlanCard";
 import ApiServiceSubscriptionDrawer from "./apiServiceSubscriptionDrawer/apiServiceSubscriptionDrawer";
+import { updateApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSlice";
 
 export default function ServiceDetailsContentPage({ serviceId }: { serviceId: string }) {
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -35,7 +36,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
   const showDrawer = (plan: any | null) => {
     if (plan !== null) {
       setSelectedPlan(plan);
-      dispatch({ type: "ApiServiceSubscriptionStates/updateApiServiceSubscriptionStates", payload: { "price": plan.price } });
+      dispatch(updateApiServiceSubscriptionStates({ "price": plan.price }));
     }
     setOpenDrawer(true);
   };
