@@ -1,15 +1,12 @@
 "use client";
 
 import { getBankCredEnvVars } from "@/actions/getBankCredEnvVars";
-import { usePaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesSelectors";
-import { postFundBalance } from "@/lib/features/payment-profiles/paymentProfilesThunks";
-import { uploadPaymentReceipt } from "@/lib/features/payments/paymentThunks";
+import { fetchPaymentProfiles, postFundBalance } from "@/lib/features/payment-profiles/paymentProfilesThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { InterRegular16 } from "@/styles/components/typographyStyle";
 import { theme } from "@/styles/theme";
-import { DeleteOutlined, SendOutlined, UploadOutlined } from '@ant-design/icons';
-import { Button, Card, Input, message, Radio, RadioChangeEvent, Typography } from "antd";
-import Upload, { RcFile } from "antd/es/upload";
+import { Button, Card, Input, Radio, RadioChangeEvent, Typography } from "antd";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useScopedI18n } from "../../../../../../../locales/client";
 import bankPaymentInfo from "../../api-services/[id]/components/apiServiceSubscriptionDrawer/components/bankPaymentData";
@@ -23,24 +20,6 @@ export default function FundBalanceByBank({ selectedProfile }: { selectedProfile
 
     const dispatch = useAppDispatch();
 
-    const [file, setFile] = useState<RcFile | null>(null);
-
-    const [showUploadSection, setShowUploadSection] = useState(false);
-
-    const { newFundBalanceResponse } = usePaymentProfiles();
-
-
-    const handleUpload = async () => {
-        if (!file) {
-            return;
-        }
-        const formData = new FormData();
-        formData.append('receipt', file);
-        dispatch(uploadPaymentReceipt({
-            'fileData': formData,
-            'paymentId': newFundBalanceResponse?.payment_id,
-        }));
-    }
     const [selectBalance, setSelectBalance] = useState<number | null>(null);
 
     const [customBalance, setCustomBalance] = useState<number>(0);
@@ -56,6 +35,7 @@ export default function FundBalanceByBank({ selectedProfile }: { selectedProfile
         setCustomBalance(val);
 
     };
+    const router = useRouter()
 
     const handleBalanceRecharge = async () => {
         const newFundBalanceObject = {
@@ -63,7 +43,13 @@ export default function FundBalanceByBank({ selectedProfile }: { selectedProfile
             total_amount: selectBalance === 4 ? customBalance : selectBalance,
             profile_id: selectedProfile,
         };
-        dispatch(postFundBalance(newFundBalanceObject));
+        dispatch(postFundBalance(newFundBalanceObject)).then((response: any) => {
+            if (response.meta.requestStatus === "fulfilled") {
+                dispatch(fetchPaymentProfiles());
+                router.push(`/portal/payments/`);
+            }
+        }
+        );
     };
 
     const [bankTransfertInformation, setBankTransfertInformation] = useState<any>(undefined)
@@ -185,7 +171,6 @@ export default function FundBalanceByBank({ selectedProfile }: { selectedProfile
                     </div>
  */}
 
-                    {!showUploadSection ? (
                         <Button
                             style={{
                                 color: '#fff',
@@ -199,98 +184,6 @@ export default function FundBalanceByBank({ selectedProfile }: { selectedProfile
                         >
                             {tPayments('confirm')}
                         </Button>
-                    ) : (
-                        <>
-
-                            {/* <div style={{ display: 'flex', alignItems: 'start', gap: 10 }}> */}
-                            {!showUploadSection ? (
-                                <Button
-                                    style={{
-                                        color: '#fff',
-                                        backgroundColor: theme.token.blue300,
-                                        border: 'none',
-                                        padding: '10px 30px',
-                                        fontWeight: 600,
-                                        fontSize: 16,
-                                    }}
-                                    onClick={handleBalanceRecharge}
-                                >
-                                    {tPayments('confirm')}
-                                </Button>
-                            ) :
-
-
-                                (
-                                    <>
-                                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 10 }}>
-
-                                            <Upload
-                                                beforeUpload={(file) => {
-                                                    if (!file.type.startsWith("image/")) {
-                                                        message.error("Only image files are allowed");
-                                                        return false;
-                                                    }
-                                                    setFile(file);
-                                                    return false; // prevent auto upload
-                                                }}
-                                                showUploadList={false}
-                                                accept="image/*"
-                                            >
-                                                <Button
-                                                    icon={<UploadOutlined />}
-                                                    style={{
-                                                        borderColor: theme.token.orange300,
-                                                        color: theme.token.orange300,
-                                                        backgroundColor: 'transparent',
-                                                    }}
-                                                >
-                                                    {tPayments("uploadReceived")}
-                                                </Button>
-                                            </Upload>
-                                        </div>
-                                        {file && (
-                                            <>
-                                                <div style={{ display: 'flex', alignItems: 'start', gap: 10 }}>
-                                                    <Typography.Text style={{ color: '#ccc', display: 'flex', alignItems: 'start', gap: 6 }}>
-                                                        📎 {file.name}
-                                                    </Typography.Text>
-
-                                                    <Button
-                                                        type="text"
-                                                        danger
-                                                        icon={<DeleteOutlined style={{ color: 'red', fontSize: 16 }} />}
-                                                        onClick={() => setFile(null)}
-                                                    />
-                                                </div>
-
-
-
-                                                <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 10 }}>
-                                                    <Button
-                                                        type="primary"
-                                                        icon={<SendOutlined />}
-                                                        style={{
-                                                            backgroundColor: theme.token.orange300,
-                                                            border: 'none',
-                                                            fontWeight: 600,
-                                                            boxShadow: "none",
-                                                        }}
-                                                        onClick={handleUpload}
-                                                    >
-                                                        {tPayments("confirm")}
-                                                    </Button>
-                                                </div>
-                                            </>
-                                        )}
-                                    </>
-                                )
-                            }
-                            {/* </div> */}
-
-                        </>
-                    )}
-
-
                 </div>
             </Card>
         </>

@@ -94,7 +94,7 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                                         alignSelf: "start"
                                     }}>
                                         <Typography.Title level={2} style={{ color: theme.token.orange400 }}>
-                                            {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(ttkEpayById.total_amount)} DZD
+                                            {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(ttkEpayById.price)} DZD
 
                                         </Typography.Title>
                                     </Col>

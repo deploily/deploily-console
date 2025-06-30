@@ -25,7 +25,7 @@ export default function PaymentDrawer({ openDrawer, onClose }:
     const dispatch = useAppDispatch();
     const { applicationServiceById } = useApplicationServiceById();
     const { paymentProfilesList } = useNotDefaultPaymentProfiles();
-    const { totalAmount, duration, selected_version, app_service_plan, resource_service_plan, selectedProfile, isBalanceSufficient } = useNewApplicationSubscription();
+    const { promoCode,totalAmount, duration, selected_version, app_service_plan, resource_service_plan, selectedProfile, isBalanceSufficient } = useNewApplicationSubscription();
 
 
     const handleSelectPaymentProfile = (value: any) => {
@@ -39,7 +39,7 @@ export default function PaymentDrawer({ openDrawer, onClose }:
         if (app_service_plan != undefined && resource_service_plan != undefined && selectedProfile != undefined) {
             const newSubscriptionObject = {
                 duration: Number.parseInt(`${duration}`),
-                // promo_code: subscriptionStates.promoCode,
+                promo_code: promoCode,
                 payment_method: "cloud_credit",
                 service_plan_selected_id: app_service_plan.id,
                 ressource_service_plan_selected_id: resource_service_plan.id,

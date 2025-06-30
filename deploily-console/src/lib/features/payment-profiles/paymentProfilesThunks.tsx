@@ -132,8 +132,6 @@ export const postFundBalance = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("Response from postFundBalance:", response.status);
-      console.log("Response from postFundBalance:", response.data);
 
       if (response.status === 200) {
         return response.data;
