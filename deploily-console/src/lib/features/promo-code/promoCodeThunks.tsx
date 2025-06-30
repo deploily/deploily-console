@@ -15,16 +15,15 @@ export const checkPromoCode = createAsyncThunk(
       const token = session.accessToken;
 
 
-      const response = await axiosInstance.post(`${deploilyApiUrls.CHECK_PROMO_CODE}`, data, {
+      const response = await axiosInstance.get(`${deploilyApiUrls.CHECK_PROMO_CODE}?promo_code=${encodeURIComponent(data.promo_code)}`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
         },
       });
 
-
       if (response.status === 200) {
-        
+
         return response.data;
       }
       else {

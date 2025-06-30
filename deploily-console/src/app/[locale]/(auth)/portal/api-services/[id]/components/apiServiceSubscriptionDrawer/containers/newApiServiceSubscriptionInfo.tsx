@@ -29,13 +29,16 @@ export default function NewApiServiceSubscriptionInfo({ planSelected }: { planSe
     }
   }, [promoCodeResponse]);
 
-  // Checks the promo code when its length reaches 10
-  useEffect(() => {
-    dispatch({ type: "ApiServiceSubscriptionStates/updateApiServiceSubscriptionStates", payload: { "promoCode": promoCode.promo_code } })
-    if (promoCode.promo_code.length === 10) {
-      dispatch(checkPromoCode(promoCode));
-    }
-  }, [promoCode.promo_code]);
+  // useEffect(() => {
+  //   dispatch({ type: "ApiServiceSubscriptionStates/updateApiServiceSubscriptionStates", payload: { "promoCode": promoCode.promo_code } })
+  //   if (promoCode.promo_code.length === 10) {
+  //     dispatch(checkPromoCode(promoCode));
+  //   }
+  // }, [promoCode.promo_code]);
+
+  const handleSubmitPromoCode =()=>{
+    dispatch(checkPromoCode(promoCode));
+  }
 
   return (
     <>
@@ -97,6 +100,8 @@ export default function NewApiServiceSubscriptionInfo({ planSelected }: { planSe
                   placeholder=".........."
                   value={promoCode.promo_code}
                   onChange={(e) => setPromoCode({ ...promoCode, promo_code: e.target.value })}
+                  onPressEnter={handleSubmitPromoCode}
+                  onBlur={handleSubmitPromoCode}
                   maxLength={10}
                   style={{
                     border: "none",
