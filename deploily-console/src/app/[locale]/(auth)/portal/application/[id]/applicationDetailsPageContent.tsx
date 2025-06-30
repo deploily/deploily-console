@@ -174,7 +174,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                         </Card>
 
                         <div style={{ padding: '8px 0' }}>
-                            <ApplicationDetailsCollapseContainer description={applicationServiceById.description} />
+                            <ApplicationDetailsCollapseContainer description={applicationServiceById.description} specifications={applicationServiceById.specifications} />
                         </div>
                     </Col>
 

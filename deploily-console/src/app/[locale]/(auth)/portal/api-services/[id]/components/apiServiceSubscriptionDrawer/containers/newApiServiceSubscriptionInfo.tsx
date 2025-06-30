@@ -5,7 +5,7 @@ import { usePromoCode } from "@/lib/features/promo-code/promoCodeSelectors";
 import { checkPromoCode } from "@/lib/features/promo-code/promoCodeThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
-import { Card, Col, ConfigProvider, Form, Input, Row, Select, Space, Typography } from "antd";
+import { Card, Col, ConfigProvider, Input, Row, Select, Space, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { useScopedI18n } from "../../../../../../../../../../locales/client";
 import { options } from "../../../../utils/apiServicesConst";
@@ -101,11 +101,6 @@ export default function NewApiServiceSubscriptionInfo({ planSelected }: { planSe
             <Row gutter={16} align="top" >
               <Col span={14} >  <Typography.Text strong >{translate("promoCode")}</Typography.Text></Col>
               <Col span={10} >
-                <Form.Item
-                  validateStatus={promoCodeLoadingError && promoCode.trim() !== "" ? "error" : ""}
-                  help={promoCodeLoadingError && promoCode.trim() !== "" ? "Invalid promo code " : ""}
-                  style={{ marginBottom: 0 }} // optional: reduce spacing
-                >
                   <Input
                     placeholder={translate('promoCodePlaceHolder')}
                     value={promoCode}
@@ -119,8 +114,6 @@ export default function NewApiServiceSubscriptionInfo({ planSelected }: { planSe
                     }}
 
                   />
-
-                </Form.Item>
               </Col>
             </Row>
             <Row gutter={16} align="top" >

@@ -1,4 +1,5 @@
 'use client';
+import { useNewApplicationSubscription } from '@/lib/features/application/applicationServiceSelectors';
 import { updateNewAppSubscriptionState } from '@/lib/features/application/applicationServiceSlice';
 import { useServicePlan } from '@/lib/features/service-plans/servicePlanSelector';
 import { useAppDispatch } from '@/lib/hook';
@@ -10,6 +11,7 @@ export default function ApplicationPlansContainer() {
     //TODO : ADD TRANSLATION
     const dispatch = useAppDispatch();
     const { servicePlanResponse } = useServicePlan()
+    const { app_service_plan } = useNewApplicationSubscription()
 
 
     return (
@@ -24,26 +26,25 @@ export default function ApplicationPlansContainer() {
                         }}
                         span={Math.floor(24 / servicePlanResponse.result.length)}
                         key={plan.id.toString()}
-                        // style={{ maxWidth: '280px' }}
+                    // style={{ maxWidth: '280px' }}
                     >
                         <div style={{ width: "100%", display: "flex", justifyContent: "center", maxWidth: 350, }}>
 
-                        <PlanCard
-                            id={plan.id}
-                            price={plan.price}
-                            styles={{
-                                color: theme.token.orange600,
-                                boxShadow :`1px 1px 1px 1px ${theme.token.orange600}`
-                            }}
-                            options={
-                                plan.options.map(opt => ({
-                                    id: opt.id,
-                                    icon: opt.icon,
-                                    html_content: opt.html_content
-                                }))
-                            }
-                            title={plan.plan.name}
-                            onClick={() => dispatch(updateNewAppSubscriptionState({ app_service_plan: plan }))}
+                            <PlanCard
+                                id={plan.id}
+                                price={plan.price}
+                                styles={{
+                                    color: app_service_plan != undefined && app_service_plan.id == plan.id ? theme.token.orange600 : undefined,
+                                }}
+                                options={
+                                    plan.options.map(opt => ({
+                                        id: opt.id,
+                                        icon: opt.icon,
+                                        html_content: opt.html_content
+                                    }))
+                                }
+                                title={plan.plan.name}
+                                onClick={() => dispatch(updateNewAppSubscriptionState({ app_service_plan: plan }))}
                             />
                         </div>
                     </Col>
