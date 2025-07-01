@@ -102,11 +102,11 @@ export default function PaymentDrawer({ openDrawer, onClose }:
                             },
                             resourceType: {
                                 label: tApplications("vpsType"),
-                                value: `${resource_service_plan?.service != undefined ? resource_service_plan?.service.name : ""}`
+                                value: `${resource_service_plan?.service_name ??  ""}`
                             },
                             resourcePlanOptions: {
                                 label: tApplications('resourcePlan'),
-                                value: `${resource_service_plan?.plan != undefined ? resource_service_plan?.plan.name : ""}`
+                                value: `${resource_service_plan?.plan_name ??  ""}`
                             },
                             totalAmount: {
                                 label: tApplications('total'),

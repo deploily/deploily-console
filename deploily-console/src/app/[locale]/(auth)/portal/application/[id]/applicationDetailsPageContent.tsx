@@ -57,8 +57,6 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
     }, []);
 
 
-
-
     if (isLoading) return <Skeleton active />;
     if (loadingError) return <div>Error: {loadingError}</div>;
     if (!applicationServiceById) return <div>No application found</div>;
@@ -225,8 +223,8 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                         ),
                                     },
                                     { label: tApplications('provider'), value: resource_service_plan?.provider_info?.name || "" },
-                                    { label: tApplications("vpsType"), value: resource_service_plan?.service?.name || "" },
-                                    { label: tApplications('resourcePlan'), value: resource_service_plan?.plan?.name || "" },
+                                    { label: tApplications("vpsType"), value: resource_service_plan?.service_name || "" },
+                                    { label: tApplications('resourcePlan'), value: resource_service_plan?.plan_name || "" },
                                 ]}
                                 onClick={() => setOpenDrawer(true)}
                             />

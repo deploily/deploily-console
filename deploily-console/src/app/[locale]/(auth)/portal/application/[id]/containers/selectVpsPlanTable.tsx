@@ -1,13 +1,13 @@
 'use client';
 import { useNewApplicationSubscription } from '@/lib/features/application/applicationServiceSelectors';
-import {  updateSelectedPlan } from '@/lib/features/resourceServicePlans/resourceServicesPlansSlice';
+import { useServicePlansByType } from '@/lib/features/resourceServicePlans/resourceServicesPlansSelectors';
+import { updateSelectedPlan } from '@/lib/features/resourceServicePlans/resourceServicesPlansSlice';
+import { fetchResourceServicesPlans } from '@/lib/features/resourceServicePlans/resourceServicesPlansThunk';
 import { useAppDispatch } from '@/lib/hook';
 import { Typography } from 'antd';
 import { TableComponentWithSelection } from 'deploily-ui-components';
 import { useEffect } from 'react';
 import { useScopedI18n } from '../../../../../../../../locales/client';
-import { fetchResourceServicesPlans } from '@/lib/features/resourceServicePlans/resourceServicesPlansThunk';
-import { useServicePlansByType } from '@/lib/features/resourceServicePlans/resourceServicesPlansSelectors';
 
 export default function SelectVpsPlanTable() {
   const dispatch = useAppDispatch();
@@ -18,7 +18,7 @@ export default function SelectVpsPlanTable() {
 
   useEffect(() => {
     dispatch(fetchResourceServicesPlans());
-  },[]);
+  }, []);
 
 
   const handlePlanChange = (selectedPlan: any) => {
