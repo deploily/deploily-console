@@ -33,7 +33,7 @@ export interface ApplicationServiceInterface {//TODO RECHECK THIS INTERFACE TO C
     ssh_access: string;
     type: string;
     unit_price: number;
-    min_apps_price: number;
+    min_app_price: number;
     app_versions: AppVersionInterface[];
 }
 

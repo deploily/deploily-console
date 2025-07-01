@@ -6,6 +6,11 @@ interface ServicePlansState {
     servicePlansIsloading: boolean,
     servicePlansList?: ServicePlanResponse,
     servicePlansloadingError: boolean,
+    pagination: {
+        current: number,
+        pageSize: number,
+        total: number
+    }
 }
 interface ResourceServicesPlansState {
     servicePlansState: ServicePlansState,
@@ -16,7 +21,12 @@ const initialState: ResourceServicesPlansState = {
     servicePlansState: {
         servicePlansIsloading: false,
         servicePlansloadingError: false,
-        servicePlansList: undefined
+        servicePlansList: undefined,
+        pagination: {
+            current: 1,
+            pageSize: 10,
+            total: 0
+        }
     },
     selectedPlan: undefined,
 };
@@ -26,6 +36,10 @@ const ResourceServicesPlansSlice = createSlice({
     reducers: {
         updateSelectedPlan: (state, action) => {
             state.selectedPlan = action.payload;
+        },
+        updatePaginationParams: (state, action) => {
+            state.servicePlansState.pagination.pageSize = action.payload.pageSize;
+            state.servicePlansState.pagination.current = action.payload.current;
         },
     },
 
@@ -42,6 +56,7 @@ const ResourceServicesPlansSlice = createSlice({
                 );
                 const payload = Object.assign({}, action.payload, { result: result });
                 state.servicePlansState.servicePlansList = payload;
+                state.servicePlansState.pagination.total = state.servicePlansState.servicePlansList?.count ?? 0;
             })
             .addCase(fetchServicePlansByType.rejected, (state) => {
                 state.servicePlansState.servicePlansIsloading = false;
@@ -50,6 +65,6 @@ const ResourceServicesPlansSlice = createSlice({
     },
 });
 
-export const { updateSelectedPlan } = ResourceServicesPlansSlice.actions;
+export const { updateSelectedPlan, updatePaginationParams } = ResourceServicesPlansSlice.actions;
 
 export default ResourceServicesPlansSlice.reducer;
