@@ -1,6 +1,5 @@
 'use client';
 import { useNewApplicationSubscription } from '@/lib/features/application/applicationServiceSelectors';
-import { useServicePlansByType } from '@/lib/features/resourceServicePlans/resourceServicesPlansSelectors';
 import {  updateSelectedPlan } from '@/lib/features/resourceServicePlans/resourceServicesPlansSlice';
 import { useAppDispatch } from '@/lib/hook';
 import { Typography } from 'antd';
@@ -8,13 +7,13 @@ import { TableComponentWithSelection } from 'deploily-ui-components';
 import { useEffect } from 'react';
 import { useScopedI18n } from '../../../../../../../../locales/client';
 import { fetchResourceServicesPlans } from '@/lib/features/resourceServicePlans/resourceServicesPlansThunk';
+import { useServicePlansByType } from '@/lib/features/resourceServicePlans/resourceServicesPlansSelectors';
 
 export default function SelectVpsPlanTable() {
   const dispatch = useAppDispatch();
   const tApplications = useScopedI18n('applications')
 
   const { servicePlansList } = useServicePlansByType()
-
   const { resource_service_plan } = useNewApplicationSubscription()
 
   useEffect(() => {
@@ -34,7 +33,7 @@ export default function SelectVpsPlanTable() {
           onChange={handlePlanChange}
           data={
             servicePlansList?.result ? servicePlansList?.result.map((plan) => {
-              if (plan.provider_info !== undefined && plan.service != undefined) {
+              if (plan.provider_info !== undefined) {
                 return {
                   key: plan.id,
                   resource: plan,
@@ -53,7 +52,7 @@ export default function SelectVpsPlanTable() {
                 <a href={plan.provider_info?.website}>
                   {`${plan.provider_info?.name}`}
                 </a>
-                {`/ ${plan.plan.name}`}
+                {`/ ${plan.plan_name}`}
               </div> : undefined,
             },
 
