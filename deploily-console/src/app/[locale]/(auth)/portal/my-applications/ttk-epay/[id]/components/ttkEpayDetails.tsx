@@ -10,14 +10,14 @@ import { CustomSubscripionInput } from "@/styles/components/inputStyle";
 import { CustomTypography } from "@/styles/components/typographyStyle";
 import { theme } from "@/styles/theme";
 import { CalendarDots, Circle, Copy } from "@phosphor-icons/react";
-import { Alert, Badge, Button, Col, Result, Row, Skeleton, Space, Spin, Tag, Typography } from "antd";
+import { Alert, Badge, Button, Col, Input, Result, Row, Skeleton, Space, Spin, Tag, Typography } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../../../locales/client";
+import { applicationStatusStyle } from "../../../../my-api/utils/subscriptionsConst";
 import DocumentationDrawer from "../../../../utils/documentationDrawer";
 import TtkEpayParams from "./ttkEpayParams";
-import { applicationStatusStyle } from "../../../../my-api/utils/subscriptionsConst";
 
 
 
@@ -232,16 +232,18 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                         <Typography.Title level={4} style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange600 }}>
                             {tSubscription("accessUrl")}
                         </Typography.Title>
-                        <Row>
-                            <Col span={20} style={{ display: "flex", justifyContent: "start" }} >
-                                <CustomTypography> {ttkEpayById.access_url} </CustomTypography>
-                            </Col>
-                            <Col span={4} style={{ display: "flex", alignItems: "start", justifyContent: "end" }} >
-                                <Button type="primary" style={{ boxShadow: "none" }} icon={<Copy />} onClick={() => handleCopy(ttkEpayById.service_details.ssh_access)} />
-                            </Col>
-                        </Row>
-
-
+                            <div style={{ flexDirection: "row", display: "flex", justifyContent: "space-between", width: "100%", padding: '10px',paddingBottom:"15px" }}>
+                                <Input value={ttkEpayById.access_url}
+                                    readOnly
+                                    style={{
+                                        cursor: 'default',
+                                        userSelect: 'text',
+                                        caretColor: 'transparent',
+                                        width: "fit",
+                                        marginRight: "5px"
+                                    }} />
+                                <Button type="primary" style={{ boxShadow: "none" }} icon={<Copy />} onClick={() => handleCopy(ttkEpayById.access_url)} />
+                            </div>
                         {ttkEpayById.application_status == "error" &&
                             <div style={{ marginBlock: 20 }} >
                                 <Alert

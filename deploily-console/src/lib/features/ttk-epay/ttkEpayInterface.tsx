@@ -83,7 +83,6 @@ interface ServiceDetails {
   service_slug: string;
   short_description: string;
   specifications: string;
-  ssh_access: string;
   type: string;
   unit_price: number;
   is_illigible: boolean;
