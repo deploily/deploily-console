@@ -1,24 +1,24 @@
 "use client";
-import { ApiServiceInterface } from "@/lib/features/api-service/apiServiceInterface";
-import { postFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
-import { useAppDispatch } from "@/lib/hook";
+import {ApiServiceInterface} from "@/lib/features/api-service/apiServiceInterface";
+import {postFavoriteService} from "@/lib/features/favorites/favoriteServiceThunks";
+import {useAppDispatch} from "@/lib/hook";
 import ImageFetcher from "@/lib/utils/imageFetcher";
-import { theme } from "@/styles/theme";
-import { ArrowRight, HeartStraight } from "@phosphor-icons/react";
-import { Badge, Button, Card, Col, Row, Space } from "antd";
+import {theme} from "@/styles/theme";
+import {ArrowRight, HeartStraight} from "@phosphor-icons/react";
+import {Badge, Button, Card, Col, Row, Space, Tag} from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useI18n } from "../../../../../../../locales/client";
+import {useRouter} from "next/navigation";
+import {useState} from "react";
+import {useI18n} from "../../../../../../../locales/client";
 
-export default function ApiServiceCard({ service }: { service: ApiServiceInterface }) {
+export default function ApiServiceCard({service}: {service: ApiServiceInterface}) {
   const t = useI18n();
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [hovered, setHovered] = useState(false);
 
   const handleFavoriteService = (service_id: number) => {
-    dispatch(postFavoriteService({ service_id }));
+    dispatch(postFavoriteService({service_id}));
   };
 
   return (
@@ -29,12 +29,12 @@ export default function ApiServiceCard({ service }: { service: ApiServiceInterfa
         maxWidth: 270,
         height: 350,
       }}
-      bodyStyle={{ padding: 16, height: "100%" }}
+      bodyStyle={{padding: 16, height: "100%"}}
       onClick={() => router.push(`/portal/api-services/${service.id}`)}
     >
-      <div style={{ height: "100%" }}>
-        <Row align="middle" gutter={16} style={{ height: "40%" }}>
-          <Col span={12} style={{ height: "100%" }}>
+      <div style={{height: "100%"}}>
+        <Row align="middle" gutter={16} style={{height: "40%"}}>
+          <Col span={12} style={{height: "100%"}}>
             <Badge
               count={
                 <Button
@@ -63,11 +63,7 @@ export default function ApiServiceCard({ service }: { service: ApiServiceInterfa
               }
               offset={[-12, 12]}
             >
-              <ImageFetcher
-                imagePath={service.image_service}
-                width={100}
-                height={100}
-              />
+              <ImageFetcher imagePath={service.image_service} width={100} height={100} />
             </Badge>
           </Col>
           <Col
@@ -80,24 +76,42 @@ export default function ApiServiceCard({ service }: { service: ApiServiceInterfa
               display: "flex",
             }}
           >
-            <Paragraph style={{ color: "#DD8859", fontSize: 16, margin: 0 }}>
-              {Intl.NumberFormat("fr-FR", {
-                useGrouping: true,
-              }).format(service.unit_price)}{" "}
-              DZD
-            </Paragraph>
+            <Row>
+              <Col span={24}>
+                <Paragraph style={{color: "#DD8859", fontSize: 16, margin: 0}}>
+                  {Intl.NumberFormat("fr-FR", {
+                    useGrouping: true,
+                  }).format(service.unit_price)}{" "}
+                  DZD
+                </Paragraph>
+              </Col>
+              <Col span={24}>
+                {service.is_subscribed && (
+                  <Tag
+                    color="green"
+                    style={{
+                      height: "fit-content",
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                      borderRadius: 20,
+                      padding: "2px 10px",
+                      textTransform: "capitalize",
+                    }}
+                  >
+                    {t("subscribed")}
+                  </Tag>
+                )}
+              </Col>
+            </Row>
           </Col>
         </Row>
 
-        <Row style={{ height: "40%" }}>
+        <Row style={{height: "40%"}}>
           <Col span={24}>
-            <Paragraph
-              ellipsis={{ rows: 2 }}
-              style={{ fontSize: 20, marginBottom: 0 }}
-            >
+            <Paragraph ellipsis={{rows: 2}} style={{fontSize: 20, marginBottom: 0}}>
               {service.name}
             </Paragraph>
-            <Paragraph ellipsis={{ rows: 3 }} style={{ margin: 0 }}>
+            <Paragraph ellipsis={{rows: 3}} style={{margin: 0}}>
               {service.short_description}
             </Paragraph>
           </Col>
@@ -129,9 +143,7 @@ export default function ApiServiceCard({ service }: { service: ApiServiceInterfa
           >
             <span
               style={{
-                color: hovered
-                  ? theme.token.colorPrimary
-                  : theme.token.gray200,
+                color: hovered ? theme.token.colorPrimary : theme.token.gray200,
                 fontSize: "16px",
                 fontWeight: 600,
                 paddingRight: 3,
@@ -143,9 +155,7 @@ export default function ApiServiceCard({ service }: { service: ApiServiceInterfa
             <ArrowRight
               size={20}
               style={{
-                color: hovered
-                  ? theme.token.colorPrimary
-                  : theme.token.gray200,
+                color: hovered ? theme.token.colorPrimary : theme.token.gray200,
                 transition: "color 0.3s ease",
               }}
             />
