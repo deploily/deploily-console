@@ -19,6 +19,7 @@ import { fetchApiServiceSubscriptionById } from "@/lib/features/api-service-subs
 import { subscriptionItems } from "./subscriptionItems";
 import DocumentationDrawer from "../../../utils/documentationDrawer";
 import { subscriptionStatusStyle } from "../../utils/subscriptionsConst";
+import UpgradeApiSubscriptionComponents from "./upgradeSubscription";
 
 export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscription_id }: { apiServiceSubscription_id: string }) {
     const t = useI18n();
@@ -115,9 +116,18 @@ export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscri
                         width: "100%",
                     }}>
                         {currentApiServiceSubscription.service_details && <Typography.Title level={2}>{currentApiServiceSubscription.service_details.name}</Typography.Title>}
-                        <Tag bordered={false} color={subscriptionStatusStyle(currentApiServiceSubscription.status)} style={{ height: 'fit-content', fontSize: '14px', fontWeight: "bold", borderRadius: 20, padding: "5px 20px", textTransform: "capitalize" }}>
+                    {/* Button Upgrade */}
+                    <Col xs={24} md={12} lg={8}>
+                        <Row gutter={[16, 10]} justify= "end" >
+                    <Tag bordered={false} color={subscriptionStatusStyle(currentApiServiceSubscription.status)} style={{ height: 'fit-content', fontSize: '14px', fontWeight: "bold", borderRadius: 20, padding: "5px 20px", textTransform: "capitalize" }}>
                         {tApiServiceSubscription(currentApiServiceSubscription.status as "active" | "inactive")}
-                        </Tag>
+                            </Tag>
+                            <UpgradeApiSubscriptionComponents serviceId={currentApiServiceSubscription.service_details.id}
+                            />
+                        </Row>
+                    </Col>
+                    
+
                     </Row>
 
                     {currentApiServiceSubscription.service_details && <Row gutter={16} style={{ marginTop: 0 }} >
@@ -211,7 +221,8 @@ export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscri
                                     />
                                 </Col>
                             </Row>
-                        </Col>
+                    </Col>
+                  
                     </Row>
 
 
@@ -256,6 +267,8 @@ export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscri
                     title={t('error')}
                     subTitle={t('subTitleError')}
                 />}
+            
+            
         </Space>
     )
 }

@@ -189,7 +189,8 @@ export default {
   'subscription.processing': 'Traitement',
   'subscription.deployed': 'Déployé',
   'subscription.error': 'Erreur',
-
+  'subscription.upgrade': 'Mise à niveau',
+  
   'ttkEpay.client_site_name': 'Nom du site client',
   'ttkEpay.client_site_address': 'Adresse du site client',
   'ttkEpay.client_site_email': 'E-mail du site client',

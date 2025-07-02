@@ -20,16 +20,14 @@ export default function ServicePlanCard({
   return (
     <Card
       style={{
-        display: "flex",
-        flexDirection: "column",
         height: "100%",
         width: "100%",
-        borderColor: theme.token.gray50,
-        boxShadow: "none",
-        minWidth: 250,
         maxWidth: 300,
-       
-      }}
+        minWidth: 200,
+        margin: "0 auto",
+        display: "flex",
+        flexDirection: "column",
+    }}
       styles={{
         body: {flex: 1, display: "flex", flexDirection: "column", paddingBottom: 0},
       }}
