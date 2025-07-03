@@ -20,6 +20,7 @@ import { subscriptionItems } from "./subscriptionItems";
 import DocumentationDrawer from "../../../utils/documentationDrawer";
 import { subscriptionStatusStyle } from "../../utils/subscriptionsConst";
 import UpgradeApiSubscriptionComponents from "./upgradeSubscription";
+import ShowdrawerSubscription from "./showDrawerSubscription";
 
 export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscription_id }: { apiServiceSubscription_id: string }) {
     const t = useI18n();
@@ -116,20 +117,21 @@ export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscri
                         width: "100%",
                     }}>
                         {currentApiServiceSubscription.service_details && <Typography.Title level={2}>{currentApiServiceSubscription.service_details.name}</Typography.Title>}
-                    {/* Button Upgrade */}
-                    <Col xs={24} md={12} lg={8}>
-                        <Row gutter={[16, 10]} justify= "end" >
-                    <Tag bordered={false} color={subscriptionStatusStyle(currentApiServiceSubscription.status)} style={{ height: 'fit-content', fontSize: '14px', fontWeight: "bold", borderRadius: 20, padding: "5px 20px", textTransform: "capitalize" }}>
-                        {tApiServiceSubscription(currentApiServiceSubscription.status as "active" | "inactive")}
-                            </Tag>
+                        {/* Button Upgrade */}
+                        <Col xs={24} md={12} lg={8}>
+                            <Row gutter={[16, 10]} justify="end" >
+                                <Tag bordered={false} color={subscriptionStatusStyle(currentApiServiceSubscription.status)} style={{ height: 'fit-content', fontSize: '14px', fontWeight: "bold", borderRadius: 20, padding: "5px 20px", textTransform: "capitalize" }}>
+                                    {tApiServiceSubscription(currentApiServiceSubscription.status as "active" | "inactive")}
+                                </Tag>
                             <UpgradeApiSubscriptionComponents serviceId={currentApiServiceSubscription.service_details.id}
-                            />
-                        </Row>
-                    </Col>
-                    
+                                planSelectedId={currentApiServiceSubscription.service_plan_id} 
+                                />
+                            </Row>
+                        </Col>
+
 
                     </Row>
-
+                <ShowdrawerSubscription IsSubscribed={currentApiServiceSubscription.service_details.is_subscribed} subscriptionOldId={currentApiServiceSubscription.id} />
                     {currentApiServiceSubscription.service_details && <Row gutter={16} style={{ marginTop: 0 }} >
                         <Paragraph style={{ fontSize: 14 }} >
                             {currentApiServiceSubscription.service_details.short_description}
@@ -221,8 +223,8 @@ export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscri
                                     />
                                 </Col>
                             </Row>
-                    </Col>
-                  
+                        </Col>
+
                     </Row>
 
 
@@ -258,7 +260,7 @@ export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscri
                             </Typography.Title >
                         </Row>
                     }
-                <DocumentationDrawer openDrawer={openDrawer} onClose={onClose} currentSubscription={currentApiServiceSubscription} t={t} />
+                    <DocumentationDrawer openDrawer={openDrawer} onClose={onClose} currentSubscription={currentApiServiceSubscription} t={t} />
                 </>
             }
             {!currentApiServiceSubscriptionLoading && currentApiServiceSubscriptionLoadingError &&
@@ -267,8 +269,8 @@ export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscri
                     title={t('error')}
                     subTitle={t('subTitleError')}
                 />}
-            
-            
+
+
         </Space>
     )
 }

@@ -2,16 +2,17 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { PaymentProfileInterface } from "../payment-profiles/paymentProfilesInterface";
 
 interface ApiServiceSubscriptionStates {
-  promoCode: string,
-  duration: number,
-  isBalanceSufficient: boolean | null,
-  totalAmount: number,
-  promoCodeRate?: number,
-  promoColor?: string,
-  price: number,
-  selectedProfile?: PaymentProfileInterface
+  promoCode: string;
+  duration: number;
+  isBalanceSufficient: boolean | null;
+  totalAmount: number;
+  promoCodeRate?: number;
+  promoColor?: string;
+  price: number;
+  selectedProfile?: PaymentProfileInterface;
+  openDrawer: boolean;
+  selectedPlan: any; // <- should not be `null` as default; needs a type
 }
-
 const initialState: ApiServiceSubscriptionStates = {
   promoCode: "",
   isBalanceSufficient: null,
@@ -21,7 +22,10 @@ const initialState: ApiServiceSubscriptionStates = {
   duration: 1,
   price: 0,
   selectedProfile: undefined,
+  openDrawer: false,
+  selectedPlan: null,
 };
+
 
 const apiServiceSubscriptionStatesSlice = createSlice({
   name: "ApiServiceSubscriptionStates",
@@ -44,7 +48,7 @@ const apiServiceSubscriptionStatesSlice = createSlice({
         }
       }
       console.log(updatedState);
-      
+
       return updatedState;
     },
     updateSelectedProfile: (state, action) => {
@@ -56,10 +60,20 @@ const apiServiceSubscriptionStatesSlice = createSlice({
           state.isBalanceSufficient = false;
         }
       }
-    }
+    },
+    openDrawer: (state, action) => {
+      state.openDrawer = true;
+      state.selectedPlan = action.payload;
+    },
+    closeDrawer: (state) => {
+      state.openDrawer = false;
+      state.selectedPlan = null;
+    },
+  
+
   },
 });
 
-export const { updateApiServiceSubscriptionStates } = apiServiceSubscriptionStatesSlice.actions;
+export const { updateApiServiceSubscriptionStates, openDrawer, closeDrawer } = apiServiceSubscriptionStatesSlice.actions;
 
 export default apiServiceSubscriptionStatesSlice.reducer;

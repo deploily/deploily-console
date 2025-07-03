@@ -1,0 +1,20 @@
+"use client";
+import { useAppDispatch, useAppSelector } from "@/lib/hook";
+import ApiServiceSubscriptionDrawer from "../../../api-services/[id]/components/apiServiceSubscriptionDrawer/apiServiceSubscriptionDrawer";
+import { useApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSelectors";
+import { closeDrawer } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSlice";
+
+export default function ShowdrawerSubscription({ IsSubscribed, subscriptionOldId }: { IsSubscribed?: boolean , subscriptionOldId?: number }) {
+    const dispatch = useAppDispatch();
+    const { openDrawer: isDrawerOpen, selectedPlan } = useApiServiceSubscriptionStates();
+
+    return (
+        <ApiServiceSubscriptionDrawer
+            openDrawer={isDrawerOpen}
+            onClose={() => dispatch(closeDrawer())}
+            planSelected={selectedPlan}
+            IsSubscribed={IsSubscribed} 
+            subscriptionOldId={subscriptionOldId}
+        />
+    );
+}
