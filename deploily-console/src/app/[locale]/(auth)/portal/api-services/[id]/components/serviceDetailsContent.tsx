@@ -247,7 +247,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
                 </div>
               }
             </Row>
-          <ApiServiceSubscriptionDrawer openDrawer={openDrawer} onClose={onClose} planSelected={planSelected} />
+          <ApiServiceSubscriptionDrawer openDrawer={openDrawer} onClose={onClose} planSelected={planSelected} subscriptionOldId={serviceId} IsSubscribed={currentService.is_subscribed} />
           </>
         }
 

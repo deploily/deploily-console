@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ApiServiceSubscriptionInterface, ApiServiceSubscriptionsResponse, NewApiServiceSubscriptionResponse } from "./apiServiceSubscriptionInterface";
-import { fetchApiServiceSubscription, fetchApiServiceSubscriptionById, generateTokenThunk, postApiServiceSubscription } from "./apiServiceSubscriptionThunks";
+import { ApiServiceSubscriptionInterface, ApiServiceSubscriptionsResponse, NewApiServiceSubscriptionResponse, NewUpgradeApiSubscription } from "./apiServiceSubscriptionInterface";
+import { fetchApiServiceSubscription, fetchApiServiceSubscriptionById, generateTokenThunk, postApiServiceSubscription, postUpgradeApiServiceSubscription } from "./apiServiceSubscriptionThunks";
 
 interface ApiServiceSubscriptionState {
   apiServiceSubscriptionResponse?: ApiServiceSubscriptionsResponse;
@@ -16,6 +16,7 @@ interface ApiServiceSubscriptionState {
   isApiServiceSubscriptionCreatedSuccess: boolean;
   isApiServiceSubscriptionCreatedFailed: boolean;
   newApiServiceSubscriptionResponse?: NewApiServiceSubscriptionResponse;
+  newUpgradeApiSubscriptionResponse: NewUpgradeApiSubscription;
 }
 
 const initialState: ApiServiceSubscriptionState = {
@@ -32,6 +33,12 @@ const initialState: ApiServiceSubscriptionState = {
   isApiServiceSubscriptionCreatedSuccess: false,
   isApiServiceSubscriptionCreatedFailed: false,
   newApiServiceSubscriptionResponse: undefined,
+
+  newUpgradeApiSubscriptionResponse: {
+    newUpgradeApiSubscriptionIsLoading: false,
+    newpgradeApiSubscriptionFailed: false,
+    upgradeApiSubscriptionCreatedSuccess: undefined
+  },
 };
 const apiServiceSubscriptionSlice = createSlice({
   name: "apiServiceSubscription",
@@ -104,6 +111,22 @@ const apiServiceSubscriptionSlice = createSlice({
         state.isApiServiceSubscriptionCreatedSuccess = true;
         state.newApiServiceSubscriptionResponse = payload;
         state.isApiServiceSubscriptionCreatedFailed = false;
+      })
+      .addCase(postUpgradeApiServiceSubscription.pending, (state) => {
+        state.newUpgradeApiSubscriptionResponse.newUpgradeApiSubscriptionIsLoading = true;
+        state.newUpgradeApiSubscriptionResponse.upgradeApiSubscriptionCreatedSuccess = undefined;
+        state.newUpgradeApiSubscriptionResponse.newpgradeApiSubscriptionFailed = false;
+
+      })
+      .addCase(postUpgradeApiServiceSubscription.rejected, (state) => {
+        state.newUpgradeApiSubscriptionResponse.newUpgradeApiSubscriptionIsLoading = false;
+        state.newUpgradeApiSubscriptionResponse.newpgradeApiSubscriptionFailed = true;
+        state.newUpgradeApiSubscriptionResponse.upgradeApiSubscriptionCreatedSuccess = undefined;
+      })
+      .addCase(postUpgradeApiServiceSubscription.fulfilled, (state, { payload }) => {
+        state.newUpgradeApiSubscriptionResponse.newUpgradeApiSubscriptionIsLoading = false;
+        state.newUpgradeApiSubscriptionResponse.upgradeApiSubscriptionCreatedSuccess = payload;
+        state.newUpgradeApiSubscriptionResponse.newpgradeApiSubscriptionFailed = false;
       });
   },
 });

@@ -45,7 +45,7 @@ export interface ServiceDetails {
   specifications: string;
   curl_command: string;
   api_key: string;
-
+  is_subscribed: boolean;
 }
 export interface ServicePlan {
   id: number;
@@ -54,3 +54,8 @@ export interface ServicePlan {
 }
 
 
+export interface NewUpgradeApiSubscription {
+  newUpgradeApiSubscriptionIsLoading: boolean,
+  newpgradeApiSubscriptionFailed: boolean,
+  upgradeApiSubscriptionCreatedSuccess?: ApiServiceSubscriptionsResponse
+}

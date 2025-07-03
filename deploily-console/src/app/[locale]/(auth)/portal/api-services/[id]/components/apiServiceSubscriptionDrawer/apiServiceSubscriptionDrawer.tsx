@@ -8,7 +8,8 @@ import SelectProfileComponent from "./containers/selectProfileComponent";
 import { useApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSelectors";
 import NewApiServiceSubscriptionInfo from "./containers/newApiServiceSubscriptionInfo";
 
-export default function ApiServiceSubscriptionDrawer({ openDrawer, onClose, planSelected }: { openDrawer: any, onClose: any, planSelected: any }) {
+export default function ApiServiceSubscriptionDrawer({ openDrawer, onClose, planSelected, IsSubscribed, subscriptionOldId }:
+  { openDrawer: any, onClose: any, planSelected: any, IsSubscribed: any, subscriptionOldId: any }) {
   const { isBalanceSufficient, selectedProfile } = useApiServiceSubscriptionStates()
   return (
     <>
@@ -29,7 +30,7 @@ export default function ApiServiceSubscriptionDrawer({ openDrawer, onClose, plan
           <SelectProfileComponent/>
           {selectedProfile !== undefined && <div style={{ padding: '5px 0px' }}>
             {isBalanceSufficient === true ?
-              (<IsBalanceSufficientComponent onClose={onClose} planSelected={planSelected} />)
+              (<IsBalanceSufficientComponent onClose={onClose} planSelected={planSelected} IsSubscribed={IsSubscribed} subscriptionOldId={subscriptionOldId} />)
               : selectedProfile?.is_default_profile === true ?
                 <CreateProfileButton planSelected={planSelected} openDrawer={openDrawer} onClose={onClose} />
                 :
