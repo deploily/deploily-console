@@ -1,5 +1,5 @@
 import { useApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSelectors";
-import { postApiServiceSubscription } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionThunks";
+import { postApiServiceSubscription, postUpgradeApiServiceSubscription } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionThunks";
 import { fetchPaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
@@ -7,31 +7,46 @@ import { Button, Typography } from "antd";
 import { useRouter } from "next/navigation";
 import { useScopedI18n } from "../../../../../../../../../../locales/client";
 
-export default function IsBalanceSufficientComponent({ onClose, planSelected }: { onClose: any, planSelected: any }) {
+export default function IsBalanceSufficientComponent({ onClose, planSelected, IsSubscribed, subscriptionOldId }:
+    { onClose: any, planSelected: any, IsSubscribed: any, subscriptionOldId: any }) {
     const { selectedProfile, duration, totalAmount, promoCode } = useApiServiceSubscriptionStates()
     const translate = useScopedI18n('apiServiceSubscription');
     const dispatch = useAppDispatch();
     const router = useRouter()
+    console.log("IsSubscribed", IsSubscribed);
+    
     const handleApiServiceSubscription = async () => {
         const newApiServiceSubscriptionObject = {
-            duration: duration,
+            duration,
             total_amount: totalAmount,
             promo_code: promoCode,
             payment_method: "cloud_credit",
             service_plan_selected_id: planSelected.id,
-            profile_id: selectedProfile != null ? selectedProfile.id : 1
+            profile_id: selectedProfile?.id || 1,
         };
 
-        dispatch(postApiServiceSubscription(newApiServiceSubscriptionObject)).then((response: any) => {
-            if (response.meta.requestStatus === "fulfilled") {
-                dispatch(fetchPaymentProfiles());
-                router.push(`/portal/my-api/`);
-                //TODO replace with my api service
+        const newUpgradeApiServiceSubscriptionObject = {
+            ...newApiServiceSubscriptionObject,
+            old_subscription_id: subscriptionOldId,
+        };
 
-            }
+        if (IsSubscribed) {
+            dispatch(postApiServiceSubscription(newApiServiceSubscriptionObject)).then((response: any) => {
+                if (response.meta.requestStatus === "fulfilled") {
+                    dispatch(fetchPaymentProfiles());
+                    router.push(`/portal/my-api/`);
+                }
+            });
+        } else {
+            dispatch(postUpgradeApiServiceSubscription(newUpgradeApiServiceSubscriptionObject)).then((response: any) => {
+                if (response.meta.requestStatus === "fulfilled") {
+                    dispatch(fetchPaymentProfiles());
+                    router.push(`/portal/my-api/`);
+                }
+            });
         }
-        );;
     };
+    
 
     return (
         <><Typography.Text style={{
