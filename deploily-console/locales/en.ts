@@ -185,9 +185,10 @@ export default {
     'subscription.processing': 'Processing',
     'subscription.deployed': 'Deployed',
     'subscription.error': 'Error',
+    "subscription.adminConsole": "Admin Console",
 
     'ttkEpay.client_site_name': 'Client site name',
-    'ttkEpay.client_site_address': 'Client site adress',
+    'ttkEpay.client_site_address': 'Client site address',
     'ttkEpay.client_site_email': 'Client site email',
     'ttkEpay.client_site_logo_url': 'Client site logo url',
     'ttkEpay.client_site_phone_number': 'Client site phone number',
@@ -212,6 +213,9 @@ export default {
     'ttkEpay.secretKey': 'Secret Key',
     'ttkEpay.save': 'Save',
     'ttkEpay.restart': 'Restart',
+    'ttkEpay.displayInfoNote': 'This information will be displayed in web pages and receipt',
+    'ttkEpay.placeholderSatimPassword': 'Enter your SATIM password',
+
     'apiServiceSubscription.title': 'Subscribe',
     'apiServiceSubscription.specialOffer': 'Special Offer',
     'apiServiceSubscription.serviceName': 'Service Name :',
