@@ -99,7 +99,7 @@ export default function ApplicationServiceCard({ data }: any) {
                             >
                                 {Intl.NumberFormat("fr-FR", {
                                     useGrouping: true,
-                                }).format(data.min_apps_price)}{" "}
+                                }).format(data.min_app_price)}{" "}
                                 DZD
                             </Paragraph>
                         </Space>

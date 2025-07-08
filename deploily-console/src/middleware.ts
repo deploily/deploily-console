@@ -42,6 +42,7 @@ export default async function middleware(req: NextRequest) {
     base-uri 'self';
     form-action 'self';
     frame-ancestors 'none';
+    connect-src 'self' https://www.facebook.com/tr/ https://www.google-analytics.com;
     upgrade-insecure-requests;
     `
   // Replace newline characters and spaces

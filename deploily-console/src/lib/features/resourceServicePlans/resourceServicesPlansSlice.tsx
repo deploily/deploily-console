@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ServicePlan, ServicePlanResponse } from "../service-plans/servicePlanInterface";
-import { fetchServicePlansByType } from "./resourceServicesPlansThunk";
+import { ServicePlan } from "../service-plans/servicePlanInterface";
+import { fetchResourceServicesPlans } from "./resourceServicesPlansThunk";
+import { ResourceServicesPlansResponse } from "./resourceServicesPlansInterface";
 
 interface ServicePlansState {
     servicePlansIsloading: boolean,
-    servicePlansList?: ServicePlanResponse,
-    servicePlansloadingError: boolean,
+    servicePlansList?: ResourceServicesPlansResponse,
+    servicePlansloadingError: boolean
 }
 interface ResourceServicesPlansState {
     servicePlansState: ServicePlansState,
@@ -26,24 +27,20 @@ const ResourceServicesPlansSlice = createSlice({
     reducers: {
         updateSelectedPlan: (state, action) => {
             state.selectedPlan = action.payload;
-        },
+        }
     },
 
     extraReducers: (builder) => {
         builder
-            .addCase(fetchServicePlansByType.pending, (state) => {
+            .addCase(fetchResourceServicesPlans.pending, (state) => {
                 state.servicePlansState.servicePlansIsloading = true;
             })
-            .addCase(fetchServicePlansByType.fulfilled, (state, action) => {
+            .addCase(fetchResourceServicesPlans.fulfilled, (state, action) => {
                 state.servicePlansState.servicePlansIsloading = false;
                 state.servicePlansState.servicePlansloadingError = false;
-                const result = action.payload.ids.map((id: number, index: any) =>
-                    Object.assign({}, { id: id }, action.payload.result[index]),
-                );
-                const payload = Object.assign({}, action.payload, { result: result });
-                state.servicePlansState.servicePlansList = payload;
+                state.servicePlansState.servicePlansList = action.payload;
             })
-            .addCase(fetchServicePlansByType.rejected, (state) => {
+            .addCase(fetchResourceServicesPlans.rejected, (state) => {
                 state.servicePlansState.servicePlansIsloading = false;
                 state.servicePlansState.servicePlansloadingError = true;
             })

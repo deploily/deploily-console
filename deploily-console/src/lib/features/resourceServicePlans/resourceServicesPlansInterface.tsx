@@ -1,12 +1,27 @@
-import { Provider } from "../cloud-resource/cloudResourceInterface";
+export interface ResourceServicesPlansResponse {
+  result: ResourceServicePlan[];
+}
 
-export interface ProvidersResponse {
-    count: number;
-    description_columns: any;
-    ids: number[];
-    label_columns: any;
-    list_columns: string[];
-    list_title: string;
-    order_columns: string[];
-    result: Provider[];
+export interface ResourceServicePlan {
+  "id": number,
+  "options": PlanOption[];
+  "plan_name": string,
+  "preparation_time": number,
+  "price": number,
+  "provider_info"?: {
+          "logo": string,
+          "name": string,
+          "website": string
+  },
+  "service_name": string,
+  "service_plan_type": string
+}
+
+export interface PlanOption {
+  "html_content": string,
+  "icon": string,
+  "id": number,
+  "option_type": string,
+  "option_value": number,
+  "sequence": number
 }

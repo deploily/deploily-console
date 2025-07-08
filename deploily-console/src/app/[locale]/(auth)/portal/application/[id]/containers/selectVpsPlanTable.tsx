@@ -2,7 +2,7 @@
 import { useNewApplicationSubscription } from '@/lib/features/application/applicationServiceSelectors';
 import { useServicePlansByType } from '@/lib/features/resourceServicePlans/resourceServicesPlansSelectors';
 import { updateSelectedPlan } from '@/lib/features/resourceServicePlans/resourceServicesPlansSlice';
-import { fetchServicePlansByType } from '@/lib/features/resourceServicePlans/resourceServicesPlansThunk';
+import { fetchResourceServicesPlans } from '@/lib/features/resourceServicePlans/resourceServicesPlansThunk';
 import { useAppDispatch } from '@/lib/hook';
 import { Typography } from 'antd';
 import { TableComponentWithSelection } from 'deploily-ui-components';
@@ -13,13 +13,12 @@ export default function SelectVpsPlanTable() {
   const dispatch = useAppDispatch();
   const tApplications = useScopedI18n('applications')
 
-  useEffect(() => {
-    dispatch(fetchServicePlansByType({ page: 0, page_size: 10, service_plan_type: 'ressource' }));
-  }, [])
-
   const { servicePlansList } = useServicePlansByType()
   const { resource_service_plan } = useNewApplicationSubscription()
 
+  useEffect(() => {
+    dispatch(fetchResourceServicesPlans());
+  }, []);
 
 
   const handlePlanChange = (selectedPlan: any) => {
@@ -30,12 +29,11 @@ export default function SelectVpsPlanTable() {
     <div>
       {servicePlansList !== undefined &&
         <TableComponentWithSelection
-
           selectedRowId={resource_service_plan != undefined ? resource_service_plan.id : undefined}
           onChange={handlePlanChange}
           data={
             servicePlansList?.result ? servicePlansList?.result.map((plan) => {
-              if (plan.provider_info !== undefined && plan.service != undefined) {
+              if (plan.provider_info !== undefined) {
                 return {
                   key: plan.id,
                   resource: plan,
@@ -46,7 +44,6 @@ export default function SelectVpsPlanTable() {
               }
             }
             ) as [] : []}
-          //TODO TRANSLATE 
           columns={[
             {
               title: tApplications('resource'),
@@ -55,7 +52,7 @@ export default function SelectVpsPlanTable() {
                 <a href={plan.provider_info?.website}>
                   {`${plan.provider_info?.name}`}
                 </a>
-                {`/ ${plan.plan.name}`}
+                {`/ ${plan.plan_name}`}
               </div> : undefined,
             },
 

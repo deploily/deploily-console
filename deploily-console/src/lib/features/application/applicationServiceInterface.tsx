@@ -1,5 +1,6 @@
 import { ServiceMediaInterface } from "../commons_interfaces";
 import { PaymentProfileInterface } from "../payment-profiles/paymentProfilesInterface";
+import { ResourceServicePlan } from "../resourceServicePlans/resourceServicesPlansInterface";
 import { ServicePlan } from "../service-plans/servicePlanInterface";
 
 export interface ApplicationServiceResponse {
@@ -33,7 +34,7 @@ export interface ApplicationServiceInterface {//TODO RECHECK THIS INTERFACE TO C
     ssh_access: string;
     type: string;
     unit_price: number;
-    min_apps_price: number;
+    min_app_price: number;
     app_versions: AppVersionInterface[];
 }
 
@@ -43,7 +44,7 @@ export interface NewApplicationSubscriptionState {
     totalAmount: number,
     selectedProfile?: PaymentProfileInterface,
     isBalanceSufficient: boolean | null,
-    resource_service_plan?: ServicePlan,
+    resource_service_plan?: ResourceServicePlan,
     app_service_plan?: ServicePlan,
     selected_version?: AppVersionInterface,
     promoCode: string,

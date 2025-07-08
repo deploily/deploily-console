@@ -57,8 +57,6 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
     }, []);
 
 
-
-
     if (isLoading) return <Skeleton active />;
     if (loadingError) return <div>Error: {loadingError}</div>;
     if (!applicationServiceById) return <div>No application found</div>;
@@ -82,7 +80,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                     <Col xs={24} md={24} lg={16} style={{ padding: '0px', margin: '0px' }}>
                         <ApplicationDescriptionContainer
                             title={applicationServiceById.name}
-                            price={applicationServiceById.min_apps_price}
+                            price={applicationServiceById.min_app_price}
                             description={applicationServiceById.short_description}
                             logo={
                                 <div style={{ border: "1px solid #4E4E4E", borderRadius: "10px", padding: "1px" }}>
@@ -225,8 +223,8 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                         ),
                                     },
                                     { label: tApplications('provider'), value: resource_service_plan?.provider_info?.name || "" },
-                                    { label: tApplications("vpsType"), value: resource_service_plan?.service?.name || "" },
-                                    { label: tApplications('resourcePlan'), value: resource_service_plan?.plan?.name || "" },
+                                    { label: tApplications("vpsType"), value: resource_service_plan?.service_name || "" },
+                                    { label: tApplications('resourcePlan'), value: resource_service_plan?.plan_name || "" },
                                 ]}
                                 onClick={() => setOpenDrawer(true)}
                             />
