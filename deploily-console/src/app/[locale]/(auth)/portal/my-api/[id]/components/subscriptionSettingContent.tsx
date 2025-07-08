@@ -124,7 +124,9 @@ export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscri
                                     {tApiServiceSubscription(currentApiServiceSubscription.status as "active" | "inactive")}
                                 </Tag>
                             <UpgradeApiSubscriptionComponents serviceId={currentApiServiceSubscription.service_details.id}
+                                oldPrice={currentApiServiceSubscription.price}
                                 planSelectedId={currentApiServiceSubscription.service_plan_id} 
+                                start_date={currentApiServiceSubscription.start_date}
                                 />
                             </Row>
                         </Col>

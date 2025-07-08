@@ -1,23 +1,24 @@
-import {ServicePlan, ServicePlanOption} from "@/lib/features/service-plans/servicePlanInterface";
-import {theme} from "@/styles/theme";
-import {Check} from "@phosphor-icons/react/dist/ssr";
-import {Button, Card, Col, Row, Typography} from "antd";
-import {useScopedI18n} from "../../../../../../../../locales/client";
-import {useApiServices} from "@/lib/features/api-service/apiServiceSelectors";
+import { ServicePlan, ServicePlanOption } from "@/lib/features/service-plans/servicePlanInterface";
+import { theme } from "@/styles/theme";
+import { Check } from "@phosphor-icons/react/dist/ssr";
+import { Button, Card, Col, Row, Typography } from "antd";
+import { useScopedI18n } from "../../../../../../../../locales/client";
+import { useApiServices } from "@/lib/features/api-service/apiServiceSelectors";
+
 
 export default function ServicePlanCard({
   servicePlan,
   showDrawer,
-  disabled = false,
-  IsSubscribed
+  planSelectedId
 }: {
   servicePlan: ServicePlan;
   showDrawer: any;
-  disabled?: boolean;
-    IsSubscribed?: boolean;
+  planSelectedId?: any;
 }) {
   const t = useScopedI18n("apiServiceSubscription");
   const { currentService } = useApiServices();
+  const isDisabled = currentService?.is_subscribed || planSelectedId === servicePlan.id;
+
 
   return (
     <Card
@@ -25,28 +26,24 @@ export default function ServicePlanCard({
         height: "100%",
         width: "100%",
         maxWidth: 300,
-        minWidth: 200,
+        minWidth: 250,
         margin: "0 auto",
         display: "flex",
         flexDirection: "column",
-        opacity: disabled ? 0.5 : 1,
-        cursor: disabled ? "not-allowed" : "default",
-        pointerEvents: disabled ? "none" : "auto",
+        opacity: planSelectedId ? 0.5 : 1,
+        cursor: planSelectedId ? "not-allowed" : "default",
+        pointerEvents: planSelectedId ? "none" : "auto",
       }}
       styles={{
         body: { flex: 1, display: "flex", flexDirection: "column", paddingBottom: 0 },
       }}
       onMouseEnter={(e) => {
-        if (!disabled && !currentService?.is_subscribed) {
-          e.currentTarget.style.borderColor = theme.token.orange600;
-          e.currentTarget.style.boxShadow = `4px 4px 10px 0px ${theme.token.orange600}`;
-        }
+        e.currentTarget.style.borderColor = !currentService?.is_subscribed ? theme.token.orange600 : "none";
+        e.currentTarget.style.boxShadow = !currentService?.is_subscribed ? `4px 4px 10px 0px ${theme.token.orange600}` : "none";
       }}
       onMouseLeave={(e) => {
-        if (!disabled) {
-          e.currentTarget.style.borderColor = theme.token.gray50;
-          e.currentTarget.style.boxShadow = "none";
-        }
+        e.currentTarget.style.borderColor = theme.token.gray50;
+        e.currentTarget.style.boxShadow = "none";
       }}
     >
       <Typography.Title level={3} style={{ textAlign: "center" }}>
@@ -60,9 +57,9 @@ export default function ServicePlanCard({
         <span style={{ fontSize: 16, fontWeight: 400 }}>
           {" "}
           DZD/
-          {servicePlan.subscription_category === "monthly"
+          {servicePlan!.subscription_category === "monthly"
             ? t("month")
-            : servicePlan.subscription_category === "yearly"
+            : servicePlan!.subscription_category === "yearly"
               ? t("year")
               : t("month")}
         </span>
@@ -95,10 +92,14 @@ export default function ServicePlanCard({
         ))}
       </div>
 
-      <div style={{ padding: "16px", display: "inline-block" }}>
+      <div
+        style={{
+          padding: "16px",
+          display: "inline-block",
+        }}
+      >
         <Button
           onClick={showDrawer}
-          disabled={disabled}
           style={{
             color: theme.token.colorWhite,
             backgroundColor: theme.token.orange600,
@@ -107,13 +108,15 @@ export default function ServicePlanCard({
             paddingBlock: 20,
             fontWeight: 600,
             fontSize: 20,
-            cursor: disabled ? "not-allowed" : "pointer",
-            opacity: disabled ? 0.5 : 1,
+            cursor: isDisabled ? "not-allowed" : "pointer",
+            opacity: isDisabled ? 0.5 : 1,
           }}
+          disabled={isDisabled}
         >
-          {disabled ? ("currentPlan") : t("title")}
-        </Button>
+           {/* {t("title")} */}
+          {planSelectedId === servicePlan.id ? "currentPlan" : t("title")}
+  </Button>
       </div>
-    </Card>
+    </Card >
   );
 }

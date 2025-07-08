@@ -55,10 +55,10 @@ export default async function middleware(req: NextRequest) {
   requestHeaders.set("x-nonce", nonce);
 
 
-  requestHeaders.set(
-    "Content-Security-Policy",
-    contentSecurityPolicyHeaderValue
-  );
+  // requestHeaders.set(
+  //   "Content-Security-Policy",
+  //   contentSecurityPolicyHeaderValue
+  // );
 
   let response;
   if (isPublicPage) {
@@ -68,11 +68,11 @@ export default async function middleware(req: NextRequest) {
   }
   const defaultLocale = req.headers.get("x-your-custom-locale") || "en";
 
-  response.headers.set("x-your-custom-locale", defaultLocale);
-  response.headers.set(
-    "Content-Security-Policy",
-    contentSecurityPolicyHeaderValue
-  );
+  // response.headers.set("x-your-custom-locale", defaultLocale);
+  // response.headers.set(
+  //   "Content-Security-Policy",
+  //   contentSecurityPolicyHeaderValue
+  // );
   response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
   response.headers.set("X-Frame-Options", "DENY");
   response.headers.set("X-Content-Type-Options", "nosniff");

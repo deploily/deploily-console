@@ -7,11 +7,11 @@ import { useServicePlan } from "@/lib/features/service-plans/servicePlanSelector
 import { ServicePlan } from "@/lib/features/service-plans/servicePlanInterface";
 import ServicePlanCard from "../../../api-services/[id]/components/servicePlanCard";
 import { useAppDispatch } from "@/lib/hook";
-import {  openDrawer, updateApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSlice";
+import {  openDrawer, updateApiServiceSubscriptionStates, updateUpgradeApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSlice";
 import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThanks";
 import HomeCarousel from "../../../components/homeCarousel";
 
-export default function UpgradeApiSubscriptionComponents({ serviceId, planSelectedId }: { serviceId: any, planSelectedId: any }) {
+export default function UpgradeApiSubscriptionComponents({ serviceId, planSelectedId, oldPrice, start_date }: { start_date: any  ,serviceId: any, planSelectedId: any, oldPrice : any  }) {
     const tSubscription = useScopedI18n("subscription");
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,7 +26,7 @@ export default function UpgradeApiSubscriptionComponents({ serviceId, planSelect
 
     const showDrawer = (plan: any | null) => {
         if (plan !== null) {
-            dispatch(updateApiServiceSubscriptionStates({ price: plan.price }));
+            dispatch(updateUpgradeApiServiceSubscriptionStates({ price: plan.price, oldPrice: oldPrice, start_date: start_date })); //TODO UPDATE PRICE
             dispatch(openDrawer(plan)); 
         }
         setIsModalOpen(false);
@@ -69,7 +69,7 @@ export default function UpgradeApiSubscriptionComponents({ serviceId, planSelect
                                         <ServicePlanCard
                                         servicePlan={plan}
                                         showDrawer={() => showDrawer(plan)}
-                                        disabled={plan.id === planSelectedId}
+                                        planSelectedId={plan.id === planSelectedId}
                                     />
                                     
                                 </div>

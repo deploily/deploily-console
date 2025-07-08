@@ -228,7 +228,12 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
                         padding: "0.5rem",
                       }}
                     >
-                      <div style={{ width: "100%", display: "flex", justifyContent: "center", maxWidth: 350, }}>
+                      <div style={{
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                        maxWidth: 350,
+                      }}>
                         <ServicePlanCard
                           servicePlan={row}
                           showDrawer={() => showDrawer(row)}
@@ -247,7 +252,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
                 </div>
               }
             </Row>
-          <ApiServiceSubscriptionDrawer openDrawer={openDrawer} onClose={onClose} planSelected={planSelected} subscriptionOldId={serviceId} IsSubscribed={currentService.is_subscribed} />
+            <ApiServiceSubscriptionDrawer openDrawer={openDrawer} onClose={onClose} planSelected={planSelected} subscriptionOldId={serviceId} IsSubscribed={currentService.is_subscribed} />
           </>
         }
 

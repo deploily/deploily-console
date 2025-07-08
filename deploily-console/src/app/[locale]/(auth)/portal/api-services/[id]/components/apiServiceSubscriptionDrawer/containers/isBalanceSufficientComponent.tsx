@@ -29,16 +29,19 @@ export default function IsBalanceSufficientComponent({ onClose, planSelected, Is
             ...newApiServiceSubscriptionObject,
             old_subscription_id: subscriptionOldId,
         };
+        console.log("newApiServiceSubscriptionObject", IsSubscribed);
 
         if (IsSubscribed) {
-            dispatch(postApiServiceSubscription(newApiServiceSubscriptionObject)).then((response: any) => {
+            
+            dispatch(postUpgradeApiServiceSubscription(newUpgradeApiServiceSubscriptionObject)).then((response: any) => {
                 if (response.meta.requestStatus === "fulfilled") {
                     dispatch(fetchPaymentProfiles());
                     router.push(`/portal/my-api/`);
                 }
             });
         } else {
-            dispatch(postUpgradeApiServiceSubscription(newUpgradeApiServiceSubscriptionObject)).then((response: any) => {
+
+            dispatch(postApiServiceSubscription(newApiServiceSubscriptionObject)).then((response: any) => {
                 if (response.meta.requestStatus === "fulfilled") {
                     dispatch(fetchPaymentProfiles());
                     router.push(`/portal/my-api/`);
