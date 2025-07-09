@@ -29,10 +29,8 @@ export default function IsBalanceSufficientComponent({ onClose, planSelected, Is
             ...newApiServiceSubscriptionObject,
             old_subscription_id: subscriptionOldId,
         };
-        console.log("newApiServiceSubscriptionObject", IsSubscribed);
 
         if (IsSubscribed) {
-            
             dispatch(postUpgradeApiServiceSubscription(newUpgradeApiServiceSubscriptionObject)).then((response: any) => {
                 if (response.meta.requestStatus === "fulfilled") {
                     dispatch(fetchPaymentProfiles());

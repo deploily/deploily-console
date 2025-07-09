@@ -38,7 +38,7 @@ export default function ApiServiceSubscriptionDrawer({ openDrawer, onClose, plan
               : selectedProfile?.is_default_profile === true ?
                 <CreateProfileButton planSelected={planSelected} openDrawer={openDrawer} onClose={onClose} />
                 :
-                <PaymentComponent selectedPlan={planSelected} />
+                <PaymentComponent selectedPlan={planSelected} subscriptionOldId={subscriptionOldId} IsSubscribed={IsSubscribed} />
             }
           </div>}
         </Col>
