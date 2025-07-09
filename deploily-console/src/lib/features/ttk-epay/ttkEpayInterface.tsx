@@ -10,6 +10,11 @@ export interface UpdateTtkEpayState {
   isLoadingUpdate: boolean;
   loadingError?: any;
 }
+export interface UpgradeTtkEpayState {
+  upgradeTtkEpay?: any;
+  isLoadingUpgrade: boolean;
+  loadingError?: any;
+}
 export interface TtkEpayResponse {
   count: number;
   description_columns: any;
@@ -89,7 +94,7 @@ interface ServiceDetails {
   minimal_cpu: number;
   minimal_disk: number;
   minimal_ram: number;
-
+  is_subscribed: boolean;
 }
 
 
