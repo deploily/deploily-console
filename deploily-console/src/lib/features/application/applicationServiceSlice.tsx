@@ -27,7 +27,7 @@ const initialState: ApplicationServiceState = {
         newSubscriptionResponse: undefined
     },
     newAppSubscriptionState: {
-        duration: 1,
+        duration: 3,
         price: 0,
         resource_service_plan: undefined,
         // resource_service_plan_id: undefined,
@@ -75,10 +75,6 @@ const ApplicationServiceSlice = createSlice({
                     updatedState.isBalanceSufficient = false;
                 }
             }
-            console.log("))))))))))))))))))))))))))))))");
-
-            console.log(updatedState);
-
             state.newAppSubscriptionState = updatedState;
             return state;
         },

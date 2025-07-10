@@ -12,13 +12,13 @@ import { PaymentSideBar } from "deploily-ui-components";
 import { PaymentAppBar } from "deploily-ui-components/components/applications/paymentSideBar";
 import { useEffect, useState } from "react";
 import { useScopedI18n } from "../../../../../../../locales/client";
-import { options } from "../../api-services/utils/apiServicesConst";
 import ApplicationDetailsCollapseContainer from "./containers/applicationDetailsCollapseContainer";
 import ApplicationPlansContainer from "./containers/applicationPlansContainer";
 import ApplicationDescriptionContainer from "./containers/descriptionContainer";
 import AppPromoCodeTextField from "./containers/payment-components/appPromoCodeTextField";
 import PaymentDrawer from "./containers/payment-components/paymentDrawer";
 import SelectVpsPlanTable from "./containers/selectVpsPlanTable";
+import { options } from "../utils/applicationConst";
 
 export default function ApplicationDetailsPageContent({ applicationId }: { applicationId: any }) {
     const dispatch = useAppDispatch();
