@@ -1,5 +1,5 @@
 "use client";
-import { useAppDispatch, useAppSelector } from "@/lib/hook";
+import { useAppDispatch } from "@/lib/hook";
 import ApiServiceSubscriptionDrawer from "../../../api-services/[id]/components/apiServiceSubscriptionDrawer/apiServiceSubscriptionDrawer";
 import { useApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSelectors";
 import { closeDrawer } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSlice";

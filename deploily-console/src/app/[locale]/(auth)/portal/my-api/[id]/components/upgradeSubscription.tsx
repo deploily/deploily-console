@@ -7,7 +7,7 @@ import { useServicePlan } from "@/lib/features/service-plans/servicePlanSelector
 import { ServicePlan } from "@/lib/features/service-plans/servicePlanInterface";
 import ServicePlanCard from "../../../api-services/[id]/components/servicePlanCard";
 import { useAppDispatch } from "@/lib/hook";
-import {  openDrawer, updateApiServiceSubscriptionStates, updateUpgradeApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSlice";
+import {  openDrawer, updateUpgradeApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSlice";
 import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThanks";
 import HomeCarousel from "../../../components/homeCarousel";
 
@@ -65,7 +65,7 @@ export default function UpgradeApiSubscriptionComponents({ serviceId, planSelect
                                     alignItems: "center",
                                     margin: "0 10px"
                                 }}>
-                                    
+
                                         <ServicePlanCard
                                         servicePlan={plan}
                                         showDrawer={() => showDrawer(plan)}
