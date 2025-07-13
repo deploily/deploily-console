@@ -30,6 +30,7 @@ export interface ResourceInterface {
     is_in_favorite?: boolean;
     provider?: Provider;
     discount: number;
+    price_period: string;
 }
 
 export interface Provider {
