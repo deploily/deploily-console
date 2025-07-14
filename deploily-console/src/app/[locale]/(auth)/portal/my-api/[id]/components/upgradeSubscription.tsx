@@ -22,17 +22,13 @@ export default function UpgradeApiSubscriptionComponents({ serviceId, planSelect
         dispatch(fetchServicePlans(serviceId));
     }, []);
 
-
-
     const showDrawer = (plan: any | null) => {
         if (plan !== null) {
             dispatch(updateUpgradeApiServiceSubscriptionStates({ price: plan.price, oldPrice: oldPrice, start_date: start_date })); //TODO UPDATE PRICE
-            dispatch(openDrawer(plan)); 
+            dispatch(openDrawer(plan));
         }
         setIsModalOpen(false);
-      };
-
-    
+    };
     return (
         <>
             <Button
@@ -46,7 +42,7 @@ export default function UpgradeApiSubscriptionComponents({ serviceId, planSelect
             </Button>
 
             <Modal
-                title={("choose_plan")}
+                title={tSubscription("choose_plan")}
                 open={isModalOpen}
                 width="90%"
                 style={{ maxWidth: 1200, padding: 0, justifyContent: "center" }}
@@ -65,15 +61,14 @@ export default function UpgradeApiSubscriptionComponents({ serviceId, planSelect
                                     alignItems: "center",
                                     margin: "0 10px"
                                 }}>
-
-                                        <ServicePlanCard
+                                    <ServicePlanCard
                                         servicePlan={plan}
                                         showDrawer={() => showDrawer(plan)}
                                         planSelectedId={plan.id === planSelectedId}
                                     />
-                                    
                                 </div>
                             );
+
                         })}
                     </HomeCarousel>
                 )}

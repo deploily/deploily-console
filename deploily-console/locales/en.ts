@@ -186,6 +186,7 @@ export default {
     'subscription.deployed': 'Deployed',
     'subscription.error': 'Error',
     'subscription.upgrade': 'Upgrade',
+    'subscription.choose_plan': 'Choose plan',
 
     'ttkEpay.client_site_name': 'Client site name',
     'ttkEpay.client_site_address': 'Client site adress',
