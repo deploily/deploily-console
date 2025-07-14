@@ -8,6 +8,7 @@ import cloudResourceSlice from "./features/cloud-resource/cloudResourceSlice";
 import contactUsSlice from "./features/contact-us/contactUsSlice";
 import epaymentSlice from "./features/epayment/epaymentSlice";
 import favoriteServiceSlice from "./features/favorites/favoriteServiceSlice";
+import myApplicationSlice from "./features/my-applications/myApplicationSlice";
 import paymentProfileMiddleware from "./features/payment-profiles/paymentProfileMiddleware";
 import profileServiceSlice from "./features/payment-profiles/paymentProfilesSlice";
 import paymentSlice from "./features/payments/paymentSlice";
@@ -15,13 +16,13 @@ import profileSlice from "./features/profile/profileSlice";
 import PormoCodeSlice from "./features/promo-code/promoCodeSlice";
 import resourceServicesPlansMiddleware from "./features/resourceServicePlans/resourceServicesPlansMiddleware";
 import resourceServicesPlansSlice from "./features/resourceServicePlans/resourceServicesPlansSlice";
+import wilayaSlice from "./features/select-wilaya/selectWilayaSlice";
 import servicesPlansMiddleware from "./features/service-plans/servicePlanMiddleWare";
 import servicePlanSlice from "./features/service-plans/servicePlanSlice";
+import subscriptionSlice from "./features/subscriptions/subscriptionSlice";
 import supportTicketResponsesSlice from "./features/support-ticket -responses/supportTicketResponsesSlice";
 import supportTicketSlice from "./features/support-ticket/supportTicketSlice";
-import myApplicationSlice from "./features/my-applications/myApplicationSlice"
-import ttkEpaySlice from "./features/ttk-epay/ttkEpaySlice"
-import subscriptionSlice from "./features/subscriptions/subscriptionSlice";
+import ttkEpaySlice from "./features/ttk-epay/ttkEpaySlice";
 
 export const makeStore = () => {
   return configureStore({
@@ -46,6 +47,7 @@ export const makeStore = () => {
       myApplication: myApplicationSlice,
       ttkEpay: ttkEpaySlice,
       subscription: subscriptionSlice,
+      wilaya: wilayaSlice,
 
     },
     middleware: getDefaultMiddleware =>

@@ -22,7 +22,7 @@ export const deploilyApiUrls = {
   PAYMENT: `${API_BASE_URL}/payments/`,
   PAYMENT_RECEIPT: `/upload-receipt`,
   SERVICE_SUBSCRIPTION: `${API_BASE_URL}/api-service-subscription/subscribe`,
-  API_SERVICE_SUBSCRIPTION: `${ API_BASE_URL }/api-service-subscription/subscribe`,
+  API_SERVICE_SUBSCRIPTION: `${API_BASE_URL}/api-service-subscription/subscribe`,
   CHECK_PROMO_CODE: `${API_BASE_URL}/promo-code/`,
   EPAYMENT_STATUS: `${API_BASE_URL}/service-subscription/payment-status`,
   CONTACT_US: `${API_BASE_URL}/contact-us/`,
@@ -40,7 +40,8 @@ export const deploilyApiUrls = {
   APPS_SERVICE_SUBSCRIPTION_URL: `${API_BASE_URL}/app-service-subscription/`,
   TTK_EPAY_APP_SUBSCRIPTION_URL: `${API_BASE_URL}/ttk-epay-app-service-subscription`,
   RESOURCE_SERVICE_PLANS_URL: `${API_BASE_URL}/service-plan-ressource-vps/all`,
-
+  GET_WILAYA__URL: `https://api.deploily.cloud/wilaya/api/v1/getWilaya?`,
+  GET_COMMUNE_URL: `https://api.deploily.cloud/wilaya/api/v1/getCommune?`,
 };
 
 export const TTK_EPAY_SLUG = "ttk-epay";
