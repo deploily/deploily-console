@@ -278,7 +278,6 @@ export default function AffiliationDrawer({
                         accordion
                         expandIcon={customExpandIcon}
                         expandIconPosition="end"
-                        defaultActiveKey={['1']}
                         style={{
                             backgroundColor: theme.token.darkGray,
                             color: theme.token.blue100,
@@ -292,7 +291,7 @@ export default function AffiliationDrawer({
                                     {label}
                                 </Typography.Text>
                             ),
-                            children: <Typography.Text>{children}</Typography.Text>,
+                            children,
                             style: {
                                 backgroundColor: "#0B0D10",
                                 borderBottom: `1px solid ${theme.token.gray50}`,

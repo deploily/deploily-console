@@ -296,6 +296,7 @@ export default {
 
   "itemsHelp.label5": "Quelle est la mission de Deploily ?",
   "itemsHelp.children5": "Faciliter l’accès aux ressources cloud à prix réduit.",
+  "itemsHelp.label6": "Quel est le processus ?",
   "affiliation.name": "Nom du service",
   "affiliation.providerName": "Nom du fournisseur",
   "affiliation.amount": "Montant",
