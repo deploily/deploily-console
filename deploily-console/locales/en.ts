@@ -70,7 +70,7 @@ export default {
     "error": "Error",
     "subTitleError": "Sorry, something went wrong.",
     "seeAll": "See all",
-
+"history": "History",
     'serviceApi.search': 'Search',
     'serviceApi.filter': 'Filter',
 

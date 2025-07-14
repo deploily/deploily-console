@@ -1,20 +1,15 @@
 import { useAppDispatch } from "@/lib/hook";
 import { Card, Col, Result, Row } from "antd";
 import { useEffect } from "react";
-import { useI18n } from "../../../../../../../locales/client";
-import MyApiCard from "./myApiCard";
 import { useApiServiceSubscription } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionSelectors";
 import { fetchApiServiceSubscription } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionThunks";
 import { ApiServiceSubscriptionInterface } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionInterface";
+import { useI18n } from "../../../../../../../../locales/client";
+import MyApiCard from "../../components/myApiCard";
 
-export default function MyApiContainer() {
+export default function MyApiHistoriqueContainer() {
   const dispatch = useAppDispatch();
-  const {
-    apiServiceSubscriptionLoading,
-    apiServiceSubscriptionResponse,
-    apiServiceSubscriptionLoadingError
-  } = useApiServiceSubscription();
-
+  const { apiServiceSubscriptionLoading, apiServiceSubscriptionResponse, apiServiceSubscriptionLoadingError } = useApiServiceSubscription()
   const t = useI18n();
 
   useEffect(() => {
@@ -22,12 +17,10 @@ export default function MyApiContainer() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Filter out subscriptions with status === "inactive"
   const filteredData: ApiServiceSubscriptionInterface[] =
     apiServiceSubscriptionResponse?.result?.filter(
-      (row) => row.status !== "inactive"
+      (row) => row.status !== "active"
     ) || [];
-
   return (
     <>
       {!apiServiceSubscriptionLoading && filteredData.length > 0 && (
@@ -48,7 +41,7 @@ export default function MyApiContainer() {
         </Row>
       )}
 
-      {apiServiceSubscriptionLoading && apiServiceSubscriptionResponse === undefined && (
+      {apiServiceSubscriptionLoading && apiServiceSubscriptionResponse === undefined &&
         <Col
           xs={24}
           sm={12}
@@ -59,16 +52,13 @@ export default function MyApiContainer() {
         >
           <Card loading={true} style={{ minWidth: 300 }} />
         </Col>
-      )}
-
-      {!apiServiceSubscriptionLoading &&
-        apiServiceSubscriptionLoadingError && (
-          <Result
-            status="500"
-            title={t("error")}
-            subTitle={t("subTitleError")}
-          />
-        )}
+      }
+      {!apiServiceSubscriptionLoading && apiServiceSubscriptionLoadingError &&
+        <Result
+          status="500"
+          title={t('error')}
+          subTitle={t('subTitleError')}
+        />}
     </>
   );
 }

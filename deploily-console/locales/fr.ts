@@ -76,7 +76,8 @@ export default {
   "feedback.send": 'Envoyer',
   "subscribed": "Abonné",
   "sidebar.myApi": "Mes API",
-
+  "histoire": "Histoire",
+  
   "serviceApi.search": "Rechercher",
   "serviceApi.filter": "Filtrer",
 
