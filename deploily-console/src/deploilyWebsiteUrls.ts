@@ -40,10 +40,6 @@ export const deploilyApiUrls = {
   APPS_SERVICE_SUBSCRIPTION_URL: `${API_BASE_URL}/app-service-subscription/`,
   TTK_EPAY_APP_SUBSCRIPTION_URL: `${API_BASE_URL}/ttk-epay-app-service-subscription`,
   RESOURCE_SERVICE_PLANS_URL: `${API_BASE_URL}/service-plan-ressource-vps/all`,
-  GET_WILAYA__URL: `https://api.deploily-staging.xyz/wilaya/api/v1/getWilaya?`,
-  GET_COMMUNE_URL: `https://api.deploily-staging.xyz/wilaya/api/v1/getCommune?`,
-  // GET_WILAYA__URL: `https://api.deploily.cloud/wilaya/api/v1/getWilaya?`,
-  // GET_COMMUNE_URL: `https://api.deploily.cloud/wilaya/api/v1/getCommune?`,
 
 };
 export const TTK_EPAY_SLUG = "ttk-epay";

@@ -1,15 +1,16 @@
 import { getApiKey } from "@/actions/getApiKey";
+import { getDeploilyApiUrl } from "@/actions/getApiUrl";
 import axiosInstance from "@/app/api/axios-instance";
-import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchWilayaFromPosition = createAsyncThunk(
   "selectWilaya/fetchWilayaFromPosition",
   async ({ lat, long }: { lat: number; long: number }, thunkConfig) => {
     const apiKey = await getApiKey()
+    const deploilyApiUrl = await getDeploilyApiUrl()
     try {
 
-      const response = await axiosInstance.get(`${deploilyApiUrls.GET_WILAYA__URL}lat=${lat}&long=${long}`, {
+      const response = await axiosInstance.get(`${deploilyApiUrl.API_URL}getWilaya?lat=${lat}&long=${long}`, {
         headers: {
           accept: "application/json",
           apikey: apiKey, // Use your API key if not provided
@@ -36,9 +37,10 @@ export const fetchCommuneFromPosition = createAsyncThunk(
   "selectWilaya/fetchCommuneFromPosition",
   async ({ lat, long }: { lat: number; long: number }, thunkConfig) => {
     const apiKey = await getApiKey()
+    const deploilyApiUrl = await getDeploilyApiUrl()
 
     try {
-      const response = await axiosInstance.get(`${deploilyApiUrls.GET_COMMUNE_URL}lat=${lat}&long=${long}`, {
+      const response = await axiosInstance.get(`${deploilyApiUrl.API_URL}getCommune?lat=${lat}&long=${long}`, {
         headers: {
           accept: "application/json",
           apikey: apiKey, // Use your API key if not provided
