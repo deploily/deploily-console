@@ -41,7 +41,9 @@ export const fetchCommuneFromPosition = createAsyncThunk(
   "selectWilaya/fetchCommuneFromPosition",
   async ({ lat, long }: { lat: number; long: number }, thunkConfig) => {
     const apiKey = await getApiKey()
-
+    console.log("_____________________________________________________________");
+    console.log("Next public API key:", apiKey);
+    console.log("_____________________________________________________________");
     try {
       const response = await axiosInstance.get(`${deploilyApiUrls.GET_COMMUNE_URL}lat=${lat}&long=${long}`, {
         headers: {
@@ -49,7 +51,11 @@ export const fetchCommuneFromPosition = createAsyncThunk(
           apikey: apiKey, // Use your API key if not provided
         },
       }
+
       );
+      console.log(" statys", response.status);
+      console.log(" data", response.data);
+
       if (response.status === 200) {
         return response.data.data.commune;
       }
@@ -57,6 +63,8 @@ export const fetchCommuneFromPosition = createAsyncThunk(
         return thunkConfig.rejectWithValue("Failed to fetch commune");
       }
     } catch (error) {
+      console.log("error in fetchCommuneFromPosition:", error);
+
       return thunkConfig.rejectWithValue(error);
     }
   }
