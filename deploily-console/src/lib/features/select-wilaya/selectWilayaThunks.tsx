@@ -5,6 +5,11 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 export const fetchWilayaFromPosition = createAsyncThunk(
   "selectWilaya/fetchWilayaFromPosition",
   async ({ lat, long }: { lat: number; long: number }, thunkConfig) => {
+    console.log("_____________________________________________________________");
+    console.log("Next public API key:", process.env.NEXT_PUBLIC_API_KEY);
+    console.log("_____________________________________________________________");
+
+
     try {
 
       const response = await axiosInstance.get(`${deploilyApiUrls.GET_WILAYA__URL}lat=${lat}&long=${long}`, {
