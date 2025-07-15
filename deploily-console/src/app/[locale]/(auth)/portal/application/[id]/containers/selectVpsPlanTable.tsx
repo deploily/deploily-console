@@ -1,4 +1,5 @@
 'use client';
+
 import { useNewApplicationSubscription } from '@/lib/features/application/applicationServiceSelectors';
 import { useServicePlansByType } from '@/lib/features/resourceServicePlans/resourceServicesPlansSelectors';
 import { updateSelectedPlan } from '@/lib/features/resourceServicePlans/resourceServicesPlansSlice';
@@ -8,28 +9,55 @@ import { Typography } from 'antd';
 import { TableComponentWithSelection } from 'deploily-ui-components';
 import { useEffect } from 'react';
 import { useScopedI18n } from '../../../../../../../../locales/client';
+import { ResourceServicePlan } from '@/lib/features/resourceServicePlans/resourceServicesPlansInterface';
 
-export default function SelectVpsPlanTable() {
+
+interface SelectVpsPlanTableProps {
+  onVpsPlanSelect?: (plan: ResourceServicePlan) => void;
+  selectedVpsPlan?: ResourceServicePlan | null;
+}
+
+export default function SelectVpsPlanTable({
+  onVpsPlanSelect,
+  selectedVpsPlan
+}: SelectVpsPlanTableProps = {}) {
   const dispatch = useAppDispatch();
-  const tApplications = useScopedI18n('applications')
+  const tApplications = useScopedI18n('applications');
 
-  const { servicePlansList } = useServicePlansByType()
-  const { resource_service_plan } = useNewApplicationSubscription()
+  const { servicePlansList } = useServicePlansByType();
+  const { resource_service_plan } = useNewApplicationSubscription();
 
   useEffect(() => {
     dispatch(fetchResourceServicesPlans());
   }, []);
 
-
   const handlePlanChange = (selectedPlan: any) => {
-    dispatch(updateSelectedPlan(servicePlansList?.result.find((element) => element.id == selectedPlan)))
+    const foundPlan = servicePlansList?.result.find((element) => element.id == selectedPlan);
+
+    if (foundPlan) {
+      // Update Redux state (keep existing functionality)
+      dispatch(updateSelectedPlan(foundPlan));
+
+      // Call parent component callback if provided
+      if (onVpsPlanSelect) {
+        onVpsPlanSelect(foundPlan);
+      }
+    }
+  };
+
+  // Determine selected row ID - use prop if provided, otherwise use Redux state
+  const getSelectedRowId = () => {
+    if (selectedVpsPlan) {
+      return selectedVpsPlan.id;
+    }
+    return resource_service_plan?.id;
   };
 
   return (
     <div>
       {servicePlansList !== undefined &&
         <TableComponentWithSelection
-          selectedRowId={resource_service_plan != undefined ? resource_service_plan.id : undefined}
+          selectedRowId={getSelectedRowId()}
           onChange={handlePlanChange}
           data={
             servicePlansList?.result ? servicePlansList?.result.map((plan) => {
@@ -39,7 +67,6 @@ export default function SelectVpsPlanTable() {
                   resource: plan,
                   options: [plan.options.map((opt) => ([opt.html_content]))],
                   price: plan.price,
-
                 }
               }
             }
@@ -55,7 +82,6 @@ export default function SelectVpsPlanTable() {
                 {`/ ${plan.plan_name}`}
               </div> : undefined,
             },
-
             {
               title: tApplications('options'),
               dataIndex: "options",
@@ -77,7 +103,7 @@ export default function SelectVpsPlanTable() {
             {
               title: tApplications('price'),
               dataIndex: "price",
-              fixed: 'right', // ✅ Keeps the column pinned
+              fixed: 'right',
               width: 100,
               render: (price) => (
                 <Typography.Text>{`${price} DZD`}</Typography.Text>

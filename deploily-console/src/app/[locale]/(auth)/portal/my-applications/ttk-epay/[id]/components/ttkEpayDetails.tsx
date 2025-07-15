@@ -18,6 +18,8 @@ import { useI18n, useScopedI18n } from "../../../../../../../../../locales/clien
 import { applicationStatusStyle } from "../../../../my-api/utils/subscriptionsConst";
 import DocumentationDrawer from "../../../../utils/documentationDrawer";
 import TtkEpayParams from "./ttkEpayParams";
+import UpgradeTtkEpaySubscriptionComponents from "./upgradeTtkEpaySubscription";
+import ShowdrawerSubscription from "./showTtkEpayDrawerSubscription";
 
 
 
@@ -65,7 +67,7 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
     return (
 
         <Space direction="vertical" size="large" style={{ paddingInline: 40, marginBlock: 10, width: "100%", marginBottom: 50, paddingTop: 20 }}>
-            <Spin spinning={isLoadingUpdate}>
+            {/* <Spin spinning={isLoadingUpdate}> */}
                 {isLoading && ttkEpayById === undefined &&
                     <>
                         <Skeleton.Image active style={{ marginBottom: 10 }} />
@@ -146,13 +148,22 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                                     {ttkEpayById.service_details.name}
                                     <Circle size={16} weight="fill" style={{ marginLeft: 10, color: ttkEpayById.status === "active" ? "green" : "red" }} />
                                 </Typography.Title>}
+                            <Col xs={24} md={12} lg={8}>
+                                <Row gutter={[16, 10]} justify="end" >
+                                    <Tag bordered={false} color={applicationStatusStyle(ttkEpayById.application_status)}
+                                        style={{ height: 'fit-content', fontSize: '14px', fontWeight: "bold", borderRadius: 20, padding: "5px 20px", textTransform: "capitalize" }}>
+                                        {tSubscription(ttkEpayById.application_status as "processing" | "error" | "deployed")}
+                                    </Tag>
+                                <UpgradeTtkEpaySubscriptionComponents serviceId={ttkEpayById.service_details.id}/>
+                                </Row>
+                            </Col>
 
-                            <Tag bordered={false} color={applicationStatusStyle(ttkEpayById.application_status)}
-                                style={{ height: 'fit-content', fontSize: '14px', fontWeight: "bold", borderRadius: 20, padding: "5px 20px", textTransform: "capitalize" }}>
-                                {tSubscription(ttkEpayById.application_status as "processing" | "error" | "deployed")}
-                            </Tag>
-                        </Row>
-
+                    </Row>
+                    <ShowdrawerSubscription
+                        IsSubscribed={ttkEpayById.service_details.is_subscribed}
+                        subscriptionOldId={ttkEpayById.id}
+                    />
+                
                         {ttkEpayById.service_details && <Row gutter={16} style={{ marginTop: 0 }} >
                             <Paragraph style={{ fontSize: 14 }} >
                                 {ttkEpayById.service_details.description}
@@ -232,18 +243,18 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                         <Typography.Title level={4} style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange600 }}>
                             {tSubscription("accessUrl")}
                         </Typography.Title>
-                            <div style={{ flexDirection: "row", display: "flex", justifyContent: "space-between", width: "100%", padding: '10px',paddingBottom:"15px" }}>
-                                <Input value={ttkEpayById.access_url}
-                                    readOnly
-                                    style={{
-                                        cursor: 'default',
-                                        userSelect: 'text',
-                                        caretColor: 'transparent',
-                                        width: "fit",
-                                        marginRight: "5px"
-                                    }} />
-                                <Button type="primary" style={{ boxShadow: "none" }} icon={<Copy />} onClick={() => handleCopy(ttkEpayById.access_url)} />
-                            </div>
+                        <div style={{ flexDirection: "row", display: "flex", justifyContent: "space-between", width: "100%", padding: '10px', paddingBottom: "15px" }}>
+                            <Input value={ttkEpayById.access_url}
+                                readOnly
+                                style={{
+                                    cursor: 'default',
+                                    userSelect: 'text',
+                                    caretColor: 'transparent',
+                                    width: "fit",
+                                    marginRight: "5px"
+                                }} />
+                            <Button type="primary" style={{ boxShadow: "none" }} icon={<Copy />} onClick={() => handleCopy(ttkEpayById.access_url)} />
+                        </div>
                         {ttkEpayById.application_status == "error" &&
                             <div style={{ marginBlock: 20 }} >
                                 <Alert
@@ -267,7 +278,7 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                         title={t('error')}
                         subTitle={t('subTitleError')}
                     />}
-            </Spin>
+            {/* </Spin> */}
         </Space >
 
     )

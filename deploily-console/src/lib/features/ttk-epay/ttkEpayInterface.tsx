@@ -1,3 +1,7 @@
+import { AppVersionInterface } from "../application/applicationServiceInterface";
+import { PaymentProfileInterface } from "../payment-profiles/paymentProfilesInterface";
+import { ResourceServicePlan } from "../resourceServicePlans/resourceServicesPlansInterface";
+import { ServicePlan } from "../service-plans/servicePlanInterface";
 
 
 export interface TtkEpayByIdState {
@@ -98,10 +102,21 @@ interface ServiceDetails {
 }
 
 
+export interface UpgradeTtkEpaySubscriptionState {
 
-
-
-
+  duration: number;
+  price: number;
+  old_price: number;
+  totalAmount: number,
+  selectedProfile?: PaymentProfileInterface,
+  isBalanceSufficient: boolean | null,
+  resource_service_plan?: ResourceServicePlan,
+  app_service_plan?: ServicePlan,
+  selected_version?: AppVersionInterface,
+  promoCode: string,
+  promoCodeRate?: number,
+  promoColor?: string,
+}
 
 
 
