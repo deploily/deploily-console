@@ -73,7 +73,7 @@ export default function AddPaymentProfile() {
             form.setFieldsValue({ city: commune.nom });
             form.setFieldsValue({ postal_code: commune.code_5 });
         }
-    }, [form, wilaya]);
+    }, [commune, form, wilaya]);
 
 
     return (
