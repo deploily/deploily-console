@@ -14,6 +14,7 @@ export interface ApiServiceInterface {
   description: string;
   documentation_url: string;
   unit_price: number;
+  price_period: string;
   service_url: string;
   image_service: string;
   short_description: string;

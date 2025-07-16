@@ -26,6 +26,7 @@ export interface myApplicationInterface {
   api_key: string;
   application_status: string;
   price: number;
+  price_period: string;
   duration_month: number;
   is_expired: boolean;
   service_plan_id: number;
