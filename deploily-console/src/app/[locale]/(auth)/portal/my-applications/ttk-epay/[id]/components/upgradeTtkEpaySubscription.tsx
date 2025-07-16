@@ -15,10 +15,9 @@ import { openDrawer, updateUpgradeAppSubscriptionState } from "@/lib/features/tt
 import { useUpgradeTtkEpaySubscriptionState } from "@/lib/features/ttk-epay/ttkEpaySelector";
 import { ResourceServicePlan } from "@/lib/features/resourceServicePlans/resourceServicesPlansInterface";
 
-// VPS Plan interface based on your actual structure
 
 
-export default function UpgradeTtkEpaySubscriptionComponents({ serviceId }: { serviceId: any }) {
+export default function UpgradeTtkEpaySubscriptionComponents({ serviceId, oldPrice, start_date  }: { serviceId: any, oldPrice: number, start_date: any }) {
     const tSubscription = useScopedI18n("subscription");
 
     // Modal states
@@ -54,21 +53,8 @@ export default function UpgradeTtkEpaySubscriptionComponents({ serviceId }: { se
     };
 
     const showDrawer = (plan: ServicePlan |any , selectedVpsPlan: ResourceServicePlan | any ) => {
-        if (!plan) {
-            console.warn("showDrawer called without plan");
-            return;
-        }
-
-
-        if (!selectedVpsPlan) {
-            console.warn("showDrawer called without VPS plan");
-            return;
-        }
-
-        console.log("showDrawer called with plan", plan);
-        console.log("showDrawer called with VPS plan", selectedVpsPlan);
-
-        // Pass both service plan and VPS plan to the drawer
+        dispatch(updateUpgradeAppSubscriptionState({ vpsPrice: selectedVpsPlan.price, planPrice: plan.price, oldPrice: oldPrice, start_date: start_date })); 
+       
         dispatch(openDrawer({
             servicePlan: plan,
             vpsPlan: selectedVpsPlan

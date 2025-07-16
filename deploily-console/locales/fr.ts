@@ -76,8 +76,8 @@ export default {
   "feedback.send": 'Envoyer',
   "subscribed": "Abonné",
   "sidebar.myApi": "Mes API",
-  "histoire": "Histoire",
-  
+  "history": "Histoire",
+
   "serviceApi.search": "Rechercher",
   "serviceApi.filter": "Filtrer",
 
@@ -130,7 +130,7 @@ export default {
   "profilePayment.save": "Enregistrer",
   "profilePayment.updateSuccess": "Réussite de la mise à jour",
   "profilePayment.updateError": "Erreur de mise à jour",
-  
+
   "payments.paymentList": "Liste des paiements",
   "payments.nOrder": "N° de commande",
   "payments.serviceName": "Nom du service",
@@ -192,7 +192,7 @@ export default {
   'subscription.error': 'Erreur',
   'subscription.upgrade': 'Mise à niveau',
   'subscription.choose_plan': 'Choisir un forfait',
-  
+
   'ttkEpay.client_site_name': 'Nom du site client',
   'ttkEpay.client_site_address': 'Adresse du site client',
   'ttkEpay.client_site_email': 'E-mail du site client',
@@ -337,7 +337,7 @@ export default {
   "applications.vpsType": "Type de VPS",
   "applications.resourcePlan": "Plan de ressource",
   "applications.total": "Montant total",
-  'applications.confirm': 'Confirmer', 
+  'applications.confirm': 'Confirmer',
   "applications.order": "Commander l'application",
   "applications.resource": "Resource",
   "applications.options": "Options",

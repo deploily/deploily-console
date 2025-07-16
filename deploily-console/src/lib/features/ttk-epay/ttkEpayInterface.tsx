@@ -106,7 +106,6 @@ export interface UpgradeTtkEpaySubscriptionState {
 
   duration: number;
   price: number;
-  old_price: number;
   totalAmount: number,
   selectedProfile?: PaymentProfileInterface,
   isBalanceSufficient: boolean | null,
@@ -116,6 +115,9 @@ export interface UpgradeTtkEpaySubscriptionState {
   promoCode: string,
   promoCodeRate?: number,
   promoColor?: string,
+  oldAppServicePrice?: number;
+  oldAppServiceStartDate?: Date;
+  oldAppServiceDuration?: number;
 }
 
 

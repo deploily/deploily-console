@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TtkEpayByIdState, UpdateTtkEpayState, UpgradeTtkEpayState, UpgradeTtkEpaySubscriptionState } from "./ttkEpayInterface";
 import { fetchTtkEpayById, updateTtkEpay, upgradeTtkEpay } from "./ttkEpayThunks";
+import { calculateRemainingSubscriptionValue } from "@/lib/utils/subscriptionUtils";
 
 interface TtkEpayState {
   ttkEpayById: TtkEpayByIdState;
@@ -8,9 +9,10 @@ interface TtkEpayState {
   upgradeTtkEpay: UpgradeTtkEpayState;
   upgradeTtkEpaySubscriptionState: UpgradeTtkEpaySubscriptionState;
   openDrawer: boolean;
-  servicePlan: any; 
-  vpsPlan: any; 
-  
+  servicePlan: any;
+  vpsPlan: any;
+
+
 }
 
 const initialState: TtkEpayState = {
@@ -33,7 +35,6 @@ const initialState: TtkEpayState = {
   upgradeTtkEpaySubscriptionState: {
     duration: 3,
     price: 0,
-    old_price: 0,
     resource_service_plan: undefined,
     // resource_service_plan_id: undefined,
     app_service_plan: undefined,
@@ -45,31 +46,55 @@ const initialState: TtkEpayState = {
     promoCode: "",
     promoCodeRate: undefined,
     promoColor: undefined,
+    oldAppServicePrice: undefined,
+    oldAppServiceStartDate: undefined,
+    oldAppServiceDuration: undefined,
   },
   openDrawer: false,
   servicePlan: null,
   vpsPlan: null,
-  
-
 
 };
 const TtkEpaySlice = createSlice({
   name: "ttkEpay",
   initialState,
   reducers: {
+
     updateUpgradeAppSubscriptionState: (state, action: PayloadAction<any>) => {
-      let updatedState: UpgradeTtkEpaySubscriptionState = { ...state.upgradeTtkEpaySubscriptionState, ...action.payload }
-      console.log("updatedState********************", updatedState);
+      let updatedState: UpgradeTtkEpaySubscriptionState = {
+        ...state.upgradeTtkEpaySubscriptionState,
+        ...action.payload
+      };
+      console.log("Updated State:", updatedState);
+      console.log("Upgrade state.upgradeTtkEpaySubscriptionState:", state.upgradeTtkEpaySubscriptionState);
 
       let updatedAmount = 0;
-      if (updatedState.app_service_plan != undefined) {
+
+      // 1. Calculate new subscription total (app + resource)
+      if (updatedState.app_service_plan !== undefined) {
         updatedAmount = updatedState.duration * updatedState.app_service_plan.price;
-        updatedState = { ...updatedState, totalAmount: updatedAmount }
-        if (updatedState.resource_service_plan != undefined) {
+
+        if (updatedState.resource_service_plan !== undefined) {
           updatedAmount += updatedState.duration * updatedState.resource_service_plan.price;
-          updatedState = { ...updatedState, totalAmount: updatedAmount }
         }
       }
+
+      // 2. Subtract remaining value from old app subscription if available
+      if (
+        updatedState.oldAppServicePrice !== undefined &&
+        updatedState.oldAppServiceStartDate !== undefined &&
+        updatedState.oldAppServiceDuration !== undefined
+      ) {
+        const oldAppRemaining = calculateRemainingSubscriptionValue({
+          price: updatedState.oldAppServicePrice,
+          start_date: updatedState.oldAppServiceStartDate,
+          duration_month: updatedState.oldAppServiceDuration,
+        });
+
+        updatedAmount -= oldAppRemaining;
+      }
+
+      // 3. Apply promo discount if exists
 
       if (updatedState.promoCodeRate != undefined) {
         updatedState = { ...updatedState, promoColor: "green" }
@@ -83,6 +108,12 @@ const TtkEpaySlice = createSlice({
           updatedState.isBalanceSufficient = false;
         }
       }
+      // 4. Ensure amount isn't negative
+      updatedAmount = Math.max(0, Math.round(updatedAmount * 100) / 100);
+
+      updatedState.totalAmount = updatedAmount;
+
+
       state.upgradeTtkEpaySubscriptionState = updatedState;
       return state;
     },
