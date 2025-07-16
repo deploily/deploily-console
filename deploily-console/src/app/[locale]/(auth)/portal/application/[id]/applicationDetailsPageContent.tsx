@@ -185,21 +185,10 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                 items={[
                                     { label: tApplications('svc'), value: applicationServiceById.name },
                                     { label: tApplications("plan"), value: app_service_plan?.plan.name || "" },
-                                    {
-                                        label: tApplications('duration'),
-                                        value: (
-                                            <Select
-                                                defaultValue={duration}
-                                                style={{ width: 150, borderRadius: "10px" }}
-                                                onChange={handleChangeDuration}
-                                                dropdownStyle={{
-                                                    backgroundColor: theme.token.gray50,
-                                                    border: `2px solid ${theme.token.gray100}`,
-                                                }}
-                                                options={options}
-                                            />
-                                        ),
-                                    },
+                                    
+                                    { label: tApplications('provider'), value: resource_service_plan?.provider_info?.name || "" },
+                                    { label: tApplications("vpsType"), value: resource_service_plan?.service_name || "" },
+                                    { label: tApplications('resourcePlan'), value: resource_service_plan?.plan_name || "" },
                                     {
                                         label: tApplications('version'),
                                         value: (
@@ -215,16 +204,29 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                             />
 
                                         ),
+                                    }, 
+                                    {
+                                        label: tApplications('duration'),
+                                        value: (
+                                            <Select
+                                                defaultValue={duration}
+                                                style={{ width: 150, borderRadius: "10px" }}
+                                                onChange={handleChangeDuration}
+                                                dropdownStyle={{
+                                                    backgroundColor: theme.token.gray50,
+                                                    border: `2px solid ${theme.token.gray100}`,
+                                                }}
+                                                options={options}
+                                            />
+                                        ),
                                     },
+                                   
                                     {
                                         label: tApplications('promoCode'),
                                         value: (
                                             <AppPromoCodeTextField />
                                         ),
                                     },
-                                    { label: tApplications('provider'), value: resource_service_plan?.provider_info?.name || "" },
-                                    { label: tApplications("vpsType"), value: resource_service_plan?.service_name || "" },
-                                    { label: tApplications('resourcePlan'), value: resource_service_plan?.plan_name || "" },
                                 ]}
                                 onClick={() => setOpenDrawer(true)}
                             />

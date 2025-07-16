@@ -6,6 +6,7 @@ import { useAppDispatch } from '@/lib/hook';
 import { theme } from '@/styles/theme';
 import { Col, Row } from 'antd';
 import { PlanCard } from 'deploily-ui-components';
+import { useScopedI18n } from '../../../../../../../../locales/client';
 
 export default function ApplicationPlansContainer() {
     //TODO : ADD TRANSLATION
@@ -13,7 +14,8 @@ export default function ApplicationPlansContainer() {
     const { servicePlanResponse } = useServicePlan()
     const { app_service_plan } = useNewApplicationSubscription()
 
-
+    const t = useScopedI18n("apiServiceSubscription");
+    
     return (
         <Row gutter={[16, 24]} justify="start">
             {servicePlanResponse !== undefined &&
@@ -33,6 +35,11 @@ export default function ApplicationPlansContainer() {
                             <PlanCard
                                 id={plan.id}
                                 price={plan.price}
+                                subscription_category={ plan.subscription_category === "monthly"
+                                    ? t("month")
+                                    : plan.subscription_category === "yearly"
+                                        ? t("year")
+                                        : t("month")}
                                 styles={{
                                     color: app_service_plan != undefined && app_service_plan.id == plan.id ? theme.token.orange600 : undefined,
                                 }}
