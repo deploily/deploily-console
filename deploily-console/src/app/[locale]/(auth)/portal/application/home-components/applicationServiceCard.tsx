@@ -100,7 +100,7 @@ export default function ApplicationServiceCard({ data }: any) {
                                 {Intl.NumberFormat("fr-FR", {
                                     useGrouping: true,
                                 }).format(data.min_app_price)}{" "}
-                                DZD
+                                DZD / {data.price_period=== "monthly" ? t("month") : t("year")}
                             </Paragraph>
                         </Space>
                     </Col>

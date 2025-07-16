@@ -20,7 +20,8 @@ export interface ApiServiceSubscriptionInterface {
   id: number;
   duration_month: number;
   name: string;
-  price: number
+  price: number;
+  price_period: string ;
   promo_code_id: number;
   service_plan_id: number;
   start_date: Date;
@@ -39,6 +40,7 @@ export interface ServiceDetails {
   documentation_url: string;
   api_playground_url: string;
   unit_price: number;
+  price_period: string ;
   service_url: string;
   image_service: string;
   short_description: string;

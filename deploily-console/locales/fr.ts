@@ -13,6 +13,8 @@ export default {
   subscriptions: "Abonnements",
   supportTicket: "Ticket d'assistance",
   sponsoring: "Sponsoring",
+  'month': 'mois',
+  'year': 'an',
   "sidebar.home": "Accueil",
   "sidebar.members": "Membres",
   "sidebar.myFavorites": "Mes favoris",

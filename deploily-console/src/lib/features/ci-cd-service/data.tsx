@@ -11,21 +11,24 @@ export const data = {
         result: [
             {
                 name: "Github",
-                price: "1 000 DZD",
+                price: "1 000",
+                price_period: "monthly",
                 description:
                     "GitHub CI/CD automates code build, test, and deployment workflows using GitHub Actions.",
                 image: "/images/github.png",
             },
             {
                 name: "Gitlab",
-                price: "1 000 DZD",
+                price: "1 000 ",
+                price_period: "monthly",
                 description:
                     "GitLab CI/CD automates the process of building, testing, and deploying code using GitLab's built-in pipeline features.",
                 image: "/images/gitlab.png",
             },
             {
                 name: "Docker Desktop",
-                price: "1 000 DZD",
+                price: "1 000",
+                price_period: "monthly",
                 description:
                     "Docker Desktop is a one-click app for Mac, Windows, and Linux that lets you easily build, run, and manage containerized applications.",
                 image: "/images/docker.png",

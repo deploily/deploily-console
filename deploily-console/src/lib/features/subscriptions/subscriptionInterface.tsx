@@ -14,7 +14,8 @@ export interface SubscriptionInterface {
   id: number;
   duration_month: number;
   name: string;
-  price: number
+  price: number;
+  price_period: string ;
   promo_code_id: number;
   service_plan_id: number;
   start_date: Date;
