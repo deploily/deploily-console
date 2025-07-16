@@ -25,6 +25,7 @@ export interface TtkEpayInterface {
   id: number;
   name: string;
   access_url: string;
+  console_url: string;
   api_key: string;
   duration_month: number;
   is_expired: boolean;

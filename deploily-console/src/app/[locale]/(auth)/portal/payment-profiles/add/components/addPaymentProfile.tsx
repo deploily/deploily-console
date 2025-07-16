@@ -1,11 +1,13 @@
 "use client";
 
 import { fetchPaymentProfiles, postPaymentProfile } from "@/lib/features/payment-profiles/paymentProfilesThunks";
+import { useSelectWilaya } from "@/lib/features/select-wilaya/selectWilayaSelector";
+import { fetchCommuneFromPosition, fetchWilayaFromPosition } from "@/lib/features/select-wilaya/selectWilayaThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { Button, Col, Form, Input, message, Radio, Row } from "antd";
 import Title from "antd/es/typography/Title";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useScopedI18n } from "../../../../../../../../locales/client";
 
 export default function AddPaymentProfile() {
@@ -14,22 +16,30 @@ export default function AddPaymentProfile() {
     const [form] = Form.useForm();
     const [isCompany, setIsCompany] = useState(false);
     const router = useRouter();
+    const { wilaya, commune } = useSelectWilaya()
+
+
+
 
     const handleFinish = async (values: any) => {
-            const payload = {
-                ...values,
-                is_company: isCompany,
+
+
+
+        const payload = {
+            ...values,
+            is_company: isCompany,
         };
+
         await dispatch(postPaymentProfile({ ...payload, "profile_type": isCompany ? "company" : "personal" })).then((result) => {
             if (result.meta.requestStatus === "fulfilled") {
-                    dispatch(fetchPaymentProfiles());
-                    message.success("Payment profile created successfully!");
-                    setIsCompany(false);
-                    router.push(`/portal/payment-profiles/${result.payload.id}`);
-                } else {
-                    message.error("Failed to create payment profile");
-                }
-            });
+                dispatch(fetchPaymentProfiles());
+                message.success("Payment profile created successfully!");
+                setIsCompany(false);
+                router.push(`/portal/payment-profiles/${result.payload.id}`);
+            } else {
+                message.error("Failed to create payment profile");
+            }
+        });
     }
     const renderLabel = (text: string) => (
         <>
@@ -37,6 +47,34 @@ export default function AddPaymentProfile() {
             <span style={{ color: "red", marginLeft: 4 }}>*</span>
         </>
     );
+
+
+    useEffect(() => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((pos) => {
+                dispatch(fetchWilayaFromPosition({
+                    lat: pos.coords.latitude,
+                    long: pos.coords.longitude
+                }));
+
+                dispatch(fetchCommuneFromPosition({
+                    lat: pos.coords.latitude,
+                    long: pos.coords.longitude
+                }));
+            });
+        }
+    }, []);
+
+    useEffect(() => {
+        if (wilaya) {
+            form.setFieldsValue({ wilaya: wilaya.nom });
+        }
+        if (commune) {
+            form.setFieldsValue({ city: commune.nom });
+            form.setFieldsValue({ postal_code: commune.code_5 });
+        }
+    }, [commune, form, wilaya]);
+
 
     return (
         <div style={{ paddingInline: 10 }}>
@@ -141,6 +179,7 @@ export default function AddPaymentProfile() {
                 <Row gutter={16}>
                     <Col md={24} xs={24}>
                         <Form.Item
+                            initialValue={wilaya?.nom || ""}
                             label={renderLabel(t("wilaya"))}
                             name="wilaya"
                             rules={[{ required: true }]}

@@ -5,10 +5,11 @@ import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
 import { Flex, Radio, RadioChangeEvent, Typography, } from "antd";
 import { redirect, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useScopedI18n } from "../../../../../../../../locales/client";
 import BankTransfertComponent from "./payment-components/bankTransfertComponent";
 import CardPaymentComponent from "./payment-components/cardPaymentComponent";
+import { getEpaymentPermission } from "@/actions/getEpaymentPermission";
 
 export default function ApplicationPaymentComponent() {
   const translate = useScopedI18n('subscription');
@@ -51,6 +52,17 @@ export default function ApplicationPaymentComponent() {
     }
   };
 
+
+   const [isPaymentEnabled, setIsPaymentEnabled] = useState<any>(undefined)
+    useEffect(() => {
+      const checkEpaymentPermission = async () => {
+        const paymentEnabled = await getEpaymentPermission()
+        setIsPaymentEnabled(paymentEnabled);
+      };
+      checkEpaymentPermission();
+  
+    }, []);
+
   return (
     <>
       <>
@@ -66,7 +78,7 @@ export default function ApplicationPaymentComponent() {
           onChange={onChange}
           value={paymentMethod}>
           <Radio value="bank_transfer">{t("bank")}</Radio>
-          <Radio value="card" disabled>{t("card")}</Radio>
+          <Radio value="card" disabled={!isPaymentEnabled}>{t("card")}</Radio>
         </Radio.Group>
 
       </Flex>

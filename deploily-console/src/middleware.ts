@@ -33,8 +33,8 @@ export default async function middleware(req: NextRequest) {
   const externalSrc = `${process.env.CSP_HEADER_DEFAULT_SRC || process.env.NEXT_PUBLIC_BASE_URL}`;
 
   const cspHeader = `
-    default-src 'self' ${externalSrc};
-    script-src 'self' 'unsafe-eval' 'unsafe-inline';
+    default-src 'self' ${externalSrc} https://www.google.com/;
+    script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.google.com https://www.gstatic.com;
     style-src 'self' 'unsafe-inline';
     img-src * 'self' data: https:;
     font-src 'self';
@@ -42,6 +42,7 @@ export default async function middleware(req: NextRequest) {
     base-uri 'self';
     form-action 'self';
     frame-ancestors 'none';
+    connect-src 'self' https://www.facebook.com/tr/ https://www.google-analytics.com https://api.deploily-staging.xyz ;
     upgrade-insecure-requests;
     `
   // Replace newline characters and spaces

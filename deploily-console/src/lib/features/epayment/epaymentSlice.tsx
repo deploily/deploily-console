@@ -23,8 +23,6 @@ const EpaymentSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-
-
       .addCase(checkEpaymentStatus.pending, (state) => {
         state.isLoading = true;
         state.isError = null;
@@ -32,7 +30,7 @@ const EpaymentSlice = createSlice({
       .addCase(checkEpaymentStatus.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = null;
-        state.paymentStatus = action.payload;
+        state.paymentStatus = action.payload.details;
 
       })
       .addCase(checkEpaymentStatus.rejected, (state, { payload }) => {

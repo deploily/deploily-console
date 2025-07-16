@@ -1,7 +1,8 @@
 "use client";
+import { getEpaymentPermission } from "@/actions/getEpaymentPermission";
 import { theme } from "@/styles/theme";
 import { Flex, Radio, RadioChangeEvent, Typography, } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useScopedI18n } from "../../../../../../../../../../locales/client";
 import BankTransfertComponent from "../components/bankTransfertComponent";
 import CardPaymentComponent from "../components/cardPaymentComponent";
@@ -14,6 +15,16 @@ export default function PaymentComponent({ selectedPlan }: { selectedPlan: any }
     setPaymentMethod(e.target.value);
   };
   const t = useScopedI18n("payments");
+
+  const [isPaymentEnabled, setIsPaymentEnabled] = useState<any>(undefined)
+  useEffect(() => {
+    const checkEpaymentPermission = async () => {
+      const paymentEnabled = await getEpaymentPermission()
+      setIsPaymentEnabled(paymentEnabled);
+    };
+    checkEpaymentPermission();
+
+  }, []);
 
   return (
     <>
@@ -28,7 +39,7 @@ export default function PaymentComponent({ selectedPlan }: { selectedPlan: any }
           onChange={onChange}
           value={paymentMethod}>
           <Radio value="bank_transfer">{t("bank")}</Radio>
-          <Radio value="card" disabled>{t("card")}</Radio>
+          <Radio value="card" disabled={!isPaymentEnabled}>{t("card")}</Radio>
         </Radio.Group>
 
       </Flex>
