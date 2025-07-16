@@ -42,7 +42,7 @@ export default async function middleware(req: NextRequest) {
     base-uri 'self';
     form-action 'self';
     frame-ancestors 'none';
-    connect-src 'self' https://www.facebook.com/tr/ https://www.google-analytics.com https://api.deploily-staging.xyz ;
+    connect-src 'self' https://www.facebook.com/tr/ https://www.google-analytics.com ${process.env.CSP_HEADER_CONNECT_SRC};
     upgrade-insecure-requests;
     `
   // Replace newline characters and spaces
