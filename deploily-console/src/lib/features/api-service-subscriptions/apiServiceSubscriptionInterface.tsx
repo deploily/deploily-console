@@ -59,3 +59,8 @@ export interface NewUpgradeApiSubscription {
   newpgradeApiSubscriptionFailed: boolean,
   upgradeApiSubscriptionCreatedSuccess?: ApiServiceSubscriptionsResponse
 }
+export interface RenewApiSubscription {
+  renewApiSubscriptionIsLoading: boolean,
+  renewApiSubscriptionFailed: boolean,
+  renewApiSubscriptionCreatedSuccess?: ApiServiceSubscriptionsResponse
+}

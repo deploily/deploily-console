@@ -42,6 +42,7 @@ export const deploilyApiUrls = {
   TTK_EPAY_APP_SUBSCRIPTION_UPGRADE_URL: `${API_BASE_URL}/ttk-epay-app-service-subscription/upgrade`,
   RESOURCE_SERVICE_PLANS_URL: `${API_BASE_URL}/service-plan-ressource-vps/all`,
   API_SERVICE_SUBSCRIPTION_UPGRADE: `${API_BASE_URL}/api-service-subscription/upgrade`,
+  API_SERVICE_SUBSCRIPTION_RENEW: `${API_BASE_URL}/api-service-subscription/renew`,
 
 };
 
