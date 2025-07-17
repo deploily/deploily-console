@@ -37,6 +37,7 @@ export default {
     'sidebar.logout': 'Logout',
     'sidebar.collapse': 'Collapse sidebar',
     'login': 'LOGIN',
+    'register': 'REGISTER',
     'logout': 'LOGOUT',
     'gotoSite': 'GO TO THE WEBSITE',
     'details': 'Details',

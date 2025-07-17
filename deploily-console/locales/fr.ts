@@ -39,6 +39,7 @@ export default {
   "sidebar.logout": "déconnexion",
   "sidebar.collapse": "Réduire la barre",
   login: "CONNEXION",
+  register: "INSCRIPTION",
   logout: "DÉCONNECTION",
   gotoSite: "ACCÉDER AU SITE WEB",
   details: "Détails",
