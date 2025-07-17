@@ -114,41 +114,68 @@ export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscri
                             </Row>
                         </Col>
                     </Row>
-                    <Row gutter={16} style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        width: "100%",
-                    }}>
-                        {currentApiServiceSubscription.service_details && <Typography.Title level={2}>{currentApiServiceSubscription.service_details.name}</Typography.Title>}
-                        {/* Button Upgrade */}
-                        <Col xs={24} md={12} lg={8}>
-                            <Row gutter={[16, 10]} justify="end" >
-                                <Tag bordered={false} color={subscriptionStatusStyle(currentApiServiceSubscription.status)} style={{ height: 'fit-content', fontSize: '14px', fontWeight: "bold", borderRadius: 20, padding: "5px 20px", textTransform: "capitalize" }}>
-                                    {tApiServiceSubscription(currentApiServiceSubscription.status as "active" | "inactive")}
-                                </Tag>
-                                <UpgradeApiSubscriptionComponents
-                                    serviceId={currentApiServiceSubscription.service_details.id}
-                                    oldPrice={currentApiServiceSubscription.price}
-                                    planSelectedId={currentApiServiceSubscription.service_plan_id}
-                                    start_date={currentApiServiceSubscription.start_date}
-                                    onClick={() =>
-                                        setDrawerActionType("upgrade")
-                                    } />
+                <Row gutter={16} justify="space-between" align="middle">
+                    {/* Title */}
+                    <Col xs={24} sm={16} md={16} lg={16} xl={18}>
+                        {currentApiServiceSubscription.service_details && (
+                            <Typography.Title level={2} style={{ margin: 0 }}>
+                                {currentApiServiceSubscription.service_details.name}
+                            </Typography.Title>
+                        )}
+                    </Col>
 
+                    {/* Actions */}
+                    <Col xs={24} sm={8} md={8} lg={8} xl={6}>
+                        <div style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '12px',
+                            alignItems: 'flex-end'
+                        }}>
+                            {/* Status Tag */}
+                            <Tag
+                                bordered={false}
+                                color={subscriptionStatusStyle(currentApiServiceSubscription.status)}
+                                style={{
+                                    height: 'fit-content',
+                                    fontSize: '14px',
+                                    fontWeight: "bold",
+                                    borderRadius: 20,
+                                    padding: "5px 20px",
+                                    textTransform: "capitalize"
+                                }}
+                            >
+                                {tApiServiceSubscription(currentApiServiceSubscription.status as "active" | "inactive")}
+                            </Tag>
 
-                                <RenewApiSubscriptionComponents
-                                    serviceId={currentApiServiceSubscription.service_details.id}
-                                    oldPrice={currentApiServiceSubscription.price}
-                                    plan={currentApiServiceSubscription.service_plan_id}
-                                    start_date={currentApiServiceSubscription.start_date}
-                                    onClick={() => setDrawerActionType("renew")}
-                                />
-                            </Row>
-                        </Col>
+                            {/* Action Buttons - Only show if status is active */}
+                            {currentApiServiceSubscription.status === 'active' && (
+                                <div style={{
+                                    display: 'flex',
+                                    gap: '8px',
+                                    flexWrap: 'wrap',
+                                    justifyContent: 'flex-end'
+                                }}>
+                                    <UpgradeApiSubscriptionComponents
+                                        serviceId={currentApiServiceSubscription.service_details.id}
+                                        oldPrice={currentApiServiceSubscription.price}
+                                        planSelectedId={currentApiServiceSubscription.service_plan_id}
+                                        start_date={currentApiServiceSubscription.start_date}
+                                        onClick={() => setDrawerActionType("upgrade")}
+                                    />
 
-
-                    </Row>
+                                    <RenewApiSubscriptionComponents
+                                        serviceId={currentApiServiceSubscription.service_details.id}
+                                        oldPrice={currentApiServiceSubscription.price}
+                                        plan={currentApiServiceSubscription.service_plan_id}
+                                        start_date={currentApiServiceSubscription.start_date}
+                                        onClick={() => setDrawerActionType("renew")}
+                                    />
+                                </div>
+                            )}
+                        </div>
+                    </Col>
+                </Row>
                     <ShowdrawerSubscription
                         IsSubscribed={currentApiServiceSubscription.service_details.is_subscribed}
                         subscriptionOldId={currentApiServiceSubscription.id}
