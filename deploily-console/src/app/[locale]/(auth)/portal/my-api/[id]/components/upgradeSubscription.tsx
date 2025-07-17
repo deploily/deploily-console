@@ -11,7 +11,8 @@ import {  openDrawer, updateUpgradeApiServiceSubscriptionStates } from "@/lib/fe
 import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThanks";
 import HomeCarousel from "../../../components/homeCarousel";
 
-export default function UpgradeApiSubscriptionComponents({ serviceId, planSelectedId, oldPrice, start_date }: { start_date: any  ,serviceId: any, planSelectedId: any, oldPrice : any  }) {
+export default function UpgradeApiSubscriptionComponents({ serviceId, planSelectedId, oldPrice, start_date, onClick}:
+    { start_date: any, serviceId: any, planSelectedId: any, oldPrice: any, onClick?: () => void }  ) {
     const tSubscription = useScopedI18n("subscription");
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,6 +27,7 @@ export default function UpgradeApiSubscriptionComponents({ serviceId, planSelect
         if (plan !== null) {
             dispatch(updateUpgradeApiServiceSubscriptionStates({ price: plan.price, oldPrice: oldPrice, start_date: start_date })); //TODO UPDATE PRICE
             dispatch(openDrawer(plan));
+            if (onClick) onClick();
         }
         setIsModalOpen(false);
     };

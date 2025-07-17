@@ -21,6 +21,7 @@ import DocumentationDrawer from "../../../utils/documentationDrawer";
 import { subscriptionStatusStyle } from "../../utils/subscriptionsConst";
 import UpgradeApiSubscriptionComponents from "./upgradeSubscription";
 import ShowdrawerSubscription from "./showDrawerSubscription";
+import RenewApiSubscriptionComponents from "./renewSubscription";
 
 export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscription_id }: { apiServiceSubscription_id: string }) {
     const t = useI18n();
@@ -62,6 +63,9 @@ export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscri
             (end.getFullYear() - today.getFullYear()) * 12 + (end.getMonth() - today.getMonth());
         return (diffInMonths)
     }
+
+
+    const [drawerActionType, setDrawerActionType] = useState<"upgrade" | "renew" | null>(null);
 
     return (
         <Space direction="vertical" size="large" style={{ paddingInline: 40, marginBlock: 10, width: "100%", marginBottom: 50, paddingTop: 20 }}>
@@ -123,17 +127,33 @@ export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscri
                                 <Tag bordered={false} color={subscriptionStatusStyle(currentApiServiceSubscription.status)} style={{ height: 'fit-content', fontSize: '14px', fontWeight: "bold", borderRadius: 20, padding: "5px 20px", textTransform: "capitalize" }}>
                                     {tApiServiceSubscription(currentApiServiceSubscription.status as "active" | "inactive")}
                                 </Tag>
-                            <UpgradeApiSubscriptionComponents serviceId={currentApiServiceSubscription.service_details.id}
-                                oldPrice={currentApiServiceSubscription.price}
-                                planSelectedId={currentApiServiceSubscription.service_plan_id} 
-                                start_date={currentApiServiceSubscription.start_date}
+                                <UpgradeApiSubscriptionComponents
+                                    serviceId={currentApiServiceSubscription.service_details.id}
+                                    oldPrice={currentApiServiceSubscription.price}
+                                    planSelectedId={currentApiServiceSubscription.service_plan_id}
+                                    start_date={currentApiServiceSubscription.start_date}
+                                    onClick={() =>
+                                        setDrawerActionType("upgrade")
+                                    } />
+
+
+                                <RenewApiSubscriptionComponents
+                                    serviceId={currentApiServiceSubscription.service_details.id}
+                                    oldPrice={currentApiServiceSubscription.price}
+                                    plan={currentApiServiceSubscription.service_plan_id}
+                                    start_date={currentApiServiceSubscription.start_date}
+                                    onClick={() => setDrawerActionType("renew")}
                                 />
                             </Row>
                         </Col>
 
 
                     </Row>
-                <ShowdrawerSubscription IsSubscribed={currentApiServiceSubscription.service_details.is_subscribed} subscriptionOldId={currentApiServiceSubscription.id} />
+                    <ShowdrawerSubscription
+                        IsSubscribed={currentApiServiceSubscription.service_details.is_subscribed}
+                        subscriptionOldId={currentApiServiceSubscription.id}
+                        drawerType={drawerActionType}
+                    />
                     {currentApiServiceSubscription.service_details && <Row gutter={16} style={{ marginTop: 0 }} >
                         <Paragraph style={{ fontSize: 14 }} >
                             {currentApiServiceSubscription.service_details.short_description}

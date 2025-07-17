@@ -1,7 +1,7 @@
 "use client";
 import { getBankCredEnvVars } from "@/actions/getBankCredEnvVars";
 import { useApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSelectors";
-import { postApiServiceSubscription, postUpgradeApiServiceSubscription } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionThunks";
+import { postApiServiceSubscription, postRenewApiServiceSubscription, postUpgradeApiServiceSubscription } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
 import { Button, Card, Typography, } from "antd";
@@ -10,8 +10,8 @@ import { useEffect, useState } from "react";
 import { useScopedI18n } from "../../../../../../../../../../locales/client";
 import bankPaymentInfo from "./bankPaymentData";
 
-export default function BankTransfertComponent({ selectedPlan, subscriptionOldId, IsSubscribed }:
-    { selectedPlan: any, subscriptionOldId?: any, IsSubscribed?: any }) {
+export default function BankTransfertComponent({ selectedPlan, subscriptionOldId, IsSubscribed, drawerType }:
+    { selectedPlan: any, subscriptionOldId?: any, IsSubscribed?: any , drawerType?: any }) {
 
     const { totalAmount } = useApiServiceSubscriptionStates()
     const tBankPayment = useScopedI18n("bankPayment");
@@ -20,40 +20,50 @@ export default function BankTransfertComponent({ selectedPlan, subscriptionOldId
     const dispatch = useAppDispatch();
     const router = useRouter()
 
-        const handleApiServiceSubscription = async () => {
-            const newApiServiceSubscriptionObject = {
-                    duration: apiServiceSubscriptionStates.duration,
-                    total_amount: apiServiceSubscriptionStates.totalAmount,
-                    promo_code: apiServiceSubscriptionStates.promoCode,
-                    payment_method: "bank_transfer",
-                    service_plan_selected_id: selectedPlan.id,
-                    profile_id: apiServiceSubscriptionStates.selectedProfile != null ? apiServiceSubscriptionStates.selectedProfile.id : 1
-            };
-            
-            const newUpgradeApiServiceSubscriptionObject = {
-                ...newApiServiceSubscriptionObject,
-                old_subscription_id: subscriptionOldId,
-            };
-
-            if (IsSubscribed) {    
-    
-                dispatch(postUpgradeApiServiceSubscription(newUpgradeApiServiceSubscriptionObject)).then((response: any) => {
-                    if (response.meta.requestStatus === "fulfilled") {
-                        router.push(`/portal/my-api/`);
-                    }
-                });
-            
-            } else {
-    
-                dispatch(postApiServiceSubscription(newApiServiceSubscriptionObject)).then((response: any) => {
-                    if (response.meta.requestStatus === "fulfilled") {
-                        router.push(`/portal/my-api/`);
-                        
-                    }
-                })
-    
-            }
+    const handleApiServiceSubscription = async () => {
+        const baseSubscriptionData = {
+            duration: apiServiceSubscriptionStates.duration,
+            total_amount: apiServiceSubscriptionStates.totalAmount,
+            promo_code: apiServiceSubscriptionStates.promoCode,
+            payment_method: "bank_transfer",
+            service_plan_selected_id: selectedPlan.id,
+            profile_id: apiServiceSubscriptionStates.selectedProfile?.id ?? 1,
         };
+
+        if (IsSubscribed && drawerType === "upgrade") {
+            return dispatch(
+                postUpgradeApiServiceSubscription({
+                    ...baseSubscriptionData,
+                    old_subscription_id: subscriptionOldId,
+                })
+            ).then((response: any) => {
+                if (response.meta.requestStatus === "fulfilled") {
+                    router.push(`/portal/my-api/`);
+                }
+            });
+        }
+
+        if (IsSubscribed && drawerType === "renew") {
+            return dispatch(
+                postRenewApiServiceSubscription({
+                    ...baseSubscriptionData,
+                    old_subscription_id: subscriptionOldId,
+                })
+            ).then((response: any) => {
+                if (response.meta.requestStatus === "fulfilled") {
+                    router.push(`/portal/my-api/`);
+                }
+            });
+        }
+
+        // Default case: new subscription
+        return dispatch(postApiServiceSubscription(baseSubscriptionData)).then((response: any) => {
+            if (response.meta.requestStatus === "fulfilled") {
+                router.push(`/portal/my-api/`);
+            }
+        });
+    };
+      
     const [bankTransfertInformation, setBankTransfertInformation] = useState<any>(undefined)
     useEffect(() => {
         const fetchBankTransfertInfo = async () => {

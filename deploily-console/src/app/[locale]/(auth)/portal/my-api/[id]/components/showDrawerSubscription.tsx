@@ -4,7 +4,7 @@ import ApiServiceSubscriptionDrawer from "../../../api-services/[id]/components/
 import { useApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSelectors";
 import { closeDrawer } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSlice";
 
-export default function ShowdrawerSubscription({ IsSubscribed, subscriptionOldId }: { IsSubscribed?: boolean , subscriptionOldId?: number }) {
+export default function ShowdrawerSubscription({ IsSubscribed, subscriptionOldId, drawerType }: { IsSubscribed?: boolean, subscriptionOldId?: number, drawerType?: any }) {
     const dispatch = useAppDispatch();
     const { openDrawer: isDrawerOpen, selectedPlan } = useApiServiceSubscriptionStates();
 
@@ -15,6 +15,7 @@ export default function ShowdrawerSubscription({ IsSubscribed, subscriptionOldId
             planSelected={selectedPlan}
             IsSubscribed={IsSubscribed} 
             subscriptionOldId={subscriptionOldId}
+            drawerType={drawerType}
         />
     );
 }
