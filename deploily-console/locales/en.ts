@@ -309,7 +309,6 @@ export default {
     "salesPhone": "Sales Phone",
     "contactUs": "Contact Us",
 
-
     "toast.titleFailed": "Failed to Create item",
     "toast.failed": "Failed to Create item",
     "toast.success": "Check your inbox for further instructions.",
@@ -339,5 +338,6 @@ export default {
     "applications.noResult": "No Results Found",
     "applications.noResultDescription": "Try adjusting your search or filter.",
     "applications.promoCode": "Promo code :",
-    "applications.promoCodePlaceHolder": "Promo code"
+    "applications.promoCodePlaceHolder": "Promo code",
+    "applications.prepaTime": "Preparation time",
 } as const

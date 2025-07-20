@@ -338,7 +338,7 @@ export default {
   "toast.msgFailed": "Échec",
   "toast.titleMsgFailed": "Échec de l'envoi du message",
 
-  "applications.svc": "Nom du service",
+  "applications.svc": "Nom de l'application",
   "applications.plan": "Forfait",
   "applications.duration": "Durée",
   "applications.version": "Version",
@@ -359,4 +359,6 @@ export default {
   "applications.noResultDescription": "Essayez d'ajuster votre recherche ou votre filtre.",
   "applications.promoCode": "Code promo :",
   "applications.promoCodePlaceHolder": "Code promo",
+  "applications.prepaTime": "Temps de préparation",
+  
 } as const;

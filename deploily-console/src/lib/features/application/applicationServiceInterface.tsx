@@ -36,6 +36,7 @@ export interface ApplicationServiceInterface {//TODO RECHECK THIS INTERFACE TO C
     unit_price: number;
     min_app_price: number;
     app_versions: AppVersionInterface[];
+    is_subscribed: boolean;
 }
 
 export interface NewApplicationSubscriptionState {

@@ -82,6 +82,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                             title={applicationServiceById.name}
                             price={applicationServiceById.min_app_price}
                             description={applicationServiceById.short_description}
+                            documentationUrl={applicationServiceById.documentation_url}
                             logo={
                                 <div style={{ border: "1px solid #4E4E4E", borderRadius: "10px", padding: "1px" }}>
                                     <ImageFetcher imagePath={applicationServiceById.image_service || ""} width={190} height={190} />
@@ -92,10 +93,9 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                         <div style={{ padding: '8px 0' }}>
                             <ApplicationPlansContainer />
                         </div>
-                        {/* Payment App Bar - Only for Mobile */}
-                        {!screens.lg && (
-                            <div
 
+                        {!screens.lg && !(applicationServiceById.is_subscribed) && (
+                            <div
                                 style={{
                                     position: isScrolled ? "fixed" : "relative",
                                     bottom: isScrolled ? 0 : "auto",
@@ -177,7 +177,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                     </Col>
 
                     {/* Payment Sidebar - Only for Desktop */}
-                    {screens.lg && (
+                    {screens.lg && !(applicationServiceById.is_subscribed)&&(
                         <Col xs={24} lg={8} style={{ position: 'sticky', top: 16, alignSelf: 'flex-start' }}>
                             <PaymentSideBar
                                 price={totalAmount}
@@ -189,6 +189,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                     { label: tApplications('provider'), value: resource_service_plan?.provider_info?.name || "" },
                                     { label: tApplications("vpsType"), value: resource_service_plan?.service_name || "" },
                                     { label: tApplications('resourcePlan'), value: resource_service_plan?.plan_name || "" },
+                                    { label: tApplications('prepaTime'), value: `${resource_service_plan?.preparation_time} h` || "" },
                                     {
                                         label: tApplications('version'),
                                         value: (

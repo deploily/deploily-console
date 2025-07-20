@@ -3,10 +3,11 @@ import { ApplicationDescriptionForConsole } from 'deploily-ui-components';
 import React from 'react';
 
 export default function ApplicationDescriptionContainer({ title,
-    description,
+    description, documentationUrl,
     logo, price}: {
         title: string;
         description: string;
+        documentationUrl: string;
         logo: React.ReactNode;
         price: number;
     }) {
@@ -17,6 +18,7 @@ export default function ApplicationDescriptionContainer({ title,
                 price={price}
                 description={description}
                 avatar={logo}
+                documentationUrl={documentationUrl}
             />
         </div>
     );
