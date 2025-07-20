@@ -19,6 +19,11 @@ export interface UpgradeTtkEpayState {
   isLoadingUpgrade: boolean;
   loadingError?: any;
 }
+export interface RenewTtkEpayState {
+  renewTtkEpay?: any;
+  isLoadingRenew: boolean;
+  loadingError?: any;
+}
 export interface TtkEpayResponse {
   count: number;
   description_columns: any;

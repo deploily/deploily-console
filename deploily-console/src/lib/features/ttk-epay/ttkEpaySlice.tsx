@@ -1,12 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TtkEpayByIdState, UpdateTtkEpayState, UpgradeTtkEpayState, UpgradeTtkEpaySubscriptionState } from "./ttkEpayInterface";
-import { fetchTtkEpayById, updateTtkEpay, upgradeTtkEpay } from "./ttkEpayThunks";
+import { RenewTtkEpayState, TtkEpayByIdState, UpdateTtkEpayState, UpgradeTtkEpayState, UpgradeTtkEpaySubscriptionState } from "./ttkEpayInterface";
+import { fetchTtkEpayById, renewTtkEpay, updateTtkEpay, upgradeTtkEpay } from "./ttkEpayThunks";
 import { calculateRemainingSubscriptionValue } from "@/lib/utils/subscriptionUtils";
 
 interface TtkEpayState {
   ttkEpayById: TtkEpayByIdState;
   updateTtkEpay: UpdateTtkEpayState;
   upgradeTtkEpay: UpgradeTtkEpayState;
+  renewTtkEpay: RenewTtkEpayState;
   upgradeTtkEpaySubscriptionState: UpgradeTtkEpaySubscriptionState;
   openDrawer: boolean;
   servicePlan: any;
@@ -30,6 +31,11 @@ const initialState: TtkEpayState = {
   upgradeTtkEpay: {
     upgradeTtkEpay: undefined,
     isLoadingUpgrade: false,
+    loadingError: null,
+  },
+  renewTtkEpay: {
+    renewTtkEpay: undefined,
+    isLoadingRenew: false,
     loadingError: null,
   },
   upgradeTtkEpaySubscriptionState: {
@@ -158,8 +164,6 @@ const TtkEpaySlice = createSlice({
         state.updateTtkEpay.isLoadingUpdate = false;
         state.updateTtkEpay.loadingError = payload;
       })
-
-
       .addCase(upgradeTtkEpay.pending, (state) => {
         state.upgradeTtkEpay.isLoadingUpgrade = true;
       })
@@ -167,11 +171,22 @@ const TtkEpaySlice = createSlice({
         state.upgradeTtkEpay.isLoadingUpgrade = false;
         state.upgradeTtkEpay.loadingError = null;
         state.upgradeTtkEpay.upgradeTtkEpay = action.payload;
-
       })
       .addCase(upgradeTtkEpay.rejected, (state, { payload }) => {
         state.upgradeTtkEpay.isLoadingUpgrade = false;
         state.upgradeTtkEpay.loadingError = payload;
+      })
+      .addCase(renewTtkEpay.pending, (state) => {
+        state.renewTtkEpay.isLoadingRenew = true;
+      })
+      .addCase(renewTtkEpay.fulfilled, (state, action) => {
+        state.renewTtkEpay.isLoadingRenew = false;
+        state.renewTtkEpay.loadingError = null;
+        state.renewTtkEpay.renewTtkEpay = action.payload;
+      })
+      .addCase(renewTtkEpay.rejected, (state, { payload }) => {
+        state.renewTtkEpay.isLoadingRenew = false;
+        state.renewTtkEpay.loadingError = payload;
       });
 
 
