@@ -1,6 +1,6 @@
 "use client";
 import { useApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSelectors";
-import { updateApiServiceSubscriptionStates, updateUpgradeApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSlice";
+import { upgradeApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSlice";
 import { usePromoCode } from "@/lib/features/promo-code/promoCodeSelectors";
 import { checkPromoCode } from "@/lib/features/promo-code/promoCodeThunks";
 import { useAppDispatch } from "@/lib/hook";
@@ -20,16 +20,16 @@ export default function NewApiServiceSubscriptionInfo({ planSelected }: { planSe
   const { promoCodeResponse, promoCodeLoadingError } = usePromoCode();
 
   const handleChangeDuration = (value: number) => {
-      dispatch(updateUpgradeApiServiceSubscriptionStates({ duration: value }));
+    dispatch(upgradeApiServiceSubscriptionStates({ duration: value }));
   };
 
 
   useEffect(() => {
     if (promoCodeLoadingError) {
-        dispatch(updateUpgradeApiServiceSubscriptionStates({ promoCodeRate: undefined, promoCode: "", promoColor: undefined }));
+      dispatch(upgradeApiServiceSubscriptionStates({ promoCodeRate: undefined, promoCode: "", promoColor: undefined }));
     }
     if (promoCodeResponse?.rate !== undefined) {
-        dispatch(updateUpgradeApiServiceSubscriptionStates({ promoCodeRate: promoCodeResponse.rate, promoCode: promoCode }));
+      dispatch(upgradeApiServiceSubscriptionStates({ promoCodeRate: promoCodeResponse.rate, promoCode: promoCode }));
     }
   }, [promoCodeResponse, promoCodeLoadingError]);
 
@@ -42,7 +42,7 @@ export default function NewApiServiceSubscriptionInfo({ planSelected }: { planSe
   }
   const handleChangePromoCode = (value: string) => {
     setPromoCode(value);
-      dispatch(updateUpgradeApiServiceSubscriptionStates({ promoCodeRate: undefined, promoCode: "", promoColor: undefined }));
+    dispatch(upgradeApiServiceSubscriptionStates({ promoCodeRate: undefined, promoCode: "", promoColor: undefined }));
   }
 
   return (
@@ -101,19 +101,19 @@ export default function NewApiServiceSubscriptionInfo({ planSelected }: { planSe
             <Row gutter={16} align="top" >
               <Col span={14} >  <Typography.Text strong >{translate("promoCode")}</Typography.Text></Col>
               <Col span={10} >
-                  <Input
-                    placeholder={translate('promoCodePlaceHolder')}
-                    value={promoCode}
-                    onChange={(e) => handleChangePromoCode(e.target.value)}
-                    onPressEnter={handleSubmitPromoCode}
-                    onBlur={handleSubmitPromoCode}
-                    style={{
-                      boxShadow: "none",
-                      textIndent: 0,
-                      color: promoColor
-                    }}
+                <Input
+                  placeholder={translate('promoCodePlaceHolder')}
+                  value={promoCode}
+                  onChange={(e) => handleChangePromoCode(e.target.value)}
+                  onPressEnter={handleSubmitPromoCode}
+                  onBlur={handleSubmitPromoCode}
+                  style={{
+                    boxShadow: "none",
+                    textIndent: 0,
+                    color: promoColor
+                  }}
 
-                  />
+                />
               </Col>
             </Row>
             <Row gutter={16} align="top" >
