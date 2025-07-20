@@ -57,7 +57,7 @@ const apiServiceSubscriptionStatesSlice = createSlice({
       return updatedState;
     },
 
-    updateUpgradeApiServiceSubscriptionStates: (state, action: PayloadAction<any>) => {
+    upgradeApiServiceSubscriptionStates: (state, action: PayloadAction<any>) => {
       Object.assign(state, action.payload);
 
       const oldPlanValueRemaining = calculateRemainingSubscriptionValue({
@@ -105,6 +105,6 @@ const apiServiceSubscriptionStatesSlice = createSlice({
   },
 });
 
-export const { updateApiServiceSubscriptionStates, updateUpgradeApiServiceSubscriptionStates , openDrawer, closeDrawer } = apiServiceSubscriptionStatesSlice.actions;
+export const { updateApiServiceSubscriptionStates, upgradeApiServiceSubscriptionStates , openDrawer, closeDrawer } = apiServiceSubscriptionStatesSlice.actions;
 
 export default apiServiceSubscriptionStatesSlice.reducer;

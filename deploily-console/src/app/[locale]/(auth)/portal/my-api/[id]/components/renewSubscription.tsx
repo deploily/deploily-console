@@ -1,15 +1,15 @@
 "use client";
 
+import {
+    openDrawer,
+    upgradeApiServiceSubscriptionStates,
+} from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSlice";
+import { useServicePlan } from "@/lib/features/service-plans/servicePlanSelector";
+import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThanks";
+import { useAppDispatch } from "@/lib/hook";
 import { Button } from "antd";
 import { useEffect } from "react";
 import { useScopedI18n } from "../../../../../../../../locales/client";
-import { useServicePlan } from "@/lib/features/service-plans/servicePlanSelector";
-import { useAppDispatch } from "@/lib/hook";
-import {
-    openDrawer,
-    updateUpgradeApiServiceSubscriptionStates,
-} from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSlice";
-import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThanks";
 
 interface Props {
     serviceId: any;
@@ -25,7 +25,7 @@ export default function RenewApiSubscriptionComponents({
     oldPrice,
     start_date, onClick }: Props) {
     const tSubscription = useScopedI18n("subscription");
-    const { servicePlanResponse, servicePlanLoading } = useServicePlan();
+    const { servicePlanResponse } = useServicePlan();
     const dispatch = useAppDispatch();
 
     useEffect(() => {
@@ -41,7 +41,7 @@ export default function RenewApiSubscriptionComponents({
         );
 
         dispatch(
-            updateUpgradeApiServiceSubscriptionStates({
+            upgradeApiServiceSubscriptionStates({
                 selectedPlan: matchedPlan,
                 price: matchedPlan?.price,
                 oldPrice,
@@ -63,7 +63,7 @@ export default function RenewApiSubscriptionComponents({
                 backgroundColor: "#D85912",
                 border: "none",
                 boxShadow: "none",
-               
+
             }}
         >
             <span

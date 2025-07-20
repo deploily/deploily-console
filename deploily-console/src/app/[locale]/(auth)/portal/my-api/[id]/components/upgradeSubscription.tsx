@@ -1,18 +1,18 @@
 "use client";
 
+import { openDrawer, upgradeApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSlice";
+import { ServicePlan } from "@/lib/features/service-plans/servicePlanInterface";
+import { useServicePlan } from "@/lib/features/service-plans/servicePlanSelector";
+import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThanks";
+import { useAppDispatch } from "@/lib/hook";
 import { Button, Modal } from "antd";
 import { useEffect, useState } from "react";
 import { useScopedI18n } from "../../../../../../../../locales/client";
-import { useServicePlan } from "@/lib/features/service-plans/servicePlanSelector";
-import { ServicePlan } from "@/lib/features/service-plans/servicePlanInterface";
 import ServicePlanCard from "../../../api-services/[id]/components/servicePlanCard";
-import { useAppDispatch } from "@/lib/hook";
-import {  openDrawer, updateUpgradeApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSlice";
-import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThanks";
 import HomeCarousel from "../../../components/homeCarousel";
 
-export default function UpgradeApiSubscriptionComponents({ serviceId, planSelectedId, oldPrice, start_date, onClick}:
-    { start_date: any, serviceId: any, planSelectedId: any, oldPrice: any, onClick?: () => void }  ) {
+export default function UpgradeApiSubscriptionComponents({ serviceId, planSelectedId, oldPrice, start_date, onClick }:
+    { start_date: any, serviceId: any, planSelectedId: any, oldPrice: any, onClick?: () => void }) {
     const tSubscription = useScopedI18n("subscription");
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,7 +25,7 @@ export default function UpgradeApiSubscriptionComponents({ serviceId, planSelect
 
     const showDrawer = (plan: any | null) => {
         if (plan !== null) {
-            dispatch(updateUpgradeApiServiceSubscriptionStates({ price: plan.price, oldPrice: oldPrice, start_date: start_date })); //TODO UPDATE PRICE
+            dispatch(upgradeApiServiceSubscriptionStates({ price: plan.price, oldPrice: oldPrice, start_date: start_date })); //TODO UPDATE PRICE
             dispatch(openDrawer(plan));
             if (onClick) onClick();
         }
@@ -50,7 +50,7 @@ export default function UpgradeApiSubscriptionComponents({ serviceId, planSelect
                 style={{ maxWidth: 1200, padding: 0, justifyContent: "center" }}
                 centered
                 footer={null}
-                onCancel={() => setIsModalOpen(false)} 
+                onCancel={() => setIsModalOpen(false)}
             >
                 {!servicePlanLoading && servicePlanResponse?.result && (
                     <HomeCarousel>
