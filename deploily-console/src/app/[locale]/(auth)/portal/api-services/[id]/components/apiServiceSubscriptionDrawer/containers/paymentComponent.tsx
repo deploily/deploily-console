@@ -33,7 +33,7 @@ export default function PaymentComponent({ selectedPlan, subscriptionOldId, IsSu
 
       </Flex>
       {paymentMethod === "card" ?
-        <CardPaymentComponent selectedPlan={selectedPlan} />
+        <CardPaymentComponent selectedPlan={selectedPlan} subscriptionOldId={subscriptionOldId} IsSubscribed={IsSubscribed} />
         : <BankTransfertComponent selectedPlan={selectedPlan} subscriptionOldId={subscriptionOldId} IsSubscribed={IsSubscribed} drawerType={drawerType} />}
     </>
   )

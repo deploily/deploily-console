@@ -19,7 +19,6 @@ export default function MyAppContainer() {
 
   const filteredData: myApplicationInterface[] =
     MyApplicationList?.result?.filter((row) => row.status !== "inactive") || [];
-  console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", filteredData);
 
   return (
     <>

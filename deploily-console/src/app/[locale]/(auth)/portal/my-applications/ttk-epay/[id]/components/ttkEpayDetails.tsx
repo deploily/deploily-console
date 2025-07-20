@@ -154,8 +154,10 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                                         style={{ height: 'fit-content', fontSize: '14px', fontWeight: "bold", borderRadius: 20, padding: "5px 20px", textTransform: "capitalize" }}>
                                         {tSubscription(ttkEpayById.application_status as "processing" | "error" | "deployed")}
                                     </Tag>
-                            <UpgradeTtkEpaySubscriptionComponents serviceId={ttkEpayById.service_details.id} oldPrice={ttkEpayById.price} start_date={ttkEpayById.start_date}/>
-                                </Row>
+                            {ttkEpayById.status === 'active' && (
+
+                                <UpgradeTtkEpaySubscriptionComponents serviceId={ttkEpayById.service_details.id} oldPrice={ttkEpayById.price} start_date={ttkEpayById.start_date} />
+                            )}  </Row>
                             </Col>
 
                     </Row>

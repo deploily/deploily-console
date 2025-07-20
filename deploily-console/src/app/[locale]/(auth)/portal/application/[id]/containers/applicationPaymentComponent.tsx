@@ -9,8 +9,9 @@ import { useState } from "react";
 import { useScopedI18n } from "../../../../../../../../locales/client";
 import BankTransfertComponent from "./payment-components/bankTransfertComponent";
 import CardPaymentComponent from "./payment-components/cardPaymentComponent";
+import { upgradeTtkEpay } from "@/lib/features/ttk-epay/ttkEpayThunks";
 
-export default function ApplicationPaymentComponent() {
+export default function ApplicationPaymentComponent({isSubscribed , subscriptionOldId}: { isSubscribed?: boolean, subscriptionOldId?: any }) {
   const translate = useScopedI18n('subscription');
   const dispatch = useAppDispatch();
   const translateProfile = useScopedI18n('profilePayment');
@@ -25,31 +26,65 @@ export default function ApplicationPaymentComponent() {
   const { newSubscriptionResponse } = useNewApplicationSubscriptionResponse();
 
   const handleApplicationSubscription = async (captchaToken?: string) => {
-    if (newApplicationSubscription.app_service_plan != undefined && newApplicationSubscription.resource_service_plan != undefined && newApplicationSubscription.selectedProfile != undefined) {
-      let newSubscriptionObject = {
-        duration: Number.parseInt(`${newApplicationSubscription.duration}`),
-        promo_code: newApplicationSubscription.promoCode,
+    const {
+      app_service_plan,
+      resource_service_plan,
+      selectedProfile,
+      selected_version,
+      duration,
+      promoCode,
+    } = newApplicationSubscription;
+
+    if (app_service_plan && resource_service_plan && selectedProfile) {
+      const baseSubscriptionObject = {
+        duration: Number.parseInt(`${duration}`),
+        promo_code: promoCode,
         payment_method: paymentMethod,
-        service_plan_selected_id: newApplicationSubscription.app_service_plan.id,
-        ressource_service_plan_selected_id: newApplicationSubscription.resource_service_plan.id,
-        profile_id: newApplicationSubscription.selectedProfile.id,
-        version_selected_id: newApplicationSubscription.selected_version?.id,
+        service_plan_selected_id: app_service_plan.id,
+        ressource_service_plan_selected_id: resource_service_plan.id,
+        profile_id: selectedProfile.id,
+        version_selected_id: selected_version?.id,
       };
-      if (paymentMethod == "card") {
-        newSubscriptionObject = { ...newSubscriptionObject, ...{ captcha_token: captchaToken }, }
-      }
-      dispatch(applicationSubscribe({ service_slug: applicationServiceById?.service_slug, data: newSubscriptionObject })).then((response: any) => {
-        if (response.meta.requestStatus === "fulfilled") {
-          if (newSubscriptionResponse && newSubscriptionResponse.form_url !== null && newSubscriptionResponse.form_url !== ""){
-            redirect(newSubscriptionResponse.form_url);
-          } else {
-            router.push(`/portal/my-applications/`); 
+
+      const subscriptionPayload =
+        paymentMethod === "card"
+          ? { ...baseSubscriptionObject, captcha_token: captchaToken }
+          : baseSubscriptionObject;
+
+      // if already subscribed, trigger upgrade logic
+      if (isSubscribed) {
+        const upgradeTtkEpayObject = {
+          ...baseSubscriptionObject,
+          payment_method: "cloud_credit", // hardcoded for upgrade case
+          old_subscription_id: subscriptionOldId,
+        };
+
+        dispatch(upgradeTtkEpay({
+          service_slug: applicationServiceById?.service_slug,
+          data: upgradeTtkEpayObject
+        })).then((response: any) => {
+          if (response.meta.requestStatus === "fulfilled") {
+            router.push(`/portal/my-applications`);
           }
-        }
+        });
+      } else {
+        // otherwise, it's a new subscription
+        dispatch(applicationSubscribe({
+          service_slug: applicationServiceById?.service_slug,
+          data: subscriptionPayload
+        })).then((response: any) => {
+          if (response.meta.requestStatus === "fulfilled") {
+            if (newSubscriptionResponse?.form_url) {
+              redirect(newSubscriptionResponse.form_url);
+            } else {
+              router.push(`/portal/my-applications/`);
+            }
+          }
+        });
       }
-      );
     }
   };
+  
 
   return (
     <>
