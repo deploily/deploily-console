@@ -337,5 +337,7 @@ export default {
     "applications.noResult": "No Results Found",
     "applications.noResultDescription": "Try adjusting your search or filter.",
     "applications.promoCode": "Promo code :",
-    "applications.promoCodePlaceHolder": "Promo code"
+    "applications.promoCodePlaceHolder": "Promo code",
+    "applications.noApplications": "You don't have any applications yet. Feel free to create one!",
+    "applications.noActiveApplicationsFound": "You don't have any active applications. Feel free to create one!",
 } as const

@@ -350,6 +350,8 @@ export default {
   "applications.noResult": "Aucun résultat trouvé",
   "applications.noResultDescription": "Essayez d'ajuster votre recherche ou votre filtre.",
   "applications.promoCode": "Code promo :",
-  "applications.promoCodePlaceHolder": "Code promo"
+  "applications.promoCodePlaceHolder": "Code promo",
+  "applications.noApplications": "Vous n'avez pas encore d'application. N'hésitez pas à en créer une !",
+  "applications.noActiveApplicationsFound": "Vous n'avez pas d'application active. N'hésitez pas à en créer une !",
 
 } as const;
