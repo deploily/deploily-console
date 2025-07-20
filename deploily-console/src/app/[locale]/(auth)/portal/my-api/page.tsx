@@ -34,7 +34,7 @@ export default function Page() {
               borderColor: "#D85912",  
               backgroundColor: "transparent",
             }}
-            onClick={() => router.push("/portal/my-api/historique")}
+            onClick={() => router.push("/portal/my-api/history")}
            
           >
             {t("history")}

@@ -1,7 +1,7 @@
 "use client";
 import { Row } from "antd";
 import { useScopedI18n } from "../../../../../../../locales/client";
-import MyApiHistoriqueContainer from "./container/myApiHistoriqueContainer";
+import MyApiHistoryContainer from "./container/myApiHistoryContainer";
 
 export default function Page() {
   const t = useScopedI18n('sidebar');
@@ -19,7 +19,7 @@ export default function Page() {
           {t("myApis")}
         </span>
           </Row>
-          <MyApiHistoriqueContainer/>
+      <MyApiHistoryContainer />
     </>
   );
 }

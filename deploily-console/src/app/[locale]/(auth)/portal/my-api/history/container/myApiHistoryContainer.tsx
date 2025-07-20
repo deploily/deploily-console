@@ -7,7 +7,7 @@ import { ApiServiceSubscriptionInterface } from "@/lib/features/api-service-subs
 import { useI18n } from "../../../../../../../../locales/client";
 import MyApiCard from "../../components/myApiCard";
 
-export default function MyApiHistoriqueContainer() {
+export default function MyApiHistoryContainer() {
   const dispatch = useAppDispatch();
   const { apiServiceSubscriptionLoading, apiServiceSubscriptionResponse, apiServiceSubscriptionLoadingError } = useApiServiceSubscription()
   const t = useI18n();
