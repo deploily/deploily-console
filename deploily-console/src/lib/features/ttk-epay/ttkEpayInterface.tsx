@@ -45,6 +45,8 @@ export interface TtkEpayInterface {
   price: number;
   service_plan: Service_plan;
   service_plan_id: string;
+  ressource_service_plan_id: number;
+  ressource_service_plan: ResourceServicePlan;
   start_date: Date,
   status: string;
   total_amount: number;

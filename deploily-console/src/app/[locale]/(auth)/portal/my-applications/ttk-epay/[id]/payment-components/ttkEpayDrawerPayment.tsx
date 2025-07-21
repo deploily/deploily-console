@@ -1,9 +1,11 @@
 "use client";
 import { useApplicationServiceById, useNewApplicationSubscription } from "@/lib/features/application/applicationServiceSelectors";
+import { fetchApplicationServiceById } from "@/lib/features/application/applicationServiceThunks";
 import { useNotDefaultPaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesSelectors";
 import { fetchNotDefaultPaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesThunks";
-import { updateUpgradeAppSubscriptionState } from "@/lib/features/ttk-epay/ttkEpaySlice";
-import { upgradeTtkEpay } from "@/lib/features/ttk-epay/ttkEpayThunks";
+import { useTtkEpayById } from "@/lib/features/ttk-epay/ttkEpaySelector";
+import { upgradeAppSubscriptionState } from "@/lib/features/ttk-epay/ttkEpaySlice";
+import { renewTtkEpay, upgradeTtkEpay } from "@/lib/features/ttk-epay/ttkEpayThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
 import { Card, Col, ConfigProvider, Drawer, Row, Select, Typography } from "antd";
@@ -16,11 +18,9 @@ import ApplicationPaymentComponent from "../../../../application/[id]/containers
 import AppPromoCodeTextField from "../../../../application/[id]/containers/payment-components/appPromoCodeTextField";
 import IsBalanceSufficientComponent from "../../../../application/[id]/containers/payment-components/isBalanceSufficientComponent";
 import { options } from "../../../../application/utils/applicationConst";
-import { useTtkEpayById } from "@/lib/features/ttk-epay/ttkEpaySelector";
-import { fetchApplicationServiceById } from "@/lib/features/application/applicationServiceThunks";
 
-export default function TtkEpayPaymentDrawer({ openDrawer, onClose, subscriptionOldId, isSubscribed }:
-    { openDrawer: any, onClose: any, subscriptionOldId: any, isSubscribed ?: boolean }
+export default function TtkEpayPaymentDrawer({ openDrawer, onClose, subscriptionOldId, isSubscribed, drawerType }:
+    { openDrawer: any, onClose: any, subscriptionOldId: any, isSubscribed?: boolean, drawerType?: any }
 ) {
     const router = useRouter()
 
@@ -28,24 +28,24 @@ export default function TtkEpayPaymentDrawer({ openDrawer, onClose, subscription
     const tSubscription = useScopedI18n('subscription');
 
     const dispatch = useAppDispatch();
-        const { ttkEpayById } = useTtkEpayById()
-    
+    const { ttkEpayById } = useTtkEpayById()
+
     const { paymentProfilesList } = useNotDefaultPaymentProfiles();
     const { promoCode, totalAmount, duration, selected_version, app_service_plan, resource_service_plan, selectedProfile, isBalanceSufficient } = useNewApplicationSubscription();
 
- 
+
     const handleSelectPaymentProfile = (value: any) => {
         const newSelectedProfile = paymentProfilesList?.result.find(
             (profile) => profile.id === value
         );
-        dispatch(updateUpgradeAppSubscriptionState({ "selectedProfile": newSelectedProfile }))
+        dispatch(upgradeAppSubscriptionState({ "selectedProfile": newSelectedProfile }))
     };
-   
-       useEffect(() => {
-           dispatch(fetchApplicationServiceById(ttkEpayById?.service_details?.id));
-       }, []);
+
+    useEffect(() => {
+        dispatch(fetchApplicationServiceById(ttkEpayById?.service_details?.id));
+    }, []);
     const { applicationServiceById } = useApplicationServiceById()
-    
+
 
     const handleUpgradeSubscribe = async () => {
         if (app_service_plan != undefined && resource_service_plan != undefined && selectedProfile != undefined) {
@@ -59,12 +59,34 @@ export default function TtkEpayPaymentDrawer({ openDrawer, onClose, subscription
                 version_selected_id: selected_version?.id,
                 old_subscription_id: subscriptionOldId,
             };
-            dispatch(upgradeTtkEpay({ service_slug: ttkEpayById?.service_details?.service_slug, data: upgradeTtkEpayObject })).then((response: any) => {
-                if (response.meta.requestStatus === "fulfilled") {
-                    router.push(`/portal/my-applications`);
+            const renewTtkEpayObject = {
+                duration: Number.parseInt(`${duration}`),
+                promo_code: promoCode,
+                payment_method: "cloud_credit",
+                profile_id: Number(selectedProfile.id),
+                old_subscription_id: subscriptionOldId,
+            };
+            console.log("Selected Profile:", selectedProfile);
+            console.log("Selected Profile ID:", selectedProfile?.id);
+            console.log("Renew Object:", renewTtkEpayObject);
+            
+            if (drawerType === "upgrade") {
+                return dispatch(upgradeTtkEpay({ service_slug: ttkEpayById?.service_details?.service_slug, data: upgradeTtkEpayObject })).then((response: any) => {
+                    if (response.meta.requestStatus === "fulfilled") {
+                        router.push(`/portal/my-applications`);
+                    }
                 }
+                );
             }
-            );
+            if (drawerType === "renew") {
+                return dispatch(renewTtkEpay({ data: renewTtkEpayObject })).then((response: any) => {
+                    if (response.meta.requestStatus === "fulfilled") {
+                        router.push(`/portal/my-applications`);
+                    }
+                }
+                );
+            }
+
         }
     };
     const optionsVersion = applicationServiceById?.app_versions?.map((version) => ({
@@ -74,10 +96,10 @@ export default function TtkEpayPaymentDrawer({ openDrawer, onClose, subscription
 
 
     const handleChangeDuration = (value: number) => {
-        dispatch(updateUpgradeAppSubscriptionState({ duration: value }));
+        dispatch(upgradeAppSubscriptionState({ duration: value }));
     };
     const handleChangeVersion = (value: number) => {
-        dispatch(updateUpgradeAppSubscriptionState({ selected_version: applicationServiceById?.app_versions?.find((version) => version.id === value) }));
+        dispatch(upgradeAppSubscriptionState({ selected_version: applicationServiceById?.app_versions?.find((version) => version.id === value) }));
     };
 
 
@@ -208,7 +230,7 @@ export default function TtkEpayPaymentDrawer({ openDrawer, onClose, subscription
                             : ((paymentProfilesList?.count === 0)) ?
                                 <CreateProfileButton planSelected={undefined} openDrawer={openDrawer} onClose={onClose} />
                                 :
-                                <ApplicationPaymentComponent isSubscribed={isSubscribed} subscriptionOldId={subscriptionOldId}/>
+                                <ApplicationPaymentComponent isSubscribed={isSubscribed} subscriptionOldId={subscriptionOldId} drawerType={drawerType} />
                         }
                     </div>}
                 </Col>

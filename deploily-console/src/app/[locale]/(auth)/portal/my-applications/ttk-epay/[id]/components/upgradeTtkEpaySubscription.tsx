@@ -1,23 +1,25 @@
 "use client";
 
-import { Button, Card, Col, Modal } from "antd";
-import { useEffect, useState } from "react";
-import { useServicePlan } from "@/lib/features/service-plans/servicePlanSelector";
-import { ServicePlan } from "@/lib/features/service-plans/servicePlanInterface";
-import { useAppDispatch } from "@/lib/hook";
-import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThanks";
-import HomeCarousel from "../../../../components/homeCarousel";
-import { PlanCard } from 'deploily-ui-components';
-import { useScopedI18n } from "../../../../../../../../../locales/client";
-import { theme } from "@/styles/theme";
-import SelectVpsPlanTable from "../../../../application/[id]/containers/selectVpsPlanTable";
-import { openDrawer, updateUpgradeAppSubscriptionState } from "@/lib/features/ttk-epay/ttkEpaySlice";
-import { useUpgradeTtkEpaySubscriptionState } from "@/lib/features/ttk-epay/ttkEpaySelector";
 import { ResourceServicePlan } from "@/lib/features/resourceServicePlans/resourceServicesPlansInterface";
+import { ServicePlan } from "@/lib/features/service-plans/servicePlanInterface";
+import { useServicePlan } from "@/lib/features/service-plans/servicePlanSelector";
+import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThanks";
+import { useUpgradeTtkEpaySubscriptionState } from "@/lib/features/ttk-epay/ttkEpaySelector";
+import { openDrawer, upgradeAppSubscriptionState } from "@/lib/features/ttk-epay/ttkEpaySlice";
+import { useAppDispatch } from "@/lib/hook";
+import { theme } from "@/styles/theme";
+import { Button, Card, Col, Modal } from "antd";
+import { PlanCard } from 'deploily-ui-components';
+import { useEffect, useState } from "react";
+import { useScopedI18n } from "../../../../../../../../../locales/client";
+import SelectVpsPlanTable from "../../../../application/[id]/containers/selectVpsPlanTable";
+import HomeCarousel from "../../../../components/homeCarousel";
 
 
 
-export default function UpgradeTtkEpaySubscriptionComponents({ serviceId, oldPrice, start_date  }: { serviceId: any, oldPrice: number, start_date: any }) {
+export default function UpgradeTtkEpaySubscriptionComponents(
+    { serviceId, oldPrice, start_date, onClick }:
+        { serviceId: any, oldPrice: number, start_date: any, onClick?: () => void }) {
     const tSubscription = useScopedI18n("subscription");
 
     // Modal states
@@ -37,11 +39,11 @@ export default function UpgradeTtkEpaySubscriptionComponents({ serviceId, oldPri
     const { app_service_plan } = useUpgradeTtkEpaySubscriptionState();
 
     const handlePlanSelection = (plan: ServicePlan) => {
-        dispatch(updateUpgradeAppSubscriptionState({ app_service_plan: plan }));
+        dispatch(upgradeAppSubscriptionState({ app_service_plan: plan }));
     };
 
     const handleVpsPlanSelection = (vpsPlan: ResourceServicePlan) => {
-        dispatch(updateUpgradeAppSubscriptionState({ resource_service_plan: vpsPlan }));
+        dispatch(upgradeAppSubscriptionState({ resource_service_plan: vpsPlan }));
 
         setSelectedVpsPlan(vpsPlan);
         console.log("VPS plan selected:", vpsPlan);
@@ -52,9 +54,10 @@ export default function UpgradeTtkEpaySubscriptionComponents({ serviceId, oldPri
         setIsVpsModalOpen(true);
     };
 
-    const showDrawer = (plan: ServicePlan |any , selectedVpsPlan: ResourceServicePlan | any ) => {
-        dispatch(updateUpgradeAppSubscriptionState({ vpsPrice: selectedVpsPlan.price, planPrice: plan.price, oldPrice: oldPrice, start_date: start_date })); 
-       
+    const showDrawer = (plan: ServicePlan | any, selectedVpsPlan: ResourceServicePlan | any) => {
+        dispatch(upgradeAppSubscriptionState({ vpsPrice: selectedVpsPlan.price, planPrice: plan.price, oldPrice: oldPrice, start_date: start_date }));
+        if (onClick) onClick();
+
         dispatch(openDrawer({
             servicePlan: plan,
             vpsPlan: selectedVpsPlan

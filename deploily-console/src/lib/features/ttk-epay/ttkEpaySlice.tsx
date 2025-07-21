@@ -1,7 +1,7 @@
+import { calculateRemainingSubscriptionValue } from "@/lib/utils/subscriptionUtils";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RenewTtkEpayState, TtkEpayByIdState, UpdateTtkEpayState, UpgradeTtkEpayState, UpgradeTtkEpaySubscriptionState } from "./ttkEpayInterface";
 import { fetchTtkEpayById, renewTtkEpay, updateTtkEpay, upgradeTtkEpay } from "./ttkEpayThunks";
-import { calculateRemainingSubscriptionValue } from "@/lib/utils/subscriptionUtils";
 
 interface TtkEpayState {
   ttkEpayById: TtkEpayByIdState;
@@ -66,7 +66,7 @@ const TtkEpaySlice = createSlice({
   initialState,
   reducers: {
 
-    updateUpgradeAppSubscriptionState: (state, action: PayloadAction<any>) => {
+    upgradeAppSubscriptionState: (state, action: PayloadAction<any>) => {
       let updatedState: UpgradeTtkEpaySubscriptionState = {
         ...state.upgradeTtkEpaySubscriptionState,
         ...action.payload
@@ -193,5 +193,5 @@ const TtkEpaySlice = createSlice({
   },
 });
 
-export const { updateUpgradeAppSubscriptionState, openDrawer, closeDrawer } = TtkEpaySlice.actions;
+export const { upgradeAppSubscriptionState, openDrawer, closeDrawer } = TtkEpaySlice.actions;
 export default TtkEpaySlice.reducer;

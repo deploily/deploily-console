@@ -9,9 +9,9 @@ import { useState } from "react";
 import { useScopedI18n } from "../../../../../../../../locales/client";
 import BankTransfertComponent from "./payment-components/bankTransfertComponent";
 import CardPaymentComponent from "./payment-components/cardPaymentComponent";
-import { upgradeTtkEpay } from "@/lib/features/ttk-epay/ttkEpayThunks";
+import { renewTtkEpay, upgradeTtkEpay } from "@/lib/features/ttk-epay/ttkEpayThunks";
 
-export default function ApplicationPaymentComponent({isSubscribed , subscriptionOldId}: { isSubscribed?: boolean, subscriptionOldId?: any }) {
+export default function ApplicationPaymentComponent({ isSubscribed, subscriptionOldId, drawerType }: { isSubscribed?: boolean, subscriptionOldId?: any, drawerType?:any }) {
   const translate = useScopedI18n('subscription');
   const dispatch = useAppDispatch();
   const translateProfile = useScopedI18n('profilePayment');
@@ -24,7 +24,6 @@ export default function ApplicationPaymentComponent({isSubscribed , subscription
   const { applicationServiceById } = useApplicationServiceById()
   const router = useRouter()
   const { newSubscriptionResponse } = useNewApplicationSubscriptionResponse();
-
   const handleApplicationSubscription = async (captchaToken?: string) => {
     const {
       app_service_plan,
@@ -46,27 +45,49 @@ export default function ApplicationPaymentComponent({isSubscribed , subscription
         version_selected_id: selected_version?.id,
       };
 
+      const renewTtkEpayObject = {
+        duration: Number.parseInt(`${duration}`),
+        promo_code: promoCode,
+        payment_method: "card",
+        profile_id: selectedProfile.id,
+        old_subscription_id: subscriptionOldId,
+      };
+
       const subscriptionPayload =
         paymentMethod === "card"
           ? { ...baseSubscriptionObject, captcha_token: captchaToken }
           : baseSubscriptionObject;
 
-      // if already subscribed, trigger upgrade logic
+      // check drawerType conditions
       if (isSubscribed) {
-        const upgradeTtkEpayObject = {
-          ...baseSubscriptionObject,
-          payment_method: "cloud_credit", // hardcoded for upgrade case
-          old_subscription_id: subscriptionOldId,
-        };
+        if (drawerType === "renew") {
+          dispatch(renewTtkEpay({
+            service_slug: applicationServiceById?.service_slug,
+            data: renewTtkEpayObject
+          })).then((response: any) => {
+            if (response.meta.requestStatus === "fulfilled") {
+              router.push(`/portal/my-applications`);
+            }
+          });
+        }
 
-        dispatch(upgradeTtkEpay({
-          service_slug: applicationServiceById?.service_slug,
-          data: upgradeTtkEpayObject
-        })).then((response: any) => {
-          if (response.meta.requestStatus === "fulfilled") {
-            router.push(`/portal/my-applications`);
-          }
-        });
+        if (drawerType === "upgrade") {
+          const upgradeTtkEpayObject = {
+            ...baseSubscriptionObject,
+            payment_method: "cloud_credit", // hardcoded for upgrade case
+            old_subscription_id: subscriptionOldId,
+          };
+
+          dispatch(upgradeTtkEpay({
+            service_slug: applicationServiceById?.service_slug,
+            data: upgradeTtkEpayObject
+          })).then((response: any) => {
+            if (response.meta.requestStatus === "fulfilled") {
+              router.push(`/portal/my-applications`);
+            }
+          });
+        }
+
       } else {
         // otherwise, it's a new subscription
         dispatch(applicationSubscribe({

@@ -65,6 +65,8 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
         return (diffInMonths)
     }
 
+    const [drawerActionType, setDrawerActionType] = useState<"upgrade" | "renew" | null>(null);
+    
     return (
 
         <Space direction="vertical" size="large" style={{ paddingInline: 40, marginBlock: 10, width: "100%", marginBottom: 50, paddingTop: 20 }}>
@@ -162,17 +164,38 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                                         flexWrap: 'wrap',
                                         justifyContent: 'flex-end'
                                     }}>
-                                        <UpgradeTtkEpaySubscriptionComponents serviceId={ttkEpayById.service_details.id} oldPrice={ttkEpayById.price} start_date={ttkEpayById.start_date} />
-                                        <RenewTtkEpaySubscriptionComponents />
+                                        <UpgradeTtkEpaySubscriptionComponents
+                                            serviceId={ttkEpayById.service_details.id}
+                                            oldPrice={ttkEpayById.price}
+                                            start_date={ttkEpayById.start_date}
+                                            onClick={() => {
+                                                setDrawerActionType("upgrade"),
+                                                    console.log("Upgrade TtkEpay Subscription Clicked");
+                                            }
+                                            }
+                                        />
+                                        <RenewTtkEpaySubscriptionComponents
+                                            serviceId={ttkEpayById.service_details.id}
+                                            oldPrice={ttkEpayById.price}
+                                            start_date={ttkEpayById.start_date}
+                                            plan={ttkEpayById.service_plan.id}
+                                            selectedVpsPlan={ttkEpayById.ressource_service_plan.id}
+                                            onClick={() => {
+                                                setDrawerActionType("renew"),
+                                                    console.log("Renew TtkEpay Subscription Clicked")
+                                            }
+                                            }
+                                        />
                                     </div>
-
-                                )}  </Row>
+                                )}
+                            </Row>
                         </Col>
 
                     </Row>
                     <ShowdrawerSubscription
                         isSubscribed={ttkEpayById.service_details.is_subscribed}
                         subscriptionOldId={ttkEpayById.id}
+                        drawerType={drawerActionType}
                     />
 
                     {ttkEpayById.service_details && <Row gutter={16} style={{ marginTop: 0 }} >
