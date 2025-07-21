@@ -18,6 +18,15 @@ const labelStyle = {
 
 export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
   {
+    key: "dashboard",
+    label: (
+      <Link href="/portal/dashboard">
+        <span style={labelStyle}>{scopedSidebar("dashboard")}</span>
+      </Link>
+    ),
+    icon: <HouseLine size={24} />,
+  },
+  {
     key: "home",
     label: (
       <Link href="/portal/home">

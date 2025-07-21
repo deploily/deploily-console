@@ -6,15 +6,26 @@ import { getSession } from "next-auth/react";
 
 export const fetchPayments = createAsyncThunk(
   "payment/getPayments",
-  async (_, thunkConfig) => {
+  async (pageSize: number | null | undefined, thunkConfig) => {
+
     try {
       const session = await getSession();
       if (!session) {
         return thunkConfig.rejectWithValue("session expired");
       }
       const token = session.accessToken;
+      const queryParts = [];
 
-      const response = await axiosInstance.get(`${deploilyApiUrls.PAYMENT}`, {
+      if (pageSize != null) {
+        queryParts.push(`page_size:${pageSize}`);
+      }
+
+      queryParts.push("order_column:start_date");
+      queryParts.push("order_direction:desc");
+
+      const queryString = queryParts.join(",");
+      const query = `?q=(${encodeURIComponent(queryString)})`;
+      const response = await axiosInstance.get(`${deploilyApiUrls.PAYMENT}${query}`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,

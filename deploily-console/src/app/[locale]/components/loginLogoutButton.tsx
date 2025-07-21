@@ -7,7 +7,7 @@ export default async function LoginLogoutButton() {
     const session = await getServerSession(authOptions);
 
     if (session) {
-        redirect("/portal/home");
+        redirect("/portal/dashboard");
     }
 
     return <Login />;

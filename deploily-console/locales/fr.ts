@@ -16,6 +16,7 @@ export default {
   'month': 'mois',
   'year': 'an',
   "sidebar.home": "Accueil",
+  "sidebar.dashboard": "Tableau de bord",
   "sidebar.members": "Membres",
   "sidebar.myFavorites": "Mes favoris",
   "sidebar.myResources": "Mes ressources",
