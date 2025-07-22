@@ -18,6 +18,7 @@ interface RenewTtkEpaySubscriptionProps {
     start_date: any;
     plan: any;
     selectedVpsPlan: any;
+    duration?: any;
     onClick?: () => void;
 }
 
@@ -26,7 +27,7 @@ export default function RenewTtkEpaySubscriptionComponents({
     oldPrice,
     start_date,
     plan,
-    selectedVpsPlan,
+    selectedVpsPlan, duration,
     onClick
 }: RenewTtkEpaySubscriptionProps) {
     const tSubscription = useScopedI18n("subscription");
@@ -55,13 +56,15 @@ export default function RenewTtkEpaySubscriptionComponents({
             (v) => v.id === (selectedVpsPlan)
         );
         dispatch(
-            upgradeAppSubscriptionState(
-                {
-                    vpsPrice: selectedVpsPlan.price,
-                    planPrice: plan.price,
-                    oldPrice: oldPrice,
-                    start_date: start_date
-                }));
+
+            upgradeAppSubscriptionState({
+                oldAppServicePrice: oldPrice,
+                oldAppServiceStartDate: start_date,
+                oldAppServiceDuration: duration, 
+                app_service_plan: matchedPlan,
+                resource_service_plan: matchedVpsPlan,
+            })
+        );
         if (onClick) onClick();
 
         dispatch(

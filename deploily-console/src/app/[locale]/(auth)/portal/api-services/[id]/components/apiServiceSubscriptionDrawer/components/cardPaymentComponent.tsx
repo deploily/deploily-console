@@ -70,13 +70,8 @@ export default function CardPaymentComponent({ selectedPlan, subscriptionOldId, 
         };
 
         if (IsSubscribed) {
-            console.log("postUpgradeApiServiceSubscription", IsSubscribed);
-
-
             dispatch(postUpgradeApiServiceSubscription(newUpgradeApiServiceSubscriptionObject));
         } else {
-            console.log("postApiServiceSubscription", IsSubscribed);
-
             dispatch(postApiServiceSubscription(newApiServiceSubscriptionObject));
 
         }

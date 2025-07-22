@@ -46,7 +46,6 @@ export default function UpgradeTtkEpaySubscriptionComponents(
         dispatch(upgradeAppSubscriptionState({ resource_service_plan: vpsPlan }));
 
         setSelectedVpsPlan(vpsPlan);
-        console.log("VPS plan selected:", vpsPlan);
     };
 
     const proceedToVpsSelection = () => {

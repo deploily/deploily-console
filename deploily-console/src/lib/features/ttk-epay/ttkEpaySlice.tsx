@@ -71,12 +71,8 @@ const TtkEpaySlice = createSlice({
         ...state.upgradeTtkEpaySubscriptionState,
         ...action.payload
       };
-      console.log("Updated State:", updatedState);
-      console.log("Upgrade state.upgradeTtkEpaySubscriptionState:", state.upgradeTtkEpaySubscriptionState);
 
       let updatedAmount = 0;
-
-      // 1. Calculate new subscription total (app + resource)
       if (updatedState.app_service_plan !== undefined) {
         updatedAmount = updatedState.duration * updatedState.app_service_plan.price;
 
@@ -84,7 +80,6 @@ const TtkEpaySlice = createSlice({
           updatedAmount += updatedState.duration * updatedState.resource_service_plan.price;
         }
       }
-
       // 2. Subtract remaining value from old app subscription if available
       if (
         updatedState.oldAppServicePrice !== undefined &&
@@ -97,7 +92,7 @@ const TtkEpaySlice = createSlice({
           duration_month: updatedState.oldAppServiceDuration,
         });
 
-        updatedAmount -= oldAppRemaining;
+        updatedAmount =updatedAmount-oldAppRemaining;
       }
 
       // 3. Apply promo discount if exists

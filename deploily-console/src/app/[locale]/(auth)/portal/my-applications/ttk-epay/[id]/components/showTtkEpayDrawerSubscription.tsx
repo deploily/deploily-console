@@ -12,7 +12,6 @@ export default function ShowdrawerSubscription({ isSubscribed, subscriptionOldId
     const onClose = () => {
         dispatch(closeDrawer());
     };
-    console.log("Drawer Type:::::::::::::::::::", drawerType);
     
 
     return (

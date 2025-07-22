@@ -3,7 +3,7 @@ import { useApplicationServiceById, useNewApplicationSubscription } from "@/lib/
 import { fetchApplicationServiceById } from "@/lib/features/application/applicationServiceThunks";
 import { useNotDefaultPaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesSelectors";
 import { fetchNotDefaultPaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesThunks";
-import { useTtkEpayById } from "@/lib/features/ttk-epay/ttkEpaySelector";
+import { useTtkEpayById, useUpgradeTtkEpaySubscriptionState } from "@/lib/features/ttk-epay/ttkEpaySelector";
 import { upgradeAppSubscriptionState } from "@/lib/features/ttk-epay/ttkEpaySlice";
 import { renewTtkEpay, upgradeTtkEpay } from "@/lib/features/ttk-epay/ttkEpayThunks";
 import { useAppDispatch } from "@/lib/hook";
@@ -31,8 +31,7 @@ export default function TtkEpayPaymentDrawer({ openDrawer, onClose, subscription
     const { ttkEpayById } = useTtkEpayById()
 
     const { paymentProfilesList } = useNotDefaultPaymentProfiles();
-    const { promoCode, totalAmount, duration, selected_version, app_service_plan, resource_service_plan, selectedProfile, isBalanceSufficient } = useNewApplicationSubscription();
-
+    const { promoCode, totalAmount, duration, selected_version, app_service_plan, resource_service_plan, selectedProfile, isBalanceSufficient } = useUpgradeTtkEpaySubscriptionState();
 
     const handleSelectPaymentProfile = (value: any) => {
         const newSelectedProfile = paymentProfilesList?.result.find(
@@ -66,10 +65,7 @@ export default function TtkEpayPaymentDrawer({ openDrawer, onClose, subscription
                 profile_id: Number(selectedProfile.id),
                 old_subscription_id: subscriptionOldId,
             };
-            console.log("Selected Profile:", selectedProfile);
-            console.log("Selected Profile ID:", selectedProfile?.id);
-            console.log("Renew Object:", renewTtkEpayObject);
-            
+        
             if (drawerType === "upgrade") {
                 return dispatch(upgradeTtkEpay({ service_slug: ttkEpayById?.service_details?.service_slug, data: upgradeTtkEpayObject })).then((response: any) => {
                     if (response.meta.requestStatus === "fulfilled") {

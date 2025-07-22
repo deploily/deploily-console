@@ -168,22 +168,19 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                                             serviceId={ttkEpayById.service_details.id}
                                             oldPrice={ttkEpayById.price}
                                             start_date={ttkEpayById.start_date}
-                                            onClick={() => {
-                                                setDrawerActionType("upgrade"),
-                                                    console.log("Upgrade TtkEpay Subscription Clicked");
-                                            }
+                                            onClick={() => 
+                                                setDrawerActionType("upgrade")
                                             }
                                         />
                                         <RenewTtkEpaySubscriptionComponents
                                             serviceId={ttkEpayById.service_details.id}
                                             oldPrice={ttkEpayById.price}
                                             start_date={ttkEpayById.start_date}
+                                            duration={ttkEpayById.duration_month}
                                             plan={ttkEpayById.service_plan.id}
                                             selectedVpsPlan={ttkEpayById.ressource_service_plan.id}
-                                            onClick={() => {
-                                                setDrawerActionType("renew"),
-                                                    console.log("Renew TtkEpay Subscription Clicked")
-                                            }
+                                            onClick={() => 
+                                                setDrawerActionType("renew")
                                             }
                                         />
                                     </div>

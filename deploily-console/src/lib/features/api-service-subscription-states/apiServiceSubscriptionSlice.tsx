@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { PaymentProfileInterface } from "../payment-profiles/paymentProfilesInterface";
 import { calculateRemainingSubscriptionValue } from "@/lib/utils/subscriptionUtils";
+import { ServicePlan } from "../service-plans/servicePlanInterface";
 
 interface ApiServiceSubscriptionStates {
   promoCode: string;
@@ -14,7 +15,7 @@ interface ApiServiceSubscriptionStates {
   start_date: Date;
   selectedProfile?: PaymentProfileInterface;
   openDrawer: boolean;
-  selectedPlan: any; // <- should not be `null` as default; needs a type
+  selectedPlan: ServicePlan | null;
 }
 const initialState: ApiServiceSubscriptionStates = {
   promoCode: "",
@@ -52,7 +53,6 @@ const apiServiceSubscriptionStatesSlice = createSlice({
           updatedState.isBalanceSufficient = false;
         }
       }
-      console.log(updatedState);
 
       return updatedState;
     },
@@ -70,17 +70,16 @@ const apiServiceSubscriptionStatesSlice = createSlice({
 
       if (state.promoCodeRate !== undefined) {
         state.promoColor = "green";
-        newTotal -= (newTotal * state.promoCodeRate) / 100;
+        newTotal = newTotal - ((newTotal * state.promoCodeRate) / 100);
       }
 
       const finalAmount = Math.max(newTotal - oldPlanValueRemaining, 0);
-      state.totalAmount = Math.floor(finalAmount / 100) * 100;
+      state.totalAmount = Math.round(finalAmount * 10);
 
       if (state.selectedProfile) {
         state.isBalanceSufficient = state.selectedProfile.balance >= state.totalAmount;
       }
     },
-    
 
     updateSelectedProfile: (state, action) => {
       state.selectedProfile = action.payload
@@ -100,11 +99,12 @@ const apiServiceSubscriptionStatesSlice = createSlice({
       state.openDrawer = false;
       state.selectedPlan = null;
     },
-  
+
 
   },
 });
 
 export const { updateApiServiceSubscriptionStates, upgradeApiServiceSubscriptionStates , openDrawer, closeDrawer } = apiServiceSubscriptionStatesSlice.actions;
+
 
 export default apiServiceSubscriptionStatesSlice.reducer;

@@ -51,7 +51,6 @@ const ApplicationServiceSlice = createSlice({
     reducers: {
         updateNewAppSubscriptionState: (state, action: PayloadAction<any>) => {
             let updatedState: NewApplicationSubscriptionState = { ...state.newAppSubscriptionState, ...action.payload }
-            console.log(updatedState);
             
             let updatedAmount = 0;
             if (updatedState.app_service_plan != undefined) {

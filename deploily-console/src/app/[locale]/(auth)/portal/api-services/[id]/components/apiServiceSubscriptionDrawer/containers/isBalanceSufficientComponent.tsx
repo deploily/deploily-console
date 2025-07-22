@@ -32,7 +32,6 @@ export default function IsBalanceSufficientComponent({
     const dispatch = useAppDispatch();
     const router = useRouter();
 
-        console.log(":::::::::::::::::::::::::::::::::", drawerType);
 
     const handleApiServiceSubscription = async () => {
         const baseSubscriptionData = {
