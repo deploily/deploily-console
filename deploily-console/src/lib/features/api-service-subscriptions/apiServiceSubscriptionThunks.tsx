@@ -5,7 +5,7 @@ import { getSession } from "next-auth/react";
 
 export const fetchApiServiceSubscription = createAsyncThunk(
   "apiServiceSubscribe/getApiServiceSubscription",
-  async (_, thunkConfig) => {
+  async (status: string | undefined, thunkConfig) => {
     try {
       const session = await getSession();
 
@@ -13,15 +13,13 @@ export const fetchApiServiceSubscription = createAsyncThunk(
         return thunkConfig.rejectWithValue("session expired");
       }
       const token = session.accessToken;
-
-      const response = await axiosInstance.get(`${deploilyApiUrls.API_SERVICE_SUBSCRIBE_URL}`, {
+      const query = (status) ? `?q=(filters:!((col:status,opr:eq,value:active)))` : '';
+      const response = await axiosInstance.get(`${deploilyApiUrls.API_SERVICE_SUBSCRIBE_URL}${query}`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
         },
       });
-
-
       if (response.status === 200) {
         return response.data;
       }

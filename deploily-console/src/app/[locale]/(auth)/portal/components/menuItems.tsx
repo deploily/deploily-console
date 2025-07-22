@@ -2,6 +2,7 @@ import { DOC_URL } from "@/deploilyWebsiteUrls";
 import {
   Books,
   CalendarStar,
+  Gauge,
   HardDrives,
   HouseLine,
   Invoice,
@@ -17,6 +18,15 @@ const labelStyle = {
 };
 
 export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
+  {
+    key: "dashboard",
+    label: (
+      <Link href="/portal/dashboard">
+        <span style={labelStyle}>{scopedSidebar("dashboard")}</span>
+      </Link>
+    ),
+    icon: <Gauge size={24} />,
+  },
   {
     key: "home",
     label: (

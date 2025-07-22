@@ -14,6 +14,7 @@ export default {
     'sponsoring': 'Sponsoring',
     'subscribed': 'Subscribed',
     'sidebar.home': 'Home',
+    'sidebar.dashboard': 'Dashboard',
     'sidebar.members': 'Members',
     'sidebar.myFavorites': 'My favorites',
     'sidebar.myResources': 'My resources',
@@ -340,5 +341,13 @@ export default {
     "applications.noResult": "No Results Found",
     "applications.noResultDescription": "Try adjusting your search or filter.",
     "applications.promoCode": "Promo code :",
-    "applications.promoCodePlaceHolder": "Promo code"
+    "applications.promoCodePlaceHolder": "Promo code",
+    "dashboard.welcome": "👋 Welcome back, ",
+    "dashboard.subTitle": "Your current stats at a glance",
+    "dashboard.apiServices": "APIs Services",
+    "dashboard.applications": "Applications",
+    "dashboard.favorites": "Favorites",
+    "dashboard.supportTickets": "Support Tickets",
+    "dashboard.affiliations": "Affiliations",
+    "dashboard.payments": "Payments",
 } as const
