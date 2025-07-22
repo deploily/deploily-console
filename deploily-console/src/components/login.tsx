@@ -8,7 +8,7 @@ export default function Login() {
     const t = useI18n();
     const locale = useCurrentLocale();
     async function handleRegister() {
-        const callbackUrl = `/${locale}/portal/dasshboard`;
+        const callbackUrl = `/${locale}/portal/dashboard`;
         const registrationUrl = await getRegistrationUrl(callbackUrl);
         window.location.href = registrationUrl.toString();
     }
@@ -22,7 +22,7 @@ export default function Login() {
                         backgroundColor: "#D85912",
                         border: "none",
                     }}
-                    onClick={() => signIn("keycloak", { callbackUrl: `/${locale}/portal/dasshboard` })}
+                    onClick={() => signIn("keycloak", { callbackUrl: `/${locale}/portal/dashboard` })}
                 >
                     <span
                         style={{

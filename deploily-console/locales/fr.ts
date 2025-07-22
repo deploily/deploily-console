@@ -363,4 +363,12 @@ export default {
   "applications.noResultDescription": "Essayez d'ajuster votre recherche ou votre filtre.",
   "applications.promoCode": "Code promo :",
   "applications.promoCodePlaceHolder": "Code promo",
+  "dashboard.welcome": "👋 Bienvenue de nouveau, ",
+  "dashboard.subTitle": "Vos statistiques actuelles en un coup d'œil",
+  "dashboard.apiServices": "Services API",
+  "dashboard.applications": "Applications",
+  "dashboard.favorites": "Favoris",
+  "dashboard.supportTickets": "Tickets de support",
+  "dashboard.affiliations": "Affiliations",
+  "dashboard.payments": "Paiements",
 } as const;

@@ -6,8 +6,9 @@ import { PaymentInterface } from "@/lib/features/payments/paymentInterface";
 import { usePayment } from "@/lib/features/payments/paymentSelector";
 import { fetchPayments, } from "@/lib/features/payments/paymentThunks";
 import { useAppDispatch } from "@/lib/hook";
+import { CustomStyledTable } from "@/styles/components/tableStyle";
 import { theme } from "@/styles/theme";
-import { Result, Skeleton, Table, Tag } from "antd";
+import { Result, Skeleton, Tag } from "antd";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
@@ -97,15 +98,20 @@ export default function PaymentsListContainer() {
                     const { backgroundColor, color, label } = getStatusStyle(status, theme, t);
 
                     return (
-                        <Tag style={{
-                            backgroundColor, color,
-                            padding: "2px 0",
-                            fontWeight: 600,
-                            fontSize: 13,
-                            width: "100px",
-                            textAlign: "center",
-                            display: "inline-block"
-                        }}>
+                        <Tag
+                            style={{
+                                backgroundColor,
+                                color,
+                                border: `1px solid ${theme.token.gray50}`,
+                                padding: "2px 0",
+                                fontWeight: 600,
+                                fontSize: 13,
+                                width: "100px",
+                                textAlign: "center",
+                                display: "inline-block",
+                                borderRadius: 5,
+                            }}
+                        >
                             {label}
                         </Tag>
                     );
@@ -126,7 +132,7 @@ export default function PaymentsListContainer() {
     return (
         <>
             {!paymentsLoadingError &&
-                <Table<PaymentInterface>
+                <CustomStyledTable<any>
                     columns={skeletonColumns}
                     dataSource={isLoadingPayments ? Array(3).fill({ key: Math.random() }) : data}
                     size="middle"
@@ -134,8 +140,8 @@ export default function PaymentsListContainer() {
                     style={{ marginTop: 5, borderRadius: 0 }}
 
                     pagination={false}
-                    rowKey={(record) => record.id || `row-${Math.random()}`}
-                    onRow={(record) => ({
+                    rowKey={(record: PaymentInterface | { key: number }) => 'id' in record ? record.id : `row-${Math.random()}`}
+                    onRow={(record: PaymentInterface) => ({
                         onClick: () => router.push(`/portal/payments/${record.id}`),
                         style: { cursor: "pointer" },
                     })}

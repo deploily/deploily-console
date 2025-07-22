@@ -1,4 +1,5 @@
 "use client";
+import { useApiServiceSubscription } from '@/lib/features/api-service-subscriptions/apiServiceSubscriptionSelectors';
 import { fetchApiServiceSubscription } from '@/lib/features/api-service-subscriptions/apiServiceSubscriptionThunks';
 import { useCloudResource } from '@/lib/features/cloud-resource/cloudResourceSelectors';
 import { getMyResources } from '@/lib/features/cloud-resource/cloudResourceThunks';
@@ -8,7 +9,6 @@ import { useMyApplicationList } from '@/lib/features/my-applications/myApplicati
 import { fetchMyApplications } from '@/lib/features/my-applications/myApplicationThunks';
 import { useProfile } from '@/lib/features/profile/profileSelectors';
 import { getProfile } from '@/lib/features/profile/profileThunks';
-import { useSubscription } from '@/lib/features/subscriptions/subscriptionSelectors';
 import { useSupportTicket } from '@/lib/features/support-ticket/supportTicketSelector';
 import { fetchSupportTicket } from '@/lib/features/support-ticket/supportTicketThunks';
 import { useAppDispatch } from '@/lib/hook';
@@ -20,82 +20,88 @@ import {
 } from '@ant-design/icons';
 import { Card, Col, Row, Typography } from 'antd';
 import { useEffect } from 'react';
+import { useScopedI18n } from '../../../../../../../locales/client';
 import PaymentsListContainer from './payments_components';
 
 
-//TODO add translate & update color of table 
 export default function DashboardContainer() {
+    const dashboardtranslate = useScopedI18n("dashboard");
 
+    const { Title, Text } = Typography;
     const dispatch = useAppDispatch();
+
+
     const { currentProfile } = useProfile();
     const { myResourcesResponse } = useCloudResource();
     const { supportTicketList } = useSupportTicket()
     const { favoriteServicesList } = useFavoriteServices();
-    const { subscriptionResponse } = useSubscription();
+    const { apiServiceSubscriptionResponse } = useApiServiceSubscription();
     const { MyApplicationList } = useMyApplicationList()
 
-
-
-
     useEffect(() => {
+        dispatch(fetchApiServiceSubscription("active"));
         dispatch(getProfile());
         dispatch(getMyResources());
         dispatch(fetchSupportTicket());
         dispatch(fetchMyFavoriteServices());
-        dispatch(fetchApiServiceSubscription());
         dispatch(fetchMyApplications());
 
     }, [dispatch]);
 
 
-    const applicationsCount = MyApplicationList?.result?.length || 0;
-    const apiServicesCount = subscriptionResponse?.result?.length || 0;
-    const favoritesCount = favoriteServicesList?.result?.length || 0;
-    const supportTicketsCount = supportTicketList?.result?.length || 0;
+    const apiServicesCount = apiServiceSubscriptionResponse?.count || 0;
+    const applicationsCount = MyApplicationList?.count || 0;
+    const favoritesCount = favoriteServicesList?.count || 0;
+    const supportTicketsCount = supportTicketList?.count || 0;
     const affiliationCount = myResourcesResponse?.length || 0;
-    const { Title, Text } = Typography;
 
 
     const stats = [
         {
-            title: 'APi Services',
+            title: dashboardtranslate("apiServices"),
             value: apiServicesCount,
             icon: <DollarOutlined style={{ fontSize: 30, color: '#fff' }} />,
-            color: '#5394CC',
+            color: '#FFB84D',
         },
         {
-            title: 'Application',
+            title: dashboardtranslate("affiliations"),
+            value: affiliationCount,
+            icon: <TeamOutlined style={{ fontSize: 30, color: '#fff' }} />,
+            color: '#5394CC',
+
+        },
+        {
+            title: dashboardtranslate("applications"),
             value: applicationsCount,
             icon: <DollarOutlined style={{ fontSize: 30, color: '#fff' }} />,
-            color: '#5394CC',
+            color: '#FF9933',
         },
+
         {
-            title: 'Favorites',
-            value: favoritesCount,
-            icon: <CalendarOutlined style={{ fontSize: 30, color: '#fff' }} />,
-            color: '#DD8859',
-        },
-        {
-            title: 'Support Tickets',
+            title: dashboardtranslate("supportTickets"),
             value: supportTicketsCount,
             icon: <QuestionCircleOutlined style={{ fontSize: 30, color: '#fff' }} />,
             color: '#0099CC',
         },
         {
-            title: 'Affiliations',
-            value: affiliationCount,
-            icon: <TeamOutlined style={{ fontSize: 30, color: '#fff' }} />,
-            color: '#FF9933',
+            title: dashboardtranslate("favorites"),
+            value: favoritesCount,
+            icon: <CalendarOutlined style={{ fontSize: 30, color: '#fff' }} />,
+            color: '#DD8859',
         },
+
     ];
 
     return (
         <div style={{ padding: '24px', minHeight: '100vh' }}>
             {currentProfile && (<Title level={3} style={{ color: '#fff' }}>
-                👋 Welcome back, {currentProfile.first_name}!
+                {dashboardtranslate("welcome")}
+                {currentProfile.first_name}!
             </Title>)
             }
-            <Text style={{ color: '#ccc' }}>Your current stats at glance</Text>
+            <Text style={{ color: '#ccc' }}>
+                {dashboardtranslate("subTitle")}
+            </Text>
 
             <Row gutter={[16, 16]} style={{ marginTop: 24 }} wrap>
                 {stats.map((stat) => (
@@ -119,7 +125,8 @@ export default function DashboardContainer() {
                 ))}
             </Row>
 
-            <Card title="Payments" style={{ marginTop: 40 }}>
+            <Card title={dashboardtranslate("payments")}
+                style={{ marginTop: 40 }}>
                 <PaymentsListContainer />
             </Card>
         </div>
