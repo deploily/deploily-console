@@ -1,7 +1,7 @@
 "use client";
+import { Button } from "antd";
 import { signIn } from "next-auth/react";
 import { useCurrentLocale, useI18n } from "../../locales/client";
-import { Button } from "antd";
 
 
 export default function Login() {
@@ -20,7 +20,7 @@ export default function Login() {
                 marginBottom: "20px",
             }}
             // href="/portal/home"
-            onClick={() => signIn("keycloak", { callbackUrl: `/${locale}/portal/home` })}
+            onClick={() => signIn("keycloak", { callbackUrl: `/${locale}/portal/dashboard` })}
         >
             <span
                 style={{

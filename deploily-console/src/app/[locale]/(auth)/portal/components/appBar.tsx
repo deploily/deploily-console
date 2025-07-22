@@ -70,7 +70,7 @@ export function AppAppBarDesktop() {
       >
         <Row align="middle" justify="space-between" style={{ width: "100%" }}>
           <Col style={{ flexGrow: 1 }}>
-            <Link href="/portal/home">
+            <Link href="/portal/dashboard">
               <Image
                 src="/images/logo_name.png"
                 width={202}
@@ -157,7 +157,7 @@ export function AppAppBarDesktop() {
                               display: "flex",
                               justifyContent: "space-between",
                               alignItems: "center",
-                              width: "100%", 
+                              width: "100%",
                             }}
                           >
                             <span
@@ -165,13 +165,13 @@ export function AppAppBarDesktop() {
                                 color: "#D85912",
                                 maxWidth: "60%",            // Prevents it from growing too wide
                                 overflow: "hidden",         // Hides the overflow
-                                textOverflow: "ellipsis",  
-                                whiteSpace: "nowrap",      
-                                display: "inline-block",    
+                                textOverflow: "ellipsis",
+                                whiteSpace: "nowrap",
+                                display: "inline-block",
                               }}
                             >
                               {(() => {
-                                const name= profile.name.charAt(0).toUpperCase() + profile.name.slice(1)
+                                const name = profile.name.charAt(0).toUpperCase() + profile.name.slice(1)
 
                                 return name ? name.charAt(0).toUpperCase() + name.slice(1) : "...";
                               })()}
