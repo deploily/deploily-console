@@ -11,7 +11,7 @@ import { Card, Col, Grid, Row, Select, Skeleton, Space } from "antd";
 import { PaymentSideBar } from "deploily-ui-components";
 import { PaymentAppBar } from "deploily-ui-components/components/applications/paymentSideBar";
 import { useEffect, useState } from "react";
-import { useScopedI18n } from "../../../../../../../locales/client";
+import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import { options } from "../../api-services/utils/apiServicesConst";
 import ApplicationDetailsCollapseContainer from "./containers/applicationDetailsCollapseContainer";
 import ApplicationPlansContainer from "./containers/applicationPlansContainer";
@@ -19,6 +19,7 @@ import ApplicationDescriptionContainer from "./containers/descriptionContainer";
 import AppPromoCodeTextField from "./containers/payment-components/appPromoCodeTextField";
 import PaymentDrawer from "./containers/payment-components/paymentDrawer";
 import SelectVpsPlanTable from "./containers/selectVpsPlanTable";
+
 
 export default function ApplicationDetailsPageContent({ applicationId }: { applicationId: any }) {
     const dispatch = useAppDispatch();
@@ -32,6 +33,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
     console.log(totalAmount);
 
     const tApplications = useScopedI18n('applications');
+    const t = useI18n();
 
     const handleChangeDuration = (value: number) => {
         dispatch(updateNewAppSubscriptionState({ duration: value }));
@@ -81,13 +83,14 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                         <ApplicationDescriptionContainer
                             title={applicationServiceById.name}
                             price={applicationServiceById.min_app_price}
-                            description={applicationServiceById.short_description}
+                            description={applicationServiceById.short_description + t('learnMore')}
                             documentationUrl={applicationServiceById.documentation_url}
                             logo={
                                 <div style={{ border: "1px solid #4E4E4E", borderRadius: "10px", padding: "1px" }}>
                                     <ImageFetcher imagePath={applicationServiceById.image_service || ""} width={190} height={190} />
                                 </div>
                             }
+                            is_subscribed={applicationServiceById.is_subscribed}
                         />
 
                         <div style={{ padding: '8px 0' }}>
@@ -177,7 +180,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                     </Col>
 
                     {/* Payment Sidebar - Only for Desktop */}
-                    {screens.lg && !(applicationServiceById.is_subscribed)&&(
+                    {screens.lg && !(applicationServiceById.is_subscribed) && (
                         <Col xs={24} lg={8} style={{ position: 'sticky', top: 16, alignSelf: 'flex-start' }}>
                             <PaymentSideBar
                                 price={totalAmount}
@@ -185,7 +188,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                 items={[
                                     { label: tApplications('svc'), value: applicationServiceById.name },
                                     { label: tApplications("plan"), value: app_service_plan?.plan.name || "" },
-                                    
+
                                     { label: tApplications('provider'), value: resource_service_plan?.provider_info?.name || "" },
                                     { label: tApplications("vpsType"), value: resource_service_plan?.service_name || "" },
                                     { label: tApplications('resourcePlan'), value: resource_service_plan?.plan_name || "" },
@@ -205,7 +208,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                             />
 
                                         ),
-                                    }, 
+                                    },
                                     {
                                         label: tApplications('duration'),
                                         value: (
@@ -221,7 +224,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                             />
                                         ),
                                     },
-                                   
+
                                     {
                                         label: tApplications('promoCode'),
                                         value: (
