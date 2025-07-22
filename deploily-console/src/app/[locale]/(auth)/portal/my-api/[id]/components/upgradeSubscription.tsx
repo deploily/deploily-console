@@ -11,8 +11,8 @@ import { useScopedI18n } from "../../../../../../../../locales/client";
 import ServicePlanCard from "../../../api-services/[id]/components/servicePlanCard";
 import HomeCarousel from "../../../components/homeCarousel";
 
-export default function UpgradeApiSubscriptionComponents({ serviceId, planSelectedId, oldPrice, start_date, onClick }:
-    { start_date: any, serviceId: any, planSelectedId: any, oldPrice: any, onClick?: () => void }) {
+export default function UpgradeApiSubscriptionComponents({ serviceId, planSelectedId, oldPrice, start_date, onClick, oldDuration }:
+    { start_date: any, serviceId: any, planSelectedId: any,oldDuration:number, oldPrice: any, onClick?: () => void }) {
     const tSubscription = useScopedI18n("subscription");
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,7 +25,7 @@ export default function UpgradeApiSubscriptionComponents({ serviceId, planSelect
 
     const showDrawer = (plan: any | null) => {
         if (plan !== null) {
-            dispatch(upgradeApiServiceSubscriptionStates({ price: plan.price, oldPrice: oldPrice, start_date: start_date })); //TODO UPDATE PRICE
+            dispatch(upgradeApiServiceSubscriptionStates({ price: plan.price, oldPrice: oldPrice, start_date: start_date, oldDuration:oldDuration })); //TODO UPDATE PRICE
             dispatch(openDrawer(plan));
             if (onClick) onClick();
         }

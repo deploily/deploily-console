@@ -161,6 +161,7 @@ export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscri
                                         oldPrice={currentApiServiceSubscription.price}
                                         planSelectedId={currentApiServiceSubscription.service_plan_id}
                                         start_date={currentApiServiceSubscription.start_date}
+                                        oldDuration={currentApiServiceSubscription.duration_month}
                                         onClick={() => setDrawerActionType("upgrade")}
                                     />
 

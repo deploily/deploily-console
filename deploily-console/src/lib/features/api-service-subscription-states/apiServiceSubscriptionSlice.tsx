@@ -1,11 +1,12 @@
+import { calculateRemainingSubscriptionValue } from "@/lib/utils/subscriptionUtils";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { PaymentProfileInterface } from "../payment-profiles/paymentProfilesInterface";
-import { calculateRemainingSubscriptionValue } from "@/lib/utils/subscriptionUtils";
 import { ServicePlan } from "../service-plans/servicePlanInterface";
 
 interface ApiServiceSubscriptionStates {
   promoCode: string;
   duration: number;
+  oldDuration: number;
   isBalanceSufficient: boolean | null;
   totalAmount: number;
   promoCodeRate?: number;
@@ -30,6 +31,7 @@ const initialState: ApiServiceSubscriptionStates = {
   selectedProfile: undefined,
   openDrawer: false,
   selectedPlan: null,
+  oldDuration:1
 };
 
 
@@ -58,27 +60,42 @@ const apiServiceSubscriptionStatesSlice = createSlice({
     },
 
     upgradeApiServiceSubscriptionStates: (state, action: PayloadAction<any>) => {
-      Object.assign(state, action.payload);
+
+      console.log("Upgrade Action Payload:", action.payload);
+      console.log("State:", state);
+
+      const updatedState = { ...state, ...action.payload };
 
       const oldPlanValueRemaining = calculateRemainingSubscriptionValue({
-        price: state.oldPrice,
-        start_date: state.start_date,
-        duration_month: state.duration,
+        price: updatedState.oldPrice,
+        start_date: updatedState.start_date,
+        duration_month: updatedState.oldDuration,
       });
 
-      let newTotal = state.duration * state.price;
+      console.log("Old Plan Value Remaining:", oldPlanValueRemaining);
 
-      if (state.promoCodeRate !== undefined) {
-        state.promoColor = "green";
-        newTotal = newTotal - ((newTotal * state.promoCodeRate) / 100);
+
+      const newTotal = updatedState.duration * updatedState.price;
+      console.log("New Total:", newTotal);
+
+      // if (updatedState.promoCodeRate !== undefined) {
+      //   updatedState.promoColor = "green";
+      //   newTotal = newTotal - ((newTotal * updatedState.promoCodeRate) / 100);
+      // }
+      if (newTotal < oldPlanValueRemaining){
+        updatedState.totalAmount = 0;
+
+      }else{
+      const finalAmount = newTotal - oldPlanValueRemaining;
+      updatedState.totalAmount = Math.round(finalAmount);
       }
+   
 
-      const finalAmount = Math.max(newTotal - oldPlanValueRemaining, 0);
-      state.totalAmount = Math.round(finalAmount * 10);
-
-      if (state.selectedProfile) {
-        state.isBalanceSufficient = state.selectedProfile.balance >= state.totalAmount;
+      if (updatedState.selectedProfile) {
+        updatedState.isBalanceSufficient = updatedState.selectedProfile.balance >= updatedState.totalAmount;
       }
+      state = updatedState;
+      return state;
     },
 
     updateSelectedProfile: (state, action) => {
@@ -104,7 +121,7 @@ const apiServiceSubscriptionStatesSlice = createSlice({
   },
 });
 
-export const { updateApiServiceSubscriptionStates, upgradeApiServiceSubscriptionStates , openDrawer, closeDrawer } = apiServiceSubscriptionStatesSlice.actions;
+export const { updateApiServiceSubscriptionStates, upgradeApiServiceSubscriptionStates, openDrawer, closeDrawer } = apiServiceSubscriptionStatesSlice.actions;
 
 
 export default apiServiceSubscriptionStatesSlice.reducer;
