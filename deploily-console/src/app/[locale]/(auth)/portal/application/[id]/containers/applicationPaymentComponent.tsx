@@ -48,7 +48,7 @@ export default function ApplicationPaymentComponent({ isSubscribed, subscription
       const renewTtkEpayObject = {
         duration: Number.parseInt(`${duration}`),
         promo_code: promoCode,
-        payment_method: "card",
+        payment_method: "bank_transfer",
         profile_id: selectedProfile.id,
         old_subscription_id: subscriptionOldId,
       };

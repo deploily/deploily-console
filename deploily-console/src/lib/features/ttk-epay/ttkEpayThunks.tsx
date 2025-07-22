@@ -93,11 +93,9 @@ export  const upgradeTtkEpay = createAsyncThunk(
         }
     },
 );
-
 export const renewTtkEpay = createAsyncThunk(
     "ttkEpay/renewTtkEpay",
     async (data: any, thunkConfig) => {
-
         try {
             const session = await getSession();
             if (!session) {
@@ -105,13 +103,16 @@ export const renewTtkEpay = createAsyncThunk(
             }
             const token = session.accessToken;
 
-            const response = await axiosInstance.post(`${deploilyApiUrls.TTK_EPAY_APP_SUBSCRIPTION_RENEW}`, data, {
-
-                headers: {
-                    Accept: "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            const response = await axiosInstance.post(
+                `${deploilyApiUrls.TTK_EPAY_APP_SUBSCRIPTION_RENEW}`,
+                data.data, 
+                {
+                    headers: {
+                        Accept: "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
             if (response.status === 200) {
                 return response.data;
             } else {
@@ -120,7 +121,7 @@ export const renewTtkEpay = createAsyncThunk(
         } catch (error: any) {
             return thunkConfig.rejectWithValue(error.message);
         }
-    },
+    }
 );
 
 
