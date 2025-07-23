@@ -1,14 +1,16 @@
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { CustomBlueButton } from "@/styles/components/buttonStyle";
 import { Faders, HeartStraight } from "@phosphor-icons/react";
-import { Badge, Button, Card, Col, Row, Space, Typography } from "antd";
+import { Badge, Button, Card, Col, Row, Space, Tag, Typography } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import { useRouter } from "next/navigation";
-import { useI18n } from "../../../../../../../locales/client";
+import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import { myApplicationInterface } from "@/lib/features/my-applications/myApplicationInterface";
 import { myApplicationsUrls } from "../utils/myApplicationsUrls";
+import { subscriptionStatusStyle } from "../../my-api/utils/subscriptionsConst";
 export default function MyAppCard({ data }: { data: myApplicationInterface }) {
     const t = useI18n();
+    const tSubscription = useScopedI18n("subscription");
     const router = useRouter();
 
     const handleClick = async (service_slug: string) => {
@@ -92,7 +94,9 @@ export default function MyAppCard({ data }: { data: myApplicationInterface }) {
                             <Paragraph ellipsis={{ rows: 1, expandable: false }} style={{ fontSize: 20, }}>
                                 {data.name}
                             </Paragraph>
-
+                            <Tag bordered={false} color={subscriptionStatusStyle(data.status)} style={{ height: 'fit-content', fontSize: '14px', fontWeight: "bold", borderRadius: 20, padding: "2px 10px", textTransform: "capitalize" }}>
+                                {tSubscription(data.status as "active" | "inactive")}
+                            </Tag>
                         </Row>
                         <Paragraph ellipsis={{ rows: 3, expandable: false }} style={{ paddingTop: "0px" }}>
                             {data.service_details.short_description}

@@ -19,6 +19,9 @@ import { fetchApiServiceSubscriptionById } from "@/lib/features/api-service-subs
 import { subscriptionItems } from "./subscriptionItems";
 import DocumentationDrawer from "../../../utils/documentationDrawer";
 import { subscriptionStatusStyle } from "../../utils/subscriptionsConst";
+import UpgradeApiSubscriptionComponents from "./upgradeSubscription";
+import ShowdrawerSubscription from "./showDrawerSubscription";
+import RenewApiSubscriptionComponents from "./renewSubscription";
 
 export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscription_id }: { apiServiceSubscription_id: string }) {
     const t = useI18n();
@@ -60,6 +63,9 @@ export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscri
             (end.getFullYear() - today.getFullYear()) * 12 + (end.getMonth() - today.getMonth());
         return (diffInMonths)
     }
+
+
+    const [drawerActionType, setDrawerActionType] = useState<"upgrade" | "renew" | null>(null);
 
     return (
         <Space direction="vertical" size="large" style={{ paddingInline: 40, marginBlock: 10, width: "100%", marginBottom: 50, paddingTop: 20 }}>
@@ -108,18 +114,74 @@ export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscri
                             </Row>
                         </Col>
                     </Row>
-                    <Row gutter={16} style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        width: "100%",
-                    }}>
-                        {currentApiServiceSubscription.service_details && <Typography.Title level={2}>{currentApiServiceSubscription.service_details.name}</Typography.Title>}
-                        <Tag bordered={false} color={subscriptionStatusStyle(currentApiServiceSubscription.status)} style={{ height: 'fit-content', fontSize: '14px', fontWeight: "bold", borderRadius: 20, padding: "5px 20px", textTransform: "capitalize" }}>
-                        {tApiServiceSubscription(currentApiServiceSubscription.status as "active" | "inactive")}
-                        </Tag>
-                    </Row>
+                <Row gutter={16} justify="space-between" align="middle">
+                    {/* Title */}
+                    <Col xs={24} sm={16} md={16} lg={16} xl={18}>
+                        {currentApiServiceSubscription.service_details && (
+                            <Typography.Title level={2} style={{ margin: 0 }}>
+                                {currentApiServiceSubscription.service_details.name}
+                            </Typography.Title>
+                        )}
+                    </Col>
 
+                    {/* Actions */}
+                    <Col xs={24} sm={8} md={8} lg={8} xl={6}>
+                        <div style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '12px',
+                            alignItems: 'flex-end'
+                        }}>
+                            {/* Status Tag */}
+                            <Tag
+                                bordered={false}
+                                color={subscriptionStatusStyle(currentApiServiceSubscription.status)}
+                                style={{
+                                    height: 'fit-content',
+                                    fontSize: '14px',
+                                    fontWeight: "bold",
+                                    borderRadius: 20,
+                                    padding: "5px 20px",
+                                    textTransform: "capitalize"
+                                }}
+                            >
+                                {tApiServiceSubscription(currentApiServiceSubscription.status as "active" | "inactive")}
+                            </Tag>
+
+                            {/* Action Buttons - Only show if status is active */}
+                            {currentApiServiceSubscription.status === 'active' && (
+                                <div style={{
+                                    display: 'flex',
+                                    gap: '8px',
+                                    flexWrap: 'wrap',
+                                    justifyContent: 'flex-end'
+                                }}>
+                                    <UpgradeApiSubscriptionComponents
+                                        serviceId={currentApiServiceSubscription.service_details.id}
+                                        oldPrice={currentApiServiceSubscription.price}
+                                        planSelectedId={currentApiServiceSubscription.service_plan_id}
+                                        start_date={currentApiServiceSubscription.start_date}
+                                        oldDuration={currentApiServiceSubscription.duration_month}
+                                        onClick={() => setDrawerActionType("upgrade")}
+                                    />
+
+                                    <RenewApiSubscriptionComponents
+                                        serviceId={currentApiServiceSubscription.service_details.id}
+                                        oldPrice={currentApiServiceSubscription.price}
+                                        plan={currentApiServiceSubscription.service_plan_id}
+                                        start_date={currentApiServiceSubscription.start_date}
+                                        onClick={() => setDrawerActionType("renew")}
+                                    />
+                                </div>
+                            )}
+                        </div>
+                    </Col>
+                </Row>
+                    <ShowdrawerSubscription
+                        IsSubscribed={currentApiServiceSubscription.service_details.is_subscribed}
+                        subscriptionOldId={currentApiServiceSubscription.id}
+                        drawerType={drawerActionType}
+                    />
                     {currentApiServiceSubscription.service_details && <Row gutter={16} style={{ marginTop: 0 }} >
                         <Paragraph style={{ fontSize: 14 }} >
                             {currentApiServiceSubscription.service_details.short_description}
@@ -212,6 +274,7 @@ export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscri
                                 </Col>
                             </Row>
                         </Col>
+
                     </Row>
 
 
@@ -247,7 +310,7 @@ export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscri
                             </Typography.Title >
                         </Row>
                     }
-                <DocumentationDrawer openDrawer={openDrawer} onClose={onClose} currentSubscription={currentApiServiceSubscription} t={t} />
+                    <DocumentationDrawer openDrawer={openDrawer} onClose={onClose} currentSubscription={currentApiServiceSubscription} t={t} />
                 </>
             }
             {!currentApiServiceSubscriptionLoading && currentApiServiceSubscriptionLoadingError &&
@@ -256,6 +319,8 @@ export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscri
                     title={t('error')}
                     subTitle={t('subTitleError')}
                 />}
+
+
         </Space>
     )
 }

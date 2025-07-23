@@ -32,8 +32,8 @@ import { getSession } from "next-auth/react";
             return thunkConfig.rejectWithValue(error.message);
         }
     },
-);export 
-const updateTtkEpay = createAsyncThunk(
+);
+export  const updateTtkEpay = createAsyncThunk(
     "ttkEpay/updateTtkEpay",
     async (data: any, thunkConfig) => {
         try {
@@ -64,6 +64,66 @@ const updateTtkEpay = createAsyncThunk(
 );
 
  
+export  const upgradeTtkEpay = createAsyncThunk(
+    "ttkEpay/upgradeTtkEpay",
+    async (data: any, thunkConfig) => {
+        try {
+            const session = await getSession();
+
+            if (!session) {
+                return thunkConfig.rejectWithValue("session expired");
+            }
+
+            const token = session.accessToken;
+
+            const response = await axiosInstance.post(`${deploilyApiUrls.TTK_EPAY_APP_SUBSCRIPTION_UPGRADE_URL}`, data.data, {
+                headers: {
+                    Accept: "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            if (response.status === 200) {
+                return response.data;
+            } else {
+                return thunkConfig.rejectWithValue("Failed to upgrade ttk-Epay");
+            }
+        } catch (error: any) {
+            return thunkConfig.rejectWithValue(error.message);
+        }
+    },
+);
+export const renewTtkEpay = createAsyncThunk(
+    "ttkEpay/renewTtkEpay",
+    async (data: any, thunkConfig) => {
+        try {
+            const session = await getSession();
+            if (!session) {
+                return thunkConfig.rejectWithValue("session expired");
+            }
+            const token = session.accessToken;
+
+            const response = await axiosInstance.post(
+                `${deploilyApiUrls.TTK_EPAY_APP_SUBSCRIPTION_RENEW}`,
+                data.data, 
+                {
+                    headers: {
+                        Accept: "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            if (response.status === 200) {
+                return response.data;
+            } else {
+                return thunkConfig.rejectWithValue("Failed to renew ttk-Epay");
+            }
+        } catch (error: any) {
+            return thunkConfig.rejectWithValue(error.message);
+        }
+    }
+);
+
 
 
 

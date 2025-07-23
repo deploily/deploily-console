@@ -82,6 +82,7 @@ export default {
   "feedback.send": "Envoyer",
   subscribed: "Abonné",
   "sidebar.myApi": "Mes API",
+  "history": "Histoire",
 
   "serviceApi.search": "Rechercher",
   "serviceApi.filter": "Filtrer",
@@ -197,7 +198,9 @@ export default {
   "subscription.deployed": "Déployé",
   "subscription.error": "Erreur",
   "subscription.adminConsole": "Console d'administration",
-
+  'subscription.upgrade': 'Mise à niveau',
+  'subscription.renew': 'Renouveler',
+  'subscription.choose_plan': 'Choisir un forfait',
   "ttkEpay.client_site_name": "Nom du site client",
   "ttkEpay.client_site_address": "Adresse du site client",
   "ttkEpay.client_site_email": "E-mail du site client",
@@ -350,6 +353,7 @@ export default {
   "applications.resourcePlan": "Plan de ressource",
   "applications.total": "Montant total",
   "applications.confirm": "Confirmer",
+
   "applications.order": "Commander l'application",
   "applications.resource": "Resource",
   "applications.options": "Options",
@@ -370,4 +374,7 @@ export default {
   "dashboard.supportTickets": "Tickets de support",
   "dashboard.affiliations": "Affiliations",
   "dashboard.payments": "Paiements",
+  "applications.noApplications": "Vous n'avez pas encore d'application. N'hésitez pas à en créer une !",
+  "applications.noActiveApplicationsFound": "Vous n'avez pas d'application active. N'hésitez pas à en créer une !",
+
 } as const;

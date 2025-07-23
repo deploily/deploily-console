@@ -7,7 +7,7 @@ import { useScopedI18n } from "../../../../../../../../../../locales/client";
 import BankTransfertComponent from "../components/bankTransfertComponent";
 import CardPaymentComponent from "../components/cardPaymentComponent";
 
-export default function PaymentComponent({ selectedPlan }: { selectedPlan: any }) {
+export default function PaymentComponent({ selectedPlan, subscriptionOldId, IsSubscribed, drawerType }: { selectedPlan: any, subscriptionOldId?: any, IsSubscribed?: any, drawerType?: any }) {
   const translate = useScopedI18n('apiServiceSubscription');
   const translateProfile = useScopedI18n('profilePayment');
   const [paymentMethod, setPaymentMethod] = useState("bank_transfer")
@@ -44,8 +44,8 @@ export default function PaymentComponent({ selectedPlan }: { selectedPlan: any }
 
       </Flex>
       {paymentMethod === "card" ?
-        <CardPaymentComponent selectedPlan={selectedPlan} />
-        : <BankTransfertComponent selectedPlan={selectedPlan} />}
+        <CardPaymentComponent selectedPlan={selectedPlan} subscriptionOldId={subscriptionOldId} IsSubscribed={IsSubscribed} />
+        : <BankTransfertComponent selectedPlan={selectedPlan} subscriptionOldId={subscriptionOldId} IsSubscribed={IsSubscribed} drawerType={drawerType} />}
     </>
   )
 }

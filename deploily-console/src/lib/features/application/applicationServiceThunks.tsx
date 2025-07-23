@@ -45,7 +45,7 @@ export const fetchApplicationServices = createAsyncThunk(
 
 export const fetchApplicationServiceById = createAsyncThunk(
     "applicationService/getApplicationServiceById",
-    async (app_id, thunkConfig) => {
+    async (app_id : any, thunkConfig) => {
         try {
             const session = await getSession();
 

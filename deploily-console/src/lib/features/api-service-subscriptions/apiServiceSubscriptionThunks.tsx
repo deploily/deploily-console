@@ -89,6 +89,64 @@ export const postApiServiceSubscription = createAsyncThunk(
   },
 );
 
+export const postUpgradeApiServiceSubscription = createAsyncThunk(
+  "apiServiceSubscribe/postUpgradeApiServiceSubscription",
+  async (data: any, thunkConfig) => {
+
+    try {
+      const session = await getSession();
+      if (!session) {
+        return thunkConfig.rejectWithValue("session expired");
+      }
+      const token = session.accessToken;
+
+      const response = await axiosInstance.post(`${deploilyApiUrls.API_SERVICE_SUBSCRIPTION_UPGRADE}`, data, {
+
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        return thunkConfig.rejectWithValue("Failed to create upgrade api service subscription");
+      }
+    } catch (error: any) {
+      return thunkConfig.rejectWithValue(error.message);
+    }
+  },
+);
+
+export const postRenewApiServiceSubscription = createAsyncThunk(
+  "apiServiceSubscribe/postRenewApiServiceSubscription",
+  async (data: any, thunkConfig) => {
+
+    try {
+      const session = await getSession();
+      if (!session) {
+        return thunkConfig.rejectWithValue("session expired");
+      }
+      const token = session.accessToken;
+
+      const response = await axiosInstance.post(`${deploilyApiUrls.API_SERVICE_SUBSCRIPTION_RENEW}`, data, {
+
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        return thunkConfig.rejectWithValue("Failed to create renew api service subscription");
+      }
+    } catch (error: any) {
+      return thunkConfig.rejectWithValue(error.message);
+    }
+  },
+);
+
 export const generateTokenThunk = createAsyncThunk(
   "apiServiceSubscribe/generateToken",
   async (apiServiceSubscription_id: string, thunkConfig) => {

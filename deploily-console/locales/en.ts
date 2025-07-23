@@ -72,7 +72,7 @@ export default {
     "error": "Error",
     "subTitleError": "Sorry, something went wrong.",
     "seeAll": "See all",
-
+    "history": "History",
     'serviceApi.search': 'Search',
     'serviceApi.filter': 'Filter',
 
@@ -188,7 +188,9 @@ export default {
     'subscription.deployed': 'Deployed',
     'subscription.error': 'Error',
     "subscription.adminConsole": "Admin Console",
-
+    'subscription.upgrade': 'Upgrade',
+    'subscription.renew': 'Renew',
+    'subscription.choose_plan': 'Choose plan',
     'ttkEpay.client_site_name': 'Client site name',
     'ttkEpay.client_site_address': 'Client site address',
     'ttkEpay.client_site_email': 'Client site email',
@@ -350,4 +352,6 @@ export default {
     "dashboard.supportTickets": "Support Tickets",
     "dashboard.affiliations": "Affiliations",
     "dashboard.payments": "Payments",
+    "applications.noApplications": "You don't have any applications yet. Feel free to create one!",
+    "applications.noActiveApplicationsFound": "You don't have any active applications. Feel free to create one!",
 } as const
