@@ -216,7 +216,6 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                     {ttkEpayById.service_details && <Row gutter={16} style={{ marginTop: 0 }} >
                         <Paragraph style={{ fontSize: 14 }} >
                             {ttkEpayById.service_details.description}
-                            {t("viewDocumentation")}&nbsp;
 
                         </Paragraph>
                     </Row>}

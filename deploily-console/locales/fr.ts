@@ -202,6 +202,9 @@ export default {
   'subscription.upgrade': 'Mise à niveau',
   'subscription.renew': 'Renouveler',
   'subscription.choose_plan': 'Choisir un forfait',
+  'subscription.select_vps_plan': 'Sélectionner un plan VPS',
+  'subscription.back': 'Retour',
+  'subscription.next': 'Suivant',
   "ttkEpay.client_site_name": "Nom du site client",
   "ttkEpay.client_site_address": "Adresse du site client",
   "ttkEpay.client_site_email": "E-mail du site client",
@@ -230,7 +233,6 @@ export default {
   "ttkEpay.restart": "Redémarrer",
   "ttkEpay.displayInfoNote": "Cette information sera affichée sur les pages web et les reçus",
   'ttkEpay.placeholderSatimPassword': 'Entrez votre mot de passe SATIM',
-
 
   "apiServiceSubscription.title": "S'abonner",
   "apiServiceSubscription.specialOffer": "Offre spéciale",
@@ -286,8 +288,8 @@ export default {
   "epayment.sendByEmail": "Envoyer par email",
   "epayment.download": "Télécharger",
   "epayment.print": "Impression",
-  whoIs: "Qui est",
-  contactProvider: "Contacter le fournisseur",
+  "whoIs": "Qui est",
+  "contactProvider": "Contacter le fournisseur",
   "itemsHelp.label1": "Comment ça fonctionne ?",
   "itemsHelp.children1":
     "Deploily établit un contrat avec un fournisseur cloud pour obtenir des remises exclusives.",

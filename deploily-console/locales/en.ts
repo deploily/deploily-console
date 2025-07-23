@@ -192,6 +192,10 @@ export default {
     'subscription.upgrade': 'Upgrade',
     'subscription.renew': 'Renew',
     'subscription.choose_plan': 'Choose plan',
+    'subscription.select_vps_plan': 'Select vps plan',
+    'subscription.back': 'Back',
+    'subscription.next': 'Next',
+
     'ttkEpay.client_site_name': 'Client site name',
     'ttkEpay.client_site_address': 'Client site address',
     'ttkEpay.client_site_email': 'Client site email',

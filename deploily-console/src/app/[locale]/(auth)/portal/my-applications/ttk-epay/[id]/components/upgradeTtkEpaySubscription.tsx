@@ -136,7 +136,7 @@ export default function UpgradeTtkEpaySubscriptionComponents(
                         onClick={proceedToVpsSelection}
                     >
                         <span style={{ color: "rgba(220, 233, 245, 0.88)", fontSize: "16px", fontWeight: 600 }}>
-                            Next
+                            {tSubscription('next')}
                         </span>
                     </Button>
                 </Col>
@@ -144,7 +144,7 @@ export default function UpgradeTtkEpaySubscriptionComponents(
 
             {/* Second Modal - VPS Selection */}
             <Modal
-                title={("select_vps_plan")}
+                title={tSubscription("select_vps_plan")}
                 open={isVpsModalOpen}
                 width="90%"
                 style={{ maxWidth: 1200, padding: 0, justifyContent: "center" }}
@@ -162,8 +162,14 @@ export default function UpgradeTtkEpaySubscriptionComponents(
                 <Col style={{ display: "flex", justifyContent: "space-between", padding: "1rem" }}>
                     <Button
                         onClick={handleBackToPlanSelection}
+                        style={{
+                            fontWeight: 500,
+                            color: "#D85912",
+                            borderColor: "#D85912",
+                            backgroundColor: "transparent",
+                          }}
                     >
-                        Back
+                        {tSubscription('back')}
                     </Button>
                     <Button
                         type="primary"
