@@ -120,6 +120,7 @@ export default function UpgradeTtkEpaySubscriptionComponents(
                                         }
                                         title={plan.plan.name}
                                         onClick={() => handlePlanSelection(plan)}
+                                        subscription_category={plan.subscription_category}
                                     />
                                 </div>
                             );
