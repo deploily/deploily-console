@@ -3,7 +3,7 @@ import { CiCdServiceInterface } from "@/lib/features/ci-cd-service/cicdServiceIn
 import { useCiCdService } from "@/lib/features/ci-cd-service/cicdServiceSelectors";
 import { fetchCiCdServices } from "@/lib/features/ci-cd-service/cicdServiceThunks";
 import { useAppDispatch } from "@/lib/hook";
-import { Row } from "antd";
+import { Row, Space } from "antd";
 import { useEffect } from "react";
 import CiCdServiceCard from "./cdCdServiceCard";
 import HomeCarousel from "../../components/homeCarousel";
@@ -17,7 +17,7 @@ export default function CiCdServiceContainer() {
   }, []);
 
   return (
-    <>
+    <Space direction="vertical" size="middle" style={{ display: 'flex', paddingTop: 15 }} >
       <Row style={{ padding: 20 }}>
         <span
           style={{
@@ -51,6 +51,6 @@ export default function CiCdServiceContainer() {
           ))}    
           </HomeCarousel>
           </div>
-    </>
+    </Space>
   );
 }

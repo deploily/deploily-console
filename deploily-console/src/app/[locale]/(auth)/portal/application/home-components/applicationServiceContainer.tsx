@@ -2,7 +2,7 @@
 import { ApplicationServiceInterface } from "@/lib/features/application/applicationServiceInterface";
 import { fetchApplicationServices } from "@/lib/features/application/applicationServiceThunks";
 import { useAppDispatch } from "@/lib/hook";
-import { Button, Row } from "antd";
+import { Button, Row, Space } from "antd";
 import { useEffect } from "react";
 import ApplicationServiceCard from "./applicationServiceCard";
 import HomeCarousel from "../../components/homeCarousel";
@@ -21,7 +21,7 @@ export default function ApplicationServiceContainer() {
   }, []);
 
   return (
-    <>
+    <Space direction="vertical" size="middle" style={{ display: 'flex', paddingTop: 15 }} >
 
       <Row style={{ paddingTop: 20 }} justify="space-between" align="middle">
         <span
@@ -55,25 +55,25 @@ export default function ApplicationServiceContainer() {
         </Button>
 
       </Row>
- <div style={{ position: 'relative', padding: '0 2rem' }}>
+      <div style={{ position: 'relative', padding: '0 2rem' }}>
         <HomeCarousel>
-          {!isLoading && applicationServicesList !== undefined && 
-            applicationServicesList?.result?.map((row: ApplicationServiceInterface,index) => (
-            <div
-              key={index}
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                margin: "0 10px",
-              }}
-            >
-              <ApplicationServiceCard data={row}/>
+          {!isLoading && applicationServicesList !== undefined &&
+            applicationServicesList?.result?.map((row: ApplicationServiceInterface, index) => (
+              <div
+                key={index}
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  margin: "0 10px",
+                }}
+              >
+                <ApplicationServiceCard data={row} />
               </div>
-          ))}
+            ))}
         </HomeCarousel>
-        </div>
-   
-    </>
+      </div>
+
+    </Space>
   );
 }
