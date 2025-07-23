@@ -3,10 +3,10 @@ import { CiCdServiceInterface } from "@/lib/features/ci-cd-service/cicdServiceIn
 import { useCiCdService } from "@/lib/features/ci-cd-service/cicdServiceSelectors";
 import { fetchCiCdServices } from "@/lib/features/ci-cd-service/cicdServiceThunks";
 import { useAppDispatch } from "@/lib/hook";
-import { Row } from "antd";
+import { Row, Space } from "antd";
 import { useEffect } from "react";
-import CiCdServiceCard from "./cdCdServiceCard";
 import HomeCarousel from "../../components/homeCarousel";
+import CiCdServiceCard from "./cdCdServiceCard";
 
 export default function CiCdServiceContainer() {
   const { isLoading, cicdServiceResponse } = useCiCdService();
@@ -18,39 +18,42 @@ export default function CiCdServiceContainer() {
 
   return (
     <>
-      <Row style={{ padding: 20 }}>
-        <span
-          style={{
-            color: "white",
+      <Space direction="vertical" size="middle" style={{ display: 'flex', paddingTop: 15 }} >
 
-            fontSize: "24px",
-            fontWeight: 800,
-          }}
-        >
-          CICD
-        </span>
-        <span style={{ color: "white", fontSize: "16px", marginLeft: 10, paddingTop: 4 }}>
-          (coming soon)
-        </span>
-      </Row>
+        <Row style={{ padding: 20 }}>
+          <span
+            style={{
+              color: "white",
 
-  <div style={{ position: 'relative', padding: '0 2rem' }}>
-        <HomeCarousel>
-          {!isLoading && cicdServiceResponse !== undefined && cicdServiceResponse?.result?.map((row: CiCdServiceInterface,index) => (
-            <div
-              key={index}
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                margin: "0 10px",
-              }}
-                >
-              <CiCdServiceCard data={row} />
+              fontSize: "24px",
+              fontWeight: 800,
+            }}
+          >
+            CICD
+          </span>
+          <span style={{ color: "white", fontSize: "16px", marginLeft: 10, paddingTop: 4 }}>
+            (coming soon)
+          </span>
+        </Row>
+
+        <div style={{ position: 'relative', padding: '0 2rem' }}>
+          <HomeCarousel>
+            {!isLoading && cicdServiceResponse !== undefined && cicdServiceResponse?.result?.map((row: CiCdServiceInterface, index) => (
+              <div
+                key={index}
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  margin: "0 10px",
+                }}
+              >
+                <CiCdServiceCard data={row} />
               </div>
-          ))}    
+            ))}
           </HomeCarousel>
-          </div>
+        </div>
+      </Space>
     </>
   );
 }
