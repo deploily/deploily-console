@@ -79,7 +79,7 @@ const TtkEpaySlice = createSlice({
         if (updatedState.resource_service_plan !== undefined) {
           updatedAmount += updatedState.duration * updatedState.resource_service_plan.price;
         }
-      }
+      }      
       // 2. Subtract remaining value from old app subscription if available
       if (
         updatedState.oldAppServicePrice !== undefined &&
@@ -92,7 +92,7 @@ const TtkEpaySlice = createSlice({
           duration_month: updatedState.oldAppServiceDuration,
         });
 
-        updatedAmount =updatedAmount-oldAppRemaining;
+        updatedAmount = updatedAmount - oldAppRemaining;
       }
 
       // 3. Apply promo discount if exists
@@ -110,7 +110,7 @@ const TtkEpaySlice = createSlice({
         }
       }
       // 4. Ensure amount isn't negative
-      updatedAmount = Math.max(0, Math.round(updatedAmount * 100) / 100);
+      updatedAmount = Math.round(updatedAmount);
 
       updatedState.totalAmount = updatedAmount;
 

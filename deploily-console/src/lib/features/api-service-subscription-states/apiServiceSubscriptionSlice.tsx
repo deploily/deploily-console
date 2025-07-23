@@ -31,7 +31,7 @@ const initialState: ApiServiceSubscriptionStates = {
   selectedProfile: undefined,
   openDrawer: false,
   selectedPlan: null,
-  oldDuration:1
+  oldDuration: 1
 };
 
 
@@ -75,21 +75,21 @@ const apiServiceSubscriptionStatesSlice = createSlice({
       console.log("Old Plan Value Remaining:", oldPlanValueRemaining);
 
 
-      const newTotal = updatedState.duration * updatedState.price;
+      let newTotal = updatedState.duration * updatedState.price;
       console.log("New Total:", newTotal);
 
-      // if (updatedState.promoCodeRate !== undefined) {
-      //   updatedState.promoColor = "green";
-      //   newTotal = newTotal - ((newTotal * updatedState.promoCodeRate) / 100);
-      // }
-      if (newTotal < oldPlanValueRemaining){
+      if (updatedState.promoCodeRate !== undefined) {
+        updatedState.promoColor = "green";
+        newTotal = newTotal - ((newTotal * updatedState.promoCodeRate) / 100);
+      }
+      if (newTotal < oldPlanValueRemaining) {
         updatedState.totalAmount = 0;
 
-      }else{
-      const finalAmount = newTotal - oldPlanValueRemaining;
-      updatedState.totalAmount = Math.round(finalAmount);
+      } else {
+        const finalAmount = newTotal - oldPlanValueRemaining;
+        updatedState.totalAmount = Math.round(finalAmount);
       }
-   
+
 
       if (updatedState.selectedProfile) {
         updatedState.isBalanceSufficient = updatedState.selectedProfile.balance >= updatedState.totalAmount;
