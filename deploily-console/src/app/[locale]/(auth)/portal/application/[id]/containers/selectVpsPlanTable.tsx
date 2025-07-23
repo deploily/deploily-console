@@ -4,8 +4,11 @@ import { useNewApplicationSubscription } from '@/lib/features/application/applic
 import { useServicePlansByType } from '@/lib/features/resourceServicePlans/resourceServicesPlansSelectors';
 import { updateSelectedPlan } from '@/lib/features/resourceServicePlans/resourceServicesPlansSlice';
 import { fetchResourceServicesPlans } from '@/lib/features/resourceServicePlans/resourceServicesPlansThunk';
+import { ServicePlanOption } from '@/lib/features/service-plans/servicePlanInterface';
 import { useAppDispatch } from '@/lib/hook';
-import { Typography } from 'antd';
+import { theme } from '@/styles/theme';
+import { Check } from '@phosphor-icons/react';
+import { Col, Row, Typography } from 'antd';
 import { TableComponentWithSelection } from 'deploily-ui-components';
 import { useEffect } from 'react';
 import { useScopedI18n } from '../../../../../../../../locales/client';
@@ -53,6 +56,9 @@ export default function SelectVpsPlanTable({
     return resource_service_plan?.id;
   };
 
+  console.log(servicePlansList);
+
+
   return (
     <div>
       {servicePlansList !== undefined &&
@@ -65,7 +71,7 @@ export default function SelectVpsPlanTable({
                 return {
                   key: plan.id,
                   resource: plan,
-                  options: [plan.options.map((opt) => ([opt.html_content]))],
+                  options: plan.options,
                   price: plan.price,
                 }
               }
@@ -86,11 +92,33 @@ export default function SelectVpsPlanTable({
               title: tApplications('options'),
               dataIndex: "options",
               render: (options) => (
-                <>
-                  <Typography.Text>
-                    {options != undefined ? options.join(' / ') : ""}
-                  </Typography.Text>
-                </>
+                <div style={{ flex: 1, paddingBottom: "16px" }}>
+                  {options.map((row: ServicePlanOption) => (
+                    <Row gutter={16} key={row.id} align="middle">
+                      <Col span={3}>
+                        {row.icon ? row.icon : <Check size={24} color={theme.token.gray100} />}
+                      </Col>
+                      <Col span={21}>
+                        <Typography.Paragraph
+                          style={{
+                            fontSize: 16,
+                            color: "white",
+                            margin: 0,
+                            display: "flex",
+                            alignItems: "center",
+                            minHeight: 24,
+                          }}
+                        >
+                          {/* <div
+                            dangerouslySetInnerHTML={{ __html: }}
+                            style={{ margin: 0, lineHeight: "24px" }}
+                          />  */}
+                          {row.html_content}
+                        </Typography.Paragraph>
+                      </Col>
+                    </Row>
+                  ))}
+                </div>
               ),
             },
             {

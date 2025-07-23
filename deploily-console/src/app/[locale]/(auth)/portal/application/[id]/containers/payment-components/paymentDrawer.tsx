@@ -88,6 +88,10 @@ export default function PaymentDrawer({ openDrawer, onClose }:
                                 label: tApplications("plan"),
                                 value: `${app_service_plan?.plan.name}`
                             },
+                            prepaTime:{
+                                label: tApplications('prepaTime'),
+                                 value: `${resource_service_plan?.preparation_time} h` || "" 
+                            },
                             duration: {
                                 label: tApplications('duration'),
                                 value: `${duration}`

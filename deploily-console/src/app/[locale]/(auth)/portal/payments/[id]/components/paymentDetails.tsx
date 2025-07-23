@@ -1,26 +1,28 @@
 "use client";
 
+import { getBankCredEnvVars } from "@/actions/getBankCredEnvVars";
 import { usePayment } from "@/lib/features/payments/paymentSelector";
 import { fetchPaymentById, uploadPaymentReceipt } from "@/lib/features/payments/paymentThunks";
 import { useAppDispatch } from "@/lib/hook";
+import ImageFetcher from "@/lib/utils/imageFetcher";
 import { theme } from "@/styles/theme";
 import { SendOutlined, UploadOutlined } from '@ant-design/icons';
-import { Button, Image, Result, Row, Spin, Table, Upload } from "antd";
+import { Button, Card, Image, Result, Row, Spin, Table, Typography, Upload } from "antd";
 import { RcFile } from "antd/es/upload";
 import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../../locales/client";
+import bankPaymentInfo from "../../../application/[id]/containers/payment-components/bankPaymentData";
 import paymentDetailsData from "../../utils/paymentDetailsData";
-import ImageFetcher from "@/lib/utils/imageFetcher";
 
 export default function PaymentDetailsPage({ paymentId }: { paymentId: string }) {
   const t = useScopedI18n("payments");
   const translate = useI18n();
-
+  const tBankPayment = useScopedI18n("bankPayment");
   const dispatch = useAppDispatch();
   const { currentPayment, currentPaymentLoading, currentPaymentLoadingError, uploadSuccess } = usePayment();
 
   useEffect(() => {
-    if (paymentId || uploadSuccess=== true) {
+    if (paymentId || uploadSuccess === true) {
       dispatch(fetchPaymentById(paymentId));
     }
 
@@ -44,6 +46,17 @@ export default function PaymentDetailsPage({ paymentId }: { paymentId: string })
       'paymentId': paymentId,
     }));
   }
+
+
+  const [bankTransfertInformation, setBankTransfertInformation] = useState<any>(undefined)
+  useEffect(() => {
+    const fetchBankTransfertInfo = async () => {
+      const vars = await getBankCredEnvVars()
+      setBankTransfertInformation(vars);
+    };
+    fetchBankTransfertInfo();
+  }, []);
+
 
   return (
     <div style={{ padding: 20, margin: "0 auto" }}>
@@ -104,21 +117,21 @@ export default function PaymentDetailsPage({ paymentId }: { paymentId: string })
                 width: "70%",
               }}>
                 {file ?
-                <span>
-                  <Image
-                    src={URL.createObjectURL(file)}
-                    alt="Selected receipt"
-                    width={250}
-                    style={{ borderRadius: 8 }}
-                  /></span>
-                :
+                  <span>
+                    <Image
+                      src={URL.createObjectURL(file)}
+                      alt="Selected receipt"
+                      width={250}
+                      style={{ borderRadius: 8 }}
+                    /></span>
+                  :
                   currentPayment.payment_receipt !== undefined && currentPayment.payment_receipt !== null ?
                     <ImageFetcher
-                    imagePath={currentPayment?.payment_receipt}
-                    width={250} height={250}                    />
-                :
-                  <div>
-                  </div>
+                      imagePath={currentPayment?.payment_receipt}
+                      width={250} height={250} />
+                    :
+                    <div>
+                    </div>
                 }
 
                 {!file ? <Upload
@@ -126,8 +139,8 @@ export default function PaymentDetailsPage({ paymentId }: { paymentId: string })
                   showUploadList={false}
                   accept="image/*"
                 >
-                <Button
-                  type="primary" icon={<UploadOutlined />}>{t("uploadReceived")}</Button>
+                  <Button
+                    type="primary" icon={<UploadOutlined />}>{t("uploadReceived")}</Button>
                 </Upload> : <Button
                   type="primary"
                   icon={<SendOutlined />}
@@ -138,6 +151,40 @@ export default function PaymentDetailsPage({ paymentId }: { paymentId: string })
                 </Button>}
               </div>
             }
+            <Card
+              style={{
+                marginTop: 20,
+                width: "70%",
+                borderColor: theme.token.gray50,
+                boxShadow: 'none',
+                textAlign: 'center',
+              }}
+              styles={{
+                header: {
+                  borderColor: theme.token.gray50,
+                  textAlign: 'start',
+                }
+              }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 10,
+                  textAlign: 'left',
+                  paddingLeft: 20,
+                }}
+              >
+                {bankTransfertInformation && bankPaymentInfo(tBankPayment, bankTransfertInformation).map((info, index) => (
+                  <Typography key={index} style={{ fontWeight: 600 }}>
+                    {info.title} :
+                    <Typography.Text style={{ fontWeight: 400, marginLeft: 5 }}>
+                      {info.value}
+                    </Typography.Text>
+                  </Typography>
+                ))}
+              </div>
+            </Card>
           </>}
       </div>
       {!currentPaymentLoading && currentPaymentLoadingError &&

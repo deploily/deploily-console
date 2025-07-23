@@ -54,6 +54,7 @@ export default {
     'featuresSpecifications': 'Features and Specifications',
     'documentation': 'Documentation',
     'viewDocumentation': 'You can explore its capabilities and learn more in the',
+    "learnMore": ". You can explore and learn more through the ",
     'duration': 'Duration',
     "remainingDuration": "Remaining duration",
     'month': 'month',
@@ -313,7 +314,6 @@ export default {
     "salesPhone": "Sales Phone",
     "contactUs": "Contact Us",
 
-
     "toast.titleFailed": "Failed to Create item",
     "toast.failed": "Failed to Create item",
     "toast.success": "Check your inbox for further instructions.",
@@ -354,4 +354,5 @@ export default {
     "dashboard.payments": "Payments",
     "applications.noApplications": "You don't have any applications yet. Feel free to create one!",
     "applications.noActiveApplicationsFound": "You don't have any active applications. Feel free to create one!",
+    "applications.prepaTime": "Preparation time",
 } as const

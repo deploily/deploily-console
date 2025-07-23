@@ -57,6 +57,7 @@ export default {
   featuresSpecifications: "Fonctionnalités et spécifications",
   documentation: "Documentation",
   viewDocumentation: "Vous pouvez explorer ses capacités et en apprendre davantage dans la",
+  "learnMore": ". Vous pouvez explorer et en apprendre davantage grâce à la ",
   duration: "Durée",
   remainingDuration: "Durée restante",
   mois: "mois",
@@ -344,7 +345,7 @@ export default {
   "toast.msgFailed": "Échec",
   "toast.titleMsgFailed": "Échec de l'envoi du message",
 
-  "applications.svc": "Nom du service",
+  "applications.svc": "Nom de l'application",
   "applications.plan": "Forfait",
   "applications.duration": "Durée",
   "applications.version": "Version",
@@ -377,4 +378,6 @@ export default {
   "applications.noApplications": "Vous n'avez pas encore d'application. N'hésitez pas à en créer une !",
   "applications.noActiveApplicationsFound": "Vous n'avez pas d'application active. N'hésitez pas à en créer une !",
 
+  "applications.prepaTime": "Temps de préparation",
+  
 } as const;
