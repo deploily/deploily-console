@@ -14,9 +14,6 @@ export default function AppPromoCodeTextField() {
     const { promoColor } = useNewApplicationSubscription()
     const [promoCode, setPromoCode] = useState('');
 
-    console.log(promoColor);
-
-
     const dispatch = useAppDispatch();
     const { promoCodeResponse, promoCodeLoadingError } = usePromoCode();
 

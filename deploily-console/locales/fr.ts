@@ -57,6 +57,7 @@ export default {
   featuresSpecifications: "Fonctionnalités et spécifications",
   documentation: "Documentation",
   viewDocumentation: "Vous pouvez explorer ses capacités et en apprendre davantage dans la",
+  "learnMore": ". Vous pouvez explorer et en apprendre davantage grâce à la ",
   duration: "Durée",
   remainingDuration: "Durée restante",
   mois: "mois",
@@ -82,6 +83,7 @@ export default {
   "feedback.send": "Envoyer",
   subscribed: "Abonné",
   "sidebar.myApi": "Mes API",
+  "history": "Histoire",
 
   "serviceApi.search": "Rechercher",
   "serviceApi.filter": "Filtrer",
@@ -197,7 +199,12 @@ export default {
   "subscription.deployed": "Déployé",
   "subscription.error": "Erreur",
   "subscription.adminConsole": "Console d'administration",
-
+  'subscription.upgrade': 'Mise à niveau',
+  'subscription.renew': 'Renouveler',
+  'subscription.choose_plan': 'Choisir un forfait',
+  'subscription.select_vps_plan': 'Sélectionner un plan VPS',
+  'subscription.back': 'Retour',
+  'subscription.next': 'Suivant',
   "ttkEpay.client_site_name": "Nom du site client",
   "ttkEpay.client_site_address": "Adresse du site client",
   "ttkEpay.client_site_email": "E-mail du site client",
@@ -226,7 +233,6 @@ export default {
   "ttkEpay.restart": "Redémarrer",
   "ttkEpay.displayInfoNote": "Cette information sera affichée sur les pages web et les reçus",
   'ttkEpay.placeholderSatimPassword': 'Entrez votre mot de passe SATIM',
-
 
   "apiServiceSubscription.title": "S'abonner",
   "apiServiceSubscription.specialOffer": "Offre spéciale",
@@ -282,8 +288,8 @@ export default {
   "epayment.sendByEmail": "Envoyer par email",
   "epayment.download": "Télécharger",
   "epayment.print": "Impression",
-  whoIs: "Qui est",
-  contactProvider: "Contacter le fournisseur",
+  "whoIs": "Qui est",
+  "contactProvider": "Contacter le fournisseur",
   "itemsHelp.label1": "Comment ça fonctionne ?",
   "itemsHelp.children1":
     "Deploily établit un contrat avec un fournisseur cloud pour obtenir des remises exclusives.",
@@ -341,7 +347,7 @@ export default {
   "toast.msgFailed": "Échec",
   "toast.titleMsgFailed": "Échec de l'envoi du message",
 
-  "applications.svc": "Nom du service",
+  "applications.svc": "Nom de l'application",
   "applications.plan": "Forfait",
   "applications.duration": "Durée",
   "applications.version": "Version",
@@ -350,6 +356,7 @@ export default {
   "applications.resourcePlan": "Plan de ressource",
   "applications.total": "Montant total",
   "applications.confirm": "Confirmer",
+
   "applications.order": "Commander l'application",
   "applications.resource": "Resource",
   "applications.options": "Options",
@@ -370,4 +377,9 @@ export default {
   "dashboard.supportTickets": "Tickets de support",
   "dashboard.affiliations": "Affiliations",
   "dashboard.payments": "Paiements",
+  "applications.noApplications": "Vous n'avez pas encore d'application. N'hésitez pas à en créer une !",
+  "applications.noActiveApplicationsFound": "Vous n'avez pas d'application active. N'hésitez pas à en créer une !",
+  "applications.prepaTime": "Temps de préparation",
+  
+  "odooApp.password": "Mot de passe Odoo",
 } as const;

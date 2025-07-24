@@ -2,7 +2,7 @@
 import { NEXT_PUBLIC_SITE_KEY } from "@/deploilyWebsiteUrls";
 import { useApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSelectors";
 import { useApiServiceSubscription } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionSelectors";
-import { postApiServiceSubscription } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionThunks";
+import { postApiServiceSubscription, postUpgradeApiServiceSubscription } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
 import { Card, Checkbox, CheckboxChangeEvent, Typography } from "antd";
@@ -12,7 +12,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { useScopedI18n } from "../../../../../../../../../../locales/client";
 import EpayButton from "./epayButton";
 
-export default function CardPaymentComponent({ selectedPlan }: { selectedPlan: any }) {
+export default function CardPaymentComponent({ selectedPlan, subscriptionOldId, IsSubscribed}: { selectedPlan: any, subscriptionOldId?: any , IsSubscribed?: any }) {
 
     const [value, setValue] = useState(false);
     const onChangeCheckbox = (e: CheckboxChangeEvent) => {
@@ -39,7 +39,21 @@ export default function CardPaymentComponent({ selectedPlan }: { selectedPlan: a
     const handleCaptchaChange = (value: string | null) => {
         setCaptchaToken(value);
     };
-    const handleSubscribe = async () => {
+    // const handleSubscribe = async () => {
+    //     const newApiServiceSubscriptionObject = {
+    //         captcha_token: captchaToken,
+    //         duration: apiServiceSubscriptionStates.duration,
+    //         total_amount: apiServiceSubscriptionStates.totalAmount,
+    //         promo_code: apiServiceSubscriptionStates.promoCode,
+    //         payment_method: "card",
+    //         service_plan_selected_id: selectedPlan.id,
+    //         profile_id: apiServiceSubscriptionStates.selectedProfile != null ? apiServiceSubscriptionStates.selectedProfile.id : 1
+    //     };
+
+    //     dispatch(postApiServiceSubscription(newApiServiceSubscriptionObject));
+    // };
+
+    const handleApiServiceSubscription = async () => {
         const newApiServiceSubscriptionObject = {
             captcha_token: captchaToken,
             duration: apiServiceSubscriptionStates.duration,
@@ -50,8 +64,19 @@ export default function CardPaymentComponent({ selectedPlan }: { selectedPlan: a
             profile_id: apiServiceSubscriptionStates.selectedProfile != null ? apiServiceSubscriptionStates.selectedProfile.id : 1
         };
 
-        dispatch(postApiServiceSubscription(newApiServiceSubscriptionObject));
+        const newUpgradeApiServiceSubscriptionObject = {
+            ...newApiServiceSubscriptionObject,
+            old_subscription_id: subscriptionOldId,
+        };
+
+        if (IsSubscribed) {
+            dispatch(postUpgradeApiServiceSubscription(newUpgradeApiServiceSubscriptionObject));
+        } else {
+            dispatch(postApiServiceSubscription(newApiServiceSubscriptionObject));
+
+        }
     };
+
 
     return (
         <>
@@ -84,7 +109,7 @@ export default function CardPaymentComponent({ selectedPlan }: { selectedPlan: a
                     <Checkbox style={{ padding: 15 }} onChange={onChangeCheckbox} checked={value}>
                         I accept the general conditions of use
                     </Checkbox>
-                    <EpayButton handleSubscribe={handleSubscribe} />
+                    <EpayButton handleSubscribe={handleApiServiceSubscription} />
                 </div>
             </Card>
         </>

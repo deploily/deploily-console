@@ -1,3 +1,7 @@
+import { AppVersionInterface } from "../application/applicationServiceInterface";
+import { PaymentProfileInterface } from "../payment-profiles/paymentProfilesInterface";
+import { ResourceServicePlan } from "../resourceServicePlans/resourceServicesPlansInterface";
+import { ServicePlan } from "../service-plans/servicePlanInterface";
 
 
 export interface TtkEpayByIdState {
@@ -8,6 +12,16 @@ export interface TtkEpayByIdState {
 export interface UpdateTtkEpayState {
   updateTtkEpay?: any;
   isLoadingUpdate: boolean;
+  loadingError?: any;
+}
+export interface UpgradeTtkEpayState {
+  upgradeTtkEpay?: any;
+  isLoadingUpgrade: boolean;
+  loadingError?: any;
+}
+export interface RenewTtkEpayState {
+  renewTtkEpay?: any;
+  isLoadingRenew: boolean;
   loadingError?: any;
 }
 export interface TtkEpayResponse {
@@ -32,6 +46,8 @@ export interface TtkEpayInterface {
   price: number;
   service_plan: Service_plan;
   service_plan_id: string;
+  ressource_service_plan_id: number;
+  ressource_service_plan: ResourceServicePlan;
   start_date: Date,
   status: string;
   total_amount: number;
@@ -90,14 +106,27 @@ interface ServiceDetails {
   minimal_cpu: number;
   minimal_disk: number;
   minimal_ram: number;
-
+  is_subscribed: boolean;
 }
 
 
+export interface UpgradeTtkEpaySubscriptionState {
 
-
-
-
+  duration: number;
+  price: number;
+  totalAmount: number,
+  selectedProfile?: PaymentProfileInterface,
+  isBalanceSufficient: boolean | null,
+  resource_service_plan?: ResourceServicePlan,
+  app_service_plan?: ServicePlan,
+  selected_version?: AppVersionInterface,
+  promoCode: string,
+  promoCodeRate?: number,
+  promoColor?: string,
+  oldAppServicePrice?: number;
+  oldAppServiceStartDate?: Date;
+  oldAppServiceDuration?: number;
+}
 
 
 

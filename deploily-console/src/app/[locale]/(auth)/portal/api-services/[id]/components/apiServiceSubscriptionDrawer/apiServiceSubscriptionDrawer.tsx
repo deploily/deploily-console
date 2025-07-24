@@ -7,8 +7,10 @@ import PaymentComponent from "./containers/paymentComponent";
 import SelectProfileComponent from "./containers/selectProfileComponent";
 import { useApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSelectors";
 import NewApiServiceSubscriptionInfo from "./containers/newApiServiceSubscriptionInfo";
+import NewUpgradeApiServiceSubscriptionInfo from "./containers/newUpgradeApiServiceSubscriptionInfo";
 
-export default function ApiServiceSubscriptionDrawer({ openDrawer, onClose, planSelected }: { openDrawer: any, onClose: any, planSelected: any }) {
+export default function ApiServiceSubscriptionDrawer({ openDrawer, onClose, planSelected, IsSubscribed, subscriptionOldId, drawerType }:
+  { openDrawer: any, onClose: any, planSelected: any, IsSubscribed: any, subscriptionOldId: any, drawerType?: any }) {
   const { isBalanceSufficient, selectedProfile } = useApiServiceSubscriptionStates()
   return (
     <>
@@ -25,15 +27,18 @@ export default function ApiServiceSubscriptionDrawer({ openDrawer, onClose, plan
         }}
       >
         <Col style={{ padding: 20 }}>
-          <NewApiServiceSubscriptionInfo planSelected={planSelected} />
-          <SelectProfileComponent/>
+          {IsSubscribed
+            ?  <NewUpgradeApiServiceSubscriptionInfo planSelected={planSelected} /> : <NewApiServiceSubscriptionInfo planSelected={planSelected} />
+            }
+          <SelectProfileComponent />
           {selectedProfile !== undefined && <div style={{ padding: '5px 0px' }}>
             {isBalanceSufficient === true ?
-              (<IsBalanceSufficientComponent onClose={onClose} planSelected={planSelected} />)
+              (<IsBalanceSufficientComponent onClose={onClose} planSelected={planSelected} IsSubscribed={IsSubscribed}
+                subscriptionOldId={subscriptionOldId} drawerType={drawerType} />)
               : selectedProfile?.is_default_profile === true ?
                 <CreateProfileButton planSelected={planSelected} openDrawer={openDrawer} onClose={onClose} />
                 :
-                <PaymentComponent selectedPlan={planSelected} />
+                <PaymentComponent selectedPlan={planSelected} subscriptionOldId={subscriptionOldId} IsSubscribed={IsSubscribed} drawerType={drawerType} />
             }
           </div>}
         </Col>

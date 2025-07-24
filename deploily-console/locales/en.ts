@@ -54,6 +54,7 @@ export default {
     'featuresSpecifications': 'Features and Specifications',
     'documentation': 'Documentation',
     'viewDocumentation': 'You can explore its capabilities and learn more in the',
+    "learnMore": ". You can explore and learn more through the ",
     'duration': 'Duration',
     "remainingDuration": "Remaining duration",
     'month': 'month',
@@ -72,7 +73,7 @@ export default {
     "error": "Error",
     "subTitleError": "Sorry, something went wrong.",
     "seeAll": "See all",
-
+    "history": "History",
     'serviceApi.search': 'Search',
     'serviceApi.filter': 'Filter',
 
@@ -188,6 +189,12 @@ export default {
     'subscription.deployed': 'Deployed',
     'subscription.error': 'Error',
     "subscription.adminConsole": "Admin Console",
+    'subscription.upgrade': 'Upgrade',
+    'subscription.renew': 'Renew',
+    'subscription.choose_plan': 'Choose plan',
+    'subscription.select_vps_plan': 'Select vps plan',
+    'subscription.back': 'Back',
+    'subscription.next': 'Next',
 
     'ttkEpay.client_site_name': 'Client site name',
     'ttkEpay.client_site_address': 'Client site address',
@@ -311,7 +318,6 @@ export default {
     "salesPhone": "Sales Phone",
     "contactUs": "Contact Us",
 
-
     "toast.titleFailed": "Failed to Create item",
     "toast.failed": "Failed to Create item",
     "toast.success": "Check your inbox for further instructions.",
@@ -350,4 +356,10 @@ export default {
     "dashboard.supportTickets": "Support Tickets",
     "dashboard.affiliations": "Affiliations",
     "dashboard.payments": "Payments",
+    "applications.noApplications": "You don't have any applications yet. Feel free to create one!",
+    "applications.noActiveApplicationsFound": "You don't have any active applications. Feel free to create one!",
+    "applications.prepaTime": "Preparation time",
+
+    "odooApp.password": "Odoo Password",
+    "odooApp.apiKey": "API Key",
 } as const

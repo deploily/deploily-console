@@ -23,6 +23,7 @@ import subscriptionSlice from "./features/subscriptions/subscriptionSlice";
 import supportTicketResponsesSlice from "./features/support-ticket -responses/supportTicketResponsesSlice";
 import supportTicketSlice from "./features/support-ticket/supportTicketSlice";
 import ttkEpaySlice from "./features/ttk-epay/ttkEpaySlice";
+import odooAppSlice from "./features/odoo/odooSlice";
 
 export const makeStore = () => {
   return configureStore({
@@ -46,6 +47,7 @@ export const makeStore = () => {
       resourceServicesPlans: resourceServicesPlansSlice,
       myApplication: myApplicationSlice,
       ttkEpay: ttkEpaySlice,
+      odooApp: odooAppSlice,
       subscription: subscriptionSlice,
       wilaya: wilayaSlice,
 
@@ -57,5 +59,4 @@ export const makeStore = () => {
 export type AppStore = ReturnType<typeof makeStore>;
 export type RootState = ReturnType<AppStore["getState"]>;
 export type AppDispatch = AppStore["dispatch"];
-
 
