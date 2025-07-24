@@ -379,7 +379,7 @@ export default {
   "dashboard.payments": "Paiements",
   "applications.noApplications": "Vous n'avez pas encore d'application. N'hésitez pas à en créer une !",
   "applications.noActiveApplicationsFound": "Vous n'avez pas d'application active. N'hésitez pas à en créer une !",
-
   "applications.prepaTime": "Temps de préparation",
   
+  "odooApp.password": "Mot de passe Odoo",
 } as const;
