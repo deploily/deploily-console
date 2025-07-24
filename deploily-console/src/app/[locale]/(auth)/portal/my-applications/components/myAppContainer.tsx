@@ -1,11 +1,10 @@
+import { useMyApplicationList } from "@/lib/features/my-applications/myApplicationSelector";
+import { fetchMyApplications } from "@/lib/features/my-applications/myApplicationThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { Card, Col, Result, Row } from "antd";
 import { useEffect } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import MyAppCard from "./myAppCard";
-import { useMyApplicationList } from "@/lib/features/my-applications/myApplicationSelector";
-import { fetchMyApplications } from "@/lib/features/my-applications/myApplicationThunks";
-import { myApplicationInterface } from "@/lib/features/my-applications/myApplicationInterface";
 
 export default function MyAppContainer() {
   const dispatch = useAppDispatch();
@@ -17,8 +16,8 @@ export default function MyAppContainer() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const filteredData: myApplicationInterface[] =
-    MyApplicationList?.result?.filter((row) => row.status !== "inactive") || [];
+  // const filteredData: myApplicationInterface[] =
+  //   MyApplicationList?.result?.filter((row) => row.status !== "inactive") || [];
 
   return (
     <>
@@ -37,9 +36,9 @@ export default function MyAppContainer() {
       )}
 
       {/* Success */}
-      {!isLoading && !loadingError && filteredData.length > 0 && (
+      {!isLoading && !loadingError && MyApplicationList && MyApplicationList?.result.length > 0 && (
         <Row gutter={[24, 24]} justify="start" style={{ margin: 0 }}>
-          {filteredData.map((row) => (
+          {MyApplicationList?.result.map((row) => (
             <Col
               key={row.id}
               xs={24}
@@ -65,7 +64,7 @@ export default function MyAppContainer() {
       )}
 
       {/* Empty */}
-      {!isLoading && !loadingError && filteredData.length === 0 && (
+      {!isLoading && !loadingError && MyApplicationList?.result.length === 0 && (
         <Result
           status="404"
           title={tApp("noApplications")}
