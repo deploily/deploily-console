@@ -79,7 +79,7 @@ const TtkEpaySlice = createSlice({
         if (updatedState.resource_service_plan !== undefined) {
           updatedAmount += updatedState.duration * updatedState.resource_service_plan.price;
         }
-      }      
+      }
       // 2. Subtract remaining value from old app subscription if available
       if (
         updatedState.oldAppServicePrice !== undefined &&

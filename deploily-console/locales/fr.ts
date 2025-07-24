@@ -382,4 +382,5 @@ export default {
   "applications.prepaTime": "Temps de préparation",
   
   "odooApp.password": "Mot de passe Odoo",
+  "odooApp.apiKey": "Clé API",
 } as const;

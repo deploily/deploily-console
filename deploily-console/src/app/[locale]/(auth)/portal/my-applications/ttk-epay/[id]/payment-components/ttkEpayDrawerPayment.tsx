@@ -18,6 +18,7 @@ import ApplicationPaymentComponent from "../../../../application/[id]/containers
 import AppPromoCodeTextField from "../../../../application/[id]/containers/payment-components/appPromoCodeTextField";
 import IsBalanceSufficientComponent from "../../../../application/[id]/containers/payment-components/isBalanceSufficientComponent";
 import { options } from "../../../../application/utils/applicationConst";
+import { updateNewAppSubscriptionState } from "@/lib/features/application/applicationServiceSlice";
 
 export default function TtkEpayPaymentDrawer({ openDrawer, onClose, subscriptionOldId, isSubscribed, drawerType }:
     { openDrawer: any, onClose: any, subscriptionOldId: any, isSubscribed?: boolean, drawerType?: any }
@@ -28,7 +29,9 @@ export default function TtkEpayPaymentDrawer({ openDrawer, onClose, subscription
     const tSubscription = useScopedI18n('subscription');
 
     const dispatch = useAppDispatch();
-    const { ttkEpayById } = useTtkEpayById()
+    const { ttkEpayById } = useTtkEpayById() 
+    const { applicationServiceById } = useApplicationServiceById()
+
 
     const { paymentProfilesList } = useNotDefaultPaymentProfiles();
     const { promoCode, totalAmount, duration, selected_version, app_service_plan, resource_service_plan, selectedProfile, isBalanceSufficient } = useUpgradeTtkEpaySubscriptionState();
@@ -40,10 +43,16 @@ export default function TtkEpayPaymentDrawer({ openDrawer, onClose, subscription
         dispatch(upgradeAppSubscriptionState({ "selectedProfile": newSelectedProfile }))
     };
 
+
     useEffect(() => {
         dispatch(fetchApplicationServiceById(ttkEpayById?.service_details?.id));
+        dispatch(fetchNotDefaultPaymentProfiles());
     }, []);
-    const { applicationServiceById } = useApplicationServiceById()
+
+    useEffect(() => {
+        dispatch(upgradeAppSubscriptionState({ selected_version: applicationServiceById?.app_versions[0] }));
+    }, [applicationServiceById])
+    
 
 
     const handleUpgradeSubscribe = async () => {
@@ -97,11 +106,6 @@ export default function TtkEpayPaymentDrawer({ openDrawer, onClose, subscription
     const handleChangeVersion = (value: number) => {
         dispatch(upgradeAppSubscriptionState({ selected_version: applicationServiceById?.app_versions?.find((version) => version.id === value) }));
     };
-
-
-    useEffect(() => {
-        dispatch(fetchNotDefaultPaymentProfiles());
-    }, [])
     return (
         <>
             <Drawer
