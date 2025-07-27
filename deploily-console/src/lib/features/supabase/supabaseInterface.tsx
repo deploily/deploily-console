@@ -54,6 +54,8 @@ export interface SupabaseAppInterface {
   status: string;
   total_amount: number;
   version: Version;
+  supabase_anonKey: string;
+  supabase_url: string;
 }
 interface ServiceDetails {
   id: number;

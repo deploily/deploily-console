@@ -383,4 +383,7 @@ export default {
   
   "odooApp.password": "Mot de passe Odoo",
   "odooApp.apiKey": "Clé API",
+
+  "supabase.supabase_anonKey": "Clé anonyme Supabase",
+  "supabase.supabase_url": "URL Supabase",
 } as const;

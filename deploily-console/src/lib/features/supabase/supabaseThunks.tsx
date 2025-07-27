@@ -16,7 +16,7 @@ import { getSession } from "next-auth/react";
 
             const token = session.accessToken;
 
-            const response = await axiosInstance.get(`${deploilyApiUrls.ODOO_APP_SUBSCRIPTION_URL}/${id}`, {
+            const response = await axiosInstance.get(`${deploilyApiUrls.SUPABASE_APP_SUBSCRIPTION_URL}/${id}`, {
                 headers: {
                     Accept: "application/json",
                     Authorization: `Bearer ${token}`,

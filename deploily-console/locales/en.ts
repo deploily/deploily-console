@@ -362,4 +362,7 @@ export default {
 
     "odooApp.password": "Odoo Password",
     "odooApp.apiKey": "API Key",
+
+    "supabase.supabase_anonKey": "Supabase anon Key",
+    "supabase.supabase_url": "Supabase URL",
 } as const
