@@ -24,6 +24,7 @@ import supportTicketResponsesSlice from "./features/support-ticket -responses/su
 import supportTicketSlice from "./features/support-ticket/supportTicketSlice";
 import ttkEpaySlice from "./features/ttk-epay/ttkEpaySlice";
 import odooAppSlice from "./features/odoo/odooSlice";
+import supabaseAppSlice from "./features/supabase/supabaseSlice";
 
 export const makeStore = () => {
   return configureStore({
@@ -48,6 +49,7 @@ export const makeStore = () => {
       myApplication: myApplicationSlice,
       ttkEpay: ttkEpaySlice,
       odooApp: odooAppSlice,
+      supabaseApp: supabaseAppSlice,
       subscription: subscriptionSlice,
       wilaya: wilayaSlice,
 

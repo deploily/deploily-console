@@ -1,9 +1,9 @@
 import { CustomTransparentOrangeButton } from "@/styles/components/buttonStyle";
-import { Badge, Col, Row } from "antd";
+import { Col } from "antd";
 import { useI18n, useScopedI18n } from "../../../../../../../../../../locales/client";
 
 
-export default function DucomentaionComponents({ odooAppById, setOpenDrawer }: { odooAppById: any, setOpenDrawer :any}) {
+export default function DocumentationComponent({ odooAppById, setOpenDrawer }: { odooAppById: any, setOpenDrawer :any}) {
     const t = useI18n();
     
     const tSubscription = useScopedI18n('subscription');

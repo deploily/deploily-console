@@ -4,6 +4,8 @@ export const myApplicationsUrls = (url: string) => {
             return "ttk-epay";
         case "odoo":
             return "odoo";
+        case "supabase":
+            return "supabase";
         default:
             return '';
     }

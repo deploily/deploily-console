@@ -1,4 +1,4 @@
-import { deploilyApiUrls, ODOO_SLUG, TTK_EPAY_SLUG } from "@/deploilyWebsiteUrls";
+import { deploilyApiUrls, ODOO_SLUG, SUPABASE_SLUG, TTK_EPAY_SLUG } from "@/deploilyWebsiteUrls";
 
 export const getSubscribeToAppUrl =(service_slug?:string)=>{
     switch (service_slug) {
@@ -6,7 +6,8 @@ export const getSubscribeToAppUrl =(service_slug?:string)=>{
             return deploilyApiUrls.APP_TTK_EPAY_SUBSCRIBE_URL;
         case ODOO_SLUG:
             return deploilyApiUrls.APP_ODOO_SUBSCRIBE_URL;
-    
+        case SUPABASE_SLUG:
+            return deploilyApiUrls.SUPABASE_APP_SUBSCRIBE_URL;
         default:
             break;
     }
