@@ -3,7 +3,7 @@ import { ApiServiceSubscriptionInterface, ApiServiceSubscriptionsResponse, NewAp
 import { fetchApiServiceSubscription, fetchApiServiceSubscriptionById, generateTokenThunk, postApiServiceSubscription, postRenewApiServiceSubscription, postUpgradeApiServiceSubscription } from "./apiServiceSubscriptionThunks";
 
 interface ApiServiceSubscriptionState {
-  apiServiceSubscriptionResponse?: ApiServiceSubscriptionsResponse;
+  apiServiceSubscriptionResponse?: ApiServiceSubscriptionInterface[];
   apiServiceSubscriptionLoadingError?: any;
   apiServiceSubscriptionLoading: boolean;
   currentApiServiceSubscription?: ApiServiceSubscriptionInterface;
@@ -59,11 +59,7 @@ const apiServiceSubscriptionSlice = createSlice({
       .addCase(fetchApiServiceSubscription.fulfilled, (state, action) => {
         state.apiServiceSubscriptionLoading = false;
         state.apiServiceSubscriptionLoadingError = null;
-        const result = action.payload.ids.map((id: number, index: any) =>
-          Object.assign({}, { id: id }, action.payload.result[index]),
-        );
-        const payload = Object.assign({}, action.payload, { result: result });
-        state.apiServiceSubscriptionResponse = payload;
+        state.apiServiceSubscriptionResponse = action.payload.result;
       })
       .addCase(fetchApiServiceSubscription.rejected, (state, { payload }) => {
         state.apiServiceSubscriptionLoading = false;
@@ -78,7 +74,7 @@ const apiServiceSubscriptionSlice = createSlice({
       .addCase(fetchApiServiceSubscriptionById.fulfilled, (state, action) => {
         state.currentApiServiceSubscriptionLoading = false;
         state.currentApiServiceSubscriptionLoadingError = null;
-        state.currentApiServiceSubscription = { ...action.payload.result, ...{ id: action.payload.id } };
+        state.currentApiServiceSubscription = action.payload.result;
       })
       .addCase(fetchApiServiceSubscriptionById.rejected, (state, { payload }) => {
         state.currentApiServiceSubscriptionLoading = false;
