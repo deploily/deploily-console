@@ -3,8 +3,9 @@ import { HeartStraight } from "@phosphor-icons/react";
 import { Badge, Button, Card, Col, Image, Row, Space } from "antd";
 import Meta from "antd/es/card/Meta";
 import { useI18n } from "../../../../../../../locales/client";
+import { CiCdServiceInterface } from "@/lib/features/ci-cd-service/cicdServiceInterface";
 
-export default function CiCdServiceCard({ data }: any) {
+export default function CiCdServiceCard({ data }:{data: CiCdServiceInterface}) {
     const t = useI18n();
 
     return (
@@ -68,7 +69,7 @@ export default function CiCdServiceCard({ data }: any) {
                                 alignSelf: "flex-start", // ensures it's pinned to top within Col
                             }}
                         >
-                            {data.price}  DZD / {data.price_period === "monthly" ? t("month") : t("year")}
+                            {data.price}  DZD {data.service_unity} / {data.price_category === "monthly" ? t("month") : t("year")}
                         </p>
                     </Col>
 

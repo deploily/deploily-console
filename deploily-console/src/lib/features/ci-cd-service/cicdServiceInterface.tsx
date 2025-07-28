@@ -12,6 +12,8 @@ export interface CiCdServiceInterface {
     id: number;
     name: string;
     price: string;
-    price_period: string;
+    image: string;
+    price_category: string;
+    service_unity: string;
     description: string;
 }

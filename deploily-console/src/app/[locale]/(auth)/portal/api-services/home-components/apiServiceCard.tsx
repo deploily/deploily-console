@@ -1,24 +1,24 @@
 "use client";
-import {ApiServiceInterface} from "@/lib/features/api-service/apiServiceInterface";
-import {postFavoriteService} from "@/lib/features/favorites/favoriteServiceThunks";
-import {useAppDispatch} from "@/lib/hook";
+import { ApiServiceInterface } from "@/lib/features/api-service/apiServiceInterface";
+import { postFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
+import { useAppDispatch } from "@/lib/hook";
 import ImageFetcher from "@/lib/utils/imageFetcher";
-import {theme} from "@/styles/theme";
-import {ArrowRight, HeartStraight} from "@phosphor-icons/react";
-import {Badge, Button, Card, Col, Row, Space, Tag} from "antd";
+import { theme } from "@/styles/theme";
+import { ArrowRight, HeartStraight } from "@phosphor-icons/react";
+import { Badge, Button, Card, Col, Row, Space, Tag } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
-import {useRouter} from "next/navigation";
-import {useState} from "react";
-import {useI18n} from "../../../../../../../locales/client";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useI18n } from "../../../../../../../locales/client";
 
-export default function ApiServiceCard({service}: {service: ApiServiceInterface}) {
+export default function ApiServiceCard({ service }: { service: ApiServiceInterface }) {
   const t = useI18n();
   const router = useRouter();
   const dispatch = useAppDispatch();
   const [hovered, setHovered] = useState(false);
 
   const handleFavoriteService = (service_id: number) => {
-    dispatch(postFavoriteService({service_id}));
+    dispatch(postFavoriteService({ service_id }));
   };
 
   return (
@@ -29,12 +29,12 @@ export default function ApiServiceCard({service}: {service: ApiServiceInterface}
         maxWidth: 270,
         height: 350,
       }}
-      bodyStyle={{padding: 16, height: "100%"}}
+      bodyStyle={{ padding: 16, height: "100%" }}
       onClick={() => router.push(`/portal/api-services/${service.id}`)}
     >
-      <div style={{height: "100%"}}>
-        <Row align="middle" gutter={16} style={{height: "40%"}}>
-          <Col span={12} style={{height: "100%"}}>
+      <div style={{ height: "100%" }}>
+        <Row align="middle" gutter={16} style={{ height: "40%" }}>
+          <Col span={12} style={{ height: "100%" }}>
             <Badge
               count={
                 <Button
@@ -78,11 +78,11 @@ export default function ApiServiceCard({service}: {service: ApiServiceInterface}
           >
             <Row>
               <Col span={24}>
-                <Paragraph style={{color: "#DD8859", fontSize: 16, margin: 0}}>
+                <Paragraph style={{ color: "#DD8859", fontSize: 16, margin: 0 }}>
                   {Intl.NumberFormat("fr-FR", {
                     useGrouping: true,
                   }).format(service.unit_price)}{" "}
-                  DZD / {service.price_period=== "monthly" ? t("month") : t("year")}
+                  DZD {service.service_unity	} / {service.price_category === "monthly" ? t("month") : t("year")}
                 </Paragraph>
               </Col>
               <Col span={24}>
@@ -106,12 +106,12 @@ export default function ApiServiceCard({service}: {service: ApiServiceInterface}
           </Col>
         </Row>
 
-        <Row style={{height: "40%"}}>
+        <Row style={{ height: "40%" }}>
           <Col span={24}>
-            <Paragraph ellipsis={{rows: 2}} style={{fontSize: 20, marginBottom: 0}}>
+            <Paragraph ellipsis={{ rows: 2 }} style={{ fontSize: 20, marginBottom: 0 }}>
               {service.name}
             </Paragraph>
-            <Paragraph ellipsis={{rows: 3}} style={{margin: 0}}>
+            <Paragraph ellipsis={{ rows: 3 }} style={{ margin: 0 }}>
               {service.short_description}
             </Paragraph>
           </Col>

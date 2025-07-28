@@ -47,7 +47,7 @@ export default function BankTransfertComponent({ handleSubscribe }: { handleSubs
                 <Typography.Title level={5} style={{ fontWeight: 500 }}>
                     {tPayments('totalToPay')} :{' '}
                     <Typography.Text strong style={{ fontSize: 18 }}>
-                        {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(totalAmount)} DZD
+                        {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(totalAmount)} DZD 
                     </Typography.Text>
                 </Typography.Title>
 

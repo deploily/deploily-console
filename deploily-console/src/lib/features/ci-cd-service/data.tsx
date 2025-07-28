@@ -12,7 +12,8 @@ export const data = {
             {
                 name: "Github",
                 price: "1 000",
-                price_period: "monthly",
+                price_category: "monthly",
+                service_unity: "",
                 description:
                     "GitHub CI/CD automates code build, test, and deployment workflows using GitHub Actions.",
                 image: "/images/github.png",
@@ -20,7 +21,8 @@ export const data = {
             {
                 name: "Gitlab",
                 price: "1 000 ",
-                price_period: "monthly",
+                price_category: "monthly",
+                service_unity: "",
                 description:
                     "GitLab CI/CD automates the process of building, testing, and deploying code using GitLab's built-in pipeline features.",
                 image: "/images/gitlab.png",
@@ -28,7 +30,8 @@ export const data = {
             {
                 name: "Docker Desktop",
                 price: "1 000",
-                price_period: "monthly",
+                price_category: "monthly",
+                service_unity: "",
                 description:
                     "Docker Desktop is a one-click app for Mac, Windows, and Linux that lets you easily build, run, and manage containerized applications.",
                 image: "/images/docker.png",
