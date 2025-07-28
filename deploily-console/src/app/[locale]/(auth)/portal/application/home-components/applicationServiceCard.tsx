@@ -1,17 +1,18 @@
 "use client";
 
+import { postFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
+import { useAppDispatch } from "@/lib/hook";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { theme } from "@/styles/theme";
 import { ArrowRight, HeartStraight } from "@phosphor-icons/react";
 import { Badge, Button, Card, Col, Grid, Row, Space } from "antd";
-import { useRouter } from "next/navigation";
-import { useI18n } from "../../../../../../../locales/client";
-import { useAppDispatch } from "@/lib/hook";
-import { postFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
 import Paragraph from "antd/es/typography/Paragraph";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useI18n } from "../../../../../../../locales/client";
+import { ApplicationServiceInterface } from "@/lib/features/application/applicationServiceInterface";
 
-export default function ApplicationServiceCard({ data }: any) {
+export default function ApplicationServiceCard({ data }: {data:ApplicationServiceInterface}) {
     const [hovered, setHovered] = useState(false);
 
     const t = useI18n();
@@ -100,11 +101,11 @@ export default function ApplicationServiceCard({ data }: any) {
                                 {Intl.NumberFormat("fr-FR", {
                                     useGrouping: true,
                                 }).format(data.min_app_price)}{" "}
-                                DZD / {data.price_period=== "monthly" ? t("month") : t("year")}
+                                DZD {data.service_unity} / {data.price_category === "monthly" ? t("month") : t("year")}
                             </Paragraph>
                         </Space>
                     </Col>
-                    
+
                 </Row>
 
                 {/* Title & Description */}

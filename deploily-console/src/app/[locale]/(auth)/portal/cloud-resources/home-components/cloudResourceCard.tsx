@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useI18n } from "../../../../../../../locales/client";
 
-export default function CloudResourceCard({ resource }: any) {
+export default function CloudResourceCard({ resource }: any ) {
     const t = useI18n();
     const router = useRouter();
     const dispatch = useAppDispatch();
@@ -80,8 +80,8 @@ export default function CloudResourceCard({ resource }: any) {
                             justifyContent: "end",
                             display: "flex",
                         }}>
-                        <Paragraph style={{ color: "#DD8859", fontSize: 16, }}>
-                            {resource.unit_price != undefined ? (Intl.NumberFormat('fr-FR', { useGrouping: true }).format(resource.unit_price) + " DZD / " + resource.price_period === "monthly" ? t("month") : t("year")) : t('affiliation.onDemand')}
+                        <Paragraph style={{ color: "#DD8859", fontSize: 16, }}>  
+                            {resource.unit_price !== undefined ? ((Intl.NumberFormat('fr-FR', { useGrouping: true }).format(resource.unit_price) )+ " DZD " + resource.service_unity + " / " + (resource.price_category == "monthly" ? t("month") : t("year")) ): t('affiliation.onDemand')}
                         </Paragraph>
                     </Col>
                 </Row>

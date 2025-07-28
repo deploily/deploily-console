@@ -149,7 +149,7 @@ export default function ServiceDetailsContentPage({ serviceId }: { serviceId: st
                   {currentService.name}
                 </Typography.Title>
                 <Typography.Title level={4} style={{ color: theme.token.orange400, margin: 0 }}>
-                  {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(currentService.unit_price)} DZD
+                  {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(currentService.unit_price)} DZD {currentService.service_unity} / {currentService.price_category === "monthly" ? t("month") : t("year")}
                 </Typography.Title>
               </Col>
             </Row>
