@@ -74,6 +74,8 @@ export default {
     "subTitleError": "Sorry, something went wrong.",
     "seeAll": "See all",
     "history": "History",
+    "myApisHisotry": "My APIs History",
+    "myApplicationsHistory": "My Applications History",
     'serviceApi.search': 'Search',
     'serviceApi.filter': 'Filter',
 
@@ -365,4 +367,9 @@ export default {
 
     "supabase.supabase_anonKey": "Supabase anon Key",
     "supabase.supabase_url": "Supabase URL",
+    
+    "history.name": "Name",
+    "history.amount": "Amount",
+    "history.status": "Status",
+    "history.start_date": "Start date",
 } as const

@@ -26,7 +26,7 @@ export default function Page() {
                     </span>
                 </Col>
                 <Col>
-                    {/* <Button
+                    <Button
                         type="default"
                         icon={<ClockCircleOutlined />}
                         style={{
@@ -39,7 +39,7 @@ export default function Page() {
 
                     >
                         {t("history")}
-                    </Button> */}
+                    </Button>
                 </Col>
             </Row>
             <MyAppContainer />
