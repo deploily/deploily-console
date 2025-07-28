@@ -1,7 +1,6 @@
 "use client";
 
 import { ApiServiceSubscriptionInterface } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionInterface";
-import { ApiServiceInterface } from "@/lib/features/api-service/apiServiceInterface";
 import { handleCopy } from "@/lib/utils/handleCopy";
 import { CustomTypography } from "@/styles/components/typographyStyle";
 import { theme } from "@/styles/theme";
@@ -12,7 +11,7 @@ import { dracula } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 
 
-export const subscriptionItems = (row: ApiServiceSubscriptionInterface, serviceDetails: ApiServiceInterface, t: any) => [
+export const subscriptionItems = (row: ApiServiceSubscriptionInterface, serviceDetails: any, t: any) => [
     {
         key: "1",
         label: (
