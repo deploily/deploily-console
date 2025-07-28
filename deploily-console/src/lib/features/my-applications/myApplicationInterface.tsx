@@ -1,6 +1,6 @@
 
 export interface MyApplicationState {
-  MyApplicationList?: myApplicationResponse;
+  MyApplicationList?: myApplicationInterface[];
   isLoading: boolean;
   loadingError?: any;
 }
