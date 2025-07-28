@@ -10,10 +10,10 @@ import { useI18n, useScopedI18n } from "../../../../../../../../../locales/clien
 import { fetchOdooAppById } from "@/lib/features/odoo/odooThunks";
 import { Copy, EyeSlash, Eye } from "@phosphor-icons/react";
 import { handleCopy } from "@/lib/utils/handleCopy";
-import DucomentaionComponents from "./componentsOdooDetails/decumentationComponent";
 import StatusComponents from "./componentsOdooDetails/statusComponent";
 import DurationComponent from "./componentsOdooDetails/durationComponent";
 import DocumentationDrawer from "../../../../utils/documentationDrawer";
+import DocumentationComponents from "./componentsOdooDetails/documentationComponent";
 
 export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
     const t = useI18n();
@@ -68,7 +68,7 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
 
                                     </Typography.Title>
                                 </Col>
-                                <DucomentaionComponents odooAppById={odooAppById} setOpenDrawer={setOpenDrawer} />
+                            <DocumentationComponents odooAppById={odooAppById} setOpenDrawer={setOpenDrawer} />
                             </Row>
                         </Col>
                     </Row>

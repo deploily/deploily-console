@@ -57,9 +57,7 @@ export default function ServicePlanCard({
         <span style={{ fontSize: 16, fontWeight: 400 }}>
           {" "}
           DZD/
-          {servicePlan!.subscription_category === "monthly"
-            ? t("month")
-            : servicePlan!.subscription_category === "yearly"
+          {servicePlan!.subscription_category === "yearly"
               ? t("year")
               : t("month")}
         </span>

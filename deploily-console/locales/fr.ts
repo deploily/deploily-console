@@ -13,8 +13,8 @@ export default {
   subscriptions: "Abonnements",
   supportTicket: "Ticket d'assistance",
   sponsoring: "Sponsoring",
-  'month': 'mois',
-  'year': 'an',
+  'month': 'Mois',
+  'year': 'An',
   "sidebar.home": "Accueil",
   "sidebar.dashboard": "Tableau de bord",
   "sidebar.members": "Membres",
@@ -383,4 +383,7 @@ export default {
   
   "odooApp.password": "Mot de passe Odoo",
   "odooApp.apiKey": "Clé API",
+
+  "supabase.supabase_anonKey": "Clé anonyme Supabase",
+  "supabase.supabase_url": "URL Supabase",
 } as const;

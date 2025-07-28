@@ -34,26 +34,6 @@ export default function ApplicationServiceContainer() {
           >
             {t("application")}
           </span>
-          <Button
-            style={{
-              marginLeft: "20px",
-              backgroundColor: "#6caff0",
-              color: "white",
-              fontWeight: "bold",
-              padding: "10px 20px",
-              fontSize: "16px",       // Increased font size
-              borderRadius: "6px",    // Slightly reduced border radius
-              border: "none",
-              cursor: "pointer",
-              minWidth: "120px",      // Ensures a good width
-              height: "40px",         // Sets a comfortable height
-            }}
-            onClick={() => router.push("/portal/application")}
-          >
-            {t("seeAll")}
-          </Button>
-
-
         <Button
           style={{
             marginLeft: "20px",

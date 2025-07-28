@@ -57,8 +57,8 @@ export default {
     "learnMore": ". You can explore and learn more through the ",
     'duration': 'Duration',
     "remainingDuration": "Remaining duration",
-    'month': 'month',
-    'year': 'year',
+    'month': 'Month',
+    'year': 'Year',
     'startDate': 'Start date',
     'accessUrl': 'API Base URL',
     'link': 'Link to documentation',
@@ -362,4 +362,7 @@ export default {
 
     "odooApp.password": "Odoo Password",
     "odooApp.apiKey": "API Key",
+
+    "supabase.supabase_anonKey": "Supabase anon Key",
+    "supabase.supabase_url": "Supabase URL",
 } as const

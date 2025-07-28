@@ -88,7 +88,7 @@ interface Service_plan {
   price: number;
   service_plan_type: string;
   subscription_category: string;
-
+  unity: string;
 }
 interface ServiceDetails {
   id: number;

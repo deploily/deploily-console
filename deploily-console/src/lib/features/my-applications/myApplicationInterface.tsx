@@ -26,7 +26,8 @@ export interface myApplicationInterface {
   api_key: string;
   application_status: string;
   price: number;
-  price_period: string;
+  price_category: string;
+  unity: string;
   duration_month: number;
   is_expired: boolean;
   service_plan_id: number;
@@ -46,23 +47,24 @@ interface Service_plan {
   is_custom: boolean;
   price: number;
   subscription_category: string;
+  unity: string;
 
 }
- interface ServiceDetails {
-    id: number;
-    description: string;
-    documentation_url:string;
-    image_service: string;
-    monitoring: string;
-    name: string;
-    service_slug: string;
-    short_description: string;
-    specifications: string;
-    ssh_access:string;
-    type: string;
-    unit_price:  number;
-  
- }
+interface ServiceDetails {
+  id: number;
+  description: string;
+  documentation_url: string;
+  image_service: string;
+  monitoring: string;
+  name: string;
+  service_slug: string;
+  short_description: string;
+  specifications: string;
+  ssh_access: string;
+  type: string;
+  unit_price: number;
+
+}
 
 
 
