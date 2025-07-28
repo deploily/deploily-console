@@ -15,7 +15,7 @@ export interface SubscriptionInterface {
   duration_month: number;
   name: string;
   price: number;
-  price_period: string ;
+  price_period: string;
   promo_code_id: number;
   service_plan_id: number;
   start_date: Date;
@@ -48,4 +48,55 @@ export interface ServicePlan {
   subscription_category: string;
 }
 
+export interface SubscriptionHistory {
+  api_key: string;
+  duration_month: number;
+  id: number;
+  is_encrypted: boolean;
+  is_expired: boolean;
+  is_renew: boolean;
+  is_upgrade: boolean;
+  name: string;
+  payment_status: string;
+  price: number;
+  profile_id: number;
+  profile_name: string;
+  promo_code_id: number | null;
+  promo_code_name: string | null;
+  service_plan_id: number;
+  start_date: string;
+  status: string;
+  total_amount: number;
+}
 
+export interface SubscriptionsState {
+  subscriptionResponse?: SubscriptionsResponse;
+  subscriptionLoadingError?: any;
+  subscriptionLoading: boolean;
+}
+
+export interface SubscriptionsHistoryState {
+  subscriptionHistoryList?: SubscriptionHistory[];
+  subscriptionHistoryLoadingError?: any;
+  subscriptionHistoryLoading: boolean;
+}
+[{
+  "api_key": "",
+  "duration_month": 1,
+  "id": 308,
+  "is_encrypted": false,
+  "is_expired": true,
+  "is_renew": true,
+  "is_upgrade": true,
+  "name": "Level 1 BASIC",
+  "payment_status": "paid",
+  "price": 900,
+  "profile_id": 58,
+  "profile_name": "bouchra",
+  "promo_code_id": null,
+  "promo_code_name": null,
+  "service_plan_id": 14,
+  "start_date": "2025-05-23T14:29:33.364244",
+  "status": "active",
+  "total_amount": 1000
+},]

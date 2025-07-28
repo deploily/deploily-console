@@ -7,7 +7,7 @@ import Title from "antd/es/typography/Title";
 import { useScopedI18n } from "../../../../../../../../locales/client";
 
 import { SubscriptionInterface } from "@/lib/features/subscriptions/subscriptionInterface";
-import { useSubscription } from "@/lib/features/subscriptions/subscriptionSelectors";
+import { useSubscriptionList } from "@/lib/features/subscriptions/subscriptionSelectors";
 import { fetchSubscription } from "@/lib/features/subscriptions/subscriptionThunks";
 import { useSupportTicket } from "@/lib/features/support-ticket/supportTicketSelector";
 import { postSupportTicket } from "@/lib/features/support-ticket/supportTicketThunks";
@@ -20,7 +20,7 @@ export default function CreateSupportTicket() {
     const t = useScopedI18n('createSupportTicket')
     const [form] = Form.useForm();
     const dispatch = useAppDispatch();
-    const { subscriptionResponse } = useSubscription()
+    const { subscriptionResponse } = useSubscriptionList()
     const { addSupportTicketSuccess, addSupportTicketError } = useSupportTicket()
     const [messageApi] = message.useMessage();
     const router = useRouter()
