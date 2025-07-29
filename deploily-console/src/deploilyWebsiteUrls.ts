@@ -48,6 +48,7 @@ export const deploilyApiUrls = {
   APP_ODOO_SUBSCRIBE_URL: `${API_BASE_URL}/odoo-app-service-subscription/subscribe`,
   SUPABASE_APP_SUBSCRIBE_URL: `${API_BASE_URL}/supabase-app-service-subscription/subscribe`,
   SUPABASE_APP_SUBSCRIPTION_URL: `${API_BASE_URL}/supabse-app-service-subscription`,
+  HISTORY_SUBSCRIPTION_URL: `${API_BASE_URL}/subscription/history`,
 
 };
 export const TTK_EPAY_SLUG = "ttk-epay";

@@ -1,6 +1,6 @@
 
 export interface MyApplicationState {
-  MyApplicationList?: myApplicationResponse;
+  MyApplicationList?: myApplicationInterface[];
   isLoading: boolean;
   loadingError?: any;
 }
@@ -10,13 +10,6 @@ export interface MyApplicationByIdState {
   loadingError?: any;
 }
 export interface myApplicationResponse {
-  count: number;
-  description_columns: any;
-  ids: number[];
-  label_columns: any;
-  list_columns: string[];
-  list_title: string;
-  order_columns: string[];
   result: myApplicationInterface[];
 }
 
@@ -65,6 +58,22 @@ interface ServiceDetails {
   unit_price: number;
 
 }
+
+ interface ServiceDetails {
+    id: number;
+    description: string;
+    documentation_url:string;
+    image_service: string;
+    monitoring: string;
+    name: string;
+    service_slug: string;
+    short_description: string;
+    specifications: string;
+    ssh_access:string;
+    type: string;
+    unit_price:  number;
+
+ }
 
 
 

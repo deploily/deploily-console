@@ -24,7 +24,7 @@ export default function Page() {
             {tSidebar("myApis")}
           </span>
         </Col>
-        {/* <Col>
+        <Col>
           <Button
             type="default"
             icon={<ClockCircleOutlined />}
@@ -39,7 +39,7 @@ export default function Page() {
           >
             {t("history")}
           </Button>
-        </Col> */}
+        </Col>
       </Row>
 
       <MyApiContainer />
