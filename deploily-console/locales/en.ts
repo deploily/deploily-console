@@ -362,8 +362,7 @@ export default {
     "applications.noActiveApplicationsFound": "You don't have any active applications. Feel free to create one!",
     "applications.prepaTime": "Preparation time",
 
-    "odooApp.password": "Odoo Password",
-    "odooApp.apiKey": "API Key",
+    "odooApp.password": "Odoo master password",
 
     "supabase.supabase_anonKey": "Supabase anon Key",
     "supabase.supabase_url": "Supabase URL",

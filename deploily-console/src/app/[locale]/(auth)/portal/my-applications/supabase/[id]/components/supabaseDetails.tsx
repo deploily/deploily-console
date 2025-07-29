@@ -14,6 +14,7 @@ import DurationComponent from "./componentsSupabaseDetails/durationComponent";
 import DocumentationDrawer from "../../../../utils/documentationDrawer";
 import { handleCopy } from "@/lib/utils/handleCopy";
 import { Copy } from "@phosphor-icons/react";
+import Link from "antd/es/typography/Link";
 
 export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
     const t = useI18n();
@@ -82,21 +83,6 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                 </Row>}
                 <DurationComponent supabaseAppById={supabaseAppById} />
                 <div>
-                    {/* <Typography style={{ fontWeight: 700, fontSize: 20, color: theme.token.orange600 }}>
-                        {tSubscription("accessUrl")}
-                    </Typography>
-                    <div style={{ flexDirection: "row", display: "flex", justifyContent: "space-between", width: "100%", paddingBottom: "15px" }}>
-                        <Input value={supabaseAppById.access_url}
-                            readOnly
-                            style={{
-                                cursor: 'default',
-                                userSelect: 'text',
-                                caretColor: 'transparent',
-                                width: "fit",
-                                marginRight: "5px"
-                            }} />
-                        <Button type="primary" style={{ boxShadow: "none" }} icon={<Copy />} onClick={() => handleCopy(supabaseAppById.access_url)} />
-                    </div> */}
                     
                     {/* supabase_url */}
                     <Typography style={{ fontWeight: 700, fontSize: 20, color: theme.token.orange600 }}>
@@ -109,17 +95,21 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                         width: "100%",
                         paddingBottom: "15px"
                     }}>
-                        <Input
-                            value={supabaseAppById.api_key}
-                            readOnly
+                        <Link
+                            href={supabaseAppById.access_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
                             style={{
-                                cursor: 'default',
-                                userSelect: 'text',
-                                caretColor: 'transparent',
-                                width: "fit",
-                                marginRight: "5px"
+                                marginRight: "5px",
+                                wordBreak: "break-all",
+                                color: theme.token.gray100,
+                                fontWeight: 500,
+                                fontSize: 18
                             }}
-                        />
+                        >
+                            {supabaseAppById.access_url}
+                        </Link>
+
                         <Button
                             type="primary"
                             style={{ boxShadow: "none" }}
