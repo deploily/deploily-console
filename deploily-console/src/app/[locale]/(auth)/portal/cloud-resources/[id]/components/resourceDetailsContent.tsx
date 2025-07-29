@@ -144,7 +144,7 @@ export default function ResourceDetailsContentPage({ resource_id }: { resource_i
                                     {currentResource.name}
                                 </Typography.Title>
                                 <Typography.Title level={4} style={{ color: theme.token.orange400, margin: 0 }}>
-                                    {currentResource.unit_price !== undefined ? ((Intl.NumberFormat('fr-FR', { useGrouping: true }).format(currentResource.unit_price) )+ " DZD " + currentResource.service_unity + " / " + (currentResource.price_category == "monthly" ? t("month") : t("year")) ): t('affiliation.onDemand')}
+                                    {currentResource.unit_price !== undefined ? ((Intl.NumberFormat('fr-FR', { useGrouping: true }).format(currentResource.unit_price) )+ " DZD " + " / " + (currentResource.price_category == "monthly" ? t("month") : t("year")) ): t('affiliation.onDemand')}
 
                                 </Typography.Title>
                             </Col>

@@ -69,7 +69,7 @@ export default function CiCdServiceCard({ data }:{data: CiCdServiceInterface}) {
                                 alignSelf: "flex-start", // ensures it's pinned to top within Col
                             }}
                         >
-                            {data.price}  DZD {data.service_unity} / {data.price_category === "monthly" ? t("month") : t("year")}
+                            {data.price}  DZD / {data.price_category === "monthly" ? t("month") : t("year")}
                         </p>
                     </Col>
 

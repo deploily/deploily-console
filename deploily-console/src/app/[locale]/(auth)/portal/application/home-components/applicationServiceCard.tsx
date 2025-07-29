@@ -101,7 +101,7 @@ export default function ApplicationServiceCard({ data }: {data:ApplicationServic
                                 {Intl.NumberFormat("fr-FR", {
                                     useGrouping: true,
                                 }).format(data.min_app_price)}{" "}
-                                DZD {data.service_unity} / {data.price_category === "monthly" ? t("month") : t("year")}
+                                DZD / {data.price_category === "monthly" ? t("month") : t("year")}
                             </Paragraph>
                         </Space>
                     </Col>
