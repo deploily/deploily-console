@@ -35,7 +35,8 @@ export interface ApplicationServiceInterface {//TODO RECHECK THIS INTERFACE TO C
     type: string;
     unit_price: number;
     min_app_price: number;
-    price_period: string;
+    price_category: string;
+    service_unity: string;
     app_versions: AppVersionInterface[];
     is_subscribed: boolean;
 }

@@ -15,7 +15,8 @@ export interface SubscriptionInterface {
   duration_month: number;
   name: string;
   price: number;
-  price_period: string;
+  price_category: string;
+  unity: string;
   promo_code_id: number;
   service_plan_id: number;
   start_date: Date;
@@ -46,6 +47,8 @@ export interface ServicePlan {
   id: number;
   price: number;
   subscription_category: string;
+  unity: string;
+
 }
 
 export interface SubscriptionHistory {

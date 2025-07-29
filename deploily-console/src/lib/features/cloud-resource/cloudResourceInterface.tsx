@@ -14,6 +14,12 @@ export interface CloudResourceInterface {
     name: string;
     price: string;
     description: string;
+    short_description: string;
+    is_in_favorite:boolean;
+    image_service:string;
+    unit_price:number;
+    service_unity: string;
+    price_category: string;
     logo: string;
 }
 export interface ResourceInterface {
@@ -30,7 +36,8 @@ export interface ResourceInterface {
     is_in_favorite?: boolean;
     provider?: Provider;
     discount: number;
-    price_period: string;
+    price_category: string;
+    service_unity	: string;
 }
 
 export interface Provider {
