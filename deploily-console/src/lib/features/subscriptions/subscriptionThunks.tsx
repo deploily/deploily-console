@@ -35,3 +35,35 @@ export const fetchSubscription = createAsyncThunk(
     }
   },
 );
+export const fetchSubscriptionHistory = createAsyncThunk(
+  "subscribe/getSubscriptionHistory",
+  async (type : string, thunkConfig) => {
+    try {
+      const session = await getSession();
+
+      if (!session) {
+        return thunkConfig.rejectWithValue("session expired");
+      }
+      const token = session.accessToken;
+
+      const response = await axiosInstance.get(`${deploilyApiUrls.HISTORY_SUBSCRIPTION_URL}?type=${type}`, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+     
+
+      if (response.status === 200) {
+        return response.data;
+      }
+      else {
+        return thunkConfig.rejectWithValue("Failed to fetch subscribes history");
+      }
+
+     
+    } catch (error: any) {
+      return thunkConfig.rejectWithValue(error.message);
+    }
+  },
+);

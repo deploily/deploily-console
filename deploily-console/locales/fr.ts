@@ -84,7 +84,8 @@ export default {
   subscribed: "Abonné",
   "sidebar.myApi": "Mes API",
   "history": "Histoire",
-
+  "myApisHisotry": "Historique de mes API",
+  "myApplicationsHistory": "Historique de mes applications",
   "serviceApi.search": "Rechercher",
   "serviceApi.filter": "Filtrer",
 
@@ -380,10 +381,15 @@ export default {
   "applications.noApplications": "Vous n'avez pas encore d'application. N'hésitez pas à en créer une !",
   "applications.noActiveApplicationsFound": "Vous n'avez pas d'application active. N'hésitez pas à en créer une !",
   "applications.prepaTime": "Temps de préparation",
-  
+
   "odooApp.password": "Mot de passe Odoo",
   "odooApp.apiKey": "Clé API",
 
   "supabase.supabase_anonKey": "Clé anonyme Supabase",
   "supabase.supabase_url": "URL Supabase",
+
+  "history.name": "Nom",
+  "history.amount": "Montant",
+  "history.status": "Statut",
+  "history.start_date": "Date de début",
 } as const;

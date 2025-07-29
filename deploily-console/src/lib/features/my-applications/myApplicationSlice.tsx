@@ -29,16 +29,11 @@ const ApplicationServiceSlice = createSlice({
     builder
       .addCase(fetchMyApplications.pending, (state) => {
         state.myApplications.isLoading = true;
-
       })
       .addCase(fetchMyApplications.fulfilled, (state, action) => {
         state.myApplications.isLoading = false;
         state.myApplications.loadingError = null;
-        const result = action.payload.ids.map((id: number, index: any) =>
-          Object.assign({}, { id: id }, action.payload.result[index]),
-        );
-        const payload = Object.assign({}, action.payload, { result: result });
-        state.myApplications.MyApplicationList = payload;
+        state.myApplications.MyApplicationList = action.payload.result;
       })
       .addCase(fetchMyApplications.rejected, (state, { payload }) => {
         state.myApplications.isLoading = false;

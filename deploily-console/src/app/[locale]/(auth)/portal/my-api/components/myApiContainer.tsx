@@ -21,17 +21,11 @@ export default function MyApiContainer() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Filter out subscriptions with status === "inactive"
-  // const filteredData: ApiServiceSubscriptionInterface[] =
-  //   apiServiceSubscriptionResponse?.result?.filter(
-  //     (row) => row.status !== "inactive"
-  //   ) || [];
-
   return (
     <>
-      {!apiServiceSubscriptionLoading && apiServiceSubscriptionResponse && apiServiceSubscriptionResponse?.result.length > 0 && (
+      {!apiServiceSubscriptionLoading && apiServiceSubscriptionResponse && apiServiceSubscriptionResponse?.length > 0 && (
         <Row gutter={[24, 24]} justify="start" style={{ margin: 0 }}>
-          {apiServiceSubscriptionResponse?.result.map((row) => (
+          {apiServiceSubscriptionResponse?.map((row) => (
             <Col
               key={row.id}
               xs={24}

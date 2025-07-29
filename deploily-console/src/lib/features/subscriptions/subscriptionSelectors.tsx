@@ -1,4 +1,5 @@
-import {useSelector} from "react-redux";
-import {RootState} from "../../store";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
-export const useSubscription = () => useSelector((state: RootState) => state.subscription);
+export const useSubscriptionList = () => useSelector((state: RootState) => state.subscription.subscriptionsState);
+export const useSubscriptionHistoryList = () => useSelector((state: RootState) => state.subscription.subscriptionHistoryState);

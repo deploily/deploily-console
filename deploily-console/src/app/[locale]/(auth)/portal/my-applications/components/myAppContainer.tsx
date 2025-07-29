@@ -16,9 +16,6 @@ export default function MyAppContainer() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // const filteredData: myApplicationInterface[] =
-  //   MyApplicationList?.result?.filter((row) => row.status !== "inactive") || [];
-
   return (
     <>
       {/* Loading */}
@@ -36,9 +33,9 @@ export default function MyAppContainer() {
       )}
 
       {/* Success */}
-      {!isLoading && !loadingError && MyApplicationList && MyApplicationList?.result.length > 0 && (
+      {!isLoading && !loadingError && MyApplicationList && MyApplicationList?.length > 0 && (
         <Row gutter={[24, 24]} justify="start" style={{ margin: 0 }}>
-          {MyApplicationList?.result.map((row) => (
+          {MyApplicationList?.map((row) => (
             <Col
               key={row.id}
               xs={24}
@@ -64,7 +61,7 @@ export default function MyAppContainer() {
       )}
 
       {/* Empty */}
-      {!isLoading && !loadingError && MyApplicationList?.result.length === 0 && (
+      {!isLoading && !loadingError && MyApplicationList?.length === 0 && (
         <Result
           status="404"
           title={tApp("noApplications")}
