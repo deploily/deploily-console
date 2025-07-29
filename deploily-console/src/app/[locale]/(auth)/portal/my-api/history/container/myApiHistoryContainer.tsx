@@ -1,13 +1,11 @@
 
 import { useAppDispatch } from "@/lib/hook";
-import { Card, Col, Result, Row, Skeleton, Table, Tag } from "antd";
+import { Card, Col, Result, Skeleton, Table } from "antd";
 import { useEffect, useMemo } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../../locales/client";
 import { fetchSubscriptionHistory } from "@/lib/features/subscriptions/subscriptionThunks";
 import { useSubscriptionHistoryList } from "@/lib/features/subscriptions/subscriptionSelectors";
 import { SubscriptionHistory } from "@/lib/features/subscriptions/subscriptionInterface";
-import getStatusStyle from "../../../utils/getStatusStyle";
-import { theme } from "@/styles/theme";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 
 export default function MyApiHistoryContainerr() {

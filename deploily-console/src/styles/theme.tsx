@@ -39,6 +39,7 @@ export const theme = {
       h5: 20,
       h6: 16,
     },
+
   },
   components: {
     Typography: {
@@ -80,6 +81,8 @@ export const theme = {
     },
     Table: {
       rowSelectedBg: '#000000', // ✅ this controls the selected row background
+      "rowSelectedHoverBg": "rgba(50, 53, 54, 1)",
+      "rowHoverBg": "rgba(50, 53, 54, 1)",
     }
   },
 

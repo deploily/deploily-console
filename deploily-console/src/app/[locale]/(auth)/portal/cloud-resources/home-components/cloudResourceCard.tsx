@@ -81,7 +81,7 @@ export default function CloudResourceCard({ resource }: any ) {
                             display: "flex",
                         }}>
                         <Paragraph style={{ color: "#DD8859", fontSize: 16, }}>  
-                            {resource.unit_price !== undefined ? ((Intl.NumberFormat('fr-FR', { useGrouping: true }).format(resource.unit_price) )+ " DZD " + resource.service_unity + " / " + (resource.price_category == "monthly" ? t("month") : t("year")) ): t('affiliation.onDemand')}
+                            {resource.unit_price !== undefined ? ((Intl.NumberFormat('fr-FR', { useGrouping: true }).format(resource.unit_price) )+ " DZD "  + " / " + (resource.price_category == "monthly" ? t("month") : t("year")) ): t('affiliation.onDemand')}
                         </Paragraph>
                     </Col>
                 </Row>

@@ -82,7 +82,7 @@ export default function ApiServiceCard({ service }: { service: ApiServiceInterfa
                   {Intl.NumberFormat("fr-FR", {
                     useGrouping: true,
                   }).format(service.unit_price)}{" "}
-                  DZD {service.service_unity	} / {service.price_category === "monthly" ? t("month") : t("year")}
+                  DZD / {service.price_category === "monthly" ? t("month") : t("year")}
                 </Paragraph>
               </Col>
               <Col span={24}>

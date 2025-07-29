@@ -361,6 +361,7 @@ export default {
     "applications.noApplications": "You don't have any applications yet. Feel free to create one!",
     "applications.noActiveApplicationsFound": "You don't have any active applications. Feel free to create one!",
     "applications.prepaTime": "Preparation time",
+    "applications.hours": "Hours",
 
     "odooApp.password": "Odoo Password",
     "odooApp.apiKey": "API Key",
