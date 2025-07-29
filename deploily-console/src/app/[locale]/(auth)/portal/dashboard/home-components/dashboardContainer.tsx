@@ -44,8 +44,8 @@ export default function DashboardContainer() {
     }, [dispatch]);
 
 
-    const apiServicesCount = apiServiceSubscriptionResponse?.count || 0;
-    const applicationsCount = MyApplicationList?.count || 0;
+    const apiServicesCount = apiServiceSubscriptionResponse?.length || 0;
+    const applicationsCount = MyApplicationList?.length || 0;
     const favoritesCount = favoriteServicesList?.count || 0;
     const supportTicketsCount = supportTicketList?.count || 0;
     const affiliationCount = myResourcesResponse?.length || 0;
