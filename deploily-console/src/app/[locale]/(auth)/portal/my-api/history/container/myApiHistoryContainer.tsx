@@ -8,6 +8,7 @@ import { useSubscriptionHistoryList } from "@/lib/features/subscriptions/subscri
 import { SubscriptionHistory } from "@/lib/features/subscriptions/subscriptionInterface";
 import getStatusStyle from "../../../utils/getStatusStyle";
 import { theme } from "@/styles/theme";
+import ImageFetcher from "@/lib/utils/imageFetcher";
 
 export default function MyApiHistoryContainerr() {
     const dispatch = useAppDispatch();
@@ -15,15 +16,29 @@ export default function MyApiHistoryContainerr() {
     const t = useI18n();
     const tHistory = useScopedI18n('history');
     useEffect(() => {
-      dispatch(fetchSubscriptionHistory("subscription_api_service"));
+        dispatch(fetchSubscriptionHistory("subscription_api_service"));
     }, []);
 
     const columns = useMemo(() => {
         return [
             {
+                dataIndex: ["service_details", "image_service"],
+                key: "service_details.image_service",
+                render: (image: string | null | undefined) =>
+                    image ? (
+                        <ImageFetcher
+                            imagePath={image}
+                            width={40}
+                            height={40}
+                        />
+                    ) : (
+                        "-"
+                    ),
+            },
+            {
                 title: tHistory("name"),
-                dataIndex: "name",
-                key: "name",
+                dataIndex: ["service_details", "name"],
+                key: "service_details.name",
                 render: (name: string | null | undefined) =>
                     name ? name.charAt(0).toUpperCase() + name.slice(1) : "-"
             },
@@ -34,30 +49,6 @@ export default function MyApiHistoryContainerr() {
                 key: "total_amount",
                 render: (total_amount: number) =>
                     total_amount ? total_amount.toLocaleString("fr-FR", { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + " DZD " : "-",
-            },
-            {
-                title: tHistory("status"),
-                dataIndex: "status",
-                key: "status",
-                render: (status: string) => {
-
-                    const { backgroundColor, color, label } = getStatusStyle(status, theme, t);
-
-                    return (
-                        <Tag style={{
-                            backgroundColor, color, border: "none",
-                            padding: "4px 0",
-                            fontWeight: 600,
-                            fontSize: 13,
-                            borderRadius: "18px",
-                            width: "100px",
-                            textAlign: "center",
-                            display: "inline-block"
-                        }}>
-                            {label}
-                        </Tag>
-                    );
-                },
             },
             {
                 title: tHistory("start_date"),
@@ -89,23 +80,7 @@ export default function MyApiHistoryContainerr() {
     return (
         <>
 
-            {/*  {!subscriptionHistoryLoading && subscriptionHistoryList && subscriptionHistoryList?.length > 0 && (
-        <Row gutter={[24, 24]} justify="start" style={{ margin: 0 }}>
-          {subscriptionHistoryList?.map((row) => (
-            <Col
-              key={row.id}
-              xs={24}
-              sm={12}
-              md={10}
-              lg={8}
-              xl={8}
-              style={{ display: "flex", justifyContent: "center" }}
-            >
-             <MyAppCard data={row} /> 
-            </Col>
-          ))}
-        </Row>
-      )}*/}
+
 
             {!subscriptionHistoryLoadingError && subscriptionHistoryList &&
                 <Table<SubscriptionHistory>

@@ -84,7 +84,8 @@ export default {
   subscribed: "Abonné",
   "sidebar.myApi": "Mes API",
   "history": "Histoire",
-
+  "myApisHisotry": "Historique de mes API",
+  "myApplicationsHistory": "Historique de mes applications",
   "serviceApi.search": "Rechercher",
   "serviceApi.filter": "Filtrer",
 
