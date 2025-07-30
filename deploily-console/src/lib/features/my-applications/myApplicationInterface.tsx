@@ -1,3 +1,7 @@
+import { AppVersionInterface } from "../application/applicationServiceInterface";
+import { PaymentProfileInterface } from "../payment-profiles/paymentProfilesInterface";
+import { ResourceServicePlan } from "../resourceServicePlans/resourceServicesPlansInterface";
+import { ServicePlan } from "../service-plans/servicePlanInterface";
 
 export interface MyApplicationState {
   MyApplicationList?: myApplicationInterface[];
@@ -74,7 +78,31 @@ interface ServiceDetails {
     unit_price:  number;
 
  }
+export interface UpgradeMyApplicationState {
+  upgradeMyApplication?: any;
+  isLoadingUpgrade: boolean;
+  loadingError?: any;
+}
+export interface RenewMyApplicationState {
+  renewMyApplication?: any;
+  isLoadingRenew: boolean;
+  loadingError?: any;
+}
 
-
-
+export interface UpgradeMyApplicationInterface {
+  duration: number;
+  price: number;
+  totalamount: number,
+  selectedProfile?: PaymentProfileInterface,
+  isBalanceSufficient: boolean | null,
+  resource_service_plan?: ResourceServicePlan,
+  app_service_plan?: ServicePlan,
+  selected_version?: AppVersionInterface,
+  promoCode: string,
+  promoCodeRate?: number,
+  promoColor?: string,
+  oldAppServicePrice?: number;
+  oldAppServiceStartDate?: Date;
+  oldAppServiceDuration?: number;
+}
 
