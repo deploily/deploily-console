@@ -14,6 +14,7 @@ import StatusComponents from "./componentsOdooDetails/statusComponent";
 import DurationComponent from "./componentsOdooDetails/durationComponent";
 import DocumentationDrawer from "../../../../utils/documentationDrawer";
 import DocumentationComponents from "./componentsOdooDetails/documentationComponent";
+import Link from "antd/es/typography/Link";
 
 export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
     const t = useI18n();
@@ -85,21 +86,42 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
 
                     <DurationComponent odooAppById={odooAppById} />
                     <div>
-                        <Typography style={{ fontWeight: 700, fontSize: 20, color: theme.token.orange600 }}>
-                            {tSubscription("accessUrl")}
-                        </Typography>
-                        <div style={{ flexDirection: "row", display: "flex", justifyContent: "space-between", width: "100%", paddingBottom: "15px" }}>
-                            <Input value={odooAppById.access_url}
-                                readOnly
-                                style={{
-                                    cursor: 'default',
-                                    userSelect: 'text',
-                                    caretColor: 'transparent',
-                                    width: "fit",
-                                    marginRight: "5px"
-                                }} />
-                            <Button type="primary" style={{ boxShadow: "none" }} icon={<Copy />} onClick={() => handleCopy(odooAppById.access_url)} />
-                        </div>
+                    <Typography style={{ fontWeight: 700, fontSize: 20, color: theme.token.orange600 }}>
+                        {tSubscription("accessUrl")}
+                    </Typography>
+
+                    <div
+                        style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            width: "100%",
+                            paddingBottom: "15px",
+                            alignItems: "center",
+                        }}
+                    >
+                        <Link
+                            href={odooAppById.access_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                                marginRight: "5px",
+                                wordBreak: "break-all",
+                                color: theme.token.gray100,
+                                fontWeight: 500,
+                                fontSize: 18
+                            }}
+                        >
+                            {odooAppById.access_url}
+                        </Link>
+
+                        <Button
+                            type="primary"
+                            style={{ boxShadow: "none" }}
+                            icon={<Copy />}
+                            onClick={() => handleCopy(odooAppById.access_url)}
+                        />
+                    </div>
+
                         <Typography style={{ fontWeight: 700, fontSize: 20, color: theme.token.orange600 }}>
                             {tOdoo("password")}
                         </Typography>
@@ -132,35 +154,6 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                                 icon={<Copy />}
                                 onClick={() => handleCopy(odooAppById.odoo_password)}
                             />
-                    </div>
-                    {/* API Key */}
-                    <Typography style={{ fontWeight: 700, fontSize: 20, color: theme.token.orange600 }}>
-                        {tOdoo("apiKey")}
-                    </Typography>
-                    <div style={{
-                        flexDirection: "row",
-                        display: "flex",
-                        justifyContent: "space-between",
-                        width: "100%",
-                        paddingBottom: "15px"
-                    }}>
-                        <Input
-                            value={odooAppById.api_key}
-                            readOnly
-                            style={{
-                                cursor: 'default',
-                                userSelect: 'text',
-                                caretColor: 'transparent',
-                                width: "fit",
-                                marginRight: "5px"
-                            }}
-                        />
-                        <Button
-                            type="primary"
-                            style={{ boxShadow: "none" }}
-                            icon={<Copy />}
-                            onClick={() => handleCopy(odooAppById.api_key)}
-                        />
                     </div>
                     </div>
                     <DocumentationDrawer openDrawer={openDrawer} onClose={onClose} currentSubscription={odooAppById} t={t} />

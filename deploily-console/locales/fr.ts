@@ -383,8 +383,7 @@ export default {
   "applications.prepaTime": "Temps de préparation",
   "applications.hours": "Heures",
 
-  "odooApp.password": "Mot de passe Odoo",
-  "odooApp.apiKey": "Clé API",
+  "odooApp.password": "Mot de passe principal Odoo",
 
   "supabase.supabase_anonKey": "Clé anonyme Supabase",
   "supabase.supabase_url": "URL Supabase",
