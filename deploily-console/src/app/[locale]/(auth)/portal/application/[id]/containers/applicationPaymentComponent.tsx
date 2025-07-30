@@ -10,7 +10,7 @@ import { useScopedI18n } from "../../../../../../../../locales/client";
 import BankTransfertComponent from "./payment-components/bankTransfertComponent";
 import CardPaymentComponent from "./payment-components/cardPaymentComponent";
 import { getEpaymentPermission } from "@/actions/getEpaymentPermission";
-import { renewTtkEpay, upgradeTtkEpay } from "@/lib/features/ttk-epay/ttkEpayThunks";
+import { renewMyApplication, upgradeMyApplication } from "@/lib/features/my-applications/myApplicationThunks";
 
 export default function ApplicationPaymentComponent({ isSubscribed, subscriptionOldId, drawerType }: { isSubscribed?: boolean, subscriptionOldId?: any, drawerType?:any }) {
   const translate = useScopedI18n('subscription');
@@ -62,7 +62,7 @@ export default function ApplicationPaymentComponent({ isSubscribed, subscription
       // check drawerType conditions
       if (isSubscribed) {
         if (drawerType === "renew") {
-          dispatch(renewTtkEpay({
+          dispatch(renewMyApplication({
             service_slug: applicationServiceById?.service_slug,
             data: renewTtkEpayObject
           })).then((response: any) => {
@@ -79,7 +79,7 @@ export default function ApplicationPaymentComponent({ isSubscribed, subscription
             old_subscription_id: subscriptionOldId,
           };
 
-          dispatch(upgradeTtkEpay({
+          dispatch(upgradeMyApplication({
             service_slug: applicationServiceById?.service_slug,
             data: upgradeTtkEpayObject
           })).then((response: any) => {
@@ -140,7 +140,7 @@ export default function ApplicationPaymentComponent({ isSubscribed, subscription
       </Flex>
       {paymentMethod === "card" ?
         <CardPaymentComponent handleSubscribe={(captcha_token: string) => handleApplicationSubscription(captcha_token)} />
-        : <BankTransfertComponent handleSubscribe={() => handleApplicationSubscription(undefined)} />}
+        : <BankTransfertComponent handleSubscribe={() => handleApplicationSubscription(undefined)} isSubscribed={isSubscribed} />}
     </>
   )
 }
