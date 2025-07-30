@@ -1,13 +1,13 @@
 "use client";
-import { useTtkEpay } from "@/lib/features/ttk-epay/ttkEpaySelector";
 import { useAppDispatch } from "@/lib/hook";
 import TtkEpayPaymentDrawer from "../payment-components/ttkEpayDrawerPayment";
-import { closeDrawer } from "@/lib/features/ttk-epay/ttkEpaySlice";
+import { closeDrawer } from "@/lib/features/my-applications/myApplicationSlice";
+import { useMyApplication } from "@/lib/features/my-applications/myApplicationSelector";
 
 export default function ShowdrawerSubscription({ isSubscribed, subscriptionOldId, drawerType }:
     { isSubscribed: any, subscriptionOldId?: any , drawerType?: any }) {
     const dispatch = useAppDispatch();
-    const { openDrawer: isDrawerOpen } = useTtkEpay();
+    const { openDrawer: isDrawerOpen } = useMyApplication();
 
     const onClose = () => {
         dispatch(closeDrawer());

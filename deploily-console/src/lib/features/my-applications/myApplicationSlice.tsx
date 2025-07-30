@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { fetchMyApplicationById, fetchMyApplications, renewMyApplication, upgradeMyApplication } from "./myApplicationThunks";
-import { MyApplicationByIdState, MyApplicationState, RenewMyApplicationState, UpgradeMyApplicationInterface, UpgradeMyApplicationState } from "./myApplicationInterface";
 import { calculateRemainingSubscriptionValue } from "@/lib/utils/subscriptionUtils";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { MyApplicationByIdState, MyApplicationState, RenewMyApplicationState, UpgradeMyApplicationInterface, UpgradeMyApplicationState } from "./myApplicationInterface";
+import { fetchMyApplicationById, fetchMyApplications, renewMyApplication, upgradeMyApplication } from "./myApplicationThunks";
 
 interface ApplicationServiceState {
   myApplications: MyApplicationState;
@@ -59,7 +59,7 @@ const ApplicationServiceSlice = createSlice({
   name: "myApplicationService",
   initialState,
   reducers: {
-    upgradeAppSubscriptionState: (state, action: PayloadAction<any>) => {
+    updateUpgradeRenewMyAppState: (state, action: PayloadAction<any>) => {
       let updatedState: UpgradeMyApplicationInterface = {
         ...state.upgradeMyApplicationState,
         ...action.payload
@@ -174,5 +174,5 @@ const ApplicationServiceSlice = createSlice({
 });
 
 
-export const { upgradeAppSubscriptionState, openDrawer, closeDrawer } = ApplicationServiceSlice.actions;
+export const { updateUpgradeRenewMyAppState, openDrawer, closeDrawer } = ApplicationServiceSlice.actions;
 export default ApplicationServiceSlice.reducer;
