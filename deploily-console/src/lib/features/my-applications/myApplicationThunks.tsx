@@ -3,7 +3,7 @@ import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getSession } from "next-auth/react";
 import { getRenewToMyAppUrl, getUpgradeToMyAppUrl } from "./getSubscribeToMyAppUrl";
-import { log } from "console";
+import { RootState } from "@/lib/store";
 
 
 export const fetchMyApplications = createAsyncThunk(
@@ -66,47 +66,65 @@ export const fetchMyApplicationById = createAsyncThunk(
 
 export const upgradeMyApplication = createAsyncThunk(
   "myApplication/upgradeMyApplication",
-  async ({ data, service_slug }: { data: any, service_slug?: string }, thunkConfig) => {
+  async ({ payment_method, subscriptionOldId, service_slug }: { payment_method: any, subscriptionOldId: any, service_slug?: string }, thunkConfig) => {
     try {
+      const { duration, promoCode, selectedProfile, app_service_plan, resource_service_plan, selected_version } = (thunkConfig.getState() as RootState).myApplication.upgradeRenewMyApplicationData;
+
       const session = await getSession();
 
       if (!session) {
         return thunkConfig.rejectWithValue("session expired");
       }
-      console.log("Upgrade data:::::::::::::::::", data);
-      console.log("Upgrade service_slug:::::::::::::::::", service_slug);
 
       const token = session.accessToken;
 
+      const data = {
+        duration: Number.parseInt(`${duration}`),
+        promo_code: promoCode,
+        payment_method: payment_method,
+        service_plan_selected_id: app_service_plan ? app_service_plan.id : undefined,
+        ressource_service_plan_selected_id: resource_service_plan ? resource_service_plan.id : undefined,
+        profile_id: selectedProfile ? selectedProfile.id : undefined,
+        version_selected_id: selected_version?.id,
+        old_subscription_id: subscriptionOldId
+      };
+
       const response = await axiosInstance.post(`${getUpgradeToMyAppUrl(service_slug)}`,
-      data, {
+        data, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
         },
       });
-console.log("Upgrade response:::::::::::::::::", response);
-
       if (response.status === 200) {
         return response.data;
       } else {
         return thunkConfig.rejectWithValue("Failed to upgrade my application");
       }
     } catch (error: any) {
-      return thunkConfig.rejectWithValue(error.message);
-    }
+       return thunkConfig.rejectWithValue(error.message);
+     }
   },
 );
 
 export const renewMyApplication = createAsyncThunk(
-"myApplication/renewMyApplication",
-  async ({ data, service_slug }: { data: any, service_slug?: string }, thunkConfig) => {
+  "myApplication/renewMyApplication",
+  async ({ payment_method, service_slug, subscriptionOldId }: { payment_method: string, service_slug?: string, subscriptionOldId: any }, thunkConfig) => {
     try {
+      const { duration, promoCode, selectedProfile } = (thunkConfig.getState() as RootState).myApplication.upgradeRenewMyApplicationData;
       const session = await getSession();
       if (!session) {
         return thunkConfig.rejectWithValue("session expired");
       }
       const token = session.accessToken;
+
+      const data = {
+        duration: Number.parseInt(`${duration}`),
+        promo_code: promoCode,
+        payment_method: payment_method,
+        profile_id: selectedProfile ? selectedProfile.id : undefined,
+        old_subscription_id: subscriptionOldId
+      };
 
       const response = await axiosInstance.post(`${getRenewToMyAppUrl(service_slug)}`,
         data,

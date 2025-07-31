@@ -8,7 +8,7 @@ import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThank
 import { useAppDispatch } from "@/lib/hook";
 import { Button } from "antd";
 import { useEffect } from "react";
-import { useScopedI18n } from "../../../../../../../../../locales/client";
+import { useScopedI18n } from "../../../../../../../locales/client";
 
 interface RenewTtkEpaySubscriptionProps {
     serviceId: any;
@@ -20,7 +20,7 @@ interface RenewTtkEpaySubscriptionProps {
     onClick?: () => void;
 }
 
-export default function RenewTtkEpaySubscriptionComponents({
+export default function RenewMyAppSubscriptionComponents({
     serviceId,
     oldPrice,
     start_date,

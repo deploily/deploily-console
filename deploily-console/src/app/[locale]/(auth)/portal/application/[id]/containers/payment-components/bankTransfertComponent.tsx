@@ -6,11 +6,11 @@ import bankPaymentInfo from "./bankPaymentData";
 import { getBankCredEnvVars } from "@/actions/getBankCredEnvVars";
 import { useScopedI18n } from "../../../../../../../../../locales/client";
 import { useNewApplicationSubscription } from "@/lib/features/application/applicationServiceSelectors";
-import { useUpgradeMyApplicationState } from "@/lib/features/my-applications/myApplicationSelector";
+import { useUpgradeRenewMyApplicationDataState } from "@/lib/features/my-applications/myApplicationSelector";
 
 export default function BankTransfertComponent({ handleSubscribe, isSubscribed }: { isSubscribed :any, handleSubscribe:()=> Promise<void> }) {
     const { totalAmount } = useNewApplicationSubscription()
-    const { totalamount } = useUpgradeMyApplicationState()
+    const { totalamount } = useUpgradeRenewMyApplicationDataState()
     const tBankPayment = useScopedI18n("bankPayment");
     const tPayments = useScopedI18n("payments");
 

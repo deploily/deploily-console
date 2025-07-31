@@ -1,21 +1,22 @@
 "use client";
-import { useAppDispatch } from "@/lib/hook";
-import TtkEpayPaymentDrawer from "../payment-components/ttkEpayDrawerPayment";
-import { closeDrawer } from "@/lib/features/my-applications/myApplicationSlice";
 import { useMyApplication } from "@/lib/features/my-applications/myApplicationSelector";
+import { closeDrawer } from "@/lib/features/my-applications/myApplicationSlice";
+import { useAppDispatch } from "@/lib/hook";
+import MyAppPaymentDrawer from "./MyAppDrawerPayment";
 
-export default function ShowdrawerSubscription({ isSubscribed, subscriptionOldId, drawerType }:
-    { isSubscribed: any, subscriptionOldId?: any , drawerType?: any }) {
+export default function ShowdrawerSubscription({ serviceId,isSubscribed, subscriptionOldId, drawerType }:
+    { serviceId: any,isSubscribed: any, subscriptionOldId?: any, drawerType?: any }) {
     const dispatch = useAppDispatch();
     const { openDrawer: isDrawerOpen } = useMyApplication();
 
     const onClose = () => {
         dispatch(closeDrawer());
     };
-    
+
 
     return (
-        <TtkEpayPaymentDrawer
+        <MyAppPaymentDrawer
+            serviceId={serviceId}
             openDrawer={isDrawerOpen}
             onClose={onClose}
             subscriptionOldId={subscriptionOldId}

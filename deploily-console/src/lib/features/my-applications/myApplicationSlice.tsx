@@ -6,9 +6,9 @@ import { fetchMyApplicationById, fetchMyApplications, renewMyApplication, upgrad
 interface ApplicationServiceState {
   myApplications: MyApplicationState;
   myApplicationById: MyApplicationByIdState;
-  upgradeMyApplication: UpgradeMyApplicationState;
-  renewMyApplication: RenewMyApplicationState;
-  upgradeMyApplicationState: UpgradeMyApplicationInterface;
+  upgradeMyApplicationState: UpgradeMyApplicationState;
+  renewMyApplicationState: RenewMyApplicationState;
+  upgradeRenewMyApplicationData: UpgradeMyApplicationInterface;
   openDrawer: boolean;
   servicePlan: any;
   vpsPlan: any;
@@ -25,17 +25,17 @@ const initialState: ApplicationServiceState = {
     isLoading: false,
     loadingError: null,
   },
-  upgradeMyApplication: {
+  upgradeMyApplicationState: {
     upgradeMyApplication: undefined,
     isLoadingUpgrade: false,
     loadingError: null,
   },
-  renewMyApplication: {
+  renewMyApplicationState: {
     renewMyApplication: undefined,
     isLoadingRenew: false,
     loadingError: null,
   },
-  upgradeMyApplicationState: {
+  upgradeRenewMyApplicationData: {
     duration: 3,
     price: 0,
     resource_service_plan: undefined,
@@ -61,7 +61,7 @@ const ApplicationServiceSlice = createSlice({
   reducers: {
     updateUpgradeRenewMyAppState: (state, action: PayloadAction<any>) => {
       let updatedState: UpgradeMyApplicationInterface = {
-        ...state.upgradeMyApplicationState,
+        ...state.upgradeRenewMyApplicationData,
         ...action.payload
       };
       let updatedAmount = 0;
@@ -72,7 +72,6 @@ const ApplicationServiceSlice = createSlice({
           updatedAmount += updatedState.duration * updatedState.resource_service_plan.price;
         }
       }
-      console.log("dddddddddddddddddddddddddddddddddddd", updatedState.duration);
 
       // 2. Subtract remaining value from old app subscription if available
       if (
@@ -105,7 +104,7 @@ const ApplicationServiceSlice = createSlice({
       // 4. Ensure amount isn't negative
       updatedAmount = Math.round(updatedAmount);
       updatedState.totalamount = updatedAmount;
-      state.upgradeMyApplicationState = updatedState;
+      state.upgradeRenewMyApplicationData = updatedState;
       return state;
     },
     openDrawer: (state, action) => {
@@ -147,28 +146,28 @@ const ApplicationServiceSlice = createSlice({
         state.myApplicationById.loadingError = payload;
       })
       .addCase(upgradeMyApplication.pending, (state) => {
-        state.upgradeMyApplication.isLoadingUpgrade = true;
+        state.upgradeMyApplicationState.isLoadingUpgrade = true;
       })
       .addCase(upgradeMyApplication.fulfilled, (state, action) => {
-        state.upgradeMyApplication.isLoadingUpgrade = false;
-        state.upgradeMyApplication.loadingError = null;
-        state.upgradeMyApplication.upgradeMyApplication = action.payload;
+        state.upgradeMyApplicationState.isLoadingUpgrade = false;
+        state.upgradeMyApplicationState.loadingError = null;
+        state.upgradeMyApplicationState.upgradeMyApplication = action.payload;
       })
       .addCase(upgradeMyApplication.rejected, (state, { payload }) => {
-        state.upgradeMyApplication.isLoadingUpgrade = false;
-        state.upgradeMyApplication.loadingError = payload;
+        state.upgradeMyApplicationState.isLoadingUpgrade = false;
+        state.upgradeMyApplicationState.loadingError = payload;
       })
       .addCase(renewMyApplication.pending, (state) => {
-        state.renewMyApplication.isLoadingRenew = true;
+        state.renewMyApplicationState.isLoadingRenew = true;
       })
       .addCase(renewMyApplication.fulfilled, (state, action) => {
-        state.renewMyApplication.isLoadingRenew = false;
-        state.renewMyApplication.loadingError = null;
-        state.renewMyApplication.renewMyApplication = action.payload;
+        state.renewMyApplicationState.isLoadingRenew = false;
+        state.renewMyApplicationState.loadingError = null;
+        state.renewMyApplicationState.renewMyApplication = action.payload;
       })
       .addCase(renewMyApplication.rejected, (state, { payload }) => {
-        state.renewMyApplication.isLoadingRenew = false;
-        state.renewMyApplication.loadingError = payload;
+        state.renewMyApplicationState.isLoadingRenew = false;
+        state.renewMyApplicationState.loadingError = payload;
       });
   },
 });

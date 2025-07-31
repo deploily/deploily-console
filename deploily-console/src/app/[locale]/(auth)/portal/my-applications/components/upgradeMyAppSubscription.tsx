@@ -1,6 +1,5 @@
 "use client";
 
-import { useUpgradeMyApplicationState } from "@/lib/features/my-applications/myApplicationSelector";
 import { openDrawer, updateUpgradeRenewMyAppState } from "@/lib/features/my-applications/myApplicationSlice";
 import { ResourceServicePlan } from "@/lib/features/resourceServicePlans/resourceServicesPlansInterface";
 import { ServicePlan } from "@/lib/features/service-plans/servicePlanInterface";
@@ -11,13 +10,15 @@ import { theme } from "@/styles/theme";
 import { Button, Card, Col, Modal } from "antd";
 import { useEffect, useState } from "react";
 import { PlanCard } from 'deploily-ui-components';
-import { useScopedI18n } from "../../../../../../../../../locales/client";
-import SelectVpsPlanTable from "../../../../application/[id]/containers/selectVpsPlanTable";
-import HomeCarousel from "../../../../components/homeCarousel";
+import { useScopedI18n } from "../../../../../../../locales/client";
+import HomeCarousel from "../../components/homeCarousel";
+import SelectVpsPlanTable from "../../application/[id]/containers/selectVpsPlanTable";
+import { useUpgradeRenewMyApplicationDataState } from "@/lib/features/my-applications/myApplicationSelector";
 
 
 
-export default function UpgradeTtkEpaySubscriptionComponents(
+
+export default function UpgradeMyAppSubscriptionComponents(
     { serviceId, oldPrice, start_date, onClick }:
         { serviceId: any, oldPrice: number, start_date: any, onClick?: () => void }) {
     const tSubscription = useScopedI18n("subscription");
@@ -36,7 +37,7 @@ export default function UpgradeTtkEpaySubscriptionComponents(
         dispatch(fetchServicePlans(serviceId));
     }, []);
 
-    const { app_service_plan } = useUpgradeMyApplicationState();
+    const { app_service_plan } = useUpgradeRenewMyApplicationDataState();
 
     const handlePlanSelection = (plan: ServicePlan) => {
         dispatch(updateUpgradeRenewMyAppState({ app_service_plan: plan }));

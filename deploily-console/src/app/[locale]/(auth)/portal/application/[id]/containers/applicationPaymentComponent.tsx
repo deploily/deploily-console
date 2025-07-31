@@ -1,6 +1,8 @@
 "use client";
+import { getEpaymentPermission } from "@/actions/getEpaymentPermission";
 import { useApplicationServiceById, useNewApplicationSubscription, useNewApplicationSubscriptionResponse } from "@/lib/features/application/applicationServiceSelectors";
 import { applicationSubscribe } from "@/lib/features/application/applicationServiceThunks";
+import { renewMyApplication, upgradeMyApplication } from "@/lib/features/my-applications/myApplicationThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
 import { Flex, Radio, RadioChangeEvent, Typography, } from "antd";
@@ -9,10 +11,8 @@ import { useEffect, useState } from "react";
 import { useScopedI18n } from "../../../../../../../../locales/client";
 import BankTransfertComponent from "./payment-components/bankTransfertComponent";
 import CardPaymentComponent from "./payment-components/cardPaymentComponent";
-import { getEpaymentPermission } from "@/actions/getEpaymentPermission";
-import { renewMyApplication, upgradeMyApplication } from "@/lib/features/my-applications/myApplicationThunks";
 
-export default function ApplicationPaymentComponent({ isSubscribed, subscriptionOldId, drawerType }: { isSubscribed?: boolean, subscriptionOldId?: any, drawerType?:any }) {
+export default function ApplicationPaymentComponent({ isSubscribed, subscriptionOldId, drawerType }: { isSubscribed?: boolean, subscriptionOldId?: any, drawerType?: any }) {
   const translate = useScopedI18n('subscription');
   const dispatch = useAppDispatch();
   const translateProfile = useScopedI18n('profilePayment');
@@ -46,25 +46,16 @@ export default function ApplicationPaymentComponent({ isSubscribed, subscription
         version_selected_id: selected_version?.id,
       };
 
-      const renewTtkEpayObject = {
-        duration: Number.parseInt(`${duration}`),
-        promo_code: promoCode,
-        payment_method: "bank_transfer",
-        profile_id: selectedProfile.id,
-        old_subscription_id: subscriptionOldId,
-      };
-
       const subscriptionPayload =
         paymentMethod === "card"
           ? { ...baseSubscriptionObject, captcha_token: captchaToken }
           : baseSubscriptionObject;
-
-      // check drawerType conditions
       if (isSubscribed) {
         if (drawerType === "renew") {
           dispatch(renewMyApplication({
             service_slug: applicationServiceById?.service_slug,
-            data: renewTtkEpayObject
+            payment_method: "bank_transfer",
+            subscriptionOldId: subscriptionOldId,
           })).then((response: any) => {
             if (response.meta.requestStatus === "fulfilled") {
               router.push(`/portal/my-applications`);
@@ -73,15 +64,11 @@ export default function ApplicationPaymentComponent({ isSubscribed, subscription
         }
 
         if (drawerType === "upgrade") {
-          const upgradeTtkEpayObject = {
-            ...baseSubscriptionObject,
-            payment_method: "cloud_credit", // hardcoded for upgrade case
-            old_subscription_id: subscriptionOldId,
-          };
-
+       
           dispatch(upgradeMyApplication({
             service_slug: applicationServiceById?.service_slug,
-            data: upgradeTtkEpayObject
+            payment_method: "bank_transfer",
+            subscriptionOldId: subscriptionOldId,
           })).then((response: any) => {
             if (response.meta.requestStatus === "fulfilled") {
               router.push(`/portal/my-applications`);
@@ -106,18 +93,18 @@ export default function ApplicationPaymentComponent({ isSubscribed, subscription
       }
     }
   };
-  
 
 
-   const [isPaymentEnabled, setIsPaymentEnabled] = useState<any>(undefined)
-    useEffect(() => {
-      const checkEpaymentPermission = async () => {
-        const paymentEnabled = await getEpaymentPermission()
-        setIsPaymentEnabled(paymentEnabled);
-      };
-      checkEpaymentPermission();
-  
-    }, []);
+
+  const [isPaymentEnabled, setIsPaymentEnabled] = useState<any>(undefined)
+  useEffect(() => {
+    const checkEpaymentPermission = async () => {
+      const paymentEnabled = await getEpaymentPermission()
+      setIsPaymentEnabled(paymentEnabled);
+    };
+    checkEpaymentPermission();
+
+  }, []);
 
   return (
     <>
