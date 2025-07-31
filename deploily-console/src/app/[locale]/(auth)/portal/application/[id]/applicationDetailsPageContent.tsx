@@ -12,13 +12,13 @@ import { PaymentSideBar } from "deploily-ui-components";
 import { PaymentAppBar } from "deploily-ui-components/components/applications/paymentSideBar";
 import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
+import { options } from "../utils/applicationConst";
 import ApplicationDetailsCollapseContainer from "./containers/applicationDetailsCollapseContainer";
 import ApplicationPlansContainer from "./containers/applicationPlansContainer";
 import ApplicationDescriptionContainer from "./containers/descriptionContainer";
 import AppPromoCodeTextField from "./containers/payment-components/appPromoCodeTextField";
 import PaymentDrawer from "./containers/payment-components/paymentDrawer";
 import SelectVpsPlanTable from "./containers/selectVpsPlanTable";
-import { options } from "../utils/applicationConst";
 
 
 export default function ApplicationDetailsPageContent({ applicationId }: { applicationId: any }) {
@@ -96,7 +96,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                             <ApplicationPlansContainer />
                         </div>
 
-                        {!screens.lg && !(applicationServiceById.is_subscribed) && (
+                        {!screens.lg && !(applicationServiceById.is_subscribed) && app_service_plan && !app_service_plan.is_custom && (
                             <div
                                 style={{
                                     position: isScrolled ? "fixed" : "relative",
@@ -111,7 +111,6 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                     backgroundColor: isScrolled ? "#202227" : "transparent",
                                     transition: "all 0.3s ease-in-out",
                                 }}
-
                             >
                                 <PaymentAppBar
                                     price={totalAmount}
@@ -169,9 +168,10 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                 />
                             </div>
                         )}
-                        <Card styles={{ body: { padding: 0 } }}>
-                            <SelectVpsPlanTable />
-                        </Card>
+                        {app_service_plan && !app_service_plan.is_custom &&
+                            <Card styles={{ body: { padding: 0 } }}>
+                                <SelectVpsPlanTable />
+                            </Card>}
 
                         <div style={{ padding: '8px 0' }}>
                             <ApplicationDetailsCollapseContainer description={applicationServiceById.description} specifications={applicationServiceById.specifications} />
@@ -179,7 +179,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                     </Col>
 
                     {/* Payment Sidebar - Only for Desktop */}
-                    {screens.lg && !(applicationServiceById.is_subscribed) && (
+                    {screens.lg && !(applicationServiceById.is_subscribed) && app_service_plan && !app_service_plan.is_custom && (
                         <Col xs={24} lg={8} style={{ position: 'sticky', top: 16, alignSelf: 'flex-start' }}>
                             <PaymentSideBar
                                 price={totalAmount}
@@ -236,10 +236,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                         </Col>
                     )}
                 </Row>
-
-
             </Space>
-
             <PaymentDrawer openDrawer={openDrawer} onClose={onClose} />
         </>
     );

@@ -15,12 +15,14 @@ import { useAppDispatch } from '@/lib/hook';
 import { Handshake, Heart, Invoice, Question, SquaresFour } from '@phosphor-icons/react/dist/ssr';
 import { Card, Col, Row, Typography } from 'antd';
 import { useEffect } from 'react';
-import { useScopedI18n } from '../../../../../../../locales/client';
+import { useI18n, useScopedI18n } from '../../../../../../../locales/client';
 import PaymentsListContainer from './payments_components';
+import Link from 'next/link';
 
 
 export default function DashboardContainer() {
     const dashboardtranslate = useScopedI18n("dashboard");
+    const t = useI18n();
 
     const { Title, Text } = Typography;
     const dispatch = useAppDispatch();
@@ -40,7 +42,6 @@ export default function DashboardContainer() {
         dispatch(fetchSupportTicket());
         dispatch(fetchMyFavoriteServices());
         dispatch(fetchMyApplications());
-
     }, [dispatch]);
 
 
@@ -53,32 +54,40 @@ export default function DashboardContainer() {
 
     const stats = [
         {
+            key: "apiServices",
             title: dashboardtranslate("apiServices"),
             value: apiServicesCount,
             icon: <Invoice style={{ fontSize: 30, color: '#fff' }} />,
             color: '#FFB84D',
+            link: "/portal/api-services"
         },
         {
+            key: "affiliations",
             title: dashboardtranslate("affiliations"),
             value: affiliationCount,
             icon: <Handshake style={{ fontSize: 30, color: '#fff' }} />,
             color: '#5394CC',
+            link: "/portal/cloud-resources"
 
         },
         {
+            key: "applications",
             title: dashboardtranslate("applications"),
             value: applicationsCount,
             icon: <SquaresFour style={{ fontSize: 30, color: '#fff' }} />,
             color: '#FF9933',
+            link: "/portal/application"
         },
 
         {
+            key: "supportTickets",
             title: dashboardtranslate("supportTickets"),
             value: supportTicketsCount,
             icon: <Question style={{ fontSize: 30, color: '#fff' }} />,
             color: '#0099CC',
         },
         {
+            key: "favorites",
             title: dashboardtranslate("favorites"),
             value: favoritesCount,
             icon: <Heart style={{ fontSize: 30, color: '#fff' }} />,
@@ -100,9 +109,10 @@ export default function DashboardContainer() {
 
             <Row gutter={[16, 16]} style={{ marginTop: 24 }} wrap>
                 {stats.map((stat) => (
-                    <Col flex="20%" key={stat.title}>
+                    <Col flex="20%" key={stat.key}>
                         <Card
                             style={{
+                                height: 170,
                                 backgroundColor: stat.color,
                                 color: '#fff',
                                 borderRadius: '8px',
@@ -112,9 +122,15 @@ export default function DashboardContainer() {
                         >
                             <div style={{ fontSize: 24 }}>{stat.icon}</div>
                             <div style={{ fontSize: 14 }}>{stat.title}</div>
-                            <div style={{ fontSize: 32, fontWeight: 'bold' }}>
-                                {stat.value.toString().padStart(2, '0')}
-                            </div>
+                            <div style={{ fontSize: 32, fontWeight: 'bold' }}>      
+                               {stat.value.toString().padStart(2, '0')}
+                              
+                            </div> 
+                            {stat.value === 0 && stat.link &&
+                                <Link href={stat.link} style={{ color: '#fff', textDecoration: 'underline' }}>
+                                        {t("explore") + " " + stat.title}
+                                </Link>
+                            }
                         </Card>
                     </Col>
                 ))}
