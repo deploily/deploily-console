@@ -46,7 +46,7 @@ export default function DocumentationComponents({ supabaseAppById, setOpenDrawer
                     rel="noopener noreferrer"
 
                 >
-                    {t('supportTicket')}
+                    {t('forum')}
                 </CustomTransparentOrangeButton>
             </Col>
         </>

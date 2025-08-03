@@ -13,6 +13,7 @@ export default {
     'supportTicket': 'Support Ticket',
     'sponsoring': 'Sponsoring',
     'subscribed': 'Subscribed',
+    'forum': 'Forum',
     'sidebar.home': 'Home',
     'sidebar.dashboard': 'Dashboard',
     'sidebar.members': 'Members',

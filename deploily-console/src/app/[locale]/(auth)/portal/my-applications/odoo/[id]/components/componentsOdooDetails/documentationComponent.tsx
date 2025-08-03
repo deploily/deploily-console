@@ -46,7 +46,7 @@ export default function DocumentationComponent({ odooAppById, setOpenDrawer }: {
                     rel="noopener noreferrer"
 
                 >
-                    {t('supportTicket')}
+                    {t('forum')}
                 </CustomTransparentOrangeButton>
             </Col>
         </>
