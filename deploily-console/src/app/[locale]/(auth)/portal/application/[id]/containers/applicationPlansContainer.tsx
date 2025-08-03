@@ -4,9 +4,11 @@ import { updateNewAppSubscriptionState } from '@/lib/features/application/applic
 import { useServicePlan } from '@/lib/features/service-plans/servicePlanSelector';
 import { useAppDispatch } from '@/lib/hook';
 import { theme } from '@/styles/theme';
-import { Col, Row } from 'antd';
+import { Button, Col, Input, Modal, Row } from 'antd';
 import { PlanCard } from 'deploily-ui-components';
-import { useScopedI18n } from '../../../../../../../../locales/client';
+import { useI18n, useScopedI18n } from '../../../../../../../../locales/client';
+import { useState } from 'react';
+import { postFeedBack } from '@/lib/features/contact-us/contactUsThunks';
 
 export default function ApplicationPlansContainer() {
     const dispatch = useAppDispatch();
@@ -15,6 +17,25 @@ export default function ApplicationPlansContainer() {
 
 
     const t = useScopedI18n("apiServiceSubscription");
+    const translations = useI18n();
+
+        const translate = useI18n();
+    
+        const [isModalOpen, setIsModalOpen] = useState(false);
+        const [comment, setComment] = useState('');
+        const handleCancel = () => {
+            setIsModalOpen(false);
+            setComment('');
+        };
+        const showModal = () => {
+            setIsModalOpen(true);
+        };
+
+        const handleContactUs = () => {
+                setIsModalOpen(false);
+            dispatch(postFeedBack(`${translate("interstedCustomPlan")} ${app_service_plan?.service.name} :  ${comment}`));
+                setComment('');
+        };
 
     return (
         <Row gutter={[16, 24]} justify="start">
@@ -52,8 +73,48 @@ export default function ApplicationPlansContainer() {
                                 }
                                 title={plan.plan.name}
                                 onClick={() => dispatch(updateNewAppSubscriptionState({ app_service_plan: plan }))}
+                                isCustomPlan={plan.is_custom}
+                                translations={
+                                    {
+                                        onDemand:translations("ondemand"),
+                                        DZD: translations("DZD"),
+                                        subscription_category: plan.subscription_category === "yearly"
+                                            ? t("year")
+                                            : t("month"),
+                                        "contactUs": translations("contactUs")
+                                    }
+                                }
+                                customPlanSelected={app_service_plan != undefined && app_service_plan.is_custom}
+                                showModal={showModal}
                             />
                         </div>
+
+                        <Modal
+                            title="Contactez-nous"
+                            open={isModalOpen}
+                            onOk={handleContactUs}
+                            okText="Send"
+                            onCancel={handleCancel}
+                            footer={[
+                                <Button style={{
+                                    color: theme.token.colorWhite,
+                                    backgroundColor: theme.token.orange600,
+                                    border: "none",
+                                    paddingBlock: 20,
+                                    fontWeight: 600,
+                                    fontSize: 20,
+                                }} key="submit" onClick={handleContactUs}>
+                                    {translate("send")}
+                                </Button>,
+                            ]}
+                        >
+                            <Input.TextArea
+                                rows={4}
+                                placeholder={translate("whriteMessage")}
+                                value={comment}
+                                onChange={(e) => setComment(e.target.value)}
+                            />
+                        </Modal>
                     </Col>
                 }
                 )

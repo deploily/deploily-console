@@ -392,4 +392,6 @@ export default {
   "history.amount": "Montant",
   "history.status": "Statut",
   "history.start_date": "Date de début",
+  "DZD": "DZD",
+  "explore": "Explorer",
 } as const;
