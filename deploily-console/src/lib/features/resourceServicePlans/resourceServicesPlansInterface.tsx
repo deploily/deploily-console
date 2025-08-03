@@ -14,7 +14,8 @@ export interface ResourceServicePlan {
           "website": string
   },
   "service_name": string,
-  "service_plan_type": string
+  "service_plan_type": string,
+  "service_id": number,
 }
 
 export interface PlanOption {

@@ -59,7 +59,8 @@ export default function DashboardContainer() {
             value: apiServicesCount,
             icon: <Invoice style={{ fontSize: 30, color: '#fff' }} />,
             color: '#FFB84D',
-            link: "/portal/api-services"
+            linkToServicesList: "/portal/api-services",
+            linkToMyServices: "/portal/my-api"
         },
         {
             key: "affiliations",
@@ -67,8 +68,8 @@ export default function DashboardContainer() {
             value: affiliationCount,
             icon: <Handshake style={{ fontSize: 30, color: '#fff' }} />,
             color: '#5394CC',
-            link: "/portal/cloud-resources"
-
+            linkToServicesList: "/portal/cloud-resources",
+            linkToMyServices: "/portal/my-resources"
         },
         {
             key: "applications",
@@ -76,7 +77,8 @@ export default function DashboardContainer() {
             value: applicationsCount,
             icon: <SquaresFour style={{ fontSize: 30, color: '#fff' }} />,
             color: '#FF9933',
-            link: "/portal/application"
+            linkToServicesList: "/portal/application",
+            linkToMyServices: "/portal/my-applications"
         },
 
         {
@@ -126,10 +128,15 @@ export default function DashboardContainer() {
                                {stat.value.toString().padStart(2, '0')}
                               
                             </div> 
-                            {stat.value === 0 && stat.link &&
-                                <Link href={stat.link} style={{ color: '#fff', textDecoration: 'underline' }}>
+                            {stat.linkToServicesList &&
+                            <>{stat.value === 0 ? <Link href={stat.linkToServicesList} style={{ color: '#fff', textDecoration: 'underline' }}>
                                         {t("explore") + " " + stat.title}
-                                </Link>
+                            </Link> 
+                            : 
+                            <Link href={stat.linkToMyServices} style={{ color: '#fff', textDecoration: 'underline' }}>
+                                {t("explore") + " " + stat.title}
+                            </Link>}
+                            </> 
                             }
                         </Card>
                     </Col>

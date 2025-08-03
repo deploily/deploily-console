@@ -56,21 +56,6 @@ export default function SelectVpsPlanTable({
     return resource_service_plan?.id;
   };
 
-  console.log(servicePlansList?.result ? servicePlansList?.result.map((plan) => {
-    if (plan.provider_info !== undefined) {
-      return {
-        key: plan.id,
-        resource: plan,
-        options: plan.options.filter(option =>
-          ["ram", "cpu", "disque"].includes(option.option_type)
-        ),
-        price: plan.price,
-      }
-    }
-  }
-  ) : []);
-
-
   return (
     <div>
       {servicePlansList !== undefined &&
@@ -98,11 +83,11 @@ export default function SelectVpsPlanTable({
               title: tApplications('resource'),
               dataIndex: "resource",
               render: (plan) => plan != undefined ? <div style={{ color: 'white' }}>
-                {`${plan.provider_info?.name}`}
-                {/* <a href={plan.provider_info?.website}>
-                   {`/portal/cloud-resources/${plan.}`}
-                </a> */}
-                {`/ ${plan.plan_name}`}
+               
+                <a href={`/portal/cloud-resources/${plan.service_id}`}>
+                  {`${plan.provider_info?.name}`}{`/ ${plan.plan_name}`}
+                </a>
+                
               </div> : undefined,
             },
             {

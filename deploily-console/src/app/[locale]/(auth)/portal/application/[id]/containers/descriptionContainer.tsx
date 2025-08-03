@@ -13,7 +13,6 @@ export default function ApplicationDescriptionContainer(
         is_subscribed?: boolean;
     }) {
           const t = useI18n();
-        console.log(typeof description, "description in container", description);
         
     return (
         <div>
