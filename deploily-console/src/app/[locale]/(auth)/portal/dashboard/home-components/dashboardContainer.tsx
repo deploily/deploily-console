@@ -59,6 +59,8 @@ export default function DashboardContainer() {
             value: apiServicesCount,
             icon: <Invoice style={{ fontSize: 30, color: '#fff' }} />,
             color: '#FFB84D',
+            seeMyServices: dashboardtranslate('seeMyApis'),
+            subscribeNew: dashboardtranslate('subscribeNewApi'),
             linkToServicesList: "/portal/api-services",
             linkToMyServices: "/portal/my-api"
         },
@@ -68,6 +70,8 @@ export default function DashboardContainer() {
             value: affiliationCount,
             icon: <Handshake style={{ fontSize: 30, color: '#fff' }} />,
             color: '#5394CC',
+            seeMyServices: dashboardtranslate('seeMyAffiliations'),
+            subscribeNew: dashboardtranslate('subscribeNewAffiliation'),
             linkToServicesList: "/portal/cloud-resources",
             linkToMyServices: "/portal/my-resources"
         },
@@ -77,6 +81,8 @@ export default function DashboardContainer() {
             value: applicationsCount,
             icon: <SquaresFour style={{ fontSize: 30, color: '#fff' }} />,
             color: '#FF9933',
+            seeMyServices: dashboardtranslate('seeMyApplications'),
+            subscribeNew: dashboardtranslate('subscribeNewApplication'),
             linkToServicesList: "/portal/application",
             linkToMyServices: "/portal/my-applications"
         },
@@ -130,11 +136,11 @@ export default function DashboardContainer() {
                             </div> 
                             {stat.linkToServicesList &&
                             <>{stat.value === 0 ? <Link href={stat.linkToServicesList} style={{ color: '#fff', textDecoration: 'underline' }}>
-                                        {t("explore") + " " + stat.title}
+                                {stat.subscribeNew}
                             </Link> 
                             : 
                             <Link href={stat.linkToMyServices} style={{ color: '#fff', textDecoration: 'underline' }}>
-                                {t("explore") + " " + stat.title}
+                                    {stat.seeMyServices}
                             </Link>}
                             </> 
                             }
