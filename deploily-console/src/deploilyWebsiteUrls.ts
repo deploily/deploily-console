@@ -3,7 +3,7 @@ export const NEXT_PUBLIC_SITE_KEY = "6Ldb_i8rAAAAAAbj8Z8zS9cx23EX_wVX7D30FdSM";
 
 const API_BASE_URL = `/api/v1`;
 export const DOC_URL = "https://docs.deploily.cloud";
-export const HUB_URL = "https://hub.deploily.cloud/";
+export const HUB_URL = "https://hub.deploily.cloud/forum/help-1";
 
 export const deploilyApiUrls = {
   SERVICE_URL: `${API_BASE_URL}/service/`,
