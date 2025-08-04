@@ -79,7 +79,7 @@ export default function ApplicationPlansContainer() {
                                         subscription_category: plan.subscription_category === "yearly"
                                             ? t("year")
                                             : t("month"),
-                                        "contactUs": translate("contactUs")
+                                        "contactUs": translate("requestQuote")
                                     }
                                 }
                                 customPlanSelected={app_service_plan != undefined && app_service_plan.is_custom}

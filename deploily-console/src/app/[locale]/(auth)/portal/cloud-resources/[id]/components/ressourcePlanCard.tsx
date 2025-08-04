@@ -232,7 +232,7 @@ export default function RessourcePlanCard({ resourcePlan, currentResource, showD
                         fontSize: 20,
                     }}
                 >
-                    {resourcePlan.is_custom ? translate("contactUs") : translate("details")}
+                    {resourcePlan.is_custom ? translate("requestQuote") : translate("details")}
                 </Button>
                 <Modal
                     title="Contactez-nous"
