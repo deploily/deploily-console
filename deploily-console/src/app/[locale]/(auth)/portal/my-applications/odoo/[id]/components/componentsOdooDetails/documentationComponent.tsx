@@ -1,6 +1,6 @@
 import { CustomTransparentOrangeButton } from "@/styles/components/buttonStyle";
 import { Col } from "antd";
-import { useI18n, useScopedI18n } from "../../../../../../../../../../locales/client";
+import { useI18n } from "../../../../../../../../../../locales/client";
 import { HUB_URL } from "@/deploilyWebsiteUrls";
 
 
@@ -46,7 +46,21 @@ export default function DocumentationComponent({ odooAppById, setOpenDrawer }: {
                     rel="noopener noreferrer"
 
                 >
-                    {t('supportTicket')}
+                    {t('forum')}
+                </CustomTransparentOrangeButton>
+            </Col>
+            <Col span={24} style={{
+                display: "flex",
+                justifyContent: "end",
+                alignSelf: "start"
+            }}>
+                <CustomTransparentOrangeButton
+                    href={odooAppById.demo_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+
+                >
+                    {t('demo_link')}
                 </CustomTransparentOrangeButton>
             </Col>
         </>

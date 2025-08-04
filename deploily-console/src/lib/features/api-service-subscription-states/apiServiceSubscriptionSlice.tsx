@@ -60,10 +60,6 @@ const apiServiceSubscriptionStatesSlice = createSlice({
     },
 
     upgradeApiServiceSubscriptionStates: (state, action: PayloadAction<any>) => {
-
-      console.log("Upgrade Action Payload:", action.payload);
-      console.log("State:", state);
-
       const updatedState = { ...state, ...action.payload };
 
       const oldPlanValueRemaining = calculateRemainingSubscriptionValue({
@@ -71,13 +67,7 @@ const apiServiceSubscriptionStatesSlice = createSlice({
         start_date: updatedState.start_date,
         duration_month: updatedState.oldDuration,
       });
-
-      console.log("Old Plan Value Remaining:", oldPlanValueRemaining);
-
-
       let newTotal = updatedState.duration * updatedState.price;
-      console.log("New Total:", newTotal);
-
       if (updatedState.promoCodeRate !== undefined) {
         updatedState.promoColor = "green";
         newTotal = newTotal - ((newTotal * updatedState.promoCodeRate) / 100);

@@ -1,19 +1,22 @@
 
 import { Action, Dispatch, MiddlewareAPI, ThunkDispatch } from "@reduxjs/toolkit";
 import { updateNewAppSubscriptionState } from "../application/applicationServiceSlice";
+import { updateUpgradeRenewMyAppState } from "../my-applications/myApplicationSlice";
 
 const resourceServicesPlansMiddleware = (store: MiddlewareAPI<ThunkDispatch<any, any, Action>, any>) => {
     return (next: Dispatch<any>) => async (action: any) => {
         switch (action.type) {
             case 'resourceServicesPlansSlice/updateSelectedPlan':
                 if (action.payload !== undefined) {
-                    store.dispatch(updateNewAppSubscriptionState({ "resource_service_plan": action.payload }));                    
+                    store.dispatch(updateNewAppSubscriptionState({ "resource_service_plan": action.payload }));
+                    store.dispatch(updateUpgradeRenewMyAppState({ "resource_service_plan": action.payload }));
                 }
                 break;
             case 'ressourcePlans/getResourceServicesPlans/fulfilled':
 
                 if (action.payload !== undefined && action.payload.result.length > 0) {
                     store.dispatch(updateNewAppSubscriptionState({ "resource_service_plan": action.payload.result[0] }));
+                    store.dispatch(updateUpgradeRenewMyAppState({ "resource_service_plan": action.payload.result[0] }));
                 }
                 break;
             default:

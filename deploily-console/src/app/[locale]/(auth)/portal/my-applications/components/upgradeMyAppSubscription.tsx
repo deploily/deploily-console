@@ -1,26 +1,43 @@
 "use client";
 
+import { postFeedBack } from "@/lib/features/contact-us/contactUsThunks";
+import { useUpgradeRenewMyApplicationDataState } from "@/lib/features/my-applications/myApplicationSelector";
+import { openDrawer, updateUpgradeRenewMyAppState } from "@/lib/features/my-applications/myApplicationSlice";
 import { ResourceServicePlan } from "@/lib/features/resourceServicePlans/resourceServicesPlansInterface";
 import { ServicePlan } from "@/lib/features/service-plans/servicePlanInterface";
 import { useServicePlan } from "@/lib/features/service-plans/servicePlanSelector";
 import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThanks";
-import { useUpgradeTtkEpaySubscriptionState } from "@/lib/features/ttk-epay/ttkEpaySelector";
-import { openDrawer, upgradeAppSubscriptionState } from "@/lib/features/ttk-epay/ttkEpaySlice";
 import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
-import { Button, Card, Col, Modal } from "antd";
+import { Button, Card, Col, Input, Modal } from "antd";
 import { PlanCard } from 'deploily-ui-components';
 import { useEffect, useState } from "react";
-import { useScopedI18n } from "../../../../../../../../../locales/client";
-import SelectVpsPlanTable from "../../../../application/[id]/containers/selectVpsPlanTable";
-import HomeCarousel from "../../../../components/homeCarousel";
+import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
+import SelectVpsPlanTable from "../../application/[id]/containers/selectVpsPlanTable";
+import HomeCarousel from "../../components/homeCarousel";
 
-
-
-export default function UpgradeTtkEpaySubscriptionComponents(
+export default function UpgradeMyAppSubscriptionComponents(
     { serviceId, oldPrice, start_date, onClick }:
         { serviceId: any, oldPrice: number, start_date: any, onClick?: () => void }) {
     const tSubscription = useScopedI18n("subscription");
+    const translate = useI18n();
+
+    const [isContactUsModalOpen, setIsContactUsModalOpen] = useState(false);
+    const [comment, setComment] = useState('');
+    const handleCancel = () => {
+        setIsContactUsModalOpen(false);
+    };
+    const showModal = () => {
+        setIsPlanModalOpen(false);
+        setIsContactUsModalOpen(true);
+    };
+
+    const handleContactUs = () => {
+        setIsContactUsModalOpen(false);
+        dispatch(postFeedBack(`${translate("interstedCustomPlan")} ${app_service_plan?.service.name} :  ${comment}`));
+        setComment('');
+    };
+
 
     // Modal states
     const [isPlanModalOpen, setIsPlanModalOpen] = useState(false);
@@ -36,14 +53,14 @@ export default function UpgradeTtkEpaySubscriptionComponents(
         dispatch(fetchServicePlans(serviceId));
     }, []);
 
-    const { app_service_plan } = useUpgradeTtkEpaySubscriptionState();
+    const { app_service_plan } = useUpgradeRenewMyApplicationDataState();
 
     const handlePlanSelection = (plan: ServicePlan) => {
-        dispatch(upgradeAppSubscriptionState({ app_service_plan: plan }));
+        dispatch(updateUpgradeRenewMyAppState({ app_service_plan: plan }));
     };
 
     const handleVpsPlanSelection = (vpsPlan: ResourceServicePlan) => {
-        dispatch(upgradeAppSubscriptionState({ resource_service_plan: vpsPlan }));
+        dispatch(updateUpgradeRenewMyAppState({ resource_service_plan: vpsPlan }));
 
         setSelectedVpsPlan(vpsPlan);
     };
@@ -54,7 +71,7 @@ export default function UpgradeTtkEpaySubscriptionComponents(
     };
 
     const showDrawer = (plan: ServicePlan | any, selectedVpsPlan: ResourceServicePlan | any) => {
-        dispatch(upgradeAppSubscriptionState({ vpsPrice: selectedVpsPlan.price, planPrice: plan.price, oldPrice: oldPrice, start_date: start_date }));
+        dispatch(updateUpgradeRenewMyAppState({ vpsPrice: selectedVpsPlan.price, planPrice: plan.price, oldPrice: oldPrice, start_date: start_date }));
         if (onClick) onClick();
 
         dispatch(openDrawer({
@@ -121,6 +138,19 @@ export default function UpgradeTtkEpaySubscriptionComponents(
                                         title={plan.plan.name}
                                         onClick={() => handlePlanSelection(plan)}
                                         subscription_category={plan.subscription_category}
+                                        translations={
+                                            {
+                                                onDemand: translate("ondemand"),
+                                                DZD: translate("DZD"),
+                                                subscription_category: plan.subscription_category === "yearly"
+                                                    ? translate("year")
+                                                    : translate("month"),
+                                                "contactUs": translate("contactUs")
+                                            }
+                                        }
+                                        isCustomPlan={plan.is_custom}
+                                        customPlanSelected={app_service_plan != undefined && app_service_plan.is_custom}
+                                        showModal={showModal}
                                     />
                                 </div>
                             );
@@ -132,7 +162,7 @@ export default function UpgradeTtkEpaySubscriptionComponents(
                     <Button
                         type="primary"
                         style={{ backgroundColor: "#D85912", border: "none", boxShadow: "none" }}
-                        disabled={!app_service_plan}
+                        disabled={!app_service_plan || app_service_plan.is_custom}
                         onClick={proceedToVpsSelection}
                     >
                         <span style={{ color: "rgba(220, 233, 245, 0.88)", fontSize: "16px", fontWeight: 600 }}>
@@ -167,7 +197,7 @@ export default function UpgradeTtkEpaySubscriptionComponents(
                             color: "#D85912",
                             borderColor: "#D85912",
                             backgroundColor: "transparent",
-                          }}
+                        }}
                     >
                         {tSubscription('back')}
                     </Button>
@@ -188,6 +218,32 @@ export default function UpgradeTtkEpaySubscriptionComponents(
                         </span>
                     </Button>
                 </Col>
+            </Modal>
+            <Modal
+                title="Contactez-nous"
+                open={isContactUsModalOpen}
+                onOk={handleContactUs}
+                okText="Send"
+                onCancel={handleCancel}
+                footer={[
+                    <Button style={{
+                        color: theme.token.colorWhite,
+                        backgroundColor: theme.token.orange600,
+                        border: "none",
+                        paddingBlock: 20,
+                        fontWeight: 600,
+                        fontSize: 20,
+                    }} key="submit" onClick={handleContactUs}>
+                        {translate("send")}
+                    </Button>,
+                ]}
+            >
+                <Input.TextArea
+                    rows={4}
+                    placeholder={translate("whriteMessage")}
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                />
             </Modal>
         </>
     );

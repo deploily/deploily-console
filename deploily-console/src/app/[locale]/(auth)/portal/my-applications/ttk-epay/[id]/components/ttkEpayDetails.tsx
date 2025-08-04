@@ -17,10 +17,10 @@ import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../../../locales/client";
 import { applicationStatusStyle } from "../../../../my-api/utils/subscriptionsConst";
 import DocumentationDrawer from "../../../../utils/documentationDrawer";
+import ShowdrawerSubscription from "../../../components/showMyAppDrawerSubscription";
 import TtkEpayParams from "./ttkEpayParams";
-import UpgradeTtkEpaySubscriptionComponents from "./upgradeTtkEpaySubscription";
-import RenewTtkEpaySubscriptionComponents from "./renewTtkEpaySubscription";
-import ShowdrawerSubscription from "./showTtkEpayDrawerSubscription";
+import UpgradeMyAppSubscriptionComponents from "../../../components/upgradeMyAppSubscription";
+import RenewMyAppSubscriptionComponents from "../../../components/renewMyAppSubscription";
 
 export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
     const t = useI18n();
@@ -169,45 +169,46 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                                 }
                             </Typography.Title>}
 
-                    <Col xs={24} md={12} lg={8}>
-                        <Row gutter={[16, 10]} justify="end" >
-                            <Tag bordered={false} color={applicationStatusStyle(ttkEpayById.application_status)}
-                                style={{ height: 'fit-content', fontSize: '14px', fontWeight: "bold", borderRadius: 20, padding: "5px 20px", textTransform: "capitalize" }}>
-                                {tSubscription(ttkEpayById.application_status as "processing" | "error" | "deployed")}
-                            </Tag>
-                            {ttkEpayById.status === 'active' && (
-                                <div style={{
-                                    display: 'flex',
-                                    gap: '8px',
-                                    flexWrap: 'wrap',
-                                    justifyContent: 'flex-end'
-                                }}>
-                                    <UpgradeTtkEpaySubscriptionComponents
-                                        serviceId={ttkEpayById.service_details.id}
-                                        oldPrice={ttkEpayById.price}
-                                        start_date={ttkEpayById.start_date}
-                                        onClick={() =>
-                                            setDrawerActionType("upgrade")
-                                        }
-                                    />
-                                    <RenewTtkEpaySubscriptionComponents
-                                        serviceId={ttkEpayById.service_details.id}
-                                        oldPrice={ttkEpayById.price}
-                                        start_date={ttkEpayById.start_date}
-                                        duration={ttkEpayById.duration_month}
-                                        plan={ttkEpayById.service_plan.id}
-                                        selectedVpsPlan={ttkEpayById.ressource_service_plan.id}
-                                        onClick={() =>
-                                            setDrawerActionType("renew")
-                                        }
-                                    />
-                                </div>
-                            )}
-                        </Row>
-                    </Col>
+                        <Col xs={24} md={12} lg={8}>
+                            <Row gutter={[16, 10]} justify="end" >
+                                <Tag bordered={false} color={applicationStatusStyle(ttkEpayById.application_status)}
+                                    style={{ height: 'fit-content', fontSize: '14px', fontWeight: "bold", borderRadius: 20, padding: "5px 20px", textTransform: "capitalize" }}>
+                                    {tSubscription(ttkEpayById.application_status as "processing" | "error" | "deployed")}
+                                </Tag>
+                                {ttkEpayById.status === 'active' && (
+                                    <div style={{
+                                        display: 'flex',
+                                        gap: '8px',
+                                        flexWrap: 'wrap',
+                                        justifyContent: 'flex-end'
+                                    }}>
+                                        <UpgradeMyAppSubscriptionComponents
+                                            serviceId={ttkEpayById.service_details.id}
+                                            oldPrice={ttkEpayById.price}
+                                            start_date={ttkEpayById.start_date}
+                                            onClick={() =>
+                                                setDrawerActionType("upgrade")
+                                            }
+                                        />
+                                        <RenewMyAppSubscriptionComponents
+                                            serviceId={ttkEpayById.service_details.id}
+                                            oldPrice={ttkEpayById.price}
+                                            start_date={ttkEpayById.start_date}
+                                            duration={ttkEpayById.duration_month}
+                                            plan={ttkEpayById.service_plan.id}
+                                            selectedVpsPlan={ttkEpayById.ressource_service_plan.id}
+                                            onClick={() =>
+                                                setDrawerActionType("renew")
+                                            }
+                                        />
+                                    </div>
+                                )}
+                            </Row>
+                        </Col>
                     </Row>
 
                     <ShowdrawerSubscription
+                        serviceId={ttkEpayById.service_details.id}
                         isSubscribed={ttkEpayById.service_details.is_subscribed}
                         subscriptionOldId={ttkEpayById.id}
                         drawerType={drawerActionType}
