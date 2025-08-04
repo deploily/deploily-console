@@ -1,16 +1,14 @@
 "use client";
 
-import { Button } from "antd";
-import { useScopedI18n } from "../../../../../../../../../locales/client";
-import { ServicePlan } from "@/lib/features/service-plans/servicePlanInterface";
-import { ResourceServicePlan } from "@/lib/features/resourceServicePlans/resourceServicesPlansInterface";
-import { useAppDispatch } from "@/lib/hook";
-import { openDrawer, upgradeAppSubscriptionState } from "@/lib/features/ttk-epay/ttkEpaySlice";
-import { useServicePlan } from "@/lib/features/service-plans/servicePlanSelector";
-import { useEffect, useState } from "react";
-import { useSelectedPlan, useServicePlansByType } from "@/lib/features/resourceServicePlans/resourceServicesPlansSelectors";
-import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThanks";
+import { openDrawer, updateUpgradeRenewMyAppState } from "@/lib/features/my-applications/myApplicationSlice";
+import { useServicePlansByType } from "@/lib/features/resourceServicePlans/resourceServicesPlansSelectors";
 import { fetchResourceServicesPlans } from "@/lib/features/resourceServicePlans/resourceServicesPlansThunk";
+import { useServicePlan } from "@/lib/features/service-plans/servicePlanSelector";
+import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThanks";
+import { useAppDispatch } from "@/lib/hook";
+import { Button } from "antd";
+import { useEffect } from "react";
+import { useScopedI18n } from "../../../../../../../locales/client";
 
 interface RenewTtkEpaySubscriptionProps {
     serviceId: any;
@@ -22,7 +20,7 @@ interface RenewTtkEpaySubscriptionProps {
     onClick?: () => void;
 }
 
-export default function RenewTtkEpaySubscriptionComponents({
+export default function RenewMyAppSubscriptionComponents({
     serviceId,
     oldPrice,
     start_date,
@@ -57,10 +55,10 @@ export default function RenewTtkEpaySubscriptionComponents({
         );
         dispatch(
 
-            upgradeAppSubscriptionState({
+            updateUpgradeRenewMyAppState({
                 oldAppServicePrice: oldPrice,
                 oldAppServiceStartDate: start_date,
-                oldAppServiceDuration: duration, 
+                oldAppServiceDuration: duration,
                 app_service_plan: matchedPlan,
                 resource_service_plan: matchedVpsPlan,
             })

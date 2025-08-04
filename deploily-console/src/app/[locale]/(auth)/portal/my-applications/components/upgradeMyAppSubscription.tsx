@@ -1,23 +1,24 @@
 "use client";
 
+import { openDrawer, updateUpgradeRenewMyAppState } from "@/lib/features/my-applications/myApplicationSlice";
 import { ResourceServicePlan } from "@/lib/features/resourceServicePlans/resourceServicesPlansInterface";
 import { ServicePlan } from "@/lib/features/service-plans/servicePlanInterface";
 import { useServicePlan } from "@/lib/features/service-plans/servicePlanSelector";
 import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThanks";
-import { useUpgradeTtkEpaySubscriptionState } from "@/lib/features/ttk-epay/ttkEpaySelector";
-import { openDrawer, upgradeAppSubscriptionState } from "@/lib/features/ttk-epay/ttkEpaySlice";
 import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
 import { Button, Card, Col, Modal } from "antd";
-import { PlanCard } from 'deploily-ui-components';
 import { useEffect, useState } from "react";
-import { useScopedI18n } from "../../../../../../../../../locales/client";
-import SelectVpsPlanTable from "../../../../application/[id]/containers/selectVpsPlanTable";
-import HomeCarousel from "../../../../components/homeCarousel";
+import { PlanCard } from 'deploily-ui-components';
+import { useScopedI18n } from "../../../../../../../locales/client";
+import HomeCarousel from "../../components/homeCarousel";
+import SelectVpsPlanTable from "../../application/[id]/containers/selectVpsPlanTable";
+import { useUpgradeRenewMyApplicationDataState } from "@/lib/features/my-applications/myApplicationSelector";
 
 
 
-export default function UpgradeTtkEpaySubscriptionComponents(
+
+export default function UpgradeMyAppSubscriptionComponents(
     { serviceId, oldPrice, start_date, onClick }:
         { serviceId: any, oldPrice: number, start_date: any, onClick?: () => void }) {
     const tSubscription = useScopedI18n("subscription");
@@ -36,14 +37,14 @@ export default function UpgradeTtkEpaySubscriptionComponents(
         dispatch(fetchServicePlans(serviceId));
     }, []);
 
-    const { app_service_plan } = useUpgradeTtkEpaySubscriptionState();
+    const { app_service_plan } = useUpgradeRenewMyApplicationDataState();
 
     const handlePlanSelection = (plan: ServicePlan) => {
-        dispatch(upgradeAppSubscriptionState({ app_service_plan: plan }));
+        dispatch(updateUpgradeRenewMyAppState({ app_service_plan: plan }));
     };
 
     const handleVpsPlanSelection = (vpsPlan: ResourceServicePlan) => {
-        dispatch(upgradeAppSubscriptionState({ resource_service_plan: vpsPlan }));
+        dispatch(updateUpgradeRenewMyAppState({ resource_service_plan: vpsPlan }));
 
         setSelectedVpsPlan(vpsPlan);
     };
@@ -54,7 +55,7 @@ export default function UpgradeTtkEpaySubscriptionComponents(
     };
 
     const showDrawer = (plan: ServicePlan | any, selectedVpsPlan: ResourceServicePlan | any) => {
-        dispatch(upgradeAppSubscriptionState({ vpsPrice: selectedVpsPlan.price, planPrice: plan.price, oldPrice: oldPrice, start_date: start_date }));
+        dispatch(updateUpgradeRenewMyAppState({ vpsPrice: selectedVpsPlan.price, planPrice: plan.price, oldPrice: oldPrice, start_date: start_date }));
         if (onClick) onClick();
 
         dispatch(openDrawer({
@@ -167,7 +168,7 @@ export default function UpgradeTtkEpaySubscriptionComponents(
                             color: "#D85912",
                             borderColor: "#D85912",
                             backgroundColor: "transparent",
-                          }}
+                        }}
                     >
                         {tSubscription('back')}
                     </Button>

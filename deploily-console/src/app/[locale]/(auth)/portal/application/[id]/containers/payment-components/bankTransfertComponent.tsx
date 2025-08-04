@@ -6,9 +6,11 @@ import bankPaymentInfo from "./bankPaymentData";
 import { getBankCredEnvVars } from "@/actions/getBankCredEnvVars";
 import { useScopedI18n } from "../../../../../../../../../locales/client";
 import { useNewApplicationSubscription } from "@/lib/features/application/applicationServiceSelectors";
+import { useUpgradeRenewMyApplicationDataState } from "@/lib/features/my-applications/myApplicationSelector";
 
-export default function BankTransfertComponent({ handleSubscribe }: { handleSubscribe:()=> Promise<void> }) {
+export default function BankTransfertComponent({ handleSubscribe, isSubscribed }: { isSubscribed :any, handleSubscribe:()=> Promise<void> }) {
     const { totalAmount } = useNewApplicationSubscription()
+    const { totalamount } = useUpgradeRenewMyApplicationDataState()
     const tBankPayment = useScopedI18n("bankPayment");
     const tPayments = useScopedI18n("payments");
 
@@ -44,13 +46,21 @@ export default function BankTransfertComponent({ handleSubscribe }: { handleSubs
         >
             <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
                 {/* Total Amount */}
-                <Typography.Title level={5} style={{ fontWeight: 500 }}>
-                    {tPayments('totalToPay')} :{' '}
-                    <Typography.Text strong style={{ fontSize: 18 }}>
-                        {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(totalAmount)} DZD 
-                    </Typography.Text>
-                </Typography.Title>
-
+                {isSubscribed ? (
+                    <Typography.Title level={5} style={{ fontWeight: 500 }}>
+                        {tPayments('totalToPay')}:{' '}
+                        <Typography.Text strong style={{ fontSize: 18 }}>
+                            {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(totalamount)} DZD
+                        </Typography.Text>
+                    </Typography.Title>
+                ) : (
+                    <Typography.Title level={5} style={{ fontWeight: 500 }}>
+                        {tPayments('totalToPay')}:{' '}
+                        <Typography.Text strong style={{ fontSize: 18 }}>
+                            {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(totalAmount)} DZD
+                        </Typography.Text>
+                    </Typography.Title>
+                )}
                 {/* Message */}
                 <Typography.Title
                     level={5}

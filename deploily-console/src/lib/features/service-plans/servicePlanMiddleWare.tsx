@@ -1,6 +1,7 @@
 
 import { Action, Dispatch, MiddlewareAPI, ThunkDispatch } from "@reduxjs/toolkit";
 import { updateNewAppSubscriptionState } from "../application/applicationServiceSlice";
+import { updateUpgradeRenewMyAppState } from "../my-applications/myApplicationSlice";
 
 const servicesPlansMiddleware = (store: MiddlewareAPI<ThunkDispatch<any, any, Action>, any>) => {
     return (next: Dispatch<any>) => async (action: any) => {
@@ -9,6 +10,7 @@ const servicesPlansMiddleware = (store: MiddlewareAPI<ThunkDispatch<any, any, Ac
                 if (action.payload !== undefined && action.payload.result.length > 0) {
                     const selectedPlan = action.payload.result[0];
                     store.dispatch(updateNewAppSubscriptionState({ "app_service_plan": selectedPlan }));
+                    store.dispatch(updateUpgradeRenewMyAppState({ "app_service_plan": selectedPlan }));
                 }
                 break;
             default:

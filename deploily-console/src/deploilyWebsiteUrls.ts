@@ -40,15 +40,22 @@ export const deploilyApiUrls = {
   RESOURCE_CATEGORY_URL: `${API_BASE_URL}/ressource-category/all`,
   APP_SERVICE_SUBSCRIPTION_URL: `${API_BASE_URL}/app-service-subscription/`,
   TTK_EPAY_APP_SUBSCRIPTION_URL: `${API_BASE_URL}/ttk-epay-app-service-subscription`,
-  TTK_EPAY_APP_SUBSCRIPTION_UPGRADE_URL: `${API_BASE_URL}/ttk-epay-app-service-subscription/upgrade`,
   RESOURCE_SERVICE_PLANS_URL: `${API_BASE_URL}/service-plan-ressource-vps/all`,
   API_SERVICE_SUBSCRIPTION_UPGRADE: `${API_BASE_URL}/api-service-subscription/upgrade`,
   API_SERVICE_SUBSCRIPTION_RENEW: `${API_BASE_URL}/api-service-subscription/renew`,
   TTK_EPAY_APP_SUBSCRIPTION_RENEW: `${API_BASE_URL}/ttk-epay-app-service-subscription/renew`,
+  TTK_EPAY_APP_SUBSCRIPTION_UPGRADE_URL: `${API_BASE_URL}/ttk-epay-app-service-subscription/upgrade`,
+
   ODOO_APP_SUBSCRIPTION_URL: `${API_BASE_URL}/odoo-app-service-subscription`,
   APP_ODOO_SUBSCRIBE_URL: `${API_BASE_URL}/odoo-app-service-subscription/subscribe`,
+  ODOO_APP_SUBSCRIPTION_RENEW_URL: `${API_BASE_URL}/odoo-app-service-subscription/renew`,
+  ODOO_APP_SUBSCRIPTION_UPGRADE_URL: `${API_BASE_URL}/odoo-app-service-subscription/upgrade`,
+
   SUPABASE_APP_SUBSCRIBE_URL: `${API_BASE_URL}/supabase-app-service-subscription/subscribe`,
   SUPABASE_APP_SUBSCRIPTION_URL: `${API_BASE_URL}/supabse-app-service-subscription`,
+  SUPABASE_APP_SUBSCRIPTION_RENEW_URL: `${API_BASE_URL}/supabase-app-service-subscription/renew`,
+  SUPABASE_APP_SUBSCRIPTION_UPGRADE_URL: `${API_BASE_URL}/supabase-app-service-subscription/upgrade`,
+  
   HISTORY_SUBSCRIPTION_URL: `${API_BASE_URL}/subscription/history`,
 
 };
