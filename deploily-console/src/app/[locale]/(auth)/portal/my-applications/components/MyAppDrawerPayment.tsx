@@ -67,6 +67,7 @@ export default function MyAppPaymentDrawer({ serviceId , openDrawer, onClose, su
             if (drawerType === "renew") {
                 return dispatch(renewMyApplication(
                     {
+                        service_slug: applicationServiceById?.service_slug,
                         payment_method: "cloud_credit",
                         subscriptionOldId: subscriptionOldId,
                     }
