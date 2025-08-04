@@ -1,5 +1,7 @@
 "use client";
 
+import { postFeedBack } from "@/lib/features/contact-us/contactUsThunks";
+import { useUpgradeRenewMyApplicationDataState } from "@/lib/features/my-applications/myApplicationSelector";
 import { openDrawer, updateUpgradeRenewMyAppState } from "@/lib/features/my-applications/myApplicationSlice";
 import { ResourceServicePlan } from "@/lib/features/resourceServicePlans/resourceServicesPlansInterface";
 import { ServicePlan } from "@/lib/features/service-plans/servicePlanInterface";
@@ -7,21 +9,35 @@ import { useServicePlan } from "@/lib/features/service-plans/servicePlanSelector
 import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThanks";
 import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
-import { Button, Card, Col, Modal } from "antd";
-import { useEffect, useState } from "react";
+import { Button, Card, Col, Input, Modal } from "antd";
 import { PlanCard } from 'deploily-ui-components';
-import { useScopedI18n } from "../../../../../../../locales/client";
-import HomeCarousel from "../../components/homeCarousel";
+import { useEffect, useState } from "react";
+import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import SelectVpsPlanTable from "../../application/[id]/containers/selectVpsPlanTable";
-import { useUpgradeRenewMyApplicationDataState } from "@/lib/features/my-applications/myApplicationSelector";
-
-
-
+import HomeCarousel from "../../components/homeCarousel";
 
 export default function UpgradeMyAppSubscriptionComponents(
     { serviceId, oldPrice, start_date, onClick }:
         { serviceId: any, oldPrice: number, start_date: any, onClick?: () => void }) {
     const tSubscription = useScopedI18n("subscription");
+    const translate = useI18n();
+
+    const [isContactUsModalOpen, setIsContactUsModalOpen] = useState(false);
+    const [comment, setComment] = useState('');
+    const handleCancel = () => {
+        setIsContactUsModalOpen(false);
+    };
+    const showModal = () => {
+        setIsPlanModalOpen(false);
+        setIsContactUsModalOpen(true);
+    };
+
+    const handleContactUs = () => {
+        setIsContactUsModalOpen(false);
+        dispatch(postFeedBack(`${translate("interstedCustomPlan")} ${app_service_plan?.service.name} :  ${comment}`));
+        setComment('');
+    };
+
 
     // Modal states
     const [isPlanModalOpen, setIsPlanModalOpen] = useState(false);
@@ -122,6 +138,19 @@ export default function UpgradeMyAppSubscriptionComponents(
                                         title={plan.plan.name}
                                         onClick={() => handlePlanSelection(plan)}
                                         subscription_category={plan.subscription_category}
+                                        translations={
+                                            {
+                                                onDemand: translate("ondemand"),
+                                                DZD: translate("DZD"),
+                                                subscription_category: plan.subscription_category === "yearly"
+                                                    ? translate("year")
+                                                    : translate("month"),
+                                                "contactUs": translate("contactUs")
+                                            }
+                                        }
+                                        isCustomPlan={plan.is_custom}
+                                        customPlanSelected={app_service_plan != undefined && app_service_plan.is_custom}
+                                        showModal={showModal}
                                     />
                                 </div>
                             );
@@ -133,7 +162,7 @@ export default function UpgradeMyAppSubscriptionComponents(
                     <Button
                         type="primary"
                         style={{ backgroundColor: "#D85912", border: "none", boxShadow: "none" }}
-                        disabled={!app_service_plan}
+                        disabled={!app_service_plan || app_service_plan.is_custom}
                         onClick={proceedToVpsSelection}
                     >
                         <span style={{ color: "rgba(220, 233, 245, 0.88)", fontSize: "16px", fontWeight: 600 }}>
@@ -189,6 +218,32 @@ export default function UpgradeMyAppSubscriptionComponents(
                         </span>
                     </Button>
                 </Col>
+            </Modal>
+            <Modal
+                title="Contactez-nous"
+                open={isContactUsModalOpen}
+                onOk={handleContactUs}
+                okText="Send"
+                onCancel={handleCancel}
+                footer={[
+                    <Button style={{
+                        color: theme.token.colorWhite,
+                        backgroundColor: theme.token.orange600,
+                        border: "none",
+                        paddingBlock: 20,
+                        fontWeight: 600,
+                        fontSize: 20,
+                    }} key="submit" onClick={handleContactUs}>
+                        {translate("send")}
+                    </Button>,
+                ]}
+            >
+                <Input.TextArea
+                    rows={4}
+                    placeholder={translate("whriteMessage")}
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                />
             </Modal>
         </>
     );

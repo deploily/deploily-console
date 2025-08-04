@@ -17,9 +17,7 @@ export default function ApplicationPlansContainer() {
 
 
     const t = useScopedI18n("apiServiceSubscription");
-    const translations = useI18n();
-
-        const translate = useI18n();
+    const translate = useI18n();
     
         const [isModalOpen, setIsModalOpen] = useState(false);
         const [comment, setComment] = useState('');
@@ -76,12 +74,12 @@ export default function ApplicationPlansContainer() {
                                 isCustomPlan={plan.is_custom}
                                 translations={
                                     {
-                                        onDemand:translations("ondemand"),
-                                        DZD: translations("DZD"),
+                                        onDemand:translate("ondemand"),
+                                        DZD: translate("DZD"),
                                         subscription_category: plan.subscription_category === "yearly"
                                             ? t("year")
                                             : t("month"),
-                                        "contactUs": translations("contactUs")
+                                        "contactUs": translate("contactUs")
                                     }
                                 }
                                 customPlanSelected={app_service_plan != undefined && app_service_plan.is_custom}
