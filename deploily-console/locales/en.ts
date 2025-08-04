@@ -14,6 +14,7 @@ export default {
     'sponsoring': 'Sponsoring',
     'subscribed': 'Subscribed',
     'forum': 'Forum',
+    'demo_link': 'Demo link ',
     'sidebar.home': 'Home',
     'sidebar.dashboard': 'Dashboard',
     'sidebar.members': 'Members',

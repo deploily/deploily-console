@@ -14,6 +14,7 @@ export default {
   supportTicket: "Ticket d'assistance",
   sponsoring: "Sponsoring",
   'forum': 'Forum',
+  'demo_link': 'Lien de démonstration',
   'month': 'Mois',
   'year': 'An',
   "sidebar.home": "Accueil",
