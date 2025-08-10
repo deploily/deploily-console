@@ -109,7 +109,7 @@ export default function UpgradeMyAppSubscriptionComponents(
                 footer={null}
                 onCancel={() => setIsPlanModalOpen(false)}
             >
-                {!servicePlanLoading && servicePlanResponse?.result && (
+                {!servicePlanLoading && servicePlanResponse?.result && servicePlanResponse?.result !== undefined && (
                     <HomeCarousel>
                         {servicePlanResponse.result.map((plan: ServicePlan) => {
                             return (

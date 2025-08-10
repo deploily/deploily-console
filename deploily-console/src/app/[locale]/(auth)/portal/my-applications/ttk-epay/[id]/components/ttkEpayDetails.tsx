@@ -182,7 +182,7 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                                         flexWrap: 'wrap',
                                         justifyContent: 'flex-end'
                                     }}>
-                                        {/* <UpgradeMyAppSubscriptionComponents
+                                        <UpgradeMyAppSubscriptionComponents
                                             serviceId={ttkEpayById.service_details.id}
                                             oldPrice={ttkEpayById.price}
                                             start_date={ttkEpayById.start_date}
@@ -190,7 +190,7 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                                                 setDrawerActionType("upgrade")
                                             }
                                         />
-                                        <RenewMyAppSubscriptionComponents
+                                        {/* <RenewMyAppSubscriptionComponents
                                             serviceId={ttkEpayById.service_details.id}
                                             oldPrice={ttkEpayById.price}
                                             start_date={ttkEpayById.start_date}
