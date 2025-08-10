@@ -3,6 +3,7 @@ import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getSession } from "next-auth/react";
 import { Filter } from "./cloudResourceInterface";
+import { log } from "console";
 export const fetchCloudResources = createAsyncThunk(
     "cloudresources/getcloudresources",
     async (filterParams: Filter, thunkConfig) => {
@@ -190,6 +191,34 @@ export const fetchResourceCategories = createAsyncThunk(
                 return response.data;
             } else {
                 return thunkConfig.rejectWithValue("error");
+            }
+        } catch (error: any) {
+            return thunkConfig.rejectWithValue(error.message);
+        }
+    },
+);
+
+
+export const getManagedResources = createAsyncThunk(
+    "resources/gemanagedResources",
+    async (_, thunkConfig) => {
+        try {
+            const session = await getSession();
+            if (!session) {
+                return thunkConfig.rejectWithValue("session expired");
+            }
+            const token = session.accessToken;
+            const response = await axiosInstance.get(`${deploilyApiUrls.MANAGED_RESSOURCE_URL}`, {
+                headers: {
+                    Accept: "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            console.log("response", response);
+            if (response.status === 200) {
+                return response.data;
+            } else {
+                return thunkConfig.rejectWithValue("Failed to fetch managed resource");
             }
         } catch (error: any) {
             return thunkConfig.rejectWithValue(error.message);

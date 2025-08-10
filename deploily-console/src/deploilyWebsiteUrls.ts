@@ -58,6 +58,8 @@ export const deploilyApiUrls = {
   
   HISTORY_SUBSCRIPTION_URL: `${API_BASE_URL}/subscription/history`,
 
+  MANAGED_RESSOURCE_URL: `${API_BASE_URL}/managed-ressource/`,
+
 };
 export const TTK_EPAY_SLUG = "ttk-epay";
 export const ODOO_SLUG = "odoo";
