@@ -93,6 +93,7 @@ export default function PaymentsListContainer() {
                 title: t("status"),
                 dataIndex: "status",
                 key: "status",
+                fixed: 'right',
                 render: (status: string) => {
 
                     const { backgroundColor, color, label } = getStatusStyle(status, theme, t);
@@ -138,7 +139,7 @@ export default function PaymentsListContainer() {
                     size="middle"
                     className="custom-table"
                     style={{ marginTop: 5, borderRadius: 0 }}
-
+                    scroll={{ x: 730, y: 400 }}
                     pagination={false}
                     rowKey={(record: PaymentInterface | { key: number }) => 'id' in record ? record.id : `row-${Math.random()}`}
                     onRow={(record: PaymentInterface) => ({

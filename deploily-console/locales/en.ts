@@ -7,6 +7,7 @@ export default {
     "application": "Applications",
     'Members': 'Members',
     'myFavorites': 'My favorites',
+    'myManagedResources': 'My managed resources',
     'myResources': 'My resources',
     'myServices': 'My services',
     'subscriptions': 'Subscriptions',

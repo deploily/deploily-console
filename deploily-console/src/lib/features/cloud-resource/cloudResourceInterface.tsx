@@ -112,3 +112,30 @@ export interface ResourceCategory {
     short_description?: string;
     logo?: string;
 }
+export interface ServicePlanOption {
+    id: number;
+    icon: string;
+    html_content: string;
+    option_type: string;
+    option_value:number
+}
+
+export interface ManagedResourceList {
+    id: number;
+    options: ServicePlanOption;
+    plan_name: string;
+    preparation_time: number;
+    price: number;
+    provider_info: Provider;
+    service_id: number;
+    service_name: string;
+    service_plan_type: string;
+}
+
+
+
+export interface ManagedResourceListResponse {
+    isLoading: boolean,
+    managedResourceFailed: boolean,
+    managedResourceResponse?: ManagedResourceList[]
+}

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CloudResourceResponse, MyResourcesList, ProvidersListResponse, ResourceCategoriesResponse, ResourceInterface } from "./cloudResourceInterface";
-import { fetchCloudResources, fetchResourceCategories, getMyResources, getProvidersList, getResourceById, postAffiliation } from "./cloudResourceThunks";
+import { CloudResourceResponse, ManagedResourceListResponse, MyResourcesList, ProvidersListResponse, ResourceCategoriesResponse, ResourceInterface } from "./cloudResourceInterface";
+import { fetchCloudResources, fetchResourceCategories, getManagedResources, getMyResources, getProvidersList, getResourceById, postAffiliation } from "./cloudResourceThunks";
+import { log } from "console";
 
 interface CloudResourceState {
     cloudResourceResponse?: CloudResourceResponse;
@@ -14,7 +15,7 @@ interface CloudResourceState {
     isAffiliationCreatedFailed: boolean;
     searchValue?: string;
     resourceCategoriesResponse?: ResourceCategoriesResponse;
-
+    managedResourceListResponse: ManagedResourceListResponse;
 
 
 }
@@ -30,7 +31,11 @@ const initialState: CloudResourceState = {
     isAffiliationCreatedFailed: false,
     searchValue: "",
     resourceCategoriesResponse: undefined,
-
+    managedResourceListResponse: {
+        isLoading: false,
+        managedResourceFailed: false,
+        managedResourceResponse: undefined
+    },
 };
 const CloudResourceSlice = createSlice({
     name: "cloudResource",
@@ -115,8 +120,20 @@ const CloudResourceSlice = createSlice({
                 state.myResourcesResponse = action.payload;
                 state.cloudResourceLoadingError = false;
             })
-
-
+            .addCase(getManagedResources.pending, (state) => {
+                state.isAffiliationCreatedSuccess = false;
+                state.managedResourceListResponse.isLoading = true;
+            })
+            .addCase(getManagedResources.fulfilled, (state, action) => {
+                state.isAffiliationCreatedSuccess = false;
+                state.managedResourceListResponse.isLoading = false;
+                state.managedResourceListResponse.managedResourceResponse = action.payload.result;
+            })
+            .addCase(getManagedResources.rejected, (state) => {
+                state.isAffiliationCreatedSuccess = false;
+                state.managedResourceListResponse.isLoading = false;
+                state.managedResourceListResponse.managedResourceFailed = true;
+            })
             .addCase(getProvidersList.pending, (state) => {
                 state.isLoading = true;
                 state.providersListResponse = undefined;
@@ -132,20 +149,18 @@ const CloudResourceSlice = createSlice({
                 state.providersListResponse = action.payload;
                 state.cloudResourceLoadingError = false;
             })
-
             .addCase(fetchResourceCategories.pending, (state) => {
                 state.isLoading = true;
             })
             .addCase(fetchResourceCategories.fulfilled, (state, action) => {
-
                 state.isLoading = false;
                 state.resourceCategoriesResponse = action.payload;
             })
             .addCase(fetchResourceCategories.rejected, (state) => {
-
                 state.isLoading = false;
                 state.cloudResourceLoadingError = true;
-            });
+            })
+         ;
     },
 });
 

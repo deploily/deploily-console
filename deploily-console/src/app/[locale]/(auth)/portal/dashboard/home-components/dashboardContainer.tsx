@@ -120,7 +120,8 @@ export default function DashboardContainer() {
                     <Col flex="20%" key={stat.key}>
                         <Card
                             style={{
-                                height: 170,
+                                height: "100%",
+                                minHeight: 170,
                                 backgroundColor: stat.color,
                                 color: '#fff',
                                 borderRadius: '8px',
