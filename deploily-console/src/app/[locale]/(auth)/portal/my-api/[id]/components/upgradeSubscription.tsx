@@ -52,7 +52,7 @@ export default function UpgradeApiSubscriptionComponents({ serviceId, planSelect
                 footer={null}
                 onCancel={() => setIsModalOpen(false)}
             >
-                {!servicePlanLoading && servicePlanResponse?.result && (
+                {!servicePlanLoading && servicePlanResponse?.result  && servicePlanResponse?.result !== undefined && (
                     <HomeCarousel>
                         {servicePlanResponse.result.map((plan: ServicePlan) => {
 
