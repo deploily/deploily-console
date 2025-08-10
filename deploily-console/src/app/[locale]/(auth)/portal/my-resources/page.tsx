@@ -16,7 +16,7 @@ export default function Page() {
                         fontWeight: 800,
                     }}
                 >
-                    {t("myResources")}
+                    {t("myManagedResources")}
                 </span>
             </Row>
             <ManagedRessourcesComponent />

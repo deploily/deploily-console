@@ -75,27 +75,6 @@ export default function ManagedRessourcesComponent() {
                     price ? price.toLocaleString("fr-FR", { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + " DZD" : "-",
             },
             {
-                title: t("status"),
-                key: "status",
-                render: () => {
-                    const { backgroundColor, color, label } = getStatusStyle("pending", theme, t); // fallback or fake status
-                    return (
-                        <Tag style={{
-                            backgroundColor, color, border: "none",
-                            padding: "4px 0",
-                            fontWeight: 600,
-                            fontSize: 13,
-                            borderRadius: "18px",
-                            width: "100px",
-                            textAlign: "center",
-                            display: "inline-block"
-                        }}>
-                            {label}
-                        </Tag>
-                    );
-                }
-            },
-            {
                 title: t("created_on"),
                 key: "created_on",
                 render: () => {

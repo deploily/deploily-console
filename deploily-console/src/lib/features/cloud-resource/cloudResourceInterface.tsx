@@ -1,4 +1,3 @@
-import { Option } from "@ant-design/cssinjs/lib/hooks/useCacheToken";
 
 export interface CloudResourceResponse {
     count: number;
