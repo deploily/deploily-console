@@ -41,36 +41,40 @@ export default function RenewMyAppSubscriptionComponents({
     }, []);
 
     const showDrawer = () => {
-        const allPlans = servicePlanResponse?.result.flat();
+        try {
+            if (!servicePlanResponse || !servicePlansList) {
+                const allPlans = servicePlanResponse?.result.flat();
+                const matchedPlan = allPlans?.find(
+                    (p) => (p.id) === (plan)
+                );
 
+                const allVpsPlans = servicePlansList?.result.flat();
 
-        const matchedPlan = allPlans?.find(
-            (p) => (p.id) === (plan)
-        );
+                const matchedVpsPlan = allVpsPlans?.find(
+                    (v) => v.id === (selectedVpsPlan)
+                );
+                dispatch(
 
-        const allVpsPlans = servicePlansList?.result.flat();
+                    updateUpgradeRenewMyAppState({
+                        oldAppServicePrice: oldPrice,
+                        oldAppServiceStartDate: start_date,
+                        oldAppServiceDuration: duration,
+                        app_service_plan: matchedPlan,
+                        resource_service_plan: matchedVpsPlan,
+                    })
+                );
+                if (onClick) onClick();
 
-        const matchedVpsPlan = allVpsPlans?.find(
-            (v) => v.id === (selectedVpsPlan)
-        );
-        dispatch(
-
-            updateUpgradeRenewMyAppState({
-                oldAppServicePrice: oldPrice,
-                oldAppServiceStartDate: start_date,
-                oldAppServiceDuration: duration,
-                app_service_plan: matchedPlan,
-                resource_service_plan: matchedVpsPlan,
-            })
-        );
-        if (onClick) onClick();
-
-        dispatch(
-            openDrawer({
-                servicePlan: matchedPlan,
-                vpsPlan: matchedVpsPlan,
-            })
-        );
+                dispatch(
+                    openDrawer({
+                        servicePlan: matchedPlan,
+                        vpsPlan: matchedVpsPlan,
+                    })
+                );
+            }
+        } catch (error) {
+            console.error("Error showing drawer:", error);
+        }
     };
 
     return (

@@ -190,17 +190,17 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                                                 setDrawerActionType("upgrade")
                                             }
                                         />
-{/*                                         <RenewMyAppSubscriptionComponents
+                                        <RenewMyAppSubscriptionComponents
                                             serviceId={ttkEpayById.service_details.id}
                                             oldPrice={ttkEpayById.price}
                                             start_date={ttkEpayById.start_date}
                                             duration={ttkEpayById.duration_month}
-                                            plan={ttkEpayById.service_plan.id}
-                                            selectedVpsPlan={ttkEpayById.ressource_service_plan.id}
+                                            plan={ttkEpayById.service_plan?.id}
+                                            selectedVpsPlan={ttkEpayById.ressource_service_plan?.id}
                                             onClick={() =>
                                                 setDrawerActionType("renew")
                                             }
-                                        /> */}
+                                        />
                                     </div>
                                 )}
                             </Row>
