@@ -12,9 +12,9 @@ export default function Login() {
 
         <Button
             style={{
-                width: "100%",
+                width: "80%",
                 color: "#fff",
-                height: "40px",
+                height: "80px",
                 backgroundColor: "#D85912",
                 border: "none",
                 marginBottom: "20px",
@@ -22,15 +22,20 @@ export default function Login() {
             // href="/portal/home"
             onClick={() => signIn("keycloak", { callbackUrl: `/${locale}/portal/dashboard` })}
         >
+            
             <span
                 style={{
                     color: "rgba(220, 233, 245, 0.88)",
-
+                    textAlign: "center",
                     fontSize: "16px",
                     fontWeight: 600,
+                    flexWrap: "wrap",
+                    display: "flex",
+                    justifyContent: "center",
+                   
                 }}
             >
-                {t("login")}
+                {t("login_Register")}
             </span>
         </Button>
     );

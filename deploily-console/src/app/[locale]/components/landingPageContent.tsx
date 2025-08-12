@@ -1,7 +1,8 @@
 "use client";
-import { Button, Col, Row } from "antd";
+import { Col, Row } from "antd";
 import Image from "next/image";
 import { useI18n } from "../../../../locales/client";
+import Link from "antd/es/typography/Link";
 
 export default function LandingPageContent({ loginLogoutButton }: { loginLogoutButton: React.ReactNode }) {
   const t = useI18n();
@@ -11,41 +12,35 @@ export default function LandingPageContent({ loginLogoutButton }: { loginLogoutB
       <Col xs={{ flex: '100%' }} sm={{ flex: '80%' }} md={{ flex: '50%' }} lg={{ flex: '35%' }}
         style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
       >
-        <Image
-          src="/images/logo_name.png"
-          width={441}
-          height={109}
-          alt="logo-deploily"
-          layout="responsive"
-          style={{
-            marginBottom: "40px",
-          }}
-        />
+        <div style={{width: "80%",
+              height: "auto",}}>
+          <Image
+            src="/images/logo_name.png"
+            width={200}
+            height={49}
+            alt="logo-deploily"
+            layout="responsive"
+            style={{
+              marginBottom: 50,
+              
+            }}
+          />
+        </div>
         <>
           {loginLogoutButton}
         </>
-        <Button
-          style={{
-            width: "100%",
-            color: "#fff",
-            height: "40px",
-            backgroundColor: "#5394CC",
-            border: "none",
 
-          }}
-          href="https://deploily.cloud/en"
-        >
+        <Link href="https://deploily.cloud/en" >
           <span
             style={{
               color: "rgba(220, 233, 245, 0.88)",
-
               fontSize: "16px",
               fontWeight: 600,
             }}
           >
             {t("gotoSite")}
           </span>
-        </Button>
+        </Link>
       </Col>
     </Row>
   );
