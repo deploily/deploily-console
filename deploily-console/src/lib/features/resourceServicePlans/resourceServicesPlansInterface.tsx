@@ -1,8 +1,8 @@
 export interface ResourceServicesPlansResponse {
-  result: ResourceServicePlan[];
+  result: ManagedRessourceDetails[];
 }
 
-export interface ResourceServicePlan {
+export interface ManagedRessourceDetails {
   "id": number,
   "options": PlanOption[];
   "plan_name": string,
@@ -25,4 +25,10 @@ export interface PlanOption {
   "option_type": string,
   "option_value": number,
   "sequence": number
+}
+export interface ManagedRessource {
+  host_name: string | null;
+  id: number;
+  ip: string;
+  operator_system: string;
 }
