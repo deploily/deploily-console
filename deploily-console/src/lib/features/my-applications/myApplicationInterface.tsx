@@ -36,7 +36,7 @@ export interface myApplicationInterface {
   image_service: string;
   short_description: string;
   status: string;
-
+  managed_ressource_details:ManagedRessourceDetails;
 }
 
 interface Service_plan {
