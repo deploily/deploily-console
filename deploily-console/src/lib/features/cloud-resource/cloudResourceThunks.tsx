@@ -3,7 +3,6 @@ import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getSession } from "next-auth/react";
 import { Filter } from "./cloudResourceInterface";
-import { log } from "console";
 export const fetchCloudResources = createAsyncThunk(
     "cloudresources/getcloudresources",
     async (filterParams: Filter, thunkConfig) => {

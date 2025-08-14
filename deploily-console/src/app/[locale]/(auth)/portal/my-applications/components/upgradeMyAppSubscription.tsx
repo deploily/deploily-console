@@ -3,7 +3,7 @@
 import { postFeedBack } from "@/lib/features/contact-us/contactUsThunks";
 import { useUpgradeRenewMyApplicationDataState } from "@/lib/features/my-applications/myApplicationSelector";
 import { openDrawer, updateUpgradeRenewMyAppState } from "@/lib/features/my-applications/myApplicationSlice";
-import { ResourceServicePlan } from "@/lib/features/resourceServicePlans/resourceServicesPlansInterface";
+import { ManagedRessourceDetails } from "@/lib/features/resourceServicePlans/resourceServicesPlansInterface";
 import { ServicePlan } from "@/lib/features/service-plans/servicePlanInterface";
 import { useServicePlan } from "@/lib/features/service-plans/servicePlanSelector";
 import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThanks";
@@ -44,7 +44,7 @@ export default function UpgradeMyAppSubscriptionComponents(
     const [isVpsModalOpen, setIsVpsModalOpen] = useState(false);
 
     // VPS selection state
-    const [selectedVpsPlan, setSelectedVpsPlan] = useState<ResourceServicePlan | null>(null);
+    const [selectedVpsPlan, setSelectedVpsPlan] = useState<ManagedRessourceDetails | null>(null);
 
     const { servicePlanResponse, servicePlanLoading } = useServicePlan();
     const dispatch = useAppDispatch();
@@ -59,8 +59,8 @@ export default function UpgradeMyAppSubscriptionComponents(
         dispatch(updateUpgradeRenewMyAppState({ app_service_plan: plan }));
     };
 
-    const handleVpsPlanSelection = (vpsPlan: ResourceServicePlan) => {
-        dispatch(updateUpgradeRenewMyAppState({ resource_service_plan: vpsPlan }));
+    const handleVpsPlanSelection = (vpsPlan: ManagedRessourceDetails) => {
+        dispatch(updateUpgradeRenewMyAppState({ managed_ressource_details: vpsPlan }));
 
         setSelectedVpsPlan(vpsPlan);
     };
@@ -70,7 +70,7 @@ export default function UpgradeMyAppSubscriptionComponents(
         setIsVpsModalOpen(true);
     };
 
-    const showDrawer = (plan: ServicePlan | any, selectedVpsPlan: ResourceServicePlan | any) => {
+    const showDrawer = (plan: ServicePlan | any, selectedVpsPlan: ManagedRessourceDetails | any) => {
         dispatch(updateUpgradeRenewMyAppState({ vpsPrice: selectedVpsPlan.price, planPrice: plan.price, oldPrice: oldPrice, start_date: start_date }));
         if (onClick) onClick();
 

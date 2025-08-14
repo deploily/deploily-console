@@ -19,6 +19,7 @@ export default {
   'year': 'An',
   "login": "CONNEXION",
   "logout": "DÉCONNECTION",
+  "login_Register": "CONNEXION / INSCRIPTION",
   "gotoSite": "ACCÉDER AU SITE WEB",
   "details": "Détails",
   "moreDetails": "Plus de détails...",

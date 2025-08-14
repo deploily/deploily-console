@@ -1,3 +1,4 @@
+import { ManagedRessource, ManagedRessourceDetails } from "../resourceServicePlans/resourceServicesPlansInterface";
 
 export interface OdooAppByIdState {
   odooAppById?: OdooAppInterface;
@@ -47,7 +48,9 @@ export interface OdooAppInterface {
   odoo_password: string;
   price: number;
   required_restart: boolean;
-  ressource_service_plan: ServicePlan;
+  managed_ressource_details: ManagedRessourceDetails;
+  managed_ressource_id: number;
+  managed_ressource: ManagedRessource;
   service_plan: ServicePlan;
   service_plan_id: number;
   service_details: ServiceDetails;
@@ -74,3 +77,4 @@ interface ServiceDetails {
   minimal_disk: number;
   minimal_ram: number;
 }
+

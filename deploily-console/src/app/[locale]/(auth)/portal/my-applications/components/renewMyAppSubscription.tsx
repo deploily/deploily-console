@@ -41,9 +41,8 @@ export default function RenewMyAppSubscriptionComponents({
     }, []);
 
     const showDrawer = () => {
+
         const allPlans = servicePlanResponse?.result.flat();
-
-
         const matchedPlan = allPlans?.find(
             (p) => (p.id) === (plan)
         );
@@ -52,7 +51,7 @@ export default function RenewMyAppSubscriptionComponents({
 
         const matchedVpsPlan = allVpsPlans?.find(
             (v) => v.id === (selectedVpsPlan)
-        );
+        );     
         dispatch(
 
             updateUpgradeRenewMyAppState({
@@ -60,10 +59,13 @@ export default function RenewMyAppSubscriptionComponents({
                 oldAppServiceStartDate: start_date,
                 oldAppServiceDuration: duration,
                 app_service_plan: matchedPlan,
-                resource_service_plan: matchedVpsPlan,
+                managed_ressource_details: matchedVpsPlan,
             })
+
+
         );
         if (onClick) onClick();
+            
 
         dispatch(
             openDrawer({
@@ -71,7 +73,9 @@ export default function RenewMyAppSubscriptionComponents({
                 vpsPlan: matchedVpsPlan,
             })
         );
-    };
+    }
+
+
 
     return (
         <Button

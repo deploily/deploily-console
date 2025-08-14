@@ -8,15 +8,15 @@ const resourceServicesPlansMiddleware = (store: MiddlewareAPI<ThunkDispatch<any,
         switch (action.type) {
             case 'resourceServicesPlansSlice/updateSelectedPlan':
                 if (action.payload !== undefined) {
-                    store.dispatch(updateNewAppSubscriptionState({ "resource_service_plan": action.payload }));
-                    store.dispatch(updateUpgradeRenewMyAppState({ "resource_service_plan": action.payload }));
+                    store.dispatch(updateNewAppSubscriptionState({ "managed_ressource_details": action.payload }));
+                    store.dispatch(updateUpgradeRenewMyAppState({ "managed_ressource_details": action.payload }));
                 }
                 break;
             case 'ressourcePlans/getResourceServicesPlans/fulfilled':
 
                 if (action.payload !== undefined && action.payload.result.length > 0) {
-                    store.dispatch(updateNewAppSubscriptionState({ "resource_service_plan": action.payload.result[0] }));
-                    store.dispatch(updateUpgradeRenewMyAppState({ "resource_service_plan": action.payload.result[0] }));
+                    store.dispatch(updateNewAppSubscriptionState({ "managed_ressource_details": action.payload.result[0] }));
+                    store.dispatch(updateUpgradeRenewMyAppState({ "managed_ressource_details": action.payload.result[0] }));
                 }
                 break;
             default:

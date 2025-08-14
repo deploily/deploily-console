@@ -184,23 +184,23 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                                     }}>
                                         <UpgradeMyAppSubscriptionComponents
                                             serviceId={ttkEpayById.service_details.id}
-                                            oldPrice={ttkEpayById.price}
+                                            oldPrice={ttkEpayById.total_amount}
                                             start_date={ttkEpayById.start_date}
                                             onClick={() =>
                                                 setDrawerActionType("upgrade")
                                             }
                                         />
-{/*                                         <RenewMyAppSubscriptionComponents
+                                        <RenewMyAppSubscriptionComponents
                                             serviceId={ttkEpayById.service_details.id}
-                                            oldPrice={ttkEpayById.price}
+                                            oldPrice={ttkEpayById.total_amount}
                                             start_date={ttkEpayById.start_date}
                                             duration={ttkEpayById.duration_month}
-                                            plan={ttkEpayById.service_plan.id}
-                                            selectedVpsPlan={ttkEpayById.ressource_service_plan.id}
+                                            plan={ttkEpayById.service_plan?.id}
+                                            selectedVpsPlan={ttkEpayById.managed_ressource_details?.id}
                                             onClick={() =>
                                                 setDrawerActionType("renew")
                                             }
-                                        /> */}
+                                        />
                                     </div>
                                 )}
                             </Row>

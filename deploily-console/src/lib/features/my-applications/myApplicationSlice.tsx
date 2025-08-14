@@ -38,7 +38,7 @@ const initialState: ApplicationServiceState = {
   upgradeRenewMyApplicationData: {
     duration: 3,
     price: 0,
-    resource_service_plan: undefined,
+    managed_ressource_details: undefined,
     app_service_plan: undefined,
     totalamount: 0,
     selectedProfile: undefined,
@@ -63,13 +63,13 @@ const ApplicationServiceSlice = createSlice({
       let updatedState: UpgradeMyApplicationInterface = {
         ...state.upgradeRenewMyApplicationData,
         ...action.payload
-      };
+      };      
       let updatedAmount = 0;
       if (updatedState.app_service_plan !== undefined) {
         updatedAmount = updatedState.duration * updatedState.app_service_plan.price;
 
-        if (updatedState.resource_service_plan !== undefined) {
-          updatedAmount += updatedState.duration * updatedState.resource_service_plan.price;
+        if (updatedState.managed_ressource_details !== undefined) {
+          updatedAmount += updatedState.duration * updatedState.managed_ressource_details.price;
         }
       }
 
