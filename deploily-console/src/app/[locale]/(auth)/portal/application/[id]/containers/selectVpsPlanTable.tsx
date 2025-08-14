@@ -1,7 +1,7 @@
 'use client';
 
 import { useNewApplicationSubscription } from '@/lib/features/application/applicationServiceSelectors';
-import { ResourceServicePlan } from '@/lib/features/resourceServicePlans/resourceServicesPlansInterface';
+import { ManagedRessourceDetails } from '@/lib/features/resourceServicePlans/resourceServicesPlansInterface';
 import { useServicePlansByType } from '@/lib/features/resourceServicePlans/resourceServicesPlansSelectors';
 import { updateSelectedPlan } from '@/lib/features/resourceServicePlans/resourceServicesPlansSlice';
 import { fetchResourceServicesPlans } from '@/lib/features/resourceServicePlans/resourceServicesPlansThunk';
@@ -16,8 +16,8 @@ import { useScopedI18n } from '../../../../../../../../locales/client';
 
 
 interface SelectVpsPlanTableProps {
-  onVpsPlanSelect?: (plan: ResourceServicePlan) => void;
-  selectedVpsPlan?: ResourceServicePlan | null;
+  onVpsPlanSelect?: (plan: ManagedRessourceDetails) => void;
+  selectedVpsPlan?: ManagedRessourceDetails | null;
 }
 
 export default function SelectVpsPlanTable({
@@ -28,7 +28,7 @@ export default function SelectVpsPlanTable({
   const tApplications = useScopedI18n('applications');
 
   const { servicePlansList } = useServicePlansByType();
-  const { resource_service_plan } = useNewApplicationSubscription();
+  const { managed_ressource_details } = useNewApplicationSubscription();
 
   useEffect(() => {
     dispatch(fetchResourceServicesPlans());
@@ -53,7 +53,7 @@ export default function SelectVpsPlanTable({
     if (selectedVpsPlan) {
       return selectedVpsPlan.id;
     }
-    return resource_service_plan?.id;
+    return managed_ressource_details?.id;
   };
 
   return (
@@ -83,11 +83,11 @@ export default function SelectVpsPlanTable({
               title: tApplications('resource'),
               dataIndex: "resource",
               render: (plan) => plan != undefined ? <div style={{ color: 'white' }}>
-               
+
                 <a href={`/portal/cloud-resources/${plan.service_id}`}>
                   {`${plan.provider_info?.name}`}{`/ ${plan.plan_name}`}
                 </a>
-                
+
               </div> : undefined,
             },
             {

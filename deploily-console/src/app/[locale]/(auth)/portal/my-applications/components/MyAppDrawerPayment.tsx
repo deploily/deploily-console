@@ -19,7 +19,7 @@ import AppPromoCodeTextField from "../../application/[id]/containers/payment-com
 import IsBalanceSufficientComponent from "../../application/[id]/containers/payment-components/isBalanceSufficientComponent";
 import { options } from "../../application/utils/applicationConst";
 
-export default function MyAppPaymentDrawer({ serviceId , openDrawer, onClose, subscriptionOldId, isSubscribed, drawerType }:
+export default function MyAppPaymentDrawer({ serviceId, openDrawer, onClose, subscriptionOldId, isSubscribed, drawerType }:
     { serviceId: any, openDrawer: any, onClose: any, subscriptionOldId: any, isSubscribed?: boolean, drawerType?: any }) {
     const router = useRouter()
 
@@ -30,7 +30,7 @@ export default function MyAppPaymentDrawer({ serviceId , openDrawer, onClose, su
     const { applicationServiceById } = useApplicationServiceById()
 
     const { paymentProfilesList } = useNotDefaultPaymentProfiles();
-    const { totalamount, duration, selected_version, app_service_plan, resource_service_plan, selectedProfile, isBalanceSufficient } = useUpgradeRenewMyApplicationDataState();
+    const { totalamount, duration, selected_version, app_service_plan, managed_ressource_details, selectedProfile, isBalanceSufficient } = useUpgradeRenewMyApplicationDataState();
 
     const handleSelectPaymentProfile = (value: any) => {
         const newSelectedProfile = paymentProfilesList?.result.find(
@@ -48,8 +48,9 @@ export default function MyAppPaymentDrawer({ serviceId , openDrawer, onClose, su
         dispatch(updateUpgradeRenewMyAppState({ selected_version: applicationServiceById?.app_versions[0] }));
     }, [applicationServiceById])
 
+    
     const handleUpgradeSubscribe = async () => {
-        if (app_service_plan != undefined && resource_service_plan != undefined && selectedProfile != undefined) {
+        if (app_service_plan != undefined && managed_ressource_details != undefined && selectedProfile != undefined) {
 
             if (drawerType === "upgrade") {
                 return dispatch(upgradeMyApplication(
@@ -126,7 +127,7 @@ export default function MyAppPaymentDrawer({ serviceId , openDrawer, onClose, su
                         }}
                     >
                         {[
-                            { label: tApplications("svc"), value:applicationServiceById?.name },
+                            { label: tApplications("svc"), value: applicationServiceById?.name },
                             { label: tApplications("plan"), value: app_service_plan?.plan.name },
                             {
                                 label: tApplications("duration"),
@@ -186,15 +187,15 @@ export default function MyAppPaymentDrawer({ serviceId , openDrawer, onClose, su
                             },
                             {
                                 label: tApplications("provider"),
-                                value: resource_service_plan?.provider_info?.name,
+                                value: managed_ressource_details?.provider_info?.name,
                             },
                             {
                                 label: tApplications("vpsType"),
-                                value: resource_service_plan?.service_name ?? "",
+                                value: managed_ressource_details?.service_name ?? "",
                             },
                             {
                                 label: tApplications("resourcePlan"),
-                                value: resource_service_plan?.plan_name ?? "",
+                                value: managed_ressource_details?.plan_name ?? "",
                             },
                             {
                                 label: tApplications("promoCode"),

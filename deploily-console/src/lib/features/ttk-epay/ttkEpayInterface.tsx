@@ -1,4 +1,4 @@
-import { ResourceServicePlan } from "../resourceServicePlans/resourceServicesPlansInterface";
+import { ManagedRessource, ManagedRessourceDetails } from "../resourceServicePlans/resourceServicesPlansInterface";
 
 export interface TtkEpayByIdState {
   ttkEpayById?: TtkEpayInterface;
@@ -33,8 +33,9 @@ export interface TtkEpayInterface {
   price: number;
   service_plan: Service_plan;
   service_plan_id: string;
-  ressource_service_plan_id: number;
-  ressource_service_plan: ResourceServicePlan;
+  managed_ressource_id: number;
+  managed_ressource: ManagedRessource;
+  managed_ressource_details: ManagedRessourceDetails;
   start_date: Date,
   status: string;
   total_amount: number;
@@ -95,3 +96,6 @@ interface ServiceDetails {
   minimal_ram: number;
   is_subscribed: boolean;
 }
+
+
+

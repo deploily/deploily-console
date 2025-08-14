@@ -28,20 +28,20 @@ export default function ApplicationPaymentComponent({ isSubscribed, subscription
   const handleApplicationSubscription = async (captchaToken?: string) => {
     const {
       app_service_plan,
-      resource_service_plan,
+      managed_ressource_details,
       selectedProfile,
       selected_version,
       duration,
       promoCode,
     } = newApplicationSubscription;
 
-    if (app_service_plan && resource_service_plan && selectedProfile) {
+    if (app_service_plan && managed_ressource_details && selectedProfile) {
       const baseSubscriptionObject = {
         duration: Number.parseInt(`${duration}`),
         promo_code: promoCode,
         payment_method: paymentMethod,
         service_plan_selected_id: app_service_plan.id,
-        ressource_service_plan_selected_id: resource_service_plan.id,
+        ressource_service_plan_selected_id: managed_ressource_details.id,
         profile_id: selectedProfile.id,
         version_selected_id: selected_version?.id,
       };
@@ -64,7 +64,7 @@ export default function ApplicationPaymentComponent({ isSubscribed, subscription
         }
 
         if (drawerType === "upgrade") {
-       
+
           dispatch(upgradeMyApplication({
             service_slug: applicationServiceById?.service_slug,
             payment_method: "bank_transfer",

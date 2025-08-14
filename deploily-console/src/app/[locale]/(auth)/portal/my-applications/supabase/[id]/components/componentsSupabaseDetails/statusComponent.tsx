@@ -49,7 +49,7 @@ export default function StatusComponents({ supabaseAppById }: { supabaseAppById:
                             }}>
                                 <UpgradeMyAppSubscriptionComponents
                                     serviceId={supabaseAppById.service_details.id}
-                                    oldPrice={supabaseAppById.price}
+                                    oldPrice={supabaseAppById.total_amount}
                                     start_date={supabaseAppById.start_date}
                                     onClick={() =>
                                         setDrawerActionType("upgrade")
@@ -57,11 +57,11 @@ export default function StatusComponents({ supabaseAppById }: { supabaseAppById:
                                 />
                                 <RenewMyAppSubscriptionComponents
                                     serviceId={supabaseAppById.service_details.id}
-                                    oldPrice={supabaseAppById.price}
+                                    oldPrice={supabaseAppById.total_amount}
                                     start_date={supabaseAppById.start_date}
                                     duration={supabaseAppById.duration_month}
                                     plan={supabaseAppById.service_plan.id}
-                                    selectedVpsPlan={supabaseAppById.ressource_service_plan.id}
+                                    selectedVpsPlan={supabaseAppById.managed_ressource_details.id}
                                     onClick={() =>
                                         setDrawerActionType("renew")
                                     }

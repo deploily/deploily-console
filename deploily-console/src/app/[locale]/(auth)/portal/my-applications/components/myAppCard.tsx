@@ -77,7 +77,7 @@ export default function MyAppCard({ data }: { data: myApplicationInterface }) {
                             display: "flex", justifyContent: "end"
                         }}>
                         <Paragraph style={{ color: "#DD8859", fontSize: 16, }}>
-                            {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(data.price)} DZD {data.service_plan.unity} / {data.service_plan.subscription_category === "monthly" ? t("month") : t("year")}
+                            {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(data.total_amount)} DZD {data.service_plan.unity} / {data.service_plan.subscription_category === "monthly" ? t("month") : t("year")}
 
                         </Paragraph>
                     </Col>

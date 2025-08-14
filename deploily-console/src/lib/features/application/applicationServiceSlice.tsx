@@ -29,7 +29,7 @@ const initialState: ApplicationServiceState = {
     newAppSubscriptionState: {
         duration: 3,
         price: 0,
-        resource_service_plan: undefined,
+        managed_ressource_details: undefined,
         // resource_service_plan_id: undefined,
         app_service_plan: undefined,
         // service_plan_selected_id: undefined,
@@ -51,13 +51,13 @@ const ApplicationServiceSlice = createSlice({
     reducers: {
         updateNewAppSubscriptionState: (state, action: PayloadAction<any>) => {
             let updatedState: NewApplicationSubscriptionState = { ...state.newAppSubscriptionState, ...action.payload }
-            
+
             let updatedAmount = 0;
             if (updatedState.app_service_plan != undefined) {
                 updatedAmount = updatedState.duration * updatedState.app_service_plan.price;
                 updatedState = { ...updatedState, totalAmount: updatedAmount }
-                if (updatedState.resource_service_plan != undefined) {
-                    updatedAmount += updatedState.duration * updatedState.resource_service_plan.price;
+                if (updatedState.managed_ressource_details != undefined) {
+                    updatedAmount += updatedState.duration * updatedState.managed_ressource_details.price;
                     updatedState = { ...updatedState, totalAmount: updatedAmount }
                 }
             }

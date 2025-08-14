@@ -29,7 +29,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
     const onClose = () => setOpenDrawer(false);
 
     const { applicationServiceById, isLoading, loadingError } = useApplicationServiceById();
-    const { totalAmount, duration, selected_version, app_service_plan, resource_service_plan } = useNewApplicationSubscription();
+    const { totalAmount, duration, selected_version, app_service_plan, managed_ressource_details } = useNewApplicationSubscription();
 
     const tApplications = useScopedI18n('applications');
     const t = useI18n();
@@ -188,10 +188,10 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                     { label: tApplications('svc'), value: applicationServiceById.name },
                                     { label: tApplications("plan"), value: app_service_plan?.plan.name || "" },
 
-                                    { label: tApplications('provider'), value: resource_service_plan?.provider_info?.name || "" },
-                                    { label: tApplications("vpsType"), value: resource_service_plan?.service_name || "" },
-                                    { label: tApplications('resourcePlan'), value: resource_service_plan?.plan_name || "" },
-                                    { label: tApplications('prepaTime'), value: `${resource_service_plan?.preparation_time} h` || "" },
+                                    { label: tApplications('provider'), value: managed_ressource_details?.provider_info?.name || "" },
+                                    { label: tApplications("vpsType"), value: managed_ressource_details?.service_name || "" },
+                                    { label: tApplications('resourcePlan'), value: managed_ressource_details?.plan_name || "" },
+                                    { label: tApplications('prepaTime'), value: `${managed_ressource_details?.preparation_time} h` || "" },
                                     {
                                         label: tApplications('version'),
                                         value: (

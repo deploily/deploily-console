@@ -1,3 +1,4 @@
+import { ManagedRessource, ManagedRessourceDetails } from "../resourceServicePlans/resourceServicesPlansInterface";
 
 export interface SupabaseAppByIdState {
  supabaseAppById?: SupabaseAppInterface;
@@ -47,6 +48,9 @@ export interface SupabaseAppInterface {
   price: number;
   required_restart: boolean;
   ressource_service_plan: ServicePlan;
+  managed_ressource: ManagedRessource;
+  managed_ressource_details: ManagedRessourceDetails;
+  managed_ressource_id: number;
   service_plan: ServicePlan;
   service_plan_id: number;
   service_details: ServiceDetails;
@@ -75,3 +79,4 @@ interface ServiceDetails {
   minimal_disk: number;
   minimal_ram: number;
 }
+

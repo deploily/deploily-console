@@ -49,7 +49,7 @@ export default function StatusComponents({ odooAppById }: { odooAppById: any }) 
                             }}>
                                 <UpgradeMyAppSubscriptionComponents
                                     serviceId={odooAppById.service_details.id}
-                                    oldPrice={odooAppById.price}
+                                    oldPrice={odooAppById.total_amount}
                                     start_date={odooAppById.start_date}
                                     onClick={() =>
                                         setDrawerActionType("upgrade")
@@ -57,11 +57,11 @@ export default function StatusComponents({ odooAppById }: { odooAppById: any }) 
                                 />
                                 <RenewMyAppSubscriptionComponents
                                     serviceId={odooAppById.service_details.id}
-                                    oldPrice={odooAppById.price}
+                                    oldPrice={odooAppById.total_amount}
                                     start_date={odooAppById.start_date}
                                     duration={odooAppById.duration_month}
                                     plan={odooAppById.service_plan.id}
-                                    selectedVpsPlan={odooAppById.ressource_service_plan.id}
+                                    selectedVpsPlan={odooAppById.managed_ressource_details?.id}
                                     onClick={() =>
                                         setDrawerActionType("renew")
                                     }
