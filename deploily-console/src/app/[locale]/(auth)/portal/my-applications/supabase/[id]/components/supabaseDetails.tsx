@@ -19,7 +19,6 @@ import Link from "antd/es/typography/Link";
 export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
     const t = useI18n();
 
-    const tSubscription = useScopedI18n('subscription');
     const tSupabase = useScopedI18n('supabase');
 
     const dispatch = useAppDispatch();
@@ -64,7 +63,7 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                                     alignSelf: "start"
                                 }}>
                                     <Typography.Title level={2} style={{ color: theme.token.orange400 }}>
-                                        {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(supabaseAppById.price)} DZD / {supabaseAppById.service_plan.subscription_category === "monthly" ? t("month") : t("year")}
+                                        {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(supabaseAppById.total_amount)} DZD / {supabaseAppById.service_plan.subscription_category === "monthly" ? t("month") : t("year")}
 
                                     </Typography.Title>
                                 </Col>
