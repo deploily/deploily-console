@@ -1,6 +1,6 @@
 import { AppVersionInterface } from "../application/applicationServiceInterface";
 import { PaymentProfileInterface } from "../payment-profiles/paymentProfilesInterface";
-import { ResourceServicePlan } from "../resourceServicePlans/resourceServicesPlansInterface";
+import { ManagedRessourceDetails } from "../resourceServicePlans/resourceServicesPlansInterface";
 import { ServicePlan } from "../service-plans/servicePlanInterface";
 
 export interface MyApplicationState {
@@ -95,7 +95,7 @@ export interface UpgradeMyApplicationInterface {
   totalamount: number,
   selectedProfile?: PaymentProfileInterface,
   isBalanceSufficient: boolean | null,
-  resource_service_plan?: ResourceServicePlan,
+  managed_ressource_details?: ManagedRessourceDetails,
   app_service_plan?: ServicePlan,
   selected_version?: AppVersionInterface,
   promoCode: string,
