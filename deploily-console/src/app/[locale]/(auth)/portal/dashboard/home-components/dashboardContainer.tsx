@@ -15,14 +15,13 @@ import { useAppDispatch } from '@/lib/hook';
 import { Handshake, Heart, Invoice, Question, SquaresFour } from '@phosphor-icons/react/dist/ssr';
 import { Card, Col, Row, Typography } from 'antd';
 import { useEffect } from 'react';
-import { useI18n, useScopedI18n } from '../../../../../../../locales/client';
+import { useScopedI18n } from '../../../../../../../locales/client';
 import PaymentsListContainer from './payments_components';
 import Link from 'next/link';
 
 
 export default function DashboardContainer() {
     const dashboardtranslate = useScopedI18n("dashboard");
-    const t = useI18n();
 
     const { Title, Text } = Typography;
     const dispatch = useAppDispatch();
@@ -122,6 +121,7 @@ export default function DashboardContainer() {
                             style={{
                                 height: "100%",
                                 minHeight: 170,
+                                minWidth:130,
                                 backgroundColor: stat.color,
                                 color: '#fff',
                                 borderRadius: '8px',
