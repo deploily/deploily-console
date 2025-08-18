@@ -16,7 +16,7 @@ import { Handshake, Heart, Invoice, Question, SquaresFour } from '@phosphor-icon
 import { Card, Col, Row, Typography } from 'antd';
 import { useEffect } from 'react';
 import { useScopedI18n } from '../../../../../../../locales/client';
-import PaymentsListContainer from './payments_components';
+import PaymentsListContainer from './paymentsComponents';
 import Link from 'next/link';
 
 

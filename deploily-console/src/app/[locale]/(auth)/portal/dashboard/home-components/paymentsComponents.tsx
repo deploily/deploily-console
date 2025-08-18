@@ -41,40 +41,18 @@ export default function PaymentsListContainer() {
                 dataIndex: "id",
                 key: "id",
             },
-            {
-                title: t("profile"),
-                dataIndex: "profile",
-                key: "profile",
-                render: (profile: PaymentProfileInterface) => profile?.name.charAt(0).toUpperCase() + profile.name.slice(1) || "-",
-            },
-            {
-                title: t("serviceName"),
-                dataIndex: "apiServiceSubscription",
-                key: "apiServiceSubscription",
-                render: (subscribe: ApiServiceSubscriptionInterface) => subscribe?.name || "-",
-            },
+            // {
+            //     title: t("serviceName"),
+            //     dataIndex: "apiServiceSubscription",
+            //     key: "apiServiceSubscription",
+            //     render: (subscribe: ApiServiceSubscriptionInterface) => subscribe?.name || "-",
+            // }, //TODO: Uncomment when subscription is available
             {
                 title: t("amount"),
                 dataIndex: "amount",
                 key: "amount",
                 render: (amount: number) =>
                     amount ? amount.toLocaleString("fr-FR", { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + " DZD " : "-",
-            },
-
-            {
-                title: t("paymentMethod"),
-                dataIndex: "payment_method",
-                key: "payment_method",
-                render: (payment_method: string) => {
-                    switch (payment_method) {
-                        case "bank_transfer":
-                            return t("bank");
-                        case "card":
-                            return t("card");
-                        default:
-                            return "-";
-                    }
-                },
             },
             {
                 title: t("startDate"),

@@ -53,7 +53,7 @@ export default function DurationComponent({ odooAppById }: { odooAppById: any })
                         </Col>
                         <Col xs={24} md={16}>
                             <DatePickerStyle
-                                style={{ width: 160, color: theme.token.colorWhite }}
+                                style={{ width: "100%", color: theme.token.colorWhite }}
                                 defaultValue={dayjs(odooAppById.start_date, "YYYY-MM-DD")}
                                 disabled
                                 suffixIcon={<CalendarDots size={24} style={{ color: theme.token.blue200 }} />}
@@ -71,7 +71,7 @@ export default function DurationComponent({ odooAppById }: { odooAppById: any })
                         <Col xs={24} md={16}>
                             <CustomSubscripionInput
                                 defaultValue={`${odooAppById.duration_month} / month(s)`}
-                                style={{ width: 160, color: theme.token.colorWhite }}
+                                style={{ width: "100%", color: theme.token.colorWhite }}
                                 disabled
                             />
                         </Col>
@@ -89,7 +89,7 @@ export default function DurationComponent({ odooAppById }: { odooAppById: any })
                             <CustomSubscripionInput
                                 defaultValue={`${getRemainingDuration(odooAppById.start_date, odooAppById.duration_month)} / month(s)`}
                                 style={{
-                                    width: 160,
+                                    width: "100%",
                                     color:
                                         remainingDuration !== undefined && remainingDuration <= 1
                                             ? theme.token.colorError
