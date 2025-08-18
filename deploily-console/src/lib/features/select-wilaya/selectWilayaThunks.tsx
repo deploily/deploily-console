@@ -10,6 +10,8 @@ export const fetchWilayaFromPosition = createAsyncThunk(
     const wilayaApiUrl = await getWilayaApiUrl()
     try {
 
+      // TODO move to server side component `/api/getWilaya`
+      // call local /api/getWilaya endpoint
       const response = await axiosInstance.get(`${wilayaApiUrl.WILAYA_API_URL}getWilaya?lat=${lat}&long=${long}`, {
         headers: {
           accept: "application/json",

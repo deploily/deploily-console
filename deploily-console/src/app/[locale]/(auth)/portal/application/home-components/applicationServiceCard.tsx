@@ -12,7 +12,7 @@ import { useState } from "react";
 import { useI18n } from "../../../../../../../locales/client";
 import { ApplicationServiceInterface } from "@/lib/features/application/applicationServiceInterface";
 
-export default function ApplicationServiceCard({ data }: {data:ApplicationServiceInterface}) {
+export default function ApplicationServiceCard({ data }: { data: ApplicationServiceInterface }) {
     const [hovered, setHovered] = useState(false);
 
     const t = useI18n();
@@ -31,7 +31,7 @@ export default function ApplicationServiceCard({ data }: {data:ApplicationServic
         <Card
             hoverable
             style={{
-                minWidth: 220,
+                minWidth: 250,
                 maxWidth: 270,
                 height: 350,
             }}
@@ -75,37 +75,26 @@ export default function ApplicationServiceCard({ data }: {data:ApplicationServic
                             />
                         </Badge>
                     </Col>
-
                     <Col
-                        xs={24}
-                        sm={12}
+                        span={12}
                         style={{
-                            display: "flex",
-                            justifyContent: screens.xs ? "start" : "flex-end",
-                            alignItems: "start",
                             height: "100%",
-                            paddingTop: 8,
-                            paddingBottom: 8,
+                            fontWeight: "bold",
+                            justifyContent: "end",
+                            display: "flex",
                         }}
                     >
-                        <Space direction="horizontal" size={8}>
-
-                            <Paragraph
-                                style={{
-                                    color: "#DD8859",
-                                    fontSize: 16,
-                                    margin: 0,
-                                    fontWeight: "bold",
-                                }}
-                            >
-                                {Intl.NumberFormat("fr-FR", {
-                                    useGrouping: true,
-                                }).format(data.min_app_price)}{" "}
-                                DZD / {data.price_category === "monthly" ? t("month") : t("year")}
-                            </Paragraph>
-                        </Space>
+                        <Row>
+                            <Col span={24}>
+                                <Paragraph style={{ color: "#DD8859", fontSize: 16, margin: 0 }}>
+                                    {Intl.NumberFormat("fr-FR", {
+                                        useGrouping: true,
+                                    }).format(data.min_app_price)}{" "}
+                                    DZD / {data.price_category === "monthly" ? t("month") : t("year")}
+                                </Paragraph>
+                            </Col>
+                        </Row>
                     </Col>
-
                 </Row>
 
                 {/* Title & Description */}
