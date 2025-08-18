@@ -49,8 +49,8 @@ export default function PaymentsListContainer() {
             },
             {
                 title: t("serviceName"),
-                dataIndex: "apiServiceSubscription",
-                key: "apiServiceSubscription",
+                dataIndex: "subscription",
+                key: "subscription",
                 render: (subscribe: ApiServiceSubscriptionInterface) => subscribe?.name || "-",
             },
             {
