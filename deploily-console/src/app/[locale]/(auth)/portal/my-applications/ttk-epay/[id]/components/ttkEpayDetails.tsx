@@ -240,7 +240,7 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                                 </Col>
                                 <Col xs={24} md={16}>
                                     <DatePickerStyle
-                                        style={{ width: 160, color: theme.token.colorWhite }}
+                                        style={{ width: "100%", color: theme.token.colorWhite }}
                                         defaultValue={dayjs(ttkEpayById.start_date, "YYYY-MM-DD")}
                                         disabled
                                         suffixIcon={<CalendarDots size={24} style={{ color: theme.token.blue200 }} />}
@@ -258,7 +258,7 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                                 <Col xs={24} md={16}>
                                     <CustomSubscripionInput
                                         defaultValue={`${ttkEpayById.duration_month} / month(s)`}
-                                        style={{ width: 160, color: theme.token.colorWhite }}
+                                        style={{ width: "100%", color: theme.token.colorWhite }}
                                         disabled
                                     />
                                 </Col>
@@ -276,7 +276,7 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                                     <CustomSubscripionInput
                                         defaultValue={`${getRemainingDuration(ttkEpayById.start_date, ttkEpayById.duration_month)} / month(s)`}
                                         style={{
-                                            width: 160,
+                                            width: '100%',
                                             color:
                                                 remainingDuration !== undefined && remainingDuration <= 1
                                                     ? theme.token.colorError
