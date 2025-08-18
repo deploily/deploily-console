@@ -96,7 +96,7 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                                     alignSelf: "start"
                                 }}>
                                     <Typography.Title level={2} style={{ color: theme.token.orange400 }}>
-                                    {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(ttkEpayById.service_plan.price + ttkEpayById.managed_ressource_details.price)} DZD {ttkEpayById.service_plan?.unity} / {ttkEpayById.service_plan.subscription_category === "monthly" ? t("month") : t("year")}
+                                        {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(ttkEpayById.service_plan.price + ttkEpayById.managed_ressource_details.price)} DZD {ttkEpayById.service_plan?.unity} / {ttkEpayById.service_plan.subscription_category === "monthly" ? t("month") : t("year")}
 
                                     </Typography.Title>
                                 </Col>
@@ -128,7 +128,7 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
 
 
                                 </Col>
-                                <Col span={24} style={{
+                                {ttkEpayById.console_url !== null ? <Col span={24} style={{
                                     display: "flex",
                                     justifyContent: "end",
                                     alignSelf: "start"
@@ -143,7 +143,7 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                                     </CustomTransparentOrangeButton>
 
 
-                                </Col>
+                                </Col> : null}
 
                             </Row>
                         </Col>
