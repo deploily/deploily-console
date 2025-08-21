@@ -39,7 +39,7 @@ export default function PaymentComponent({ selectedPlan, subscriptionOldId, IsSu
           onChange={onChange}
           value={paymentMethod}>
           <Radio value="bank_transfer">{t("bank")}</Radio>
-          <Radio value="card" disabled={!isPaymentEnabled}>{t("card")}</Radio>
+          <Radio value="card" >{t("card")}</Radio>
         </Radio.Group>
 
       </Flex>
