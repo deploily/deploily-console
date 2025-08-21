@@ -1,5 +1,4 @@
 "use client";
-import { NEXT_PUBLIC_SITE_KEY } from "@/deploilyWebsiteUrls";
 import { useApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSelectors";
 import { useApiServiceSubscription } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionSelectors";
 import { postApiServiceSubscription, postUpgradeApiServiceSubscription } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionThunks";
@@ -12,7 +11,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { useScopedI18n } from "../../../../../../../../../../locales/client";
 import EpayButton from "./epayButton";
 
-export default function CardPaymentComponent({ selectedPlan, subscriptionOldId, IsSubscribed}: { selectedPlan: any, subscriptionOldId?: any , IsSubscribed?: any }) {
+export default function CardPaymentComponent({ selectedPlan, subscriptionOldId, IsSubscribed }: { selectedPlan: any, subscriptionOldId?: any, IsSubscribed?: any }) {
 
     const [value, setValue] = useState(false);
     const onChangeCheckbox = (e: CheckboxChangeEvent) => {
@@ -100,11 +99,14 @@ export default function CardPaymentComponent({ selectedPlan, subscriptionOldId, 
                         DZD
                     </Typography.Title>
 
+
+
+                    {/*  //TODO uncomment this when you want to use reCAPTCHA
                     <ReCAPTCHA
                         sitekey={NEXT_PUBLIC_SITE_KEY}
                         ref={recaptchaRef}
                         onChange={handleCaptchaChange}
-                    />
+                    /> */}
 
                     <Checkbox style={{ padding: 15 }} onChange={onChangeCheckbox} checked={value}>
                         I accept the general conditions of use
