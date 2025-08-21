@@ -18,8 +18,7 @@ export default function EpayButton({ handleSubscribe }: { handleSubscribe: () =>
     return (
         <>
             <Button
-                //TODO add uncomment this
-                // disabled={!isPaymentEnabled}
+                disabled={!isPaymentEnabled}
                 style={{
                     color: "#fff",
                     backgroundColor:
