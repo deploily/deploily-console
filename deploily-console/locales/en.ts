@@ -17,7 +17,7 @@ export default {
     'forum': 'Forum',
     'demo_link': 'Demo link ',
     'login': 'LOGIN',
-    'login_Register': 'LOGIN / REGISTER',
+    'register': 'REGISTER',
     'logout': 'LOGOUT',
     'gotoSite': 'Goto website',
     'details': 'Details',

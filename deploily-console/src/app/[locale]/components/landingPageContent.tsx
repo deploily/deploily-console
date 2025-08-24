@@ -23,7 +23,6 @@ export default function LandingPageContent({ loginLogoutButton }: { loginLogoutB
               width={200}
               height={49}
               alt="logo-deploily"
-              layout="responsive"
               style={{
                 marginBottom: 50,
 
