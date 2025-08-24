@@ -20,7 +20,7 @@ export default {
   "login": "CONNEXION",
   "logout": "DÉCONNECTION",
   "login_Register": "CONNEXION / INSCRIPTION",
-  "gotoSite": "ACCÉDER AU SITE WEB",
+  "gotoSite": "Accéder au site web",
   "details": "Détails",
   "moreDetails": "Plus de détails...",
   "offeredBy": "Offert par",

@@ -14,7 +14,7 @@ git clone git@github.com:deploily/deploily-console.git
 cd deploily-console
 ```
 After first clone 
-```
+```bash
 git submodule update --init --recursive
 ```
 
@@ -65,15 +65,3 @@ npm run build
 
 ## Useful links 
 - [I have a problem setup Jest in my NextJS project](https://github.com/vercel/next.js/discussions/58994)
-
-
-
-
-
-## API TESTS
-
-```
-curl -H "apikey: 8572d75b84474946bcca5ba85c3d0897" "https://api.deploily.cloud/photon/api?q=temouchent"
-```
-
-

@@ -19,7 +19,7 @@ export default {
     'login': 'LOGIN',
     'login_Register': 'LOGIN / REGISTER',
     'logout': 'LOGOUT',
-    'gotoSite': 'GO TO THE WEBSITE',
+    'gotoSite': 'Goto website',
     'details': 'Details',
     'moreDetails': 'More Details ...',
     'offeredBy': 'Offered by',
@@ -71,7 +71,7 @@ export default {
     "requestQuote": "Request a quote",
     "DZD": "DZD",
     "explore": "Explore",
-    
+
     'sidebar.home': 'Home',
     'sidebar.dashboard': 'Dashboard',
     'sidebar.members': 'Members',
@@ -291,7 +291,7 @@ export default {
     "epayment.sendByEmail": 'Send by Email',
     "epayment.download": 'Download',
     "epayment.print": 'Print',
-   
+
     "itemsHelp.label1": "How does it work?",
     "itemsHelp.children1": "Deploily establishes a contract with a cloud provider to obtain exclusive discounts.",
     "itemsHelp.label2": "How to get a discount?",
@@ -374,7 +374,7 @@ export default {
     "dashboard.subscribeNewAffiliation": "Subscribe New Affiliation",
     "dashboard.seeMyApplications": "See My Applications",
     "dashboard.subscribeNewApplication": "Subscribe New Application",
-   
+
     "odooApp.password": "Odoo master password",
 
     "supabase.supabase_anonKey": "Supabase anon Key",
@@ -384,6 +384,6 @@ export default {
     "history.amount": "Amount",
     "history.status": "Status",
     "history.start_date": "Start date",
-   
+
 
 } as const
