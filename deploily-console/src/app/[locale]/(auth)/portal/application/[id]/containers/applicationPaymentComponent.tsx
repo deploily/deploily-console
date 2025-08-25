@@ -25,6 +25,11 @@ export default function ApplicationPaymentComponent({ isSubscribed, subscription
   const { applicationServiceById } = useApplicationServiceById()
   const router = useRouter()
   const { newSubscriptionResponse } = useNewApplicationSubscriptionResponse();
+  useEffect(() => {
+    if (newSubscriptionResponse?.form_url) {
+      redirect(newSubscriptionResponse.form_url);
+    }
+  }, [newSubscriptionResponse, router]);
   const handleApplicationSubscription = async (captchaToken?: string) => {
     const {
       app_service_plan,
@@ -81,15 +86,7 @@ export default function ApplicationPaymentComponent({ isSubscribed, subscription
         dispatch(applicationSubscribe({
           service_slug: applicationServiceById?.service_slug,
           data: subscriptionPayload
-        })).then((response: any) => {
-          if (response.meta.requestStatus === "fulfilled") {
-            if (newSubscriptionResponse?.form_url) {
-              redirect(newSubscriptionResponse.form_url);
-            } else {
-              router.push(`/portal/my-applications/`);
-            }
-          }
-        });
+        }));
       }
     }
   };

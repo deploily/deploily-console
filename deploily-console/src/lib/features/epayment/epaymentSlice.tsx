@@ -30,7 +30,7 @@ const EpaymentSlice = createSlice({
       .addCase(checkEpaymentStatus.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isError = null;
-        state.paymentStatus = action.payload.details;
+        state.paymentStatus = action.payload;
 
       })
       .addCase(checkEpaymentStatus.rejected, (state, { payload }) => {
