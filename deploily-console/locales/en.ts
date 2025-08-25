@@ -384,6 +384,9 @@ export default {
     "history.amount": "Amount",
     "history.status": "Status",
     "history.start_date": "Start date",
+    "cibEdahabia": "CIB/ E-Dahabia",
+    "acceptGeneralConditions": " I accept the general conditions of use",
+
 
 
 } as const

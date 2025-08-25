@@ -394,5 +394,7 @@ export default {
   "history.amount": "Montant",
   "history.status": "Statut",
   "history.start_date": "Date de début",
+  "cibEdahabia": "CIB/ E-Dahabia",
+  "acceptGeneralConditions": " J'accepte les conditions générales d'utilisation",
 
 } as const;
