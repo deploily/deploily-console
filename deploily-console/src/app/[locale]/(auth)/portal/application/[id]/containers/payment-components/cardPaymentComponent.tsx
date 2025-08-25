@@ -1,14 +1,16 @@
 "use client";
-import { theme } from "@/styles/theme";
-import {  Card, Checkbox, CheckboxChangeEvent, Typography } from "antd";
-import { useRef, useState } from "react";
-import ReCAPTCHA from "react-google-recaptcha";
-import { NEXT_PUBLIC_SITE_KEY } from "@/deploilyWebsiteUrls";
-import EpayButton from "./epayButton";
-import { useScopedI18n } from "../../../../../../../../../locales/client";
+import { getCaptchaSiteKey } from "@/actions/getCaptchaSiteKey";
 import { useNewApplicationSubscription } from "@/lib/features/application/applicationServiceSelectors";
+import { theme } from "@/styles/theme";
+import { Card, Checkbox, CheckboxChangeEvent, Typography } from "antd";
+import { useEffect, useRef, useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
+import { useI18n, useScopedI18n } from "../../../../../../../../../locales/client";
+import EpayButton from "./epayButton";
 
-export default function CardPaymentComponent({ handleSubscribe }: { handleSubscribe: (captcha_token:string) => Promise<void> }) {
+export default function CardPaymentComponent({ handleSubscribe }: { handleSubscribe: (captcha_token: string) => Promise<void> }) {
+    const t = useI18n();
+
 
     const [value, setValue] = useState(false);
     const onChangeCheckbox = (e: CheckboxChangeEvent) => {
@@ -24,19 +26,31 @@ export default function CardPaymentComponent({ handleSubscribe }: { handleSubscr
         setCaptchaToken(value);
     };
 
+
+
+
+    const [captchaSiteKey, setCaptchaSiteKey] = useState<any>(undefined)
+    useEffect(() => {
+        const fetchCaptchaSiteKey = async () => {
+            const siteKey = await getCaptchaSiteKey()
+            setCaptchaSiteKey(siteKey);
+        };
+        fetchCaptchaSiteKey();
+    }, []);
+
     return (
         <>
-            <Card 
-            title="CIB/ E-Dahabia"//TODO TRANSLATE
-             style={{
-                marginTop: 20,
-                display: "flex",
-                flexDirection: "column",
-                height: "100%",
-                borderColor: theme.token.gray50,
-                boxShadow: "none",
-                textAlign: "center"
-            }}
+            <Card
+                title={t('cibEdahabia')}
+                style={{
+                    marginTop: 20,
+                    display: "flex",
+                    flexDirection: "column",
+                    height: "100%",
+                    borderColor: theme.token.gray50,
+                    boxShadow: "none",
+                    textAlign: "center"
+                }}
                 styles={{ header: { borderColor: theme.token.gray50, textAlign: "start" } }}
             >
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
@@ -49,18 +63,17 @@ export default function CardPaymentComponent({ handleSubscribe }: { handleSubscr
                     </Typography.Title>
 
                     <ReCAPTCHA
-                        sitekey={NEXT_PUBLIC_SITE_KEY}
+                        sitekey={captchaSiteKey}
                         ref={recaptchaRef}
                         onChange={handleCaptchaChange}
                     />
 
                     <Checkbox style={{ padding: 15 }} onChange={onChangeCheckbox} checked={value}>
-                        I accept the general conditions of use
-                        {/* //TODO TRANSLATE THIS */}
+                        {t('acceptGeneralConditions')}
                     </Checkbox>
-                    <EpayButton handleSubscribe={async ()=> await handleSubscribe(captchaToken??"")} />
+                    <EpayButton handleSubscribe={async () => await handleSubscribe(captchaToken ?? "")} />
                 </div>
-            </Card>
+            </Card >
         </>
     )
 }
