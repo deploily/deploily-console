@@ -1,5 +1,5 @@
 "use client";
-import { NEXT_PUBLIC_SITE_KEY } from "@/deploilyWebsiteUrls";
+import { getCaptchaSiteKey } from "@/actions/getCaptchaSiteKey";
 import { useApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSelectors";
 import { useApiServiceSubscription } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionSelectors";
 import { postApiServiceSubscription, postUpgradeApiServiceSubscription } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionThunks";
@@ -39,6 +39,14 @@ export default function CardPaymentComponent({ selectedPlan, subscriptionOldId, 
     const handleCaptchaChange = (value: string | null) => {
         setCaptchaToken(value);
     };
+    const [captchaSiteKey, setCaptchaSiteKey] = useState<any>(undefined)
+    useEffect(() => {
+        const fetchCaptchaSiteKey = async () => {
+            const siteKey = await getCaptchaSiteKey()
+            setCaptchaSiteKey(siteKey);
+        };
+        fetchCaptchaSiteKey();
+    }, []);
     // const handleSubscribe = async () => {
     //     const newApiServiceSubscriptionObject = {
     //         captcha_token: captchaToken,
@@ -104,7 +112,7 @@ export default function CardPaymentComponent({ selectedPlan, subscriptionOldId, 
 
 
                     <ReCAPTCHA
-                        sitekey={NEXT_PUBLIC_SITE_KEY}
+                        sitekey={captchaSiteKey}
                         ref={recaptchaRef}
                         onChange={handleCaptchaChange}
                     />
