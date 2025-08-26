@@ -33,7 +33,7 @@ export default function ResultPageContent() {
                 ((paymentStatus?.RESPONSE_CODE === "00" && paymentStatus.ERROR_CODE === "0" && paymentStatus.ORDER_STATUS === 2) ?
                     <ConfirmContentPage paymentResult={paymentStatus} />
                     :
-                    <FailContentPage />
+                    <FailContentPage paymentResult={paymentStatus} />
                 ) : (
                     (isLoading === false &&
                         isError !== null) &&

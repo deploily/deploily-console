@@ -1,9 +1,10 @@
 "use client";
 
+import { EpaymentResult } from "@/lib/features/epayment/epaymentInterface";
 import { Card, Image, Typography } from "antd";
 
 
-export default function FailContentPage() {
+export default function FailContentPage({ paymentResult }: { paymentResult: EpaymentResult }) {
   const { Title, Text } = Typography;
 
   return (
@@ -26,8 +27,25 @@ export default function FailContentPage() {
             color: '#ff4d4f',
           }}
         >
-          {'Transaction failed'}
+
+          {paymentResult.ERROR_CODE === "3"
+            ? (paymentResult.ACTION_CODE_DESCRIPTION)
+            : (paymentResult.ERROR_MESSAGE)}
+
+
         </Title>
+        <div style={{ textAlign: "center", marginBottom: 16 }}>
+          {paymentResult.ORDER_NUMBER && (
+            <Text style={{ display: "block", color: "#fff" }}>
+              Order Number : <strong>{paymentResult.ORDER_NUMBER}</strong>
+            </Text>
+          )}
+          {paymentResult.AMOUNT && (
+            <Text style={{ display: "block", color: "#fff" }}>
+              Amount : <strong>{paymentResult.AMOUNT} DA</strong>
+            </Text>
+          )}
+        </div>
         <Card
           style={{
             backgroundColor: '#e6fffb',

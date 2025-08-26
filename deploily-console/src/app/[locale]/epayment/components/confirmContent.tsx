@@ -1,11 +1,11 @@
 "use client";
 
-import { useAppDispatch } from "@/lib/hook";
-import { sendPdfReceiptEmail, generatePdfReceipt } from "@/lib/features/epayment/epaymentThunks";
 import { EpaymentResult } from "@/lib/features/epayment/epaymentInterface";
+import { generatePdfReceipt, sendPdfReceiptEmail } from "@/lib/features/epayment/epaymentThunks";
+import { useAppDispatch } from "@/lib/hook";
 import { Button, Card, Col, Image, Input, message, Modal, Row, Table, Typography } from "antd";
 import { useState } from "react";
-import {  useScopedI18n } from "../../../../../locales/client";
+import { useScopedI18n } from "../../../../../locales/client";
 
 const { Title, Text } = Typography;
 
@@ -14,6 +14,7 @@ export default function ConfirmContentPage({ paymentResult }: { paymentResult: E
   const data = [
     { label: "Transaction ID", value: paymentResult.ID },
     { label: "Order Number", value: paymentResult.ORDER_NUMBER },
+    { label: "Approval Code", value: paymentResult.APPROVAL_CODE },
     { label: "Date", value: paymentResult.DATE },
     { label: "Hour", value: paymentResult.DATE },
     { label: "Amount", value: `${paymentResult.AMOUNT.toLocaleString()} DZD` },
@@ -29,7 +30,7 @@ export default function ConfirmContentPage({ paymentResult }: { paymentResult: E
   const [emailModalOpen, setEmailModalOpen] = useState(false);
   const [emailLoading, setEmailLoading] = useState(false);
 
-    const t = useScopedI18n('epayment');
+  const t = useScopedI18n('epayment');
 
   const handleSendEmail = async () => {
     if (!email) {
@@ -88,7 +89,7 @@ export default function ConfirmContentPage({ paymentResult }: { paymentResult: E
           color: 'limegreen',
         }}
       >
-        {'Transaction completed successfully'}
+        {paymentResult.ACTION_CODE_DESCRIPTION || 'Payment Successful'}
       </Title>
 
       <Card
