@@ -36,6 +36,8 @@ export default function CardPaymentComponent({ handleSubscribe }: { handleSubscr
         const fetchCaptchaSiteKey = async () => {
             try {
                 const siteKey = await getCaptchaSiteKey();
+                console.log("Fetched CAPTCHA site key:", siteKey);
+
                 setCaptchaSiteKey(siteKey ?? null);
             } catch (error) {
                 console.error("Failed to fetch captcha site key:", error);
