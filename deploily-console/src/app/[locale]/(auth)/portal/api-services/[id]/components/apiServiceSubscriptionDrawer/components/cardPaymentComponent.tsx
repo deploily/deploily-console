@@ -5,7 +5,7 @@ import { useApiServiceSubscription } from "@/lib/features/api-service-subscripti
 import { postApiServiceSubscription, postUpgradeApiServiceSubscription } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
-import { Card, Checkbox, CheckboxChangeEvent, Typography } from "antd";
+import { Card, Checkbox, CheckboxChangeEvent, Spin, Typography } from "antd";
 import { redirect } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -39,14 +39,23 @@ export default function CardPaymentComponent({ selectedPlan, subscriptionOldId, 
     const handleCaptchaChange = (value: string | null) => {
         setCaptchaToken(value);
     };
-    const [captchaSiteKey, setCaptchaSiteKey] = useState<any>(undefined)
+
+
+    const [captchaSiteKey, setCaptchaSiteKey] = useState<string | null>(null);
+
+    // Fetch captcha site key 
     useEffect(() => {
         const fetchCaptchaSiteKey = async () => {
-            const siteKey = await getCaptchaSiteKey()
-            setCaptchaSiteKey(siteKey);
+            try {
+                const siteKey = await getCaptchaSiteKey();
+                setCaptchaSiteKey(siteKey ?? null);
+            } catch (error) {
+                setCaptchaSiteKey(null);
+            }
         };
         fetchCaptchaSiteKey();
     }, []);
+
     // const handleSubscribe = async () => {
     //     const newApiServiceSubscriptionObject = {
     //         captcha_token: captchaToken,
@@ -111,11 +120,24 @@ export default function CardPaymentComponent({ selectedPlan, subscriptionOldId, 
 
 
 
-                    <ReCAPTCHA
-                        sitekey={captchaSiteKey}
-                        ref={recaptchaRef}
-                        onChange={handleCaptchaChange}
-                    />
+                    {!captchaSiteKey ? (
+                        <div
+                            style={{
+                                position: "absolute",
+                                top: "50%",
+                                left: "50%",
+                                transform: "translate(-50%, -50%)",
+                            }}
+                        >
+                            <Spin size="large" />
+                        </div>
+                    ) : (
+                        <ReCAPTCHA
+                            sitekey={captchaSiteKey}
+                            ref={recaptchaRef}
+                            onChange={handleCaptchaChange}
+                        />
+                    )}
 
                     <Checkbox style={{ padding: 15 }} onChange={onChangeCheckbox} checked={value}>
                         I accept the general conditions of use
