@@ -386,7 +386,19 @@ export default {
     "history.start_date": "Start date",
     "cibEdahabia": "CIB/ E-Dahabia",
     "acceptGeneralConditions": " I accept the general conditions of use",
-
+    "epayment": {
+        "paymentResult": "Payment Result",
+        "cibTitle": "CIB / E-Dahabia",
+        "contactSatim": "Contact SATIM : 3020",
+        "sendByEmail": "Send by Email",
+        "download": "Download",
+        "print": "Print",
+        "paymentSuccess": "Payment Successful",
+        "sendReceiptByEmail": "Send Receipt by Email",
+        "send": "Send",
+        "cancel": "Cancel",
+        "enterEmail": "Enter Email Address"
+    }
 
 
 } as const

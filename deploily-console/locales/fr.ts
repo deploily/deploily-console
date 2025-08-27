@@ -396,5 +396,17 @@ export default {
   "history.start_date": "Date de début",
   "cibEdahabia": "CIB/ E-Dahabia",
   "acceptGeneralConditions": " J'accepte les conditions générales d'utilisation",
-
+  "epayment": {
+    "paymentResult": "Résultat du paiement",
+    "cibTitle": "CIB / E-Dahabia",
+    "contactSatim": "Contact SATIM : 3020",
+    "sendByEmail": "Envoyer par e-mail",
+    "download": "Télécharger",
+    "print": "Imprimer",
+    "paymentSuccess": "Paiement réussi",
+    "sendReceiptByEmail": "Envoyer le reçu par e-mail",
+    "send": "Envoyer",
+    "cancel": "Annuler",
+    "enterEmail": "Entrez l'adresse e-mail"
+  }
 } as const;
