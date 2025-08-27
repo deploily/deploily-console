@@ -1,11 +1,14 @@
 "use client";
 
 import { EpaymentResult } from "@/lib/features/epayment/epaymentInterface";
-import { Card, Image, Typography } from "antd";
+import { Card, Col, Image, Row, Typography } from "antd";
+import { useScopedI18n } from "../../../../../locales/client";
 
 
 export default function FailContentPage({ paymentResult }: { paymentResult: EpaymentResult }) {
   const { Title, Text } = Typography;
+  const t = useScopedI18n('epayment');
+
 
   return (
     <>
@@ -15,9 +18,22 @@ export default function FailContentPage({ paymentResult }: { paymentResult: Epay
         padding: 24,
         color: '#fff',
         borderRadius: 8,
-        boxShadow: '0 0 10px rgba(0,0,0,0.3)',
+        boxShadow: '0 0 10px rgba(182, 151, 151, 0.3)',
+
       }}>
-        <Text strong style={{ fontSize: 16, color: '#fff' }}>CIB/ E-Dahabia</Text>
+        <Text strong style={{ fontSize: 16, color: '#fff', marginBottom: 8 }}>
+          CIB / E-Dahabia
+        </Text>
+        <Row justify="center" style={{ marginBottom: 25, marginTop: 8 }}>
+          <Col>
+            <Image
+              src="/images/paymentIcon.png"
+              alt="PAY"
+              style={{ width: 60, height: 35 }}
+              preview={false}
+            />
+          </Col>
+        </Row>
 
         <Title
           level={5}
@@ -34,18 +50,6 @@ export default function FailContentPage({ paymentResult }: { paymentResult: Epay
 
 
         </Title>
-        <div style={{ textAlign: "center", marginBottom: 16 }}>
-          {paymentResult.ORDER_NUMBER && (
-            <Text style={{ display: "block", color: "#fff" }}>
-              Order Number : <strong>{paymentResult.ORDER_NUMBER}</strong>
-            </Text>
-          )}
-          {paymentResult.AMOUNT && (
-            <Text style={{ display: "block", color: "#fff" }}>
-              Amount : <strong>{paymentResult.AMOUNT} DA</strong>
-            </Text>
-          )}
-        </div>
         <Card
           style={{
             backgroundColor: '#e6fffb',
@@ -53,8 +57,8 @@ export default function FailContentPage({ paymentResult }: { paymentResult: Epay
             border: '1px solid #b5f5ec',
           }}
         >
-          <Text strong style={{ color: 'black' }}>Contact SATIM : 3020</Text><br />
-          <Image src="/images/satim-logo.png" alt="SATIM Logo" height={'110px'} width={'132px'} style={{ marginTop: 8 }} />
+          <Text strong style={{ color: 'black' }}>{t("contactSatim")}</Text><br />
+          <Image src="/images/satim-logo.png" alt="SATIM Logo" height={'110px'} width={'132px'} style={{ marginTop: 8 }} preview={false} />
         </Card>
       </div>
 

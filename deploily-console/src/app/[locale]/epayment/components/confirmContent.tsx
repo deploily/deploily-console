@@ -15,9 +15,9 @@ export default function ConfirmContentPage({ paymentResult }: { paymentResult: E
     { label: "Transaction ID", value: paymentResult.ID },
     { label: "Order Number", value: paymentResult.ORDER_NUMBER },
     { label: "Approval Code", value: paymentResult.APPROVAL_CODE },
-    { label: "Date", value: paymentResult.DATE },
-    { label: "Hour", value: paymentResult.DATE },
-    { label: "Amount", value: `${paymentResult.AMOUNT.toLocaleString()} DZD` },
+    { label: "Date", value: new Date(paymentResult.DATE).toLocaleDateString() },
+    { label: "Hour", value: new Date(paymentResult.DATE).toLocaleTimeString() },
+    { label: "Amount", value: `${Intl.NumberFormat("fr-FR", { useGrouping: true }).format(paymentResult.AMOUNT)} DZD` },
     { label: "Card Holder", value: paymentResult.CARD_HOLDER_NAME },
     { label: "Payment Status", value: paymentResult.ACTION_CODE_DESCRIPTION },
     { label: "Authorization Code", value: paymentResult.AUTH_CODE },
@@ -77,10 +77,21 @@ export default function ConfirmContentPage({ paymentResult }: { paymentResult: E
       padding: 24,
       color: '#fff',
       borderRadius: 8,
-      boxShadow: '0 0 10px rgba(0,0,0,0.3)',
+      boxShadow: '0 0 10px rgba(182, 151, 151, 0.3)',
     }}>
-      <Text strong style={{ fontSize: 16, color: '#fff' }}>CIB/ E-Dahabia</Text>
-
+      <Text strong style={{ fontSize: 16, color: '#fff', marginBottom: 8 }}>
+        CIB / E-Dahabia
+      </Text>
+      <Row justify="center" style={{ marginBottom: 25, marginTop: 8 }}>
+        <Col>
+          <Image
+            src="/images/paymentIcon.png"
+            alt="PAY"
+            style={{ width: 60, height: 35 }}
+            preview={false}
+          />
+        </Col>
+      </Row>
       <Title
         level={5}
         style={{
@@ -89,7 +100,7 @@ export default function ConfirmContentPage({ paymentResult }: { paymentResult: E
           color: 'limegreen',
         }}
       >
-        {paymentResult.ACTION_CODE_DESCRIPTION || 'Payment Successful'}
+        {paymentResult.ACTION_CODE_DESCRIPTION}
       </Title>
 
       <Card
@@ -156,12 +167,12 @@ export default function ConfirmContentPage({ paymentResult }: { paymentResult: E
         textAlign: 'center',
         border: '1px solid #b5f5ec',
       }}>
-        <Text strong style={{ color: 'black' }}>Contact SATIM : 3020</Text><br />
+        <Text strong style={{ color: 'black' }}>{t("contactSatim")}</Text><br />
         <Image src="/images/satim-logo.png" alt="SATIM Logo" height={'110px'} width={'132px'} style={{ marginTop: 8 }} />
       </Card>
 
       <Modal
-        title="Send Receipt by Email"
+        title={(t("sendReceiptByEmail"))}
         open={emailModalOpen}
         onCancel={() => setEmailModalOpen(false)}
         onOk={handleSendEmail}
@@ -185,7 +196,7 @@ export default function ConfirmContentPage({ paymentResult }: { paymentResult: E
         }}
       >
         <Input
-          placeholder="Enter email address"
+          placeholder={t("enterEmail")}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
