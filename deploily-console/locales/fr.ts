@@ -407,6 +407,7 @@ export default {
     "sendReceiptByEmail": "Envoyer le reçu par e-mail",
     "send": "Envoyer",
     "cancel": "Annuler",
-    "enterEmail": "Entrez l'adresse e-mail"
+    "enterEmail": "Entrez l'adresse e-mail",
+    "terms": "Termes et Conditions",
   }
 } as const;

@@ -16,7 +16,7 @@ export default function ApplicationPaymentComponent({ isSubscribed, subscription
   const translate = useScopedI18n('subscription');
   const dispatch = useAppDispatch();
   const translateProfile = useScopedI18n('profilePayment');
-  const [paymentMethod, setPaymentMethod] = useState("bank_transfer")
+  const [paymentMethod, setPaymentMethod] = useState("card")
   const onChange = (e: RadioChangeEvent) => {
     setPaymentMethod(e.target.value);
   };
@@ -117,8 +117,8 @@ export default function ApplicationPaymentComponent({ isSubscribed, subscription
         <Radio.Group block defaultValue={paymentMethod}
           onChange={onChange}
           value={paymentMethod}>
-          <Radio value="bank_transfer">{t("bank")}</Radio>
           <Radio value="card" disabled={!isPaymentEnabled}>{t("card")}</Radio>
+          <Radio value="bank_transfer">{t("bank")}</Radio>
         </Radio.Group>
 
       </Flex>

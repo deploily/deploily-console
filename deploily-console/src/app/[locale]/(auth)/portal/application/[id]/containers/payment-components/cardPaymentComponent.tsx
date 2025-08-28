@@ -3,6 +3,7 @@ import { getCaptchaSiteKey } from "@/actions/getCaptchaSiteKey";
 import { useNewApplicationSubscription } from "@/lib/features/application/applicationServiceSelectors";
 import { theme } from "@/styles/theme";
 import { Card, Checkbox, CheckboxChangeEvent, Spin, Typography } from "antd";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useI18n, useScopedI18n } from "../../../../../../../../../locales/client";
@@ -10,6 +11,8 @@ import EpayButton from "./epayButton";
 
 export default function CardPaymentComponent({ handleSubscribe }: { handleSubscribe: (captcha_token: string) => Promise<void> }) {
     const t = useI18n();
+    const translateEpayment = useScopedI18n("epayment");
+
 
 
     const [value, setValue] = useState(false);
@@ -88,7 +91,10 @@ export default function CardPaymentComponent({ handleSubscribe }: { handleSubscr
                     )}
 
                     <Checkbox style={{ padding: 15 }} onChange={onChangeCheckbox} checked={value}>
-                        {t('acceptGeneralConditions')}
+                        {t("acceptGeneralConditions")}
+                        <Link href="/terms-conditions" style={{ textDecoration: "underline" }} target="_blank" >
+                            {translateEpayment("terms")}
+                        </Link>
                     </Checkbox>
                     <EpayButton handleSubscribe={async () => await handleSubscribe(captchaToken ?? "")} />
                 </div>
