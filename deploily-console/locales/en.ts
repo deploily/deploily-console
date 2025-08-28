@@ -385,7 +385,7 @@ export default {
     "history.status": "Status",
     "history.start_date": "Start date",
     "cibEdahabia": "CIB/ E-Dahabia",
-    "acceptGeneralConditions": " I accept the general conditions of use",
+    "acceptGeneralConditions": " I accept the general conditions of use \t",
     "epayment": {
         "paymentResult": "Payment Result",
         "cibTitle": "CIB / E-Dahabia",
@@ -397,7 +397,8 @@ export default {
         "sendReceiptByEmail": "Send Receipt by Email",
         "send": "Send",
         "cancel": "Cancel",
-        "enterEmail": "Enter Email Address"
+        "enterEmail": "Enter Email Address",
+        "terms": "Terms and Conditions",
     }
 
 

@@ -10,7 +10,7 @@ import CardPaymentComponent from "../components/cardPaymentComponent";
 export default function PaymentComponent({ selectedPlan, subscriptionOldId, IsSubscribed, drawerType }: { selectedPlan: any, subscriptionOldId?: any, IsSubscribed?: any, drawerType?: any }) {
   const translate = useScopedI18n('apiServiceSubscription');
   const translateProfile = useScopedI18n('profilePayment');
-  const [paymentMethod, setPaymentMethod] = useState("bank_transfer")
+  const [paymentMethod, setPaymentMethod] = useState("card")
   const onChange = (e: RadioChangeEvent) => {
     setPaymentMethod(e.target.value);
   };
@@ -38,8 +38,8 @@ export default function PaymentComponent({ selectedPlan, subscriptionOldId, IsSu
         <Radio.Group block defaultValue={paymentMethod}
           onChange={onChange}
           value={paymentMethod}>
-          <Radio value="bank_transfer">{t("bank")}</Radio>
           <Radio value="card" disabled={!isPaymentEnabled}>{t("card")}</Radio>
+          <Radio value="bank_transfer">{t("bank")}</Radio>
         </Radio.Group>
 
       </Flex>

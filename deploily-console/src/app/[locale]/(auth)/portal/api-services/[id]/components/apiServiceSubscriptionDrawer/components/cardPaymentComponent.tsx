@@ -6,13 +6,17 @@ import { postApiServiceSubscription, postUpgradeApiServiceSubscription } from "@
 import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
 import { Card, Checkbox, CheckboxChangeEvent, Spin, Typography } from "antd";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
-import { useScopedI18n } from "../../../../../../../../../../locales/client";
+import { useI18n, useScopedI18n } from "../../../../../../../../../../locales/client";
 import EpayButton from "./epayButton";
 
 export default function CardPaymentComponent({ selectedPlan, subscriptionOldId, IsSubscribed }: { selectedPlan: any, subscriptionOldId?: any, IsSubscribed?: any }) {
+    const translateEpayment = useScopedI18n("epayment");
+    const t = useI18n();
+
 
     const [value, setValue] = useState(false);
     const onChangeCheckbox = (e: CheckboxChangeEvent) => {
@@ -140,7 +144,10 @@ export default function CardPaymentComponent({ selectedPlan, subscriptionOldId, 
                     )}
 
                     <Checkbox style={{ padding: 15 }} onChange={onChangeCheckbox} checked={value}>
-                        I accept the general conditions of use
+                        {t("acceptGeneralConditions")}
+                        <Link href="/terms-conditions" style={{ textDecoration: "underline" }} target="_blank" >
+                            {translateEpayment("terms")}
+                        </Link>
                     </Checkbox>
                     <EpayButton handleSubscribe={handleApiServiceSubscription} />
                 </div>
