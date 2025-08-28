@@ -89,7 +89,7 @@ export default function ApplicationServiceCard({ data }: { data: ApplicationServ
                                 <Paragraph style={{ color: "#DD8859", fontSize: 16, margin: 0 }}>
                                     {Intl.NumberFormat("fr-FR", {
                                         useGrouping: true,
-                                    }).format(data.min_app_price)}{" "}
+                                    }).format(data.unit_price)}{" "}
                                     DZD / {data.price_category === "monthly" ? t("month") : t("year")}
                                 </Paragraph>
                             </Col>

@@ -27,7 +27,7 @@ const initialState: ApplicationServiceState = {
         newSubscriptionResponse: undefined
     },
     newAppSubscriptionState: {
-        duration: 3,
+        duration: 12,
         price: 0,
         managed_ressource_details: undefined,
         // resource_service_plan_id: undefined,

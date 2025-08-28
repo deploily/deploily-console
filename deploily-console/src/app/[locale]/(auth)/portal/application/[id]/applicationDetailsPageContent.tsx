@@ -81,7 +81,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                     <Col xs={24} md={24} lg={16} style={{ padding: '0px', margin: '0px' }}>
                         <ApplicationDescriptionContainer
                             title={applicationServiceById.name}
-                            price={applicationServiceById.min_app_price}
+                            price={applicationServiceById.unit_price}
                             description={applicationServiceById.short_description + t('learnMore')}
                             documentationUrl={applicationServiceById.documentation_url}
                             logo={
