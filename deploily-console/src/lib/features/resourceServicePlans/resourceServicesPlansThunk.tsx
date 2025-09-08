@@ -11,9 +11,15 @@ export interface PaginationParams {
 
 export const fetchResourceServicesPlans = createAsyncThunk(
     "ressourcePlans/getResourceServicesPlans",
-    async (_, thunkConfig) => {
+    async ({ applicationId, subscriptionCategory }: { applicationId: string; subscriptionCategory?: string }, thunkConfig) => {
         try {
             const response = await axiosInstance.get(`${deploilyApiUrls.RESOURCE_SERVICE_PLANS_URL}`, {
+
+                params: {
+                    app_service_id: applicationId,
+                    subscription_category: subscriptionCategory
+
+                },
                 headers: {
                     Accept: "application/json",
                 },

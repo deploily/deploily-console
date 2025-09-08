@@ -3,6 +3,7 @@
 import { useApplicationServiceById, useNewApplicationSubscription } from "@/lib/features/application/applicationServiceSelectors";
 import { updateNewAppSubscriptionState } from "@/lib/features/application/applicationServiceSlice";
 import { fetchApplicationServiceById } from "@/lib/features/application/applicationServiceThunks";
+import { fetchResourceServicesPlans } from "@/lib/features/resourceServicePlans/resourceServicesPlansThunk";
 import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThanks";
 import { useAppDispatch } from "@/lib/hook";
 import ImageFetcher from "@/lib/utils/imageFetcher";
@@ -27,19 +28,30 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
     const [openDrawer, setOpenDrawer] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const onClose = () => setOpenDrawer(false);
+    const [subscriptionCategory, setSubscriptionCategory] = useState("yearly");
+
 
     const { applicationServiceById, isLoading, loadingError } = useApplicationServiceById();
     const { totalAmount, duration, selected_version, app_service_plan, managed_ressource_details } = useNewApplicationSubscription();
+
 
     const tApplications = useScopedI18n('applications');
     const t = useI18n();
 
     const handleChangeDuration = (value: number) => {
+        setSubscriptionCategory(value === options[0].value ? "yearly" : "monthly");
+        dispatch(fetchResourceServicesPlans({ applicationId, subscriptionCategory }));
         dispatch(updateNewAppSubscriptionState({ duration: value }));
     };
     const handleChangeVersion = (value: number) => {
         dispatch(updateNewAppSubscriptionState({ selected_version: applicationServiceById?.app_versions?.find((version) => version.id === value) }));
     };
+
+    useEffect(() => {
+        if (subscriptionCategory) {
+            dispatch(fetchResourceServicesPlans({ applicationId, subscriptionCategory }));
+        }
+    }, [subscriptionCategory]);
 
     const optionsVersion = applicationServiceById?.app_versions?.map((version) => ({
         value: version.id,
@@ -170,7 +182,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                         )}
                         {app_service_plan && !app_service_plan.is_custom &&
                             <Card styles={{ body: { padding: 0 } }}>
-                                <SelectVpsPlanTable />
+                                <SelectVpsPlanTable applicationId={applicationId} subscriptionCategory={subscriptionCategory} />
                             </Card>}
 
                         <div style={{ padding: '8px 0' }}>
