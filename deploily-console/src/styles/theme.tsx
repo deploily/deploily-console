@@ -65,7 +65,6 @@ export const theme = {
       colorText: "rgba(0,0,0,0)",
     },
     Select: {
-
       optionSelectedBg: "#D85912",
       optionActiveBg: "#DD8859",
     },

@@ -36,7 +36,7 @@ const initialState: ApplicationServiceState = {
     loadingError: null,
   },
   upgradeRenewMyApplicationData: {
-    duration: 3,
+    duration: 12,
     price: 0,
     managed_ressource_details: undefined,
     app_service_plan: undefined,
