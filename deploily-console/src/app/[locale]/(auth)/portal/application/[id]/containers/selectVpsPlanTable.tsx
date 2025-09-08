@@ -18,12 +18,19 @@ import { useScopedI18n } from '../../../../../../../../locales/client';
 interface SelectVpsPlanTableProps {
   onVpsPlanSelect?: (plan: ManagedRessourceDetails) => void;
   selectedVpsPlan?: ManagedRessourceDetails | null;
+  applicationId?: any;
+  subscriptionCategory?: any;
 }
 
 export default function SelectVpsPlanTable({
   onVpsPlanSelect,
-  selectedVpsPlan
+  selectedVpsPlan,
+  applicationId,
+  subscriptionCategory,
 }: SelectVpsPlanTableProps = {}) {
+
+
+
   const dispatch = useAppDispatch();
   const tApplications = useScopedI18n('applications');
 
@@ -31,7 +38,7 @@ export default function SelectVpsPlanTable({
   const { managed_ressource_details } = useNewApplicationSubscription();
 
   useEffect(() => {
-    dispatch(fetchResourceServicesPlans());
+    dispatch(fetchResourceServicesPlans({ applicationId, subscriptionCategory }));
   }, []);
 
   const handlePlanChange = (selectedPlan: any) => {
@@ -55,6 +62,8 @@ export default function SelectVpsPlanTable({
     }
     return managed_ressource_details?.id;
   };
+
+
 
   return (
     <div>
