@@ -27,6 +27,7 @@ export default function PaymentDrawer({ openDrawer, onClose }:
     const { paymentProfilesList } = useNotDefaultPaymentProfiles();
     const { promoCode, totalAmount, duration, selected_version, app_service_plan, managed_ressource_details, selectedProfile, isBalanceSufficient } = useNewApplicationSubscription();
 
+console.log("applicationServiceById============ ", applicationServiceById);
 
     const handleSelectPaymentProfile = (value: any) => {
         const newSelectedProfile = paymentProfilesList?.result.find(
@@ -36,7 +37,13 @@ export default function PaymentDrawer({ openDrawer, onClose }:
     };
 
     const handleSubscribe = async () => {
+        console.log("handleSubscribe111111111");
+        console.log("app_service_plan", app_service_plan);
+        console.log("managed_ressource_details", managed_ressource_details);
+        console.log("selectedProfile", selectedProfile);
         if (app_service_plan != undefined && managed_ressource_details != undefined && selectedProfile != undefined) {
+            console.log("handleSubscribe2222222222");
+
             const newSubscriptionObject = {
                 duration: Number.parseInt(`${duration}`),
                 promo_code: promoCode,
@@ -45,7 +52,7 @@ export default function PaymentDrawer({ openDrawer, onClose }:
                 ressource_service_plan_selected_id: managed_ressource_details.id,
                 profile_id: selectedProfile.id,
                 version_selected_id: selected_version?.id,
-                managed_ressource_id: managed_ressource_details.service_id,
+                // managed_ressource_id: managed_ressource_details.service_id,
                 // managed_ressource_id: managed_ressource_id,
             };
             dispatch(applicationSubscribe({ service_slug: applicationServiceById?.service_slug, data: newSubscriptionObject })).then((response: any) => {

@@ -30,25 +30,25 @@ export default async function middleware(req: NextRequest) {
   const isPublicPage = !publicPathnameRegex.test(req.nextUrl.pathname);
 
 
-  const externalSrc = `${process.env.CSP_HEADER_DEFAULT_SRC || process.env.NEXT_PUBLIC_BASE_URL}`;
+  // const externalSrc = `${process.env.CSP_HEADER_DEFAULT_SRC || process.env.NEXT_PUBLIC_BASE_URL}`;
 
-  const cspHeader = `
-    default-src 'self' ${externalSrc} https://www.google.com/;
-    script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.google.com https://www.gstatic.com;
-    style-src 'self' 'unsafe-inline';
-    img-src * 'self' data: https:;
-    font-src 'self';
-    object-src 'none';
-    base-uri 'self';
-    form-action 'self';
-    frame-ancestors 'none';
-    connect-src 'self' https://www.facebook.com/tr/ https://www.google-analytics.com ${process.env.CSP_HEADER_CONNECT_SRC} ;
-    upgrade-insecure-requests;
-    `
+  // const cspHeader = `
+  //   default-src 'self' ${externalSrc} https://www.google.com/;
+  //   script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.google.com https://www.gstatic.com;
+  //   style-src 'self' 'unsafe-inline';
+  //   img-src * 'self' data: https:;
+  //   font-src 'self';
+  //   object-src 'none';
+  //   base-uri 'self';
+  //   form-action 'self';
+  //   frame-ancestors 'none';
+  //   connect-src 'self' https://www.facebook.com/tr/ https://www.google-analytics.com ${process.env.CSP_HEADER_CONNECT_SRC} ;
+  //   upgrade-insecure-requests;
+  //   `
   // Replace newline characters and spaces
-  const contentSecurityPolicyHeaderValue = cspHeader
-    .replace(/\s{2,}/g, " ")
-    .trim();
+  // const contentSecurityPolicyHeaderValue = cspHeader
+  //   .replace(/\s{2,}/g, " ")
+  //   .trim();
 
   const requestHeaders = new Headers(req.headers);
   const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
