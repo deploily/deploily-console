@@ -1,12 +1,12 @@
 import { ManagedRessource, ManagedRessourceDetails } from "../resourceServicePlans/resourceServicesPlansInterface";
 
-export interface OdooAppByIdState {
-  odooAppById?: OdooAppInterface;
+export interface HiEventsAppByIdState {
+  hiEventsAppById?: HiEventsAppInterface;
   isLoading: boolean;
   loadingError?: any;
 }
 
-export interface OdooAppResponse {
+export interface HiEventsAppResponse {
   count: number;
   description_columns: any;
   ids: number[];
@@ -14,7 +14,7 @@ export interface OdooAppResponse {
   list_columns: string[];
   list_title: string;
   order_columns: string[];
-  result: OdooAppInterface[];
+  result: HiEventsAppInterface[];
 }
 
 
@@ -34,7 +34,7 @@ export interface ServicePlan {
   subscription_category: string;
 }
 
-export interface OdooAppInterface {
+export interface HiEventsAppInterface {
   id: number;
   name: string;
   access_url: string;
@@ -45,7 +45,6 @@ export interface OdooAppInterface {
   deployment_error: string;
   duration_month: number;
   is_expired: string; // optionally: boolean or enum
-  odoo_password: string;
   price: number;
   required_restart: boolean;
   managed_ressource_details: ManagedRessourceDetails;
@@ -58,7 +57,12 @@ export interface OdooAppInterface {
   status: string;
   total_amount: number;
   version: Version;
+  event_url: string;
+  event_domain: string;
 }
+
+
+
 interface ServiceDetails {
   id: number;
   description: string;

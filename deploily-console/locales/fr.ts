@@ -412,5 +412,7 @@ export default {
     "cancel": "Annuler",
     "enterEmail": "Entrez l'adresse e-mail",
     "terms": "Termes et Conditions",
-  }
+  },
+  "hiEventsApp.event_url": "URL de l'événement",
+  "hiEventsApp.event_domain": "Domaine de l'événement",
 } as const;

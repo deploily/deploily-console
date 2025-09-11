@@ -4,9 +4,10 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getSession } from "next-auth/react";
 
 
-  export const fetchOdooAppById = createAsyncThunk(
-    "odooapp/getOdooAppById",
+export const fetchHiEventsAppById = createAsyncThunk(
+    "hiEventsapp/gethiEventsAppById",
     async (id: string, thunkConfig) => {
+
         try {
             const session = await getSession();
 
@@ -16,7 +17,7 @@ import { getSession } from "next-auth/react";
 
             const token = session.accessToken;
 
-            const response = await axiosInstance.get(`${deploilyApiUrls.ODOO_APP_SUBSCRIPTION_URL}/${id}`, {
+            const response = await axiosInstance.get(`${deploilyApiUrls.HI_EVENTS_APP_SUBSCRIPTION_URL}/${id}`, {
                 headers: {
                     Accept: "application/json",
                     Authorization: `Bearer ${token}`,
@@ -26,7 +27,7 @@ import { getSession } from "next-auth/react";
             if (response.status === 200) {
                 return response.data;
             } else {
-                return thunkConfig.rejectWithValue("Failed to fetch odoo app by id");
+                return thunkConfig.rejectWithValue("Failed to fetch hi events app by id");
             }
         } catch (error: any) {
             return thunkConfig.rejectWithValue(error.message);

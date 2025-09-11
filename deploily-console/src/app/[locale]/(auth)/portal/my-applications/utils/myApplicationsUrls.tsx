@@ -8,7 +8,7 @@ export const myApplicationsUrls = (url: string) => {
             return "supabase";
         case "nextcloud":
             return "next-cloud";
-        case "hi-events":
+        case "hievents":
             return "hi-events";
         default:
             return '';

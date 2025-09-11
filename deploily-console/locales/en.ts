@@ -402,7 +402,10 @@ export default {
         "cancel": "Cancel",
         "enterEmail": "Enter Email Address",
         "terms": "Terms and Conditions",
-    }
+    },
+
+    "hiEventsApp.event_url": "Event URL",
+    "hiEventsApp.event_domain": "Event Domain",
 
 
 } as const

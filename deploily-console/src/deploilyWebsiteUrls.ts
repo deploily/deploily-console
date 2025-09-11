@@ -55,17 +55,17 @@ export const deploilyApiUrls = {
   SUPABASE_APP_SUBSCRIPTION_URL: `${API_BASE_URL}/supabse-app-service-subscription`,
   SUPABASE_APP_SUBSCRIPTION_RENEW_URL: `${API_BASE_URL}/supabase-app-service-subscription/renew`,
   SUPABASE_APP_SUBSCRIPTION_UPGRADE_URL: `${API_BASE_URL}/supabase-app-service-subscription/upgrade`,
-  
+
   NEXT_CLOUD_APP_SUBSCRIBE_URL: `${API_BASE_URL}/nextcloud-app-service-subscription/subscribe`,
   NEXT_CLOUD_APP_SUBSCRIPTION_URL: `${API_BASE_URL}/nextcloud-app-service-subscription`,
   NEXT_CLOUD_APP_SUBSCRIPTION_RENEW_URL: `${API_BASE_URL}/nextcloud-app-service-subscription/renew`,
   NEXT_CLOUD_APP_SUBSCRIPTION_UPGRADE_URL: `${API_BASE_URL}/nextcloud-app-service-subscription/upgrade`,
- 
+
   HI_EVENTS_APP_SUBSCRIBE_URL: `${API_BASE_URL}/hi-events-app-service-subscription/subscribe`,
   HI_EVENTS_APP_SUBSCRIPTION_URL: `${API_BASE_URL}/hi-events-app-service-subscription`,
   HI_EVENTS_APP_SUBSCRIPTION_RENEW_URL: `${API_BASE_URL}/hi-events-app-service-subscription/renew`,
   HI_EVENTS_APP_SUBSCRIPTION_UPGRADE_URL: `${API_BASE_URL}/hi-events-app-service-subscription/upgrade`,
-  
+
   HISTORY_SUBSCRIPTION_URL: `${API_BASE_URL}/subscription/history`,
 
   MANAGED_RESSOURCE_URL: `${API_BASE_URL}/managed-ressource/`,
@@ -75,4 +75,4 @@ export const TTK_EPAY_SLUG = "ttk-epay";
 export const ODOO_SLUG = "odoo";
 export const SUPABASE_SLUG = "supabase";
 export const NEXT_CLOUD_SLUG = "nextcloud";
-export const HI_EVENTS_SLUG = "hi-events";
+export const HI_EVENTS_SLUG = "hievents";

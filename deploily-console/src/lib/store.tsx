@@ -26,6 +26,7 @@ import ttkEpaySlice from "./features/ttk-epay/ttkEpaySlice";
 import odooAppSlice from "./features/odoo/odooSlice";
 import supabaseAppSlice from "./features/supabase/supabaseSlice";
 import nextCloudAppSlice from "./features/next-cloud/nextCloudSlice";
+import hiEventsAppSlice from "./features/hi-events/hiEventsSlice";
 
 export const makeStore = () => {
   return configureStore({
@@ -54,6 +55,7 @@ export const makeStore = () => {
       subscription: subscriptionSlice,
       wilaya: wilayaSlice,
       nextCloudApp: nextCloudAppSlice,
+      hiEventsApp: hiEventsAppSlice,
 
     },
     middleware: getDefaultMiddleware =>

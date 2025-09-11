@@ -1,5 +1,6 @@
 import MyAppDetails from "./components/odooDetails";
 
+
 type Props = {
   params: { id: string };
 };
