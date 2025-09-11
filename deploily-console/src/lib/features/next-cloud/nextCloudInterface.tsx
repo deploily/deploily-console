@@ -45,12 +45,13 @@ export interface NextCloudAppInterface {
   deployment_error: string;
   duration_month: number;
   is_expired: string; // optionally: boolean or enum
-  odoo_password: string;
   price: number;
   required_restart: boolean;
   managed_ressource_details: ManagedRessourceDetails;
   managed_ressource_id: number;
   managed_ressource: ManagedRessource;
+  nextcloud_domain: string,
+  nextcloud_url: string,
   service_plan: ServicePlan;
   service_plan_id: number;
   service_details: ServiceDetails;
@@ -59,6 +60,8 @@ export interface NextCloudAppInterface {
   total_amount: number;
   version: Version;
 }
+
+
 interface ServiceDetails {
   id: number;
   description: string;
