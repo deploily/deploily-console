@@ -380,6 +380,9 @@ export default {
     "supabase.supabase_anonKey": "Supabase anon Key",
     "supabase.supabase_url": "Supabase URL",
 
+    "nextCloud.nextcloud_domain": "Nextcloud domain",
+    "nextCloud.nextcloud_url": "Nextcloud url",
+
     "history.name": "Name",
     "history.amount": "Amount",
     "history.status": "Status",

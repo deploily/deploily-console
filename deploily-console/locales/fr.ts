@@ -390,6 +390,9 @@ export default {
   "supabase.supabase_anonKey": "Clé anonyme Supabase",
   "supabase.supabase_url": "URL Supabase",
 
+  "nextCloud.nextcloud_domain": "Domaine du Nextcloud",
+  "nextCloud.nextcloud_url": "URL du Nextcloud",
+
   "history.name": "Nom",
   "history.amount": "Montant",
   "history.status": "Statut",
