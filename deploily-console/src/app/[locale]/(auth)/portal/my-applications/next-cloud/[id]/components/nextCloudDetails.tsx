@@ -1,13 +1,13 @@
 "use client"
 
- import { useAppDispatch } from "@/lib/hook";
+import { useAppDispatch } from "@/lib/hook";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { theme } from "@/styles/theme";
 import { Badge, Button, Col, Input, Result, Row, Skeleton, Space, Typography } from "antd"
 import Paragraph from "antd/es/typography/Paragraph";
 import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../../../locales/client";
-import { Copy, EyeSlash, Eye } from "@phosphor-icons/react";
+import { Copy} from "@phosphor-icons/react";
 import { handleCopy } from "@/lib/utils/handleCopy";
 import StatusComponents from "./componentsNextCloudDetails/statusComponent";
 import DurationComponent from "./componentsNextCloudDetails/durationComponent";
@@ -21,8 +21,7 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
     const t = useI18n();
 
     const tSubscription = useScopedI18n('subscription');
-    const tOdoo = useScopedI18n("odooApp");
-    const [visible, setVisible] = useState(false);
+    const tNextCloud = useScopedI18n("nextCloud");
 
     const dispatch = useAppDispatch();
     const { nextCloudAppById, isLoading, loadingError } = useNextCloudAppById()
@@ -91,7 +90,7 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                                 {tSubscription("accessUrl")}
                             </Typography>
 
-                            {/* <div
+                            <div
                                 style={{
                                     display: "flex",
                                     justifyContent: "space-between",
@@ -122,40 +121,59 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                                     onClick={() => handleCopy(nextCloudAppById.access_url)}
                                 />
                             </div>
+                            <div>
+                                <Typography style={{ fontWeight: 700, fontSize: 20, color: theme.token.orange600 }}>
+                                    {tNextCloud("nextcloud_url")}
+                                </Typography>
 
-                            <Typography style={{ fontWeight: 700, fontSize: 20, color: theme.token.orange600 }}>
-                                {tOdoo("password")}
-                            </Typography>
+                                <div style={{
+                                    flexDirection: "row",
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    width: "100%",
+                                    paddingBottom: "15px"
+                                }}>
+                                    <Input
+                                        value={nextCloudAppById.nextcloud_url}
+                                        readOnly
 
-                            <div style={{
-                                flexDirection: "row",
-                                display: "flex",
-                                justifyContent: "space-between",
-                                width: "100%",
-                                paddingBottom: "15px"
-                            }}>
-                                <Input.Password
-                                    value={nextCloudAppById.odoo_password}
-                                    readOnly
-                                    visibilityToggle={{
-                                        visible,
-                                        onVisibleChange: setVisible,
-                                    }}
-                                    iconRender={visible => visible ? <Eye /> : <EyeSlash />}
-                                    style={{
-                                        cursor: 'default',
-                                        userSelect: 'text',
-                                        caretColor: 'transparent',
-                                        marginRight: "5px"
-                                    }}
-                                />
-                                <Button
-                                    type="primary"
-                                    style={{ boxShadow: "none" }}
-                                    icon={<Copy />}
-                                    onClick={() => handleCopy(nextCloudAppById.odoo_password)}
-                                />
-                            </div> */}
+                                        style={{
+                                            cursor: 'default',
+                                            userSelect: 'text',
+                                            caretColor: 'transparent',
+                                            marginRight: "5px"
+                                        }}
+                                    />
+
+                                </div>
+                            </div>
+
+                            <div>
+                                <Typography style={{ fontWeight: 700, fontSize: 20, color: theme.token.orange600 }}>
+                                    {tNextCloud("nextcloud_domain")}
+                                </Typography>
+
+                                <div style={{
+                                    flexDirection: "row",
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    width: "100%",
+                                    paddingBottom: "15px"
+                                }}>
+                                    <Input
+                                        value={nextCloudAppById.nextcloud_domain}
+                                        readOnly
+
+                                        style={{
+                                            cursor: 'default',
+                                            userSelect: 'text',
+                                            caretColor: 'transparent',
+                                            marginRight: "5px"
+                                        }}
+                                    />
+
+                                </div>
+                            </div>
                         </div>
                         <DocumentationDrawer openDrawer={openDrawer} onClose={onClose} currentSubscription={nextCloudAppById} t={t} />
 
