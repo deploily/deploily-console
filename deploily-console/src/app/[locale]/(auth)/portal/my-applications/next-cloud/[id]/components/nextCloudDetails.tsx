@@ -1,14 +1,12 @@
 "use client"
 
-// import { useOdooAppById } from "@/lib/features/odoo/odooSelector";
-import { useAppDispatch } from "@/lib/hook";
+ import { useAppDispatch } from "@/lib/hook";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { theme } from "@/styles/theme";
 import { Badge, Button, Col, Input, Result, Row, Skeleton, Space, Typography } from "antd"
 import Paragraph from "antd/es/typography/Paragraph";
 import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../../../locales/client";
-// import { fetchOdooAppById } from "@/lib/features/odoo/odooThunks";
 import { Copy, EyeSlash, Eye } from "@phosphor-icons/react";
 import { handleCopy } from "@/lib/utils/handleCopy";
 import StatusComponents from "./componentsNextCloudDetails/statusComponent";
