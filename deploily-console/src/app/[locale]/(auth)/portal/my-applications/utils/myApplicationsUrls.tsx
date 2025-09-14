@@ -6,6 +6,10 @@ export const myApplicationsUrls = (url: string) => {
             return "odoo";
         case "supabase":
             return "supabase";
+        case "nextcloud":
+            return "next-cloud";
+        case "hievents":
+            return "hi-events";
         default:
             return '';
     }

@@ -76,6 +76,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
 
     return (
         <>
+        
             <Space
                 direction="vertical"
                 size="large"
@@ -105,7 +106,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                         />
 
                         <div style={{ padding: '8px 0' }}>
-                            <ApplicationPlansContainer />
+                            <ApplicationPlansContainer /> 
                         </div>
 
                         {!screens.lg && !(applicationServiceById.is_subscribed) && app_service_plan && !app_service_plan.is_custom && (

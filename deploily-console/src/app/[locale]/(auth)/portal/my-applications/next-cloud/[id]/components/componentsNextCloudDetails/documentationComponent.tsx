@@ -4,7 +4,7 @@ import { useI18n } from "../../../../../../../../../../locales/client";
 import { HUB_URL } from "@/deploilyWebsiteUrls";
 
 
-export default function DocumentationComponents({ supabaseAppById, setOpenDrawer }: { supabaseAppById: any, setOpenDrawer: any }) {
+export default function DocumentationComponent({ nextCloudAppById, setOpenDrawer }: { nextCloudAppById: any, setOpenDrawer: any }) {
     const t = useI18n();
 
     return (
@@ -27,7 +27,7 @@ export default function DocumentationComponents({ supabaseAppById, setOpenDrawer
                 alignSelf: "start"
             }}>
                 <CustomTransparentOrangeButton
-                    href={supabaseAppById.service_details.documentation_url ?? "https://docs.deploily.cloud/#/"}
+                    href={nextCloudAppById.service_details.documentation_url ?? "https://docs.deploily.cloud/#/"}
                     target="_blank"
                     rel="noopener noreferrer"
 
@@ -47,6 +47,20 @@ export default function DocumentationComponents({ supabaseAppById, setOpenDrawer
 
                 >
                     {t('forum')}
+                </CustomTransparentOrangeButton>
+            </Col>
+            <Col span={24} style={{
+                display: "flex",
+                justifyContent: "end",
+                alignSelf: "start"
+            }}>
+                <CustomTransparentOrangeButton
+                    href={nextCloudAppById.demo_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+
+                >
+                    {t('demo_link')}
                 </CustomTransparentOrangeButton>
             </Col>
         </>
