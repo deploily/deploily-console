@@ -1,5 +1,4 @@
-import MyAppDetails from "./components/odooDetails";
-
+import MyAppDetails from "./components/hiEventsDetails";
 
 type Props = {
   params: { id: string };

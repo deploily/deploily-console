@@ -1,5 +1,4 @@
-import MyAppDetails from "./components/odooDetails";
-
+import MyAppDetails from "./components/nextCloudDetails";
 
 type Props = {
   params: { id: string };

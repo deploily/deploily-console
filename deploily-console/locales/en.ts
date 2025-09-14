@@ -380,6 +380,9 @@ export default {
     "supabase.supabase_anonKey": "Supabase anon Key",
     "supabase.supabase_url": "Supabase URL",
 
+    "nextCloud.nextcloud_domain": "Nextcloud domain",
+    "nextCloud.nextcloud_url": "Nextcloud url",
+
     "history.name": "Name",
     "history.amount": "Amount",
     "history.status": "Status",
@@ -399,7 +402,10 @@ export default {
         "cancel": "Cancel",
         "enterEmail": "Enter Email Address",
         "terms": "Terms and Conditions",
-    }
+    },
+
+    "hiEventsApp.event_url": "Event URL",
+    "hiEventsApp.event_domain": "Event Domain",
 
 
 } as const
