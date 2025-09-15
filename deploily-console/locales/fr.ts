@@ -152,6 +152,7 @@ export default {
   "profilePayment.save": "Enregistrer",
   "profilePayment.updateSuccess": "Réussite de la mise à jour",
   "profilePayment.updateError": "Erreur de mise à jour",
+  "profilePayment.nin": 'NIN',
 
   "payments.paymentList": "Liste des paiements",
   "payments.nOrder": "N° de commande",
@@ -295,6 +296,8 @@ export default {
   "profile.lastName": "Nom",
   "profile.email": "E-mail",
   "profile.username": "Nom d'utilisateur",
+  "profile.nin": 'NIN',
+
 
   "epayment.sendByEmail": "Envoyer par email",
   "epayment.download": "Télécharger",
@@ -383,6 +386,9 @@ export default {
   "dashboard.subscribeNewAffiliation": "Nouvelle affiliation",
   "dashboard.seeMyApplications": "Mes applications",
   "dashboard.subscribeNewApplication": "Nouvelle application",
+  "dashboard.seeMySupportTicket": "Mes tickets de support",
+  "dashboard.addSupportTocket": "Ajouter un ticket de support",
+  "dashboard.seeMyFavorites": "Mes favoris",
 
 
   "odooApp.password": "Mot de passe principal Odoo",
