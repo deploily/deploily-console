@@ -53,9 +53,14 @@ export default function ProfileContentDetails() {
                 </Col>
             </Row>
 
-            <Form.Item label={t("email")} name="email">
-                <CustomPayementInput style={{ color: theme.token.colorWhite }} />
-            </Form.Item>
+            
+            <Row gutter={[16, 16]}>
+                <Col md={24} xs={24}>
+                    <Form.Item label={t("email")} name="email">
+                        <CustomPayementInput style={{ color: theme.token.colorWhite }} />
+                    </Form.Item>
+                </Col>
+            </Row>
 
             <Row gutter={[16, 16]}>
                 <Col md={24} xs={24}>
@@ -64,6 +69,7 @@ export default function ProfileContentDetails() {
                     </Form.Item>
                 </Col>
             </Row>
+
         </Form>
     );
 }
