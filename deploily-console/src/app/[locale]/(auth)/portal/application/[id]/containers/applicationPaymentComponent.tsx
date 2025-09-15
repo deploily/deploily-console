@@ -26,8 +26,12 @@ export default function ApplicationPaymentComponent({ isSubscribed, subscription
   const router = useRouter()
   const { newSubscriptionResponse } = useNewApplicationSubscriptionResponse();
   useEffect(() => {
-    if (newSubscriptionResponse?.form_url) {
-      redirect(newSubscriptionResponse.form_url);
+    if (newSubscriptionResponse) {
+      if (newSubscriptionResponse?.form_url && newSubscriptionResponse.form_url.trim() !== '') {
+        redirect(newSubscriptionResponse.form_url);
+      } else {
+        router.push(`/portal/my-applications`);
+      }
     }
   }, [newSubscriptionResponse, router]);
   const handleApplicationSubscription = async (captchaToken?: string) => {
