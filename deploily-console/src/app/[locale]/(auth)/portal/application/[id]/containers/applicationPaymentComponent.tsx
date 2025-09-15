@@ -28,8 +28,6 @@ export default function ApplicationPaymentComponent({ isSubscribed, subscription
   useEffect(() => {
     if (newSubscriptionResponse?.form_url) {
       redirect(newSubscriptionResponse.form_url);
-    }else if (newSubscriptionResponse?.subscription.status === "pending") {
-      router.push(`/portal/my-applications`);
     }
   }, [newSubscriptionResponse, router]);
   const handleApplicationSubscription = async (captchaToken?: string) => {
