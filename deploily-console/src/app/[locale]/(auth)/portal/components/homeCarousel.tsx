@@ -15,57 +15,48 @@ export default function HomeCarousel({ children }: { children: ReactNode }) {
       partialVisibilityGutter: 40
     },
     desktop: {
-      breakpoint: { max: 3000, min: 1400 },
+      breakpoint: { max: 3000, min: 1300 },
       items: 4,
       partialVisibilityGutter: 40
     },
-    l: {
-      breakpoint: { max: 1400, min: 1200 },
-      items: 3,
-      partialVisibilityGutter: 40
-    },
+   
     md: {
-      breakpoint: { max: 1200, min: 1100 },
+      breakpoint: { max: 1400, min: 1200 },
       items: 3,
       partialVisibilityGutter: 10
     },
+    
     tablet: {
-      breakpoint: { max: 1100, min: 650 },
+      breakpoint: { max: 1200, min: 680 },
       items: 2,
-      partialVisibilityGutter: 38
-    },
-    sm: {
-      breakpoint: { max: 650, min: 570 },
-      items: 2,
-      partialVisibilityGutter: -10
+      partialVisibilityGutter: 30
+
     },
     mobile: {
-      breakpoint: { max: 570, min: 0 },
+      breakpoint: { max: 680, min: 400 },
       items: 1,
-      partialVisibilityGutter: -10
+      partialVisibilityGutter: 20
+    },
+    xs: {
+      breakpoint: { max: 400, min: 0 },
+      items: 1,
+      partialVisibilityGutter: 0
     }
-  };
+  
+};
 
-  return (
-    <Carousel
-      swipeable={true}
-      draggable={true}
-      // showDots={false}
-      responsive={responsive}
-      ssr={true} // means to render carousel on server-side.
-      infinite={false}
-      autoPlaySpeed={1000}
-      showDots={screens.xxl ? false : true}
-      partialVisible={screens.xl ? false : true}
-      keyBoardControl={true}
-      customTransition="all .5"
-      transitionDuration={500}
-      containerClass="carousel-container"
-      dotListClass="custom-dot-list-style"
-      itemClass="carousel-item-padding-40-px"
-      arrows={false}
-      renderArrowsWhenDisabled={false}>
-      {children}
-    </Carousel>
-  );
+return (
+  <Carousel
+    
+    responsive={responsive}
+    arrows={false}
+    infinite={false}
+    containerClass="plans-carousel"
+    itemClass="plans-carousel-item"
+    showDots={screens.xxl ? false : true}
+    partialVisible={screens.xl ? false : true}
+  >
+    {children}
+  </Carousel>
+);
 }
