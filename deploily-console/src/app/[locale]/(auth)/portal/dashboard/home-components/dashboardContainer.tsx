@@ -14,7 +14,7 @@ import { fetchSupportTicket } from '@/lib/features/support-ticket/supportTicketT
 import { useAppDispatch } from '@/lib/hook';
 import { Handshake, Heart, Invoice, Question, SquaresFour } from '@phosphor-icons/react/dist/ssr';
 import { Card, Col, Row, Typography } from 'antd';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useScopedI18n } from '../../../../../../../locales/client';
 import PaymentsListContainer from './paymentsComponents';
 import Link from 'next/link';
@@ -33,7 +33,7 @@ export default function DashboardContainer() {
     const { favoriteServicesList } = useFavoriteServices();
     const { apiServiceSubscriptionResponse } = useApiServiceSubscription();
     const { MyApplicationList } = useMyApplicationList()
-
+    const [colFlex, setColFlex] = useState("20%")
     useEffect(() => {
         dispatch(fetchApiServiceSubscription("active"));
         dispatch(getProfile());
@@ -41,6 +41,18 @@ export default function DashboardContainer() {
         dispatch(fetchSupportTicket());
         dispatch(fetchMyFavoriteServices());
         dispatch(fetchMyApplications());
+        const handleResize = () => {
+            if (window.innerWidth < 480) {
+                setColFlex("100%"); // mobile : 1 colonne
+            } else if (window.innerWidth < 768) {
+                setColFlex("50%"); // tablette : 2 colonnes
+            } else {
+                setColFlex("20%"); // desktop : 5 colonnes
+            }
+        };
+        handleResize(); // init
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
     }, [dispatch]);
 
 
@@ -92,6 +104,12 @@ export default function DashboardContainer() {
             value: supportTicketsCount,
             icon: <Question style={{ fontSize: 30, color: '#fff' }} />,
             color: '#0099CC',
+            seeMyServices: dashboardtranslate('seeMySupportTicket'),
+            subscribeNew: dashboardtranslate('addSupportTocket'),
+            linkToServicesList: "/portal/support-ticket/add",
+            linkToMyServices: "/portal/support-ticket"
+
+
         },
         {
             key: "favorites",
@@ -99,6 +117,11 @@ export default function DashboardContainer() {
             value: favoritesCount,
             icon: <Heart style={{ fontSize: 30, color: '#fff' }} />,
             color: '#DD8859',
+            seeMyServices: dashboardtranslate('seeMyFavorites'),
+            subscribeNew: dashboardtranslate('seeMyFavorites'),
+            linkToServicesList: "/portal/my-favorites",
+            linkToMyServices: "/portal/my-favorites"
+
         },
 
     ];
@@ -114,14 +137,14 @@ export default function DashboardContainer() {
                 {dashboardtranslate("subTitle")}
             </Text>
 
-            <Row gutter={[16, 16]} style={{ marginTop: 24 }} wrap>
+            <Row gutter={[16, 16]} wrap style={{ marginTop: 24 }}>
                 {stats.map((stat) => (
-                    <Col flex="20%" key={stat.key}>
+                    <Col flex={colFlex} key={stat.key}>
                         <Card
                             style={{
                                 height: "100%",
                                 minHeight: 170,
-                                minWidth:130,
+                                minWidth: 130,
                                 backgroundColor: stat.color,
                                 color: '#fff',
                                 borderRadius: '8px',
@@ -130,20 +153,20 @@ export default function DashboardContainer() {
                             bodyStyle={{ padding: 20 }}
                         >
                             <div style={{ fontSize: 24 }}>{stat.icon}</div>
-                            <div style={{ fontSize: 14 }}>{stat.title}</div>
-                            <div style={{ fontSize: 32, fontWeight: 'bold' }}>      
-                               {stat.value.toString().padStart(2, '0')}
-                              
-                            </div> 
+                            <div style={{ fontSize: 14, height:"35px" }}>{stat.title}</div>
+                            <div style={{ fontSize: 32, fontWeight: 'bold' }}>
+                                {stat.value.toString().padStart(2, '0')}
+
+                            </div>
                             {stat.linkToServicesList &&
-                            <>{stat.value === 0 ? <Link href={stat.linkToServicesList} style={{ color: '#fff', textDecoration: 'underline' }}>
-                                {stat.subscribeNew}
-                            </Link> 
-                            : 
-                            <Link href={stat.linkToMyServices} style={{ color: '#fff', textDecoration: 'underline' }}>
-                                    {stat.seeMyServices}
-                            </Link>}
-                            </> 
+                                <>{stat.value === 0 ? <Link href={stat.linkToServicesList} style={{ color: '#fff', textDecoration: 'underline' }}>
+                                    {stat.subscribeNew}
+                                </Link>
+                                    :
+                                    <Link href={stat.linkToMyServices} style={{ color: '#fff', textDecoration: 'underline' }}>
+                                        {stat.seeMyServices}
+                                    </Link>}
+                                </>
                             }
                         </Card>
                     </Col>

@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { CloudResourceResponse, ManagedResourceListResponse, MyResourcesList, ProvidersListResponse, ResourceCategoriesResponse, ResourceInterface } from "./cloudResourceInterface";
 import { fetchCloudResources, fetchResourceCategories, getManagedResources, getMyResources, getProvidersList, getResourceById, postAffiliation } from "./cloudResourceThunks";
-import { log } from "console";
 
 interface CloudResourceState {
     cloudResourceResponse?: CloudResourceResponse;
@@ -51,6 +50,8 @@ const CloudResourceSlice = createSlice({
         builder
             .addCase(fetchCloudResources.pending, (state) => {
                 state.isLoading = true;
+                state.cloudResourceResponse = undefined;
+                state.cloudResourceLoadingError = null;
             })
             .addCase(fetchCloudResources.fulfilled, (state, action) => {
                 state.isAffiliationCreatedSuccess = false;
@@ -123,6 +124,7 @@ const CloudResourceSlice = createSlice({
             .addCase(getManagedResources.pending, (state) => {
                 state.isAffiliationCreatedSuccess = false;
                 state.managedResourceListResponse.isLoading = true;
+                state.managedResourceListResponse.managedResourceResponse = undefined;
             })
             .addCase(getManagedResources.fulfilled, (state, action) => {
                 state.isAffiliationCreatedSuccess = false;

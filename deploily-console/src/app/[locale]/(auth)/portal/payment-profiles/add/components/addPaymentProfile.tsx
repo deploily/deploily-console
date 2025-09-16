@@ -9,6 +9,7 @@ import Title from "antd/es/typography/Title";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useScopedI18n } from "../../../../../../../../locales/client";
+import { theme } from "@/styles/theme";
 
 export default function AddPaymentProfile() {
     const t = useScopedI18n("profilePayment");
@@ -223,7 +224,7 @@ export default function AddPaymentProfile() {
                     </Col>
                 </Row>
 
-                {isCompany && (
+                {isCompany ? (
                     <>
                         <Row style={{ padding: 20 }}>
                             <span style={{
@@ -269,7 +270,15 @@ export default function AddPaymentProfile() {
                             </Col>
                         </Row>
                     </>
-                )}
+                ) :
+                    <Row gutter={[16, 16]}>
+                        <Col md={24} xs={24}>
+                            <Form.Item label={t("nin")} name="nin">
+                                <Input style={{ color: theme.token.colorWhite }} />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                }
 
                 <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 20, paddingBottom: 40 }}>
                     <Button type="primary" htmlType="submit" style={{ boxShadow: "none" }}>
