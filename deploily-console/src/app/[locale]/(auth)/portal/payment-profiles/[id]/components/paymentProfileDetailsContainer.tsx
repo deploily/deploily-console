@@ -27,13 +27,13 @@ export default function ProfileDetailsContainer({ profile_id }: { profile_id: st
 
     const handleUpdate = (formValues: any) => {
         dispatch(updatePaymentProfile({ id: profile_id, ...formValues }))
-        .unwrap()
-        .then(() => {
-            message.success(t("updateSuccess"));
-        })
-        .catch(() => {
-            message.error(t("updateError"));
-        });
+            .unwrap()
+            .then(() => {
+                message.success(t("updateSuccess"));
+            })
+            .catch(() => {
+                message.error(t("updateError"));
+            });
     };
 
 
@@ -97,7 +97,7 @@ export default function ProfileDetailsContainer({ profile_id }: { profile_id: st
                             {t("profileInformation")}
                         </span>
                     </Row>
-                    <div style={{ paddingInline: 20, marginBottom: 20  }}>
+                    <div style={{ paddingInline: 20, marginBottom: 20 }}>
                         {currentProfile.is_company ?
                             <Radio checked={true} >{t("isCompany")}</Radio> :
                             <Radio checked={true} >{t("isIndividual")}</Radio>
@@ -113,49 +113,49 @@ export default function ProfileDetailsContainer({ profile_id }: { profile_id: st
                         labelWrap
                         wrapperCol={{ flex: 0 }}
                         colon={false}
-                        style={{ paddingInline: 20}}
+                        style={{ paddingInline: 20 }}
                     >
                         <Row gutter={[16, 16]}>
                             <Col md={12} xs={24}>
                                 <Form.Item label={t('firstName')} name="name">
-                                    <CustomPayementInput defaultValue={currentProfile.name} style={{ color: theme.token.colorWhite }}  />
+                                    <CustomPayementInput defaultValue={currentProfile.name} style={{ color: theme.token.colorWhite }} />
                                 </Form.Item>
                             </Col>
                             <Col md={12} xs={24}>
                                 <Form.Item label={t('lastName')} name="lastName">
-                                    <CustomPayementInput defaultValue={currentProfile.last_name} style={{ color: theme.token.colorWhite }}  />
+                                    <CustomPayementInput defaultValue={currentProfile.last_name} style={{ color: theme.token.colorWhite }} />
                                 </Form.Item>
                             </Col>
                         </Row>
 
                         <Form.Item label={t('address')} name="address">
-                            <CustomPayementInput defaultValue={currentProfile.address} style={{ color: theme.token.colorWhite }}  />
+                            <CustomPayementInput defaultValue={currentProfile.address} style={{ color: theme.token.colorWhite }} />
                         </Form.Item>
 
                         <Row gutter={[16, 16]}>
                             <Col md={16} xs={24}>
                                 <Form.Item label={t('city')} name="city">
-                                    <CustomPayementInput defaultValue={currentProfile.city} style={{ color: theme.token.colorWhite }}  />
+                                    <CustomPayementInput defaultValue={currentProfile.city} style={{ color: theme.token.colorWhite }} />
                                 </Form.Item>
                             </Col>
                             <Col md={8} xs={24}>
                                 <Form.Item label={t('codePostal')} name="codePostal">
-                                    <CustomPayementInput defaultValue={currentProfile.postal_code} style={{ color: theme.token.colorWhite }}  />
+                                    <CustomPayementInput defaultValue={currentProfile.postal_code} style={{ color: theme.token.colorWhite }} />
                                 </Form.Item>
                             </Col>
                         </Row>
 
                         <Form.Item label={t('wilaya')} name="wilaya">
-                            <CustomPayementInput defaultValue={currentProfile.wilaya} style={{ color: theme.token.colorWhite }}  />
+                            <CustomPayementInput defaultValue={currentProfile.wilaya} style={{ color: theme.token.colorWhite }} />
                         </Form.Item>
                         <Form.Item label={t('country')} name="country">
-                            <CustomPayementInput defaultValue={currentProfile.country} style={{ color: theme.token.colorWhite }}  />
+                            <CustomPayementInput defaultValue={currentProfile.country} style={{ color: theme.token.colorWhite }} />
                         </Form.Item>
                         <Form.Item label={t('phone')} name="phone">
-                            <CustomPayementInput defaultValue={currentProfile.phone} style={{ color: theme.token.colorWhite }}  />
+                            <CustomPayementInput defaultValue={currentProfile.phone} style={{ color: theme.token.colorWhite }} />
                         </Form.Item>
 
-                        {currentProfile.is_company && (
+                        {currentProfile.is_company ? (
                             <>
                                 <Row style={{ padding: 20 }}>
                                     <span style={{
@@ -180,34 +180,38 @@ export default function ProfileDetailsContainer({ profile_id }: { profile_id: st
                                     </span>
                                 </Row>
                                 <Form.Item label={t('etreprise')} name="company_name">
-                                    <CustomPayementInput defaultValue={currentProfile.company_name} style={{ color: theme.token.colorWhite }}  />
+                                    <CustomPayementInput defaultValue={currentProfile.company_name} style={{ color: theme.token.colorWhite }} />
                                 </Form.Item>
                                 <Row gutter={[16, 16]}>
                                     <Col md={12} xs={24}>
                                         <Form.Item label={t('commercialRegister')} name="commercialRegister">
-                                            <CustomPayementInput defaultValue={currentProfile.company_registration_number} style={{ color: theme.token.colorWhite }}  />
+                                            <CustomPayementInput defaultValue={currentProfile.company_registration_number} style={{ color: theme.token.colorWhite }} />
                                         </Form.Item>
                                     </Col>
                                     <Col md={12} xs={24}>
                                         <Form.Item label={t('taxArticle')} name="taxArticle">
-                                            <CustomPayementInput defaultValue={currentProfile.tax_article} style={{ color: theme.token.colorWhite }}  />
+                                            <CustomPayementInput defaultValue={currentProfile.tax_article} style={{ color: theme.token.colorWhite }} />
                                         </Form.Item>
                                     </Col>
                                 </Row>
                                 <Row gutter={[16, 16]}>
                                     <Col md={12} xs={24}>
                                         <Form.Item label={t('nif')} name="nif">
-                                            <CustomPayementInput defaultValue={currentProfile.nif} style={{ color: theme.token.colorWhite }}  />
+                                            <CustomPayementInput defaultValue={currentProfile.nif} style={{ color: theme.token.colorWhite }} />
                                         </Form.Item>
                                     </Col>
                                     <Col md={12} xs={24}>
                                         <Form.Item label={t('nis')} name="nis">
-                                            <CustomPayementInput defaultValue={currentProfile.nis} style={{ color: theme.token.colorWhite }}  />
+                                            <CustomPayementInput defaultValue={currentProfile.nis} style={{ color: theme.token.colorWhite }} />
                                         </Form.Item>
                                     </Col>
                                 </Row>
                             </>
-                        )}
+                        ) :
+                            <Form.Item label={t('nin')} name="nin">
+                                <CustomPayementInput defaultValue={currentProfile.nin} style={{ color: theme.token.colorWhite }} />
+                            </Form.Item>
+                        }
 
                         <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: 'end', marginTop: 20 }}>
                             <CustomOrangeButton htmlType="submit">
