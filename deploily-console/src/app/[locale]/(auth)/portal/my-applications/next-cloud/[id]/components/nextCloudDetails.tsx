@@ -65,7 +65,7 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                                         alignSelf: "start"
                                     }}>
                                         <Typography.Title level={2} style={{ color: theme.token.orange400 }}>
-                                            {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(nextCloudAppById.price)} DZD / {nextCloudAppById.service_plan.subscription_category === "monthly" ? t("month") : t("year")}
+                                        {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(nextCloudAppById.service_plan.price+nextCloudAppById.managed_ressource_details.price)} DZD / {nextCloudAppById.service_plan.subscription_category === "monthly" ? t("month") : t("year")}
 
                                         </Typography.Title>
                                     </Col>
