@@ -39,6 +39,7 @@ export interface PaymentProfileInterface {
   tax_article: string;
   nif: string;
   nis: string;
+  nin: number;
   is_company: boolean;
   is_default_profile: boolean;
 

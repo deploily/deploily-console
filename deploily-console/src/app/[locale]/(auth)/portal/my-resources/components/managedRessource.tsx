@@ -2,12 +2,10 @@
 import { useCloudResource, useManagedResource } from "@/lib/features/cloud-resource/cloudResourceSelectors";
 import { getManagedResources } from "@/lib/features/cloud-resource/cloudResourceThunks";
 import { useAppDispatch } from "@/lib/hook";
-import { theme } from "@/styles/theme";
 import { CheckCircleTwoTone } from '@ant-design/icons';
-import { Skeleton, Table, Tag, notification } from "antd";
+import { Skeleton, Table, notification } from "antd";
 import { useEffect, useMemo } from "react";
 import { useScopedI18n } from "../../../../../../../locales/client";
-import getStatusStyle from "./status";
 import { ManagedResourceList } from "@/lib/features/cloud-resource/cloudResourceInterface";
 
 export default function ManagedRessourcesComponent() {
@@ -15,7 +13,7 @@ export default function ManagedRessourcesComponent() {
     const t = useScopedI18n('affiliation');
     useEffect(() => {
         dispatch(getManagedResources());
-    }, [t]);
+    }, []);
 
     const { managedResourceResponse, isLoading, managedResourceFailed } = useManagedResource();
     const { isAffiliationCreatedSuccess } = useCloudResource();

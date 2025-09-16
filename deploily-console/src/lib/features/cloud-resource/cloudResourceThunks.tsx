@@ -213,7 +213,6 @@ export const getManagedResources = createAsyncThunk(
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log("response", response);
             if (response.status === 200) {
                 return response.data;
             } else {

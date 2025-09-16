@@ -32,12 +32,8 @@ const SubscriptionSlice = createSlice({
       .addCase(fetchSubscription.fulfilled, (state, action) => {
         state.subscriptionsState.subscriptionLoading = false;
         state.subscriptionsState.subscriptionLoadingError = null;
-        const result = action.payload.ids.map((id: number, index: any) =>
-          Object.assign({}, { id: id }, action.payload.result[index]),
-        );
-        const payload = Object.assign({}, action.payload, { result: result });
-        state.subscriptionsState.subscriptionResponse = payload;
-      })
+        state.subscriptionsState.subscriptionResponse = action.payload.result
+        })
       .addCase(fetchSubscription.rejected, (state, { payload }) => {
         state.subscriptionsState.subscriptionLoading = false;
         state.subscriptionsState.subscriptionLoadingError = payload;

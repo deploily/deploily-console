@@ -148,6 +148,8 @@ export default {
     'profilePayment.balance': 'Balance',
     'profilePayment.updateSuccess': 'Update success',
     'profilePayment.updateError': 'Update error',
+    "profilePayment.nin": 'NIN',
+
 
     'payments.paymentList': 'Payment list',
     'payments.nOrder': 'N° Order',
@@ -374,6 +376,9 @@ export default {
     "dashboard.subscribeNewAffiliation": "Subscribe New Affiliation",
     "dashboard.seeMyApplications": "See My Applications",
     "dashboard.subscribeNewApplication": "Subscribe New Application",
+    "dashboard.seeMySupportTicket": "See my support ticket",
+    "dashboard.addSupportTocket": "Add support ticket",
+    "dashboard.seeMyFavorites": "See my favorites",
 
     "odooApp.password": "Odoo master password",
 
