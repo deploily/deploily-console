@@ -74,7 +74,8 @@ export default {
   "contactProvider": "Contacter le fournisseur",
   "DZD": "DZD",
   "explore": "Explorer",
-
+  "see_documentation": "Voir la documentation",
+  "requist_demo": "Demander une démo",
   "sidebar.home": "Accueil",
   "sidebar.dashboard": "Tableau de bord",
   "sidebar.myApi": "Mes API",

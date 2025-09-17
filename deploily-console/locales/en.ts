@@ -71,6 +71,8 @@ export default {
     "requestQuote": "Request a quote",
     "DZD": "DZD",
     "explore": "Explore",
+    "see_documentation": "See documentation",
+    "requist_demo": "Requist demo",
 
     'sidebar.home': 'Home',
     'sidebar.dashboard': 'Dashboard',
