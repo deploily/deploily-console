@@ -8,9 +8,11 @@ import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThank
 import { useAppDispatch } from "@/lib/hook";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { theme } from "@/styles/theme";
+import { HomeOutlined } from '@ant-design/icons';
 import { Card, Col, Grid, Row, Select, Skeleton, Space } from "antd";
 import { PaymentSideBar } from "deploily-ui-components";
 import { PaymentAppBar } from "deploily-ui-components/components/applications/paymentSideBar";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import { options } from "../utils/applicationConst";
@@ -29,6 +31,9 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
     const [isScrolled, setIsScrolled] = useState(false);
     const onClose = () => setOpenDrawer(false);
     const [subscriptionCategory, setSubscriptionCategory] = useState("yearly");
+    const [hover, setHover] = useState(false);
+    const router = useRouter();
+    const [fromPage, setFromPage] = useState<"seeAll" | "home" | null>(null);
 
 
     const { applicationServiceById, isLoading, loadingError } = useApplicationServiceById();
@@ -68,6 +73,13 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
+    useEffect(() => {
+        const storedFrom = sessionStorage.getItem("fromPage");
+
+        if (storedFrom === "home" || storedFrom === "seeAll") {
+            setFromPage(storedFrom);
+        }
+    }, []);
 
 
     if (isLoading) return <Skeleton active />;
@@ -76,7 +88,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
 
     return (
         <>
-        
+
             <Space
                 direction="vertical"
                 size="large"
@@ -89,6 +101,31 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                     justifyContent: "center",
                 }}
             >
+
+                <Col xs={24} sm={24} md={24} lg={12}>
+                    <Row>
+                        <Col span={24} style={{ marginBottom: 12 }}>
+                            <span style={{ color: "white", fontSize: "24px", fontWeight: 800, }}>
+
+                                <span
+                                    style={{ cursor: "pointer", color: hover ? "orange" : "white" }}
+                                    onClick={() => router.back()}
+                                    onMouseEnter={() => setHover(true)}
+                                    onMouseLeave={() => setHover(false)}
+                                >
+                                    {fromPage === "home" ? (
+                                        <HomeOutlined style={{ marginRight: 4 }} />
+                                    ) : (
+                                        t("application")
+                                    )}
+                                </span>  / {"\t"}
+                                {applicationServiceById !== undefined && applicationServiceById.name}
+                            </span>
+
+
+                        </Col>
+                    </Row>
+                </Col>
                 <Row gutter={[24, 24]} wrap style={{ justifyContent: "center", margin: '0px' }}>
                     {/* Main Content */}
                     <Col xs={24} md={24} lg={16} style={{ padding: '0px', margin: '0px' }}>
@@ -106,7 +143,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                         />
 
                         <div style={{ padding: '8px 0' }}>
-                            <ApplicationPlansContainer /> 
+                            <ApplicationPlansContainer />
                         </div>
 
                         {!screens.lg && !(applicationServiceById.is_subscribed) && app_service_plan && !app_service_plan.is_custom && (

@@ -1,25 +1,28 @@
 
 "use client";
+import { ApplicationServiceInterface } from "@/lib/features/application/applicationServiceInterface";
+import { useApplicationServicesList } from "@/lib/features/application/applicationServiceSelectors";
+import { updateApplicationServiceSearchValue } from "@/lib/features/application/applicationServiceSlice";
+import { fetchApplicationServices } from "@/lib/features/application/applicationServiceThunks";
 import { useFavoriteServices } from "@/lib/features/favorites/favoriteServiceSelectors";
 import { useAppDispatch } from "@/lib/hook";
-import { MagnifyingGlass } from "@phosphor-icons/react";
-import { Card, Col, Input, Pagination, Result, Row, Space } from "antd";
+import { HomeOutlined } from '@ant-design/icons';
+import { Card, Col, Pagination, Result, Row, Space } from "antd";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
-import { useApplicationServicesList } from "@/lib/features/application/applicationServiceSelectors";
-import { ApplicationServiceInterface } from "@/lib/features/application/applicationServiceInterface";
-import { fetchApplicationServices } from "@/lib/features/application/applicationServiceThunks";
 import ApplicationServiceCard from "../home-components/applicationServiceCard";
-import { updateApplicationServiceSearchValue } from "@/lib/features/application/applicationServiceSlice";
 
 export default function AllApplicationServiceContainer() {
     const [searchTerm, setSearchTerm] = useState("");
     const tApplication = useScopedI18n("applications");
     const t = useI18n();
     const dispatch = useAppDispatch();
+    const [hover, setHover] = useState(false);
+    const router = useRouter();
 
     const { isLoading, applicationServicesList, loadingError } = useApplicationServicesList();
-   
+
     const applications = applicationServicesList?.result || [];
     const { favoriteServiceAdded, favoriteServiceDeleted } = useFavoriteServices()
 
@@ -30,6 +33,8 @@ export default function AllApplicationServiceContainer() {
     }, [favoriteServiceAdded, favoriteServiceDeleted]);
 
     useEffect(() => {
+        sessionStorage.setItem("fromPage", "seeAll");
+
         const delayDebounceFn = setTimeout(() => {
             dispatch(updateApplicationServiceSearchValue(searchTerm));
             dispatch(fetchApplicationServices(10));
@@ -37,7 +42,7 @@ export default function AllApplicationServiceContainer() {
 
         return () => clearTimeout(delayDebounceFn);
     }, [searchTerm, dispatch]);
-    
+
     const [filterParams, setFilter] = useState(
         {
             page_size: 10,
@@ -58,6 +63,12 @@ export default function AllApplicationServiceContainer() {
         <Space direction="vertical" size="middle" style={{ display: "flex", paddingTop: 15 }}>
             <Row justify="space-between" align="middle" style={{ padding: "0 20px" }}>
                 <span style={{ color: "white", fontSize: "24px", fontWeight: 800 }}>
+                    <HomeOutlined
+                        style={{ cursor: 'pointer', color: hover ? "orange" : 'white', }}
+                        onClick={() => router.back()}
+                        onMouseEnter={() => setHover(true)}
+                        onMouseLeave={() => setHover(false)}
+                    /> / {"\t"}
                     {t("application")}
                 </span>
 
@@ -77,7 +88,7 @@ export default function AllApplicationServiceContainer() {
                         }}
                     />
                 </Space> */}
-                
+
             </Row>
             <Row gutter={[24, 24]} justify="start" style={{ margin: 0 }}>
                 {isLoading && applications.length === 0 && (
@@ -115,16 +126,16 @@ export default function AllApplicationServiceContainer() {
             )}
 
             <Row justify="end" style={{ marginTop: 20 }}>
-                  
-                    <Pagination
-                        current={currentPage}
-                        pageSize={filterParams.page_size}
-                        total={applicationServicesList?.count ?? 0}
-                        onChange={handlePageChange}
-                        showSizeChanger={false}
-                    />
 
-                </Row>
+                <Pagination
+                    current={currentPage}
+                    pageSize={filterParams.page_size}
+                    total={applicationServicesList?.count ?? 0}
+                    onChange={handlePageChange}
+                    showSizeChanger={false}
+                />
+
+            </Row>
         </Space>
     );
 }
