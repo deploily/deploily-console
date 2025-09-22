@@ -10,6 +10,17 @@ export const data = {
         order_columns: [],
         result: [
             {
+                id: 1,
+                name: "Docker",
+                price: "1 000",
+                price_category: "monthly",
+                service_unity: "",
+                description:
+                    "Docker is a one-click app for Mac, Windows, and Linux that lets you easily build, run, and manage containerized applications.",
+                image: "/images/docker.png",
+            },
+            {
+                id: 2,
                 name: "Github",
                 price: "1 000",
                 price_category: "monthly",
@@ -19,6 +30,7 @@ export const data = {
                 image: "/images/github.png",
             },
             {
+                id: 3,
                 name: "Gitlab",
                 price: "1 000 ",
                 price_category: "monthly",
@@ -27,15 +39,7 @@ export const data = {
                     "GitLab CI/CD automates the process of building, testing, and deploying code using GitLab's built-in pipeline features.",
                 image: "/images/gitlab.png",
             },
-            {
-                name: "Docker Desktop",
-                price: "1 000",
-                price_category: "monthly",
-                service_unity: "",
-                description:
-                    "Docker Desktop is a one-click app for Mac, Windows, and Linux that lets you easily build, run, and manage containerized applications.",
-                image: "/images/docker.png",
-            },
+
 
         ],
     },

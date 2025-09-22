@@ -421,4 +421,10 @@ export default {
   },
   "hiEventsApp.event_url": "URL de l'événement",
   "hiEventsApp.event_domain": "Domaine de l'événement",
+  "deployment": {
+    "deployments": "Déploiements",
+    "noResult": "Aucun résultat trouvé",
+    "noResultDescription": "Essayez d'ajuster votre recherche ou votre filtre.",
+
+  }
 } as const;

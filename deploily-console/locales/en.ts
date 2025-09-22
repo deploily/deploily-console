@@ -411,6 +411,11 @@ export default {
 
     "hiEventsApp.event_url": "Event URL",
     "hiEventsApp.event_domain": "Event Domain",
+    "deployment":{
+        "deployments": "Deployments",
+        "noResult": "No Results Found",
+        "noResultDescription": "Try adjusting your search or filter.",
+    }
 
 
 } as const

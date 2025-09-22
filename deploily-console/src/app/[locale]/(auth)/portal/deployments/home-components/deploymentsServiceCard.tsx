@@ -1,12 +1,19 @@
 "use client";
-import { HeartStraight } from "@phosphor-icons/react";
+import { DeploymentsServiceInterface } from "@/lib/features/deployment-service/deploymentServiceInterface";
+import { theme } from "@/styles/theme";
+import { ArrowRight, HeartStraight } from "@phosphor-icons/react";
 import { Badge, Button, Card, Col, Image, Row, Space } from "antd";
 import Meta from "antd/es/card/Meta";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useI18n } from "../../../../../../../locales/client";
-import { CiCdServiceInterface } from "@/lib/features/ci-cd-service/cicdServiceInterface";
 
-export default function CiCdServiceCard({ data }:{data: CiCdServiceInterface}) {
+export default function DeploymentsServiceCard({ data }: { data: DeploymentsServiceInterface }) {
     const t = useI18n();
+    const router = useRouter();
+    const [hovered, setHovered] = useState(false);
+
+
 
     return (
         <Card
@@ -19,6 +26,7 @@ export default function CiCdServiceCard({ data }:{data: CiCdServiceInterface}) {
                 marginRight: 16,
             }}
             bodyStyle={{ padding: 16, height: "100%" }}
+            onClick={() => router.push(`/portal/deployments/${data.id}`)}
         >
             <div style={{ height: "280px" }}>
                 {/* Header */}
@@ -109,7 +117,7 @@ export default function CiCdServiceCard({ data }:{data: CiCdServiceInterface}) {
 
             {/* Details Button */}
             <Space style={{ position: "absolute", bottom: 16, right: 16 }}>
-                {/* <Button
+                <Button
                     style={{
                         color: "#fff",
                         border: "none",
@@ -118,11 +126,20 @@ export default function CiCdServiceCard({ data }:{data: CiCdServiceInterface}) {
                         background: "transparent",
                         display: "flex",
                         alignItems: "center",
+
                     }}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        router.push(`/portal/deployments/${data.id}`);
+                    }}
+                    onMouseEnter={() => setHovered(true)}
+                    onMouseLeave={() => setHovered(false)}
                 >
                     <span
                         style={{
-                            color: theme.token.gray200,
+                            color: hovered
+                                ? theme.token.colorPrimary
+                                : theme.token.gray200,
                             fontSize: 16,
                             fontWeight: 600,
                             paddingRight: 4,
@@ -130,16 +147,20 @@ export default function CiCdServiceCard({ data }:{data: CiCdServiceInterface}) {
 
                         }}
                     >
+                        {/* //TODO ADD TRANSLATION */}
                         {t("details")}
+
                     </span>
                     <ArrowRight
                         size={20}
                         style={{
-                            color: theme.token.gray200,
+                            color: hovered
+                                ? theme.token.colorPrimary
+                                : theme.token.gray200,
                             transition: "color 0.3s ease",
                         }}
                     />
-                </Button> */}
+                </Button>
             </Space>
         </Card>
     );
