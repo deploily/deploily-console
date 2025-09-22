@@ -77,7 +77,7 @@ export default {
     'sidebar.members': 'Members',
     'sidebar.myFavorites': 'My favorites',
     'sidebar.myResources': 'My resources',
-    'sidebar.myApplications': 'My Applications',
+    'sidebar.myApplications': 'My applications',
     'sidebar.supportTicket': 'Support Ticket',
     'sidebar.myServices': 'My services',
     'sidebar.subscriptions': 'Subscriptions',
@@ -96,6 +96,7 @@ export default {
     'sidebar.profile': 'Profile',
     'sidebar.logout': 'Logout',
     'sidebar.collapse': 'Collapse sidebar',
+    'sidebar.myDeployments': 'My deployments',
 
     'serviceApi.search': 'Search',
     'serviceApi.filter': 'Filter',
@@ -411,6 +412,6 @@ export default {
 
     "hiEventsApp.event_url": "Event URL",
     "hiEventsApp.event_domain": "Event Domain",
-
+    "deployments.myDeployments": "My Deployments",
 
 } as const
