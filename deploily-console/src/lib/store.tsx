@@ -27,6 +27,7 @@ import odooAppSlice from "./features/odoo/odooSlice";
 import supabaseAppSlice from "./features/supabase/supabaseSlice";
 import nextCloudAppSlice from "./features/next-cloud/nextCloudSlice";
 import hiEventsAppSlice from "./features/hi-events/hiEventsSlice";
+import myDeploymentSlice from "./features/my-deployments/myDeploymentSlice";
 
 export const makeStore = () => {
   return configureStore({
@@ -56,7 +57,7 @@ export const makeStore = () => {
       wilaya: wilayaSlice,
       nextCloudApp: nextCloudAppSlice,
       hiEventsApp: hiEventsAppSlice,
-
+      myDeployment: myDeploymentSlice,
     },
     middleware: getDefaultMiddleware =>
       getDefaultMiddleware().prepend(resourceServicesPlansMiddleware as Middleware).prepend(paymentProfileMiddleware as Middleware).prepend(servicesPlansMiddleware as Middleware),
