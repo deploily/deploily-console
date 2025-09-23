@@ -422,4 +422,6 @@ export default {
   "hiEventsApp.event_url": "URL de l'événement",
   "hiEventsApp.event_domain": "Domaine de l'événement",
   "deployments.myDeployments": "Mes déploiements",
+  "deployments.configureSettings": "Configurer les paramètres",
+  "deployments.addParameter": "Ajouter un paramètre",
 } as const;

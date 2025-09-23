@@ -1,4 +1,3 @@
-
 export const data = {
     status: 200,
     data: {
@@ -13,7 +12,9 @@ export const data = {
                 image: "/images/docker.png",
                 status: "active",
                 deployment_status: "deployed",
+                start_date: "2025-10-01",
                 duration_month: 12,
+                access_url: "https://example-docker-access-url.com",
                 service_details: {
                     api_key: null,
                     api_playground_url: null,
