@@ -4,11 +4,6 @@ export interface MyDeploymentState {
   isLoading: boolean;
   loadingError?: any;
 }
-export interface MyDeploymentByIdState {
-  myDeploymentsById?: myDeploymentInterface;
-  isLoading: boolean;
-  loadingError?: any;
-}
 export interface MyDeploymentResponse {
   result: myDeploymentInterface[];
 }
@@ -25,26 +20,6 @@ export interface myDeploymentInterface {
   service_details: ServiceDetails;
 }
 
-//export interface myDeploymentInterface {
-//   id: number;
-//   name: string;
-//   api_key: string;
-//   deployment_status: string;
-//   price: number;
-//   price_category: string;
-//   unity: string;
-//   duration_month: number;
-//   is_expired: boolean;
-//   service_plan_id: number;
-//   start_date: Date;
-//   total_amount: number;
-//   service_details: ServiceDetails;
-//   service_plan: Service_plan;
-//   is_in_favorite: string;
-//   image_service: string;
-//   short_description: string;
-//   status: string;
-// }
 
 interface Service_plan {
   id: number;

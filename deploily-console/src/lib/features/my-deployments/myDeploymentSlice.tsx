@@ -1,20 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { MyDeploymentByIdState, MyDeploymentState } from "./myDeploymentInterface";
-import { fetchMyDeploymentById, fetchMyDeployments } from "./myDeploymentThunks";
+import { MyDeploymentState } from "./myDeploymentInterface";
+import { fetchMyDeployments } from "./myDeploymentThunks";
 
 interface DeploymentServiceState {
   myDeployments: MyDeploymentState;
-  myDeploymentById: MyDeploymentByIdState;
 }
 
 const initialState: DeploymentServiceState = {
   myDeployments: {
     MyDeploymentList: undefined,
-    isLoading: false,
-    loadingError: null,
-  },
-  myDeploymentById: {
-    myDeploymentsById: undefined,
     isLoading: false,
     loadingError: null,
   }
@@ -37,20 +31,6 @@ const DeploymentServiceSlice = createSlice({
         state.myDeployments.isLoading = false;
         state.myDeployments.loadingError = payload;
       })
-
-      .addCase(fetchMyDeploymentById.pending, (state) => {
-        state.myDeploymentById.isLoading = true;
-      })
-      .addCase(fetchMyDeploymentById.fulfilled, (state, action) => {
-        state.myDeploymentById.isLoading = false;
-        state.myDeploymentById.loadingError = null;
-        state.myDeploymentById.myDeploymentsById = action.payload.result;
-      })
-      .addCase(fetchMyDeploymentById.rejected, (state, { payload }) => {
-        state.myDeploymentById.isLoading = false;
-        state.myDeploymentById.loadingError = payload;
-      })
-   
   },
 });
 
