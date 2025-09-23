@@ -28,7 +28,7 @@ import supabaseAppSlice from "./features/supabase/supabaseSlice";
 import nextCloudAppSlice from "./features/next-cloud/nextCloudSlice";
 import hiEventsAppSlice from "./features/hi-events/hiEventsSlice";
 import myDeploymentSlice from "./features/my-deployments/myDeploymentSlice";
-
+import dockerSlice from "./features/docker/dockerSlice";
 export const makeStore = () => {
   return configureStore({
     reducer: {
@@ -58,6 +58,7 @@ export const makeStore = () => {
       nextCloudApp: nextCloudAppSlice,
       hiEventsApp: hiEventsAppSlice,
       myDeployment: myDeploymentSlice,
+      dockerDep:dockerSlice,
     },
     middleware: getDefaultMiddleware =>
       getDefaultMiddleware().prepend(resourceServicesPlansMiddleware as Middleware).prepend(paymentProfileMiddleware as Middleware).prepend(servicesPlansMiddleware as Middleware),
