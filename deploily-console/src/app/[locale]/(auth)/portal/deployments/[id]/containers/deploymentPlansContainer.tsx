@@ -1,0 +1,140 @@
+"use client";
+import {postFeedBack} from "@/lib/features/contact-us/contactUsThunks";
+import {updateNewDeploymentSubscriptionState} from "@/lib/features/deployment-service/deploymentServiceSlice";
+import {useServicePlan} from "@/lib/features/service-plans/servicePlanSelector";
+import {useAppDispatch} from "@/lib/hook";
+import {theme} from "@/styles/theme";
+import {Button, Col, Input, Modal, Row} from "antd";
+import {PlanCard} from "deploily-ui-components";
+import {useState} from "react";
+import {useI18n, useScopedI18n} from "../../../../../../../../locales/client";
+import {useNewDeploymentSubscription} from "@/lib/features/deployment-service/deploymentServiceSelectors";
+
+export default function DeploymentPlansContainer() {
+  const dispatch = useAppDispatch();
+  const {servicePlanResponse} = useServicePlan();
+  const {deployment_service_plan} = useNewDeploymentSubscription();
+
+  const t = useScopedI18n("apiServiceSubscription");
+  const translate = useI18n();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [comment, setComment] = useState("");
+  const handleCancel = () => {
+    setIsModalOpen(false);
+    setComment("");
+  };
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleContactUs = () => {
+    setIsModalOpen(false);
+    dispatch(
+      postFeedBack(
+        `${translate("interstedCustomPlan")} ${deployment_service_plan?.service.name} :  ${comment}`,
+      ),
+    );
+    setComment("");
+  };
+
+  return (
+    <Row gutter={[16, 24]} justify="start">
+      {servicePlanResponse !== undefined &&
+        servicePlanResponse.result.map((plan) => {
+          return (
+            <Col
+              xs={24}
+              sm={24}
+              md={12}
+              lg={12}
+              xl={10}
+              xxl={8}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                padding: "0.5rem",
+              }}
+              span={Math.floor(24 / servicePlanResponse.result.length)}
+              key={plan.id.toString()}
+              // style={{ maxWidth: '280px' }}
+            >
+              <div
+                style={{width: "100%", display: "flex", justifyContent: "center", maxWidth: 350}}
+              >
+                <PlanCard
+                  id={plan.id}
+                  price={plan.price}
+                  subscription_category={
+                    plan.subscription_category === "monthly"
+                      ? t("month")
+                      : plan.subscription_category === "yearly"
+                        ? t("year")
+                        : t("month")
+                  }
+                  styles={{
+                    color:
+                      deployment_service_plan != undefined && deployment_service_plan.id == plan.id
+                        ? theme.token.orange600
+                        : undefined,
+                  }}
+                  options={plan.options.map((opt) => ({
+                    id: opt.id,
+                    icon: opt.icon,
+                    html_content: opt.html_content,
+                  }))}
+                  title={plan.plan.name}
+                  onClick={() =>
+                    dispatch(updateNewDeploymentSubscriptionState({deployment_service_plan: plan}))
+                  }
+                  isCustomPlan={plan.is_custom}
+                  translations={{
+                    onDemand: translate("ondemand"),
+                    DZD: translate("DZD"),
+                    subscription_category:
+                      plan.subscription_category === "yearly" ? t("year") : t("month"),
+                    contactUs: translate("requestQuote"),
+                  }}
+                  customPlanSelected={
+                    deployment_service_plan != undefined && deployment_service_plan.is_custom
+                  }
+                  showModal={showModal}
+                />
+              </div>
+
+              <Modal
+                title="Contactez-nous"
+                open={isModalOpen}
+                onOk={handleContactUs}
+                okText="Send"
+                onCancel={handleCancel}
+                footer={[
+                  <Button
+                    style={{
+                      color: theme.token.colorWhite,
+                      backgroundColor: theme.token.orange600,
+                      border: "none",
+                      paddingBlock: 20,
+                      fontWeight: 600,
+                      fontSize: 20,
+                    }}
+                    key="submit"
+                    onClick={handleContactUs}
+                  >
+                    {translate("send")}
+                  </Button>,
+                ]}
+              >
+                <Input.TextArea
+                  rows={4}
+                  placeholder={translate("whriteMessage")}
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                />
+              </Modal>
+            </Col>
+          );
+        })}
+    </Row>
+  );
+}

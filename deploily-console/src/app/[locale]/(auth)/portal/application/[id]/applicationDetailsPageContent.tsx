@@ -45,7 +45,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
 
     const handleChangeDuration = (value: number) => {
         setSubscriptionCategory(value === options[0].value ? "yearly" : "monthly");
-        dispatch(fetchResourceServicesPlans({ applicationId, subscriptionCategory }));
+        dispatch(fetchResourceServicesPlans({ serviceId: applicationId, subscriptionCategory }));
         dispatch(updateNewAppSubscriptionState({ duration: value }));
     };
     const handleChangeVersion = (value: number) => {
@@ -54,7 +54,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
 
     useEffect(() => {
         if (subscriptionCategory) {
-            dispatch(fetchResourceServicesPlans({ applicationId, subscriptionCategory }));
+            dispatch(fetchResourceServicesPlans({serviceId:applicationId, subscriptionCategory }));
         }
     }, [subscriptionCategory]);
 
