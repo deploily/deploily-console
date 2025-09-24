@@ -70,6 +70,7 @@ export const deploilyApiUrls = {
 
   MANAGED_RESSOURCE_URL: `${API_BASE_URL}/managed-ressource/`,
 
+  COSTUM_PARAMETER_URL: `${API_BASE_URL}/api/v1/custom-parameter`,
 };
 export const TTK_EPAY_SLUG = "ttk-epay";
 export const ODOO_SLUG = "odoo";

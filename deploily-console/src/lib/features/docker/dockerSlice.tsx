@@ -26,9 +26,7 @@ const DockerServiceSlice = createSlice({
             .addCase(fetchDockerById.fulfilled, (state, action) => {
                 state.dockerById.isLoading = false;
                 state.dockerById.loadingError = null;
-                state.dockerById.dockerById = action.payload; // ✅ correct
-                console.log("Inside dockerSlice, updated state with dockerById:", state.dockerById.dockerById);
-                
+                state.dockerById.dockerById = action.payload; // ✅ correct                
             })
 
             .addCase(fetchDockerById.rejected, (state, { payload }) => {

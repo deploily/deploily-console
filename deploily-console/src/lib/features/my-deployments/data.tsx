@@ -35,6 +35,18 @@ export const data = {
                     type: "deployment",
                     unit_price: 1000
                 },
+                parameters: [
+                    {
+                        id: 1,
+                        key: "DB_HOST",
+                        value: "localhost",
+                    },
+                    {
+                        id: 2,
+                        key: "DB_PORT",
+                        value: "5432",
+                    },
+                ],
             },
         ],
     },

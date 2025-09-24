@@ -22,8 +22,15 @@ export interface dockerDepInterface {
     start_date: string;
     service_details: ServiceDetails;
     access_url: string;
+    parameters: Parameter[];
 }
 
+
+export interface Parameter {
+    id: number;
+    key: string;
+    value: string;
+}
 interface Service_plan {
     id: number;
     is_custom: boolean;
