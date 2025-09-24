@@ -15,8 +15,8 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useScopedI18n } from "../../../../../../../../../locales/client";
 import CreateProfileButton from "../../../../api-services/[id]/components/subscriptionDrawer/containers/createProfileButton";
-import DeploymentPaymentComponent from "./applicationPaymentComponent";
 import IsBalanceSufficientComponent from "./isBalanceSufficientComponent";
+import DeploymentPaymentComponent from "./deploymentPaymentComponent";
 
 export default function PaymentDrawer({ openDrawer, onClose }: { openDrawer: any; onClose: any }) {
   const router = useRouter();

@@ -10,17 +10,17 @@ export default function DeploymentDetailsCollapseContainer({
   description: string;
   specifications: string;
 }) {
-  const tApplications = useScopedI18n("applications");
+  const tdeployments = useScopedI18n("deployment");
 
   return (
     <DetailsCollapse
       items={[
         {
-          label: tApplications("description"),
+          label: tdeployments("description"),
           children: description,
         },
         {
-          label: tApplications("features"),
+          label: tdeployments("features"),
           children: (
             <div style={{fontWeight: 600, fontSize: 14}}>
               <ReactMarkdown>{specifications}</ReactMarkdown>

@@ -1,18 +1,18 @@
 "use client";
 
-import {useNewApplicationSubscription} from "@/lib/features/application/applicationServiceSelectors";
-import {ManagedRessourceDetails} from "@/lib/features/resourceServicePlans/resourceServicesPlansInterface";
-import {useServicePlansByType} from "@/lib/features/resourceServicePlans/resourceServicesPlansSelectors";
-import {updateSelectedPlan} from "@/lib/features/resourceServicePlans/resourceServicesPlansSlice";
-import {fetchResourceServicesPlans} from "@/lib/features/resourceServicePlans/resourceServicesPlansThunk";
-import {ServicePlanOption} from "@/lib/features/service-plans/servicePlanInterface";
-import {useAppDispatch} from "@/lib/hook";
-import {theme} from "@/styles/theme";
-import {Check} from "@phosphor-icons/react";
-import {Col, Row, Typography} from "antd";
-import {TableComponentWithSelection} from "deploily-ui-components";
-import {useEffect} from "react";
-import {useScopedI18n} from "../../../../../../../../locales/client";
+import { useNewDeploymentSubscription } from "@/lib/features/deployment-service/deploymentServiceSelectors";
+import { ManagedRessourceDetails } from "@/lib/features/resourceServicePlans/resourceServicesPlansInterface";
+import { useServicePlansByType } from "@/lib/features/resourceServicePlans/resourceServicesPlansSelectors";
+import { updateSelectedPlan } from "@/lib/features/resourceServicePlans/resourceServicesPlansSlice";
+import { fetchResourceServicesPlans } from "@/lib/features/resourceServicePlans/resourceServicesPlansThunk";
+import { ServicePlanOption } from "@/lib/features/service-plans/servicePlanInterface";
+import { useAppDispatch } from "@/lib/hook";
+import { theme } from "@/styles/theme";
+import { Check } from "@phosphor-icons/react";
+import { Col, Row, Typography } from "antd";
+import { TableComponentWithSelection } from "deploily-ui-components";
+import { useEffect } from "react";
+import { useScopedI18n } from "../../../../../../../../locales/client";
 
 interface SelectVpsPlanTableProps {
   onVpsPlanSelect?: (plan: ManagedRessourceDetails) => void;
@@ -30,11 +30,11 @@ export default function SelectVpsPlanTable({
   const dispatch = useAppDispatch();
   const tdeployment = useScopedI18n("deployment");
 
-  const {servicePlansList} = useServicePlansByType();
-  const {managed_ressource_details} = useNewApplicationSubscription();
+  const { servicePlansList } = useServicePlansByType();
+  const { managed_ressource_details } = useNewDeploymentSubscription();
 
   useEffect(() => {
-    dispatch(fetchResourceServicesPlans({serviceId: "20", subscriptionCategory}));
+    dispatch(fetchResourceServicesPlans({ serviceId: deploymentId, subscriptionCategory }));
   }, []);
 
   const handlePlanChange = (selectedPlan: any) => {
@@ -68,19 +68,19 @@ export default function SelectVpsPlanTable({
           data={
             servicePlansList?.result
               ? (servicePlansList?.result.map((plan) => {
-                  if (plan.provider_info !== undefined) {
-                    return {
-                      key: plan.id,
-                      resource: plan,
-                      options: plan.options.filter((option) =>
-                        ["ram", "cpu", "disque"].includes(option.option_type),
-                      ),
-                      price: plan.price,
-                      preparation_time: plan.preparation_time,
-                      // serviceId:plan.service_id,//TODO NEED TO BE ADDED IN THE BACKEND
-                    };
-                  }
-                }) as [])
+                if (plan.provider_info !== undefined) {
+                  return {
+                    key: plan.id,
+                    resource: plan,
+                    options: plan.options.filter((option) =>
+                      ["ram", "cpu", "disque"].includes(option.option_type),
+                    ),
+                    price: plan.price,
+                    preparation_time: plan.preparation_time,
+                    // serviceId:plan.service_id,//TODO NEED TO BE ADDED IN THE BACKEND
+                  };
+                }
+              }) as [])
               : []
           }
           columns={[
@@ -89,7 +89,7 @@ export default function SelectVpsPlanTable({
               dataIndex: "resource",
               render: (plan) =>
                 plan != undefined ? (
-                  <div style={{color: "white"}}>
+                  <div style={{ color: "white" }}>
                     <a href={`/portal/cloud-resources/${plan.service_id}`}>
                       {`${plan.provider_info?.name}`}
                       {`/ ${plan.plan_name}`}
@@ -101,7 +101,7 @@ export default function SelectVpsPlanTable({
               title: tdeployment("options"),
               dataIndex: "options",
               render: (options) => (
-                <div style={{flex: 1, paddingBottom: "16px"}}>
+                <div style={{ flex: 1, paddingBottom: "16px" }}>
                   {options.map((row: ServicePlanOption) => (
                     <Row gutter={16} key={row.id} align="middle">
                       <Col span={3}>

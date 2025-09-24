@@ -10,7 +10,7 @@ export const data = {
     order_columns: [],
     result: [
       {
-        id: 1,
+        id: 20,
         name: "Docker",
         price: "1 000",
         price_category: "monthly",

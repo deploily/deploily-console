@@ -4,28 +4,28 @@ import {
   useDeploymentServiceById,
   useNewDeploymentSubscription,
 } from "@/lib/features/deployment-service/deploymentServiceSelectors";
-import {updateNewDeploymentSubscriptionState} from "@/lib/features/deployment-service/deploymentServiceSlice";
-import {fetchDeploymentServiceById} from "@/lib/features/deployment-service/deploymentsServiceThunks";
-import {fetchResourceServicesPlans} from "@/lib/features/resourceServicePlans/resourceServicesPlansThunk";
-import {fetchServicePlans} from "@/lib/features/service-plans/servicePlanThanks";
-import {useAppDispatch} from "@/lib/hook";
+import { updateNewDeploymentSubscriptionState } from "@/lib/features/deployment-service/deploymentServiceSlice";
+import { fetchDeploymentServiceById } from "@/lib/features/deployment-service/deploymentsServiceThunks";
+import { fetchResourceServicesPlans } from "@/lib/features/resourceServicePlans/resourceServicesPlansThunk";
+import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThanks";
+import { useAppDispatch } from "@/lib/hook";
 import ImageFetcher from "@/lib/utils/imageFetcher";
-import {theme} from "@/styles/theme";
-import {HomeOutlined} from "@ant-design/icons";
-import {Card, Col, Grid, Row, Select, Skeleton, Space} from "antd";
+import { theme } from "@/styles/theme";
+import { HomeOutlined } from "@ant-design/icons";
+import { Card, Col, Grid, Row, Select, Skeleton, Space } from "antd";
 import PaymentSideBar, {
   PaymentAppBar,
 } from "deploily-ui-components/components/Deployments/paymentSideBar";
-import {useRouter} from "next/navigation";
-import {useEffect, useState} from "react";
-import {useI18n, useScopedI18n} from "../../../../../../../locales/client";
-import {options} from "../utils/applicationConst";
-import DeploymentDetailsCollapseContainer from "./containers/applicationDetailsCollapseContainer";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
+import { options } from "../utils/deploymentConst";
+import DeploymentDetailsCollapseContainer from "./containers/deploymentDetailsCollapseContainer";
 import DeploymentPlansContainer from "./containers/deploymentPlansContainer";
 import DeploymentPromoCodeTextField from "./containers/deploymentPromoCodeTextField";
 import DeployementDescriptionContainer from "./containers/descriptionContainer";
-import SelectVpsPlanTable from "./containers/selectVpsPlanTable";
 import PaymentDrawer from "./containers/payment-components/paymentDrawer";
+import SelectVpsPlanTable from "./containers/selectVpsPlanTable";
 
 export default function DeploymentDetailsPageContent({
   deploymentServiceId,
@@ -44,7 +44,7 @@ export default function DeploymentDetailsPageContent({
   const [openDrawer, setOpenDrawer] = useState(false);
   const onClose = () => setOpenDrawer(false);
 
-  const {isLoading, deploymentServiceById, loadingError} = useDeploymentServiceById();
+  const { isLoading, deploymentServiceById, loadingError } = useDeploymentServiceById();
   const {
     totalAmount,
     duration,
@@ -59,8 +59,8 @@ export default function DeploymentDetailsPageContent({
 
   const handleChangeDuration = (value: number) => {
     setSubscriptionCategory(value === options[0].value ? "yearly" : "monthly");
-    dispatch(fetchResourceServicesPlans({serviceId: deploymentServiceId, subscriptionCategory}));
-    dispatch(updateNewDeploymentSubscriptionState({duration: value}));
+    dispatch(fetchResourceServicesPlans({ serviceId: deploymentServiceId, subscriptionCategory }));
+    dispatch(updateNewDeploymentSubscriptionState({ duration: value }));
   };
   const handleChangeVersion = (value: number) => {
     dispatch(
@@ -92,7 +92,7 @@ export default function DeploymentDetailsPageContent({
 
   if (isLoading) return <Skeleton active />;
   if (loadingError) return <div>Error: {loadingError}</div>;
-  if (!deploymentServiceById) return <div>No application found</div>;
+  if (!deploymentServiceById) return <div>No Deployment found</div>;
 
   return (
     <>
@@ -110,16 +110,16 @@ export default function DeploymentDetailsPageContent({
       >
         <Col xs={24} sm={24} md={24} lg={12}>
           <Row>
-            <Col span={24} style={{marginBottom: 12}}>
-              <span style={{color: "white", fontSize: "24px", fontWeight: 800}}>
+            <Col span={24} style={{ marginBottom: 12 }}>
+              <span style={{ color: "white", fontSize: "24px", fontWeight: 800 }}>
                 <span
-                  style={{cursor: "pointer", color: hover ? "orange" : "white"}}
+                  style={{ cursor: "pointer", color: hover ? "orange" : "white" }}
                   onClick={() => router.back()}
                   onMouseEnter={() => setHover(true)}
                   onMouseLeave={() => setHover(false)}
                 >
                   {fromPage === "home" ? (
-                    <HomeOutlined style={{marginRight: 4}} />
+                    <HomeOutlined style={{ marginRight: 4 }} />
                   ) : (
                     tdeployment("deployments")
                   )}
@@ -130,16 +130,16 @@ export default function DeploymentDetailsPageContent({
             </Col>
           </Row>
         </Col>
-        <Row gutter={[24, 24]} wrap style={{justifyContent: "center", margin: "0px"}}>
+        <Row gutter={[24, 24]} wrap style={{ justifyContent: "center", margin: "0px" }}>
           {/* Main Content */}
-          <Col xs={24} md={24} lg={16} style={{padding: "0px", margin: "0px"}}>
+          <Col xs={24} md={24} lg={16} style={{ padding: "0px", margin: "0px" }}>
             <DeployementDescriptionContainer
               title={deploymentServiceById.name}
               price={deploymentServiceById.unit_price}
               description={deploymentServiceById.short_description + t("learnMore")}
               documentationUrl={deploymentServiceById.documentation_url}
               logo={
-                <div style={{border: "1px solid #4E4E4E", borderRadius: "10px", padding: "1px"}}>
+                <div style={{ border: "1px solid #4E4E4E", borderRadius: "10px", padding: "1px" }}>
                   <ImageFetcher
                     imagePath={deploymentServiceById.image || ""}
                     width={190}
@@ -149,7 +149,7 @@ export default function DeploymentDetailsPageContent({
               }
               is_subscribed={deploymentServiceById.is_subscribed}
             />
-            <div style={{padding: "8px 0"}}>
+            <div style={{ padding: "8px 0" }}>
               <DeploymentPlansContainer />
             </div>
             {!screens.lg &&
@@ -227,14 +227,14 @@ export default function DeploymentDetailsPageContent({
                 </div>
               )}
             {deployment_service_plan && !deployment_service_plan.is_custom && (
-              <Card styles={{body: {padding: 0}}}>
+              <Card styles={{ body: { padding: 0 } }}>
                 <SelectVpsPlanTable
                   deploymentId={deploymentServiceId}
                   subscriptionCategory={subscriptionCategory}
                 />
               </Card>
             )}
-            <div style={{padding: "8px 0"}}>
+            <div style={{ padding: "8px 0" }}>
               <DeploymentDetailsCollapseContainer
                 description={deploymentServiceById.description}
                 specifications={deploymentServiceById.specifications}
@@ -246,13 +246,13 @@ export default function DeploymentDetailsPageContent({
             !deploymentServiceId.is_subscribed &&
             deployment_service_plan &&
             !deployment_service_plan.is_custom && (
-              <Col xs={24} lg={8} style={{position: "sticky", top: 16, alignSelf: "flex-start"}}>
+              <Col xs={24} lg={8} style={{ position: "sticky", top: 16, alignSelf: "flex-start" }}>
                 <PaymentSideBar
                   price={totalAmount}
                   buttonText={tdeployment("confirm")}
                   items={[
-                    {label: tdeployment("svc"), value: deploymentServiceId.name},
-                    {label: tdeployment("plan"), value: deployment_service_plan?.plan.name || ""},
+                    { label: tdeployment("svc"), value: deploymentServiceId.name },
+                    { label: tdeployment("plan"), value: deployment_service_plan?.plan.name || "" },
 
                     {
                       label: tdeployment("provider"),
@@ -279,7 +279,7 @@ export default function DeploymentDetailsPageContent({
                               ? selected_version.id
                               : undefined
                           }
-                          style={{width: 150, borderRadius: "10px"}}
+                          style={{ width: 150, borderRadius: "10px" }}
                           onChange={handleChangeVersion}
                           dropdownStyle={{
                             backgroundColor: theme.token.gray50,
@@ -294,7 +294,7 @@ export default function DeploymentDetailsPageContent({
                       value: (
                         <Select
                           defaultValue={duration}
-                          style={{width: 150, borderRadius: "10px"}}
+                          style={{ width: 150, borderRadius: "10px" }}
                           onChange={handleChangeDuration}
                           dropdownStyle={{
                             backgroundColor: theme.token.gray50,

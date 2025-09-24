@@ -1,25 +1,25 @@
 "use client";
-import {useNewApplicationSubscription} from "@/lib/features/application/applicationServiceSelectors";
-import {usePromoCode} from "@/lib/features/promo-code/promoCodeSelectors";
-import {checkPromoCode} from "@/lib/features/promo-code/promoCodeThunks";
-import {useAppDispatch} from "@/lib/hook";
-import {Input} from "antd";
-import {useEffect, useState} from "react";
-import {updateNewAppSubscriptionState} from "@/lib/features/application/applicationServiceSlice";
-import {useScopedI18n} from "../../../../../../../../locales/client";
+import { useNewDeploymentSubscription } from "@/lib/features/deployment-service/deploymentServiceSelectors";
+import { updateNewDeploymentSubscriptionState } from "@/lib/features/deployment-service/deploymentServiceSlice";
+import { usePromoCode } from "@/lib/features/promo-code/promoCodeSelectors";
+import { checkPromoCode } from "@/lib/features/promo-code/promoCodeThunks";
+import { useAppDispatch } from "@/lib/hook";
+import { Input } from "antd";
+import { useEffect, useState } from "react";
+import { useScopedI18n } from "../../../../../../../../locales/client";
 
 export default function DeploymentPromoCodeTextField() {
   const tdeployment = useScopedI18n("deployment");
-  const {promoColor} = useNewApplicationSubscription();
+  const { promoColor } = useNewDeploymentSubscription();
   const [promoCode, setPromoCode] = useState("");
 
   const dispatch = useAppDispatch();
-  const {promoCodeResponse, promoCodeLoadingError} = usePromoCode();
+  const { promoCodeResponse, promoCodeLoadingError } = usePromoCode();
 
   useEffect(() => {
     if (promoCodeLoadingError) {
       dispatch(
-        updateNewAppSubscriptionState({
+        updateNewDeploymentSubscriptionState({
           promoCodeRate: undefined,
           promoCode: "",
           promoColor: undefined,
@@ -28,7 +28,7 @@ export default function DeploymentPromoCodeTextField() {
     }
     if (promoCodeResponse?.rate !== undefined) {
       dispatch(
-        updateNewAppSubscriptionState({
+        updateNewDeploymentSubscriptionState({
           promoCodeRate: promoCodeResponse.rate,
           promoCode: promoCode,
         }),
@@ -44,7 +44,7 @@ export default function DeploymentPromoCodeTextField() {
   const handleChangePromoCode = (value: string) => {
     setPromoCode(value);
     dispatch(
-      updateNewAppSubscriptionState({
+      updateNewDeploymentSubscriptionState({
         promoCodeRate: undefined,
         promoCode: "",
         promoColor: undefined,

@@ -1,4 +1,4 @@
-import {ServicePlan} from "../service-plans/servicePlanInterface";
+import { ServicePlan } from "../service-plans/servicePlanInterface";
 
 export interface DeploymentServiceResponse {
   count: number;
@@ -56,4 +56,30 @@ export interface AppVersionInterface {
   id: number;
   description: string;
   name: string;
+}
+
+export interface NewDeploymentSubscriptionResponse {
+  newSubscriptionIsLoading: boolean;
+  newSubscriptionFailed: boolean;
+  newSubscriptionResponse?: DeploymentSubscriptionResponse;
+}
+
+export interface DeploymentSubscriptionResponse {
+  form_url: string;
+  order_id: string;
+  subscription: DeploymentSubscriptionInterface
+}
+
+export interface DeploymentSubscriptionInterface {
+  recommendation_deployment_service_id?: number,
+  ressource_service_plan_selected_id?: number,
+  id: number;
+  duration_month: number;
+  name: string;
+  price: number
+  promo_code_id: number;
+  service_plan_id: number;
+  start_date: Date;
+  status: string;
+
 }

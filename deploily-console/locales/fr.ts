@@ -443,6 +443,8 @@ export default {
     "prepaTime": "Temps de préparation",
     "total": "Montant total",
     "order": "Commander le déploiement",
+    "description": "Description",
+    "features": "Caractéristiques",
 
   }
 } as const;

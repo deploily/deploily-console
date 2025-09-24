@@ -433,6 +433,8 @@ export default {
         "prepaTime": "Preparation time",
         "total": "Total amount",
         "order": "Order deployment",
+        "description": "Description",
+        "features": "Features",
     }
 
 

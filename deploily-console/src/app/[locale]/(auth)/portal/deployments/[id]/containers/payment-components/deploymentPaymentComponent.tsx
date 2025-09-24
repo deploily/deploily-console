@@ -1,15 +1,7 @@
 "use client";
 import { getEpaymentPermission } from "@/actions/getEpaymentPermission";
-import {
-  useApplicationServiceById,
-  useNewApplicationSubscription,
-  useNewApplicationSubscriptionResponse,
-} from "@/lib/features/application/applicationServiceSelectors";
-import { applicationSubscribe } from "@/lib/features/application/applicationServiceThunks";
-import {
-  renewMyApplication,
-  upgradeMyApplication,
-} from "@/lib/features/my-applications/myApplicationThunks";
+import { useDeploymentServiceById, useNewDeploymentSubscription, useNewDeploymentSubscriptionResponse } from "@/lib/features/deployment-service/deploymentServiceSelectors";
+import { deploymentSubscribe } from "@/lib/features/deployment-service/deploymentsServiceThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
 import { Flex, Radio, RadioChangeEvent, Typography } from "antd";
@@ -36,10 +28,10 @@ export default function DeploymentPaymentComponent({
     setPaymentMethod(e.target.value);
   };
   const t = useScopedI18n("payments");
-  const newApplicationSubscription = useNewApplicationSubscription();
-  const { applicationServiceById } = useApplicationServiceById();
+  const newDeploymentSubscription = useNewDeploymentSubscription();
+  const { deploymentServiceById } = useDeploymentServiceById();
   const router = useRouter();
-  const { newSubscriptionResponse } = useNewApplicationSubscriptionResponse();
+  const { newSubscriptionResponse } = useNewDeploymentSubscriptionResponse();
   useEffect(() => {
     if (newSubscriptionResponse) {
       if (newSubscriptionResponse?.form_url && newSubscriptionResponse.form_url.trim() !== "") {
@@ -49,22 +41,22 @@ export default function DeploymentPaymentComponent({
       }
     }
   }, [newSubscriptionResponse, router]);
-  const handleApplicationSubscription = async (captchaToken?: string) => {
+  const handleDeploymentSubscription = async (captchaToken?: string) => {
     const {
-      app_service_plan,
+      deployment_service_plan,
       managed_ressource_details,
       selectedProfile,
       selected_version,
       duration,
       promoCode,
-    } = newApplicationSubscription;
+    } = newDeploymentSubscription;
 
-    if (app_service_plan && managed_ressource_details && selectedProfile) {
+    if (deployment_service_plan && managed_ressource_details && selectedProfile) {
       const baseSubscriptionObject = {
         duration: Number.parseInt(`${duration}`),
         promo_code: promoCode,
         payment_method: paymentMethod,
-        service_plan_selected_id: app_service_plan.id,
+        service_plan_selected_id: deployment_service_plan.id,
         ressource_service_plan_selected_id: managed_ressource_details.id,
         profile_id: selectedProfile.id,
         version_selected_id: selected_version?.id,
@@ -76,37 +68,37 @@ export default function DeploymentPaymentComponent({
           : baseSubscriptionObject;
       if (isSubscribed) {
         if (drawerType === "renew") {
-          dispatch(
-            renewMyApplication({
-              service_slug: applicationServiceById?.service_slug,
-              payment_method: "bank_transfer",
-              subscriptionOldId: subscriptionOldId,
-            }),
-          ).then((response: any) => {
-            if (response.meta.requestStatus === "fulfilled") {
-              router.push(`/portal/my-applications`);
-            }
-          });
+          // dispatch(
+          //   renewMyApplication({
+          //     service_slug: deploymentServiceById?.service_slug,
+          //     payment_method: "bank_transfer",
+          //     subscriptionOldId: subscriptionOldId,
+          //   }),
+          // ).then((response: any) => {
+          //   if (response.meta.requestStatus === "fulfilled") {
+          //     router.push(`/portal/my-applications`);
+          //   }
+          // });
         }
 
         if (drawerType === "upgrade") {
-          dispatch(
-            upgradeMyApplication({
-              service_slug: applicationServiceById?.service_slug,
-              payment_method: "bank_transfer",
-              subscriptionOldId: subscriptionOldId,
-            }),
-          ).then((response: any) => {
-            if (response.meta.requestStatus === "fulfilled") {
-              router.push(`/portal/my-applications`);
-            }
-          });
+          // dispatch(
+          //   upgradeMyApplication({
+          //     service_slug: deploymentServiceById?.service_slug,
+          //     payment_method: "bank_transfer",
+          //     subscriptionOldId: subscriptionOldId,
+          //   }),
+          // ).then((response: any) => {
+          //   if (response.meta.requestStatus === "fulfilled") {
+          //     router.push(`/portal/my-applications`);
+          //   }
+          // });
         }
       } else {
         // otherwise, it's a new subscription
         dispatch(
-          applicationSubscribe({
-            service_slug: applicationServiceById?.service_slug,
+          deploymentSubscribe({
+            service_slug: deploymentServiceById?.service_slug,
             data: subscriptionPayload,
           }),
         );
@@ -150,11 +142,11 @@ export default function DeploymentPaymentComponent({
       </Flex>
       {paymentMethod === "card" ? (
         <CardPaymentComponent
-          handleSubscribe={(captcha_token: string) => handleApplicationSubscription(captcha_token)}
+          handleSubscribe={(captcha_token: string) => handleDeploymentSubscription(captcha_token)}
         />
       ) : (
         <BankTransfertComponent
-          handleSubscribe={() => handleApplicationSubscription(undefined)}
+          handleSubscribe={() => handleDeploymentSubscription(undefined)}
           isSubscribed={isSubscribed}
         />
       )}
