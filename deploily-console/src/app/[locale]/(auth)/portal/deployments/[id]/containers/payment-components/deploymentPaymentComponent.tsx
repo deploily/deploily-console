@@ -1,7 +1,7 @@
 "use client";
 import { getEpaymentPermission } from "@/actions/getEpaymentPermission";
-import { useDeploymentServiceById, useNewDeploymentSubscription, useNewDeploymentSubscriptionResponse } from "@/lib/features/deployment-service/deploymentServiceSelectors";
-import { deploymentSubscribe } from "@/lib/features/deployment-service/deploymentsServiceThunks";
+import { useDeploymentServiceById, useNewDeploymentSubscription, useNewDeploymentSubscriptionResponse } from "@/lib/features/deployment/deploymentServiceSelectors";
+import { deploymentSubscribe } from "@/lib/features/deployment/deploymentsServiceThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
 import { Flex, Radio, RadioChangeEvent, Typography } from "antd";

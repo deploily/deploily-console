@@ -1,6 +1,6 @@
 "use client";
 
-import { useNewDeploymentSubscription } from "@/lib/features/deployment-service/deploymentServiceSelectors";
+import { useNewDeploymentSubscription } from "@/lib/features/deployment/deploymentServiceSelectors";
 import { ManagedRessourceDetails } from "@/lib/features/resourceServicePlans/resourceServicesPlansInterface";
 import { useServicePlansByType } from "@/lib/features/resourceServicePlans/resourceServicesPlansSelectors";
 import { updateSelectedPlan } from "@/lib/features/resourceServicePlans/resourceServicesPlansSlice";

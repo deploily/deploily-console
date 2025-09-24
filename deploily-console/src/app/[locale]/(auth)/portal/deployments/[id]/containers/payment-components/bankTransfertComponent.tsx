@@ -1,14 +1,14 @@
 "use client";
+import { getBankCredEnvVars } from "@/actions/getBankCredEnvVars";
 import { theme } from "@/styles/theme";
 import { Button, Card, Typography, } from "antd";
 import { useEffect, useState } from "react";
-import { getBankCredEnvVars } from "@/actions/getBankCredEnvVars";
 import { useScopedI18n } from "../../../../../../../../../locales/client";
 // import { useUpgradeRenewMyApplicationDataState } from "@/lib/features/my-applications/myApplicationSelector";
+import { useNewDeploymentSubscription } from "@/lib/features/deployment/deploymentServiceSelectors";
 import bankPaymentInfo from "./bankPaymentData";
-import { useNewDeploymentSubscription } from "@/lib/features/deployment-service/deploymentServiceSelectors";
 
-export default function BankTransfertComponent({ handleSubscribe, isSubscribed }: { isSubscribed :any, handleSubscribe:()=> Promise<void> }) {
+export default function BankTransfertComponent({ handleSubscribe, isSubscribed }: { isSubscribed: any, handleSubscribe: () => Promise<void> }) {
     const { totalAmount } = useNewDeploymentSubscription()
     // const { totalamount } = useUpgradeRenewMyApplicationDataState()
     const tBankPayment = useScopedI18n("bankPayment");
@@ -17,8 +17,8 @@ export default function BankTransfertComponent({ handleSubscribe, isSubscribed }
     const [bankTransfertInformation, setBankTransfertInformation] = useState<any>(undefined)
     useEffect(() => {
         const fetchBankTransfertInfo = async () => {
-          const vars  =await getBankCredEnvVars()
-          setBankTransfertInformation(vars);
+            const vars = await getBankCredEnvVars()
+            setBankTransfertInformation(vars);
         };
         fetchBankTransfertInfo();
     }, []);

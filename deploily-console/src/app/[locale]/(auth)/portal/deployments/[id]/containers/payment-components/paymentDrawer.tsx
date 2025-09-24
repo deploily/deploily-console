@@ -2,9 +2,9 @@
 import {
   useDeploymentServiceById,
   useNewDeploymentSubscription,
-} from "@/lib/features/deployment-service/deploymentServiceSelectors";
-import { updateNewDeploymentSubscriptionState } from "@/lib/features/deployment-service/deploymentServiceSlice";
-import { deploymentSubscribe } from "@/lib/features/deployment-service/deploymentsServiceThunks";
+} from "@/lib/features/deployment/deploymentServiceSelectors";
+import { updateNewDeploymentSubscriptionState } from "@/lib/features/deployment/deploymentServiceSlice";
+import { deploymentSubscribe } from "@/lib/features/deployment/deploymentsServiceThunks";
 import { useNotDefaultPaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesSelectors";
 import { fetchNotDefaultPaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesThunks";
 import { useAppDispatch } from "@/lib/hook";
@@ -15,8 +15,8 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useScopedI18n } from "../../../../../../../../../locales/client";
 import CreateProfileButton from "../../../../api-services/[id]/components/subscriptionDrawer/containers/createProfileButton";
-import IsBalanceSufficientComponent from "./isBalanceSufficientComponent";
 import DeploymentPaymentComponent from "./deploymentPaymentComponent";
+import IsBalanceSufficientComponent from "./isBalanceSufficientComponent";
 
 export default function PaymentDrawer({ openDrawer, onClose }: { openDrawer: any; onClose: any }) {
   const router = useRouter();

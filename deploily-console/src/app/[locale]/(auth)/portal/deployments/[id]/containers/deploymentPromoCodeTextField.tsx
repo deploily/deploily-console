@@ -1,6 +1,6 @@
 "use client";
-import { useNewDeploymentSubscription } from "@/lib/features/deployment-service/deploymentServiceSelectors";
-import { updateNewDeploymentSubscriptionState } from "@/lib/features/deployment-service/deploymentServiceSlice";
+import { useNewDeploymentSubscription } from "@/lib/features/deployment/deploymentServiceSelectors";
+import { updateNewDeploymentSubscriptionState } from "@/lib/features/deployment/deploymentServiceSlice";
 import { usePromoCode } from "@/lib/features/promo-code/promoCodeSelectors";
 import { checkPromoCode } from "@/lib/features/promo-code/promoCodeThunks";
 import { useAppDispatch } from "@/lib/hook";

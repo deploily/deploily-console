@@ -1,12 +1,12 @@
 "use client";
 import { getCaptchaSiteKey } from "@/actions/getCaptchaSiteKey";
+import { useNewDeploymentSubscription } from "@/lib/features/deployment/deploymentServiceSelectors";
 import { theme } from "@/styles/theme";
 import { Card, Checkbox, CheckboxChangeEvent, Spin, Typography } from "antd";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useI18n, useScopedI18n } from "../../../../../../../../../locales/client";
-import { useNewDeploymentSubscription } from "@/lib/features/deployment-service/deploymentServiceSelectors";
 import EpayButton from "./epayButton";
 
 export default function CardPaymentComponent({ handleSubscribe }: { handleSubscribe: (captcha_token: string) => Promise<void> }) {

@@ -5,6 +5,7 @@ import apiServiceSlice from "./features/api-service/apiServiceSlice";
 import applicationServiceSlice from "./features/application/applicationServiceSlice";
 import cloudResourceSlice from "./features/cloud-resource/cloudResourceSlice";
 import contactUsSlice from "./features/contact-us/contactUsSlice";
+import DeploymentServiceSlice from "./features/deployment/deploymentServiceSlice";
 import epaymentSlice from "./features/epayment/epaymentSlice";
 import favoriteServiceSlice from "./features/favorites/favoriteServiceSlice";
 import hiEventsAppSlice from "./features/hi-events/hiEventsSlice";
@@ -26,7 +27,6 @@ import supabaseAppSlice from "./features/supabase/supabaseSlice";
 import supportTicketResponsesSlice from "./features/support-ticket -responses/supportTicketResponsesSlice";
 import supportTicketSlice from "./features/support-ticket/supportTicketSlice";
 import ttkEpaySlice from "./features/ttk-epay/ttkEpaySlice";
-import DeploymentServiceSlice from "./features/deployment-service/deploymentServiceSlice";
 export const makeStore = () => {
   return configureStore({
     reducer: {

@@ -1,19 +1,19 @@
 "use client";
-import {postFeedBack} from "@/lib/features/contact-us/contactUsThunks";
-import {updateNewDeploymentSubscriptionState} from "@/lib/features/deployment-service/deploymentServiceSlice";
-import {useServicePlan} from "@/lib/features/service-plans/servicePlanSelector";
-import {useAppDispatch} from "@/lib/hook";
-import {theme} from "@/styles/theme";
-import {Button, Col, Input, Modal, Row} from "antd";
-import {PlanCard} from "deploily-ui-components";
-import {useState} from "react";
-import {useI18n, useScopedI18n} from "../../../../../../../../locales/client";
-import {useNewDeploymentSubscription} from "@/lib/features/deployment-service/deploymentServiceSelectors";
+import { postFeedBack } from "@/lib/features/contact-us/contactUsThunks";
+import { useNewDeploymentSubscription } from "@/lib/features/deployment/deploymentServiceSelectors";
+import { updateNewDeploymentSubscriptionState } from "@/lib/features/deployment/deploymentServiceSlice";
+import { useServicePlan } from "@/lib/features/service-plans/servicePlanSelector";
+import { useAppDispatch } from "@/lib/hook";
+import { theme } from "@/styles/theme";
+import { Button, Col, Input, Modal, Row } from "antd";
+import { PlanCard } from "deploily-ui-components";
+import { useState } from "react";
+import { useI18n, useScopedI18n } from "../../../../../../../../locales/client";
 
 export default function DeploymentPlansContainer() {
   const dispatch = useAppDispatch();
-  const {servicePlanResponse} = useServicePlan();
-  const {deployment_service_plan} = useNewDeploymentSubscription();
+  const { servicePlanResponse } = useServicePlan();
+  const { deployment_service_plan } = useNewDeploymentSubscription();
 
   const t = useScopedI18n("apiServiceSubscription");
   const translate = useI18n();
@@ -57,10 +57,10 @@ export default function DeploymentPlansContainer() {
               }}
               span={Math.floor(24 / servicePlanResponse.result.length)}
               key={plan.id.toString()}
-              // style={{ maxWidth: '280px' }}
+            // style={{ maxWidth: '280px' }}
             >
               <div
-                style={{width: "100%", display: "flex", justifyContent: "center", maxWidth: 350}}
+                style={{ width: "100%", display: "flex", justifyContent: "center", maxWidth: 350 }}
               >
                 <PlanCard
                   id={plan.id}
@@ -85,7 +85,7 @@ export default function DeploymentPlansContainer() {
                   }))}
                   title={plan.plan.name}
                   onClick={() =>
-                    dispatch(updateNewDeploymentSubscriptionState({deployment_service_plan: plan}))
+                    dispatch(updateNewDeploymentSubscriptionState({ deployment_service_plan: plan }))
                   }
                   isCustomPlan={plan.is_custom}
                   translations={{

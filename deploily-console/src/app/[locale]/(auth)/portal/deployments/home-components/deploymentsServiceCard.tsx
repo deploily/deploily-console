@@ -1,14 +1,14 @@
 "use client";
-import {DeploymentsServiceInterface} from "@/lib/features/deployment-service/deploymentServiceInterface";
-import {theme} from "@/styles/theme";
-import {ArrowRight, HeartStraight} from "@phosphor-icons/react";
-import {Badge, Button, Card, Col, Image, Row, Space} from "antd";
+import { DeploymentsServiceInterface } from "@/lib/features/deployment/deploymentServiceInterface";
+import { theme } from "@/styles/theme";
+import { ArrowRight, HeartStraight } from "@phosphor-icons/react";
+import { Badge, Button, Card, Col, Image, Row, Space } from "antd";
 import Meta from "antd/es/card/Meta";
-import {useRouter} from "next/navigation";
-import {useState} from "react";
-import {useI18n} from "../../../../../../../locales/client";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useI18n } from "../../../../../../../locales/client";
 
-export default function DeploymentsServiceCard({data}: {data: DeploymentsServiceInterface}) {
+export default function DeploymentsServiceCard({ data }: { data: DeploymentsServiceInterface }) {
   const t = useI18n();
   const router = useRouter();
   const [hovered, setHovered] = useState(false);
@@ -23,12 +23,12 @@ export default function DeploymentsServiceCard({data}: {data: DeploymentsService
         position: "relative",
         marginRight: 16,
       }}
-      bodyStyle={{padding: 16, height: "100%"}}
+      bodyStyle={{ padding: 16, height: "100%" }}
       onClick={() => router.push(`/portal/deployments/${data.id}`)}
     >
-      <div style={{height: "280px"}}>
+      <div style={{ height: "280px" }}>
         {/* Header */}
-        <Row align="top" justify="space-between" gutter={16} style={{height: "40%"}}>
+        <Row align="top" justify="space-between" gutter={16} style={{ height: "40%" }}>
           <Col span={12}>
             <Badge
               count={
@@ -75,7 +75,7 @@ export default function DeploymentsServiceCard({data}: {data: DeploymentsService
         </Row>
 
         {/* Title & Description */}
-        <Row style={{height: "40%"}}>
+        <Row style={{ height: "40%" }}>
           <Col span={24}>
             <Meta
               title={
@@ -107,7 +107,7 @@ export default function DeploymentsServiceCard({data}: {data: DeploymentsService
       </div>
 
       {/* Details Button */}
-      <Space style={{position: "absolute", bottom: 16, right: 16}}>
+      <Space style={{ position: "absolute", bottom: 16, right: 16 }}>
         <Button
           style={{
             color: "#fff",

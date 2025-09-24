@@ -3,9 +3,9 @@
 import {
   useDeploymentServiceById,
   useNewDeploymentSubscription,
-} from "@/lib/features/deployment-service/deploymentServiceSelectors";
-import { updateNewDeploymentSubscriptionState } from "@/lib/features/deployment-service/deploymentServiceSlice";
-import { fetchDeploymentServiceById } from "@/lib/features/deployment-service/deploymentsServiceThunks";
+} from "@/lib/features/deployment/deploymentServiceSelectors";
+import { updateNewDeploymentSubscriptionState } from "@/lib/features/deployment/deploymentServiceSlice";
+import { fetchDeploymentServiceById } from "@/lib/features/deployment/deploymentsServiceThunks";
 import { fetchResourceServicesPlans } from "@/lib/features/resourceServicePlans/resourceServicesPlansThunk";
 import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThanks";
 import { useAppDispatch } from "@/lib/hook";

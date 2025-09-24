@@ -1,7 +1,7 @@
 
 import { Action, Dispatch, MiddlewareAPI, ThunkDispatch } from "@reduxjs/toolkit";
 import { updateNewAppSubscriptionState } from "../application/applicationServiceSlice";
-import { updateNewDeploymentSubscriptionState } from "../deployment-service/deploymentServiceSlice";
+import { updateNewDeploymentSubscriptionState } from "../deployment/deploymentServiceSlice";
 import { updateUpgradeRenewMyAppState } from "../my-applications/myApplicationSlice";
 
 const resourceServicesPlansMiddleware = (store: MiddlewareAPI<ThunkDispatch<any, any, Action>, any>) => {
