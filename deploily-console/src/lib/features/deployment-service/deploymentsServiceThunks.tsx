@@ -27,9 +27,7 @@ export const fetchDeploymentServiceById = createAsyncThunk(
 
         try {
             const response = dataById;
-
             if (response.status == 200) {
-
                 return response.data;
             } else {
                 return thunkConfig.rejectWithValue("error");
