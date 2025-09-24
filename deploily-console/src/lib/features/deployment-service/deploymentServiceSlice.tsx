@@ -1,4 +1,4 @@
-import {createSlice, current, PayloadAction} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {
   DeploymentServiceByIdState,
   DeploymentServiceResponseState,
@@ -99,9 +99,6 @@ const DeploymentServiceSlice = createSlice({
         state.deploymentServicesByIdResponse.isLoading = false;
         state.deploymentServicesByIdResponse.loadingError = null;
         state.deploymentServicesByIdResponse.deploymentServiceById = action.payload.result;
-        console.log(action.payload.result);
-        console.log("________________________________________________________________________");
-        console.log(current(state.newDeploymentSubscriptionState));
 
         if (
           Array(state.deploymentServicesByIdResponse.deploymentServiceById?.deployment_versions)

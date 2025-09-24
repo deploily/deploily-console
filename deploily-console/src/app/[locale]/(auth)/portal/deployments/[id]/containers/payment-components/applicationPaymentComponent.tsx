@@ -1,21 +1,23 @@
 "use client";
-import {getEpaymentPermission} from "@/actions/getEpaymentPermission";
+import { getEpaymentPermission } from "@/actions/getEpaymentPermission";
 import {
   useApplicationServiceById,
   useNewApplicationSubscription,
   useNewApplicationSubscriptionResponse,
 } from "@/lib/features/application/applicationServiceSelectors";
-import {applicationSubscribe} from "@/lib/features/application/applicationServiceThunks";
+import { applicationSubscribe } from "@/lib/features/application/applicationServiceThunks";
 import {
   renewMyApplication,
   upgradeMyApplication,
 } from "@/lib/features/my-applications/myApplicationThunks";
-import {useAppDispatch} from "@/lib/hook";
-import {theme} from "@/styles/theme";
-import {Flex, Radio, RadioChangeEvent, Typography} from "antd";
-import {redirect, useRouter} from "next/navigation";
-import {useEffect, useState} from "react";
-import {useScopedI18n} from "../../../../../../../../../locales/client";
+import { useAppDispatch } from "@/lib/hook";
+import { theme } from "@/styles/theme";
+import { Flex, Radio, RadioChangeEvent, Typography } from "antd";
+import { redirect, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useScopedI18n } from "../../../../../../../../../locales/client";
+import BankTransfertComponent from "./bankTransfertComponent";
+import CardPaymentComponent from "./cardPaymentComponent";
 
 export default function DeploymentPaymentComponent({
   isSubscribed,
@@ -35,15 +37,15 @@ export default function DeploymentPaymentComponent({
   };
   const t = useScopedI18n("payments");
   const newApplicationSubscription = useNewApplicationSubscription();
-  const {applicationServiceById} = useApplicationServiceById();
+  const { applicationServiceById } = useApplicationServiceById();
   const router = useRouter();
-  const {newSubscriptionResponse} = useNewApplicationSubscriptionResponse();
+  const { newSubscriptionResponse } = useNewApplicationSubscriptionResponse();
   useEffect(() => {
     if (newSubscriptionResponse) {
       if (newSubscriptionResponse?.form_url && newSubscriptionResponse.form_url.trim() !== "") {
         redirect(newSubscriptionResponse.form_url);
       } else {
-        router.push(`/portal/my-applications`);
+        router.push(`/portal/my-deployments`);
       }
     }
   }, [newSubscriptionResponse, router]);
@@ -70,7 +72,7 @@ export default function DeploymentPaymentComponent({
 
       const subscriptionPayload =
         paymentMethod === "card"
-          ? {...baseSubscriptionObject, captcha_token: captchaToken}
+          ? { ...baseSubscriptionObject, captcha_token: captchaToken }
           : baseSubscriptionObject;
       if (isSubscribed) {
         if (drawerType === "renew") {
@@ -135,10 +137,10 @@ export default function DeploymentPaymentComponent({
           {translate("insufficientBalance")}
         </Typography.Text>
       </>
-      <Typography.Title level={4} style={{paddingTop: 20, paddingBottom: 20}}>
+      <Typography.Title level={4} style={{ paddingTop: 20, paddingBottom: 20 }}>
         {translateProfile("choosePaymentMethod")}
       </Typography.Title>
-      <Flex vertical gap="start" style={{padding: 10, backgroundColor: theme.token.colorBgBase}}>
+      <Flex vertical gap="start" style={{ padding: 10, backgroundColor: theme.token.colorBgBase }}>
         <Radio.Group block defaultValue={paymentMethod} onChange={onChange} value={paymentMethod}>
           <Radio value="card" disabled={!isPaymentEnabled}>
             {t("card")}
