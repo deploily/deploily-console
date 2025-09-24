@@ -1,6 +1,6 @@
 "use client";
 import {
-  useDeploymentServiceById,
+  useDeploymentServiceBySlug,
   useNewDeploymentSubscription,
 } from "@/lib/features/deployment/deploymentServiceSelectors";
 import { updateNewDeploymentSubscriptionState } from "@/lib/features/deployment/deploymentServiceSlice";
@@ -24,7 +24,7 @@ export default function PaymentDrawer({ openDrawer, onClose }: { openDrawer: any
   const tSubscription = useScopedI18n("subscription");
 
   const dispatch = useAppDispatch();
-  const { deploymentServiceById } = useDeploymentServiceById();
+  const { deploymentServiceBySlug } = useDeploymentServiceBySlug();
 
   const { paymentProfilesList } = useNotDefaultPaymentProfiles();
   const {
@@ -64,7 +64,7 @@ export default function PaymentDrawer({ openDrawer, onClose }: { openDrawer: any
       };
       dispatch(
         deploymentSubscribe({
-          service_slug: deploymentServiceById?.service_slug,
+          service_slug: deploymentServiceBySlug?.service_slug,
           data: newSubscriptionObject,
         }),
       ).then((response: any) => {
@@ -104,7 +104,7 @@ export default function PaymentDrawer({ openDrawer, onClose }: { openDrawer: any
             newSubscriptionInfo={{
               applicationName: {
                 label: tDeployment("svc"),
-                value: `${deploymentServiceById?.name}`,
+                value: `${deploymentServiceBySlug?.name}`,
               },
               options: {
                 label: tDeployment("plan"),

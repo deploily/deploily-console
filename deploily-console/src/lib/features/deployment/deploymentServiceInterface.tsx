@@ -46,8 +46,8 @@ export interface DeploymentServiceResponseState {
   isLoading: boolean;
   loadingError?: any;
 }
-export interface DeploymentServiceByIdState {
-  deploymentServiceById?: DeploymentsServiceInterface;
+export interface DeploymentServiceBySlugState {
+  deploymentServiceBySlug?: DeploymentsServiceInterface;
   isLoading: boolean;
   loadingError?: any;
 }

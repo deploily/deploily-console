@@ -1,14 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
-  DeploymentServiceByIdState,
+  DeploymentServiceBySlugState,
   DeploymentServiceResponseState,
   NewDeploymentSubscriptionResponse,
-  NewDeploymentSubscriptionState,
+  NewDeploymentSubscriptionState
 } from "./deploymentServiceInterface";
-import { deploymentSubscribe, fetchDeploymentServiceById, fetchDeploymentServices } from "./deploymentsServiceThunks";
+import { deploymentSubscribe, fetchDeploymentServiceBySlug, fetchDeploymentServices } from "./deploymentsServiceThunks";
 interface DeploymentServiceState {
   deploymentServicesResponse: DeploymentServiceResponseState;
-  deploymentServicesByIdResponse: DeploymentServiceByIdState;
+  deploymentServicesBySlugResponse: DeploymentServiceBySlugState;
   newDeploymentSubscriptionState: NewDeploymentSubscriptionState;
   newDeploymentSubscriptionResponse: NewDeploymentSubscriptionResponse;
 }
@@ -20,8 +20,8 @@ const initialState: DeploymentServiceState = {
     loadingError: null,
   },
 
-  deploymentServicesByIdResponse: {
-    deploymentServiceById: undefined,
+  deploymentServicesBySlugResponse: {
+    deploymentServiceBySlug: undefined,
     isLoading: false,
     loadingError: null,
   },
@@ -99,25 +99,25 @@ const DeploymentServiceSlice = createSlice({
         state.deploymentServicesResponse.loadingError = payload;
       })
 
-      .addCase(fetchDeploymentServiceById.pending, (state) => {
-        state.deploymentServicesByIdResponse.isLoading = true;
+      .addCase(fetchDeploymentServiceBySlug.pending, (state) => {
+        state.deploymentServicesBySlugResponse.isLoading = true;
       })
-      .addCase(fetchDeploymentServiceById.fulfilled, (state, action) => {
-        state.deploymentServicesByIdResponse.isLoading = false;
-        state.deploymentServicesByIdResponse.loadingError = null;
-        state.deploymentServicesByIdResponse.deploymentServiceById = action.payload.result;
+      .addCase(fetchDeploymentServiceBySlug.fulfilled, (state, action) => {
+        state.deploymentServicesBySlugResponse.isLoading = false;
+        state.deploymentServicesBySlugResponse.loadingError = null;
+        state.deploymentServicesBySlugResponse.deploymentServiceBySlug = action.payload.result;
 
         if (
-          Array(state.deploymentServicesByIdResponse.deploymentServiceById?.deployment_versions)
+          Array(state.deploymentServicesBySlugResponse.deploymentServiceBySlug?.deployment_versions)
             .length > 0
         ) {
           state.newDeploymentSubscriptionState.selected_version =
-            state.deploymentServicesByIdResponse.deploymentServiceById?.deployment_versions[0];
+            state.deploymentServicesBySlugResponse.deploymentServiceBySlug?.deployment_versions[0];
         }
       })
-      .addCase(fetchDeploymentServiceById.rejected, (state, { payload }) => {
-        state.deploymentServicesByIdResponse.isLoading = false;
-        state.deploymentServicesByIdResponse.loadingError = payload;
+      .addCase(fetchDeploymentServiceBySlug.rejected, (state, { payload }) => {
+        state.deploymentServicesBySlugResponse.isLoading = false;
+        state.deploymentServicesBySlugResponse.loadingError = payload;
       })
 
 

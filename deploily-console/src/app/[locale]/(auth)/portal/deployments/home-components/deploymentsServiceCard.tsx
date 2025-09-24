@@ -24,7 +24,7 @@ export default function DeploymentsServiceCard({ data }: { data: DeploymentsServ
         marginRight: 16,
       }}
       bodyStyle={{ padding: 16, height: "100%" }}
-      onClick={() => router.push(`/portal/deployments/${data.id}`)}
+      onClick={() => router.push(`/portal/deployments/${data.service_slug}`)}
     >
       <div style={{ height: "280px" }}>
         {/* Header */}
@@ -120,7 +120,7 @@ export default function DeploymentsServiceCard({ data }: { data: DeploymentsServ
           }}
           onClick={(e) => {
             e.stopPropagation();
-            router.push(`/portal/deployments/${data.id}`);
+            router.push(`/portal/deployments/${data.service_slug}`);
           }}
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}

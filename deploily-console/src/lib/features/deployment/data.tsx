@@ -14,6 +14,7 @@ export const data = {
         name: "Docker",
         price: "1 000",
         price_category: "monthly",
+        service_slug: "docker",
         service_unity: "",
         description:
           "Docker is a one-click app for Mac, Windows, and Linux that lets you easily build, run, and manage containerized applications.",

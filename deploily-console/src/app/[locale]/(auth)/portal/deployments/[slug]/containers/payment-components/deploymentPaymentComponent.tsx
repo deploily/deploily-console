@@ -1,6 +1,6 @@
 "use client";
 import { getEpaymentPermission } from "@/actions/getEpaymentPermission";
-import { useDeploymentServiceById, useNewDeploymentSubscription, useNewDeploymentSubscriptionResponse } from "@/lib/features/deployment/deploymentServiceSelectors";
+import { useDeploymentServiceBySlug, useNewDeploymentSubscription, useNewDeploymentSubscriptionResponse } from "@/lib/features/deployment/deploymentServiceSelectors";
 import { deploymentSubscribe } from "@/lib/features/deployment/deploymentsServiceThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
@@ -29,7 +29,7 @@ export default function DeploymentPaymentComponent({
   };
   const t = useScopedI18n("payments");
   const newDeploymentSubscription = useNewDeploymentSubscription();
-  const { deploymentServiceById } = useDeploymentServiceById();
+  const { deploymentServiceBySlug } = useDeploymentServiceBySlug();
   const router = useRouter();
   const { newSubscriptionResponse } = useNewDeploymentSubscriptionResponse();
   useEffect(() => {
@@ -98,7 +98,7 @@ export default function DeploymentPaymentComponent({
         // otherwise, it's a new subscription
         dispatch(
           deploymentSubscribe({
-            service_slug: deploymentServiceById?.service_slug,
+            service_slug: deploymentServiceBySlug?.service_slug,
             data: subscriptionPayload,
           }),
         );

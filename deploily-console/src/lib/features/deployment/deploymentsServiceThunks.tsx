@@ -21,10 +21,11 @@ export const fetchDeploymentServices = createAsyncThunk(
   },
 );
 
-export const fetchDeploymentServiceById = createAsyncThunk(
+export const fetchDeploymentServiceBySlug = createAsyncThunk(
   "deploymentsService/getdeploymentsServiceById",
-  async (_, thunkConfig) => {
+  async (slug: any, thunkConfig) => {
     try {
+      //get by filter with slug
       const response = dataById;
       if (response.status == 200) {
         return response.data;

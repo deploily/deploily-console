@@ -1,11 +1,11 @@
 "use client";
 
 import {
-  useDeploymentServiceById,
-  useNewDeploymentSubscription,
+  useDeploymentServiceBySlug,
+  useNewDeploymentSubscription
 } from "@/lib/features/deployment/deploymentServiceSelectors";
 import { updateNewDeploymentSubscriptionState } from "@/lib/features/deployment/deploymentServiceSlice";
-import { fetchDeploymentServiceById } from "@/lib/features/deployment/deploymentsServiceThunks";
+import { fetchDeploymentServiceBySlug } from "@/lib/features/deployment/deploymentsServiceThunks";
 import { fetchResourceServicesPlans } from "@/lib/features/resourceServicePlans/resourceServicesPlansThunk";
 import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThanks";
 import { useAppDispatch } from "@/lib/hook";
@@ -28,9 +28,9 @@ import PaymentDrawer from "./containers/payment-components/paymentDrawer";
 import SelectVpsPlanTable from "./containers/selectVpsPlanTable";
 
 export default function DeploymentDetailsPageContent({
-  deploymentServiceId,
+  deploymentSlug,
 }: {
-  deploymentServiceId: any;
+  deploymentSlug: any;
 }) {
   const tdeployment = useScopedI18n("deployment");
   const t = useI18n();
@@ -44,7 +44,7 @@ export default function DeploymentDetailsPageContent({
   const [openDrawer, setOpenDrawer] = useState(false);
   const onClose = () => setOpenDrawer(false);
 
-  const { isLoading, deploymentServiceById, loadingError } = useDeploymentServiceById();
+  const { isLoading, deploymentServiceBySlug, loadingError } = useDeploymentServiceBySlug();
   const {
     totalAmount,
     duration,
@@ -52,20 +52,20 @@ export default function DeploymentDetailsPageContent({
     deployment_service_plan,
     managed_ressource_details,
   } = useNewDeploymentSubscription();
-  const optionsVersion = deploymentServiceById?.deployment_versions?.map((version) => ({
+  const optionsVersion = deploymentServiceBySlug?.deployment_versions?.map((version) => ({
     value: version.id,
     label: version.name,
   }));
 
   const handleChangeDuration = (value: number) => {
     setSubscriptionCategory(value === options[0].value ? "yearly" : "monthly");
-    dispatch(fetchResourceServicesPlans({ serviceId: deploymentServiceId, subscriptionCategory }));
+    dispatch(fetchResourceServicesPlans({ serviceId: `${deploymentServiceBySlug!.id}`, subscriptionCategory }));
     dispatch(updateNewDeploymentSubscriptionState({ duration: value }));
   };
   const handleChangeVersion = (value: number) => {
     dispatch(
       updateNewDeploymentSubscriptionState({
-        selected_version: deploymentServiceById?.deployment_versions?.find(
+        selected_version: deploymentServiceBySlug?.deployment_versions?.find(
           (version) => version.id === value,
         ),
       }),
@@ -78,7 +78,7 @@ export default function DeploymentDetailsPageContent({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   useEffect(() => {
-    dispatch(fetchDeploymentServiceById(deploymentServiceId));
+    dispatch(fetchDeploymentServiceBySlug(deploymentSlug));
     // dispatch(fetchServicePlans(deploymentServiceId));
     dispatch(fetchServicePlans("20"));
   }, []);
@@ -92,7 +92,7 @@ export default function DeploymentDetailsPageContent({
 
   if (isLoading) return <Skeleton active />;
   if (loadingError) return <div>Error: {loadingError}</div>;
-  if (!deploymentServiceById) return <div>No Deployment found</div>;
+  if (!deploymentServiceBySlug) return <div>No Deployment found</div>;
 
   return (
     <>
@@ -125,7 +125,7 @@ export default function DeploymentDetailsPageContent({
                   )}
                 </span>{" "}
                 / {"\t"}
-                {deploymentServiceById !== undefined && deploymentServiceById.name}
+                {deploymentServiceBySlug !== undefined && deploymentServiceBySlug.name}
               </span>
             </Col>
           </Row>
@@ -134,26 +134,26 @@ export default function DeploymentDetailsPageContent({
           {/* Main Content */}
           <Col xs={24} md={24} lg={16} style={{ padding: "0px", margin: "0px" }}>
             <DeployementDescriptionContainer
-              title={deploymentServiceById.name}
-              price={deploymentServiceById.unit_price}
-              description={deploymentServiceById.short_description + t("learnMore")}
-              documentationUrl={deploymentServiceById.documentation_url}
+              title={deploymentServiceBySlug.name}
+              price={deploymentServiceBySlug.unit_price}
+              description={deploymentServiceBySlug.short_description + t("learnMore")}
+              documentationUrl={deploymentServiceBySlug.documentation_url}
               logo={
                 <div style={{ border: "1px solid #4E4E4E", borderRadius: "10px", padding: "1px" }}>
                   <ImageFetcher
-                    imagePath={deploymentServiceById.image || ""}
+                    imagePath={deploymentServiceBySlug.image || ""}
                     width={190}
                     height={190}
                   />
                 </div>
               }
-              is_subscribed={deploymentServiceById.is_subscribed}
+              is_subscribed={deploymentServiceBySlug.is_subscribed}
             />
             <div style={{ padding: "8px 0" }}>
               <DeploymentPlansContainer />
             </div>
             {!screens.lg &&
-              !deploymentServiceById.is_subscribed &&
+              !deploymentServiceBySlug.is_subscribed &&
               deployment_service_plan &&
               !deployment_service_plan.is_custom && (
                 <div
@@ -229,21 +229,21 @@ export default function DeploymentDetailsPageContent({
             {deployment_service_plan && !deployment_service_plan.is_custom && (
               <Card styles={{ body: { padding: 0 } }}>
                 <SelectVpsPlanTable
-                  deploymentId={deploymentServiceId}
+                  deploymentId={deploymentServiceBySlug.id}
                   subscriptionCategory={subscriptionCategory}
                 />
               </Card>
             )}
             <div style={{ padding: "8px 0" }}>
               <DeploymentDetailsCollapseContainer
-                description={deploymentServiceById.description}
-                specifications={deploymentServiceById.specifications}
+                description={deploymentServiceBySlug.description}
+                specifications={deploymentServiceBySlug.specifications}
               />
             </div>
           </Col>
           {/* Payment Sidebar - Only for Desktop */}
           {screens.lg &&
-            !deploymentServiceId.is_subscribed &&
+            !deploymentServiceBySlug.is_subscribed &&
             deployment_service_plan &&
             !deployment_service_plan.is_custom && (
               <Col xs={24} lg={8} style={{ position: "sticky", top: 16, alignSelf: "flex-start" }}>
@@ -251,7 +251,7 @@ export default function DeploymentDetailsPageContent({
                   price={totalAmount}
                   buttonText={tdeployment("confirm")}
                   items={[
-                    { label: tdeployment("svc"), value: deploymentServiceId.name },
+                    { label: tdeployment("svc"), value: deploymentServiceBySlug.name },
                     { label: tdeployment("plan"), value: deployment_service_plan?.plan.name || "" },
 
                     {
