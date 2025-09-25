@@ -10,7 +10,7 @@ export default function MyDeploymentContainer() {
   const dispatch = useAppDispatch();
   const { isLoading, MyDeploymentList, loadingError } = useMyDeploymentList();
   const t = useI18n();
-  const tDeployment = useScopedI18n('applications');
+  const tDeployment = useScopedI18n("deployment");
   useEffect(() => {
     dispatch(fetchMyDeployments());
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -61,13 +61,13 @@ export default function MyDeploymentContainer() {
       )}
 
       {/* Empty */}
-      {/* {!isLoading && !loadingError && MyDeploymentlicationList?.length === 0 && (
+      {!isLoading && !loadingError && MyDeploymentList?.length === 0 && (
         <Result
           status="404"
-          title={tDeployment("noDeploymentlications")}
-          subTitle={tDeployment("noActiveDeploymentlicationsFound")}
+          title={tDeployment("noDeployments")}
+          subTitle={tDeployment("noActiveDeploymentFound")}
         />
-      )} */}
+      )}
     </>
   );
 }

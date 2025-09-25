@@ -27,7 +27,7 @@ export default function DocumentationComponent({ dockerById, setOpenDrawer }: { 
                 alignSelf: "start"
             }}>
                 <CustomTransparentOrangeButton
-                    href={dockerById.service_details.documentation_url ?? "https://docs.deploily.cloud/#/"}
+                    href={dockerById.service_details?.documentation_url ?? "https://docs.deploily.cloud/#/"}
                     target="_blank"
                     rel="noopener noreferrer"
 

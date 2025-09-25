@@ -2,18 +2,7 @@
 import { useAppDispatch } from "@/lib/hook";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { theme } from "@/styles/theme";
-import {
-    Badge,
-    Button,
-    Col,
-    Form,
-    Input,
-    Result,
-    Row,
-    Skeleton,
-    Space,
-    Typography,
-} from "antd";
+import { Badge, Button, Col, Input, Result, Row, Skeleton, Space, Typography } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../../../locales/client";
@@ -40,9 +29,8 @@ export default function MyDockerDetails({ my_dep_id }: { my_dep_id: number }) {
 
     const [openDrawer, setOpenDrawer] = useState(false);
     const onClose = () => setOpenDrawer(false);
+console.log("dockerById:::::::::::::::", dockerById);
 
-    // form instance for ParametersSection
-    const [form] = Form.useForm();
 
     return (
         <Space
@@ -77,7 +65,7 @@ export default function MyDockerDetails({ my_dep_id }: { my_dep_id: number }) {
                                 <Col span={24} style={{ display: "flex", justifyContent: "end", alignSelf: "start" }}>
                                     <Typography.Title level={2} style={{ color: theme.token.orange400 }}>
                                         {Intl.NumberFormat("fr-FR", { useGrouping: true }).format(dockerById.price)} DZD /
-                                        {dockerById.price_category === "monthly" ? t("month") : t("year")}
+                                        {dockerById.service_details?.price_category === "monthly" ? t("month") : t("year")}
                                     </Typography.Title>
                                 </Col>
                                 <DocumentationComponent dockerById={dockerById} setOpenDrawer={setOpenDrawer} />
@@ -112,7 +100,7 @@ export default function MyDockerDetails({ my_dep_id }: { my_dep_id: number }) {
                     </div>
 
                     {/* PARAMETERS SECTION */}
-                    <ParametersSection dockerById={dockerById} my_dep_id={my_dep_id}  form={form} />
+                    {/* <ParametersSection dockerById={dockerById} /> */}
 
                     <DocumentationDrawer openDrawer={openDrawer} onClose={onClose} currentSubscription={dockerById} t={t} />
                 </>

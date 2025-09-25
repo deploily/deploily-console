@@ -100,6 +100,7 @@ export default {
   "sidebar.profile": "Profile",
   "sidebar.logout": "déconnexion",
   "sidebar.collapse": "Réduire la barre",
+  'sidebar.myDeployments': 'Mes déploiements',
 
   "serviceApi.search": "Rechercher",
   "serviceApi.filter": "Filtrer",
