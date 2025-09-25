@@ -71,12 +71,11 @@ export const deploilyApiUrls = {
   MANAGED_RESSOURCE_URL: `${API_BASE_URL}/managed-ressource/`,
 
 
-  DEPLOYMENT_SERVICE_By_SLUG_URL: `${API_BASE_URL}/deployment-service-public`,
   DEPLOYMENT_SERVICES_URL: `${API_BASE_URL}/deployment-service/`,
   DEPLOYMENT_SERVICE_SUBSCRIPTION_URL: `${API_BASE_URL}/deployment-service-subscription/`,
   COSTUM_PARAMETER_URL: `${API_BASE_URL}/custom-parameter`,
   //TODO check with back end
-  
+
   DEPLOYMENT_DOCKER_SUBSCRIBE_URL: `${API_BASE_URL}/docker-deployment-service-subscription/subscribe`,
   DEPLOYMENT_DOCKER_SUBSCRIPTION_URL: `${API_BASE_URL}/docker-deployment-service-subscription`,
 

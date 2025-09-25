@@ -102,10 +102,11 @@ const DeploymentServiceSlice = createSlice({
       .addCase(fetchDeploymentServiceBySlug.pending, (state) => {
         state.deploymentServicesBySlugResponse.isLoading = true;
       })
+      // TODO replace by GetById
       .addCase(fetchDeploymentServiceBySlug.fulfilled, (state, action) => {
         state.deploymentServicesBySlugResponse.isLoading = false;
         state.deploymentServicesBySlugResponse.loadingError = null;
-        state.deploymentServicesBySlugResponse.deploymentServiceBySlug = action.payload.result;
+        state.deploymentServicesBySlugResponse.deploymentServiceBySlug = action.payload.result[0];
 
         // if (
         //   Array(state.deploymentServicesBySlugResponse.deploymentServiceBySlug?.deployment_versions)

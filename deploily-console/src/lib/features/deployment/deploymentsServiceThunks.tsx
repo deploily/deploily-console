@@ -34,6 +34,7 @@ export const fetchDeploymentServices = createAsyncThunk(
   },
 );
 
+// TODO replace by GetById
 export const fetchDeploymentServiceBySlug = createAsyncThunk(
   "deploymentsService/getdeploymentsServiceById",
   async (slug: any, thunkConfig) => {
@@ -45,13 +46,16 @@ export const fetchDeploymentServiceBySlug = createAsyncThunk(
       }
 
       const token = session.accessToken;
-      const response = await axiosInstance.get(`${deploilyApiUrls.DEPLOYMENT_SERVICE_By_SLUG_URL}/${slug}`, {
+
+      const query = `?q=${encodeURIComponent(`(filters:!((col:service_slug,opr:eq,value:'${slug}')))`)}`;
+      const response = await axiosInstance.get(`${deploilyApiUrls.DEPLOYMENT_SERVICES_URL}${query}`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
         },
       });
       if (response.status == 200) {
+
         return response.data;
       } else {
         return thunkConfig.rejectWithValue("error");
@@ -81,7 +85,7 @@ export const deploymentSubscribe = createAsyncThunk(
         },
       });
 
-      
+
       if (response.status === 200) {
         return response.data;
       } else {
