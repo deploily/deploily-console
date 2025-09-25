@@ -4,10 +4,9 @@ import React from 'react';
 import { useI18n } from '../../../../../../../../locales/client';
 
 export default function ApplicationDescriptionContainer(
-    {title,description, documentationUrl, is_subscribed,logo, price }: {
+    {title,description, is_subscribed,logo, price }: {
         title: string;
         description: string;
-        documentationUrl: string;
         logo: React.ReactNode;
         price: number;
         is_subscribed?: boolean;
@@ -21,8 +20,6 @@ export default function ApplicationDescriptionContainer(
                 price={price}
                 description={description}
                 avatar={logo}
-                documentationUrl={documentationUrl}
-                documentationLabel={t('documentation')}
                 is_subscribed_tag={is_subscribed?t("subscribed"):undefined}
             />
         </div>

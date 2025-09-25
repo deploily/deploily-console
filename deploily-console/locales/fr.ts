@@ -449,5 +449,11 @@ export default {
     "myDeployments": "Mes déploiements",
     "configureSettings": "Configurer les paramètres",
     "addParameter": "Ajouter un paramètre",
-  }
+    "noDeployments": "Vous n'avez pas encore de déploiements. N'hésitez pas à en créer un !",
+    "noActiveDeploymentFound": "Vous n'avez pas de déploiements actifs. N'hésitez pas à en créer un !"
+  },
+  "live_demo": "Démo en direct",
+  "usefulLinks": "Liens utiles",
+  "specifications": "Caractéristiques",
+  "see_documentation": "Voir la documentation",
 } as const;

@@ -440,7 +440,11 @@ export default {
         "myDeployments": "My Deployments",
         "configureSettings": "Configure the settings",
         "addParameter": "Add Parameter",
-    }
-
-
+        "noDeployments": "You don't have any deployments yet. Feel free to create one!",
+        "noActiveDeploymentFound": "You don't have any active deployments. Feel free to create one!"
+    }, 
+    "live_demo": "Live demo",
+    "usefulLinks": "Useful links",
+    "specifications": "Specifications",
+    "see_documentation": "See documentation",
 } as const
