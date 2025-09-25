@@ -34,6 +34,7 @@ export default function DeploymentPaymentComponent({
   const { newSubscriptionResponse } = useNewDeploymentSubscriptionResponse();
   useEffect(() => {
     if (newSubscriptionResponse) {
+
       if (newSubscriptionResponse?.form_url && newSubscriptionResponse.form_url.trim() !== "") {
         redirect(newSubscriptionResponse.form_url);
       } else {
@@ -52,6 +53,7 @@ export default function DeploymentPaymentComponent({
     } = newDeploymentSubscription;
 
     if (deployment_service_plan && managed_ressource_details && selectedProfile) {
+      // if (deployment_service_plan && selectedProfile) {
       const baseSubscriptionObject = {
         duration: Number.parseInt(`${duration}`),
         promo_code: promoCode,

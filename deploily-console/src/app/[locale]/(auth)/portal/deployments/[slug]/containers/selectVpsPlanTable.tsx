@@ -34,7 +34,7 @@ export default function SelectVpsPlanTable({
   const { managed_ressource_details } = useNewDeploymentSubscription();
 
   useEffect(() => {
-    dispatch(fetchResourceServicesPlans({ serviceId: deploymentId, subscriptionCategory }));
+    dispatch(fetchResourceServicesPlans({ subscriptionCategory }));
   }, []);
 
   const handlePlanChange = (selectedPlan: any) => {

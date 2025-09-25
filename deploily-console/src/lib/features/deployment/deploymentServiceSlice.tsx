@@ -107,13 +107,13 @@ const DeploymentServiceSlice = createSlice({
         state.deploymentServicesBySlugResponse.loadingError = null;
         state.deploymentServicesBySlugResponse.deploymentServiceBySlug = action.payload.result;
 
-        if (
-          Array(state.deploymentServicesBySlugResponse.deploymentServiceBySlug?.deployment_versions)
-            .length > 0
-        ) {
-          state.newDeploymentSubscriptionState.selected_version =
-            state.deploymentServicesBySlugResponse.deploymentServiceBySlug?.deployment_versions[0];
-        }
+        // if (
+        //   Array(state.deploymentServicesBySlugResponse.deploymentServiceBySlug?.deployment_versions)
+        //     .length > 0
+        // ) {
+        //   state.newDeploymentSubscriptionState.selected_version =
+        //     state.deploymentServicesBySlugResponse.deploymentServiceBySlug?.deployment_versions[0];
+        // }
       })
       .addCase(fetchDeploymentServiceBySlug.rejected, (state, { payload }) => {
         state.deploymentServicesBySlugResponse.isLoading = false;

@@ -48,29 +48,29 @@ export default function DeploymentDetailsPageContent({
   const {
     totalAmount,
     duration,
-    selected_version,
+    // selected_version,
     deployment_service_plan,
     managed_ressource_details,
   } = useNewDeploymentSubscription();
-  const optionsVersion = deploymentServiceBySlug?.deployment_versions?.map((version) => ({
-    value: version.id,
-    label: version.name,
-  }));
+  // const optionsVersion = deploymentServiceBySlug?.deployment_versions?.map((version) => ({
+  //   value: version.id,
+  //   label: version.name,
+  // }));
 
   const handleChangeDuration = (value: number) => {
     setSubscriptionCategory(value === options[0].value ? "yearly" : "monthly");
-    dispatch(fetchResourceServicesPlans({ serviceId: `${deploymentServiceBySlug!.id}`, subscriptionCategory }));
+    dispatch(fetchResourceServicesPlans({ subscriptionCategory }));
     dispatch(updateNewDeploymentSubscriptionState({ duration: value }));
   };
-  const handleChangeVersion = (value: number) => {
-    dispatch(
-      updateNewDeploymentSubscriptionState({
-        selected_version: deploymentServiceBySlug?.deployment_versions?.find(
-          (version) => version.id === value,
-        ),
-      }),
-    );
-  };
+  // const handleChangeVersion = (value: number) => {
+  //   dispatch(
+  //     updateNewDeploymentSubscriptionState({
+  //       selected_version: deploymentServiceBySlug?.deployment_versions?.find(
+  //         (version) => version.id === value,
+  //       ),
+  //     }),
+  //   );
+  // };
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 100);
@@ -78,17 +78,29 @@ export default function DeploymentDetailsPageContent({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   useEffect(() => {
+
     dispatch(fetchDeploymentServiceBySlug(deploymentSlug));
     // dispatch(fetchServicePlans(deploymentServiceId));
-    dispatch(fetchServicePlans("20"));
+
   }, []);
+
+
   useEffect(() => {
+
     const storedFrom = sessionStorage.getItem("fromPage");
 
     if (storedFrom === "home" || storedFrom === "seeAll") {
       setFromPage(storedFrom);
     }
   }, []);
+
+
+  useEffect(() => {
+    if (deploymentServiceBySlug) {
+      dispatch(fetchServicePlans(`${deploymentServiceBySlug.id}`));
+    }
+  }, [deploymentServiceBySlug]);
+
 
   if (isLoading) return <Skeleton active />;
   if (loadingError) return <div>Error: {loadingError}</div>;
@@ -194,29 +206,29 @@ export default function DeploymentDetailsPageContent({
                           />
                         ),
                       },
-                      {
-                        label: tdeployment("version"),
-                        value: (
-                          <Select
-                            defaultValue={
-                              typeof selected_version?.id === "number"
-                                ? selected_version.id
-                                : undefined
-                            }
-                            style={{
-                              width: "100%",
-                              maxWidth: 700,
-                              borderRadius: "10px",
-                            }}
-                            onChange={handleChangeVersion}
-                            dropdownStyle={{
-                              backgroundColor: theme.token.gray50,
-                              border: `2px solid ${theme.token.gray100}`,
-                            }}
-                            options={optionsVersion}
-                          />
-                        ),
-                      },
+                      // {
+                      //   label: tdeployment("version"),
+                      //   value: (
+                      //     <Select
+                      //       defaultValue={
+                      //         typeof selected_version?.id === "number"
+                      //           ? selected_version.id
+                      //           : undefined
+                      //       }
+                      //       style={{
+                      //         width: "100%",
+                      //         maxWidth: 700,
+                      //         borderRadius: "10px",
+                      //       }}
+                      //       onChange={handleChangeVersion}
+                      //       dropdownStyle={{
+                      //         backgroundColor: theme.token.gray50,
+                      //         border: `2px solid ${theme.token.gray100}`,
+                      //       }}
+                      //       options={optionsVersion}
+                      //     />
+                      //   ),
+                      // },
                       {
                         label: tdeployment("promoCode"),
                         value: <DeploymentPromoCodeTextField />,
@@ -270,25 +282,25 @@ export default function DeploymentDetailsPageContent({
                       label: tdeployment("prepaTime"),
                       value: `${managed_ressource_details?.preparation_time} h` || "",
                     },
-                    {
-                      label: tdeployment("version"),
-                      value: (
-                        <Select
-                          defaultValue={
-                            typeof selected_version?.id === "number"
-                              ? selected_version.id
-                              : undefined
-                          }
-                          style={{ width: 150, borderRadius: "10px" }}
-                          onChange={handleChangeVersion}
-                          dropdownStyle={{
-                            backgroundColor: theme.token.gray50,
-                            border: `2px solid ${theme.token.gray100}`,
-                          }}
-                          options={optionsVersion}
-                        />
-                      ),
-                    },
+                    // {
+                    //   label: tdeployment("version"),
+                    //   value: (
+                    //     <Select
+                    //       defaultValue={
+                    //         typeof selected_version?.id === "number"
+                    //           ? selected_version.id
+                    //           : undefined
+                    //       }
+                    //       style={{ width: 150, borderRadius: "10px" }}
+                    //       onChange={handleChangeVersion}
+                    //       dropdownStyle={{
+                    //         backgroundColor: theme.token.gray50,
+                    //         border: `2px solid ${theme.token.gray100}`,
+                    //       }}
+                    //       options={optionsVersion}
+                    //     />
+                    //   ),
+                    // },
                     {
                       label: tdeployment("duration"),
                       value: (

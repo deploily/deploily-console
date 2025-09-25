@@ -69,7 +69,7 @@ export default function DeploymentsServiceCard({ data }: { data: DeploymentsServ
                 alignSelf: "flex-start", // ensures it's pinned to top within Col
               }}
             >
-              {data.price} DZD / {data.price_category === "monthly" ? t("month") : t("year")}
+              {data.unit_price} DZD / {data.price_category === "monthly" ? t("month") : t("year")}
             </p>
           </Col>
         </Row>

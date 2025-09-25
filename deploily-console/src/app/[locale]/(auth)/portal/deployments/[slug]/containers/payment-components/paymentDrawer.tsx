@@ -118,10 +118,10 @@ export default function PaymentDrawer({ openDrawer, onClose }: { openDrawer: any
                 label: tDeployment("duration"),
                 value: `${duration}`,
               },
-              version: {
-                label: tDeployment("version"),
-                value: `${selected_version?.name}`,
-              },
+              // version: {
+              //   label: tDeployment("version"),
+              //   value: `${selected_version?.name}`,
+              // },
               providerName: {
                 label: tDeployment("provider"),
                 value: `${managed_ressource_details?.provider_info?.name}`,
