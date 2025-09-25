@@ -8,7 +8,7 @@ import { theme } from "@/styles/theme";
 
 interface Parameter {
     id: number;
-    key: string;
+    name: string;
     value: string;
 }
 
@@ -50,9 +50,9 @@ export default function ParametersSection({
             </Typography>
 
             {/* Display existing parameters */}
-            {dockerById?.parameters?.length > 0 && (
+            {dockerById?.custom_paramters?.length > 0 && (
                 <div style={{ marginTop: 15 }}>
-                    {dockerById.parameters.map((param: Parameter) => (
+                    {dockerById.custom_paramters.map((param: Parameter) => (
                         <Row
                             key={param.id}
                             style={{
@@ -65,7 +65,7 @@ export default function ParametersSection({
                             }}
                         >
                             <Col flex="auto" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                                <Typography.Text strong>{param.key}</Typography.Text>
+                                <Typography.Text strong>{param.name}</Typography.Text>
                                 <Typography.Text type="secondary">= {param.value}</Typography.Text>
                             </Col>
 
