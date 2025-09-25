@@ -4,57 +4,75 @@ export interface DockerByIdState {
     isLoading: boolean;
     loadingError?: any;
 }
-
-
 export interface DockerDeptResponse {
     result: dockerDepInterface[];
 }
 export interface dockerDepInterface {
+    access_url: string ;
+    api_key: string ;
+    custom_paramters: CustomParameter[]; 
+    deployment_error: string ;
+    duration_month: number;
+    id: number;
+    is_expired: boolean;
+    managed_ressource: ManagedResource ;
+    managed_ressource_details: Record<string, any>; // empty object possible
+    managed_ressource_id: number ;
+    name: string;
+    phone: string | null;
+    price: number;
+    required_restart: boolean;
+    service_details: ServiceDetails;
+    service_plan: ServicePlan;
+    service_plan_id: number;
+    start_date: string; 
+    status: string;
+    total_amount: number;
+}
+
+export interface CustomParameter {
+    description: string;
     id: number;
     name: string;
-    price: number;
-    price_category: string;
-    short_description: string;
-    image: string;
-    status: string;
-    deployment_status: string;
-    duration_month: number;
-    start_date: string;
-    service_details: ServiceDetails;
-    access_url: string;
-    parameters: Parameter[];
-}
-
-
-export interface Parameter {
-    id: number;
-    key: string;
     value: string;
 }
-interface Service_plan {
+
+export interface ManagedResource {
+    host_name: string;
     id: number;
-    is_custom: boolean;
-    price: number;
-    subscription_category: string;
-    unity: string;
+    ip: string;
+    operator_system: string;
 }
+
 export interface ServiceDetails {
-    api_key: string | null;
-    api_playground_url: string | null;
-    curl_command: string | null;
+    deployment_field: string;
     description: string;
     documentation_url: string;
     id: number;
-    image_service: string;
+    image_service: string ;
+    is_eligible: boolean;
+    is_published: boolean;
     is_subscribed: boolean;
-    monitoring: string | null;
     name: string;
-    price_period: string | null;
+    price_category: string;
+    sequence: number ;
     service_slug: string;
-    service_url: string | null;
+    service_unity: string;
     short_description: string;
     specifications: string;
-    ssh_access: string | null;
     type: string;
     unit_price: number;
+}
+
+export interface ServicePlan {
+    display_on_app: boolean;
+    id: number;
+    is_custom: boolean;
+    is_published: boolean;
+    preparation_time: number;
+    price: number;
+    priority: number;
+    service_plan_type: string;
+    subscription_category: string;
+    unity: string;
 }
