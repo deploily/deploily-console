@@ -10,16 +10,19 @@ type Props = {
     height: number;
 };
 
-export default function ImageFetcher({ imagePath, width ,height }: Props) {
+export default function ImageFetcher({ imagePath, width, height }: Props) {
     const defaultImagePath = "/images/logo_service.png";
-    const [imageUrl, setImageUrl] = useState<string|undefined>(undefined); // default fallback
+    const [imageUrl, setImageUrl] = useState<string | undefined>(undefined); // default fallback
 
     useEffect(() => {
         const resolveImage = async () => {
             if (!imagePath) return;
             if (imagePath.startsWith("http")) {
                 setImageUrl(imagePath);
-            } else {
+            } else if (imagePath.startsWith("/images/")) {
+                setImageUrl(imagePath);
+            }
+            else {
                 try {
                     const res = await getImageUrl(imagePath);
                     if (res) {
@@ -37,10 +40,10 @@ export default function ImageFetcher({ imagePath, width ,height }: Props) {
 
         resolveImage();
     }, [imagePath]);
-    
 
-    return  <>
-{imageUrl !== undefined&&
-    <Image loading= "lazy" src={imageUrl} alt={`${imagePath}`} height={height} width={width} preview={false}/>
- } </>
+
+    return <>
+        {imageUrl !== undefined &&
+            <Image loading="lazy" src={imageUrl} alt={`${imagePath}`} height={height} width={width} preview={false} />
+        } </>
 }

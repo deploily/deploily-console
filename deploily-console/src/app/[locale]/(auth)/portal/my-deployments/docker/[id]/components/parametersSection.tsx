@@ -25,7 +25,7 @@ export default function ParametersSection({
     form,
 }: ParametersSectionProps) {
     const dispatch = useAppDispatch();
-    const tDeployments = useScopedI18n("deployments");
+    const tDeployments = useScopedI18n("deployment");
 
     // edit states
     const [editingId, setEditingId] = useState<number | null>(null);

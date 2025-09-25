@@ -412,8 +412,35 @@ export default {
 
     "hiEventsApp.event_url": "Event URL",
     "hiEventsApp.event_domain": "Event Domain",
-    "deployments.myDeployments": "My Deployments",
-    "deployments.configureSettings": "Configure the settings",
-    "deployments.addParameter": "Add Parameter",
+
+    "deployment": {
+        "deployments": "Deployments",
+        "noResult": "No Results Found",
+        "noResultDescription": "Try adjusting your search or filter.",
+        "confirm": "Confirm",
+        "duration": "Duration",
+        "version": "Version",
+        "promoCode": "Promo code :",
+        "promoCodePlaceHolder": "Promo code",
+        "resource": "Resource",
+        "options": "Options",
+        "price": "Price",
+        "preparation_time": "Preparation time",
+        "hours": "Hours",
+        "svc": "Deployment name",
+        "plan": "Plan",
+        "provider": "Resource provider",
+        "vpsType": "VPS Type",
+        "resourcePlan": "Resource Plan",
+        "prepaTime": "Preparation time",
+        "total": "Total amount",
+        "order": "Order deployment",
+        "description": "Description",
+        "features": "Features",
+        "myDeployments": "My Deployments",
+        "configureSettings": "Configure the settings",
+        "addParameter": "Add Parameter",
+    }
+
 
 } as const

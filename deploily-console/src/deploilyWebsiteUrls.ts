@@ -71,9 +71,19 @@ export const deploilyApiUrls = {
   MANAGED_RESSOURCE_URL: `${API_BASE_URL}/managed-ressource/`,
 
   COSTUM_PARAMETER_URL: `${API_BASE_URL}/api/v1/custom-parameter`,
+  //TODO check with back end
+
+  DEPLOYMENT_DOCKER_SUBSCRIBE_URL: `${API_BASE_URL}/docker-deployment-service-subscription/subscribe`,
+
+
 };
+
+// Application Slugs
 export const TTK_EPAY_SLUG = "ttk-epay";
 export const ODOO_SLUG = "odoo";
 export const SUPABASE_SLUG = "supabase";
 export const NEXT_CLOUD_SLUG = "nextcloud";
 export const HI_EVENTS_SLUG = "hievents";
+
+// Deployment Service Slugs
+export const DOCKER_SLUG = "docker";

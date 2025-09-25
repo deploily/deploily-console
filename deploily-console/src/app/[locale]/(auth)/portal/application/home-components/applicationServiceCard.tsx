@@ -1,5 +1,6 @@
 "use client";
 
+import { ApplicationServiceInterface } from "@/lib/features/application/applicationServiceInterface";
 import { postFavoriteService } from "@/lib/features/favorites/favoriteServiceThunks";
 import { useAppDispatch } from "@/lib/hook";
 import ImageFetcher from "@/lib/utils/imageFetcher";
@@ -10,7 +11,6 @@ import Paragraph from "antd/es/typography/Paragraph";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useI18n } from "../../../../../../../locales/client";
-import { ApplicationServiceInterface } from "@/lib/features/application/applicationServiceInterface";
 
 export default function ApplicationServiceCard({ data }: { data: ApplicationServiceInterface }) {
     const [hovered, setHovered] = useState(false);
