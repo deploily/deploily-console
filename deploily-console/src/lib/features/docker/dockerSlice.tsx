@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchDockerById } from "./dockerThunks";
-import { dockerDepInterface, DockerByIdState } from "./dockerInterface";
+import { DockerByIdState } from "./dockerInterface";
 
 interface DockerServiceState {
     dockerById: DockerByIdState;
@@ -26,7 +26,7 @@ const DockerServiceSlice = createSlice({
             .addCase(fetchDockerById.fulfilled, (state, action) => {
                 state.dockerById.isLoading = false;
                 state.dockerById.loadingError = null;
-                state.dockerById.dockerById = action.payload; // ✅ correct                
+                state.dockerById.dockerById = action.payload.result; 
             })
 
             .addCase(fetchDockerById.rejected, (state, { payload }) => {

@@ -1,13 +1,12 @@
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { CustomBlueButton } from "@/styles/components/buttonStyle";
-import { Faders, HeartStraight } from "@phosphor-icons/react";
-import { Badge, Button, Card, Col, Row, Space, Tag, Typography } from "antd";
+import { Faders } from "@phosphor-icons/react";
+import { Badge, Card, Col, Row, Space, Tag, Typography } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import { useRouter } from "next/navigation";
 import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import { subscriptionStatusStyle } from "../../my-api/utils/subscriptionsConst";
 import { myDeploymentInterface } from "@/lib/features/my-deployments/myDeploymentInterface";
-import Image from "next/image";
 import { myDeploymentsUrls } from "../utils/myDeploymentsUrls";
 export default function MyDeploymentCard({ data }: { data: myDeploymentInterface }) {
     const t = useI18n();
@@ -50,18 +49,12 @@ export default function MyDeploymentCard({ data }: { data: myDeploymentInterface
                             // }
                             offset={[-12, 12]}
                         >
-                            {/* <ImageFetcher
+                            <ImageFetcher
                                 imagePath={data.service_details.image_service}
                                 width={100}
                                 height={100}
-                            /> */}
-                            <Image 
-                                src={data.image}
-                                alt={data.service_details.name}
-                                width={100}
-                                height={100}
-                                style={{ objectFit: "contain", maxHeight: 80, maxWidth: 100, padding: 10 }}
                             />
+                          
                         </Badge>
                     </Col>
                     <Col span={12}

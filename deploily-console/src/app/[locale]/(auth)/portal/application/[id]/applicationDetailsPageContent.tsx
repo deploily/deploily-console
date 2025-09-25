@@ -133,7 +133,6 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                             title={applicationServiceById.name}
                             price={applicationServiceById.unit_price}
                             description={applicationServiceById.short_description + t('learnMore')}
-                            documentationUrl={applicationServiceById.documentation_url}
                             logo={
                                 <div style={{ border: "1px solid #4E4E4E", borderRadius: "10px", padding: "1px" }}>
                                     <ImageFetcher imagePath={applicationServiceById.image_service || ""} width={190} height={190} />
@@ -224,7 +223,9 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                             </Card>}
 
                         <div style={{ padding: '8px 0' }}>
-                            <ApplicationDetailsCollapseContainer description={applicationServiceById.description} specifications={applicationServiceById.specifications} />
+                            <ApplicationDetailsCollapseContainer description={applicationServiceById.description} specifications={applicationServiceById.specifications} documentationUrl={applicationServiceById.documentation_url}
+                                // demoUrl={applicationServiceById.demo_url}
+                            />
                         </div>
                     </Col>
 

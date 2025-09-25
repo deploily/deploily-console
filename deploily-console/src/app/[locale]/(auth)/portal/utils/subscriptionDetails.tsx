@@ -14,7 +14,7 @@ export const subscriptionDetails = (row: any, t: any): CollapseProps["items"] =>
     ),
     children: (
       <Typography.Paragraph style={{ fontWeight: 600, fontSize: 14, }}>
-        {row.service_details.description}
+        {row.service_details?.description??""}
       </Typography.Paragraph>
     ),
   },
@@ -28,7 +28,7 @@ export const subscriptionDetails = (row: any, t: any): CollapseProps["items"] =>
     children: (
   <div style={{ fontWeight: 600, fontSize: 14, }}>
    <ReactMarkdown >       
-     {row.service_details.specifications}
+     {row.service_details?.specifications}
    </ReactMarkdown> 
         </div>
       ),
