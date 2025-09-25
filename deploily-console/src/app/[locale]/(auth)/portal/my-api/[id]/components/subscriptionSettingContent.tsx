@@ -60,7 +60,8 @@ export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscri
         }
 
         const diffInMonths =
-            (end.getFullYear() - today.getFullYear()) * 12 + (end.getMonth() - today.getMonth());
+            (end.getFullYear() - today.getFullYear()) * 12 + (end.getMonth() - today.getMonth()); //TODO VERIFY IF IS MONTH OR DAY
+        
         return (diffInMonths)
     }
 

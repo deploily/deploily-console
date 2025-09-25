@@ -46,9 +46,24 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
       // </Link>
     ),
     icon: <HardDrives size={24} />,
-    children: [
-      {
+    children: [{
         key: "1",
+        label: (
+          <Link href="/portal/my-deployments">
+            <span style={labelStyle}>{scopedSidebar("myDeployments")}</span>
+          </Link>
+        ),
+      },
+      {
+        key: "2",
+        label: (
+          <Link href="/portal/my-applications">
+            <span style={labelStyle}>{scopedSidebar("myApplications")}</span>
+          </Link>
+        ),
+      },
+      {
+        key: "3",
         label: (
           <Link href="/portal/my-api">
             <span style={labelStyle}>{scopedSidebar("myApis")}</span>
@@ -56,18 +71,10 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
         ),
       },
       {
-        key: "2",
+        key: "4",
         label: (
           <Link href="/portal/my-resources">
             <span style={labelStyle}>{scopedSidebar("myResources")}</span>
-          </Link>
-        ),
-      },
-      {
-        key: "3",
-        label: (
-          <Link href="/portal/my-applications">
-            <span style={labelStyle}>{scopedSidebar("myApplications")}</span>
           </Link>
         ),
       }

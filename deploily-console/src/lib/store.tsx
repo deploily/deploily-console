@@ -3,12 +3,15 @@ import apiServiceSubscriptionStatesSlice from './features/api-service-subscripti
 import apiServiceSubscriptionSlice from "./features/api-service-subscriptions/apiServiceSubscriptionSlice";
 import apiServiceSlice from "./features/api-service/apiServiceSlice";
 import applicationServiceSlice from "./features/application/applicationServiceSlice";
-import cicdServiceSlice from "./features/ci-cd-service/cicdServiceSlice";
 import cloudResourceSlice from "./features/cloud-resource/cloudResourceSlice";
 import contactUsSlice from "./features/contact-us/contactUsSlice";
+import DeploymentServiceSlice from "./features/deployment/deploymentServiceSlice";
 import epaymentSlice from "./features/epayment/epaymentSlice";
 import favoriteServiceSlice from "./features/favorites/favoriteServiceSlice";
+import hiEventsAppSlice from "./features/hi-events/hiEventsSlice";
 import myApplicationSlice from "./features/my-applications/myApplicationSlice";
+import nextCloudAppSlice from "./features/next-cloud/nextCloudSlice";
+import odooAppSlice from "./features/odoo/odooSlice";
 import paymentProfileMiddleware from "./features/payment-profiles/paymentProfileMiddleware";
 import profileServiceSlice from "./features/payment-profiles/paymentProfilesSlice";
 import paymentSlice from "./features/payments/paymentSlice";
@@ -20,14 +23,12 @@ import wilayaSlice from "./features/select-wilaya/selectWilayaSlice";
 import servicesPlansMiddleware from "./features/service-plans/servicePlanMiddleWare";
 import servicePlanSlice from "./features/service-plans/servicePlanSlice";
 import subscriptionSlice from "./features/subscriptions/subscriptionSlice";
+import supabaseAppSlice from "./features/supabase/supabaseSlice";
 import supportTicketResponsesSlice from "./features/support-ticket -responses/supportTicketResponsesSlice";
 import supportTicketSlice from "./features/support-ticket/supportTicketSlice";
 import ttkEpaySlice from "./features/ttk-epay/ttkEpaySlice";
-import odooAppSlice from "./features/odoo/odooSlice";
-import supabaseAppSlice from "./features/supabase/supabaseSlice";
-import nextCloudAppSlice from "./features/next-cloud/nextCloudSlice";
-import hiEventsAppSlice from "./features/hi-events/hiEventsSlice";
-
+import myDeploymentSlice from "./features/my-deployments/myDeploymentSlice";
+import dockerSlice from "./features/docker/dockerSlice";
 export const makeStore = () => {
   return configureStore({
     reducer: {
@@ -41,7 +42,7 @@ export const makeStore = () => {
       promoCode: PormoCodeSlice,
       epayment: epaymentSlice,
       apiServiceSubscriptionStates: apiServiceSubscriptionStatesSlice,
-      cicdService: cicdServiceSlice,
+      deploymentService: DeploymentServiceSlice,
       cloudResource: cloudResourceSlice,
       applicationService: applicationServiceSlice,
       supportTicketResponses: supportTicketResponsesSlice,
@@ -56,7 +57,8 @@ export const makeStore = () => {
       wilaya: wilayaSlice,
       nextCloudApp: nextCloudAppSlice,
       hiEventsApp: hiEventsAppSlice,
-
+      myDeployment: myDeploymentSlice,
+      dockerDep:dockerSlice,
     },
     middleware: getDefaultMiddleware =>
       getDefaultMiddleware().prepend(resourceServicesPlansMiddleware as Middleware).prepend(paymentProfileMiddleware as Middleware).prepend(servicesPlansMiddleware as Middleware),
