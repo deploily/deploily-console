@@ -153,7 +153,7 @@ export default function DeploymentDetailsPageContent({
               logo={
                 <div style={{ border: "1px solid #4E4E4E", borderRadius: "10px", padding: "1px" }}>
                   <ImageFetcher
-                    imagePath={deploymentServiceBySlug.image || ""}
+                    imagePath={deploymentServiceBySlug.image_service || ""}
                     width={190}
                     height={190}
                   />

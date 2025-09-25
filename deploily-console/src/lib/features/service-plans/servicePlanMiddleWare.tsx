@@ -10,7 +10,6 @@ const servicesPlansMiddleware = (store: MiddlewareAPI<ThunkDispatch<any, any, Ac
             case 'servicePlan/getServicePlans/fulfilled':
                 if (action.payload !== undefined && action.payload.result.length > 0) {
                     const selectedPlan = action.payload.result[0];
-                    console.log("Selected plan from middleware", selectedPlan);
 
                     store.dispatch(updateNewAppSubscriptionState({ "app_service_plan": selectedPlan }));
                     store.dispatch(updateUpgradeRenewMyAppState({ "app_service_plan": selectedPlan }));

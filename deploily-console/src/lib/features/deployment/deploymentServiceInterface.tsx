@@ -14,7 +14,7 @@ export interface DeploymentsServiceInterface {
   id: number;
   name: string;
   price: string;
-  image: string;
+  image_service: string;
   price_category: string;
   service_unity: string;
   description: string;

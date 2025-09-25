@@ -1,19 +1,19 @@
 "use client";
+import { useDockerById } from "@/lib/features/docker/dockerSelector";
+import { fetchDockerById } from "@/lib/features/docker/dockerThunks";
 import { useAppDispatch } from "@/lib/hook";
+import { handleCopy } from "@/lib/utils/handleCopy";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { theme } from "@/styles/theme";
+import { Copy } from "@phosphor-icons/react";
 import { Badge, Button, Col, Input, Result, Row, Skeleton, Space, Typography } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../../../locales/client";
-import StatusComponents from "./componentsDockerDetails/statusComponent";
+import DocumentationDrawer from "../../../../utils/documentationDrawer";
 import DocumentationComponent from "./componentsDockerDetails/documentationComponent";
 import DurationComponent from "./componentsDockerDetails/durationComponent";
-import { useDockerById } from "@/lib/features/docker/dockerSelector";
-import { fetchDockerById } from "@/lib/features/docker/dockerThunks";
-import { handleCopy } from "@/lib/utils/handleCopy";
-import { Copy } from "@phosphor-icons/react";
-import DocumentationDrawer from "../../../../utils/documentationDrawer";
+import StatusComponents from "./componentsDockerDetails/statusComponent";
 import ParametersSection from "./parametersSection";
 
 export default function MyDockerDetails({ my_dep_id }: { my_dep_id: number }) {
@@ -29,7 +29,6 @@ export default function MyDockerDetails({ my_dep_id }: { my_dep_id: number }) {
 
     const [openDrawer, setOpenDrawer] = useState(false);
     const onClose = () => setOpenDrawer(false);
-console.log("dockerById:::::::::::::::", dockerById);
 
 
     return (

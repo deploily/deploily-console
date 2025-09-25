@@ -56,8 +56,6 @@ export const fetchCommuneFromPosition = createAsyncThunk(
         return thunkConfig.rejectWithValue("Failed to fetch commune");
       }
     } catch (error) {
-      console.log("error in fetchCommuneFromPosition:", error);
-
       return thunkConfig.rejectWithValue(error);
     }
   }

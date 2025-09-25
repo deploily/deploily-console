@@ -2,11 +2,12 @@
 import { DeploymentsServiceInterface } from "@/lib/features/deployment/deploymentServiceInterface";
 import { theme } from "@/styles/theme";
 import { ArrowRight, HeartStraight } from "@phosphor-icons/react";
-import { Badge, Button, Card, Col, Image, Row, Space } from "antd";
+import { Badge, Button, Card, Col, Row, Space } from "antd";
 import Meta from "antd/es/card/Meta";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useI18n } from "../../../../../../../locales/client";
+import ImageFetcher from "@/lib/utils/imageFetcher";
 
 export default function DeploymentsServiceCard({ data }: { data: DeploymentsServiceInterface }) {
   const t = useI18n();
@@ -48,7 +49,12 @@ export default function DeploymentsServiceCard({ data }: { data: DeploymentsServ
               }
               offset={[-12, 12]}
             >
-              <Image src={data.image} width={100} height={100} preview={false} />
+              {/* <Image src={data.image} width={100} height={100} preview={false} /> */}
+              <ImageFetcher
+                imagePath={data.image_service}
+                width={100}
+                height={100}
+              />
             </Badge>
           </Col>
 
@@ -98,7 +104,7 @@ export default function DeploymentsServiceCard({ data }: { data: DeploymentsServ
                     marginBottom: 0,
                   }}
                 >
-                  {data.description}
+                  {data.short_description}
                 </p>
               }
             />
