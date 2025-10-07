@@ -56,22 +56,10 @@ export default function CloudResourceContainer() {
             {t("seeAll")}
           </Button>
         </Row>
-        {isLoading && cloudResourceResponse?.result === undefined &&
-
-          <Col
-            xs={24}
-            sm={12}
-            md={10}
-            lg={8}
-            xl={8}
-            style={{ display: "flex", justifyContent: "center" }}
-          >
-            <Card loading={true} style={{ minWidth: 300 }} />
-          </Col>
-        }
+      
         <div style={{ position: 'relative', padding: '0 2rem' }}>
-          <HomeCarousel key={`${favoriteServiceAdded}-${favoriteServiceDeleted}`}>
-            {!isLoading && cloudResourceResponse !== undefined && cloudResourceResponse?.result?.map((row: CloudResourceInterface, index) => (
+          {!isLoading && cloudResourceResponse !== undefined && <HomeCarousel key={`${favoriteServiceAdded}-${favoriteServiceDeleted}`}>
+            {cloudResourceResponse?.result?.map((row: CloudResourceInterface, index) => (
               <div
                 key={index}
                 style={{
@@ -87,7 +75,7 @@ export default function CloudResourceContainer() {
 
 
             ))}
-          </HomeCarousel>
+          </HomeCarousel>}
         </div>
         {!isLoading && cloudResourceLoadingError &&
           <Result

@@ -58,37 +58,23 @@ export default function ApiServiceContainer() {
           {t("seeAll")}
         </Button>
 
-      </Row>
-      {isLoadingServiceResponse && apiServiceResponse?.result === undefined &&
-
-        <Col
-          xs={24}
-          sm={12}
-          md={10}
-          lg={8}
-          xl={8}
-          style={{ display: "flex", justifyContent: "center" }}
-        >
-          <Card loading={true} style={{ minWidth: 300 }} />
-        </Col>
-      }
+      </Row>  
       <div style={{ position: 'relative', padding: '0 2rem' }}>
-        <HomeCarousel>
-          {apiServiceResponse?.result !== undefined &&
-            apiServiceResponse?.result?.map((row: ApiServiceInterface, index) => (
-              <div
-                key={index}
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  margin: "0 10px",
-                }}
-              >
-                <ApiServiceCard key={row.id} service={row} />
-              </div>
-            ))}
-        </HomeCarousel>
+        {!isLoadingServiceResponse && apiServiceResponse?.result !== undefined && <HomeCarousel>
+          {apiServiceResponse?.result?.map((row: ApiServiceInterface, index) => (
+            <div
+              key={index}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                margin: "0 10px",
+              }}
+            >
+              <ApiServiceCard key={row.id} service={row} />
+            </div>
+          ))}
+        </HomeCarousel>}
       </div>
       {!isLoadingServiceResponse && apiServiceLoadingError &&
         <Result

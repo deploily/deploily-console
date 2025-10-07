@@ -57,22 +57,22 @@ export default function ApplicationServiceContainer() {
 
         </Row>
         <div style={{ position: 'relative', padding: '0 2rem' }}>
-          <HomeCarousel>
-            {!isLoading && applicationServicesList !== undefined &&
-              applicationServicesList?.result?.map((row: ApplicationServiceInterface, index) => (
-                <div
-                  key={index}
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    margin: "0 10px",
-                  }}
-                >
-                  <ApplicationServiceCard data={row} />
-                </div>
+          {!isLoading && applicationServicesList !== undefined &&
+            <HomeCarousel>
+             { applicationServicesList?.result?.map((row: ApplicationServiceInterface, index) => (
+              <div
+                key={index}
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  margin: "0 10px",
+                }}
+              >
+                <ApplicationServiceCard data={row} />
+              </div>
               ))}
-          </HomeCarousel>
+            </HomeCarousel>}
         </div>
 
       </Space>

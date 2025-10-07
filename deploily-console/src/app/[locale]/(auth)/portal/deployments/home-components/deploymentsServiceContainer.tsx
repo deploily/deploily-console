@@ -29,7 +29,7 @@ export default function DeploymentsServiceContainer() {
           <span
             style={{
               color: "white",
-
+              paddingLeft: "20px",
               fontSize: "24px",
               fontWeight: 800,
             }}
@@ -57,10 +57,9 @@ export default function DeploymentsServiceContainer() {
         </Row>
 
         <div style={{ position: "relative", padding: "0 2rem" }}>
-          <HomeCarousel>
-            {!isLoading &&
-              deploymentServicesList !== undefined &&
-              deploymentServicesList?.result?.map((row: DeploymentsServiceInterface, index) => (
+          {!isLoading &&
+            deploymentServicesList !== undefined && <HomeCarousel>
+              {deploymentServicesList?.result?.map((row: DeploymentsServiceInterface, index) => (
                 <div
                   key={index}
                   style={{
@@ -75,7 +74,7 @@ export default function DeploymentsServiceContainer() {
                   <DeploymentsServiceCard data={row} />
                 </div>
               ))}
-          </HomeCarousel>
+            </HomeCarousel>}
         </div>
       </Space>
     </>
