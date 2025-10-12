@@ -208,8 +208,8 @@ export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscri
                                 </Typography.Title>
                             </Link>
                         </Paragraph>
-                    </Row>}
-                    <Row
+                </Row>}
+                <Row
                         gutter={[16, 24]}
                         style={{
                             display: 'flex',
@@ -291,6 +291,80 @@ export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscri
                             </Col>
                         </Row>
                     } */}
+             
+                        {/* === PLAN & PLAN OPTIONS DISPLAY === */}
+                        {currentApiServiceSubscription.get_plan_details && (
+                            <Row
+                                gutter={[16, 16]}
+                                style={{
+                                    marginTop: 20,
+                                    background: theme.token.darkGray,
+                                    borderRadius: 12,
+                                    padding: 20,
+                                }}
+                            >
+                                <Col span={24}>
+                                    <Typography.Title
+                                        level={4}
+                                        style={{ marginBottom: 10, color: theme.token.blue300 }}
+                                    >
+                                        {/* t('planDetails') || */}
+                                        Service Plan Details
+                                    </Typography.Title>
+                                </Col>
+
+                                {/* === PLAN INFORMATION (INLINE DISPLAY) === */}
+                                <Row gutter={[24, 12]} style={{ width: "100%", marginBottom: 10 }}>
+                                    {/* Plan Name */}
+                                    <Col xs={24} md={8}>
+                                        <Row align="middle" gutter={[8, 0]}>
+                                            <Col flex="none">
+                                                <CustomTypography style={{ fontWeight: 500 }}>
+                                                    {/* t('planName') || */} Plan Name:
+                                                </CustomTypography>
+                                            </Col>
+                                            <Col flex="auto">
+                                                <Typography.Text strong style={{ whiteSpace: "nowrap" }}>
+                                                    {currentApiServiceSubscription.get_plan_details.plan?.name ||
+                                                        currentApiServiceSubscription.name}
+                                                </Typography.Text>
+                                            </Col>
+                                        </Row>
+                                    </Col>
+                                    
+                                </Row>
+
+                                {/* === PLAN OPTIONS === */}
+                                {Array.isArray(currentApiServiceSubscription.get_plan_details.options) &&
+                                    currentApiServiceSubscription.get_plan_details.options.length > 0 && (
+                                        <Col span={24} style={{ marginTop: 10 }}>
+                                            <CustomTypography style={{ fontWeight: "bold" }}>
+                                                {/* t('planOptions') || */} Plan Options:
+                                            </CustomTypography>
+                                            <div style={{ marginTop: 10 }}>
+                                                {currentApiServiceSubscription.get_plan_details.options.map(
+                                                    (option: any) => (
+                                                        <Tag
+                                                            key={option.id}
+                                                            color="blue"
+                                                            style={{
+                                                                fontSize: 13,
+                                                                borderRadius: 16,
+                                                                marginBottom: 6,
+                                                            }}
+                                                        >
+                                                            {option.html_content ||
+                                                                `${option.option_type}: ${option.option_value}`}
+                                                        </Tag>
+                                                    )
+                                                )}
+                                            </div>
+                                        </Col>
+                                    )}
+                            </Row>
+                        )}
+
+                  
 
                     {currentApiServiceSubscription.service_details &&
                         currentApiServiceSubscription.status == 'active' ? <>
