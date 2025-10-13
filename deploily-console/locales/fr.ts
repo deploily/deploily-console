@@ -74,7 +74,10 @@ export default {
   "contactProvider": "Contacter le fournisseur",
   "DZD": "DZD",
   "explore": "Explorer",
-
+  "planDetails": "Détails du plan de service",
+  "planName": "Nom du plan",
+  "planOptions": "Options du plan",
+  
   "sidebar.home": "Accueil",
   "sidebar.dashboard": "Tableau de bord",
   "sidebar.myApi": "Mes API",
