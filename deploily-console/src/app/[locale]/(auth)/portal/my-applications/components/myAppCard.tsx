@@ -92,7 +92,7 @@ export default function MyAppCard({ data }: { data: myApplicationInterface }) {
                             width: "100%",
                         }}>
                             <Paragraph ellipsis={{ rows: 1, expandable: false }} style={{ fontSize: 20, }}>
-                                {data.name}
+                                {data.service_details.name}
                             </Paragraph>
                             <Tag bordered={false} color={subscriptionStatusStyle(data.status)} style={{ height: 'fit-content', fontSize: '14px', fontWeight: "bold", borderRadius: 20, padding: "2px 10px", textTransform: "capitalize" }}>
                                 {tSubscription(data.status as "active" | "inactive")}

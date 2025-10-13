@@ -15,6 +15,7 @@ import DurationComponent from "./componentsOdooDetails/durationComponent";
 import DocumentationDrawer from "../../../../utils/documentationDrawer";
 import DocumentationComponents from "./componentsOdooDetails/documentationComponent";
 import Link from "antd/es/typography/Link";
+import PlanDetailsComponent from "./componentsOdooDetails/planDetailsComponent";
 
 export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
     const t = useI18n();
@@ -84,7 +85,8 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                         </Paragraph>
                     </Row>}
 
-                    <DurationComponent odooAppById={odooAppById} />
+                <DurationComponent odooAppById={odooAppById} />
+                <PlanDetailsComponent odooAppById={odooAppById} />
                     <div>
                     <Typography style={{ fontWeight: 700, fontSize: 20, color: theme.token.orange600 }}>
                         {tSubscription("accessUrl")}

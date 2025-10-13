@@ -59,6 +59,30 @@ export interface HiEventsAppInterface {
   version: Version;
   event_url: string;
   event_domain: string;
+  get_plan_details: GetPlanDetails
+}
+
+export interface GetPlanDetails {
+  options: PlanOption[];
+  plan: PlanInfo;
+  price: number;
+  service_plan_id: number;
+  service_plan_type: string; // e.g., "ressource"
+  subscription_category: string; // e.g., "monthly"
+}
+
+export interface PlanOption {
+  html_content: string;
+  icon: string;
+  id: number;
+  sequence: number | null;
+  type: string; // e.g., "request_limit"
+  value: number;
+}
+
+export interface PlanInfo {
+  id: number;
+  name: string;
 }
 
 

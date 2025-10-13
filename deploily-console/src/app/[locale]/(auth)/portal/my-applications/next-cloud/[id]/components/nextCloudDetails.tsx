@@ -16,6 +16,7 @@ import DocumentationComponents from "./componentsNextCloudDetails/documentationC
 import Link from "antd/es/typography/Link";
 import { useNextCloudAppById } from "@/lib/features/next-cloud/nextCloudSelector";
 import { fetchNextCloudAppById } from "@/lib/features/next-cloud/nextCloudThunks";
+import PlanDetailsComponent from "./componentsNextCloudDetails/planDetailsComponent";
 
 export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
     const t = useI18n();
@@ -84,7 +85,8 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                             </Paragraph>
                         </Row>}
 
-                        <DurationComponent nextCloudAppById={nextCloudAppById} />
+                    <DurationComponent nextCloudAppById={nextCloudAppById} />
+                    <PlanDetailsComponent nextCloudAppById={nextCloudAppById} />
                         <div>
                             <Typography style={{ fontWeight: 700, fontSize: 20, color: theme.token.orange600 }}>
                                 {tSubscription("accessUrl")}
