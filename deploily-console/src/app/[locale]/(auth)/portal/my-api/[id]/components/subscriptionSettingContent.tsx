@@ -22,6 +22,7 @@ import { subscriptionStatusStyle } from "../../utils/subscriptionsConst";
 import UpgradeApiSubscriptionComponents from "./upgradeSubscription";
 import ShowdrawerSubscription from "./showDrawerSubscription";
 import RenewApiSubscriptionComponents from "./renewSubscription";
+import PlanDetailsComponent from "./planDetailsComponent";
 
 export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscription_id }: { apiServiceSubscription_id: string }) {
     const t = useI18n();
@@ -61,7 +62,7 @@ export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscri
 
         const diffInMonths =
             (end.getFullYear() - today.getFullYear()) * 12 + (end.getMonth() - today.getMonth()); //TODO VERIFY IF IS MONTH OR DAY
-        
+
         return (diffInMonths)
     }
 
@@ -115,69 +116,69 @@ export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscri
                             </Row>
                         </Col>
                     </Row>
-                <Row gutter={16} justify="space-between" align="middle">
-                    {/* Title */}
-                    <Col xs={24} sm={16} md={16} lg={16} xl={18}>
-                        {currentApiServiceSubscription.service_details && (
-                            <Typography.Title level={2} style={{ margin: 0 }}>
-                                {currentApiServiceSubscription.service_details.name}
-                            </Typography.Title>
-                        )}
-                    </Col>
-
-                    {/* Actions */}
-                    <Col xs={24} sm={8} md={8} lg={8} xl={6}>
-                        <div style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            gap: '12px',
-                            alignItems: 'flex-end'
-                        }}>
-                            {/* Status Tag */}
-                            <Tag
-                                bordered={false}
-                                color={subscriptionStatusStyle(currentApiServiceSubscription.status)}
-                                style={{
-                                    height: 'fit-content',
-                                    fontSize: '14px',
-                                    fontWeight: "bold",
-                                    borderRadius: 20,
-                                    padding: "5px 20px",
-                                    textTransform: "capitalize"
-                                }}
-                            >
-                                {tApiServiceSubscription(currentApiServiceSubscription.status as "active" | "inactive")}
-                            </Tag>
-
-                            {/* Action Buttons - Only show if status is active */}
-                            {currentApiServiceSubscription.status === 'active' && (
-                                <div style={{
-                                    display: 'flex',
-                                    gap: '8px',
-                                    flexWrap: 'wrap',
-                                    justifyContent: 'flex-end'
-                                }}>
-                                    <UpgradeApiSubscriptionComponents
-                                        serviceId={currentApiServiceSubscription.service_details.id}
-                                        oldPrice={currentApiServiceSubscription.price}
-                                        planSelectedId={currentApiServiceSubscription.service_plan_id}
-                                        start_date={currentApiServiceSubscription.start_date}
-                                        oldDuration={currentApiServiceSubscription.duration_month}
-                                        onClick={() => setDrawerActionType("upgrade")}
-                                    />
-
-                                    <RenewApiSubscriptionComponents
-                                        serviceId={currentApiServiceSubscription.service_details.id}
-                                        oldPrice={currentApiServiceSubscription.price}
-                                        plan={currentApiServiceSubscription.service_plan_id}
-                                        start_date={currentApiServiceSubscription.start_date}
-                                        onClick={() => setDrawerActionType("renew")}
-                                    />
-                                </div>
+                    <Row gutter={16} justify="space-between" align="middle">
+                        {/* Title */}
+                        <Col xs={24} sm={16} md={16} lg={16} xl={18}>
+                            {currentApiServiceSubscription.service_details && (
+                                <Typography.Title level={2} style={{ margin: 0 }}>
+                                    {currentApiServiceSubscription.service_details.name}
+                                </Typography.Title>
                             )}
-                        </div>
-                    </Col>
-                </Row>
+                        </Col>
+
+                        {/* Actions */}
+                        <Col xs={24} sm={8} md={8} lg={8} xl={6}>
+                            <div style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '12px',
+                                alignItems: 'flex-end'
+                            }}>
+                                {/* Status Tag */}
+                                <Tag
+                                    bordered={false}
+                                    color={subscriptionStatusStyle(currentApiServiceSubscription.status)}
+                                    style={{
+                                        height: 'fit-content',
+                                        fontSize: '14px',
+                                        fontWeight: "bold",
+                                        borderRadius: 20,
+                                        padding: "5px 20px",
+                                        textTransform: "capitalize"
+                                    }}
+                                >
+                                    {tApiServiceSubscription(currentApiServiceSubscription.status as "active" | "inactive")}
+                                </Tag>
+
+                                {/* Action Buttons - Only show if status is active */}
+                                {currentApiServiceSubscription.status === 'active' && (
+                                    <div style={{
+                                        display: 'flex',
+                                        gap: '8px',
+                                        flexWrap: 'wrap',
+                                        justifyContent: 'flex-end'
+                                    }}>
+                                        <UpgradeApiSubscriptionComponents
+                                            serviceId={currentApiServiceSubscription.service_details.id}
+                                            oldPrice={currentApiServiceSubscription.price}
+                                            planSelectedId={currentApiServiceSubscription.service_plan_id}
+                                            start_date={currentApiServiceSubscription.start_date}
+                                            oldDuration={currentApiServiceSubscription.duration_month}
+                                            onClick={() => setDrawerActionType("upgrade")}
+                                        />
+
+                                        <RenewApiSubscriptionComponents
+                                            serviceId={currentApiServiceSubscription.service_details.id}
+                                            oldPrice={currentApiServiceSubscription.price}
+                                            plan={currentApiServiceSubscription.service_plan_id}
+                                            start_date={currentApiServiceSubscription.start_date}
+                                            onClick={() => setDrawerActionType("renew")}
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                        </Col>
+                    </Row>
                     <ShowdrawerSubscription
                         IsSubscribed={currentApiServiceSubscription.service_details.is_subscribed}
                         subscriptionOldId={currentApiServiceSubscription.id}
@@ -208,8 +209,8 @@ export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscri
                                 </Typography.Title>
                             </Link>
                         </Paragraph>
-                </Row>}
-                <Row
+                    </Row>}
+                    <Row
                         gutter={[16, 24]}
                         style={{
                             display: 'flex',
@@ -291,80 +292,10 @@ export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscri
                             </Col>
                         </Row>
                     } */}
-             
-                        {/* === PLAN & PLAN OPTIONS DISPLAY === */}
-                        {currentApiServiceSubscription.get_plan_details && (
-                            <Row
-                                gutter={[16, 16]}
-                                style={{
-                                    marginTop: 20,
-                                    background: theme.token.darkGray,
-                                    borderRadius: 12,
-                                    padding: 20,
-                                }}
-                            >
-                                <Col span={24}>
-                                    <Typography.Title
-                                        level={4}
-                                        style={{ marginBottom: 10, color: theme.token.blue300 }}
-                                    >
-                                        {/* t('planDetails') || */}
-                                        Service Plan Details
-                                    </Typography.Title>
-                                </Col>
 
-                                {/* === PLAN INFORMATION (INLINE DISPLAY) === */}
-                                <Row gutter={[24, 12]} style={{ width: "100%", marginBottom: 10 }}>
-                                    {/* Plan Name */}
-                                    <Col xs={24} md={8}>
-                                        <Row align="middle" gutter={[8, 0]}>
-                                            <Col flex="none">
-                                                <CustomTypography style={{ fontWeight: 500 }}>
-                                                    {/* t('planName') || */} Plan Name:
-                                                </CustomTypography>
-                                            </Col>
-                                            <Col flex="auto">
-                                                <Typography.Text strong style={{ whiteSpace: "nowrap" }}>
-                                                    {currentApiServiceSubscription.get_plan_details.plan?.name ||
-                                                        currentApiServiceSubscription.name}
-                                                </Typography.Text>
-                                            </Col>
-                                        </Row>
-                                    </Col>
-                                    
-                                </Row>
-
-                                {/* === PLAN OPTIONS === */}
-                                {Array.isArray(currentApiServiceSubscription.get_plan_details.options) &&
-                                    currentApiServiceSubscription.get_plan_details.options.length > 0 && (
-                                        <Col span={24} style={{ marginTop: 10 }}>
-                                            <CustomTypography style={{ fontWeight: "bold" }}>
-                                                {/* t('planOptions') || */} Plan Options:
-                                            </CustomTypography>
-                                            <div style={{ marginTop: 10 }}>
-                                                {currentApiServiceSubscription.get_plan_details.options.map(
-                                                    (option: any) => (
-                                                        <Tag
-                                                            key={option.id}
-                                                            color="blue"
-                                                            style={{
-                                                                fontSize: 13,
-                                                                borderRadius: 16,
-                                                                marginBottom: 6,
-                                                            }}
-                                                        >
-                                                            {option.html_content ||
-                                                                `${option.option_type}: ${option.option_value}`}
-                                                        </Tag>
-                                                    )
-                                                )}
-                                            </div>
-                                        </Col>
-                                    )}
-                            </Row>
-                        )}
-
-                  
+                    {/* === PLAN & PLAN OPTIONS DISPLAY === */}
+                 
+                <PlanDetailsComponent currentApiServiceSubscription={currentApiServiceSubscription} />
 
                     {currentApiServiceSubscription.service_details &&
                         currentApiServiceSubscription.status == 'active' ? <>
