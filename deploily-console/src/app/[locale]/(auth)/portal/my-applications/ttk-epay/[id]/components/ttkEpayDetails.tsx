@@ -10,7 +10,7 @@ import { CustomSubscripionInput } from "@/styles/components/inputStyle";
 import { CustomTypography } from "@/styles/components/typographyStyle";
 import { theme } from "@/styles/theme";
 import { CalendarDots, Copy, PauseCircle, PlayCircle } from "@phosphor-icons/react";
-import { Alert, Badge, Button, Col, Input, Result, Row, Skeleton, Space, Tag, Tooltip, Typography } from "antd";
+import { Alert, Badge, Button, Col, Input, List, Result, Row, Skeleton, Space, Tag, Tooltip, Typography } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
@@ -21,6 +21,8 @@ import ShowdrawerSubscription from "../../../components/showMyAppDrawerSubscript
 import TtkEpayParams from "./ttkEpayParams";
 import UpgradeMyAppSubscriptionComponents from "../../../components/upgradeMyAppSubscription";
 import RenewMyAppSubscriptionComponents from "../../../components/renewMyAppSubscription";
+import PlanDetailsComponent from "./PlanDetailsComponent";
+import ManagedRessourceComponent from "./managedRessource";
 
 export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
     const t = useI18n();
@@ -288,6 +290,16 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                             </Row>
                         </Col>
                     </Row>
+
+                {/* === PLAN & PLAN OPTIONS DISPLAY === */}
+                <PlanDetailsComponent ttkEpayById={ttkEpayById} />
+
+                {/* === END PLAN & PLAN OPTIONS DISPLAY === */}
+
+                {/* === MANAGED RESOURCE DISPLAY === */}
+                {/* <ManagedRessourceComponent ttkEpayById={ttkEpayById} /> */}
+                {/* === END MANAGED RESOURCE DISPLAY === */}
+
                     <div>
                         <Typography style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange600 }}>
                             {tSubscription("accessUrl")}

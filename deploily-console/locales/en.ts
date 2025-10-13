@@ -71,7 +71,10 @@ export default {
     "requestQuote": "Request a quote",
     "DZD": "DZD",
     "explore": "Explore",
-
+    "planDetails": "Service Plan Details",
+    "planName": "Plan Name",
+    "planOptions": "Plan Options",
+    
     'sidebar.home': 'Home',
     'sidebar.dashboard': 'Dashboard',
     'sidebar.members': 'Members',

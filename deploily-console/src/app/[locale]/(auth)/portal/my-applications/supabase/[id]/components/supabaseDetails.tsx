@@ -15,6 +15,7 @@ import DocumentationDrawer from "../../../../utils/documentationDrawer";
 import { handleCopy } from "@/lib/utils/handleCopy";
 import { Copy } from "@phosphor-icons/react";
 import Link from "antd/es/typography/Link";
+import PlanDetailsComponent from "./componentsSupabaseDetails/PlanDetailsComponent";
 
 export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
     const t = useI18n();
@@ -81,6 +82,7 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                         </Paragraph>
                 </Row>}
                 <DurationComponent supabaseAppById={supabaseAppById} />
+                <PlanDetailsComponent supabaseAppById={supabaseAppById} />
                 <div>
                     
                     {/* supabase_url */}
