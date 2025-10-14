@@ -28,6 +28,30 @@ export interface dockerDepInterface {
     start_date: string; 
     status: string;
     total_amount: number;
+    get_plan_details: GetPlanDetails
+}
+
+export interface GetPlanDetails {
+    options: PlanOption[];
+    plan: PlanInfo;
+    price: number;
+    service_plan_id: number;
+    service_plan_type: string; 
+    subscription_category: string; 
+}
+
+export interface PlanOption {
+    html_content: string;
+    icon: string;
+    id: number;
+    sequence: number | null;
+    type: string; 
+    value: number;
+}
+
+export interface PlanInfo {
+    id: number;
+    name: string;
 }
 
 export interface CustomParameter {

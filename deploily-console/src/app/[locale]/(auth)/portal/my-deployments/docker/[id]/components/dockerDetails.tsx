@@ -15,6 +15,7 @@ import DocumentationComponent from "./componentsDockerDetails/documentationCompo
 import DurationComponent from "./componentsDockerDetails/durationComponent";
 import StatusComponents from "./componentsDockerDetails/statusComponent";
 import ParametersSection from "./parametersSection";
+import PlanDetailsComponent from "./componentsDockerDetails/planDetailsComponent";
 
 export default function MyDockerDetails({ my_dep_id }: { my_dep_id: number }) {
     const t = useI18n();
@@ -83,6 +84,7 @@ export default function MyDockerDetails({ my_dep_id }: { my_dep_id: number }) {
                     )}
 
                     <DurationComponent dockerById={dockerById} />
+                    <PlanDetailsComponent dockerById={dockerById} />
 
                     <div>
                         <Typography style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange600 }}>

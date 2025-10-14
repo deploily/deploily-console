@@ -35,7 +35,6 @@ export default {
   "featuresSpecifications": "Fonctionnalités et spécifications",
   "documentation": "Documentation",
   "viewDocumentation": "Vous pouvez explorer ses capacités et en apprendre davantage dans la",
-  "learnMore": ". Vous pouvez explorer et en apprendre davantage grâce à la ",
   "duration": "Durée",
   "remainingDuration": "Durée restante",
   "mois": "mois",

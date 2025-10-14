@@ -132,7 +132,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                         <ApplicationDescriptionContainer
                             title={applicationServiceById.name}
                             price={applicationServiceById.unit_price}
-                            description={applicationServiceById.short_description + t('learnMore')}
+                            description={applicationServiceById.short_description || ""}
                             logo={
                                 <div style={{ border: "1px solid #4E4E4E", borderRadius: "10px", padding: "1px" }}>
                                     <ImageFetcher imagePath={applicationServiceById.image_service || ""} width={190} height={190} />
