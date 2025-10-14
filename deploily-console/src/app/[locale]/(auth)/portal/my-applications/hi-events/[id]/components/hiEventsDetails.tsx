@@ -5,7 +5,8 @@ import { useAppDispatch } from "@/lib/hook";
 import { handleCopy } from "@/lib/utils/handleCopy";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { theme } from "@/styles/theme";
-import { Copy, Paragraph } from "@phosphor-icons/react";
+import { Copy } from "@phosphor-icons/react";
+import Paragraph from "antd/es/typography/Paragraph";
 import { Badge, Button, Col, Input, Result, Row, Skeleton, Space, Typography } from "antd";
 import Link from "antd/es/typography/Link";
 import { useEffect, useState } from "react";
@@ -82,7 +83,6 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                     {hiEventsAppById.service_details && <Row gutter={16} style={{ marginTop: 0 }} >
                         <Paragraph style={{ fontSize: 14 }} >
                             {hiEventsAppById.service_details.description}
-
                         </Paragraph>
                 </Row>}
               
