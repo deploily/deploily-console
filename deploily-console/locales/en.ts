@@ -34,7 +34,6 @@ export default {
     'featuresSpecifications': 'Features and Specifications',
     'documentation': 'Documentation',
     'viewDocumentation': 'You can explore its capabilities and learn more in the',
-    "learnMore": ". You can explore and learn more through the ",
     'duration': 'Duration',
     "remainingDuration": "Remaining duration",
     'month': 'MONTH',

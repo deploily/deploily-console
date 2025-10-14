@@ -148,7 +148,7 @@ export default function DeploymentDetailsPageContent({
             <DeployementDescriptionContainer
               title={deploymentServiceBySlug.name}
               price={deploymentServiceBySlug.unit_price}
-              description={deploymentServiceBySlug.short_description + t("learnMore")}
+              description={deploymentServiceBySlug.short_description || ""}
               documentationUrl={deploymentServiceBySlug.documentation_url}
               logo={
                 <div style={{ border: "1px solid #4E4E4E", borderRadius: "10px", padding: "1px" }}>
