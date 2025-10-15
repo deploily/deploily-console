@@ -35,6 +35,7 @@ export interface ServicePlanOption {
   id: number;
   icon: string;
   html_content: string;
+  option_type: string;
 }
 
 
