@@ -50,33 +50,37 @@ const ApplicationServiceSlice = createSlice({
     initialState,
     reducers: {
         updateNewAppSubscriptionState: (state, action: PayloadAction<any>) => {
-            let updatedState: NewApplicationSubscriptionState = { ...state.newAppSubscriptionState, ...action.payload }
+            let updatedState: NewApplicationSubscriptionState = {
+                ...state.newAppSubscriptionState,
+                ...action.payload
+            };
 
             let updatedAmount = 0;
-            if (updatedState.app_service_plan != undefined) {
-                updatedAmount = updatedState.duration * updatedState.app_service_plan.price;
-                updatedState = { ...updatedState, totalAmount: updatedAmount }
-                if (updatedState.managed_ressource_details != undefined) {
-                    updatedAmount += updatedState.duration * updatedState.managed_ressource_details.price;
-                    updatedState = { ...updatedState, totalAmount: updatedAmount }
-                }
-            }
 
-            if (updatedState.promoCodeRate != undefined) {
-                updatedState = { ...updatedState, promoColor: "green" }
+            if (updatedState.app_service_plan) {
+                updatedAmount = updatedState.duration * updatedState.app_service_plan.price;
+            }
+            if (
+                updatedState.managed_ressource_details &&
+                !updatedState.managed_ressource_details.isAlreadyPaid // 👈 condition
+            ) {
+                updatedAmount += updatedState.duration * (updatedState.managed_ressource_details.price || 0);
+            }
+            if (updatedState.promoCodeRate !== undefined) {
+                updatedState = { ...updatedState, promoColor: "green" };
                 updatedAmount = updatedAmount - ((updatedAmount * (updatedState.promoCodeRate || 0)) / 100);
             }
-            updatedState = { ...updatedState, totalAmount: updatedAmount }
-            if (updatedState?.selectedProfile != undefined) {
-                if ((updatedState?.selectedProfile.balance - updatedState.totalAmount) >= 0) {
-                    updatedState.isBalanceSufficient = true;
-                } else {
-                    updatedState.isBalanceSufficient = false;
-                }
+            updatedState = { ...updatedState, totalAmount: updatedAmount };
+
+            if (updatedState.selectedProfile) {
+                updatedState.isBalanceSufficient =
+                    (updatedState.selectedProfile.balance - updatedState.totalAmount) >= 0;
             }
+
             state.newAppSubscriptionState = updatedState;
             return state;
         },
+
         updateApplicationServiceSearchValue: (state, action: PayloadAction<string>) => {
             state.searchValue = action.payload;
         },
