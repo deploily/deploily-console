@@ -18,13 +18,9 @@ import { ServicePlanOption } from "@/lib/features/service-plans/servicePlanInter
 import { useManagedResource } from "@/lib/features/cloud-resource/cloudResourceSelectors";
 import { useEffect } from "react";
 
-interface ExtendedManagedResourceDetails extends ManagedRessourceDetails {
-  isManaged: boolean;
-}
-
 interface SelectVpsPlanTableProps {
-  onVpsPlanSelect?: (plan: ExtendedManagedResourceDetails) => void;
-  selectedVpsPlan?: ExtendedManagedResourceDetails | null;
+  onVpsPlanSelect?: (plan: ManagedRessourceDetails) => void;
+  selectedVpsPlan?: ManagedRessourceDetails | null;
   applicationId?: any;
   subscriptionCategory?: any;
 }
@@ -124,7 +120,7 @@ export default function SelectVpsPlanTable({
                             marginRight: 8,
                           }}
                         >
-                          • Managed
+                          {tApplications("managed")}
                         </span>
                       )}
                       {`${plan.provider_info?.name || ""} / ${plan.plan_name}`}

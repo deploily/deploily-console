@@ -364,6 +364,7 @@ export default {
     "applications.noActiveApplicationsFound": "You don't have any active applications. Feel free to create one!",
     "applications.prepaTime": "Preparation time",
     "applications.hours": "Hours",
+    "applications.managed":"• Managed",
 
     "dashboard.welcome": "👋 Welcome back, ",
     "dashboard.subTitle": "Your current stats at a glance",
