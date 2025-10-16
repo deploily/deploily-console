@@ -100,3 +100,8 @@ export interface AppVersionInterface {
     name: string;
 
 }
+export interface Filter {
+    page_size?: number;
+    page?: number;
+    searchTerm?: string;
+}

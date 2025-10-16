@@ -4,18 +4,12 @@ import { RootState } from "@/lib/store";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getSession } from "next-auth/react";
 import { getSubscribeToAppUrl } from "./getSubscribeToAppUrl";
+import { Filter } from "./applicationServiceInterface";
+
 
 export const fetchApplicationServices = createAsyncThunk(
-    "applicationService/getapplicationService",
-    async (limit: number, thunkConfig) => {
-    const state = thunkConfig.getState() as RootState;
-    const searchValue = state.applicationService.searchValue?.trim();
-
-    const filters = searchValue
-      ? `(filters:!((col:name,opr:ct,value:'${searchValue}')),page_size:${limit})`
-      : `(page_size:${limit})`;
-
-    const query = `?q=${encodeURIComponent(filters)}`;
+    "applicationService/getApplicationServices",
+    async (filterParams: Filter, thunkConfig) => {
         try {
             const session = await getSession();
 
@@ -25,23 +19,54 @@ export const fetchApplicationServices = createAsyncThunk(
 
             const token = session.accessToken;
 
-            const response = await axiosInstance.get(`${deploilyApiUrls.APPP_SERVICES_URL}${query}`, {
-                headers: {
-                    Accept: "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            // ===== Extract filter values =====
+            const searchValue = filterParams.searchTerm;
+            const filters: any[] = [];
 
+            if (searchValue) {
+                filters.push({
+                    col: "name",
+                    opr: "ct",
+                    value: searchValue,
+                });
+            }
+
+            // ===== Build query object =====
+            const queryObject: any = {
+                filters,
+                page_size: filterParams.page_size,
+            };
+
+            if (filterParams.page !== undefined) {
+                queryObject.page = filterParams.page;
+            }
+
+            // ===== Construct encoded query =====
+            const query = `?q=${encodeURIComponent(JSON.stringify(queryObject))}`;
+
+            // ===== Make API request =====
+            const response = await axiosInstance.get(
+                `${deploilyApiUrls.APPP_SERVICES_URL}${query}`,
+                {
+                    headers: {
+                        Accept: "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            // ===== Handle response =====
             if (response.status === 200) {
                 return response.data;
             } else {
-                return thunkConfig.rejectWithValue("Failed to fetch services");
+                return thunkConfig.rejectWithValue("Failed to fetch application services");
             }
         } catch (error: any) {
             return thunkConfig.rejectWithValue(error.message);
         }
-    },
+    }
 );
+
 
 export const fetchApplicationServiceById = createAsyncThunk(
     "applicationService/getApplicationServiceById",
