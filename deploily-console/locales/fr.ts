@@ -279,7 +279,8 @@ export default {
   "apiServiceSubscription.confirmAffiliation": "Je confirme que j'accepte de partager mes données personnelles (nom, email) avec les partenaires de confiance de Deploily dans le but de fournir des services pertinents.",
   "apiServiceSubscription.clickToRenewNow": "Maintenez votre service actif sans interruption. Cliquez pour renouveler maintenant.",
   "apiServiceSubscription.renewNow": "Renouveler maintenant",
-
+  "apiServiceSubscription.noApi": "Vous n'avez actuellement aucun abonnement API. N'hésitez pas à explorer les API disponibles et à vous y abonner!",
+  "apiServiceSubscription.noActiveApiFound": "Vous n'avez actuellement aucun abonnement API actif.N'hésitez pas à explorer les API disponibles et à vous y abonner!",
 
   "bankPayment.title": "Paiement par virement bancaire",
   "bankPayment.message": "Ceci est notre compte bancaire, vous pouvez transférer le montant !",

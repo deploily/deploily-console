@@ -3,7 +3,7 @@ import { fetchApiServiceSubscription } from "@/lib/features/api-service-subscrip
 import { useAppDispatch } from "@/lib/hook";
 import { Card, Col, Result, Row } from "antd";
 import { useEffect } from "react";
-import { useI18n } from "../../../../../../../locales/client";
+import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import MyApiCard from "./myApiCard";
 
 export default function MyApiContainer() {
@@ -15,7 +15,7 @@ export default function MyApiContainer() {
   } = useApiServiceSubscription();
 
   const t = useI18n();
-
+const tApi =useScopedI18n('apiServiceSubscription');
   useEffect(() => {
     dispatch(fetchApiServiceSubscription());
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -62,6 +62,14 @@ export default function MyApiContainer() {
             subTitle={t("subTitleError")}
           />
         )}
+      {/* Empty */}
+      {!apiServiceSubscriptionLoading && !apiServiceSubscriptionLoadingError && apiServiceSubscriptionResponse?.length === 0 && (
+        <Result
+          status="404"
+          title={tApi("noApi")}
+          subTitle={tApi("noActiveApiFound")}
+        />
+      )}
     </>
   );
 }

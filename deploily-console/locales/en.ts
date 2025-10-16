@@ -273,6 +273,8 @@ export default {
     'apiServiceSubscription.inactive': 'Inactive',
     'apiServiceSubscription.apiKey': 'API key',
     'apiServiceSubscription.inactiveMessage': 'Your api Service Subscription is inactive. Please verify your payments.',
+    'apiServiceSubscription.noApi': 'You currently do not have any API subscriptions. Feel free to explore and subscribe to the available APIs!',
+    'apiServiceSubscription.noActiveApiFound': 'You currently do not have any active API subscriptions. Feel free to explore and subscribe to the available APIs!',
 
     "bankPayment.title": "Payment by Bank",
     "bankPayment.message": "This is our bank account, you can transfer the amount! ",
