@@ -24,7 +24,7 @@ export default function AllApplicationServiceContainer() {
     const [currentPage, setCurrentPage] = useState(1);
     const [hover, setHover] = useState(false);
     const [filterParams, setFilter] = useState({
-        page_size: 4,
+        page_size: 8,
         page: 0,
         searchTerm: "",
     });

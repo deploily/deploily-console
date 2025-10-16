@@ -19,7 +19,7 @@ export default function ApplicationServiceContainer() {
   useEffect(() => {
     sessionStorage.setItem("fromPage", "home");
 
-    dispatch(fetchApplicationServices(4));
+    dispatch(fetchApplicationServices({page_size: 4}));
   }, []);
 
   return (
