@@ -1,21 +1,21 @@
 "use client";
 import { CustomTypography } from "@/styles/components/typographyStyle";
 import { theme } from "@/styles/theme";
-import { Col, Row, Typography, Collapse } from "antd";
-import { useI18n } from "../../../../../../../../../locales/client";
 import { CaretDown, CaretUp } from "@phosphor-icons/react";
+import { Col, Collapse, Row, Typography } from "antd";
+import { useI18n } from "../../../../../../locales/client";
 
-export default function PlanDetailsComponent({ ttkEpayById }: { ttkEpayById: any }) {
+export default function ManagedResourcePlanDetails({ currentSubscription }: { currentSubscription: any }) {
     const t = useI18n();
 
     return (
         <>
-            {ttkEpayById.get_plan_details && (
+            {currentSubscription.get_managed_ressource_plan_details && (
                 <Collapse
                     bordered={false}
                     defaultActiveKey={["0"]}
                     expandIcon={({ isActive }) => (
-                        isActive ? <CaretUp size={24} color="#ff6600" /> : <CaretDown size={24} color="#ff6600" />
+                        isActive ? <CaretUp size={24} color={theme.token.orange600} /> : <CaretDown size={24} color={theme.token.orange600} />
                     )}
                     expandIconPosition="end"
                     style={{
@@ -32,7 +32,7 @@ export default function PlanDetailsComponent({ ttkEpayById }: { ttkEpayById: any
                                     level={4}
                                     style={{ margin: 0, color: theme.token.orange600 }}
                                 >
-                                    {t("planDetails")}
+                                    {t("managedResourceplanDetails")}
                                 </Typography.Title>
                             ),
                             children: (
@@ -52,8 +52,8 @@ export default function PlanDetailsComponent({ ttkEpayById }: { ttkEpayById: any
                                                         strong
                                                         style={{ whiteSpace: "nowrap" }}
                                                     >
-                                                        {ttkEpayById.get_plan_details.plan?.name ||
-                                                            ttkEpayById.name}
+                                                        {currentSubscription.get_managed_ressource_plan_details.plan?.name ||
+                                                            currentSubscription.name}
                                                     </Typography.Text>
                                                 </Col>
                                             </Row>
@@ -61,15 +61,15 @@ export default function PlanDetailsComponent({ ttkEpayById }: { ttkEpayById: any
                                     </Row>
 
                                     {/* === PLAN OPTIONS === */}
-                                    {Array.isArray(ttkEpayById.get_plan_details.options) &&
-                                        ttkEpayById.get_plan_details.options.length > 0 && (
+                                    {Array.isArray(currentSubscription.get_managed_ressource_plan_details.options) &&
+                                        currentSubscription.get_managed_ressource_plan_details.options.length > 0 && (
                                             <Col span={24} style={{ marginTop: 10 }}>
                                                 <CustomTypography style={{ fontWeight: "bold" }}>
                                                     {t("planOptions")}
                                                 </CustomTypography>
 
                                                 <div style={{ marginTop: 10 }}>
-                                                    {ttkEpayById.get_plan_details.options.map(
+                                                    {currentSubscription.get_managed_ressource_plan_details.options.map(
                                                         (option: any) => (
                                                             <div
                                                                 key={option.id}

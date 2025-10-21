@@ -14,7 +14,8 @@ import DocumentationDrawer from "../../../../utils/documentationDrawer";
 import DocumentationComponents from "./componentsHiEventsDetails/documentationComponent";
 import DurationComponent from "./componentsHiEventsDetails/durationComponent";
 import StatusComponents from "./componentsHiEventsDetails/statusComponent";
-import PlanDetailsComponent from "./componentsHiEventsDetails/planDetailsComponent";
+import ManagedResourcePlanDetails from "../../../../utils/managedResourcePlanDetails";
+import PlanDetailsComponent from "../../../../utils/planDetailsComponents";
 
 
 export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
@@ -33,7 +34,7 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
 
         dispatch(fetchHiEventsAppById(my_app_id));
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])    
+    }, [])
     return (
 
 
@@ -84,11 +85,12 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                             {hiEventsAppById.service_details.description}
 
                         </Paragraph>
-                </Row>}
-              
+                    </Row>}
 
-                <DurationComponent hiEventsAppById={hiEventsAppById} />
-                <PlanDetailsComponent hiEventsAppById={hiEventsAppById} />
+
+                    <DurationComponent hiEventsAppById={hiEventsAppById} />
+                    <PlanDetailsComponent currentSubscription={hiEventsAppById} />
+                    <ManagedResourcePlanDetails currentSubscription={hiEventsAppById} />
                     <div>
                         <Typography style={{ fontWeight: 700, fontSize: 20, color: theme.token.orange600 }}>
                             {tSubscription("accessUrl")}

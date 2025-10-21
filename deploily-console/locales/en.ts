@@ -71,6 +71,7 @@ export default {
     "DZD": "DZD",
     "explore": "Explore",
     "planDetails": "Service Plan Details",
+    "managedResourceplanDetails": "Managed Resource Plan Details",
     "planName": "Plan Name",
     "planOptions": "Plan Options",
     
