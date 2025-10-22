@@ -54,9 +54,16 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
 
     useEffect(() => {
         if (subscriptionCategory) {
-            dispatch(fetchResourceServicesPlans({serviceId:applicationId, subscriptionCategory }));
+            dispatch(fetchResourceServicesPlans({ serviceId: applicationId, subscriptionCategory }));
         }
+
     }, [subscriptionCategory]);
+    
+    useEffect(() => {
+        if (managed_ressource_details?.isManaged) {
+            dispatch(updateNewAppSubscriptionState({ duration: managed_ressource_details?.time_remaining }));
+        }
+    }, [managed_ressource_details?.isManaged]);
 
     const optionsVersion = applicationServiceById?.app_versions?.map((version) => ({
         value: version.id,
@@ -224,7 +231,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
 
                         <div style={{ padding: '8px 0' }}>
                             <ApplicationDetailsCollapseContainer description={applicationServiceById.description} specifications={applicationServiceById.specifications} documentationUrl={applicationServiceById.documentation_url}
-                                // demoUrl={applicationServiceById.demo_url}
+                            // demoUrl={applicationServiceById.demo_url}
                             />
                         </div>
                     </Col>
@@ -263,14 +270,22 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                         label: tApplications('duration'),
                                         value: (
                                             <Select
-                                                defaultValue={duration}
+                                                {...(managed_ressource_details?.isManaged
+                                                    ? { value: managed_ressource_details?.time_remaining }
+                                                    : { defaultValue: duration })}
                                                 style={{ width: 150, borderRadius: "10px" }}
                                                 onChange={handleChangeDuration}
                                                 dropdownStyle={{
                                                     backgroundColor: theme.token.gray50,
                                                     border: `2px solid ${theme.token.gray100}`,
                                                 }}
-                                                options={options}
+                                                options={managed_ressource_details?.isManaged ?
+                                                    [{
+                                                        value: managed_ressource_details?.time_remaining,
+                                                        label: `${managed_ressource_details?.time_remaining} Months`
+                                                    }]
+                                                    : options}
+
                                             />
                                         ),
                                     },
@@ -288,6 +303,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                     )}
                 </Row>
             </Space>
+
             <PaymentDrawer openDrawer={openDrawer} onClose={onClose} />
         </>
     );

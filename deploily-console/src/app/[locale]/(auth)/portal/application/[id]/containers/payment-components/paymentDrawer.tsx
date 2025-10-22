@@ -38,6 +38,7 @@ export default function PaymentDrawer({ openDrawer, onClose }:
     const handleSubscribe = async () => {
       
         if (app_service_plan != undefined && managed_ressource_details != undefined && selectedProfile != undefined) {
+          
             const newSubscriptionObject = {
                 duration: Number.parseInt(`${duration}`),
                 promo_code: promoCode,
@@ -47,7 +48,6 @@ export default function PaymentDrawer({ openDrawer, onClose }:
                 profile_id: selectedProfile.id,
                 version_selected_id: selected_version?.id,
                 managed_ressource_id: managed_ressource_details.id,
-                // managed_ressource_id: managed_ressource_id,
             };
             dispatch(applicationSubscribe({ service_slug: applicationServiceById?.service_slug, data: newSubscriptionObject })).then((response: any) => {
                 if (response.meta.requestStatus === "fulfilled") {

@@ -81,8 +81,9 @@ export default function SelectVpsPlanTable({
   const getSelectedRowKey = (): string | undefined => {
     if (selectedVpsPlan)
       return `${selectedVpsPlan.isManaged ? "managed" : "service"}-${selectedVpsPlan.id}`;
-    if (managed_ressource_details)
+    if (managed_ressource_details){
       return `managed-${managed_ressource_details.id}`;
+    }
     return undefined;
   };
 
@@ -149,7 +150,7 @@ export default function SelectVpsPlanTable({
                             minHeight: 24,
                           }}
                         >
-                          {row.html_content}
+                          {row.html_content} 
                         </Typography.Paragraph>
                       </Col>
                     </Row>
