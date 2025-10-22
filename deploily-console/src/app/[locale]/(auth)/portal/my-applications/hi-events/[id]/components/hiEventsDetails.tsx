@@ -68,7 +68,7 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                                     alignSelf: "start"
                                 }}>
                                     <Typography.Title level={2} style={{ color: theme.token.orange400 }}>
-                                        {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(hiEventsAppById.service_plan.price + hiEventsAppById.managed_ressource_details.price)} DZD / {hiEventsAppById.service_plan.subscription_category === "monthly" ? t("month") : t("year")}
+                                        {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(hiEventsAppById.total_amount /  hiEventsAppById.duration_month)} DZD / {hiEventsAppById.service_plan.subscription_category === "monthly" ? t("month") : t("year")}
 
                                     </Typography.Title>
                                 </Col>
