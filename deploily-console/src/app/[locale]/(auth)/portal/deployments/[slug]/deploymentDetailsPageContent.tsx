@@ -18,7 +18,7 @@ import PaymentSideBar, {
 } from "deploily-ui-components/components/Deployments/paymentSideBar";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
+import {  useScopedI18n } from "../../../../../../../locales/client";
 import { options } from "../utils/deploymentConst";
 import DeploymentDetailsCollapseContainer from "./containers/deploymentDetailsCollapseContainer";
 import DeploymentPlansContainer from "./containers/deploymentPlansContainer";
@@ -33,7 +33,6 @@ export default function DeploymentDetailsPageContent({
   deploymentSlug: any;
 }) {
   const tdeployment = useScopedI18n("deployment");
-  const t = useI18n();
   const dispatch = useAppDispatch();
   const screens = Grid.useBreakpoint();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -77,6 +76,7 @@ export default function DeploymentDetailsPageContent({
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
   useEffect(() => {
 
     dispatch(fetchDeploymentServiceBySlug(deploymentSlug));
@@ -100,6 +100,13 @@ export default function DeploymentDetailsPageContent({
       dispatch(fetchServicePlans(`${deploymentServiceBySlug.id}`));
     }
   }, [deploymentServiceBySlug]);
+
+  useEffect(() => {
+          if (managed_ressource_details?.isManaged) {
+            
+              dispatch(updateNewDeploymentSubscriptionState({ duration: managed_ressource_details?.time_remaining }));
+          }
+      }, [managed_ressource_details?.isManaged]);
 
 
   if (isLoading) return <Skeleton active />;
@@ -305,14 +312,21 @@ export default function DeploymentDetailsPageContent({
                       label: tdeployment("duration"),
                       value: (
                         <Select
-                          defaultValue={duration}
+                          {...(managed_ressource_details?.isManaged
+                            ? { value: managed_ressource_details?.time_remaining }
+                            : { defaultValue: duration })}
                           style={{ width: 150, borderRadius: "10px" }}
                           onChange={handleChangeDuration}
                           dropdownStyle={{
                             backgroundColor: theme.token.gray50,
                             border: `2px solid ${theme.token.gray100}`,
                           }}
-                          options={options}
+                          options={managed_ressource_details?.isManaged ?
+                            [{
+                              value: managed_ressource_details?.time_remaining,
+                              label: `${managed_ressource_details?.time_remaining} Months`
+                            }]
+                            : options}
                         />
                       ),
                     },

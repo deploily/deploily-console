@@ -55,29 +55,29 @@ const DeploymentServiceSlice = createSlice({
       };
 
       let updatedAmount = 0;
-      if (updatedState.deployment_service_plan != undefined) {
-        updatedAmount = updatedState.duration * updatedState.deployment_service_plan.price;
-        updatedState = { ...updatedState, totalAmount: updatedAmount };
-        if (updatedState.managed_ressource_details != undefined) {
-          updatedAmount += updatedState.duration * updatedState.managed_ressource_details.price;
-          updatedState = { ...updatedState, totalAmount: updatedAmount };
-        }
-      }
 
-      if (updatedState.promoCodeRate != undefined) {
-        updatedState = { ...updatedState, promoColor: "green" };
-        updatedAmount = updatedAmount - (updatedAmount * (updatedState.promoCodeRate || 0)) / 100;
-      }
-      updatedState = { ...updatedState, totalAmount: updatedAmount };
-      if (updatedState?.selectedProfile != undefined) {
-        if (updatedState?.selectedProfile.balance - updatedState.totalAmount >= 0) {
-          updatedState.isBalanceSufficient = true;
-        } else {
-          updatedState.isBalanceSufficient = false;
-        }
-      }
-      state.newDeploymentSubscriptionState = updatedState;
-      return state;
+            if (updatedState.deployment_service_plan) {
+                updatedAmount = updatedState.duration * updatedState.deployment_service_plan.price;
+            }
+            if (
+                updatedState.managed_ressource_details &&
+                !updatedState.managed_ressource_details.isAlreadyPaid // 👈 condition
+            ) {
+                updatedAmount += updatedState.duration * (updatedState.managed_ressource_details.price || 0);
+            }
+            if (updatedState.promoCodeRate !== undefined) {
+                updatedState = { ...updatedState, promoColor: "green" };
+                updatedAmount = updatedAmount - ((updatedAmount * (updatedState.promoCodeRate || 0)) / 100);
+            }
+            updatedState = { ...updatedState, totalAmount: updatedAmount };
+
+            if (updatedState.selectedProfile) {
+                updatedState.isBalanceSufficient =
+                    (updatedState.selectedProfile.balance - updatedState.totalAmount) >= 0;
+            }
+
+            state.newDeploymentSubscriptionState = updatedState;
+            return state;
     },
   },
   extraReducers: (builder) => {

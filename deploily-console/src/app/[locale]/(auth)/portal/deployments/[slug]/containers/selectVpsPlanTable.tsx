@@ -1,18 +1,22 @@
 "use client";
 
-import { useNewDeploymentSubscription } from "@/lib/features/deployment/deploymentServiceSelectors";
-import { ManagedRessourceDetails } from "@/lib/features/resourceServicePlans/resourceServicesPlansInterface";
+import { useMemo } from "react";
+import { useAppDispatch } from "@/lib/hook";
+import { Col, Row, Typography } from "antd";
+import { Check } from "@phosphor-icons/react";
+import { theme } from "@/styles/theme";
+import { TableComponentWithSelection } from "deploily-ui-components";
+import { useScopedI18n } from "../../../../../../../../locales/client";
+
+import { useNewApplicationSubscription } from "@/lib/features/application/applicationServiceSelectors";
 import { useServicePlansByType } from "@/lib/features/resourceServicePlans/resourceServicesPlansSelectors";
 import { updateSelectedPlan } from "@/lib/features/resourceServicePlans/resourceServicesPlansSlice";
 import { fetchResourceServicesPlans } from "@/lib/features/resourceServicePlans/resourceServicesPlansThunk";
+import { getManagedResources } from "@/lib/features/cloud-resource/cloudResourceThunks";
+import { ManagedRessourceDetails } from "@/lib/features/resourceServicePlans/resourceServicesPlansInterface";
 import { ServicePlanOption } from "@/lib/features/service-plans/servicePlanInterface";
-import { useAppDispatch } from "@/lib/hook";
-import { theme } from "@/styles/theme";
-import { Check } from "@phosphor-icons/react";
-import { Col, Row, Typography } from "antd";
-import { TableComponentWithSelection } from "deploily-ui-components";
+import { useManagedResource } from "@/lib/features/cloud-resource/cloudResourceSelectors";
 import { useEffect } from "react";
-import { useScopedI18n } from "../../../../../../../../locales/client";
 
 interface SelectVpsPlanTableProps {
   onVpsPlanSelect?: (plan: ManagedRessourceDetails) => void;
@@ -28,77 +32,105 @@ export default function SelectVpsPlanTable({
   subscriptionCategory,
 }: SelectVpsPlanTableProps = {}) {
   const dispatch = useAppDispatch();
-  const tdeployment = useScopedI18n("deployment");
+  const tApplications = useScopedI18n("applications");
 
   const { servicePlansList } = useServicePlansByType();
-  const { managed_ressource_details } = useNewDeploymentSubscription();
+  const { managedResourceResponse } = useManagedResource();
+  const { managed_ressource_details } = useNewApplicationSubscription();
 
   useEffect(() => {
-    dispatch(fetchResourceServicesPlans({ subscriptionCategory }));
-  }, []);
+    dispatch(fetchResourceServicesPlans({  subscriptionCategory }));
+    dispatch(getManagedResources());
+  }, [deploymentId, subscriptionCategory, dispatch]);
 
-  const handlePlanChange = (selectedPlan: any) => {
-    const foundPlan = servicePlansList?.result.find((element) => element.id == selectedPlan);
+  // ✅ Combine managed resources + service plans (unique keys)
+  const allPlans = useMemo(() => {
+    const managed =
+      (managedResourceResponse || []).map((plan) => ({
+        ...plan,
+        isManaged: true,
+        isAlreadyPaid: true, // ✅ Managed resources are already paid
+        options: Array.isArray(plan.options) ? plan.options : [],
+      })) || [];
+
+    const service =
+      (servicePlansList?.result || []).map((plan) => ({
+        ...plan,
+        isManaged: false,
+        isAlreadyPaid: false, // ✅ New service plans need payment
+        options: Array.isArray(plan.options) ? plan.options : [],
+      })) || [];
+
+    return [...managed, ...service];
+  }, [managedResourceResponse, servicePlansList]);
+
+  // ✅ Use string keys to avoid collision
+  const handlePlanChange = (selectedKey: string | number) => {
+    const keyStr = String(selectedKey);
+    const foundPlan = allPlans.find(
+      (element) =>
+        `${element.isManaged ? "managed" : "service"}-${element.id}` === keyStr
+    );
 
     if (foundPlan) {
-      // Update Redux state (keep existing functionality)
       dispatch(updateSelectedPlan(foundPlan));
-
-      // Call parent component callback if provided
-      if (onVpsPlanSelect) {
-        onVpsPlanSelect(foundPlan);
-      }
+      onVpsPlanSelect?.(foundPlan);
     }
   };
 
-  // Determine selected row ID - use prop if provided, otherwise use Redux state
-  const getSelectedRowId = () => {
-    if (selectedVpsPlan) {
-      return selectedVpsPlan.id;
+  const getSelectedRowKey = (): string | undefined => {
+    if (selectedVpsPlan)
+      return `${selectedVpsPlan.isManaged ? "managed" : "service"}-${selectedVpsPlan.id}`;
+    if (managed_ressource_details){
+      return `managed-${managed_ressource_details.id}`;
     }
-    return managed_ressource_details?.id;
+    return undefined;
   };
 
   return (
     <div>
-      {servicePlansList !== undefined && (
+      {allPlans.length > 0 && (
         <TableComponentWithSelection
-          selectedRowId={getSelectedRowId()}
+          selectedRowId={getSelectedRowKey()}
           onChange={handlePlanChange}
-          data={
-            servicePlansList?.result
-              ? (servicePlansList?.result.map((plan) => {
-                if (plan.provider_info !== undefined) {
-                  return {
-                    key: plan.id,
-                    resource: plan,
-                    options: plan.options.filter((option) =>
-                      ["ram", "cpu", "disque"].includes(option.option_type),
-                    ),
-                    price: plan.price,
-                    preparation_time: plan.preparation_time,
-                    // serviceId:plan.service_id,//TODO NEED TO BE ADDED IN THE BACKEND
-                  };
-                }
-              }) as [])
-              : []
-          }
+          data={allPlans.map((plan) => ({
+            key: `${plan.isManaged ? "managed" : "service"}-${plan.id}`,
+            resource: plan,
+            options: Array.isArray(plan.options)
+              ? plan.options.filter((option: ServicePlanOption) =>
+                ["ram", "cpu", "disque"].includes(option.option_type)
+              )
+              : [],
+            price: plan.price,
+            preparation_time: plan.preparation_time,
+            isManaged: plan.isManaged,
+          }))}
           columns={[
             {
-              title: tdeployment("resource"),
+              title: tApplications("resource"),
               dataIndex: "resource",
-              render: (plan) =>
-                plan != undefined ? (
+              render: (plan: any) =>
+                plan ? (
                   <div style={{ color: "white" }}>
                     <a href={`/portal/cloud-resources/${plan.service_id}`}>
-                      {`${plan.provider_info?.name}`}
-                      {`/ ${plan.plan_name}`}
+                      {plan.isManaged && (
+                        <span
+                          style={{
+                            color: theme.token.colorSuccess,
+                            fontWeight: "bold",
+                            marginRight: 8,
+                          }}
+                        >
+                          {tApplications("managed")}
+                        </span>
+                      )}
+                      {`${plan.provider_info?.name || ""} / ${plan.plan_name}`}
                     </a>
                   </div>
-                ) : undefined,
+                ) : null,
             },
             {
-              title: tdeployment("options"),
+              title: tApplications("options"),
               dataIndex: "options",
               render: (options) => (
                 <div style={{ flex: 1, paddingBottom: "16px" }}>
@@ -118,11 +150,7 @@ export default function SelectVpsPlanTable({
                             minHeight: 24,
                           }}
                         >
-                          {/* <div
-                            dangerouslySetInnerHTML={{ __html: }}
-                            style={{ margin: 0, lineHeight: "24px" }}
-                          />  */}
-                          {row.html_content}
+                          {row.html_content} 
                         </Typography.Paragraph>
                       </Col>
                     </Row>
@@ -131,24 +159,30 @@ export default function SelectVpsPlanTable({
               ),
             },
             {
-              title: tdeployment("preparation_time"),
+              title: tApplications("preparation_time"),
               dataIndex: "preparation_time",
               render: (preparation_time) => (
                 <Typography.Text>
-                  {preparation_time} {tdeployment("hours")}
+                  {preparation_time} {tApplications("hours")}
                 </Typography.Text>
               ),
             },
             {
-              title: tdeployment("price"),
-              dataIndex: "price",
-              fixed: "right",
+              title: tApplications('price'),
+              dataIndex: 'price',
+              fixed: 'right',
               width: 100,
-              render: (price) => <Typography.Text>{`${price} DZD`}</Typography.Text>,
-            },
+              render: (price, record) =>
+                record.isManaged && record.isAlreadyPaid ? (
+                  <Typography.Text style={{ color: theme.token.gray300 }}>—</Typography.Text>
+                ) : (
+                  <Typography.Text>{`${price?.toLocaleString()} DZD`}</Typography.Text>
+                ),
+            }
           ]}
         />
       )}
     </div>
   );
 }
+
