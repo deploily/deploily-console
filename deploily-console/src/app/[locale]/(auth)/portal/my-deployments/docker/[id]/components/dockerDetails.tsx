@@ -65,7 +65,7 @@ export default function MyDockerDetails({ my_dep_id }: { my_dep_id: number }) {
                             <Row>
                                 <Col span={24} style={{ display: "flex", justifyContent: "end", alignSelf: "start" }}>
                                     <Typography.Title level={2} style={{ color: theme.token.orange400 }}>
-                                        {Intl.NumberFormat("fr-FR", { useGrouping: true }).format(dockerById.price)} DZD /
+                                        {Intl.NumberFormat("fr-FR", { useGrouping: true }).format(dockerById.total_amount / dockerById.duration_month)} DZD /
                                         {dockerById.service_details?.price_category === "monthly" ? t("month") : t("year")}
                                     </Typography.Title>
                                 </Col>

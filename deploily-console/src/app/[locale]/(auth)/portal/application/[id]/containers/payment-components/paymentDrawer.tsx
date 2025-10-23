@@ -36,15 +36,17 @@ export default function PaymentDrawer({ openDrawer, onClose }:
     };
 
     const handleSubscribe = async () => {
-      
+
         if (app_service_plan != undefined && managed_ressource_details != undefined && selectedProfile != undefined) {
-          
+
             const newSubscriptionObject = {
                 duration: Number.parseInt(`${duration}`),
                 promo_code: promoCode,
                 payment_method: "cloud_credit",
                 service_plan_selected_id: app_service_plan.id,
-                ressource_service_plan_selected_id: managed_ressource_details.id,
+                ...(managed_ressource_details.isManaged
+                    ? { managed_ressource_id: managed_ressource_details.managed_ressource_id }
+                    : { ressource_service_plan_selected_id: managed_ressource_details.id }),
                 profile_id: selectedProfile.id,
                 version_selected_id: selected_version?.id,
                 managed_ressource_id: managed_ressource_details.id,

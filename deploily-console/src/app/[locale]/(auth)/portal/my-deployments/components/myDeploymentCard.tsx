@@ -64,7 +64,7 @@ export default function MyDeploymentCard({ data }: { data: myDeploymentInterface
                             display: "flex", justifyContent: "end"
                         }}>
                         <Paragraph style={{ color: "#DD8859", fontSize: 16, }}>
-                            {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(data.price)} DZD / {data.price_category === "monthly" ? t("month") : t("year")}
+                            {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(data.price / data.duration_month)} DZD / {data.price_category === "monthly" ? t("month") : t("year")}
 
                         </Paragraph>
                     </Col>
