@@ -1,22 +1,23 @@
 "use client"
 
+import { useNextCloudAppById } from "@/lib/features/next-cloud/nextCloudSelector";
+import { fetchNextCloudAppById } from "@/lib/features/next-cloud/nextCloudThunks";
 import { useAppDispatch } from "@/lib/hook";
+import { handleCopy } from "@/lib/utils/handleCopy";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { theme } from "@/styles/theme";
-import { Badge, Button, Col, Input, Result, Row, Skeleton, Space, Typography } from "antd"
+import { Copy } from "@phosphor-icons/react";
+import { Badge, Button, Col, Input, Result, Row, Skeleton, Space, Typography } from "antd";
+import Link from "antd/es/typography/Link";
 import Paragraph from "antd/es/typography/Paragraph";
 import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../../../locales/client";
-import { Copy} from "@phosphor-icons/react";
-import { handleCopy } from "@/lib/utils/handleCopy";
-import StatusComponents from "./componentsNextCloudDetails/statusComponent";
-import DurationComponent from "./componentsNextCloudDetails/durationComponent";
 import DocumentationDrawer from "../../../../utils/documentationDrawer";
 import DocumentationComponents from "./componentsNextCloudDetails/documentationComponent";
-import Link from "antd/es/typography/Link";
-import { useNextCloudAppById } from "@/lib/features/next-cloud/nextCloudSelector";
-import { fetchNextCloudAppById } from "@/lib/features/next-cloud/nextCloudThunks";
-import PlanDetailsComponent from "./componentsNextCloudDetails/planDetailsComponent";
+import DurationComponent from "./componentsNextCloudDetails/durationComponent";
+import StatusComponents from "./componentsNextCloudDetails/statusComponent";
+import ManagedResourcePlanDetails from "../../../../utils/managedResourcePlanDetails";
+import PlanDetailsComponent from "../../../../utils/planDetailsComponents";
 
 export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
     const t = useI18n();
@@ -66,7 +67,7 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                                         alignSelf: "start"
                                     }}>
                                         <Typography.Title level={2} style={{ color: theme.token.orange400 }}>
-                                        {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(nextCloudAppById.service_plan.price+nextCloudAppById.managed_ressource_details.price)} DZD / {nextCloudAppById.service_plan.subscription_category === "monthly" ? t("month") : t("year")}
+                                            {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(nextCloudAppById.total_amount / nextCloudAppById.duration_month)} DZD / {nextCloudAppById.service_plan.subscription_category === "monthly" ? t("month") : t("year")}
 
                                         </Typography.Title>
                                     </Col>
@@ -85,8 +86,10 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                             </Paragraph>
                         </Row>}
 
-                    <DurationComponent nextCloudAppById={nextCloudAppById} />
-                    <PlanDetailsComponent nextCloudAppById={nextCloudAppById} />
+                        <DurationComponent nextCloudAppById={nextCloudAppById} />
+                        <PlanDetailsComponent currentSubscription={nextCloudAppById} />
+                        <ManagedResourcePlanDetails currentSubscription={nextCloudAppById} />
+
                         <div>
                             <Typography style={{ fontWeight: 700, fontSize: 20, color: theme.token.orange600 }}>
                                 {tSubscription("accessUrl")}

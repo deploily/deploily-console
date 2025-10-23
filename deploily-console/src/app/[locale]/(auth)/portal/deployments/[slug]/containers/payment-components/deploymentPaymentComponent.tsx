@@ -59,7 +59,9 @@ export default function DeploymentPaymentComponent({
         promo_code: promoCode,
         payment_method: paymentMethod,
         service_plan_selected_id: deployment_service_plan.id,
-        ressource_service_plan_selected_id: managed_ressource_details.id,
+        ...(managed_ressource_details.isManaged
+          ? { managed_ressource_id: managed_ressource_details.managed_ressource_id }
+          : { ressource_service_plan_selected_id: managed_ressource_details.id }),
         profile_id: selectedProfile.id,
         version_selected_id: selected_version?.id,
       };

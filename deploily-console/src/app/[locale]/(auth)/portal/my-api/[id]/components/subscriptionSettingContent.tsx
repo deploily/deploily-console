@@ -22,7 +22,7 @@ import { subscriptionStatusStyle } from "../../utils/subscriptionsConst";
 import UpgradeApiSubscriptionComponents from "./upgradeSubscription";
 import ShowdrawerSubscription from "./showDrawerSubscription";
 import RenewApiSubscriptionComponents from "./renewSubscription";
-import PlanDetailsComponent from "./planDetailsComponent";
+import PlanDetailsComponent from "../../../utils/planDetailsComponents";
 
 export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscription_id }: { apiServiceSubscription_id: string }) {
     const t = useI18n();
@@ -295,7 +295,7 @@ export default function ApiServiceSubscriptionSettingContent({ apiServiceSubscri
 
                     {/* === PLAN & PLAN OPTIONS DISPLAY === */}
                  
-                <PlanDetailsComponent currentApiServiceSubscription={currentApiServiceSubscription} />
+                <PlanDetailsComponent currentSubscription={currentApiServiceSubscription} />
 
                     {currentApiServiceSubscription.service_details &&
                         currentApiServiceSubscription.status == 'active' ? <>

@@ -16,6 +16,10 @@ export interface ManagedRessourceDetails {
   "service_name": string,
   "service_plan_type": string,
   "service_id": number,
+  "managed_ressource_id"?:number,
+  "time_remaining"?:number,
+  isManaged?: boolean;        // existing managed resource selected from list
+  isAlreadyPaid?: boolean;
 }
 
 export interface PlanOption {

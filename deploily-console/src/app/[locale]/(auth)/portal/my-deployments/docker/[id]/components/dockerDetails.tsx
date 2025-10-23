@@ -15,7 +15,8 @@ import DocumentationComponent from "./componentsDockerDetails/documentationCompo
 import DurationComponent from "./componentsDockerDetails/durationComponent";
 import StatusComponents from "./componentsDockerDetails/statusComponent";
 import ParametersSection from "./parametersSection";
-import PlanDetailsComponent from "./componentsDockerDetails/planDetailsComponent";
+import ManagedResourcePlanDetails from "../../../../utils/managedResourcePlanDetails";
+import PlanDetailsComponent from "../../../../utils/planDetailsComponents";
 
 export default function MyDockerDetails({ my_dep_id }: { my_dep_id: number }) {
     const t = useI18n();
@@ -64,7 +65,7 @@ export default function MyDockerDetails({ my_dep_id }: { my_dep_id: number }) {
                             <Row>
                                 <Col span={24} style={{ display: "flex", justifyContent: "end", alignSelf: "start" }}>
                                     <Typography.Title level={2} style={{ color: theme.token.orange400 }}>
-                                        {Intl.NumberFormat("fr-FR", { useGrouping: true }).format(dockerById.price)} DZD /
+                                        {Intl.NumberFormat("fr-FR", { useGrouping: true }).format(dockerById.total_amount / dockerById.duration_month)} DZD /
                                         {dockerById.service_details?.price_category === "monthly" ? t("month") : t("year")}
                                     </Typography.Title>
                                 </Col>
@@ -84,7 +85,9 @@ export default function MyDockerDetails({ my_dep_id }: { my_dep_id: number }) {
                     )}
 
                     <DurationComponent dockerById={dockerById} />
-                    <PlanDetailsComponent dockerById={dockerById} />
+                    <PlanDetailsComponent currentSubscription={dockerById} />
+                    <ManagedResourcePlanDetails currentSubscription={dockerById} />
+
 
                     <div>
                         <Typography style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange600 }}>

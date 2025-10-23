@@ -10,19 +10,19 @@ import { CustomSubscripionInput } from "@/styles/components/inputStyle";
 import { CustomTypography } from "@/styles/components/typographyStyle";
 import { theme } from "@/styles/theme";
 import { CalendarDots, Copy, PauseCircle, PlayCircle } from "@phosphor-icons/react";
-import { Alert, Badge, Button, Col, Input, List, Result, Row, Skeleton, Space, Tag, Tooltip, Typography } from "antd";
+import { Alert, Badge, Button, Col, Input, Result, Row, Skeleton, Space, Tag, Tooltip, Typography } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../../../locales/client";
 import { applicationStatusStyle } from "../../../../my-api/utils/subscriptionsConst";
 import DocumentationDrawer from "../../../../utils/documentationDrawer";
-import ShowdrawerSubscription from "../../../components/showMyAppDrawerSubscription";
-import TtkEpayParams from "./ttkEpayParams";
-import UpgradeMyAppSubscriptionComponents from "../../../components/upgradeMyAppSubscription";
 import RenewMyAppSubscriptionComponents from "../../../components/renewMyAppSubscription";
-import PlanDetailsComponent from "./PlanDetailsComponent";
-import ManagedRessourceComponent from "./managedRessource";
+import ShowdrawerSubscription from "../../../components/showMyAppDrawerSubscription";
+import UpgradeMyAppSubscriptionComponents from "../../../components/upgradeMyAppSubscription";
+import TtkEpayParams from "./ttkEpayParams";
+import ManagedResourcePlanDetails from "../../../../utils/managedResourcePlanDetails";
+import PlanDetailsComponent from "../../../../utils/planDetailsComponents";
 
 export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
     const t = useI18n();
@@ -98,7 +98,7 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                                     alignSelf: "start"
                                 }}>
                                     <Typography.Title level={2} style={{ color: theme.token.orange400 }}>
-                                        {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(ttkEpayById.service_plan.price + ttkEpayById.managed_ressource_details.price)} DZD {ttkEpayById.service_plan?.unity} / {ttkEpayById.service_plan.subscription_category === "monthly" ? t("month") : t("year")}
+                                        {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(ttkEpayById.total_amount / ttkEpayById.duration_month)} DZD {ttkEpayById.service_plan?.unity} / {ttkEpayById.service_plan.subscription_category === "monthly" ? t("month") : t("year")}
 
                                     </Typography.Title>
                                 </Col>
@@ -291,14 +291,16 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                         </Col>
                     </Row>
 
-                {/* === PLAN & PLAN OPTIONS DISPLAY === */}
-                <PlanDetailsComponent ttkEpayById={ttkEpayById} />
+                    {/* === PLAN & PLAN OPTIONS DISPLAY === */}
+                    <PlanDetailsComponent currentSubscription={ttkEpayById} />
+                    <ManagedResourcePlanDetails currentSubscription={ttkEpayById} />
 
-                {/* === END PLAN & PLAN OPTIONS DISPLAY === */}
 
-                {/* === MANAGED RESOURCE DISPLAY === */}
-                {/* <ManagedRessourceComponent ttkEpayById={ttkEpayById} /> */}
-                {/* === END MANAGED RESOURCE DISPLAY === */}
+                    {/* === END PLAN & PLAN OPTIONS DISPLAY === */}
+
+                    {/* === MANAGED RESOURCE DISPLAY === */}
+                    {/* <ManagedRessourceComponent ttkEpayById={ttkEpayById} /> */}
+                    {/* === END MANAGED RESOURCE DISPLAY === */}
 
                     <div>
                         <Typography style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange600 }}>

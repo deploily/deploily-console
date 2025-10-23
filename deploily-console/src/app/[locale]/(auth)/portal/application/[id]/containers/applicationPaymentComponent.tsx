@@ -45,12 +45,15 @@ export default function ApplicationPaymentComponent({ isSubscribed, subscription
     } = newApplicationSubscription;
 
     if (app_service_plan && managed_ressource_details && selectedProfile) {
+
       const baseSubscriptionObject = {
         duration: Number.parseInt(`${duration}`),
         promo_code: promoCode,
         payment_method: paymentMethod,
         service_plan_selected_id: app_service_plan.id,
-        ressource_service_plan_selected_id: managed_ressource_details.id,
+        ...(managed_ressource_details.isManaged
+          ? { managed_ressource_id: managed_ressource_details.managed_ressource_id }
+          : { ressource_service_plan_selected_id: managed_ressource_details.id }),
         profile_id: selectedProfile.id,
         version_selected_id: selected_version?.id,
       };

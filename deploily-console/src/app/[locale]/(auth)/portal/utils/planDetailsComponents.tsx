@@ -3,14 +3,14 @@ import { CustomTypography } from "@/styles/components/typographyStyle";
 import { theme } from "@/styles/theme";
 import { Col, Row, Typography, Collapse } from "antd";
 import { CaretDown, CaretUp } from "@phosphor-icons/react";
-import { useI18n } from "../../../../../../../../../../locales/client";
+import { useI18n } from "../../../../../../locales/client";
 
-export default function PlanDetailsComponent({ hiEventsAppById }: { hiEventsAppById: any }) {
+export default function PlanDetailsComponent({ currentSubscription }: { currentSubscription: any }) {
     const t = useI18n();
 
     return (
         <>
-            {hiEventsAppById.get_plan_details && (
+            {currentSubscription.get_plan_details && (
                 <Collapse
                     bordered={false}
                     defaultActiveKey={["0"]}
@@ -52,8 +52,8 @@ export default function PlanDetailsComponent({ hiEventsAppById }: { hiEventsAppB
                                                         strong
                                                         style={{ whiteSpace: "nowrap" }}
                                                     >
-                                                        {hiEventsAppById.get_plan_details.plan?.name ||
-                                                            hiEventsAppById.name}
+                                                        {currentSubscription.get_plan_details.plan?.name ||
+                                                            currentSubscription.name}
                                                     </Typography.Text>
                                                 </Col>
                                             </Row>
@@ -61,15 +61,15 @@ export default function PlanDetailsComponent({ hiEventsAppById }: { hiEventsAppB
                                     </Row>
 
                                     {/* === PLAN OPTIONS === */}
-                                    {Array.isArray(hiEventsAppById.get_plan_details.options) &&
-                                        hiEventsAppById.get_plan_details.options.length > 0 && (
+                                    {Array.isArray(currentSubscription.get_plan_details.options) &&
+                                        currentSubscription.get_plan_details.options.length > 0 && (
                                             <Col span={24} style={{ marginTop: 10 }}>
                                                 <CustomTypography style={{ fontWeight: "bold" }}>
                                                     {t("planOptions")}
                                                 </CustomTypography>
 
                                                 <div style={{ marginTop: 10 }}>
-                                                    {hiEventsAppById.get_plan_details.options.map(
+                                                    {currentSubscription.get_plan_details.options.map(
                                                         (option: any) => (
                                                             <div
                                                                 key={option.id}

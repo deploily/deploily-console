@@ -1,21 +1,22 @@
 "use client"
 import { useOdooAppById } from "@/lib/features/odoo/odooSelector";
+import { fetchOdooAppById } from "@/lib/features/odoo/odooThunks";
 import { useAppDispatch } from "@/lib/hook";
+import { handleCopy } from "@/lib/utils/handleCopy";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { theme } from "@/styles/theme";
-import { Badge, Button, Col, Input, Result, Row, Skeleton, Space, Typography } from "antd"
+import { Copy, Eye, EyeSlash } from "@phosphor-icons/react";
+import { Badge, Button, Col, Input, Result, Row, Skeleton, Space, Typography } from "antd";
+import Link from "antd/es/typography/Link";
 import Paragraph from "antd/es/typography/Paragraph";
 import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../../../locales/client";
-import { fetchOdooAppById } from "@/lib/features/odoo/odooThunks";
-import { Copy, EyeSlash, Eye } from "@phosphor-icons/react";
-import { handleCopy } from "@/lib/utils/handleCopy";
-import StatusComponents from "./componentsOdooDetails/statusComponent";
-import DurationComponent from "./componentsOdooDetails/durationComponent";
 import DocumentationDrawer from "../../../../utils/documentationDrawer";
 import DocumentationComponents from "./componentsOdooDetails/documentationComponent";
-import Link from "antd/es/typography/Link";
-import PlanDetailsComponent from "./componentsOdooDetails/planDetailsComponent";
+import DurationComponent from "./componentsOdooDetails/durationComponent";
+import StatusComponents from "./componentsOdooDetails/statusComponent";
+import ManagedResourcePlanDetails from "../../../../utils/managedResourcePlanDetails";
+import PlanDetailsComponent from "../../../../utils/planDetailsComponents";
 
 export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
     const t = useI18n();
@@ -66,11 +67,11 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                                     alignSelf: "start"
                                 }}>
                                     <Typography.Title level={2} style={{ color: theme.token.orange400 }}>
-                                        {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(odooAppById.service_plan.price+odooAppById.managed_ressource_details.price)} DZD / {odooAppById.service_plan.subscription_category === "monthly" ? t("month") : t("year")}
+                                        {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(odooAppById.total_amount / odooAppById.duration_month)} DZD / {odooAppById.service_plan.subscription_category === "monthly" ? t("month") : t("year")}
 
                                     </Typography.Title>
                                 </Col>
-                            <DocumentationComponents odooAppById={odooAppById} setOpenDrawer={setOpenDrawer} />
+                                <DocumentationComponents odooAppById={odooAppById} setOpenDrawer={setOpenDrawer} />
                             </Row>
                         </Col>
                     </Row>
@@ -85,44 +86,46 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                         </Paragraph>
                     </Row>}
 
-                <DurationComponent odooAppById={odooAppById} />
-                <PlanDetailsComponent odooAppById={odooAppById} />
-                    <div>
-                    <Typography style={{ fontWeight: 700, fontSize: 20, color: theme.token.orange600 }}>
-                        {tSubscription("accessUrl")}
-                    </Typography>
+                    <DurationComponent odooAppById={odooAppById} />
+                    <PlanDetailsComponent currentSubscription={odooAppById} />
+                    <ManagedResourcePlanDetails currentSubscription={odooAppById} />
 
-                    <div
-                        style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            width: "100%",
-                            paddingBottom: "15px",
-                            alignItems: "center",
-                        }}
-                    >
-                        <Link
-                            href={odooAppById.access_url}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                    <div>
+                        <Typography style={{ fontWeight: 700, fontSize: 20, color: theme.token.orange600 }}>
+                            {tSubscription("accessUrl")}
+                        </Typography>
+
+                        <div
                             style={{
-                                marginRight: "5px",
-                                wordBreak: "break-all",
-                                color: theme.token.gray100,
-                                fontWeight: 500,
-                                fontSize: 18
+                                display: "flex",
+                                justifyContent: "space-between",
+                                width: "100%",
+                                paddingBottom: "15px",
+                                alignItems: "center",
                             }}
                         >
-                            {odooAppById.access_url}
-                        </Link>
+                            <Link
+                                href={odooAppById.access_url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{
+                                    marginRight: "5px",
+                                    wordBreak: "break-all",
+                                    color: theme.token.gray100,
+                                    fontWeight: 500,
+                                    fontSize: 18
+                                }}
+                            >
+                                {odooAppById.access_url}
+                            </Link>
 
-                        <Button
-                            type="primary"
-                            style={{ boxShadow: "none" }}
-                            icon={<Copy />}
-                            onClick={() => handleCopy(odooAppById.access_url)}
-                        />
-                    </div>
+                            <Button
+                                type="primary"
+                                style={{ boxShadow: "none" }}
+                                icon={<Copy />}
+                                onClick={() => handleCopy(odooAppById.access_url)}
+                            />
+                        </div>
 
                         <Typography style={{ fontWeight: 700, fontSize: 20, color: theme.token.orange600 }}>
                             {tOdoo("password")}
@@ -156,7 +159,7 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                                 icon={<Copy />}
                                 onClick={() => handleCopy(odooAppById.odoo_password)}
                             />
-                    </div>
+                        </div>
                     </div>
                     <DocumentationDrawer openDrawer={openDrawer} onClose={onClose} currentSubscription={odooAppById} t={t} />
 
