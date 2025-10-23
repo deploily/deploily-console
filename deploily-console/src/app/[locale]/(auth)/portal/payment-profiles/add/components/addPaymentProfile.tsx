@@ -2,7 +2,7 @@
 
 import { fetchPaymentProfiles, postPaymentProfile } from "@/lib/features/payment-profiles/paymentProfilesThunks";
 import { useSelectWilaya } from "@/lib/features/select-wilaya/selectWilayaSelector";
-import { fetchCommuneFromPosition, fetchWilayaFromPosition } from "@/lib/features/select-wilaya/selectWilayaThunks";
+// import { fetchCommuneFromPosition, fetchWilayaFromPosition } from "@/lib/features/select-wilaya/selectWilayaThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { Button, Col, Form, Input, message, Radio, Row } from "antd";
 import Title from "antd/es/typography/Title";
@@ -50,21 +50,21 @@ export default function AddPaymentProfile() {
     );
 
 
-    useEffect(() => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((pos) => {
-                dispatch(fetchWilayaFromPosition({
-                    lat: pos.coords.latitude,
-                    long: pos.coords.longitude
-                }));
+    // useEffect(() => {
+    //     if (navigator.geolocation) {
+    //         navigator.geolocation.getCurrentPosition((pos) => {
+    //             dispatch(fetchWilayaFromPosition({
+    //                 lat: pos.coords.latitude,
+    //                 long: pos.coords.longitude
+    //             }));
 
-                dispatch(fetchCommuneFromPosition({
-                    lat: pos.coords.latitude,
-                    long: pos.coords.longitude
-                }));
-            });
-        }
-    }, []);
+    //             dispatch(fetchCommuneFromPosition({
+    //                 lat: pos.coords.latitude,
+    //                 long: pos.coords.longitude
+    //             }));
+    //         });
+    //     }
+    // }, []);
 
     useEffect(() => {
         if (wilaya) {
