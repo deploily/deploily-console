@@ -5,7 +5,7 @@ import { useAppDispatch } from "@/lib/hook";
 import { handleCopy } from "@/lib/utils/handleCopy";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { theme } from "@/styles/theme";
-import { Copy } from "@phosphor-icons/react";
+import { Copy, Eye, EyeSlash } from "@phosphor-icons/react";
 import { Badge, Button, Col, Input, Result, Row, Skeleton, Space, Typography } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import { useEffect, useState } from "react";
@@ -23,6 +23,7 @@ export default function MyDockerDetails({ my_dep_id }: { my_dep_id: number }) {
     const tSubscription = useScopedI18n("subscription");
     const dispatch = useAppDispatch();
     const { dockerById, isLoading, loadingError } = useDockerById();
+    const [visible, setVisible] = useState(false);
 
     useEffect(() => {
         dispatch(fetchDockerById(my_dep_id));
@@ -100,6 +101,86 @@ export default function MyDockerDetails({ my_dep_id }: { my_dep_id: number }) {
                                 style={{ cursor: "default", userSelect: "text", caretColor: "transparent", width: "fit", marginRight: "5px" }}
                             />
                             <Button type="primary" style={{ boxShadow: "none" }} icon={<Copy />} onClick={() => handleCopy(dockerById.access_url)} />
+                        </div>
+                    </div>
+                    <div>
+                        <Typography style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange600 }}>
+                            {tSubscription("argocdUrl")}
+                        </Typography>
+                        <div style={{ display: "flex", justifyContent: "space-between", width: "100%", paddingBottom: "15px" }}>
+                            <Input
+                                value={dockerById.argocd_url}
+                                readOnly
+                                style={{ cursor: "default", userSelect: "text", caretColor: "transparent", width: "fit", marginRight: "5px" }}
+                            />
+                            <Button type="primary" style={{ boxShadow: "none" }} icon={<Copy />} onClick={() => handleCopy(dockerById.argocd_url)} />
+                        </div>
+                    </div>
+                    <div>
+                        <Typography style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange600 }}>
+                            {tSubscription("argocduserName")}
+                        </Typography>
+                        <div style={{ display: "flex", justifyContent: "space-between", width: "100%", paddingBottom: "15px" }}>
+                            <Input
+                                value={dockerById.argocd_user_name}
+                                readOnly
+                                style={{ cursor: "default", userSelect: "text", caretColor: "transparent", width: "fit", marginRight: "5px" }}
+                            />
+                            <Button type="primary" style={{ boxShadow: "none" }} icon={<Copy />} onClick={() => handleCopy(dockerById.argocd_user_name)} />
+                        </div>
+                    </div>
+                    <div>
+                        <Typography style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange600 }}>
+                            {tSubscription("argocdPassword")}
+                        </Typography>
+                        <div style={{ display: "flex", justifyContent: "space-between", width: "100%", paddingBottom: "15px" }}>
+                            {/* <Input
+                                value={dockerById.argocd_password}
+                                readOnly
+                                style={{ cursor: "default", userSelect: "text", caretColor: "transparent", width: "fit", marginRight: "5px" }}
+                            /> */}
+                            <Input.Password
+                                value={dockerById.argocd_password}
+                                readOnly
+                                visibilityToggle={{
+                                    visible,
+                                    onVisibleChange: setVisible,
+                                }}
+                                iconRender={visible => visible ? <Eye /> : <EyeSlash />}
+                                style={{
+                                    cursor: 'default',
+                                    userSelect: 'text',
+                                    caretColor: 'transparent',
+                                    marginRight: "5px"
+                                }}
+                            />
+                            <Button type="primary" style={{ boxShadow: "none" }} icon={<Copy />} onClick={() => handleCopy(dockerById.argocd_password)} />
+                        </div>
+                    </div>
+                    <div>
+                        <Typography style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange600 }}>
+                            {tSubscription("backendUrl")}
+                        </Typography>
+                        <div style={{ display: "flex", justifyContent: "space-between", width: "100%", paddingBottom: "15px" }}>
+                            <Input
+                                value={dockerById.backend_url}
+                                readOnly
+                                style={{ cursor: "default", userSelect: "text", caretColor: "transparent", width: "fit", marginRight: "5px" }}
+                            />
+                            <Button type="primary" style={{ boxShadow: "none" }} icon={<Copy />} onClick={() => handleCopy(dockerById.backend_url)} />
+                        </div>
+                    </div>
+                    <div>
+                        <Typography style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange600 }}>
+                            {tSubscription("frontendUrl")}
+                        </Typography>
+                        <div style={{ display: "flex", justifyContent: "space-between", width: "100%", paddingBottom: "15px" }}>
+                            <Input
+                                value={dockerById.frontend_url}
+                                readOnly
+                                style={{ cursor: "default", userSelect: "text", caretColor: "transparent", width: "fit", marginRight: "5px" }}
+                            />
+                            <Button type="primary" style={{ boxShadow: "none" }} icon={<Copy />} onClick={() => handleCopy(dockerById.frontend_url)} />
                         </div>
                     </div>
 

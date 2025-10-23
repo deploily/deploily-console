@@ -98,11 +98,11 @@ export default function ParametersSection({
             )}
 
             {/* Form for adding new single parameter */}
-            <Form form={form} onFinish={handleFinish} autoComplete="off" layout="vertical">
-                <Row gutter={8} align="middle">
-                    <Col flex="1">
-                        <Form.Item
-                            name="name"
+            <Form form={form} onFinish={handleFinish} autoComplete="off" layout="vertical" >
+                <Row gutter={8} align="middle" style={{display:"flex", justifyItems:"center"}}>
+                    <Col flex="1" >
+                        <Form.Item 
+                            name="name" style={{ marginBottom: 0 }}
                             rules={[{ required: true, message: "Key required" }]}
                         >
                             <Input placeholder="Key" />
@@ -110,13 +110,13 @@ export default function ParametersSection({
                     </Col>
                     <Col flex="1">
                         <Form.Item
-                            name="value"
+                            name="value" style={{ marginBottom: 0 }}
                             rules={[{ required: true, message: "Value required" }]}
                         >
                             <Input placeholder="Value" />
                         </Form.Item>
                     </Col>
-                    <Col>
+                    <Col  >
                         <Button
                             type="primary"
                             htmlType="submit"
