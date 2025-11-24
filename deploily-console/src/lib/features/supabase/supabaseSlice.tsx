@@ -1,24 +1,22 @@
-import { createSlice,  } from "@reduxjs/toolkit";
-import { SupabaseAppByIdState } from "./supabaseInterface";
-import { fetchSupabaseAppById } from "./supabaseThunks";
+import {createSlice} from "@reduxjs/toolkit";
+import {SupabaseAppByIdState} from "./supabaseInterface";
+import {fetchSupabaseAppById} from "./supabaseThunks";
 
 interface SupabaseAppState {
   supabaseAppById: SupabaseAppByIdState;
 }
 
 const initialState: SupabaseAppState = {
-
   supabaseAppById: {
     supabaseAppById: undefined,
     isLoading: false,
     loadingError: null,
-  }
+  },
 };
 const supabaseAppSlice = createSlice({
   name: "supabaseApp",
   initialState,
-  reducers: {
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchSupabaseAppById.pending, (state) => {
@@ -29,11 +27,10 @@ const supabaseAppSlice = createSlice({
         state.supabaseAppById.loadingError = null;
         state.supabaseAppById.supabaseAppById = action.payload.result;
       })
-      .addCase(fetchSupabaseAppById.rejected, (state, { payload }) => {
+      .addCase(fetchSupabaseAppById.rejected, (state, {payload}) => {
         state.supabaseAppById.isLoading = false;
         state.supabaseAppById.loadingError = payload;
-      })
-
+      });
   },
 });
 

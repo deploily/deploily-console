@@ -70,11 +70,12 @@ export default {
     "requestQuote": "Request a quote",
     "DZD": "DZD",
     "explore": "Explore",
+    "planDetailsTitle": "Plan Informations",
     "planDetails": "Service Plan Details",
     "managedResourceplanDetails": "Managed Resource Plan Details",
     "planName": "Plan Name",
     "planOptions": "Plan Options",
-    
+
     'sidebar.home': 'Home',
     'sidebar.dashboard': 'Dashboard',
     'sidebar.members': 'Members',
@@ -245,7 +246,7 @@ export default {
     'ttkEpay.satim_json_params': 'Satim json params',
     'ttkEpay.satim_language': 'Satim language',
     'ttkEpay.satim_password': 'Satim password',
-    'ttkEpay.satim_server_url': 'Satim server url',
+    'ttkEpay.satim_server_url': 'Satim Server Url',
     'ttkEpay.satim_terminal_id': 'Satim terminal id',
     'ttkEpay.satim_user_name': 'Satim user name',
     'ttkEpay.secretKey': 'Secret Key',
@@ -253,6 +254,14 @@ export default {
     'ttkEpay.restart': 'Restart',
     'ttkEpay.displayInfoNote': 'This information will be displayed in web pages and receipt',
     'ttkEpay.placeholderSatimPassword': 'Enter your SATIM password',
+    'ttkEpay.generateKey': 'GENERATE KEY',
+    'ttkEpay.Brand': 'Brand',
+    'ttkEpay.satimSetup': 'Satim Setup',
+    'ttkEpay.satimApiUrl': 'Satim Api',
+    "ttkEpay.adminContact": "Administrative contact",
+    'ttkEpay.address': 'Address',
+    'ttkEpay.secretKeyTooltip': 'A Private key used to authenticate requests to the API.',
+
 
     'apiServiceSubscription.title': 'Subscribe',
     'apiServiceSubscription.specialOffer': 'Special Offer',
@@ -372,7 +381,7 @@ export default {
     "applications.noActiveApplicationsFound": "You don't have any active applications. Feel free to create one!",
     "applications.prepaTime": "Preparation time",
     "applications.hours": "Hours",
-    "applications.managed":"• Managed",
+    "applications.managed": "• Managed",
 
     "dashboard.welcome": "👋 Welcome back, ",
     "dashboard.subTitle": "Your current stats at a glance",
@@ -453,7 +462,7 @@ export default {
         "addParameter": "Add Parameter",
         "noDeployments": "You don't have any deployments yet. Feel free to create one!",
         "noActiveDeploymentFound": "You don't have any active deployments. Feel free to create one!"
-    }, 
+    },
     "live_demo": "Live demo",
     "usefulLinks": "Useful links",
     "specifications": "Specifications",

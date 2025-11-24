@@ -14,15 +14,16 @@
     "format": "npm run prettier:fix && npm run lint:fix",
     "pre-commit": "npm run format",
     "test": "jest"
-},
+  },
   "dependencies": {
     "@ant-design/cssinjs": "^1.22.1",
     "@ant-design/nextjs-registry": "^1.0.2",
-    "@emotion/react": "^11.13.0",
-    "@emotion/styled": "^11.13.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
     "@fontsource/inter": "^5.0.19",
     "@fontsource/roboto": "^5.0.8",
     "@microsoft/fetch-event-source": "^2.0.1",
+    "@mui/material": "^7.3.5",
     "@next/third-parties": "^15.1.2",
     "@phosphor-icons/react": "^2.1.5-alpha.3",
     "@reduxjs/toolkit": "^2.0.1",
@@ -30,6 +31,7 @@
     "antd-mobile": "^5.39.0",
     "axios": "^1.6.3",
     "dayjs": "^1.11.10",
+    "deploily-ui-components": "file:deploily-ui-components",
     "framer-motion": "^11.3.19",
     "highlight.js": "^11.11.1",
     "international-types": "^0.8.1",
@@ -57,8 +59,7 @@
     "sharp": "^0.33.4",
     "slick-carousel": "^1.8.1",
     "styled-components": "^6.1.16",
-    "swr": "^2.2.4",
-    "deploily-ui-components": "file:deploily-ui-components"
+    "swr": "^2.2.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

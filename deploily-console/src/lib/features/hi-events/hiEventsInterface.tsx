@@ -1,4 +1,7 @@
-import { ManagedRessource, ManagedRessourceDetails } from "../resourceServicePlans/resourceServicesPlansInterface";
+import {
+  ManagedRessource,
+  ManagedRessourceDetails,
+} from "../resourceServicePlans/resourceServicesPlansInterface";
 
 export interface HiEventsAppByIdState {
   hiEventsAppById?: HiEventsAppInterface;
@@ -16,7 +19,6 @@ export interface HiEventsAppResponse {
   order_columns: string[];
   result: HiEventsAppInterface[];
 }
-
 
 export interface Version {
   id: number;
@@ -53,13 +55,13 @@ export interface HiEventsAppInterface {
   service_plan: ServicePlan;
   service_plan_id: number;
   service_details: ServiceDetails;
-  start_date: Date
+  start_date: Date;
   status: string;
   total_amount: number;
   version: Version;
   event_url: string;
   event_domain: string;
-  get_plan_details: GetPlanDetails
+  get_plan_details: GetPlanDetails;
 }
 
 export interface GetPlanDetails {
@@ -85,8 +87,6 @@ export interface PlanInfo {
   name: string;
 }
 
-
-
 interface ServiceDetails {
   id: number;
   description: string;
@@ -99,10 +99,9 @@ interface ServiceDetails {
   type: string;
   unit_price: number;
   is_illigible: boolean;
-  is_published: boolean,
+  is_published: boolean;
   is_subscribed: boolean;
   minimal_cpu: number;
   minimal_disk: number;
   minimal_ram: number;
 }
-

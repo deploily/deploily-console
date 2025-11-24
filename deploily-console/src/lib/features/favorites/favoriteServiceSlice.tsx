@@ -1,6 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { deleteFavoriteService, fetchMyFavoriteServices, postFavoriteService } from "./favoriteServiceThunks";
-import { FavoriteServicesResponse } from "./favoriteServiceInterface";
+import {createSlice} from "@reduxjs/toolkit";
+import {
+  deleteFavoriteService,
+  fetchMyFavoriteServices,
+  postFavoriteService,
+} from "./favoriteServiceThunks";
+import {FavoriteServicesResponse} from "./favoriteServiceInterface";
 
 interface FavoriteServiceState {
   favoriteServicesList?: FavoriteServicesResponse;
@@ -38,12 +42,12 @@ const FavoriteServiceSlice = createSlice({
         state.isLoading = false;
         state.favoriteServicesLoadingError = null;
         const result = action.payload.ids.map((id: number, index: any) =>
-          Object.assign({}, { id: id }, action.payload.result[index]),
+          Object.assign({}, {id: id}, action.payload.result[index]),
         );
-        const payload = Object.assign({}, action.payload, { result: result });
+        const payload = Object.assign({}, action.payload, {result: result});
         state.favoriteServicesList = payload;
       })
-      .addCase(fetchMyFavoriteServices.rejected, (state, { payload }) => {
+      .addCase(fetchMyFavoriteServices.rejected, (state, {payload}) => {
         state.isLoading = false;
         state.favoriteServicesLoadingError = payload;
       })
@@ -57,7 +61,7 @@ const FavoriteServiceSlice = createSlice({
         state.addFavoriteServiceError = null;
         state.favoriteServiceAdded = true;
       })
-      .addCase(postFavoriteService.rejected, (state, { payload }) => {
+      .addCase(postFavoriteService.rejected, (state, {payload}) => {
         state.addFavoriteServiceLoading = false;
         state.addFavoriteServiceError = payload;
         state.favoriteServiceAdded = false;
@@ -72,7 +76,7 @@ const FavoriteServiceSlice = createSlice({
         state.favoriteServiceDeleted = true;
         state.deleteFavoriteServiceError = null;
       })
-      .addCase(deleteFavoriteService.rejected, (state, { payload }) => {
+      .addCase(deleteFavoriteService.rejected, (state, {payload}) => {
         state.deleteFavoriteServiceLoading = false;
         state.favoriteServiceDeleted = false;
         state.deleteFavoriteServiceError = payload;

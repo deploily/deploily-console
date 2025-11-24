@@ -1,4 +1,4 @@
-import { ApiServiceInterface } from "../api-service/apiServiceInterface";
+import {ApiServiceInterface} from "../api-service/apiServiceInterface";
 
 export interface ServicePlanResponse {
   count: number;
@@ -21,8 +21,8 @@ export interface ServicePlan {
   service_id: number;
   service: ApiServiceInterface;
   options: ServicePlanOption[];
-  is_custom: boolean,
-  provider_info?:ServiceProviderInfo
+  is_custom: boolean;
+  provider_info?: ServiceProviderInfo;
   subscription_category: string;
 }
 
@@ -38,9 +38,8 @@ export interface ServicePlanOption {
   option_type: string;
 }
 
-
 export interface ServiceProviderInfo {
-    logo: string,
-    name: string,
-    website: string
+  logo: string;
+  name: string;
+  website: string;
 }

@@ -1,9 +1,9 @@
 import PaymentDetailsPage from "./components/paymentDetails";
 
 type Props = {
-  params: { id: string };
+  params: {id: string};
 };
-export default function Page({ params: { id } }: Props) {
+export default function Page({params: {id}}: Props) {
   return (
     <>
       <PaymentDetailsPage paymentId={id} />

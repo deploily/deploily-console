@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { PaymentInterface, PaymentResponse } from "./paymentInterface";
-import { fetchPaymentById, fetchPayments, uploadPaymentReceipt } from "./paymentThunks";
+import {createSlice} from "@reduxjs/toolkit";
+import {PaymentInterface, PaymentResponse} from "./paymentInterface";
+import {fetchPaymentById, fetchPayments, uploadPaymentReceipt} from "./paymentThunks";
 
 interface PaymentState {
   paymentsList?: PaymentResponse;
@@ -47,27 +47,27 @@ const PaymentSlice = createSlice({
         state.isLoadingPayments = false;
         state.paymentsLoadingError = null;
         const result = action.payload.ids.map((id: number, index: any) =>
-          Object.assign({ key: index }, { id: id }, action.payload.result[index]),
+          Object.assign({key: index}, {id: id}, action.payload.result[index]),
         );
 
-        const payload = Object.assign({}, action.payload, { result: result });
+        const payload = Object.assign({}, action.payload, {result: result});
         state.paymentsList = payload;
       })
-      .addCase(fetchPayments.rejected, (state, { payload }) => {
+      .addCase(fetchPayments.rejected, (state, {payload}) => {
         state.isLoadingPayments = false;
         state.paymentsLoadingError = payload;
       })
       .addCase(fetchPaymentById.pending, (state) => {
-        state.uploadSuccess= false;
+        state.uploadSuccess = false;
         state.currentPaymentLoading = true;
         state.currentPaymentLoadingError = null;
       })
       .addCase(fetchPaymentById.fulfilled, (state, action) => {
         state.currentPaymentLoading = false;
         state.currentPaymentLoadingError = null;
-        state.currentPayment = { ...action.payload.result, ...{ id: action.payload.id } };
+        state.currentPayment = {...action.payload.result, ...{id: action.payload.id}};
       })
-      .addCase(fetchPaymentById.rejected, (state, { payload }) => {
+      .addCase(fetchPaymentById.rejected, (state, {payload}) => {
         state.currentPaymentLoading = false;
         state.currentPaymentLoadingError = payload;
       })
@@ -77,13 +77,12 @@ const PaymentSlice = createSlice({
       .addCase(uploadPaymentReceipt.fulfilled, (state) => {
         state.uploadLoading = false;
         state.uploadSuccess = true;
-
       })
       .addCase(uploadPaymentReceipt.rejected, (state) => {
         state.uploadLoading = false;
         state.uploadFailed = true;
         state.uploadSuccess = false;
-      })
+      });
   },
 });
 export default PaymentSlice.reducer;

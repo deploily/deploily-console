@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { SupportTicket, SupportTicketResponse } from "./supportTicketInterface";
-import { fetchSupportTicket, fetchSupportTicketById, postSupportTicket } from "./supportTicketThunks";
+import {createSlice} from "@reduxjs/toolkit";
+import {SupportTicket, SupportTicketResponse} from "./supportTicketInterface";
+import {fetchSupportTicket, fetchSupportTicketById, postSupportTicket} from "./supportTicketThunks";
 
 interface SupportTicketState {
   supportTicketList?: SupportTicketResponse;
@@ -40,12 +40,12 @@ const SupportTicketSlice = createSlice({
         state.isLoading = false;
         state.supportTicketLoadingError = null;
         const result = action.payload.ids.map((id: number, index: any) =>
-          Object.assign({ key: index }, { id: id }, action.payload.result[index]),
+          Object.assign({key: index}, {id: id}, action.payload.result[index]),
         );
-        const payload = Object.assign({}, action.payload, { result: result });
+        const payload = Object.assign({}, action.payload, {result: result});
         state.supportTicketList = payload;
       })
-      .addCase(fetchSupportTicket.rejected, (state, { payload }) => {
+      .addCase(fetchSupportTicket.rejected, (state, {payload}) => {
         state.isLoading = false;
         state.supportTicketLoadingError = payload;
       })
@@ -59,7 +59,7 @@ const SupportTicketSlice = createSlice({
         state.addSupportTicketSuccess = true;
         state.addSupportTicketError = false;
       })
-      .addCase(postSupportTicket.rejected, (state, { payload }) => {
+      .addCase(postSupportTicket.rejected, (state, {payload}) => {
         state.addSupportTicketLoading = false;
         state.addSupportTicketSuccess = false;
         state.addSupportTicketError = payload;
@@ -70,17 +70,16 @@ const SupportTicketSlice = createSlice({
         state.getSupportTicketSuccess = null;
         state.getSupportTicketError = null;
       })
-      .addCase(fetchSupportTicketById.fulfilled, (state, { payload }) => {
+      .addCase(fetchSupportTicketById.fulfilled, (state, {payload}) => {
         state.getSupportTicketLoading = false;
         state.getSupportTicketSuccess = true;
-        state.currentSupportTicket = { ...payload.result, ...{ id: payload.id } };
+        state.currentSupportTicket = {...payload.result, ...{id: payload.id}};
       })
-      .addCase(fetchSupportTicketById.rejected, (state, { payload }) => {
+      .addCase(fetchSupportTicketById.rejected, (state, {payload}) => {
         state.getSupportTicketLoading = false;
         state.getSupportTicketSuccess = false;
         state.getSupportTicketError = payload;
       });
-
   },
 });
 export default SupportTicketSlice.reducer;

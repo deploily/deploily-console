@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { MyDeploymentState } from "./myDeploymentInterface";
-import { fetchMyDeployments } from "./myDeploymentThunks";
+import {createSlice} from "@reduxjs/toolkit";
+import {MyDeploymentState} from "./myDeploymentInterface";
+import {fetchMyDeployments} from "./myDeploymentThunks";
 
 interface DeploymentServiceState {
   myDeployments: MyDeploymentState;
@@ -11,7 +11,7 @@ const initialState: DeploymentServiceState = {
     MyDeploymentList: undefined,
     isLoading: false,
     loadingError: null,
-  }
+  },
 };
 const DeploymentServiceSlice = createSlice({
   name: "myDeploymentService",
@@ -27,13 +27,12 @@ const DeploymentServiceSlice = createSlice({
         state.myDeployments.loadingError = null;
         state.myDeployments.MyDeploymentList = action.payload.result;
       })
-      .addCase(fetchMyDeployments.rejected, (state, { payload }) => {
+      .addCase(fetchMyDeployments.rejected, (state, {payload}) => {
         state.myDeployments.isLoading = false;
         state.myDeployments.loadingError = payload;
-      })
+      });
   },
 });
 
-
-export const { } = DeploymentServiceSlice.actions;
+export const {} = DeploymentServiceSlice.actions;
 export default DeploymentServiceSlice.reducer;

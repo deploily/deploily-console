@@ -1,7 +1,7 @@
 import axiosInstance from "@/app/api/axios-instance";
-import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getSession } from "next-auth/react";
+import {deploilyApiUrls} from "@/deploilyWebsiteUrls";
+import {createAsyncThunk} from "@reduxjs/toolkit";
+import {getSession} from "next-auth/react";
 
 export const checkEpaymentStatus = createAsyncThunk(
   "payment/checkPaymentStatus",
@@ -13,13 +13,15 @@ export const checkEpaymentStatus = createAsyncThunk(
       }
       const token = session.accessToken;
 
-
-      const response = await axiosInstance.get(`${deploilyApiUrls.EPAYMENT_STATUS}?order_id=${satim_order_id}`, {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
+      const response = await axiosInstance.get(
+        `${deploilyApiUrls.EPAYMENT_STATUS}?order_id=${satim_order_id}`,
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
+      );
       if (response.status === 200) {
         return response.data;
       } else {
@@ -40,7 +42,6 @@ export const generatePdfReceipt = createAsyncThunk(
       }
       const token = session.accessToken;
 
-
       const response = await axiosInstance.get(
         `${deploilyApiUrls.GENERATE_PDF_RECEIPT}?order_id=${order_id}`,
         {
@@ -48,8 +49,8 @@ export const generatePdfReceipt = createAsyncThunk(
             Accept: "application/pdf",
             Authorization: `Bearer ${token}`,
           },
-          responseType: 'blob',
-        }
+          responseType: "blob",
+        },
       );
       if (response.status === 200) {
         return response.data;
@@ -77,7 +78,6 @@ export const sendPdfReceiptEmail = createAsyncThunk(
       }
       const token = session.accessToken;
 
-
       const response = await axiosInstance.get(
         `${deploilyApiUrls.GENERATE_PDF_RECEIPT}?order_id=${data.order_id}&email=${data.email}`,
         {
@@ -85,8 +85,8 @@ export const sendPdfReceiptEmail = createAsyncThunk(
             Accept: "application/pdf",
             Authorization: `Bearer ${token}`,
           },
-          responseType: 'blob',
-        }
+          responseType: "blob",
+        },
       );
       if (response.status === 200) {
         return response.data;
@@ -98,4 +98,3 @@ export const sendPdfReceiptEmail = createAsyncThunk(
     }
   },
 );
-

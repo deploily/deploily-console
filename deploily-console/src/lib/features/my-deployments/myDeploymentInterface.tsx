@@ -1,4 +1,3 @@
-
 export interface MyDeploymentState {
   MyDeploymentList?: myDeploymentInterface[];
   isLoading: boolean;
@@ -10,7 +9,7 @@ export interface MyDeploymentResponse {
 export interface myDeploymentInterface {
   id: number;
   name: string;
-  price: number; 
+  price: number;
   price_category: string;
   short_description: string;
   image: string;
@@ -19,7 +18,6 @@ export interface myDeploymentInterface {
   duration_month: number;
   service_details: ServiceDetails;
 }
-
 
 interface Service_plan {
   id: number;

@@ -1,12 +1,11 @@
 "use client";
-import { Row } from "antd";
+import {Row} from "antd";
 import ProfileContentDetails from "./components/profileContentDetails";
 
 export default function Page() {
-
   return (
     <>
-      <Row style={{ padding: 20 }}>
+      <Row style={{padding: 20}}>
         <span
           style={{
             color: "white",
@@ -19,7 +18,6 @@ export default function Page() {
         </span>
       </Row>
       <ProfileContentDetails />
-
     </>
   );
 }

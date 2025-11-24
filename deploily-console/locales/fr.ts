@@ -73,11 +73,13 @@ export default {
   "contactProvider": "Contacter le fournisseur",
   "DZD": "DZD",
   "explore": "Explorer",
+  "planDetailsTitle": "Informations du plan",
   "planDetails": "Détails du plan de service",
   "managedResourceplanDetails": "Détails du plan de ressources gérées",
   "planName": "Nom du plan",
   "planOptions": "Options du plan",
-  
+
+
   "sidebar.home": "Accueil",
   "sidebar.dashboard": "Tableau de bord",
   "sidebar.myApi": "Mes API",
@@ -258,6 +260,18 @@ export default {
   "ttkEpay.restart": "Redémarrer",
   "ttkEpay.displayInfoNote": "Cette information sera affichée sur les pages web et les reçus",
   'ttkEpay.placeholderSatimPassword': 'Entrez votre mot de passe SATIM',
+  'ttkEpay.generateKey': 'GÉNÉRER LA CLÉ',
+  'ttkEpay.Brand': 'Marque',
+  'ttkEpay.satimSetup': 'Configuration Satim',
+  'ttkEpay.satimApiUrl': 'API Satim',
+  "ttkEpay.adminContact": "Coordonnées administratives",
+  'ttkEpay.address': 'Adresse',
+  'ttkEpay.secretKeyTooltip':'Une clé privée utilisée pour authentifier les requêtes vers l\'API.',
+
+
+
+
+
 
   "apiServiceSubscription.title": "S'abonner",
   "apiServiceSubscription.specialOffer": "Offre spéciale",

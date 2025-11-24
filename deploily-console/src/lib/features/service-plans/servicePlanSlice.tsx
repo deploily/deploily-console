@@ -1,12 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { ServicePlanResponse } from "./servicePlanInterface";
-import { fetchServicePlans } from "./servicePlanThanks";
+import {createSlice} from "@reduxjs/toolkit";
+import {ServicePlanResponse} from "./servicePlanInterface";
+import {fetchServicePlans} from "./servicePlanThanks";
 
 interface ServicePlanState {
   servicePlanResponse?: ServicePlanResponse;
   servicePlanLoading: boolean;
   servicePlanError: any;
-
 }
 
 const initialState: ServicePlanState = {
@@ -27,17 +26,15 @@ const ServicePlanSlice = createSlice({
         state.servicePlanLoading = false;
         state.servicePlanError = null;
         const result = action.payload.ids.map((id: number, index: any) =>
-          Object.assign({ key: index }, { id: id }, action.payload.result[index]),
+          Object.assign({key: index}, {id: id}, action.payload.result[index]),
         );
-        const payload = Object.assign({}, action.payload, { result: result });
+        const payload = Object.assign({}, action.payload, {result: result});
         state.servicePlanResponse = payload;
       })
-      .addCase(fetchServicePlans.rejected, (state, { payload }) => {
+      .addCase(fetchServicePlans.rejected, (state, {payload}) => {
         state.servicePlanLoading = false;
         state.servicePlanError = payload;
-      })
-
-
+      });
   },
 });
 export default ServicePlanSlice.reducer;

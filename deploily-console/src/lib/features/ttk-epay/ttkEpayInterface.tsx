@@ -1,4 +1,7 @@
-import { ManagedRessource, ManagedRessourceDetails } from "../resourceServicePlans/resourceServicesPlansInterface";
+import {
+  ManagedRessource,
+  ManagedRessourceDetails,
+} from "../resourceServicePlans/resourceServicesPlansInterface";
 
 export interface TtkEpayByIdState {
   ttkEpayById?: TtkEpayInterface;
@@ -36,7 +39,7 @@ export interface TtkEpayInterface {
   managed_ressource_id: number;
   managed_ressource: ManagedRessource;
   managed_ressource_details: ManagedRessourceDetails;
-  start_date: Date,
+  start_date: Date;
   status: string;
   total_amount: number;
   service_details: ServiceDetails;
@@ -67,7 +70,12 @@ export interface TtkEpayInterface {
   ttk_epay_satim_server_url: string;
   ttk_epay_satim_terminal_id: string;
   ttk_epay_satim_user_name: string;
-  get_plan_details: GetPlanDetails
+  get_plan_details: GetPlanDetails;
+  address: string;
+  RC: string;
+  AI: string;
+  NIF: string;
+  NIS: string;
 }
 
 export interface GetPlanDetails {
@@ -105,6 +113,7 @@ interface ServiceDetails {
   id: number;
   description: string;
   documentation_url: string;
+  admin_console_url: string;
   image_service: string;
   monitoring: string;
   name: string;
@@ -119,6 +128,3 @@ interface ServiceDetails {
   minimal_ram: number;
   is_subscribed: boolean;
 }
-
-
-

@@ -1,22 +1,22 @@
 "use client";
 
-import { useMemo } from "react";
-import { useAppDispatch } from "@/lib/hook";
-import { Col, Row, Typography } from "antd";
-import { Check } from "@phosphor-icons/react";
-import { theme } from "@/styles/theme";
-import { TableComponentWithSelection } from "deploily-ui-components";
-import { useScopedI18n } from "../../../../../../../../locales/client";
+import {useMemo} from "react";
+import {useAppDispatch} from "@/lib/hook";
+import {Col, Row, Typography} from "antd";
+import {Check} from "@phosphor-icons/react";
+import {theme} from "@/styles/theme";
+import {TableComponentWithSelection} from "deploily-ui-components";
+import {useScopedI18n} from "../../../../../../../../locales/client";
 
-import { useNewApplicationSubscription } from "@/lib/features/application/applicationServiceSelectors";
-import { useServicePlansByType } from "@/lib/features/resourceServicePlans/resourceServicesPlansSelectors";
-import { updateSelectedPlan } from "@/lib/features/resourceServicePlans/resourceServicesPlansSlice";
-import { fetchResourceServicesPlans } from "@/lib/features/resourceServicePlans/resourceServicesPlansThunk";
-import { getManagedResources } from "@/lib/features/cloud-resource/cloudResourceThunks";
-import { ManagedRessourceDetails } from "@/lib/features/resourceServicePlans/resourceServicesPlansInterface";
-import { ServicePlanOption } from "@/lib/features/service-plans/servicePlanInterface";
-import { useManagedResource } from "@/lib/features/cloud-resource/cloudResourceSelectors";
-import { useEffect } from "react";
+import {useNewApplicationSubscription} from "@/lib/features/application/applicationServiceSelectors";
+import {useServicePlansByType} from "@/lib/features/resourceServicePlans/resourceServicesPlansSelectors";
+import {updateSelectedPlan} from "@/lib/features/resourceServicePlans/resourceServicesPlansSlice";
+import {fetchResourceServicesPlans} from "@/lib/features/resourceServicePlans/resourceServicesPlansThunk";
+import {getManagedResources} from "@/lib/features/cloud-resource/cloudResourceThunks";
+import {ManagedRessourceDetails} from "@/lib/features/resourceServicePlans/resourceServicesPlansInterface";
+import {ServicePlanOption} from "@/lib/features/service-plans/servicePlanInterface";
+import {useManagedResource} from "@/lib/features/cloud-resource/cloudResourceSelectors";
+import {useEffect} from "react";
 
 interface SelectVpsPlanTableProps {
   onVpsPlanSelect?: (plan: ManagedRessourceDetails) => void;
@@ -34,12 +34,12 @@ export default function SelectVpsPlanTable({
   const dispatch = useAppDispatch();
   const tApplications = useScopedI18n("applications");
 
-  const { servicePlansList } = useServicePlansByType();
-  const { managedResourceResponse } = useManagedResource();
-  const { managed_ressource_details } = useNewApplicationSubscription();
+  const {servicePlansList} = useServicePlansByType();
+  const {managedResourceResponse} = useManagedResource();
+  const {managed_ressource_details} = useNewApplicationSubscription();
 
   useEffect(() => {
-    dispatch(fetchResourceServicesPlans({  subscriptionCategory }));
+    dispatch(fetchResourceServicesPlans({subscriptionCategory}));
     dispatch(getManagedResources());
   }, [deploymentId, subscriptionCategory, dispatch]);
 
@@ -68,8 +68,7 @@ export default function SelectVpsPlanTable({
   const handlePlanChange = (selectedKey: string | number) => {
     const keyStr = String(selectedKey);
     const foundPlan = allPlans.find(
-      (element) =>
-        `${element.isManaged ? "managed" : "service"}-${element.id}` === keyStr
+      (element) => `${element.isManaged ? "managed" : "service"}-${element.id}` === keyStr,
     );
 
     if (foundPlan) {
@@ -81,7 +80,7 @@ export default function SelectVpsPlanTable({
   const getSelectedRowKey = (): string | undefined => {
     if (selectedVpsPlan)
       return `${selectedVpsPlan.isManaged ? "managed" : "service"}-${selectedVpsPlan.id}`;
-    if (managed_ressource_details){
+    if (managed_ressource_details) {
       return `managed-${managed_ressource_details.id}`;
     }
     return undefined;
@@ -98,8 +97,8 @@ export default function SelectVpsPlanTable({
             resource: plan,
             options: Array.isArray(plan.options)
               ? plan.options.filter((option: ServicePlanOption) =>
-                ["ram", "cpu", "disque"].includes(option.option_type)
-              )
+                  ["ram", "cpu", "disque"].includes(option.option_type),
+                )
               : [],
             price: plan.price,
             preparation_time: plan.preparation_time,
@@ -111,7 +110,7 @@ export default function SelectVpsPlanTable({
               dataIndex: "resource",
               render: (plan: any) =>
                 plan ? (
-                  <div style={{ color: "white" }}>
+                  <div style={{color: "white"}}>
                     <a href={`/portal/cloud-resources/${plan.service_id}`}>
                       {plan.isManaged && (
                         <span
@@ -133,7 +132,7 @@ export default function SelectVpsPlanTable({
               title: tApplications("options"),
               dataIndex: "options",
               render: (options) => (
-                <div style={{ flex: 1, paddingBottom: "16px" }}>
+                <div style={{flex: 1, paddingBottom: "16px"}}>
                   {options.map((row: ServicePlanOption) => (
                     <Row gutter={16} key={row.id} align="middle">
                       <Col span={3}>
@@ -150,7 +149,7 @@ export default function SelectVpsPlanTable({
                             minHeight: 24,
                           }}
                         >
-                          {row.html_content} 
+                          {row.html_content}
                         </Typography.Paragraph>
                       </Col>
                     </Row>
@@ -168,21 +167,20 @@ export default function SelectVpsPlanTable({
               ),
             },
             {
-              title: tApplications('price'),
-              dataIndex: 'price',
-              fixed: 'right',
+              title: tApplications("price"),
+              dataIndex: "price",
+              fixed: "right",
               width: 100,
               render: (price, record) =>
                 record.isManaged && record.isAlreadyPaid ? (
-                  <Typography.Text style={{ color: theme.token.gray300 }}>—</Typography.Text>
+                  <Typography.Text style={{color: theme.token.gray300}}>—</Typography.Text>
                 ) : (
                   <Typography.Text>{`${price?.toLocaleString()} DZD`}</Typography.Text>
                 ),
-            }
+            },
           ]}
         />
       )}
     </div>
   );
 }
-

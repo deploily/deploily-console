@@ -1,24 +1,22 @@
-import { createSlice,  } from "@reduxjs/toolkit";
-import { fetchNextCloudAppById } from "./nextCloudThunks";
-import { NextCloudAppByIdState } from "./nextCloudInterface";
+import {createSlice} from "@reduxjs/toolkit";
+import {fetchNextCloudAppById} from "./nextCloudThunks";
+import {NextCloudAppByIdState} from "./nextCloudInterface";
 
 interface NextCloudAppState {
   nextCloudAppById: NextCloudAppByIdState;
 }
 
 const initialState: NextCloudAppState = {
-
   nextCloudAppById: {
     nextCloudAppById: undefined,
     isLoading: false,
     loadingError: null,
-  }
+  },
 };
 const nextCloudAppSlice = createSlice({
   name: "nextCloudApp",
   initialState,
-  reducers: {
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchNextCloudAppById.pending, (state) => {
@@ -29,11 +27,10 @@ const nextCloudAppSlice = createSlice({
         state.nextCloudAppById.loadingError = null;
         state.nextCloudAppById.nextCloudAppById = action.payload.result;
       })
-      .addCase(fetchNextCloudAppById.rejected, (state, { payload }) => {
+      .addCase(fetchNextCloudAppById.rejected, (state, {payload}) => {
         state.nextCloudAppById.isLoading = false;
         state.nextCloudAppById.loadingError = payload;
-      })
-
+      });
   },
 });
 

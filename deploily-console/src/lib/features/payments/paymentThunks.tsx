@@ -1,13 +1,11 @@
 import axiosInstance from "@/app/api/axios-instance";
-import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getSession } from "next-auth/react";
-
+import {deploilyApiUrls} from "@/deploilyWebsiteUrls";
+import {createAsyncThunk} from "@reduxjs/toolkit";
+import {getSession} from "next-auth/react";
 
 export const fetchPayments = createAsyncThunk(
   "payment/getPayments",
   async (pageSize: number | null | undefined, thunkConfig) => {
-
     try {
       const session = await getSession();
       if (!session) {
@@ -81,14 +79,16 @@ export const uploadPaymentReceipt = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axiosInstance.post(`${deploilyApiUrls.PAYMENT}${receiptData.paymentId}${deploilyApiUrls.PAYMENT_RECEIPT}`,
+      const response = await axiosInstance.post(
+        `${deploilyApiUrls.PAYMENT}${receiptData.paymentId}${deploilyApiUrls.PAYMENT_RECEIPT}`,
         receiptData.fileData,
         {
           headers: {
             Accept: "application/json",
             Authorization: `Bearer ${token}`,
-          }
-        });
+          },
+        },
+      );
       if (response.status === 200) {
         return response.data;
       } else {

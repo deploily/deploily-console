@@ -1,7 +1,10 @@
-import { ManagedRessource, ManagedRessourceDetails } from "../resourceServicePlans/resourceServicesPlansInterface";
+import {
+  ManagedRessource,
+  ManagedRessourceDetails,
+} from "../resourceServicePlans/resourceServicesPlansInterface";
 
 export interface SupabaseAppByIdState {
- supabaseAppById?: SupabaseAppInterface;
+  supabaseAppById?: SupabaseAppInterface;
   isLoading: boolean;
   loadingError?: any;
 }
@@ -16,7 +19,6 @@ export interface SupabaseAppResponse {
   order_columns: string[];
   result: SupabaseAppInterface[];
 }
-
 
 export interface Version {
   id: number;
@@ -54,13 +56,13 @@ export interface SupabaseAppInterface {
   service_plan: ServicePlan;
   service_plan_id: number;
   service_details: ServiceDetails;
-  start_date: Date
+  start_date: Date;
   status: string;
   total_amount: number;
   version: Version;
   supabase_anonKey: string;
   supabase_url: string;
-  get_plan_details: GetPlanDetails
+  get_plan_details: GetPlanDetails;
 }
 
 export interface GetPlanDetails {
@@ -97,10 +99,9 @@ interface ServiceDetails {
   type: string;
   unit_price: number;
   is_illigible: boolean;
-  is_published: boolean,
+  is_published: boolean;
   is_subscribed: boolean;
   minimal_cpu: number;
   minimal_disk: number;
   minimal_ram: number;
 }
-

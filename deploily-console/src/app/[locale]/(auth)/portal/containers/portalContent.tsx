@@ -1,12 +1,12 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { Layout } from "antd";
-import { MainSideBar } from "../components/sideBar";
-import { AppAppBarDesktop, AppAppBarMobile } from "../components/appBar";
+import React, {useEffect, useState} from "react";
+import {Layout} from "antd";
+import {MainSideBar} from "../components/sideBar";
+import {AppAppBarDesktop, AppAppBarMobile} from "../components/appBar";
 
-const { Content } = Layout;
+const {Content} = Layout;
 
-export default function PortalContent({ children }: any) {
+export default function PortalContent({children}: any) {
   const [shouldShowDesktop, setShouldShowDeskttop] = useState(true);
   const updateDesktopVisibility = () => {
     if (window != undefined) {
@@ -14,7 +14,6 @@ export default function PortalContent({ children }: any) {
     }
   };
   useEffect(() => {
-
     if (window != undefined) {
       updateDesktopVisibility();
       window.addEventListener("resize", updateDesktopVisibility);
@@ -22,11 +21,10 @@ export default function PortalContent({ children }: any) {
         window.removeEventListener("resize", updateDesktopVisibility);
       };
     }
-
   }, []);
 
   return (
-    <Layout style={{ overflow: "hidden", height: "100vh" }}>
+    <Layout style={{overflow: "hidden", height: "100vh"}}>
       {shouldShowDesktop && <AppAppBarDesktop />}
       {!shouldShowDesktop && <AppAppBarMobile />}
       <Layout>
@@ -41,11 +39,10 @@ export default function PortalContent({ children }: any) {
             backgroundAttachment: "fixed",
           }}
         >
-          <Content style={{ padding: "0px", maxWidth: "1200px", margin: "0 auto", width: "100%" }}>
+          <Content style={{padding: "0px", maxWidth: "1200px", margin: "0 auto", width: "100%"}}>
             {children}
           </Content>
         </Content>
-
       </Layout>
     </Layout>
   );

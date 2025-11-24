@@ -1,7 +1,18 @@
-import { calculateRemainingSubscriptionValue } from "@/lib/utils/subscriptionUtils";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { MyApplicationByIdState, MyApplicationState, RenewMyApplicationState, UpgradeMyApplicationInterface, UpgradeMyApplicationState } from "./myApplicationInterface";
-import { fetchMyApplicationById, fetchMyApplications, renewMyApplication, upgradeMyApplication } from "./myApplicationThunks";
+import {calculateRemainingSubscriptionValue} from "@/lib/utils/subscriptionUtils";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {
+  MyApplicationByIdState,
+  MyApplicationState,
+  RenewMyApplicationState,
+  UpgradeMyApplicationInterface,
+  UpgradeMyApplicationState,
+} from "./myApplicationInterface";
+import {
+  fetchMyApplicationById,
+  fetchMyApplications,
+  renewMyApplication,
+  upgradeMyApplication,
+} from "./myApplicationThunks";
 
 interface ApplicationServiceState {
   myApplications: MyApplicationState;
@@ -62,8 +73,8 @@ const ApplicationServiceSlice = createSlice({
     updateUpgradeRenewMyAppState: (state, action: PayloadAction<any>) => {
       let updatedState: UpgradeMyApplicationInterface = {
         ...state.upgradeRenewMyApplicationData,
-        ...action.payload
-      };      
+        ...action.payload,
+      };
       let updatedAmount = 0;
       if (updatedState.app_service_plan !== undefined) {
         updatedAmount = updatedState.duration * updatedState.app_service_plan.price;
@@ -90,12 +101,12 @@ const ApplicationServiceSlice = createSlice({
       // 3. Apply promo discount if exists
 
       if (updatedState.promoCodeRate != undefined) {
-        updatedState = { ...updatedState, promoColor: "green" }
-        updatedAmount = updatedAmount - ((updatedAmount * (updatedState.promoCodeRate || 0)) / 100);
+        updatedState = {...updatedState, promoColor: "green"};
+        updatedAmount = updatedAmount - (updatedAmount * (updatedState.promoCodeRate || 0)) / 100;
       }
-      updatedState = { ...updatedState, totalamount: updatedAmount }
+      updatedState = {...updatedState, totalamount: updatedAmount};
       if (updatedState?.selectedProfile != undefined) {
-        if ((updatedState?.selectedProfile.balance - updatedState.totalamount) >= 0) {
+        if (updatedState?.selectedProfile.balance - updatedState.totalamount >= 0) {
           updatedState.isBalanceSufficient = true;
         } else {
           updatedState.isBalanceSufficient = false;
@@ -128,7 +139,7 @@ const ApplicationServiceSlice = createSlice({
         state.myApplications.loadingError = null;
         state.myApplications.MyApplicationList = action.payload.result;
       })
-      .addCase(fetchMyApplications.rejected, (state, { payload }) => {
+      .addCase(fetchMyApplications.rejected, (state, {payload}) => {
         state.myApplications.isLoading = false;
         state.myApplications.loadingError = payload;
       })
@@ -141,7 +152,7 @@ const ApplicationServiceSlice = createSlice({
         state.myApplicationById.loadingError = null;
         state.myApplicationById.myApplicationsById = action.payload.result;
       })
-      .addCase(fetchMyApplicationById.rejected, (state, { payload }) => {
+      .addCase(fetchMyApplicationById.rejected, (state, {payload}) => {
         state.myApplicationById.isLoading = false;
         state.myApplicationById.loadingError = payload;
       })
@@ -153,7 +164,7 @@ const ApplicationServiceSlice = createSlice({
         state.upgradeMyApplicationState.loadingError = null;
         state.upgradeMyApplicationState.upgradeMyApplication = action.payload;
       })
-      .addCase(upgradeMyApplication.rejected, (state, { payload }) => {
+      .addCase(upgradeMyApplication.rejected, (state, {payload}) => {
         state.upgradeMyApplicationState.isLoadingUpgrade = false;
         state.upgradeMyApplicationState.loadingError = payload;
       })
@@ -165,13 +176,13 @@ const ApplicationServiceSlice = createSlice({
         state.renewMyApplicationState.loadingError = null;
         state.renewMyApplicationState.renewMyApplication = action.payload;
       })
-      .addCase(renewMyApplication.rejected, (state, { payload }) => {
+      .addCase(renewMyApplication.rejected, (state, {payload}) => {
         state.renewMyApplicationState.isLoadingRenew = false;
         state.renewMyApplicationState.loadingError = payload;
       });
   },
 });
 
-
-export const { updateUpgradeRenewMyAppState, openDrawer, closeDrawer } = ApplicationServiceSlice.actions;
+export const {updateUpgradeRenewMyAppState, openDrawer, closeDrawer} =
+  ApplicationServiceSlice.actions;
 export default ApplicationServiceSlice.reducer;

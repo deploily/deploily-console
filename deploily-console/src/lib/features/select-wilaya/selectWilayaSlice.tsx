@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { CommuneInterface, WilayaInterface } from "./selectWilayaInterface";
-import { fetchCommuneFromPosition, fetchWilayaFromPosition } from "./selectWilayaThunks";
+import {createSlice} from "@reduxjs/toolkit";
+import {CommuneInterface, WilayaInterface} from "./selectWilayaInterface";
+import {fetchCommuneFromPosition, fetchWilayaFromPosition} from "./selectWilayaThunks";
 
 interface WilayaState {
   wilaya?: WilayaInterface;
@@ -13,7 +13,6 @@ const initialState: WilayaState = {
   wilaya: undefined,
   isLoadingWilaya: false,
   wilayaLoadingError: undefined,
-
 };
 const WilayaSlice = createSlice({
   name: "wilaya",
@@ -44,8 +43,7 @@ const WilayaSlice = createSlice({
       .addCase(fetchCommuneFromPosition.rejected, (state, action) => {
         state.isLoadingWilaya = false;
         state.wilayaLoadingError = action.payload;
-      })
-
+      });
   },
 });
 export default WilayaSlice.reducer;

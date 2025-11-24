@@ -1,6 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { NewFundBalanceResponse, newPaymentProfileResponse, PaymentProfileInterface, PaymentProfilesResponse } from "./paymentProfilesInterface";
-import { fetchNotDefaultPaymentProfiles, fetchPaymentProfiles, getPaymentProfileById, postFundBalance, postPaymentProfile } from "./paymentProfilesThunks";
+import {createSlice} from "@reduxjs/toolkit";
+import {
+  NewFundBalanceResponse,
+  newPaymentProfileResponse,
+  PaymentProfileInterface,
+  PaymentProfilesResponse,
+} from "./paymentProfilesInterface";
+import {
+  fetchNotDefaultPaymentProfiles,
+  fetchPaymentProfiles,
+  getPaymentProfileById,
+  postFundBalance,
+  postPaymentProfile,
+} from "./paymentProfilesThunks";
 
 interface PaymentProfileState {
   paymentProfilesList?: PaymentProfilesResponse;
@@ -16,12 +27,11 @@ interface PaymentProfileState {
   isFundBalanceFailed: boolean;
   newFundBalanceResponse?: NewFundBalanceResponse;
 
-  notDefaultaymentProfiles:{
+  notDefaultaymentProfiles: {
     paymentProfilesList?: PaymentProfilesResponse;
     isLoading: boolean;
     paymentProfilesLoadingError?: any;
-  }
-
+  };
 }
 
 const initialState: PaymentProfileState = {
@@ -37,12 +47,11 @@ const initialState: PaymentProfileState = {
   isFundBalanceSuccess: false,
   isFundBalanceFailed: false,
   newFundBalanceResponse: undefined,
-  notDefaultaymentProfiles:{
+  notDefaultaymentProfiles: {
     isLoading: false,
     paymentProfilesLoadingError: false,
-    paymentProfilesList: undefined
-  }
-
+    paymentProfilesList: undefined,
+  },
 };
 const PaymentProfileSlice = createSlice({
   name: "PaymentProfileSlice",
@@ -57,12 +66,12 @@ const PaymentProfileSlice = createSlice({
         state.isLoading = false;
         state.paymentProfilesLoadingError = null;
         const result = action.payload.ids.map((id: number, index: any) =>
-          Object.assign({}, { id: id }, action.payload.result[index]),
+          Object.assign({}, {id: id}, action.payload.result[index]),
         );
-        const payload = Object.assign({}, action.payload, { result: result });
+        const payload = Object.assign({}, action.payload, {result: result});
         state.paymentProfilesList = payload;
       })
-      .addCase(fetchPaymentProfiles.rejected, (state, { payload }) => {
+      .addCase(fetchPaymentProfiles.rejected, (state, {payload}) => {
         state.isLoading = false;
         state.paymentProfilesLoadingError = payload;
       })
@@ -73,10 +82,9 @@ const PaymentProfileSlice = createSlice({
       .addCase(getPaymentProfileById.fulfilled, (state, action) => {
         state.currentProfileLoading = false;
         state.currentProfileError = null;
-        state.currentProfile = { ...action.payload.result, ...{ id: action.payload.id } };
-
+        state.currentProfile = {...action.payload.result, ...{id: action.payload.id}};
       })
-      .addCase(getPaymentProfileById.rejected, (state, { payload }) => {
+      .addCase(getPaymentProfileById.rejected, (state, {payload}) => {
         state.currentProfileLoading = false;
         state.currentProfileError = payload;
       })
@@ -84,14 +92,13 @@ const PaymentProfileSlice = createSlice({
         state.isLoading = true;
         state.isPaymentProfileCreatedSuccess = false;
         state.isPaymentProfileCreatedFailed = false;
-      
-            })
+      })
       .addCase(postPaymentProfile.rejected, (state) => {
         state.isLoading = false;
         state.isPaymentProfileCreatedFailed = true;
         state.isPaymentProfileCreatedSuccess = false;
-            })
-      .addCase(postPaymentProfile.fulfilled, (state, { payload }) => {
+      })
+      .addCase(postPaymentProfile.fulfilled, (state, {payload}) => {
         state.isLoading = false;
         state.isPaymentProfileCreatedSuccess = true;
         state.newPaymentProfileResponse = payload;
@@ -101,24 +108,22 @@ const PaymentProfileSlice = createSlice({
         state.isLoading = true;
         state.isFundBalanceSuccess = false;
         state.isFundBalanceFailed = false;
-      
-            })
+      })
       .addCase(postFundBalance.rejected, (state) => {
         state.isLoading = false;
         state.isFundBalanceFailed = true;
         state.isFundBalanceSuccess = false;
-            })
-      .addCase(postFundBalance.fulfilled, (state, { payload }) => {
-        
+      })
+      .addCase(postFundBalance.fulfilled, (state, {payload}) => {
         state.isLoading = false;
 
         state.isFundBalanceSuccess = true;
-        
+
         state.newFundBalanceResponse = payload;
 
         state.isFundBalanceFailed = false;
-            }) 
-            
+      })
+
       .addCase(fetchNotDefaultPaymentProfiles.pending, (state) => {
         state.notDefaultaymentProfiles.isLoading = true;
       })
@@ -126,16 +131,15 @@ const PaymentProfileSlice = createSlice({
         state.notDefaultaymentProfiles.isLoading = false;
         state.notDefaultaymentProfiles.paymentProfilesLoadingError = null;
         const result = action.payload.ids.map((id: number, index: any) =>
-          Object.assign({}, { id: id }, action.payload.result[index]),
+          Object.assign({}, {id: id}, action.payload.result[index]),
         );
-        const payload = Object.assign({}, action.payload, { result: result });
+        const payload = Object.assign({}, action.payload, {result: result});
         state.notDefaultaymentProfiles.paymentProfilesList = payload;
       })
-      .addCase(fetchNotDefaultPaymentProfiles.rejected, (state, { payload }) => {
+      .addCase(fetchNotDefaultPaymentProfiles.rejected, (state, {payload}) => {
         state.notDefaultaymentProfiles.isLoading = false;
         state.notDefaultaymentProfiles.paymentProfilesLoadingError = payload;
       });
-
   },
 });
 export default PaymentProfileSlice.reducer;

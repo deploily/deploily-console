@@ -1,7 +1,7 @@
-import { calculateRemainingSubscriptionValue } from "@/lib/utils/subscriptionUtils";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { PaymentProfileInterface } from "../payment-profiles/paymentProfilesInterface";
-import { ServicePlan } from "../service-plans/servicePlanInterface";
+import {calculateRemainingSubscriptionValue} from "@/lib/utils/subscriptionUtils";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {PaymentProfileInterface} from "../payment-profiles/paymentProfilesInterface";
+import {ServicePlan} from "../service-plans/servicePlanInterface";
 
 interface ApiServiceSubscriptionStates {
   promoCode: string;
@@ -31,25 +31,24 @@ const initialState: ApiServiceSubscriptionStates = {
   selectedProfile: undefined,
   openDrawer: false,
   selectedPlan: null,
-  oldDuration: 1
+  oldDuration: 1,
 };
-
 
 const apiServiceSubscriptionStatesSlice = createSlice({
   name: "ApiServiceSubscriptionStates",
   initialState,
   reducers: {
     updateApiServiceSubscriptionStates: (state, action: PayloadAction<any>) => {
-      let updatedState = { ...state, ...action.payload }
-      let updatedAmount = updatedState.duration * updatedState.price
+      let updatedState = {...state, ...action.payload};
+      let updatedAmount = updatedState.duration * updatedState.price;
       if (updatedState.promoCodeRate != undefined) {
-        updatedState = { ...updatedState, promoColor: "green" }
-        updatedAmount = updatedAmount - ((updatedAmount * updatedState.promoCodeRate) / 100);
+        updatedState = {...updatedState, promoColor: "green"};
+        updatedAmount = updatedAmount - (updatedAmount * updatedState.promoCodeRate) / 100;
       }
-      updatedState = { ...updatedState, totalAmount: updatedAmount }
+      updatedState = {...updatedState, totalAmount: updatedAmount};
 
       if (state.selectedProfile != undefined) {
-        if ((state.selectedProfile.balance - updatedState.totalAmount) >= 0) {
+        if (state.selectedProfile.balance - updatedState.totalAmount >= 0) {
           updatedState.isBalanceSufficient = true;
         } else {
           updatedState.isBalanceSufficient = false;
@@ -60,7 +59,7 @@ const apiServiceSubscriptionStatesSlice = createSlice({
     },
 
     upgradeApiServiceSubscriptionStates: (state, action: PayloadAction<any>) => {
-      const updatedState = { ...state, ...action.payload };
+      const updatedState = {...state, ...action.payload};
 
       const oldPlanValueRemaining = calculateRemainingSubscriptionValue({
         price: updatedState.oldPrice,
@@ -70,28 +69,27 @@ const apiServiceSubscriptionStatesSlice = createSlice({
       let newTotal = updatedState.duration * updatedState.price;
       if (updatedState.promoCodeRate !== undefined) {
         updatedState.promoColor = "green";
-        newTotal = newTotal - ((newTotal * updatedState.promoCodeRate) / 100);
+        newTotal = newTotal - (newTotal * updatedState.promoCodeRate) / 100;
       }
       if (newTotal < oldPlanValueRemaining) {
         updatedState.totalAmount = 0;
-
       } else {
         const finalAmount = newTotal - oldPlanValueRemaining;
         updatedState.totalAmount = Math.round(finalAmount);
       }
 
-
       if (updatedState.selectedProfile) {
-        updatedState.isBalanceSufficient = updatedState.selectedProfile.balance >= updatedState.totalAmount;
+        updatedState.isBalanceSufficient =
+          updatedState.selectedProfile.balance >= updatedState.totalAmount;
       }
       state = updatedState;
       return state;
     },
 
     updateSelectedProfile: (state, action) => {
-      state.selectedProfile = action.payload
+      state.selectedProfile = action.payload;
       if (state.selectedProfile != undefined) {
-        if ((state.selectedProfile.balance - state.totalAmount) >= 0) {
+        if (state.selectedProfile.balance - state.totalAmount >= 0) {
           state.isBalanceSufficient = true;
         } else {
           state.isBalanceSufficient = false;
@@ -106,12 +104,14 @@ const apiServiceSubscriptionStatesSlice = createSlice({
       state.openDrawer = false;
       state.selectedPlan = null;
     },
-
-
   },
 });
 
-export const { updateApiServiceSubscriptionStates, upgradeApiServiceSubscriptionStates, openDrawer, closeDrawer } = apiServiceSubscriptionStatesSlice.actions;
-
+export const {
+  updateApiServiceSubscriptionStates,
+  upgradeApiServiceSubscriptionStates,
+  openDrawer,
+  closeDrawer,
+} = apiServiceSubscriptionStatesSlice.actions;
 
 export default apiServiceSubscriptionStatesSlice.reducer;

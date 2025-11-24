@@ -1,11 +1,15 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {
   DeploymentServiceBySlugState,
   DeploymentServiceResponseState,
   NewDeploymentSubscriptionResponse,
-  NewDeploymentSubscriptionState
+  NewDeploymentSubscriptionState,
 } from "./deploymentServiceInterface";
-import { deploymentSubscribe, fetchDeploymentServiceBySlug, fetchDeploymentServices } from "./deploymentsServiceThunks";
+import {
+  deploymentSubscribe,
+  fetchDeploymentServiceBySlug,
+  fetchDeploymentServices,
+} from "./deploymentsServiceThunks";
 interface DeploymentServiceState {
   deploymentServicesResponse: DeploymentServiceResponseState;
   deploymentServicesBySlugResponse: DeploymentServiceBySlugState;
@@ -56,28 +60,29 @@ const DeploymentServiceSlice = createSlice({
 
       let updatedAmount = 0;
 
-            if (updatedState.deployment_service_plan) {
-                updatedAmount = updatedState.duration * updatedState.deployment_service_plan.price;
-            }
-            if (
-                updatedState.managed_ressource_details &&
-                !updatedState.managed_ressource_details.isAlreadyPaid // 👈 condition
-            ) {
-                updatedAmount += updatedState.duration * (updatedState.managed_ressource_details.price || 0);
-            }
-            if (updatedState.promoCodeRate !== undefined) {
-                updatedState = { ...updatedState, promoColor: "green" };
-                updatedAmount = updatedAmount - ((updatedAmount * (updatedState.promoCodeRate || 0)) / 100);
-            }
-            updatedState = { ...updatedState, totalAmount: updatedAmount };
+      if (updatedState.deployment_service_plan) {
+        updatedAmount = updatedState.duration * updatedState.deployment_service_plan.price;
+      }
+      if (
+        updatedState.managed_ressource_details &&
+        !updatedState.managed_ressource_details.isAlreadyPaid // 👈 condition
+      ) {
+        updatedAmount +=
+          updatedState.duration * (updatedState.managed_ressource_details.price || 0);
+      }
+      if (updatedState.promoCodeRate !== undefined) {
+        updatedState = {...updatedState, promoColor: "green"};
+        updatedAmount = updatedAmount - (updatedAmount * (updatedState.promoCodeRate || 0)) / 100;
+      }
+      updatedState = {...updatedState, totalAmount: updatedAmount};
 
-            if (updatedState.selectedProfile) {
-                updatedState.isBalanceSufficient =
-                    (updatedState.selectedProfile.balance - updatedState.totalAmount) >= 0;
-            }
+      if (updatedState.selectedProfile) {
+        updatedState.isBalanceSufficient =
+          updatedState.selectedProfile.balance - updatedState.totalAmount >= 0;
+      }
 
-            state.newDeploymentSubscriptionState = updatedState;
-            return state;
+      state.newDeploymentSubscriptionState = updatedState;
+      return state;
     },
   },
   extraReducers: (builder) => {
@@ -89,12 +94,12 @@ const DeploymentServiceSlice = createSlice({
         state.deploymentServicesResponse.isLoading = false;
         state.deploymentServicesResponse.loadingError = null;
         const result = action.payload.ids.map((id: number, index: any) =>
-          Object.assign({}, { id: id }, action.payload.result[index]),
+          Object.assign({}, {id: id}, action.payload.result[index]),
         );
-        const payload = Object.assign({}, action.payload, { result: result });
+        const payload = Object.assign({}, action.payload, {result: result});
         state.deploymentServicesResponse.deploymentServicesList = payload;
       })
-      .addCase(fetchDeploymentServices.rejected, (state, { payload }) => {
+      .addCase(fetchDeploymentServices.rejected, (state, {payload}) => {
         state.deploymentServicesResponse.isLoading = false;
         state.deploymentServicesResponse.loadingError = payload;
       })
@@ -116,19 +121,17 @@ const DeploymentServiceSlice = createSlice({
         //     state.deploymentServicesBySlugResponse.deploymentServiceBySlug?.deployment_versions[0];
         // }
       })
-      .addCase(fetchDeploymentServiceBySlug.rejected, (state, { payload }) => {
+      .addCase(fetchDeploymentServiceBySlug.rejected, (state, {payload}) => {
         state.deploymentServicesBySlugResponse.isLoading = false;
         state.deploymentServicesBySlugResponse.loadingError = payload;
       })
-
 
       .addCase(deploymentSubscribe.pending, (state) => {
         state.newDeploymentSubscriptionResponse.newSubscriptionIsLoading = true;
         state.newDeploymentSubscriptionResponse.newSubscriptionFailed = false;
         state.newDeploymentSubscriptionResponse.newSubscriptionResponse = undefined;
-
       })
-      .addCase(deploymentSubscribe.fulfilled, (state, { payload }) => {
+      .addCase(deploymentSubscribe.fulfilled, (state, {payload}) => {
         state.newDeploymentSubscriptionResponse.newSubscriptionIsLoading = false;
         state.newDeploymentSubscriptionResponse.newSubscriptionFailed = false;
         state.newDeploymentSubscriptionResponse.newSubscriptionResponse = payload;
@@ -140,6 +143,6 @@ const DeploymentServiceSlice = createSlice({
       });
   },
 });
-export const { updateNewDeploymentSubscriptionState } = DeploymentServiceSlice.actions;
+export const {updateNewDeploymentSubscriptionState} = DeploymentServiceSlice.actions;
 
 export default DeploymentServiceSlice.reducer;

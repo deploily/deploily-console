@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { TtkEpayByIdState, UpdateTtkEpayState } from "./ttkEpayInterface";
-import { fetchTtkEpayById, updateTtkEpay } from "./ttkEpayThunks";
+import {createSlice} from "@reduxjs/toolkit";
+import {TtkEpayByIdState, UpdateTtkEpayState} from "./ttkEpayInterface";
+import {fetchTtkEpayById, updateTtkEpay} from "./ttkEpayThunks";
 
 interface TtkEpayState {
   ttkEpayById: TtkEpayByIdState;
@@ -18,14 +18,11 @@ const initialState: TtkEpayState = {
     isLoadingUpdate: false,
     loadingError: null,
   },
-
-
 };
 const TtkEpaySlice = createSlice({
   name: "ttkEpay",
   initialState,
-  reducers: {
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchTtkEpayById.pending, (state) => {
@@ -36,7 +33,7 @@ const TtkEpaySlice = createSlice({
         state.ttkEpayById.loadingError = null;
         state.ttkEpayById.ttkEpayById = action.payload.result;
       })
-      .addCase(fetchTtkEpayById.rejected, (state, { payload }) => {
+      .addCase(fetchTtkEpayById.rejected, (state, {payload}) => {
         state.ttkEpayById.isLoading = false;
         state.ttkEpayById.loadingError = payload;
       })
@@ -48,14 +45,13 @@ const TtkEpaySlice = createSlice({
         state.updateTtkEpay.isLoadingUpdate = false;
         state.updateTtkEpay.loadingError = null;
         state.updateTtkEpay.updateTtkEpay = action.payload;
-
       })
-      .addCase(updateTtkEpay.rejected, (state, { payload }) => {
+      .addCase(updateTtkEpay.rejected, (state, {payload}) => {
         state.updateTtkEpay.isLoadingUpdate = false;
         state.updateTtkEpay.loadingError = payload;
-      })
+      });
   },
 });
 
-export const { } = TtkEpaySlice.actions;
+export const {} = TtkEpaySlice.actions;
 export default TtkEpaySlice.reducer;

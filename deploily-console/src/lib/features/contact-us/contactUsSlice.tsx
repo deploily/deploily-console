@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { ContactUsResponse } from "./contactUsInterface";
-import { postFeedBack } from "./contactUsThunks";
+import {createSlice} from "@reduxjs/toolkit";
+import {ContactUsResponse} from "./contactUsInterface";
+import {postFeedBack} from "./contactUsThunks";
 
 interface ContactUsState {
   contactUsResponse?: ContactUsResponse;
@@ -12,7 +12,6 @@ const initialState: ContactUsState = {
   contactUsResponse: undefined,
   isLoading: false,
   isError: false,
-
 };
 const ContactUsSlice = createSlice({
   name: "contactUs",
@@ -29,13 +28,12 @@ const ContactUsSlice = createSlice({
         state.isLoading = false;
         state.isError = null;
         state.contactUsResponse = action.payload;
-
       })
-      .addCase(postFeedBack.rejected, (state, { payload }) => {
+      .addCase(postFeedBack.rejected, (state, {payload}) => {
         state.isLoading = false;
         state.isError = payload;
         state.contactUsResponse = undefined;
-      })
+      });
   },
 });
 export default ContactUsSlice.reducer;

@@ -1,13 +1,13 @@
 "use client";
-import { Row } from "antd";
-import { useI18n } from "../../../../../../locales/client";
+import {Row} from "antd";
+import {useI18n} from "../../../../../../locales/client";
 import FavoriteServicesContainer from "./myFavoritePageContent";
 
 export default function Page() {
   const t = useI18n();
   return (
     <>
-      <Row style={{ padding: 20 }}>
+      <Row style={{padding: 20}}>
         <span
           style={{
             color: "white",

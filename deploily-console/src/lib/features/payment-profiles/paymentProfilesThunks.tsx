@@ -1,7 +1,7 @@
 import axiosInstance from "@/app/api/axios-instance";
-import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getSession } from "next-auth/react";
+import {deploilyApiUrls} from "@/deploilyWebsiteUrls";
+import {createAsyncThunk} from "@reduxjs/toolkit";
+import {getSession} from "next-auth/react";
 
 export const fetchPaymentProfiles = createAsyncThunk(
   "paymentProfile/getPaymentProfiles",
@@ -40,12 +40,15 @@ export const getPaymentProfileById = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axiosInstance.get(`${deploilyApiUrls.PAYMENT_PROFILE_URL}${profile_id}`, {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
+      const response = await axiosInstance.get(
+        `${deploilyApiUrls.PAYMENT_PROFILE_URL}${profile_id}`,
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
+      );
       if (response.status === 200) {
         return response.data;
       } else {
@@ -57,11 +60,9 @@ export const getPaymentProfileById = createAsyncThunk(
   },
 );
 
-
 export const postPaymentProfile = createAsyncThunk(
   "paymentProfile/postPaymentProfile",
   async (data: any, thunkConfig) => {
-
     try {
       const session = await getSession();
       if (!session) {
@@ -70,7 +71,6 @@ export const postPaymentProfile = createAsyncThunk(
       const token = session.accessToken;
 
       const response = await axiosInstance.post(`${deploilyApiUrls.PAYMENT_PROFILE_URL}`, data, {
-
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
@@ -96,12 +96,16 @@ export const updatePaymentProfile = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axiosInstance.put(`${deploilyApiUrls.PAYMENT_PROFILE_URL}${data.id}`, data, {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
+      const response = await axiosInstance.put(
+        `${deploilyApiUrls.PAYMENT_PROFILE_URL}${data.id}`,
+        data,
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
+      );
       if (response.status === 200) {
         return response.data;
       } else {
@@ -113,11 +117,9 @@ export const updatePaymentProfile = createAsyncThunk(
   },
 );
 
-
 export const postFundBalance = createAsyncThunk(
   "paymentProfile/postFundBalance",
   async (data: any, thunkConfig) => {
-
     try {
       const session = await getSession();
       if (!session) {
@@ -126,7 +128,6 @@ export const postFundBalance = createAsyncThunk(
       const token = session.accessToken;
 
       const response = await axiosInstance.post(`${deploilyApiUrls.FUND_BALANCE}`, data, {
-
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
@@ -143,8 +144,6 @@ export const postFundBalance = createAsyncThunk(
     }
   },
 );
-
-
 
 export const fetchNotDefaultPaymentProfiles = createAsyncThunk(
   "paymentProfile/getNotDefaultPaymentProfiles",

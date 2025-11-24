@@ -15,19 +15,14 @@ export default function LocaleSwitcher({color}: any) {
     changeLocale(value);
   };
 
-
   const menuItems = locales.map((loc) => ({
     key: loc,
-    label: (
-      <div onClick={() => handleChange(loc)}>
-        {loc.toUpperCase()}
-      </div>
-    ),
+    label: <div onClick={() => handleChange(loc)}>{loc.toUpperCase()}</div>,
   }));
 
   return (
     <Space wrap>
-      <Dropdown menu={{ items: menuItems }} trigger={["click"]}>
+      <Dropdown menu={{items: menuItems}} trigger={["click"]}>
         <Button
           style={{
             border: "none",

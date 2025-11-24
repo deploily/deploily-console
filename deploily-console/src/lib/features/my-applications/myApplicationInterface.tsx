@@ -1,7 +1,7 @@
-import { AppVersionInterface } from "../application/applicationServiceInterface";
-import { PaymentProfileInterface } from "../payment-profiles/paymentProfilesInterface";
-import { ManagedRessourceDetails } from "../resourceServicePlans/resourceServicesPlansInterface";
-import { ServicePlan } from "../service-plans/servicePlanInterface";
+import {AppVersionInterface} from "../application/applicationServiceInterface";
+import {PaymentProfileInterface} from "../payment-profiles/paymentProfilesInterface";
+import {ManagedRessourceDetails} from "../resourceServicePlans/resourceServicesPlansInterface";
+import {ServicePlan} from "../service-plans/servicePlanInterface";
 
 export interface MyApplicationState {
   MyApplicationList?: myApplicationInterface[];
@@ -36,7 +36,7 @@ export interface myApplicationInterface {
   image_service: string;
   short_description: string;
   status: string;
-  managed_ressource_details:ManagedRessourceDetails;
+  managed_ressource_details: ManagedRessourceDetails;
 }
 
 interface Service_plan {
@@ -45,7 +45,6 @@ interface Service_plan {
   price: number;
   subscription_category: string;
   unity: string;
-
 }
 interface ServiceDetails {
   id: number;
@@ -60,24 +59,22 @@ interface ServiceDetails {
   ssh_access: string;
   type: string;
   unit_price: number;
-
 }
 
- interface ServiceDetails {
-    id: number;
-    description: string;
-    documentation_url:string;
-    image_service: string;
-    monitoring: string;
-    name: string;
-    service_slug: string;
-    short_description: string;
-    specifications: string;
-    ssh_access:string;
-    type: string;
-    unit_price:  number;
-
- }
+interface ServiceDetails {
+  id: number;
+  description: string;
+  documentation_url: string;
+  image_service: string;
+  monitoring: string;
+  name: string;
+  service_slug: string;
+  short_description: string;
+  specifications: string;
+  ssh_access: string;
+  type: string;
+  unit_price: number;
+}
 export interface UpgradeMyApplicationState {
   upgradeMyApplication?: any;
   isLoadingUpgrade: boolean;
@@ -92,17 +89,16 @@ export interface RenewMyApplicationState {
 export interface UpgradeMyApplicationInterface {
   duration: number;
   price: number;
-  totalamount: number,
-  selectedProfile?: PaymentProfileInterface,
-  isBalanceSufficient: boolean | null,
-  managed_ressource_details?: ManagedRessourceDetails,
-  app_service_plan?: ServicePlan,
-  selected_version?: AppVersionInterface,
-  promoCode: string,
-  promoCodeRate?: number,
-  promoColor?: string,
+  totalamount: number;
+  selectedProfile?: PaymentProfileInterface;
+  isBalanceSufficient: boolean | null;
+  managed_ressource_details?: ManagedRessourceDetails;
+  app_service_plan?: ServicePlan;
+  selected_version?: AppVersionInterface;
+  promoCode: string;
+  promoCodeRate?: number;
+  promoColor?: string;
   oldAppServicePrice?: number;
   oldAppServiceStartDate?: Date;
   oldAppServiceDuration?: number;
 }
-

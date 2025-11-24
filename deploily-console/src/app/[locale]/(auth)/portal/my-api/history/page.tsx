@@ -1,6 +1,6 @@
 "use client";
-import { Row } from "antd";
-import { useI18n } from "../../../../../../../locales/client";
+import {Row} from "antd";
+import {useI18n} from "../../../../../../../locales/client";
 import MyApiHistoryContainer from "./container/myApiHistoryContainer";
 
 export default function Page() {
@@ -8,7 +8,7 @@ export default function Page() {
 
   return (
     <>
-      <Row style={{ padding: 20 }}>
+      <Row style={{padding: 20}}>
         <span
           style={{
             color: "white",
@@ -18,7 +18,7 @@ export default function Page() {
         >
           {t("myApisHisotry")}
         </span>
-          </Row>
+      </Row>
       <MyApiHistoryContainer />
     </>
   );
