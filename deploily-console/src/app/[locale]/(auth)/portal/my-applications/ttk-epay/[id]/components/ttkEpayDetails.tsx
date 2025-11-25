@@ -1,15 +1,15 @@
 "use client";
-import {useTtkEpayById, useTtkEpayUpdate} from "@/lib/features/ttk-epay/ttkEpaySelector";
-import {fetchTtkEpayById} from "@/lib/features/ttk-epay/ttkEpayThunks";
-import {useAppDispatch} from "@/lib/hook";
-import {handleCopy} from "@/lib/utils/handleCopy";
+import { useTtkEpayById, useTtkEpayUpdate } from "@/lib/features/ttk-epay/ttkEpaySelector";
+import { fetchTtkEpayById } from "@/lib/features/ttk-epay/ttkEpayThunks";
+import { useAppDispatch } from "@/lib/hook";
+import { handleCopy } from "@/lib/utils/handleCopy";
 import ImageFetcher from "@/lib/utils/imageFetcher";
-import {CustomTransparentOrangeButton} from "@/styles/components/buttonStyle";
-import {DatePickerStyle} from "@/styles/components/datePickerStyle";
-import {CustomSubscripionInput} from "@/styles/components/inputStyle";
-import {CustomTypography} from "@/styles/components/typographyStyle";
-import {theme} from "@/styles/theme";
-import {CalendarDots, Copy, LinkSimple, PauseCircle, PlayCircle} from "@phosphor-icons/react";
+import { CustomTransparentOrangeButton } from "@/styles/components/buttonStyle";
+import { DatePickerStyle } from "@/styles/components/datePickerStyle";
+import { CustomSubscripionInput } from "@/styles/components/inputStyle";
+import { CustomTypography } from "@/styles/components/typographyStyle";
+import { theme } from "@/styles/theme";
+import { CalendarDots, Copy, LinkSimple, PauseCircle, PlayCircle } from "@phosphor-icons/react";
 import {
   Alert,
   Badge,
@@ -26,22 +26,22 @@ import {
 } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import dayjs from "dayjs";
-import {useEffect, useState} from "react";
-import {useI18n, useScopedI18n} from "../../../../../../../../../locales/client";
-import {applicationStatusStyle} from "../../../../my-api/utils/subscriptionsConst";
+import { useEffect, useState } from "react";
+import { useI18n, useScopedI18n } from "../../../../../../../../../locales/client";
+import { applicationStatusStyle } from "../../../../my-api/utils/subscriptionsConst";
 import DocumentationDrawer from "../../../../utils/documentationDrawer";
 import PlanDetailsComponent from "../../../../utils/planDetailsComponents";
 import RenewMyAppSubscriptionComponents from "../../../components/renewMyAppSubscription";
 import ShowdrawerSubscription from "../../../components/showMyAppDrawerSubscription";
 import UpgradeMyAppSubscriptionComponents from "../../../components/upgradeMyAppSubscription";
 import TtkEpayParams from "./ttkEpayParams";
-export default function MyAppDetails({my_app_id}: {my_app_id: string}) {
+export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
   const t = useI18n();
   const tSubscription = useScopedI18n("subscription");
 
   const dispatch = useAppDispatch();
-  const {ttkEpayById, isLoading, loadingError} = useTtkEpayById();
-  const {updateTtkEpay} = useTtkEpayUpdate();
+  const { ttkEpayById, isLoading, loadingError } = useTtkEpayById();
+  const { updateTtkEpay } = useTtkEpayUpdate();
   const [remainingDuration, setRemainingDuration] = useState<number>();
   const [openDrawer, setOpenDrawer] = useState(false);
 
@@ -83,12 +83,12 @@ export default function MyAppDetails({my_app_id}: {my_app_id: string}) {
     <Space
       direction="vertical"
       size="large"
-      style={{paddingInline: 40, marginBlock: 10, width: "100%", marginBottom: 50, paddingTop: 20}}
+      style={{ paddingInline: 40, marginBlock: 10, width: "100%", marginBottom: 50, paddingTop: 20 }}
     >
       {isLoading && ttkEpayById === undefined && (
         <>
-          <Skeleton.Image active style={{marginBottom: 10}} />
-          <Skeleton active paragraph={{rows: 2}} />
+          <Skeleton.Image active style={{ marginBottom: 10 }} />
+          <Skeleton active paragraph={{ rows: 2 }} />
         </>
       )}
       {!isLoading && ttkEpayById !== undefined && (
@@ -116,8 +116,8 @@ export default function MyAppDetails({my_app_id}: {my_app_id: string}) {
                     alignSelf: "start",
                   }}
                 >
-                  <Typography.Title level={2} style={{color: theme.token.orange400}}>
-                    {Intl.NumberFormat("fr-FR", {useGrouping: true}).format(
+                  <Typography.Title level={2} style={{ color: theme.token.orange400 }}>
+                    {Intl.NumberFormat("fr-FR", { useGrouping: true }).format(
                       ttkEpayById.total_amount / ttkEpayById.duration_month,
                     )}{" "}
                     DZD {ttkEpayById.service_plan?.unity} /{" "}
@@ -158,27 +158,29 @@ export default function MyAppDetails({my_app_id}: {my_app_id: string}) {
                   </CustomTransparentOrangeButton>
                 </Col>
 
-                {ttkEpayById.console_url !== null ? (
-                  <Col
-                    span={24}
-                    style={{
-                      display: "flex",
-                      justifyContent: "end",
-                      alignSelf: "start",
-                    }}
+
+
+
+                <Col
+                  span={24}
+                  style={{
+                    display: "flex",
+                    justifyContent: "end",
+                    alignSelf: "start",
+                  }}
+                >
+                  <CustomTransparentOrangeButton
+                    href={
+                      ttkEpayById.console_url ??
+                      "https://deploily.github.io/ttk-epay-admin-console/en/"
+                    }
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
-                    <CustomTransparentOrangeButton
-                      href={
-                        ttkEpayById.console_url ??
-                        "https://deploily.github.io/ttk-epay-admin-console/en/"
-                      }
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {tSubscription("adminConsole")}
-                    </CustomTransparentOrangeButton>
-                  </Col>
-                ) : null}
+                    {tSubscription("adminConsole")}
+                  </CustomTransparentOrangeButton>
+                </Col>
+
               </Row>
             </Col>
           </Row>
@@ -196,11 +198,11 @@ export default function MyAppDetails({my_app_id}: {my_app_id: string}) {
                 {ttkEpayById.service_details.name}
                 {ttkEpayById.status === "active" ? (
                   <Tooltip placement="rightTop" title={t("subscription.active")} color={"green"}>
-                    <PlayCircle size={24} weight="bold" style={{marginLeft: 10, color: "green"}} />
+                    <PlayCircle size={24} weight="bold" style={{ marginLeft: 10, color: "green" }} />
                   </Tooltip>
                 ) : (
                   <Tooltip placement="rightTop" title={t("subscription.inactive")} color={"red"}>
-                    <PauseCircle size={24} weight="bold" style={{marginLeft: 10, color: "red"}} />
+                    <PauseCircle size={24} weight="bold" style={{ marginLeft: 10, color: "red" }} />
                   </Tooltip>
                 )}
               </Typography.Title>
@@ -262,8 +264,8 @@ export default function MyAppDetails({my_app_id}: {my_app_id: string}) {
           />
 
           {ttkEpayById.service_details && (
-            <Row gutter={16} style={{marginTop: 0}}>
-              <Paragraph style={{fontSize: 14}}>
+            <Row gutter={16} style={{ marginTop: 0 }}>
+              <Paragraph style={{ fontSize: 14 }}>
                 {ttkEpayById.service_details.description}
               </Paragraph>
             </Row>
@@ -286,10 +288,10 @@ export default function MyAppDetails({my_app_id}: {my_app_id: string}) {
                 </Col>
                 <Col xs={24} md={16}>
                   <DatePickerStyle
-                    style={{width: "100%", color: theme.token.colorWhite}}
+                    style={{ width: "100%", color: theme.token.colorWhite }}
                     defaultValue={dayjs(ttkEpayById.start_date, "YYYY-MM-DD")}
                     disabled
-                    suffixIcon={<CalendarDots size={24} style={{color: theme.token.blue200}} />}
+                    suffixIcon={<CalendarDots size={24} style={{ color: theme.token.blue200 }} />}
                   />
                 </Col>
               </Row>
@@ -302,7 +304,7 @@ export default function MyAppDetails({my_app_id}: {my_app_id: string}) {
                 <Col xs={24} md={16}>
                   <CustomSubscripionInput
                     defaultValue={`${ttkEpayById.duration_month} / month(s)`}
-                    style={{width: "100%", color: theme.token.colorWhite}}
+                    style={{ width: "100%", color: theme.token.colorWhite }}
                     disabled
                   />
                 </Col>
@@ -338,7 +340,7 @@ export default function MyAppDetails({my_app_id}: {my_app_id: string}) {
           {/* === END MANAGED RESOURCE DISPLAY === */}
 
           <div>
-            <Typography style={{fontWeight: 700, fontSize: 24, color: theme.token.orange600}}>
+            <Typography style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange600 }}>
               {tSubscription("accessUrl")}
             </Typography>
             <div
@@ -363,23 +365,23 @@ export default function MyAppDetails({my_app_id}: {my_app_id: string}) {
               />
               <Button
                 type="primary"
-                style={{boxShadow: "none", marginRight: "5px"}}
+                style={{ boxShadow: "none", marginRight: "5px" }}
                 icon={<LinkSimple size={20} />}
                 onClick={() => window.open(ttkEpayById.access_url, "_blank")}
               />
               <Button
                 type="primary"
-                style={{boxShadow: "none"}}
+                style={{ boxShadow: "none" }}
                 icon={<Copy />}
                 onClick={() => handleCopy(ttkEpayById.access_url)}
               />
             </div>
           </div>
           {ttkEpayById.application_status == "error" && (
-            <div style={{marginBlock: 20}}>
+            <div style={{ marginBlock: 20 }}>
               <Alert
-                message={<span style={{color: "black"}}>{t("error")}</span>}
-                description={<span style={{color: "black"}}>{ttkEpayById.deployment_error}</span>}
+                message={<span style={{ color: "black" }}>{t("error")}</span>}
+                description={<span style={{ color: "black" }}>{ttkEpayById.deployment_error}</span>}
                 type="error"
                 showIcon
               />

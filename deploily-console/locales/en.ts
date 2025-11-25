@@ -257,7 +257,7 @@ export default {
     'ttkEpay.generateKey': 'GENERATE KEY',
     'ttkEpay.Brand': 'Brand',
     'ttkEpay.satimSetup': 'Satim Setup',
-    'ttkEpay.satimApiUrl': 'Satim Api',
+    'ttkEpay.satimApiUrl': 'Client Urls for Api',
     "ttkEpay.adminContact": "Administrative contact",
     'ttkEpay.address': 'Address',
     'ttkEpay.secretKeyTooltip': 'A Private key used to authenticate requests to the API.',

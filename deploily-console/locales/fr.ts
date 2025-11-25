@@ -263,10 +263,11 @@ export default {
   'ttkEpay.generateKey': 'GÉNÉRER LA CLÉ',
   'ttkEpay.Brand': 'Marque',
   'ttkEpay.satimSetup': 'Configuration Satim',
-  'ttkEpay.satimApiUrl': 'API Satim',
   "ttkEpay.adminContact": "Coordonnées administratives",
   'ttkEpay.address': 'Adresse',
-  'ttkEpay.secretKeyTooltip':'Une clé privée utilisée pour authentifier les requêtes vers l\'API.',
+  'ttkEpay.secretKeyTooltip': 'Une clé privée utilisée pour authentifier les requêtes vers l\'API.',
+  'ttkEpay.satimApiUrl': 'Urls client pour l\'API',
+
 
 
 

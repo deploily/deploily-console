@@ -320,7 +320,7 @@ export default function TtkEpayParams({ data }: { data: TtkEpayInterface }) {
                     <RadioGroup
                         row
                         name="satim-url-selection-group"
-                        sx={{ gap: 2 }}
+                        sx={{ gap: 12 }}
                         value={formValues.ttk_epay_satim_server_url}
                         onChange={(e) =>
                             setFormValues({
@@ -355,7 +355,8 @@ export default function TtkEpayParams({ data }: { data: TtkEpayInterface }) {
                                             data.application_status === "processing" ? "#818080" : theme.token.colorWhite,
                                     }}
                                 >
-                                    PRODUCTION (https://cib.satim.dz)
+                                    PRODUCTION
+                                    {/* (https://cib.satim.dz) */}
                                 </Typography>
                             }
                             sx={{
@@ -394,7 +395,8 @@ export default function TtkEpayParams({ data }: { data: TtkEpayInterface }) {
                                             data.application_status === "processing" ? "#818080" : theme.token.colorWhite,
                                     }}
                                 >
-                                    TESTING (https://test.satim.dz)
+                                    TESTING
+                                    {/* (https://test.satim.dz) */}
                                 </Typography>
                             }
                         />
@@ -425,7 +427,8 @@ export default function TtkEpayParams({ data }: { data: TtkEpayInterface }) {
                                             data.application_status === "processing" ? "#818080" : theme.token.colorWhite,
                                     }}
                                 >
-                                    EMULATOR (https://satimapi.apps.deploily.cloud)
+                                    EMULATOR
+                                    {/* (https://satimapi.apps.deploily.cloud) */}
                                 </Typography>
                             }
                         />
