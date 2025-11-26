@@ -42,11 +42,19 @@ export default function TtkEpayParams({ data }: { data: TtkEpayInterface }) {
         ttk_epay_satim_server_url: data.ttk_epay_satim_server_url,
         ttk_epay_satim_terminal_id: data.ttk_epay_satim_terminal_id,
         ttk_epay_satim_user_name: data.ttk_epay_satim_user_name,
-        ttk_epay_address: data.address,
-        ttk_epay_RC: data.RC,
-        ttk_epay_AI: data.AI,
-        ttk_epay_NIF: data.NIF,
-        ttk_epay_NIS: data.NIS,
+        ttk_epay_address: data.ttk_epay_address,
+        ttk_epay_commercial_register: data.ttk_epay_commercial_register,
+        ttk_epay_tax_article: data.ttk_epay_tax_article,
+        ttk_epay_nif: data.ttk_epay_nif,
+        ttk_epay_nis: data.ttk_epay_nis,
+        ttk_epay_email_from: data.ttk_epay_email_from,
+        ttk_epay_email_host: data.ttk_epay_email_host,
+        ttk_epay_email_smtp_server: data.ttk_epay_email_smtp_server,
+        ttk_epay_email_port: data.ttk_epay_email_port,
+        ttk_epay_email_username: data.ttk_epay_email_username,
+        ttk_epay_email_password: data.ttk_epay_email_password,
+        ttk_epay_recaptcha_secret_key: data.ttk_epay_recaptcha_secret_key,
+        ttk_epay_recaptcha_site_key: data.ttk_epay_recaptcha_site_key,
     });
 
     return (
@@ -259,27 +267,27 @@ export default function TtkEpayParams({ data }: { data: TtkEpayInterface }) {
                     <div style={{ display: "flex", gap: 20, marginBottom: 10 }}>
                         <div style={{ flex: 1 }}>
                             <Typography style={{ fontWeight: 700, fontSize: 16, color: theme.token.orange600 }}>
-                                RC
+                                {tSubscription("rc")}
                             </Typography>
                             <Input
                                 placeholder="12A3456789-01/23"
                                 disabled={data.application_status === "processing"}
                                 style={{ width: "100%", color: "white" }}
-                                value={formValues.ttk_epay_RC}
-                                onChange={(e) => setFormValues({ ...formValues, ttk_epay_RC: e.target.value })}
+                                value={formValues.ttk_epay_commercial_register}
+                                onChange={(e) => setFormValues({ ...formValues, ttk_epay_commercial_register: e.target.value })}
                             />
                         </div>
 
                         <div style={{ flex: 1 }}>
                             <Typography style={{ fontWeight: 700, fontSize: 16, color: theme.token.orange600 }}>
-                                AI
+                                {tSubscription("ai")}
                             </Typography>
                             <Input
                                 placeholder="20015678901"
                                 disabled={data.application_status === "processing"}
                                 style={{ width: "100%", color: "white" }}
-                                value={formValues.ttk_epay_AI}
-                                onChange={(e) => setFormValues({ ...formValues, ttk_epay_AI: e.target.value })}
+                                value={formValues.ttk_epay_tax_article}
+                                onChange={(e) => setFormValues({ ...formValues, ttk_epay_tax_article: e.target.value })}
                             />
                         </div>
                     </div>
@@ -287,27 +295,27 @@ export default function TtkEpayParams({ data }: { data: TtkEpayInterface }) {
                     <div style={{ display: "flex", gap: 20 }}>
                         <div style={{ flex: 1 }}>
                             <Typography style={{ fontWeight: 700, fontSize: 16, color: theme.token.orange600 }}>
-                                NIF
+                                {tSubscription("nif")}
                             </Typography>
                             <Input
                                 placeholder="1234567890"
                                 disabled={data.application_status === "processing"}
                                 style={{ width: "100%", color: "white" }}
-                                value={formValues.ttk_epay_NIF}
-                                onChange={(e) => setFormValues({ ...formValues, ttk_epay_NIF: e.target.value })}
+                                value={formValues.ttk_epay_nif}
+                                onChange={(e) => setFormValues({ ...formValues, ttk_epay_nif: e.target.value })}
                             />
                         </div>
 
                         <div style={{ flex: 1 }}>
                             <Typography style={{ fontWeight: 700, fontSize: 16, color: theme.token.orange600 }}>
-                                NIS
+                                {tSubscription("nis")}
                             </Typography>
                             <Input
                                 placeholder="9876543210"
                                 disabled={data.application_status === "processing"}
                                 style={{ width: "100%", color: "white" }}
-                                value={formValues.ttk_epay_NIS}
-                                onChange={(e) => setFormValues({ ...formValues, ttk_epay_NIS: e.target.value })}
+                                value={formValues.ttk_epay_nis}
+                                onChange={(e) => setFormValues({ ...formValues, ttk_epay_nis: e.target.value })}
                             />
                         </div>
                     </div>
@@ -670,6 +678,93 @@ export default function TtkEpayParams({ data }: { data: TtkEpayInterface }) {
                     </div>
 
                 </DivCard> */}
+
+
+
+                <Typography style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange600 }}>
+                   {tSubscription("emailSetup")}
+                </Typography>
+
+                <DivCard>
+                    {[
+                        { key: "ttk_epay_email_from", label: tSubscription("emailFrom"), placeholder: "no-reply@domain.com" },
+                        { key: "ttk_epay_email_host", label: tSubscription("emailHost"), placeholder: "smtp.domain.com" },
+                        { key: "ttk_epay_email_smtp_server", label: tSubscription("emailSmtpServer"), placeholder: "smtp.domain.com" },
+                        { key: "ttk_epay_email_port", label: tSubscription("emailPort"), placeholder: "587" },
+                        { key: "ttk_epay_email_username", label: tSubscription("emailUsername"), placeholder: "user@domain.com" },
+                    ].map((field) => (
+                        <div style={{ marginTop: 10 }} key={field.key}>
+                            <Typography style={{ fontWeight: 700, fontSize: 16, color: theme.token.orange600 }}>
+                                {field.label}
+                            </Typography>
+                            <Input
+                                placeholder={field.placeholder}
+                                disabled={data.application_status === "processing"}
+                                style={{ width: "fit", color: "white" }}
+                                value={(formValues as any)[field.key]}
+                                onChange={(e) =>
+                                    setFormValues({ ...formValues, [field.key]: e.target.value })
+                                }
+                            />
+                        </div>
+                    ))}
+
+                    {/* EMAIL_PASSWORD (with eye icon like satim_password) */}
+                    <div style={{ marginTop: 10 }}>
+                        <Typography style={{ fontWeight: 700, fontSize: 16, color: theme.token.orange600 }}>
+                            {tSubscription("emailPassword")}
+                        </Typography>
+
+                        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                            <Input
+                                placeholder="••••••••"
+                                disabled={data.application_status === "processing"}
+                                style={{ width: "fit", color: "white" }}
+                                type="password"
+                                value={formValues.ttk_epay_email_password}
+                                onChange={(e) =>
+                                    setFormValues({ ...formValues, ttk_epay_email_password: e.target.value })
+                                }
+                            />
+                        </div>
+                    </div>
+                </DivCard>
+                <Typography style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange600 }}>
+                    {tSubscription("captchaSetup")}
+                </Typography>
+
+                <DivCard>
+                    <div style={{ marginTop: 10 }}>
+                        <Typography style={{ fontWeight: 700, fontSize: 16, color: theme.token.orange600 }}>
+                            {tSubscription("recaptchaSiteKey")}
+                        </Typography>
+                        <Input
+                            placeholder="e.g. 6Ld...your-site-key"
+                            disabled={data.application_status === "processing"}
+                            style={{ width: "fit", color: "white" }}
+                            value={formValues.ttk_epay_recaptcha_site_key}
+                            onChange={(e) =>
+                                setFormValues({ ...formValues, ttk_epay_recaptcha_site_key: e.target.value })
+                            }
+                        />
+                    </div>
+
+                    <div style={{ marginTop: 10 }}>
+                        <Typography style={{ fontWeight: 700, fontSize: 16, color: theme.token.orange600 }}>
+                            {tSubscription("recaptchaSecretKey")}
+                        </Typography>
+                        <Input
+                            placeholder="e.g. 6Ld...your-secret-key"
+                            disabled={data.application_status === "processing"}
+                            style={{ width: "fit", color: "white" }}
+                            type="password"
+                            value={formValues.ttk_epay_recaptcha_secret_key}
+                            onChange={(e) =>
+                                setFormValues({ ...formValues, ttk_epay_recaptcha_secret_key: e.target.value })
+                            }
+                        />
+                    </div>
+                </DivCard>
                 <div style={{ display: "flex", justifyContent: "end", gap: 10 }}>
                     <Button
                         type="primary"

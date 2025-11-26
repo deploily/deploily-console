@@ -261,6 +261,21 @@ export default {
     "ttkEpay.adminContact": "Administrative contact",
     'ttkEpay.address': 'Address',
     'ttkEpay.secretKeyTooltip': 'A Private key used to authenticate requests to the API.',
+    "ttkEpay.emailSetup": "Email Setup",
+    "ttkEpay.emailFrom": "Email From",
+    "ttkEpay.emailHost": "Email Host",
+    "ttkEpay.emailSmtpServer": "Email SMTP Server",
+    "ttkEpay.emailPort": "SMTP Port",
+    "ttkEpay.emailUsername": "Email Username",
+    "ttkEpay.emailPassword": "Email Password",
+    "ttkEpay.captchaSetup": "Captcha Configuration",
+    "ttkEpay.recaptchaSiteKey": "reCAPTCHA Site Key",
+    "ttkEpay.recaptchaSecretKey": "reCAPTCHA Secret Key",
+    "ttkEpay.nif":" Tax Identification Number (NIF)",
+    "ttkEpay.nis":" Statistical Identification Number (NIS)",
+    "ttkEpay.ai":" Tax Article (AI)",
+    "ttkEpay.rc":" Commercial register",
+
 
 
     'apiServiceSubscription.title': 'Subscribe',

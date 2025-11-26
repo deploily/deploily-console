@@ -267,11 +267,21 @@ export default {
   'ttkEpay.address': 'Adresse',
   'ttkEpay.secretKeyTooltip': 'Une clé privée utilisée pour authentifier les requêtes vers l\'API.',
   'ttkEpay.satimApiUrl': 'Urls client pour l\'API',
+  "ttkEpay.emailSetup": "Configuration de l'e-mail",
+  "ttkEpay.emailFrom": "Adresse e-mail de l'expéditeur",
+  "ttkEpay.emailHost": "Hôte e-mail",
+  "ttkEpay.emailSmtpServer": "Serveur SMTP e-mail",
+  "ttkEpay.emailPort": "Port SMTP",
+  "ttkEpay.emailUsername": "Nom d'utilisateur e-mail",
+  "ttkEpay.emailPassword": "Mot de passe e-mail",
 
-
-
-
-
+  "ttkEpay.captchaSetup": "Configuration du Captcha",
+  "ttkEpay.recaptchaSiteKey": "Clé du site reCAPTCHA",
+  "ttkEpay.recaptchaSecretKey": "Clé secrète reCAPTCHA",
+  "ttkEpay.rc": "Registre du commerce",
+  "ttkEpay.ai": "Article fiscal (AI)",
+  "ttkEpay.nif": "Numéro d'identification fiscale (NIF)",
+  "ttkEpay.nis": "Numéro d'identification statistique (NIS)",
 
 
   "apiServiceSubscription.title": "S'abonner",

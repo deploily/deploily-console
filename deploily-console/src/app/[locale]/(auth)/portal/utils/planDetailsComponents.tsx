@@ -43,7 +43,7 @@ export default function PlanDetailsComponent({ currentSubscription }: { currentS
                     {/* LEFT COLUMN — NORMAL PLAN DETAILS */}
                     {currentSubscription.get_plan_details && (
                       <Col xs={24} md={12} style={{ marginBottom: 10 }}>
-                        <DivCard style={{ marginTop: 20, height: "100%" }}>
+                        <DivCard style={{ marginTop: 20, height: "90%" }}>
                           <Typography.Title
                             level={5}
                             style={{ marginBottom: 15, color: theme.token.orange600 }}
@@ -113,8 +113,8 @@ export default function PlanDetailsComponent({ currentSubscription }: { currentS
                     )}
                     {/* RIGHT COLUMN — MANAGED RESOURCE PLAN DETAILS */}
                     {currentSubscription.get_managed_ressource_plan_details && (
-                          <Col xs={24} md={12} style={{ marginBottom: 10 }}>
-                        <DivCard style={{ marginTop: 20, height: "100%" }}>
+                      <Col xs={24} md={12} style={{ marginBottom: 10 }}>
+                        <DivCard style={{ marginTop: 20, height: "90%" }}>
                           <Typography.Title
                             level={5}
                             style={{ marginBottom: 15, color: theme.token.orange600 }}

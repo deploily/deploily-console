@@ -71,11 +71,19 @@ export interface TtkEpayInterface {
   ttk_epay_satim_terminal_id: string;
   ttk_epay_satim_user_name: string;
   get_plan_details: GetPlanDetails;
-  address: string;
-  RC: string;
-  AI: string;
-  NIF: string;
-  NIS: string;
+  ttk_epay_address: string;
+  ttk_epay_commercial_register: string;
+  ttk_epay_tax_article: string;
+  ttk_epay_nif: string;
+  ttk_epay_nis: string;
+  ttk_epay_email_from: string;
+  ttk_epay_email_host: string;
+  ttk_epay_email_smtp_server: string;
+  ttk_epay_email_port: string;
+  ttk_epay_email_username: string;
+  ttk_epay_email_password: string;
+  ttk_epay_recaptcha_secret_key: string;
+  ttk_epay_recaptcha_site_key: string;
 }
 
 export interface GetPlanDetails {
