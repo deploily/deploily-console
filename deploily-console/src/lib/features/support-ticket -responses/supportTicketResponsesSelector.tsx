@@ -1,4 +1,5 @@
 import {useSelector} from "react-redux";
 import {RootState} from "../../store";
 
-export const useSupportTicketResponse = () => useSelector((state: RootState) => state.supportTicketResponses);
+export const useSupportTicketResponse = () =>
+  useSelector((state: RootState) => state.supportTicketResponses);

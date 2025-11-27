@@ -1,18 +1,17 @@
 "use client";
-import { ApiServiceInterface } from "@/lib/features/api-service/apiServiceInterface";
-import { useApiServices } from "@/lib/features/api-service/apiServiceSelectors";
-import { updateApiServiceSearchValue } from "@/lib/features/api-service/apiServiceSlice";
-import { fetchApiServices } from "@/lib/features/api-service/apiServiceThunks";
-import { useFavoriteServices } from "@/lib/features/favorites/favoriteServiceSelectors";
-import { useAppDispatch } from "@/lib/hook";
-import { HomeOutlined } from '@ant-design/icons';
-import { Funnel, MagnifyingGlass } from "@phosphor-icons/react";
-import { Button, Card, Col, Input, Pagination, Result, Row, Space } from "antd";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
+import {ApiServiceInterface} from "@/lib/features/api-service/apiServiceInterface";
+import {useApiServices} from "@/lib/features/api-service/apiServiceSelectors";
+import {updateApiServiceSearchValue} from "@/lib/features/api-service/apiServiceSlice";
+import {fetchApiServices} from "@/lib/features/api-service/apiServiceThunks";
+import {useFavoriteServices} from "@/lib/features/favorites/favoriteServiceSelectors";
+import {useAppDispatch} from "@/lib/hook";
+import {HomeOutlined} from "@ant-design/icons";
+import {Funnel, MagnifyingGlass} from "@phosphor-icons/react";
+import {Button, Card, Col, Input, Pagination, Result, Row, Space} from "antd";
+import {useRouter} from "next/navigation";
+import {useEffect, useState} from "react";
+import {useI18n, useScopedI18n} from "../../../../../../../locales/client";
 import ApiServiceCard from "../home-components/apiServiceCard";
-
 
 export default function AllApiServiceContainer() {
   const t = useI18n();
@@ -21,14 +20,13 @@ export default function AllApiServiceContainer() {
   const router = useRouter();
   const [hover, setHover] = useState(false);
 
-
-  const { apiServiceResponse, isLoadingServiceResponse, apiServiceLoadingError } = useApiServices();
+  const {apiServiceResponse, isLoadingServiceResponse, apiServiceLoadingError} = useApiServices();
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
   const [searchTerm, setSearchTerm] = useState("");
   const services = apiServiceResponse?.result || [];
-  const { favoriteServiceAdded, favoriteServiceDeleted } = useFavoriteServices();
+  const {favoriteServiceAdded, favoriteServiceDeleted} = useFavoriteServices();
 
   useEffect(() => {
     dispatch(fetchApiServices(10));
@@ -46,15 +44,16 @@ export default function AllApiServiceContainer() {
   }, [searchTerm, dispatch]);
 
   return (
-    <Space direction="vertical" size="middle" style={{ display: "flex", paddingTop: 15 }}>
-      <Row justify="space-between" align="middle" style={{ padding: "0 20px" }}>
-        <span style={{ color: "white", fontSize: "24px", fontWeight: 800 }}>
+    <Space direction="vertical" size="middle" style={{display: "flex", paddingTop: 15}}>
+      <Row justify="space-between" align="middle" style={{padding: "0 20px"}}>
+        <span style={{color: "white", fontSize: "24px", fontWeight: 800}}>
           <HomeOutlined
-            style={{ cursor: 'pointer', color: hover ? "orange" : 'white', }}
+            style={{cursor: "pointer", color: hover ? "orange" : "white"}}
             onClick={() => router.back()}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
-          /> / {"\t"}
+          />{" "}
+          / {"\t"}
           {t("APIService")}
         </span>
 
@@ -64,7 +63,7 @@ export default function AllApiServiceContainer() {
           <Input
             placeholder={tServiceApi("search")}
             allowClear
-            prefix={<MagnifyingGlass style={{ color: "#8c8c8c" }} />}
+            prefix={<MagnifyingGlass style={{color: "#8c8c8c"}} />}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             style={{
@@ -96,14 +95,22 @@ export default function AllApiServiceContainer() {
       </Row>
 
       {/* Service Cards */}
-      <Row gutter={[24, 24]} justify="start" style={{ margin: 0 }}>
+      <Row gutter={[24, 24]} justify="start" style={{margin: 0}}>
         {isLoadingServiceResponse && services.length === 0 && (
-          <Col xs={24} sm={12} md={10} lg={8} xl={8} style={{ display: "flex", justifyContent: "center" }}>
-            <Card loading={true} style={{ minWidth: 300 }} />
+          <Col
+            xs={24}
+            sm={12}
+            md={10}
+            lg={8}
+            xl={8}
+            style={{display: "flex", justifyContent: "center"}}
+          >
+            <Card loading={true} style={{minWidth: 300}} />
           </Col>
         )}
 
-        {!isLoadingServiceResponse && services.length > 0 &&
+        {!isLoadingServiceResponse &&
+          services.length > 0 &&
           services.map((row: ApiServiceInterface) => (
             <Col
               key={row.id}
@@ -112,7 +119,7 @@ export default function AllApiServiceContainer() {
               md={10}
               lg={8}
               xl={6}
-              style={{ display: "flex", justifyContent: "center" }}
+              style={{display: "flex", justifyContent: "center"}}
             >
               <ApiServiceCard service={row} />
             </Col>

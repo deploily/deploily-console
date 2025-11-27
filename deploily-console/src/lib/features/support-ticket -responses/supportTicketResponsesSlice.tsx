@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { postSupportTicketResponse } from "./supportTicketResponsesThunks";
+import {createSlice} from "@reduxjs/toolkit";
+import {postSupportTicketResponse} from "./supportTicketResponsesThunks";
 
 interface SupportTicketResponseState {
   supportTicketResponseLoadingError?: any;
@@ -30,7 +30,7 @@ const SupportTicketResponseSlice = createSlice({
         state.addSupportTicketResponseSuccess = true;
         state.addSupportTicketResponseError = false;
       })
-      .addCase(postSupportTicketResponse.rejected, (state, { payload }) => {
+      .addCase(postSupportTicketResponse.rejected, (state, {payload}) => {
         state.addSupportTicketResponseLoading = false;
         state.addSupportTicketResponseSuccess = false;
         state.addSupportTicketResponseError = payload;

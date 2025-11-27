@@ -1,16 +1,16 @@
 "use client";
 import federatedLogout from "@/lib/utils/federatedLogout";
-import { CaretUp, User } from "@phosphor-icons/react";
-import { ArrowLeft, ArrowRight, SignOut } from "@phosphor-icons/react/dist/ssr";
-import { Button, Dropdown, Layout, Menu, Space } from "antd";
+import {CaretUp, User} from "@phosphor-icons/react";
+import {ArrowLeft, ArrowRight, SignOut} from "@phosphor-icons/react/dist/ssr";
+import {Button, Dropdown, Layout, Menu, Space} from "antd";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
-import { useScopedI18n } from "../../../../../../locales/client";
+import {usePathname} from "next/navigation";
+import {useState} from "react";
+import {useScopedI18n} from "../../../../../../locales/client";
 import FeedbackAlert from "../feed-back/feedBackAlert";
-import { menuItems } from "./menuItems";
+import {menuItems} from "./menuItems";
 
-const { Sider } = Layout;
+const {Sider} = Layout;
 
 export function MainSideBar() {
   const [collapsed, setCollapsed] = useState(false);
@@ -20,34 +20,33 @@ export function MainSideBar() {
   const scopedSidebar = useScopedI18n("sidebar");
   const pathName = usePathname();
 
-  const parentKey = menuItems(scopedSidebar)?.find(item => {
-    return pathName.includes(`/${item?.key}`)
-  }
-  )?.key;
+  const parentKey = menuItems(scopedSidebar)?.find((item) => {
+    return pathName.includes(`/${item?.key}`);
+  })?.key;
 
   const items = [
     {
       key: "profile",
-      label:
-        < Link href="/portal/profile" >
-          <span >{scopedSidebar("profile")}</span>
-        </Link >,
+      label: (
+        <Link href="/portal/profile">
+          <span>{scopedSidebar("profile")}</span>
+        </Link>
+      ),
       icon: <User size={24} />,
     },
     {
-
       key: "logout",
       label: (
         <div
           onClick={() => federatedLogout()}
-          style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer" }}
+          style={{display: "flex", alignItems: "center", gap: 8, cursor: "pointer"}}
         >
           <SignOut size={24} />
           <span>{scopedSidebar("logout")}</span>
         </div>
       ),
     },
-  ]
+  ];
 
   return (
     <Sider
@@ -67,13 +66,12 @@ export function MainSideBar() {
         defaultSelectedKeys={["1"]}
         mode="inline"
         items={menuItems(scopedSidebar)}
-        style={{ flexGrow: 1 }}
+        style={{flexGrow: 1}}
         selectable
         selectedKeys={[`${parentKey}`]}
       />
       <div
         style={{
-
           width: "100%",
           textAlign: "center",
           cursor: "pointer",
@@ -83,25 +81,23 @@ export function MainSideBar() {
           marginTop: "auto",
           position: "absolute",
           bottom: "8px",
-          display: "inline-grid"
+          display: "inline-grid",
         }}
-
       >
-
         <Space onClick={toggleCollapsed}>
           {collapsed ? (
             <ArrowRight size={24} color="#7D7D7D" />
           ) : (
             <>
               <ArrowLeft size={24} color="#7D7D7D" />
-              <span style={{ paddingLeft: 10, fontSize: 16, color: "#7D7D7D" }}>
+              <span style={{paddingLeft: 10, fontSize: 16, color: "#7D7D7D"}}>
                 {scopedSidebar("collapse")}
               </span>
             </>
           )}
         </Space>
 
-        <Dropdown menu={{ items }} trigger={["click"]}>
+        <Dropdown menu={{items}} trigger={["click"]}>
           <Button
             style={{
               width: "100%",
@@ -140,10 +136,11 @@ export function MainSideBarMobile() {
   const items = [
     {
       key: "profile",
-      label:
-        <Link href="/portal/profile" >
-          <span >{scopedSidebar("profile")}</span>
-        </Link >,
+      label: (
+        <Link href="/portal/profile">
+          <span>{scopedSidebar("profile")}</span>
+        </Link>
+      ),
       icon: <User size={24} />,
     },
     {
@@ -151,19 +148,18 @@ export function MainSideBarMobile() {
       label: (
         <div
           onClick={() => federatedLogout()}
-          style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer" }}
+          style={{display: "flex", alignItems: "center", gap: 8, cursor: "pointer"}}
         >
           <SignOut size={24} />
           <span>{scopedSidebar("logout")}</span>
         </div>
       ),
     },
-  ]
+  ];
 
   return (
     <>
-
-      <div style={{ textAlign: "center" }}>
+      <div style={{textAlign: "center"}}>
         <FeedbackAlert />
       </div>
 
@@ -172,10 +168,10 @@ export function MainSideBarMobile() {
         defaultOpenKeys={["sub1"]}
         mode="inline"
         items={menuItems(scopedSidebar)}
-        style={{ flexGrow: 1 }}
+        style={{flexGrow: 1}}
       />
 
-      <Dropdown menu={{ items }} trigger={["click"]}>
+      <Dropdown menu={{items}} trigger={["click"]}>
         <Button
           style={{
             width: "100%",

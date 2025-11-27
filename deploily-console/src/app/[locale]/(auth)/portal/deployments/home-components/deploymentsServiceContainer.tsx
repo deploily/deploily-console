@@ -1,18 +1,18 @@
 "use client";
 
-import { DeploymentsServiceInterface } from "@/lib/features/deployment/deploymentServiceInterface";
-import { useDeploymentServices } from "@/lib/features/deployment/deploymentServiceSelectors";
-import { fetchDeploymentServices } from "@/lib/features/deployment/deploymentsServiceThunks";
-import { useAppDispatch } from "@/lib/hook";
-import { Button, Row, Space } from "antd";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
+import {DeploymentsServiceInterface} from "@/lib/features/deployment/deploymentServiceInterface";
+import {useDeploymentServices} from "@/lib/features/deployment/deploymentServiceSelectors";
+import {fetchDeploymentServices} from "@/lib/features/deployment/deploymentsServiceThunks";
+import {useAppDispatch} from "@/lib/hook";
+import {Button, Row, Space} from "antd";
+import {useRouter} from "next/navigation";
+import {useEffect} from "react";
+import {useI18n, useScopedI18n} from "../../../../../../../locales/client";
 import HomeCarousel from "../../components/homeCarousel";
 import DeploymentsServiceCard from "./deploymentsServiceCard";
 
 export default function DeploymentsServiceContainer() {
-  const { isLoading, deploymentServicesList } = useDeploymentServices();
+  const {isLoading, deploymentServicesList} = useDeploymentServices();
   const dispatch = useAppDispatch();
   const router = useRouter();
   const tdeployment = useScopedI18n("deployment");
@@ -24,8 +24,8 @@ export default function DeploymentsServiceContainer() {
 
   return (
     <>
-      <Space direction="vertical" size="middle" style={{ display: "flex", paddingTop: 15 }}>
-        <Row style={{ paddingTop: 20 }} justify="space-between" align="middle">
+      <Space direction="vertical" size="middle" style={{display: "flex", paddingTop: 15}}>
+        <Row style={{paddingTop: 20}} justify="space-between" align="middle">
           <span
             style={{
               color: "white",
@@ -56,9 +56,9 @@ export default function DeploymentsServiceContainer() {
           </Button>
         </Row>
 
-        <div style={{ position: "relative", padding: "0 2rem" }}>
-          {!isLoading &&
-            deploymentServicesList !== undefined && <HomeCarousel>
+        <div style={{position: "relative", padding: "0 2rem"}}>
+          {!isLoading && deploymentServicesList !== undefined && (
+            <HomeCarousel>
               {deploymentServicesList?.result?.map((row: DeploymentsServiceInterface, index) => (
                 <div
                   key={index}
@@ -74,7 +74,8 @@ export default function DeploymentsServiceContainer() {
                   <DeploymentsServiceCard data={row} />
                 </div>
               ))}
-            </HomeCarousel>}
+            </HomeCarousel>
+          )}
         </div>
       </Space>
     </>

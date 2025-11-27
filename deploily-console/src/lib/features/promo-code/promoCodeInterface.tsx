@@ -12,4 +12,3 @@ export interface PromoCodeInterface {
   message: string;
   rate: number;
 }
-

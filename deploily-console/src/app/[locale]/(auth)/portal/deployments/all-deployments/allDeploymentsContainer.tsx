@@ -1,14 +1,14 @@
 "use client";
-import { DeploymentsServiceInterface } from "@/lib/features/deployment/deploymentServiceInterface";
-import { useDeploymentServices } from "@/lib/features/deployment/deploymentServiceSelectors";
-import { fetchDeploymentServices } from "@/lib/features/deployment/deploymentsServiceThunks";
-import { useFavoriteServices } from "@/lib/features/favorites/favoriteServiceSelectors";
-import { useAppDispatch } from "@/lib/hook";
-import { HomeOutlined } from "@ant-design/icons";
-import { Card, Col, Pagination, Result, Row, Space } from "antd";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
+import {DeploymentsServiceInterface} from "@/lib/features/deployment/deploymentServiceInterface";
+import {useDeploymentServices} from "@/lib/features/deployment/deploymentServiceSelectors";
+import {fetchDeploymentServices} from "@/lib/features/deployment/deploymentsServiceThunks";
+import {useFavoriteServices} from "@/lib/features/favorites/favoriteServiceSelectors";
+import {useAppDispatch} from "@/lib/hook";
+import {HomeOutlined} from "@ant-design/icons";
+import {Card, Col, Pagination, Result, Row, Space} from "antd";
+import {useRouter} from "next/navigation";
+import {useEffect, useState} from "react";
+import {useI18n, useScopedI18n} from "../../../../../../../locales/client";
 import DeploymentsServiceCard from "../home-components/deploymentsServiceCard";
 
 export default function AllDeploymentServiceContainer() {
@@ -20,10 +20,10 @@ export default function AllDeploymentServiceContainer() {
   const [hover, setHover] = useState(false);
   const router = useRouter();
 
-  const { isLoading, deploymentServicesList, loadingError } = useDeploymentServices();
+  const {isLoading, deploymentServicesList, loadingError} = useDeploymentServices();
 
   const deploymentServices = deploymentServicesList?.result || [];
-  const { favoriteServiceAdded, favoriteServiceDeleted } = useFavoriteServices();
+  const {favoriteServiceAdded, favoriteServiceDeleted} = useFavoriteServices();
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -56,11 +56,11 @@ export default function AllDeploymentServiceContainer() {
     }));
   };
   return (
-    <Space direction="vertical" size="middle" style={{ display: "flex", paddingTop: 15 }}>
-      <Row justify="space-between" align="middle" style={{ padding: "0 20px" }}>
-        <span style={{ color: "white", fontSize: "24px", fontWeight: 800 }}>
+    <Space direction="vertical" size="middle" style={{display: "flex", paddingTop: 15}}>
+      <Row justify="space-between" align="middle" style={{padding: "0 20px"}}>
+        <span style={{color: "white", fontSize: "24px", fontWeight: 800}}>
           <HomeOutlined
-            style={{ cursor: "pointer", color: hover ? "orange" : "white" }}
+            style={{cursor: "pointer", color: hover ? "orange" : "white"}}
             onClick={() => router.back()}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
@@ -86,7 +86,7 @@ export default function AllDeploymentServiceContainer() {
                     />
                 </Space> */}
       </Row>
-      <Row gutter={[24, 24]} justify="start" style={{ margin: 0 }}>
+      <Row gutter={[24, 24]} justify="start" style={{margin: 0}}>
         {isLoading && deploymentServices.length === 0 && (
           <Col
             xs={24}
@@ -94,9 +94,9 @@ export default function AllDeploymentServiceContainer() {
             md={10}
             lg={8}
             xl={8}
-            style={{ display: "flex", justifyContent: "center" }}
+            style={{display: "flex", justifyContent: "center"}}
           >
-            <Card loading={true} style={{ minWidth: 300 }} />
+            <Card loading={true} style={{minWidth: 300}} />
           </Col>
         )}
 
@@ -134,7 +134,7 @@ export default function AllDeploymentServiceContainer() {
         </Row>
       )}
 
-      <Row justify="end" style={{ marginTop: 20 }}>
+      <Row justify="end" style={{marginTop: 20}}>
         <Pagination
           current={currentPage}
           pageSize={filterParams.page_size}

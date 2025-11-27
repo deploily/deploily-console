@@ -1,4 +1,3 @@
-
 export interface SubscriptionsResponse {
   count: number;
   description_columns: any;
@@ -24,9 +23,8 @@ export interface SubscriptionInterface {
   total_amount: number;
   service_details: ServiceDetails;
   service_plan: ServicePlan;
-  api_key?: string,
+  api_key?: string;
 }
-
 
 export interface ServiceDetails {
   id: number;
@@ -41,14 +39,12 @@ export interface ServiceDetails {
   specifications: string;
   curl_command: string;
   api_key: string;
-
 }
 export interface ServicePlan {
   id: number;
   price: number;
   subscription_category: string;
   unity: string;
-
 }
 
 export interface SubscriptionHistory {
@@ -64,7 +60,7 @@ export interface SubscriptionHistory {
   price: number;
   profile_id: number;
   profile_name: string;
-  promo_code_id: number ;
+  promo_code_id: number;
   promo_code_name: string;
   service_plan_id: number;
   start_date: string;

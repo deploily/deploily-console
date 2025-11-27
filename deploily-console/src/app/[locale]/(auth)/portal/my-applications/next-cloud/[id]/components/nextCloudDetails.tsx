@@ -1,195 +1,218 @@
-"use client"
+"use client";
 
-import { useNextCloudAppById } from "@/lib/features/next-cloud/nextCloudSelector";
-import { fetchNextCloudAppById } from "@/lib/features/next-cloud/nextCloudThunks";
-import { useAppDispatch } from "@/lib/hook";
-import { handleCopy } from "@/lib/utils/handleCopy";
+import {useNextCloudAppById} from "@/lib/features/next-cloud/nextCloudSelector";
+import {fetchNextCloudAppById} from "@/lib/features/next-cloud/nextCloudThunks";
+import {useAppDispatch} from "@/lib/hook";
+import {handleCopy} from "@/lib/utils/handleCopy";
 import ImageFetcher from "@/lib/utils/imageFetcher";
-import { theme } from "@/styles/theme";
-import { Copy } from "@phosphor-icons/react";
-import { Badge, Button, Col, Input, Result, Row, Skeleton, Space, Typography } from "antd";
+import {theme} from "@/styles/theme";
+import {Copy} from "@phosphor-icons/react";
+import {Badge, Button, Col, Input, Result, Row, Skeleton, Space, Typography} from "antd";
 import Link from "antd/es/typography/Link";
 import Paragraph from "antd/es/typography/Paragraph";
-import { useEffect, useState } from "react";
-import { useI18n, useScopedI18n } from "../../../../../../../../../locales/client";
+import {useEffect, useState} from "react";
+import {useI18n, useScopedI18n} from "../../../../../../../../../locales/client";
 import DocumentationDrawer from "../../../../utils/documentationDrawer";
 import DocumentationComponents from "./componentsNextCloudDetails/documentationComponent";
 import DurationComponent from "./componentsNextCloudDetails/durationComponent";
 import StatusComponents from "./componentsNextCloudDetails/statusComponent";
-import ManagedResourcePlanDetails from "../../../../utils/managedResourcePlanDetails";
 import PlanDetailsComponent from "../../../../utils/planDetailsComponents";
 
-export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
-    const t = useI18n();
+export default function MyAppDetails({my_app_id}: {my_app_id: string}) {
+  const t = useI18n();
 
-    const tSubscription = useScopedI18n('subscription');
-    const tNextCloud = useScopedI18n("nextCloud");
+  const tSubscription = useScopedI18n("subscription");
+  const tNextCloud = useScopedI18n("nextCloud");
 
-    const dispatch = useAppDispatch();
-    const { nextCloudAppById, isLoading, loadingError } = useNextCloudAppById()
-    const [openDrawer, setOpenDrawer] = useState(false);
-    const onClose = () => {
-        setOpenDrawer(false);
-    };
-    useEffect(() => {
-        dispatch(fetchNextCloudAppById(my_app_id));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+  const dispatch = useAppDispatch();
+  const {nextCloudAppById, isLoading, loadingError} = useNextCloudAppById();
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const onClose = () => {
+    setOpenDrawer(false);
+  };
+  useEffect(() => {
+    dispatch(fetchNextCloudAppById(my_app_id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    return (
-        <>
-            <Space direction="vertical" size="large" style={{ paddingInline: 40, marginBlock: 10, width: "100%", marginBottom: 50, paddingTop: 20 }}>
-                {isLoading && nextCloudAppById === undefined &&
-                    <>
-                        <Skeleton.Image active style={{ marginBottom: 10 }} />
-                        <Skeleton active paragraph={{ rows: 2 }} />
-                    </>
-                }
-                {!isLoading && nextCloudAppById !== undefined &&
-                    <>
-                        <Row gutter={16}  >
-                            <Col md={16} xs={24} >
-                                <Badge offset={[-20, 20]}>
-                                    {nextCloudAppById.service_details && <ImageFetcher
-                                        imagePath={nextCloudAppById.service_details.image_service}
-                                        width={220}
-                                        height={220}
-                                    />}
-                                </Badge>
-                            </Col>
+  return (
+    <>
+      <Space
+        direction="vertical"
+        size="large"
+        style={{
+          paddingInline: 40,
+          marginBlock: 10,
+          width: "100%",
+          marginBottom: 50,
+          paddingTop: 20,
+        }}
+      >
+        {isLoading && nextCloudAppById === undefined && (
+          <>
+            <Skeleton.Image active style={{marginBottom: 10}} />
+            <Skeleton active paragraph={{rows: 2}} />
+          </>
+        )}
+        {!isLoading && nextCloudAppById !== undefined && (
+          <>
+            <Row gutter={16}>
+              <Col md={16} xs={24}>
+                <Badge offset={[-20, 20]}>
+                  {nextCloudAppById.service_details && (
+                    <ImageFetcher
+                      imagePath={nextCloudAppById.service_details.image_service}
+                      width={220}
+                      height={220}
+                    />
+                  )}
+                </Badge>
+              </Col>
 
-                            <Col md={8} xs={24}>
+              <Col md={8} xs={24}>
+                <Row>
+                  <Col
+                    span={24}
+                    style={{
+                      display: "flex",
+                      justifyContent: "end",
+                      alignSelf: "start",
+                    }}
+                  >
+                    <Typography.Title level={2} style={{color: theme.token.orange400}}>
+                      {Intl.NumberFormat("fr-FR", {useGrouping: true}).format(
+                        nextCloudAppById.total_amount / nextCloudAppById.duration_month,
+                      )}{" "}
+                      DZD /{" "}
+                      {nextCloudAppById.service_plan.subscription_category === "monthly"
+                        ? t("month")
+                        : t("year")}
+                    </Typography.Title>
+                  </Col>
+                  <DocumentationComponents
+                    nextCloudAppById={nextCloudAppById}
+                    setOpenDrawer={setOpenDrawer}
+                  />
+                </Row>
+              </Col>
+            </Row>
 
-                                <Row>
-                                    <Col span={24} style={{
-                                        display: "flex",
-                                        justifyContent: "end",
-                                        alignSelf: "start"
-                                    }}>
-                                        <Typography.Title level={2} style={{ color: theme.token.orange400 }}>
-                                            {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(nextCloudAppById.total_amount / nextCloudAppById.duration_month)} DZD / {nextCloudAppById.service_plan.subscription_category === "monthly" ? t("month") : t("year")}
+            <StatusComponents nextCloudAppById={nextCloudAppById} />
 
-                                        </Typography.Title>
-                                    </Col>
-                                    <DocumentationComponents nextCloudAppById={nextCloudAppById} setOpenDrawer={setOpenDrawer} />
-                                </Row>
-                            </Col>
-                        </Row>
+            {nextCloudAppById.service_details && (
+              <Row gutter={16} style={{marginTop: 0}}>
+                <Paragraph style={{fontSize: 14}}>
+                  {nextCloudAppById.service_details.description}
+                </Paragraph>
+              </Row>
+            )}
 
-                        <StatusComponents nextCloudAppById={nextCloudAppById} />
+            <DurationComponent nextCloudAppById={nextCloudAppById} />
+            <PlanDetailsComponent currentSubscription={nextCloudAppById} />
+            {/* <ManagedResourcePlanDetails currentSubscription={nextCloudAppById} /> */}
 
+            <div>
+              <Typography style={{fontWeight: 700, fontSize: 20, color: theme.token.orange600}}>
+                {tSubscription("accessUrl")}
+              </Typography>
 
-                        {nextCloudAppById.service_details && <Row gutter={16} style={{ marginTop: 0 }} >
-                            <Paragraph style={{ fontSize: 14 }} >
-                                {nextCloudAppById.service_details.description}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  width: "100%",
+                  paddingBottom: "15px",
+                  alignItems: "center",
+                }}
+              >
+                <Link
+                  href={nextCloudAppById.access_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    marginRight: "5px",
+                    wordBreak: "break-all",
+                    color: theme.token.gray100,
+                    fontWeight: 500,
+                    fontSize: 18,
+                  }}
+                >
+                  {nextCloudAppById.access_url}
+                </Link>
 
-                            </Paragraph>
-                        </Row>}
+                <Button
+                  type="primary"
+                  style={{boxShadow: "none"}}
+                  icon={<Copy />}
+                  onClick={() => handleCopy(nextCloudAppById.access_url)}
+                />
+              </div>
+              <div>
+                <Typography style={{fontWeight: 700, fontSize: 20, color: theme.token.orange600}}>
+                  {tNextCloud("nextcloud_url")}
+                </Typography>
 
-                        <DurationComponent nextCloudAppById={nextCloudAppById} />
-                        <PlanDetailsComponent currentSubscription={nextCloudAppById} />
-                        <ManagedResourcePlanDetails currentSubscription={nextCloudAppById} />
+                <div
+                  style={{
+                    flexDirection: "row",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "100%",
+                    paddingBottom: "15px",
+                  }}
+                >
+                  <Input
+                    value={nextCloudAppById.nextcloud_url}
+                    readOnly
+                    style={{
+                      cursor: "default",
+                      userSelect: "text",
+                      caretColor: "transparent",
+                      marginRight: "5px",
+                    }}
+                  />
+                </div>
+              </div>
 
-                        <div>
-                            <Typography style={{ fontWeight: 700, fontSize: 20, color: theme.token.orange600 }}>
-                                {tSubscription("accessUrl")}
-                            </Typography>
+              <div>
+                <Typography style={{fontWeight: 700, fontSize: 20, color: theme.token.orange600}}>
+                  {tNextCloud("nextcloud_domain")}
+                </Typography>
 
-                            <div
-                                style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    width: "100%",
-                                    paddingBottom: "15px",
-                                    alignItems: "center",
-                                }}
-                            >
-                                <Link
-                                    href={nextCloudAppById.access_url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    style={{
-                                        marginRight: "5px",
-                                        wordBreak: "break-all",
-                                        color: theme.token.gray100,
-                                        fontWeight: 500,
-                                        fontSize: 18
-                                    }}
-                                >
-                                    {nextCloudAppById.access_url}
-                                </Link>
-
-                                <Button
-                                    type="primary"
-                                    style={{ boxShadow: "none" }}
-                                    icon={<Copy />}
-                                    onClick={() => handleCopy(nextCloudAppById.access_url)}
-                                />
-                            </div>
-                            <div>
-                                <Typography style={{ fontWeight: 700, fontSize: 20, color: theme.token.orange600 }}>
-                                    {tNextCloud("nextcloud_url")}
-                                </Typography>
-
-                                <div style={{
-                                    flexDirection: "row",
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    width: "100%",
-                                    paddingBottom: "15px"
-                                }}>
-                                    <Input
-                                        value={nextCloudAppById.nextcloud_url}
-                                        readOnly
-
-                                        style={{
-                                            cursor: 'default',
-                                            userSelect: 'text',
-                                            caretColor: 'transparent',
-                                            marginRight: "5px"
-                                        }}
-                                    />
-
-                                </div>
-                            </div>
-
-                            <div>
-                                <Typography style={{ fontWeight: 700, fontSize: 20, color: theme.token.orange600 }}>
-                                    {tNextCloud("nextcloud_domain")}
-                                </Typography>
-
-                                <div style={{
-                                    flexDirection: "row",
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    width: "100%",
-                                    paddingBottom: "15px"
-                                }}>
-                                    <Input
-                                        value={nextCloudAppById.nextcloud_domain}
-                                        readOnly
-
-                                        style={{
-                                            cursor: 'default',
-                                            userSelect: 'text',
-                                            caretColor: 'transparent',
-                                            marginRight: "5px"
-                                        }}
-                                    />
-
-                                </div>
-                            </div>
-                        </div>
-                        <DocumentationDrawer openDrawer={openDrawer} onClose={onClose} currentSubscription={nextCloudAppById} t={t} />
-
-                    </>}
-                {!isLoading && loadingError &&
-                    <Result
-                        status="500"
-                        title={t('error')}
-                        subTitle={t('subTitleError')}
-                    />}
-            </Space >
-        </>
-    )
+                <div
+                  style={{
+                    flexDirection: "row",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "100%",
+                    paddingBottom: "15px",
+                  }}
+                >
+                  <Input
+                    value={nextCloudAppById.nextcloud_domain}
+                    readOnly
+                    style={{
+                      cursor: "default",
+                      userSelect: "text",
+                      caretColor: "transparent",
+                      marginRight: "5px",
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+            <DocumentationDrawer
+              openDrawer={openDrawer}
+              onClose={onClose}
+              currentSubscription={nextCloudAppById}
+              t={t}
+            />
+          </>
+        )}
+        {!isLoading && loadingError && (
+          <Result status="500" title={t("error")} subTitle={t("subTitleError")} />
+        )}
+      </Space>
+    </>
+  );
 }

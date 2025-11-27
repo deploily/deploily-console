@@ -1,6 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { ApiServiceSubscriptionInterface, ApiServiceSubscriptionsResponse, NewApiServiceSubscriptionResponse, NewUpgradeApiSubscription, RenewApiSubscription } from "./apiServiceSubscriptionInterface";
-import { fetchApiServiceSubscription, fetchApiServiceSubscriptionById, generateTokenThunk, postApiServiceSubscription, postRenewApiServiceSubscription, postUpgradeApiServiceSubscription } from "./apiServiceSubscriptionThunks";
+import {createSlice} from "@reduxjs/toolkit";
+import {
+  ApiServiceSubscriptionInterface,
+  ApiServiceSubscriptionsResponse,
+  NewApiServiceSubscriptionResponse,
+  NewUpgradeApiSubscription,
+  RenewApiSubscription,
+} from "./apiServiceSubscriptionInterface";
+import {
+  fetchApiServiceSubscription,
+  fetchApiServiceSubscriptionById,
+  generateTokenThunk,
+  postApiServiceSubscription,
+  postRenewApiServiceSubscription,
+  postUpgradeApiServiceSubscription,
+} from "./apiServiceSubscriptionThunks";
 
 interface ApiServiceSubscriptionState {
   apiServiceSubscriptionResponse?: ApiServiceSubscriptionInterface[];
@@ -38,12 +51,12 @@ const initialState: ApiServiceSubscriptionState = {
   newUpgradeApiSubscriptionResponse: {
     newUpgradeApiSubscriptionIsLoading: false,
     newpgradeApiSubscriptionFailed: false,
-    upgradeApiSubscriptionCreatedSuccess: undefined
+    upgradeApiSubscriptionCreatedSuccess: undefined,
   },
   renewApiSubscriptionResponse: {
     renewApiSubscriptionIsLoading: false,
     renewApiSubscriptionFailed: false,
-    renewApiSubscriptionCreatedSuccess: undefined
+    renewApiSubscriptionCreatedSuccess: undefined,
   },
 };
 const apiServiceSubscriptionSlice = createSlice({
@@ -61,7 +74,7 @@ const apiServiceSubscriptionSlice = createSlice({
         state.apiServiceSubscriptionLoadingError = null;
         state.apiServiceSubscriptionResponse = action.payload.result;
       })
-      .addCase(fetchApiServiceSubscription.rejected, (state, { payload }) => {
+      .addCase(fetchApiServiceSubscription.rejected, (state, {payload}) => {
         state.apiServiceSubscriptionLoading = false;
         state.apiServiceSubscriptionLoadingError = payload;
       })
@@ -76,11 +89,11 @@ const apiServiceSubscriptionSlice = createSlice({
         state.currentApiServiceSubscriptionLoadingError = null;
         state.currentApiServiceSubscription = action.payload.result;
       })
-      .addCase(fetchApiServiceSubscriptionById.rejected, (state, { payload }) => {
+      .addCase(fetchApiServiceSubscriptionById.rejected, (state, {payload}) => {
         state.currentApiServiceSubscriptionLoading = false;
         state.currentApiServiceSubscriptionLoadingError = payload;
       })
-      //GENRATE API TOKEN 
+      //GENRATE API TOKEN
       .addCase(generateTokenThunk.pending, (state) => {
         state.newApiServiceSubscriptionResponse = undefined;
         state.generateTokenLoading = true;
@@ -101,14 +114,13 @@ const apiServiceSubscriptionSlice = createSlice({
         state.apiServiceSubscriptionLoading = true;
         state.isApiServiceSubscriptionCreatedSuccess = false;
         state.isApiServiceSubscriptionCreatedFailed = false;
-
       })
       .addCase(postApiServiceSubscription.rejected, (state) => {
         state.apiServiceSubscriptionLoading = false;
         state.isApiServiceSubscriptionCreatedFailed = true;
         state.isApiServiceSubscriptionCreatedSuccess = false;
       })
-      .addCase(postApiServiceSubscription.fulfilled, (state, { payload }) => {
+      .addCase(postApiServiceSubscription.fulfilled, (state, {payload}) => {
         state.apiServiceSubscriptionLoading = false;
         state.isApiServiceSubscriptionCreatedSuccess = true;
         state.newApiServiceSubscriptionResponse = payload;
@@ -118,14 +130,13 @@ const apiServiceSubscriptionSlice = createSlice({
         state.newUpgradeApiSubscriptionResponse.newUpgradeApiSubscriptionIsLoading = true;
         state.newUpgradeApiSubscriptionResponse.upgradeApiSubscriptionCreatedSuccess = undefined;
         state.newUpgradeApiSubscriptionResponse.newpgradeApiSubscriptionFailed = false;
-
       })
       .addCase(postUpgradeApiServiceSubscription.rejected, (state) => {
         state.newUpgradeApiSubscriptionResponse.newUpgradeApiSubscriptionIsLoading = false;
         state.newUpgradeApiSubscriptionResponse.newpgradeApiSubscriptionFailed = true;
         state.newUpgradeApiSubscriptionResponse.upgradeApiSubscriptionCreatedSuccess = undefined;
       })
-      .addCase(postUpgradeApiServiceSubscription.fulfilled, (state, { payload }) => {
+      .addCase(postUpgradeApiServiceSubscription.fulfilled, (state, {payload}) => {
         state.newUpgradeApiSubscriptionResponse.newUpgradeApiSubscriptionIsLoading = false;
         state.newUpgradeApiSubscriptionResponse.upgradeApiSubscriptionCreatedSuccess = payload;
         state.newUpgradeApiSubscriptionResponse.newpgradeApiSubscriptionFailed = false;
@@ -134,14 +145,13 @@ const apiServiceSubscriptionSlice = createSlice({
         state.renewApiSubscriptionResponse.renewApiSubscriptionIsLoading = true;
         state.renewApiSubscriptionResponse.renewApiSubscriptionCreatedSuccess = undefined;
         state.renewApiSubscriptionResponse.renewApiSubscriptionFailed = false;
-
       })
       .addCase(postRenewApiServiceSubscription.rejected, (state) => {
         state.renewApiSubscriptionResponse.renewApiSubscriptionIsLoading = false;
         state.renewApiSubscriptionResponse.renewApiSubscriptionFailed = true;
         state.renewApiSubscriptionResponse.renewApiSubscriptionCreatedSuccess = undefined;
       })
-      .addCase(postRenewApiServiceSubscription.fulfilled, (state, { payload }) => {
+      .addCase(postRenewApiServiceSubscription.fulfilled, (state, {payload}) => {
         state.renewApiSubscriptionResponse.renewApiSubscriptionIsLoading = false;
         state.renewApiSubscriptionResponse.renewApiSubscriptionCreatedSuccess = payload;
         state.renewApiSubscriptionResponse.renewApiSubscriptionFailed = false;

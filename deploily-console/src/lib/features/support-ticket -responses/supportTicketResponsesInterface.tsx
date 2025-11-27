@@ -1,4 +1,3 @@
-
 export interface SupportTicketResponsesListInterface {
   count: number;
   description_columns: any;

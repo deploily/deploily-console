@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { PromoCodeInterface } from "./promoCodeInterface";
-import { checkPromoCode } from "./promoCodeThunks";
+import {createSlice} from "@reduxjs/toolkit";
+import {PromoCodeInterface} from "./promoCodeInterface";
+import {checkPromoCode} from "./promoCodeThunks";
 
 interface PormoCodeState {
   promoCodeResponse?: PromoCodeInterface;
@@ -12,7 +12,6 @@ const initialState: PormoCodeState = {
   promoCodeResponse: undefined,
   promoCodeLoadingError: false,
   promoCodeLoading: false,
-
 };
 const PormoCodeSlice = createSlice({
   name: "pormoCode",
@@ -33,7 +32,7 @@ const PormoCodeSlice = createSlice({
       .addCase(checkPromoCode.rejected, (state) => {
         state.promoCodeLoading = false;
         state.promoCodeLoadingError = true;
-      })
+      });
   },
 });
 export default PormoCodeSlice.reducer;

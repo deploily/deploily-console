@@ -1,4 +1,3 @@
-
 export interface ApiServiceSubscriptionsResponse {
   count: number;
   description_columns: any;
@@ -30,8 +29,8 @@ export interface ApiServiceSubscriptionInterface {
   total_amount: number;
   service_details: ServiceDetails;
   service_plan: ServicePlan;
-  api_key?: string,
-  get_plan_details: GetPlanDetails
+  api_key?: string;
+  get_plan_details: GetPlanDetails;
 }
 
 export interface GetPlanDetails {
@@ -81,14 +80,13 @@ export interface ServicePlan {
   unity: string;
 }
 
-
 export interface NewUpgradeApiSubscription {
-  newUpgradeApiSubscriptionIsLoading: boolean,
-  newpgradeApiSubscriptionFailed: boolean,
-  upgradeApiSubscriptionCreatedSuccess?: ApiServiceSubscriptionsResponse
+  newUpgradeApiSubscriptionIsLoading: boolean;
+  newpgradeApiSubscriptionFailed: boolean;
+  upgradeApiSubscriptionCreatedSuccess?: ApiServiceSubscriptionsResponse;
 }
 export interface RenewApiSubscription {
-  renewApiSubscriptionIsLoading: boolean,
-  renewApiSubscriptionFailed: boolean,
-  renewApiSubscriptionCreatedSuccess?: ApiServiceSubscriptionsResponse
+  renewApiSubscriptionIsLoading: boolean;
+  renewApiSubscriptionFailed: boolean;
+  renewApiSubscriptionCreatedSuccess?: ApiServiceSubscriptionsResponse;
 }

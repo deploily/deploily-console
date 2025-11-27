@@ -1,13 +1,11 @@
 import axiosInstance from "@/app/api/axios-instance";
-import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getSession } from "next-auth/react";
-
+import {deploilyApiUrls} from "@/deploilyWebsiteUrls";
+import {createAsyncThunk} from "@reduxjs/toolkit";
+import {getSession} from "next-auth/react";
 
 export const postFeedBack = createAsyncThunk(
   "feedBack/postFeedBack",
   async (message: any, thunkConfig) => {
-
     try {
       const session = await getSession();
       if (!session) {

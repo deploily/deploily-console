@@ -1,36 +1,37 @@
 "use client";
 import LocaleSwitcher from "@/components/locale/localeSwitcher";
-import { usePaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesSelectors";
-import { fetchPaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesThunks";
-import { useAppDispatch } from "@/lib/hook";
-import { Coins, List } from "@phosphor-icons/react";
-import { Col, Drawer, Row, Select } from "antd";
-import { Header } from "antd/es/layout/layout";
+import {usePaymentProfiles} from "@/lib/features/payment-profiles/paymentProfilesSelectors";
+import {fetchPaymentProfiles} from "@/lib/features/payment-profiles/paymentProfilesThunks";
+import {useAppDispatch} from "@/lib/hook";
+import {Coins, List} from "@phosphor-icons/react";
+import {Col, Drawer, Row, Select} from "antd";
+import {Header} from "antd/es/layout/layout";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import FeedbackAlert from "../feed-back/feedBackAlert";
-import { MainSideBarMobile } from "./sideBar";
+import {MainSideBarMobile} from "./sideBar";
 
 export function AppAppBarDesktop() {
   const [theme] = useState("dark");
   const appBarColor = theme == "dark" ? "#2c82d4" : "#eda879";
-  const { isLoading, paymentProfilesList } = usePaymentProfiles();
+  const {isLoading, paymentProfilesList} = usePaymentProfiles();
 
-  const { Option } = Select;
+  const {Option} = Select;
   const [profileSelected, setProfileSelected] = useState<number | undefined>(undefined);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchPaymentProfiles());
-
   }, []);
 
   // Set the default selected profile when the profile list is loaded
   useEffect(() => {
     if (!isLoading && paymentProfilesList?.result?.length) {
       // Find the profile with type "default"
-      const defaultProfile = paymentProfilesList.result.find((profile) => profile.profile_type === "default");
+      const defaultProfile = paymentProfilesList.result.find(
+        (profile) => profile.profile_type === "default",
+      );
 
       if (defaultProfile) {
         setProfileSelected(defaultProfile.id);
@@ -51,7 +52,6 @@ export function AppAppBarDesktop() {
     }
   };
 
-
   return (
     <>
       <Header
@@ -63,27 +63,25 @@ export function AppAppBarDesktop() {
           lineHeight: "0px",
           height: "70px",
           boxShadow:
-            theme === "dark"
-              ? "0 4px 8px rgba(0, 0, 0, 0.25)"
-              : "0 4px 8px rgba(0, 0, 0, 0.1)",
+            theme === "dark" ? "0 4px 8px rgba(0, 0, 0, 0.25)" : "0 4px 8px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <Row align="middle" justify="space-between" style={{ width: "100%" }}>
-          <Col style={{ flexGrow: 1 }}>
+        <Row align="middle" justify="space-between" style={{width: "100%"}}>
+          <Col style={{flexGrow: 1}}>
             <Link href="/portal/dashboard">
               <Image
                 src="/images/logo_name.png"
                 width={202}
                 height={50}
                 alt="logo-deploily"
-                style={{ marginRight: "20px", cursor: "pointer" }}
+                style={{marginRight: "20px", cursor: "pointer"}}
               />
             </Link>
           </Col>
 
-          <Row style={{ justifyContent: "space-between", alignItems: "flex-start" }}>
+          <Row style={{justifyContent: "space-between", alignItems: "flex-start"}}>
             <Col>
-              <Row style={{ display: "flex", gap: 16, alignItems: "center" }}>
+              <Row style={{display: "flex", gap: 16, alignItems: "center"}}>
                 {/* Profile Select */}
                 <div>
                   <Select
@@ -102,26 +100,29 @@ export function AppAppBarDesktop() {
                           <span
                             style={{
                               color: "#D85912",
-                              maxWidth: "60%",            // Prevents it from growing too wide
-                              overflow: "hidden",         // Hides the overflow
-                              textOverflow: "ellipsis",   // Adds the "..."
-                              whiteSpace: "nowrap",       // Prevents wrapping
-                              display: "inline-block",    // Required for ellipsis to work
+                              maxWidth: "60%", // Prevents it from growing too wide
+                              overflow: "hidden", // Hides the overflow
+                              textOverflow: "ellipsis", // Adds the "..."
+                              whiteSpace: "nowrap", // Prevents wrapping
+                              display: "inline-block", // Required for ellipsis to work
                             }}
                           >
                             {(() => {
-                              const name = paymentProfilesList?.result?.find((p) => p.id === profileSelected)?.name;
+                              const name = paymentProfilesList?.result?.find(
+                                (p) => p.id === profileSelected,
+                              )?.name;
                               return name ? name.charAt(0).toUpperCase() + name.slice(1) : "...";
                             })()}
                           </span>
 
-                          <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-                            <span style={{ color: "#D85912" }}>
-                              {Intl.NumberFormat("fr-FR", { useGrouping: true }).format(
-                                paymentProfilesList?.result?.find((p) => p.id === profileSelected)?.balance ?? 0
+                          <div style={{display: "flex", alignItems: "center", gap: "5px"}}>
+                            <span style={{color: "#D85912"}}>
+                              {Intl.NumberFormat("fr-FR", {useGrouping: true}).format(
+                                paymentProfilesList?.result?.find((p) => p.id === profileSelected)
+                                  ?.balance ?? 0,
                               )}
                             </span>
-                            <span style={{ color: "#D85912" }}>DZD</span>
+                            <span style={{color: "#D85912"}}>DZD</span>
                             <Coins size={18} color={"#D85912"} />
                           </div>
                         </div>
@@ -163,32 +164,34 @@ export function AppAppBarDesktop() {
                             <span
                               style={{
                                 color: "#D85912",
-                                maxWidth: "60%",            // Prevents it from growing too wide
-                                overflow: "hidden",         // Hides the overflow
+                                maxWidth: "60%", // Prevents it from growing too wide
+                                overflow: "hidden", // Hides the overflow
                                 textOverflow: "ellipsis",
                                 whiteSpace: "nowrap",
                                 display: "inline-block",
                               }}
                             >
                               {(() => {
-                                const name = profile.name.charAt(0).toUpperCase() + profile.name.slice(1)
+                                const name =
+                                  profile.name.charAt(0).toUpperCase() + profile.name.slice(1);
 
                                 return name ? name.charAt(0).toUpperCase() + name.slice(1) : "...";
                               })()}
                             </span>
 
-                            <div style={{ display: "flex", alignItems: "center", gap: "5px" }}>
-                              <span style={{ color: "#D85912" }}>
-                                {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(profile.balance)}
+                            <div style={{display: "flex", alignItems: "center", gap: "5px"}}>
+                              <span style={{color: "#D85912"}}>
+                                {Intl.NumberFormat("fr-FR", {useGrouping: true}).format(
+                                  profile.balance,
+                                )}
                               </span>
-                              <span style={{ color: "#D85912" }}>DZD</span>
+                              <span style={{color: "#D85912"}}>DZD</span>
                               <Coins size={18} color={"#D85912"} />
                             </div>
                           </div>
                         </Option>
                       ))}
                   </Select>
-
                 </div>
 
                 {/* Navigation Button */}
@@ -233,8 +236,8 @@ export function AppAppBarMobile() {
             theme === "dark" ? "0 4px 8px rgba(0, 0, 0, 0.25)" : "0 4px 8px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <Row align="middle" justify="space-between" style={{ width: "100%" }}>
-          <Col style={{ flexGrow: 1 }}>
+        <Row align="middle" justify="space-between" style={{width: "100%"}}>
+          <Col style={{flexGrow: 1}}>
             <Link href="/portal">
               <Image
                 src="/images/logo_name.png"
@@ -263,12 +266,12 @@ export function AppAppBarMobile() {
                 }}
               >
                 <LocaleSwitcher color={appBarColor} />
-                <List size={28} style={{ color: "#D85912" }} onClick={showDrawer} />
+                <List size={28} style={{color: "#D85912"}} onClick={showDrawer} />
               </Row>
             </Col>
           </Row>
         </Row>
-        <Drawer onClose={onClose} open={open} width={"50%"} styles={{ body: { padding: "0px" } }}>
+        <Drawer onClose={onClose} open={open} width={"50%"} styles={{body: {padding: "0px"}}}>
           <MainSideBarMobile />
         </Drawer>
       </Header>

@@ -1,7 +1,7 @@
 import axiosInstance from "@/app/api/axios-instance";
-import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getSession } from "next-auth/react";
+import {deploilyApiUrls} from "@/deploilyWebsiteUrls";
+import {createAsyncThunk} from "@reduxjs/toolkit";
+import {getSession} from "next-auth/react";
 
 export const fetchApiServiceSubscription = createAsyncThunk(
   "apiServiceSubscribe/getApiServiceSubscription",
@@ -13,21 +13,21 @@ export const fetchApiServiceSubscription = createAsyncThunk(
         return thunkConfig.rejectWithValue("session expired");
       }
       const token = session.accessToken;
-      const query = (status) ? `?q=(filters:!((col:status,opr:eq,value:active)))` : '';
-      const response = await axiosInstance.get(`${deploilyApiUrls.API_SERVICE_SUBSCRIBE_URL}${query}`, {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
+      const query = status ? `?q=(filters:!((col:status,opr:eq,value:active)))` : "";
+      const response = await axiosInstance.get(
+        `${deploilyApiUrls.API_SERVICE_SUBSCRIBE_URL}${query}`,
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
+      );
       if (response.status === 200) {
         return response.data;
-      }
-      else {
+      } else {
         return thunkConfig.rejectWithValue("Failed to fetch api service subscribes");
       }
-
-
     } catch (error: any) {
       return thunkConfig.rejectWithValue(error.message);
     }
@@ -43,12 +43,15 @@ export const fetchApiServiceSubscriptionById = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axiosInstance.get(`${deploilyApiUrls.API_SERVICE_SUBSCRIBE_URL}${myService_id}`, {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
+      const response = await axiosInstance.get(
+        `${deploilyApiUrls.API_SERVICE_SUBSCRIBE_URL}${myService_id}`,
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
+      );
       if (response.status === 200) {
         return response.data;
       } else {
@@ -63,7 +66,6 @@ export const fetchApiServiceSubscriptionById = createAsyncThunk(
 export const postApiServiceSubscription = createAsyncThunk(
   "apiServiceSubscribe/postApiServiceSubscription",
   async (data: any, thunkConfig) => {
-
     try {
       const session = await getSession();
       if (!session) {
@@ -71,13 +73,16 @@ export const postApiServiceSubscription = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axiosInstance.post(`${deploilyApiUrls.API_SERVICE_SUBSCRIPTION}`, data, {
-
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
+      const response = await axiosInstance.post(
+        `${deploilyApiUrls.API_SERVICE_SUBSCRIPTION}`,
+        data,
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
+      );
       if (response.status === 200) {
         return response.data;
       } else {
@@ -92,7 +97,6 @@ export const postApiServiceSubscription = createAsyncThunk(
 export const postUpgradeApiServiceSubscription = createAsyncThunk(
   "apiServiceSubscribe/postUpgradeApiServiceSubscription",
   async (data: any, thunkConfig) => {
-
     try {
       const session = await getSession();
       if (!session) {
@@ -100,13 +104,16 @@ export const postUpgradeApiServiceSubscription = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axiosInstance.post(`${deploilyApiUrls.API_SERVICE_SUBSCRIPTION_UPGRADE}`, data, {
-
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
+      const response = await axiosInstance.post(
+        `${deploilyApiUrls.API_SERVICE_SUBSCRIPTION_UPGRADE}`,
+        data,
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
+      );
       if (response.status === 200) {
         return response.data;
       } else {
@@ -121,7 +128,6 @@ export const postUpgradeApiServiceSubscription = createAsyncThunk(
 export const postRenewApiServiceSubscription = createAsyncThunk(
   "apiServiceSubscribe/postRenewApiServiceSubscription",
   async (data: any, thunkConfig) => {
-
     try {
       const session = await getSession();
       if (!session) {
@@ -129,13 +135,16 @@ export const postRenewApiServiceSubscription = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axiosInstance.post(`${deploilyApiUrls.API_SERVICE_SUBSCRIPTION_RENEW}`, data, {
-
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
+      const response = await axiosInstance.post(
+        `${deploilyApiUrls.API_SERVICE_SUBSCRIPTION_RENEW}`,
+        data,
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
+      );
       if (response.status === 200) {
         return response.data;
       } else {
@@ -157,14 +166,18 @@ export const generateTokenThunk = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axiosInstance.post(`${deploilyApiUrls.API_SERVICE_SUBSCRIBE_URL}${apiServiceSubscription_id}/token`, {}, {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
+      const response = await axiosInstance.post(
+        `${deploilyApiUrls.API_SERVICE_SUBSCRIBE_URL}${apiServiceSubscription_id}/token`,
+        {},
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
+      );
       if (response.status === 200) {
-        return response.data['auth-key'];
+        return response.data["auth-key"];
       } else {
         return thunkConfig.rejectWithValue("Failed to generate token");
       }
@@ -173,4 +186,3 @@ export const generateTokenThunk = createAsyncThunk(
     }
   },
 );
-

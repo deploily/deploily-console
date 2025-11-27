@@ -1,7 +1,6 @@
-import { theme } from "@/styles/theme";
+import {theme} from "@/styles/theme";
 
 export const supportTicketStatus = {
-    "open":theme.token.green,
-    "closed":'#FFFFFF',
-}
-
+  open: theme.token.green,
+  closed: "#FFFFFF",
+};

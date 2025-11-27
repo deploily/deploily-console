@@ -1,8 +1,8 @@
 import axiosInstance from "@/app/api/axios-instance";
-import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getSession } from "next-auth/react";
-import { getSubscribeToDeploymentUrl } from "./getSubscribeToDeploymentUrl";
+import {deploilyApiUrls} from "@/deploilyWebsiteUrls";
+import {createAsyncThunk} from "@reduxjs/toolkit";
+import {getSession} from "next-auth/react";
+import {getSubscribeToDeploymentUrl} from "./getSubscribeToDeploymentUrl";
 
 export const fetchDeploymentServices = createAsyncThunk(
   "deploymentsServices/getdeploymentsServices",
@@ -48,14 +48,16 @@ export const fetchDeploymentServiceBySlug = createAsyncThunk(
       const token = session.accessToken;
 
       const query = `?q=${encodeURIComponent(`(filters:!((col:service_slug,opr:eq,value:'${slug}')))`)}`;
-      const response = await axiosInstance.get(`${deploilyApiUrls.DEPLOYMENT_SERVICES_URL}${query}`, {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
+      const response = await axiosInstance.get(
+        `${deploilyApiUrls.DEPLOYMENT_SERVICES_URL}${query}`,
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
+      );
       if (response.status == 200) {
-
         return response.data;
       } else {
         return thunkConfig.rejectWithValue("error");
@@ -66,10 +68,9 @@ export const fetchDeploymentServiceBySlug = createAsyncThunk(
   },
 );
 
-
 export const deploymentSubscribe = createAsyncThunk(
   "deploymentService/postDeploymentSubscription",
-  async ({ data, service_slug }: { data: any, service_slug?: string }, thunkConfig) => {
+  async ({data, service_slug}: {data: any; service_slug?: string}, thunkConfig) => {
     try {
       const session = await getSession();
       if (!session) {
@@ -77,14 +78,16 @@ export const deploymentSubscribe = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axiosInstance.post(`${getSubscribeToDeploymentUrl(service_slug)}`, data, {
-
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
+      const response = await axiosInstance.post(
+        `${getSubscribeToDeploymentUrl(service_slug)}`,
+        data,
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
-
+      );
 
       if (response.status === 200) {
         return response.data;

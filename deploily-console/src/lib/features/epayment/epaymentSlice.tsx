@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { EpaymentResult } from "./epaymentInterface";
-import { checkEpaymentStatus, generatePdfReceipt, sendPdfReceiptEmail } from "./epaymentThunks";
+import {createSlice} from "@reduxjs/toolkit";
+import {EpaymentResult} from "./epaymentInterface";
+import {checkEpaymentStatus, generatePdfReceipt, sendPdfReceiptEmail} from "./epaymentThunks";
 
 interface PaymentState {
   isLoading: boolean;
@@ -35,9 +35,8 @@ const EpaymentSlice = createSlice({
         } else {
           state.paymentStatus = action.payload;
         }
-
       })
-      .addCase(checkEpaymentStatus.rejected, (state, { payload }) => {
+      .addCase(checkEpaymentStatus.rejected, (state, {payload}) => {
         state.isLoading = false;
         state.isError = payload;
       })
@@ -49,15 +48,15 @@ const EpaymentSlice = createSlice({
         state.isLoading = false;
         state.isError = null;
       })
-      .addCase(generatePdfReceipt.rejected, (state, { payload }) => {
+      .addCase(generatePdfReceipt.rejected, (state, {payload}) => {
         state.isLoading = false;
         state.isError = payload;
       })
-      .addCase(sendPdfReceiptEmail.pending, state => {
+      .addCase(sendPdfReceiptEmail.pending, (state) => {
         state.emailSending = true;
         state.emailError = null;
       })
-      .addCase(sendPdfReceiptEmail.fulfilled, state => {
+      .addCase(sendPdfReceiptEmail.fulfilled, (state) => {
         state.emailSending = false;
       })
       .addCase(sendPdfReceiptEmail.rejected, (state, action) => {

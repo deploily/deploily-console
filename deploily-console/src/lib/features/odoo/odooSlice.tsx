@@ -1,24 +1,22 @@
-import { createSlice,  } from "@reduxjs/toolkit";
-import { fetchOdooAppById } from "./odooThunks";
-import { OdooAppByIdState } from "./odooInterface";
+import {createSlice} from "@reduxjs/toolkit";
+import {fetchOdooAppById} from "./odooThunks";
+import {OdooAppByIdState} from "./odooInterface";
 
 interface OdooAppState {
   odooAppById: OdooAppByIdState;
 }
 
 const initialState: OdooAppState = {
-
   odooAppById: {
     odooAppById: undefined,
     isLoading: false,
     loadingError: null,
-  }
+  },
 };
 const odooAppSlice = createSlice({
   name: "odooApp",
   initialState,
-  reducers: {
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchOdooAppById.pending, (state) => {
@@ -29,11 +27,10 @@ const odooAppSlice = createSlice({
         state.odooAppById.loadingError = null;
         state.odooAppById.odooAppById = action.payload.result;
       })
-      .addCase(fetchOdooAppById.rejected, (state, { payload }) => {
+      .addCase(fetchOdooAppById.rejected, (state, {payload}) => {
         state.odooAppById.isLoading = false;
         state.odooAppById.loadingError = payload;
-      })
-
+      });
   },
 });
 

@@ -1,15 +1,15 @@
 "use client";
-import { DeploymentsServiceInterface } from "@/lib/features/deployment/deploymentServiceInterface";
-import { theme } from "@/styles/theme";
-import { ArrowRight, HeartStraight } from "@phosphor-icons/react";
-import { Badge, Button, Card, Col, Row, Space } from "antd";
+import {DeploymentsServiceInterface} from "@/lib/features/deployment/deploymentServiceInterface";
+import {theme} from "@/styles/theme";
+import {ArrowRight, HeartStraight} from "@phosphor-icons/react";
+import {Badge, Button, Card, Col, Row, Space} from "antd";
 import Meta from "antd/es/card/Meta";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useI18n } from "../../../../../../../locales/client";
+import {useRouter} from "next/navigation";
+import {useState} from "react";
+import {useI18n} from "../../../../../../../locales/client";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 
-export default function DeploymentsServiceCard({ data }: { data: DeploymentsServiceInterface }) {
+export default function DeploymentsServiceCard({data}: {data: DeploymentsServiceInterface}) {
   const t = useI18n();
   const router = useRouter();
   const [hovered, setHovered] = useState(false);
@@ -24,12 +24,12 @@ export default function DeploymentsServiceCard({ data }: { data: DeploymentsServ
         position: "relative",
         marginRight: 16,
       }}
-      bodyStyle={{ padding: 16, height: "100%" }}
+      bodyStyle={{padding: 16, height: "100%"}}
       onClick={() => router.push(`/portal/deployments/${data.service_slug}`)}
     >
-      <div style={{ height: "280px" }}>
+      <div style={{height: "280px"}}>
         {/* Header */}
-        <Row align="top" justify="space-between" gutter={16} style={{ height: "40%" }}>
+        <Row align="top" justify="space-between" gutter={16} style={{height: "40%"}}>
           <Col span={12}>
             <Badge
               count={
@@ -50,11 +50,7 @@ export default function DeploymentsServiceCard({ data }: { data: DeploymentsServ
               offset={[-12, 12]}
             >
               {/* <Image src={data.image} width={100} height={100} preview={false} /> */}
-              <ImageFetcher
-                imagePath={data.image_service}
-                width={100}
-                height={100}
-              />
+              <ImageFetcher imagePath={data.image_service} width={100} height={100} />
             </Badge>
           </Col>
 
@@ -81,7 +77,7 @@ export default function DeploymentsServiceCard({ data }: { data: DeploymentsServ
         </Row>
 
         {/* Title & Description */}
-        <Row style={{ height: "40%" }}>
+        <Row style={{height: "40%"}}>
           <Col span={24}>
             <Meta
               title={
@@ -113,7 +109,7 @@ export default function DeploymentsServiceCard({ data }: { data: DeploymentsServ
       </div>
 
       {/* Details Button */}
-      <Space style={{ position: "absolute", bottom: 16, right: 16 }}>
+      <Space style={{position: "absolute", bottom: 16, right: 16}}>
         <Button
           style={{
             color: "#fff",

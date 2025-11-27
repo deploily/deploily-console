@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ApiServiceInterface, ApiServiceResponse } from "./apiServiceInterface";
-import { fetchApiServices, getApiServiceById } from "./apiServiceThunks";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {ApiServiceInterface, ApiServiceResponse} from "./apiServiceInterface";
+import {fetchApiServices, getApiServiceById} from "./apiServiceThunks";
 
 interface ApiServiceState {
   apiServiceResponse?: ApiServiceResponse;
@@ -29,7 +29,6 @@ const ApiServiceSlice = createSlice({
     updateApiServiceSearchValue: (state, action: PayloadAction<string>) => {
       state.searchValue = action.payload;
     },
-    
   },
   extraReducers: (builder) => {
     builder
@@ -40,12 +39,12 @@ const ApiServiceSlice = createSlice({
         state.isLoadingServiceResponse = false;
         state.apiServiceLoadingError = null;
         const result = action.payload.ids.map((id: number, index: any) =>
-          Object.assign({}, { id: id }, action.payload.result[index]),
+          Object.assign({}, {id: id}, action.payload.result[index]),
         );
-        const payload = Object.assign({}, action.payload, { result: result });
+        const payload = Object.assign({}, action.payload, {result: result});
         state.apiServiceResponse = payload;
       })
-      .addCase(fetchApiServices.rejected, (state, { payload }) => {
+      .addCase(fetchApiServices.rejected, (state, {payload}) => {
         state.isLoadingServiceResponse = false;
         state.apiServiceLoadingError = payload;
       })
@@ -57,14 +56,14 @@ const ApiServiceSlice = createSlice({
       .addCase(getApiServiceById.fulfilled, (state, action) => {
         state.serviceLoading = false;
         state.currentServiceError = null;
-        state.currentService = { ...action.payload.result, ...{ id: action.payload.id } };
+        state.currentService = {...action.payload.result, ...{id: action.payload.id}};
         state.service_id = action.payload.id;
       })
-      .addCase(getApiServiceById.rejected, (state, { payload }) => {
+      .addCase(getApiServiceById.rejected, (state, {payload}) => {
         state.serviceLoading = false;
         state.currentServiceError = payload;
       });
   },
 });
-export const { updateApiServiceSearchValue } = ApiServiceSlice.actions;
+export const {updateApiServiceSearchValue} = ApiServiceSlice.actions;
 export default ApiServiceSlice.reducer;

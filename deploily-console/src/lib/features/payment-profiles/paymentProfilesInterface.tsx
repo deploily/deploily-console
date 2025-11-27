@@ -1,4 +1,3 @@
-
 export interface PaymentProfilesResponse {
   count: number;
   description_columns: any;
@@ -42,7 +41,6 @@ export interface PaymentProfileInterface {
   nin: number;
   is_company: boolean;
   is_default_profile: boolean;
-
 }
 
 export interface User {

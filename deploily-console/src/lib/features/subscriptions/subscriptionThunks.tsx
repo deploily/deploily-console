@@ -1,7 +1,7 @@
 import axiosInstance from "@/app/api/axios-instance";
-import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getSession } from "next-auth/react";
+import {deploilyApiUrls} from "@/deploilyWebsiteUrls";
+import {createAsyncThunk} from "@reduxjs/toolkit";
+import {getSession} from "next-auth/react";
 
 export const fetchSubscription = createAsyncThunk(
   "subscribe/getSubscription",
@@ -20,16 +20,12 @@ export const fetchSubscription = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       });
-     
 
       if (response.status === 200) {
         return response.data;
-      }
-      else {
+      } else {
         return thunkConfig.rejectWithValue("Failed to fetch subscribes");
       }
-
-     
     } catch (error: any) {
       return thunkConfig.rejectWithValue(error.message);
     }
@@ -37,7 +33,7 @@ export const fetchSubscription = createAsyncThunk(
 );
 export const fetchSubscriptionHistory = createAsyncThunk(
   "subscribe/getSubscriptionHistory",
-  async (type : string, thunkConfig) => {
+  async (type: string, thunkConfig) => {
     try {
       const session = await getSession();
 
@@ -46,22 +42,21 @@ export const fetchSubscriptionHistory = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axiosInstance.get(`${deploilyApiUrls.HISTORY_SUBSCRIPTION_URL}?type=${type}`, {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
+      const response = await axiosInstance.get(
+        `${deploilyApiUrls.HISTORY_SUBSCRIPTION_URL}?type=${type}`,
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
-     
+      );
 
       if (response.status === 200) {
         return response.data;
-      }
-      else {
+      } else {
         return thunkConfig.rejectWithValue("Failed to fetch subscribes history");
       }
-
-     
     } catch (error: any) {
       return thunkConfig.rejectWithValue(error.message);
     }

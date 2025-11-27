@@ -1,4 +1,4 @@
-import { DOC_URL } from "@/deploilyWebsiteUrls";
+import {DOC_URL} from "@/deploilyWebsiteUrls";
 import {
   Books,
   CalendarStar,
@@ -6,13 +6,12 @@ import {
   HardDrives,
   HouseLine,
   Invoice,
-  Question
+  Question,
 } from "@phosphor-icons/react/dist/ssr";
-import type { MenuProps } from "antd";
+import type {MenuProps} from "antd";
 import Link from "next/link";
 
 const labelStyle = {
-
   fontSize: "16px",
   fontWeight: 600,
 };
@@ -46,7 +45,8 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
       // </Link>
     ),
     icon: <HardDrives size={24} />,
-    children: [{
+    children: [
+      {
         key: "1",
         label: (
           <Link href="/portal/my-deployments">
@@ -77,7 +77,7 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
             <span style={labelStyle}>{scopedSidebar("myResources")}</span>
           </Link>
         ),
-      }
+      },
     ],
   },
   {
@@ -90,7 +90,7 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
     icon: <CalendarStar size={24} />,
   },
   {
-    key: "support-ticket",//TODO CHANGE THIS 
+    key: "support-ticket", //TODO CHANGE THIS
     label: (
       <Link href="/portal/support-ticket">
         <span style={labelStyle}>{scopedSidebar("supportTicket")} </span>
@@ -103,8 +103,22 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
     label: <span style={labelStyle}>{scopedSidebar("billing")}</span>,
     icon: <Invoice size={24} />,
     children: [
-      { key: "10", label: <Link href={"/portal/payment-profiles"}><span style={labelStyle}>{scopedSidebar("profilePayment")}</span></Link> },
-      { key: "11", label: <Link href={"/portal/payments"}><span style={labelStyle}>{scopedSidebar("payments")}</span></Link> },
+      {
+        key: "10",
+        label: (
+          <Link href={"/portal/payment-profiles"}>
+            <span style={labelStyle}>{scopedSidebar("profilePayment")}</span>
+          </Link>
+        ),
+      },
+      {
+        key: "11",
+        label: (
+          <Link href={"/portal/payments"}>
+            <span style={labelStyle}>{scopedSidebar("payments")}</span>
+          </Link>
+        ),
+      },
     ],
   },
   // {
@@ -128,15 +142,10 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
   {
     key: "documentation",
     label: (
-      <a
-        href={DOC_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        style={labelStyle}
-      >
+      <a href={DOC_URL} target="_blank" rel="noopener noreferrer" style={labelStyle}>
         {scopedSidebar("documentation")}
       </a>
     ),
     icon: <Books size={24} />,
-  }
+  },
 ];

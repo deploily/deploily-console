@@ -1,4 +1,7 @@
-import { ManagedRessource, ManagedRessourceDetails } from "../resourceServicePlans/resourceServicesPlansInterface";
+import {
+  ManagedRessource,
+  ManagedRessourceDetails,
+} from "../resourceServicePlans/resourceServicesPlansInterface";
 
 export interface NextCloudAppByIdState {
   nextCloudAppById?: NextCloudAppInterface;
@@ -16,7 +19,6 @@ export interface NextCloudAppResponse {
   order_columns: string[];
   result: NextCloudAppInterface[];
 }
-
 
 export interface Version {
   id: number;
@@ -50,16 +52,16 @@ export interface NextCloudAppInterface {
   managed_ressource_details: ManagedRessourceDetails;
   managed_ressource_id: number;
   managed_ressource: ManagedRessource;
-  nextcloud_domain: string,
-  nextcloud_url: string,
+  nextcloud_domain: string;
+  nextcloud_url: string;
   service_plan: ServicePlan;
   service_plan_id: number;
   service_details: ServiceDetails;
-  start_date: Date
+  start_date: Date;
   status: string;
   total_amount: number;
   version: Version;
-  get_plan_details: GetPlanDetails
+  get_plan_details: GetPlanDetails;
 }
 
 export interface GetPlanDetails {
@@ -85,7 +87,6 @@ export interface PlanInfo {
   name: string;
 }
 
-
 interface ServiceDetails {
   id: number;
   description: string;
@@ -98,10 +99,9 @@ interface ServiceDetails {
   type: string;
   unit_price: number;
   is_illigible: boolean;
-  is_published: boolean,
+  is_published: boolean;
   is_subscribed: boolean;
   minimal_cpu: number;
   minimal_disk: number;
   minimal_ram: number;
 }
-

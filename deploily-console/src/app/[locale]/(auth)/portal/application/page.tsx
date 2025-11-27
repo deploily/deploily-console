@@ -3,9 +3,7 @@ import AllApplicationServiceContainer from "./all-application/allApplicationCont
 export default function Page() {
   return (
     <>
-          <AllApplicationServiceContainer /> 
+      <AllApplicationServiceContainer />
     </>
   );
 }
-
-

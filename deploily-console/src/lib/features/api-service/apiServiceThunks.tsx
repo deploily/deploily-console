@@ -1,8 +1,8 @@
 import axiosInstance from "@/app/api/axios-instance";
-import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
-import { RootState } from "@/lib/store";
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getSession } from "next-auth/react";
+import {deploilyApiUrls} from "@/deploilyWebsiteUrls";
+import {RootState} from "@/lib/store";
+import {createAsyncThunk} from "@reduxjs/toolkit";
+import {getSession} from "next-auth/react";
 export const fetchApiServices = createAsyncThunk(
   "apiServices/getapiServices",
   async (limit: number, thunkConfig) => {
@@ -39,7 +39,7 @@ export const fetchApiServices = createAsyncThunk(
     } catch (error: any) {
       return thunkConfig.rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 export const getApiServiceById = createAsyncThunk(

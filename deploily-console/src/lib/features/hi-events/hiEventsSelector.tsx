@@ -1,4 +1,5 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+import {useSelector} from "react-redux";
+import {RootState} from "../../store";
 
-export const useHiEventsAppById = () => useSelector((state: RootState) => state.hiEventsApp.hiEventsAppById);
+export const useHiEventsAppById = () =>
+  useSelector((state: RootState) => state.hiEventsApp.hiEventsAppById);

@@ -1,4 +1,4 @@
-import { ApiServiceInterface } from "../api-service/apiServiceInterface";
+import {ApiServiceInterface} from "../api-service/apiServiceInterface";
 
 export interface FavoriteServicesResponse {
   count: number;
@@ -14,6 +14,3 @@ export interface FavoriteServiceInterface {
   id: number;
   service: ApiServiceInterface;
 }
-
-
-

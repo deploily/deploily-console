@@ -1,12 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { SubscriptionsHistoryState, SubscriptionsState } from "./subscriptionInterface";
-import { fetchSubscription, fetchSubscriptionHistory } from "./subscriptionThunks";
+import {createSlice} from "@reduxjs/toolkit";
+import {SubscriptionsHistoryState, SubscriptionsState} from "./subscriptionInterface";
+import {fetchSubscription, fetchSubscriptionHistory} from "./subscriptionThunks";
 
 interface SubscriptionState {
   subscriptionsState: SubscriptionsState;
-  subscriptionHistoryState: SubscriptionsHistoryState
+  subscriptionHistoryState: SubscriptionsHistoryState;
 }
-
 
 const initialState: SubscriptionState = {
   subscriptionsState: {
@@ -18,7 +17,7 @@ const initialState: SubscriptionState = {
     subscriptionHistoryList: undefined,
     subscriptionHistoryLoadingError: undefined,
     subscriptionHistoryLoading: false,
-  }
+  },
 };
 const SubscriptionSlice = createSlice({
   name: "subscription",
@@ -32,9 +31,9 @@ const SubscriptionSlice = createSlice({
       .addCase(fetchSubscription.fulfilled, (state, action) => {
         state.subscriptionsState.subscriptionLoading = false;
         state.subscriptionsState.subscriptionLoadingError = null;
-        state.subscriptionsState.subscriptionResponse = action.payload.result
-        })
-      .addCase(fetchSubscription.rejected, (state, { payload }) => {
+        state.subscriptionsState.subscriptionResponse = action.payload.result;
+      })
+      .addCase(fetchSubscription.rejected, (state, {payload}) => {
         state.subscriptionsState.subscriptionLoading = false;
         state.subscriptionsState.subscriptionLoadingError = payload;
       })
@@ -46,7 +45,7 @@ const SubscriptionSlice = createSlice({
         state.subscriptionHistoryState.subscriptionHistoryLoadingError = null;
         state.subscriptionHistoryState.subscriptionHistoryList = action.payload.result;
       })
-      .addCase(fetchSubscriptionHistory.rejected, (state, { payload }) => {
+      .addCase(fetchSubscriptionHistory.rejected, (state, {payload}) => {
         state.subscriptionHistoryState.subscriptionHistoryLoading = false;
         state.subscriptionHistoryState.subscriptionHistoryLoadingError = payload;
       });

@@ -1,8 +1,8 @@
 import axiosInstance from "@/app/api/axios-instance";
-import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import {deploilyApiUrls} from "@/deploilyWebsiteUrls";
+import {createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
-import { getSession } from "next-auth/react";
+import {getSession} from "next-auth/react";
 
 export const fetchMyFavoriteServices = createAsyncThunk(
   "apiServices/getMyFavorites",
@@ -31,7 +31,6 @@ export const fetchMyFavoriteServices = createAsyncThunk(
   },
 );
 
-
 export const postFavoriteService = createAsyncThunk(
   "apiServices/postFavoriteService",
   async (newFavData: any, thunkConfig) => {
@@ -42,12 +41,16 @@ export const postFavoriteService = createAsyncThunk(
       }
       const token = session.accessToken;
 
-      const response = await axiosInstance.post(`${deploilyApiUrls.POST_FAVORITE_SERVICE_URL}`, newFavData, {
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
+      const response = await axiosInstance.post(
+        `${deploilyApiUrls.POST_FAVORITE_SERVICE_URL}`,
+        newFavData,
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
+      );
       if (response.status === 200) {
         return response.data;
       } else {
@@ -76,7 +79,7 @@ export const deleteFavoriteService = createAsyncThunk(
         },
       });
       if (response.status === 200) {
-        return true
+        return true;
       } else {
         return thunkConfig.rejectWithValue("Failed to delete favorite Service");
       }

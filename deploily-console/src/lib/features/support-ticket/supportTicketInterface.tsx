@@ -1,5 +1,5 @@
-import { ApiServiceSubscriptionInterface } from "../api-service-subscriptions/apiServiceSubscriptionInterface";
-import { SupportTicketChatResponseInterface } from "../support-ticket -responses/supportTicketResponsesInterface";
+import {ApiServiceSubscriptionInterface} from "../api-service-subscriptions/apiServiceSubscriptionInterface";
+import {SupportTicketChatResponseInterface} from "../support-ticket -responses/supportTicketResponsesInterface";
 
 export interface SupportTicketResponse {
   count: number;
