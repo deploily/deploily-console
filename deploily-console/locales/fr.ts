@@ -385,6 +385,8 @@ export default {
   "toast.titleMsgSuccess": "Message envoyé avec succès",
   "toast.msgFailed": "Échec",
   "toast.titleMsgFailed": "Échec de l'envoi du message",
+  "toast.updateSuccess": "Mise à jour réussie",
+  "toast.updateError": "Échec de la mise à jour",
 
   "applications.svc": "Nom de l'application",
   "applications.plan": "Forfait",

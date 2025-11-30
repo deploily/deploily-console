@@ -1,7 +1,7 @@
-import {createAsyncThunk} from "@reduxjs/toolkit";
-import {getSession} from "next-auth/react";
 import axiosInstance from "@/app/api/axios-instance";
-import {deploilyApiUrls} from "@/deploilyWebsiteUrls";
+import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { getSession } from "next-auth/react";
 
 export const fetchDockerById = createAsyncThunk(
   "docker/getDockerById",
@@ -65,6 +65,44 @@ export const postDockerParameters = createAsyncThunk(
     }
   },
 );
+
+
+
+
+export const UpdateDockerdata = createAsyncThunk(
+  "docker/updateDockerdata",
+  async (data: any, thunkConfig) => {
+
+
+    try {
+      const session = await getSession();
+
+      if (!session) {
+        return thunkConfig.rejectWithValue("session expired");
+      }
+
+      const token = session.accessToken;
+
+      const response = await axiosInstance.put(`${deploilyApiUrls.DEPLOYMENT_DOCKER_SUBSCRIPTION_URL}/${data.dockerById}`,
+        data.dockerdataUpdated,
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        return thunkConfig.rejectWithValue("Failed to update docker parameters");
+      }
+    } catch (error: any) {
+      return thunkConfig.rejectWithValue(error.message);
+    }
+  },
+);
+
 // export const deleteDockerParameters = createAsyncThunk(
 //     "docker/deleteDockerParameters",
 //     async ({ id }: { id: number }, thunkConfig) => {

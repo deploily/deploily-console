@@ -1,18 +1,19 @@
 "use client";
-import { useDockerById } from "@/lib/features/docker/dockerSelector";
-import { fetchDockerById } from "@/lib/features/docker/dockerThunks";
+import { useDockerById, useDockerDataUpdated } from "@/lib/features/docker/dockerSelector";
+import { fetchDockerById, UpdateDockerdata } from "@/lib/features/docker/dockerThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { handleCopy } from "@/lib/utils/handleCopy";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { DivCard } from "@/styles/components/divStyle";
 import { theme } from "@/styles/theme";
 import { Copy, Eye, EyeSlash, LinkSimple } from "@phosphor-icons/react";
-import { Badge, Button, Col, Input, Result, Row, Skeleton, Space, Typography } from "antd";
+import { Badge, Button, Col, Input, notification, Result, Row, Skeleton, Space, Typography } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../../../locales/client";
 import DocumentationDrawer from "../../../../utils/documentationDrawer";
 import PlanDetailsComponent from "../../../../utils/planDetailsComponents";
+import { openNotification } from "../../../utils/notification";
 import planNames from "../../../utils/planNames";
 import DocumentationComponent from "./componentsDockerDetails/documentationComponent";
 import DurationComponent from "./componentsDockerDetails/durationComponent";
@@ -22,9 +23,13 @@ import PodsDetails from "./podDetails";
 export default function MyDockerDetails({ my_dep_id }: { my_dep_id: number }) {
   const t = useI18n();
   const tSubscription = useScopedI18n("subscription");
+  const toastTranslate = useScopedI18n("toast");
+
   const dispatch = useAppDispatch();
   const { dockerById, isLoading, loadingError } = useDockerById();
+  const { dockerUpdated, loadingError: dockerDataLoadingError } = useDockerDataUpdated();
   const [visible, setVisible] = useState(false);
+  const [api, contextHolder] = notification.useNotification();
 
   useEffect(() => {
     dispatch(fetchDockerById(my_dep_id));
@@ -34,6 +39,26 @@ export default function MyDockerDetails({ my_dep_id }: { my_dep_id: number }) {
   const [openDrawer, setOpenDrawer] = useState(false);
   const onClose = () => setOpenDrawer(false);
 
+  const handleSavePodNames = (updatedPodNames: string[]) => {
+
+    const podNameUpdates = updatedPodNames.reduce<Record<string, string>>((acc, name, index) => {
+      acc[`pod_name_${index + 1}`] = name;
+
+      return acc;
+    }, {});
+
+    dispatch(UpdateDockerdata({ dockerById: dockerById?.id, dockerdataUpdated: podNameUpdates }));
+  };
+
+
+  useEffect(() => {
+    if (dockerUpdated) {
+      openNotification(api, true, toastTranslate);
+    } else if (dockerDataLoadingError) {
+      openNotification(api, false, toastTranslate);
+    }
+
+  }, [dockerUpdated, dockerDataLoadingError, api, toastTranslate]);
   return (
     <Space
       direction="vertical"
@@ -49,6 +74,7 @@ export default function MyDockerDetails({ my_dep_id }: { my_dep_id: number }) {
 
       {!isLoading && dockerById !== undefined && (
         <>
+          {contextHolder}
           <Row gutter={16}>
             <Col md={16} xs={24}>
               <Badge offset={[-20, 20]}>
@@ -317,6 +343,7 @@ export default function MyDockerDetails({ my_dep_id }: { my_dep_id: number }) {
             planNames={planNames}
             theme={theme}
             handleCopy={handleCopy}
+            onSave={handleSavePodNames}
           />
           {/*  */}
           {/* <DivCard style={{ marginTop: 20 }}>
@@ -364,7 +391,7 @@ export default function MyDockerDetails({ my_dep_id }: { my_dep_id: number }) {
             </div>
             <ParametersSection dockerById={dockerById} />
           </DivCard> */}
-
+          {/* 
           <div style={{ display: "flex", justifyContent: "end", gap: 10 }}>
             <Button
               type="primary"
@@ -373,6 +400,7 @@ export default function MyDockerDetails({ my_dep_id }: { my_dep_id: number }) {
                 border: "none",
                 boxShadow: "none",
               }}
+              onClick={() => {}}
             >
               <span
                 style={{
@@ -384,7 +412,7 @@ export default function MyDockerDetails({ my_dep_id }: { my_dep_id: number }) {
                 {t("save")}
               </span>
             </Button>
-          </div>
+          </div> */}
           <DocumentationDrawer
             openDrawer={openDrawer}
             onClose={onClose}

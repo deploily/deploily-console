@@ -1,3 +1,10 @@
+export interface DockerDataUpdatedState {
+  dockerUpdated?: any;
+  isLoading: boolean;
+  loadingError?: any;
+}
+
+
 export interface DockerByIdState {
   dockerById?: dockerDepInterface;
   isLoading: boolean;

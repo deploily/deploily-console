@@ -376,6 +376,8 @@ export default {
     "toast.titleMsgSuccess": "Message Sent Successfully",
     "toast.msgFailed": "Failed",
     "toast.titleMsgFailed": "Message Failed to Send",
+    'toast.updateSuccess': 'Update data Successfully',
+    'toast.updateError': 'Failed to update data',
 
     "applications.svc": "Application name",
     "applications.plan": "Plan",
