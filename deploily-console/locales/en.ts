@@ -75,6 +75,9 @@ export default {
     "managedResourceplanDetails": "Managed Resource Plan Details",
     "planName": "Plan Name",
     "planOptions": "Plan Options",
+    "name": "Name",
+    "price": "Price",
+    "favorite": "Favorite",
 
     'sidebar.home': 'Home',
     'sidebar.dashboard': 'Dashboard',

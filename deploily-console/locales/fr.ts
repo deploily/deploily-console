@@ -78,7 +78,9 @@ export default {
   "managedResourceplanDetails": "Détails du plan de ressources gérées",
   "planName": "Nom du plan",
   "planOptions": "Options du plan",
-
+  "name": "Nom",
+  "price": "Prix",
+  "favorite": "Favori",
 
   "sidebar.home": "Accueil",
   "sidebar.dashboard": "Tableau de bord",

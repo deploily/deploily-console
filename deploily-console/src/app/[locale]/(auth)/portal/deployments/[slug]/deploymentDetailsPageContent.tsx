@@ -12,20 +12,21 @@ import {useAppDispatch} from "@/lib/hook";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import {theme} from "@/styles/theme";
 import {HomeOutlined} from "@ant-design/icons";
-import {Card, Col, Grid, Row, Select, Skeleton, Space} from "antd";
+import { Col, Grid, Row, Select, Skeleton, Space} from "antd";
 import PaymentSideBar, {
   PaymentAppBar,
 } from "deploily-ui-components/components/Deployments/paymentSideBar";
-import {useRouter} from "next/navigation";
-import {useEffect, useState} from "react";
-import {useScopedI18n} from "../../../../../../../locales/client";
-import {options} from "../utils/deploymentConst";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useScopedI18n } from "../../../../../../../locales/client";
+import { options } from "../utils/deploymentConst";
 import DeploymentDetailsCollapseContainer from "./containers/deploymentDetailsCollapseContainer";
 import DeploymentPlansContainer from "./containers/deploymentPlansContainer";
 import DeploymentPromoCodeTextField from "./containers/deploymentPromoCodeTextField";
 import DeployementDescriptionContainer from "./containers/descriptionContainer";
 import PaymentDrawer from "./containers/payment-components/paymentDrawer";
-import SelectVpsPlanTable from "./containers/selectVpsPlanTable";
+import SelectVpsPlanCard from "./containers/selectVpsPlanCard";
+// import SelectVpsPlanTable from "./containers/selectVpsPlanTable";
 
 export default function DeploymentDetailsPageContent({deploymentSlug}: {deploymentSlug: any}) {
   const tdeployment = useScopedI18n("deployment");
@@ -94,11 +95,11 @@ export default function DeploymentDetailsPageContent({deploymentSlug}: {deployme
 
   useEffect(() => {
     if (managed_ressource_details?.isManaged) {
-      dispatch(
-        updateNewDeploymentSubscriptionState({duration: managed_ressource_details?.time_remaining}),
-      );
+
+      dispatch(updateNewDeploymentSubscriptionState({ duration: managed_ressource_details?.time_remaining }));
     }
   }, [managed_ressource_details?.isManaged]);
+
 
   if (isLoading) return <Skeleton active />;
   if (loadingError) return <div>Error: {loadingError}</div>;
@@ -237,12 +238,16 @@ export default function DeploymentDetailsPageContent({deploymentSlug}: {deployme
                 </div>
               )}
             {deployment_service_plan && !deployment_service_plan.is_custom && (
-              <Card styles={{body: {padding: 0}}}>
-                <SelectVpsPlanTable
-                  deploymentId={deploymentServiceBySlug.id}
-                  subscriptionCategory={subscriptionCategory}
-                />
-              </Card>
+              <>
+                {/* <Card styles={{ body: { padding: 0 } }}>
+                  <SelectVpsPlanTable
+                    deploymentId={deploymentServiceBySlug.id}
+                    subscriptionCategory={subscriptionCategory}
+                  />
+                </Card> */}
+                <SelectVpsPlanCard deploymentId={deploymentServiceBySlug.id} subscriptionCategory={subscriptionCategory} />
+
+              </>
             )}
             <div style={{padding: "8px 0"}}>
               <DeploymentDetailsCollapseContainer

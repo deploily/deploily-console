@@ -1,16 +1,16 @@
 "use client";
 
-import {ApplicationServiceInterface} from "@/lib/features/application/applicationServiceInterface";
-import {useApplicationServicesList} from "@/lib/features/application/applicationServiceSelectors";
-import {fetchApplicationServices} from "@/lib/features/application/applicationServiceThunks";
-import {useFavoriteServices} from "@/lib/features/favorites/favoriteServiceSelectors";
-import {useAppDispatch} from "@/lib/hook";
-import {HomeOutlined, DownOutlined} from "@ant-design/icons";
-import {MagnifyingGlass} from "@phosphor-icons/react";
-import {Card, Col, Input, Pagination, Result, Row, Space} from "antd";
-import {useRouter} from "next/navigation";
-import {useEffect, useState} from "react";
-import {useI18n, useScopedI18n} from "../../../../../../../locales/client";
+import { ApplicationServiceInterface } from "@/lib/features/application/applicationServiceInterface";
+import { useApplicationServicesList } from "@/lib/features/application/applicationServiceSelectors";
+import { fetchApplicationServices } from "@/lib/features/application/applicationServiceThunks";
+import { useFavoriteServices } from "@/lib/features/favorites/favoriteServiceSelectors";
+import { useAppDispatch } from "@/lib/hook";
+import { HomeOutlined } from "@ant-design/icons";
+import { MagnifyingGlass } from "@phosphor-icons/react";
+import { Card, Col, Input, Pagination, Result, Row, Space } from "antd";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import ApplicationServiceCard from "../home-components/applicationServiceCard";
 
 export default function AllApplicationServiceContainer() {
@@ -130,22 +130,21 @@ export default function AllApplicationServiceContainer() {
           </Col>
         )}
 
-        {!isLoading &&
-          applications.length > 0 &&
-          applications.map((row: ApplicationServiceInterface) => (
-            <Col
-              key={row.id}
-              xs={24}
-              sm={12}
-              md={10}
-              lg={8}
-              xl={6}
-              style={{display: "flex", justifyContent: "center"}}
-            >
-              <ApplicationServiceCard data={row} />
-            </Col>
-          ))}
-      </Row>
+                {applications.length > 0 &&
+                    applications.map((row: ApplicationServiceInterface) => (
+                        <Col
+                            key={row.id}
+                            xs={24}
+                            sm={12}
+                            md={10}
+                            lg={8}
+                            xl={6}
+                            style={{ display: "flex", justifyContent: "center" }}
+                        >
+                            <ApplicationServiceCard data={row} />
+                        </Col>
+                    ))}
+            </Row>
 
       {/* Errors */}
       {!isLoading && loadingError && applications.length === 0 && (

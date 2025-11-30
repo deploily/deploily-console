@@ -381,7 +381,7 @@ export default function MyDockerDetails({ my_dep_id }: { my_dep_id: number }) {
                   fontWeight: 600,
                 }}
               >
-                {tSubscription("save")}
+                {t("save")}
               </span>
             </Button>
           </div>
