@@ -78,7 +78,9 @@ export default {
   "managedResourceplanDetails": "Détails du plan de ressources gérées",
   "planName": "Nom du plan",
   "planOptions": "Options du plan",
-
+  "name": "Nom",
+  "price": "Prix",
+  "favorite": "Favori",
 
   "sidebar.home": "Accueil",
   "sidebar.dashboard": "Tableau de bord",
@@ -214,8 +216,11 @@ export default {
   "subscription.application": "Application",
   "subscription.accessUrl": "URL d'accès",
   "subscription.argocdUrl": "URL Argocd",
-  "subscription.argocduserName": "Nom d'utilisateur Argocd",
-  "subscription.argocdPassword": "Mot de passe Argocd",
+  "subscription.argocduserName": "Utilisateur admin Argocd",
+  "subscription.argocdPassword": "Mot de passe admin Argocd",
+  'subscription.argocdReadonlyUser': 'Utilisateur en lecture seule Argocd',
+  'subscription.argocdReadonlyPassword': 'Mot de passe en lecture seule Argocd',
+
   'subscription.backendUrl': 'URL Backend',
   "subscription.frontendUrl": "URL Frontend",
   "subscription.secretKey": "Clé secrète",
@@ -380,6 +385,8 @@ export default {
   "toast.titleMsgSuccess": "Message envoyé avec succès",
   "toast.msgFailed": "Échec",
   "toast.titleMsgFailed": "Échec de l'envoi du message",
+  "toast.updateSuccess": "Mise à jour réussie",
+  "toast.updateError": "Échec de la mise à jour",
 
   "applications.svc": "Nom de l'application",
   "applications.plan": "Forfait",
@@ -486,7 +493,10 @@ export default {
     "configureSettings": "Configurer les paramètres",
     "addParameter": "Ajouter un paramètre",
     "noDeployments": "Vous n'avez pas encore de déploiements. N'hésitez pas à en créer un !",
-    "noActiveDeploymentFound": "Vous n'avez pas de déploiements actifs. N'hésitez pas à en créer un !"
+    "noActiveDeploymentFound": "Vous n'avez pas de déploiements actifs. N'hésitez pas à en créer un !",
+    "podDetails": "Détails du Pod {podNumber}",
+    "name": "Nom",
+    "url": "URL",
   },
   "live_demo": "Démo en direct",
   "usefulLinks": "Liens utiles",

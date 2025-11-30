@@ -75,6 +75,9 @@ export default {
     "managedResourceplanDetails": "Managed Resource Plan Details",
     "planName": "Plan Name",
     "planOptions": "Plan Options",
+    "name": "Name",
+    "price": "Price",
+    "favorite": "Favorite",
 
     'sidebar.home': 'Home',
     'sidebar.dashboard': 'Dashboard',
@@ -209,8 +212,10 @@ export default {
     'subscription.application': 'Application',
     'subscription.accessUrl': 'Access Url',
     'subscription.argocdUrl': 'Argocd Url',
-    'subscription.argocduserName': 'Argocd user name',
-    'subscription.argocdPassword': 'Argocd password',
+    'subscription.argocduserName': 'Argocd admin user',
+    'subscription.argocdPassword': 'Argocd admin password',
+    'subscription.argocdReadonlyUser': 'Argocd readonly user',
+    'subscription.argocdReadonlyPassword': 'Argocd readonly password',
     'subscription.backendUrl': 'Backend Url',
     'subscription.frontendUrl': 'Frontend Url',
     'subscription.secretKey': 'Secret key',
@@ -225,6 +230,7 @@ export default {
     'subscription.select_vps_plan': 'Select vps plan',
     'subscription.back': 'Back',
     'subscription.next': 'Next',
+    'subscription.save': 'Save',
 
     'ttkEpay.client_site_name': 'Client site name',
     'ttkEpay.client_site_address': 'Client site address',
@@ -271,10 +277,10 @@ export default {
     "ttkEpay.captchaSetup": "Captcha Configuration",
     "ttkEpay.recaptchaSiteKey": "reCAPTCHA Site Key",
     "ttkEpay.recaptchaSecretKey": "reCAPTCHA Secret Key",
-    "ttkEpay.nif":" Tax Identification Number (NIF)",
-    "ttkEpay.nis":" Statistical Identification Number (NIS)",
-    "ttkEpay.ai":" Tax Article (AI)",
-    "ttkEpay.rc":" Commercial register",
+    "ttkEpay.nif": " Tax Identification Number (NIF)",
+    "ttkEpay.nis": " Statistical Identification Number (NIS)",
+    "ttkEpay.ai": " Tax Article (AI)",
+    "ttkEpay.rc": " Commercial register",
 
 
 
@@ -370,6 +376,8 @@ export default {
     "toast.titleMsgSuccess": "Message Sent Successfully",
     "toast.msgFailed": "Failed",
     "toast.titleMsgFailed": "Message Failed to Send",
+    'toast.updateSuccess': 'Update data Successfully',
+    'toast.updateError': 'Failed to update data',
 
     "applications.svc": "Application name",
     "applications.plan": "Plan",
@@ -476,7 +484,10 @@ export default {
         "configureSettings": "Configure the settings",
         "addParameter": "Add Parameter",
         "noDeployments": "You don't have any deployments yet. Feel free to create one!",
-        "noActiveDeploymentFound": "You don't have any active deployments. Feel free to create one!"
+        "noActiveDeploymentFound": "You don't have any active deployments. Feel free to create one!",
+        "podDetails": "Pod {podNumber} Details",
+        "name": "Name",
+        "url": "URL",
     },
     "live_demo": "Live demo",
     "usefulLinks": "Useful links",

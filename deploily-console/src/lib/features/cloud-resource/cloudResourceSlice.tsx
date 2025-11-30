@@ -58,45 +58,44 @@ const CloudResourceSlice = createSlice({
     },
   },
 
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchCloudResources.pending, (state) => {
-        state.isLoading = true;
-        state.cloudResourceResponse = undefined;
-        state.cloudResourceLoadingError = null;
-      })
-      .addCase(fetchCloudResources.fulfilled, (state, action) => {
-        state.isAffiliationCreatedSuccess = false;
-        state.isLoading = false;
-        state.cloudResourceLoadingError = null;
-        const result = action.payload.ids.map((id: number, index: any) =>
-          Object.assign({}, {id: id}, action.payload.result[index]),
-        );
-        const payload = Object.assign({}, action.payload, {result: result});
-        state.cloudResourceResponse = payload;
-      })
-      .addCase(fetchCloudResources.rejected, (state, {payload}) => {
-        state.isAffiliationCreatedSuccess = false;
-        state.isLoading = false;
-        state.cloudResourceLoadingError = payload;
-      })
-      .addCase(getResourceById.pending, (state) => {
-        state.isAffiliationCreatedSuccess = false;
-        state.isLoading = true;
-        state.cloudResourceLoadingError = null;
-      })
-      .addCase(getResourceById.fulfilled, (state, action) => {
-        state.isAffiliationCreatedSuccess = false;
-        state.isLoading = false;
-        state.cloudResourceLoadingError = null;
-        state.currentResource = {...action.payload.result, ...{id: action.payload.id}};
-        state.resource_id = action.payload.id;
-      })
-      .addCase(getResourceById.rejected, (state, {payload}) => {
-        state.isAffiliationCreatedSuccess = false;
-        state.isLoading = false;
-        state.cloudResourceLoadingError = payload;
-      })
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchCloudResources.pending, (state) => {
+                state.isLoading = true;
+                state.cloudResourceLoadingError = null;
+            })
+            .addCase(fetchCloudResources.fulfilled, (state, action) => {
+                state.isAffiliationCreatedSuccess = false;
+                state.isLoading = false;
+                state.cloudResourceLoadingError = null;
+                const result = action.payload.ids.map((id: number, index: any) =>
+                    Object.assign({}, { id: id }, action.payload.result[index]),
+                );
+                const payload = Object.assign({}, action.payload, { result: result });
+                state.cloudResourceResponse = payload;
+            })
+            .addCase(fetchCloudResources.rejected, (state, { payload }) => {
+                state.isAffiliationCreatedSuccess = false;
+                state.isLoading = false;
+                state.cloudResourceLoadingError = payload;
+            })
+            .addCase(getResourceById.pending, (state) => {
+                state.isAffiliationCreatedSuccess = false;
+                state.isLoading = true;
+                state.cloudResourceLoadingError = null;
+            })
+            .addCase(getResourceById.fulfilled, (state, action) => {
+                state.isAffiliationCreatedSuccess = false;
+                state.isLoading = false;
+                state.cloudResourceLoadingError = null;
+                state.currentResource = { ...action.payload.result, ...{ id: action.payload.id } };
+                state.resource_id = action.payload.id;
+            })
+            .addCase(getResourceById.rejected, (state, { payload }) => {
+                state.isAffiliationCreatedSuccess = false;
+                state.isLoading = false;
+                state.cloudResourceLoadingError = payload;
+            })
 
       .addCase(postAffiliation.pending, (state) => {
         state.isAffiliationCreatedSuccess = false;

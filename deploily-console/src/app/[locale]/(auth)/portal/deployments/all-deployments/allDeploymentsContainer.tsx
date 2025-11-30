@@ -100,8 +100,7 @@ export default function AllDeploymentServiceContainer() {
           </Col>
         )}
 
-        {!isLoading &&
-          deploymentServices.length > 0 &&
+        {deploymentServices.length > 0 &&
           deploymentServices.map((row: DeploymentsServiceInterface, index) => (
             <Col
               key={index}

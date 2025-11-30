@@ -109,8 +109,7 @@ export default function AllApiServiceContainer() {
           </Col>
         )}
 
-        {!isLoadingServiceResponse &&
-          services.length > 0 &&
+        {services.length > 0 &&
           services.map((row: ApiServiceInterface) => (
             <Col
               key={row.id}

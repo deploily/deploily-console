@@ -1,3 +1,10 @@
+export interface DockerDataUpdatedState {
+  dockerUpdated?: any;
+  isLoading: boolean;
+  loadingError?: any;
+}
+
+
 export interface DockerByIdState {
   dockerById?: dockerDepInterface;
   isLoading: boolean;
@@ -12,6 +19,8 @@ export interface dockerDepInterface {
   argocd_url: string;
   argocd_user_name: string;
   argocd_password: string;
+  argocd_readOnly_user: string;
+  argocd_readOnly_password: string;
   backend_url: string;
   frontend_url: string;
   custom_paramters: CustomParameter[];
@@ -33,6 +42,12 @@ export interface dockerDepInterface {
   status: string;
   total_amount: number;
   get_plan_details: GetPlanDetails;
+  pods: PodsList[];
+}
+export interface PodsList {
+  id: number;
+  name: string;
+  url: string;
 }
 
 export interface GetPlanDetails {

@@ -1,8 +1,7 @@
 import axiosInstance from "@/app/api/axios-instance";
-import {deploilyApiUrls} from "@/deploilyWebsiteUrls";
-import {createAsyncThunk} from "@reduxjs/toolkit";
-import axios from "axios";
-import {getSession} from "next-auth/react";
+import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { getSession } from "next-auth/react";
 
 export const fetchMyFavoriteServices = createAsyncThunk(
   "apiServices/getMyFavorites",
