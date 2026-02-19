@@ -15,7 +15,7 @@ export default function PlanDetailsComponent({ currentSubscription }: { currentS
         currentSubscription.get_managed_ressource_plan_details) && (
           <Collapse
             bordered={false}
-            defaultActiveKey={["1"]}
+            // defaultActiveKey={["1"]}
             expandIcon={({ isActive }) =>
               isActive ? (
                 <CaretUp size={24} color={theme.token.orange600} />

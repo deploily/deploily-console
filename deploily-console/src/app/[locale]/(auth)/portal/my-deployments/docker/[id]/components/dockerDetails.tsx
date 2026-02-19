@@ -145,7 +145,7 @@ export default function MyDockerDetails({ my_dep_id }: { my_dep_id: number }) {
                 type="primary"
                 style={{ boxShadow: "none", marginRight: "5px" }}
                 icon={<LinkSimple size={20} />}
-                onClick={() => window.open(dockerById.argocd_url, "_blank")}
+                onClick={() => window.open(dockerById.access_url, "_blank")}
               />
               <Button
                 type="primary"
