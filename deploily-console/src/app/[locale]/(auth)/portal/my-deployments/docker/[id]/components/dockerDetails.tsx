@@ -157,7 +157,7 @@ export default function MyDockerDetails({ my_dep_id }: { my_dep_id: number }) {
           </div>
 
           <Typography style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange600 }}>
-            {("argocd")}
+            {("ArgoCD")}
           </Typography>
           <DivCard>
 
