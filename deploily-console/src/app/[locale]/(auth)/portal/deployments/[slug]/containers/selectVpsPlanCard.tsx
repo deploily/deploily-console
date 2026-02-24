@@ -2,7 +2,7 @@
 
 import { useMemo, useRef, useState } from "react";
 import { useAppDispatch } from "@/lib/hook";
-import { Grid, Tooltip, Typography } from "antd";
+import { Col, Grid, Row, Tooltip, Typography } from "antd";
 import { theme } from "@/styles/theme";
 import { useScopedI18n } from "../../../../../../../../locales/client";
 import { useNewApplicationSubscription } from "@/lib/features/application/applicationServiceSelectors";
@@ -141,7 +141,7 @@ export default function SelectVpsPlanCard({
                         const isSelected = selectedKey === key;
 
                         return (
-                            <div key={plan.id} className="plan-card-wrapper" style={{ padding: "0 10px" }}>
+                            <div key={plan.id} className="plan-card-wrapper" style={{ padding: "0 10px" , height: "100%" }}>
                                 <Card
                                     hoverable
                                     onClick={() => handleSelect(plan)}
@@ -152,6 +152,7 @@ export default function SelectVpsPlanCard({
                                             ? `2px solid ${theme.token.colorPrimary}`
                                             : "2px solid #333",
                                         width: "100%",
+                                        height: "100%",
                                     }}
                                     title={
                                         <div style={{ display: "flex", alignItems: "center", height: "auto", flexWrap: "wrap" }}>
@@ -170,25 +171,6 @@ export default function SelectVpsPlanCard({
                                             {`${plan.provider_info?.name || ""} / ${plan.plan_name}`}
                                         </div>
                                     }
-                                    actions={
-                                        Array.isArray(plan.options)
-                                            ? plan.options
-                                                .filter((o: any) =>
-                                                    ["ram", "cpu", "disque"].includes(o.option_type)
-                                                )
-                                                .map((opt: any) => (
-
-                                                    <Tooltip title={opt.html_content} key={opt.id} color={theme.token.colorPrimary}>
-                                                        <Typography.Text style={{ color: "white", backgroundColor: "transparent" }} >
-                                                            {opt.icon ? opt.icon : (
-                                                                <Check size={20} color={theme.token.gray100} />
-                                                            )}
-                                                            {" "} {opt.option_value}
-                                                        </Typography.Text>
-                                                    </Tooltip>
-                                                ))
-                                            : []
-                                    }
                                 >
 
                                     <div
@@ -198,31 +180,57 @@ export default function SelectVpsPlanCard({
                                             height: "100%",
                                         }}
                                     >
-                                        <div style={{ width: 40, height: 40 }} >
+                                        <div style={{ width: 40, height: "fit-content", margin: "2px" }} >
                                             <ImageFetcher
                                                 imagePath={plan.provider_info?.logo}
                                                 width={50}
                                                 height={50}
                                             />
                                         </div>
-                                        <div style={{ marginTop: "auto" }}>
+
+                                        <div style={{ marginTop: 8, marginBottom: 8, textAlign: "center" }}>
+                                            {plan.isManaged && plan.isAlreadyPaid ? (
+                                                <Typography.Text style={{ color: "#777" }}>—</Typography.Text>
+                                            ) : (
+                                                <Typography.Title
+                                                    level={4}
+                                                    style={{ margin: 0, color: "white" }}
+                                                >
+                                                    {plan.price?.toLocaleString()} DZD
+                                                </Typography.Title>
+                                            )}
+                                        </div>
+                                        <div style={{ marginTop: "12px" }}>
                                             <Typography.Text style={{ color: "#bbb" }}>
                                                 {t("preparation_time")}: {plan.preparation_time} {t("hours")}
                                             </Typography.Text>
-
-                                            <div style={{ marginTop: 12 }}>
-                                                {plan.isManaged && plan.isAlreadyPaid ? (
-                                                    <Typography.Text style={{ color: "#777" }}>—</Typography.Text>
-                                                ) : (
-                                                    <Typography.Title
-                                                        level={4}
-                                                        style={{ margin: 0, color: "white" }}
-                                                    >
-                                                        {plan.price?.toLocaleString()} DZD
-                                                    </Typography.Title>
-                                                )}
-                                            </div>
                                         </div>
+                                        {Array.isArray(plan.options)
+                                            ? plan.options
+                                                .filter((o: any) =>
+                                                    ["ram", "cpu", "disque"].includes(o.option_type)
+                                                ).map((row: any) => (
+                                                    <Row gutter={16} key={row.id} align="middle">
+                                                        <Col span={3}>
+                                                            {row.icon ? row.icon : <Check size={24} color={theme.token.gray100} />}
+                                                        </Col>
+                                                        <Col span={21}>
+                                                            <Typography.Paragraph
+                                                                style={{
+                                                                    fontSize: 16,
+                                                                    color: "white",
+                                                                    margin: 0,
+                                                                    display: "flex",
+                                                                    alignItems: "center",
+                                                                    minHeight: 24,
+                                                                }}
+                                                            >
+                                                                {row.html_content}
+                                                            </Typography.Paragraph>
+                                                        </Col>
+                                                    </Row>
+                                                )) : null
+                                        }
                                     </div>
                                 </Card>
 

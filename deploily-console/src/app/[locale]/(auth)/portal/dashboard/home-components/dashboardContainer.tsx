@@ -1,7 +1,6 @@
 "use client";
 import {useApiServiceSubscription} from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionSelectors";
 import {fetchApiServiceSubscription} from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionThunks";
-import {useCloudResource} from "@/lib/features/cloud-resource/cloudResourceSelectors";
 import {getMyResources} from "@/lib/features/cloud-resource/cloudResourceThunks";
 import {useFavoriteServices} from "@/lib/features/favorites/favoriteServiceSelectors";
 import {fetchMyFavoriteServices} from "@/lib/features/favorites/favoriteServiceThunks";
@@ -18,6 +17,7 @@ import {useEffect, useState} from "react";
 import {useScopedI18n} from "../../../../../../../locales/client";
 import PaymentsListContainer from "./paymentsComponents";
 import Link from "next/link";
+import { useMyDeploymentList } from "@/lib/features/my-deployments/myDeploymentSelector";
 
 export default function DashboardContainer() {
   const dashboardtranslate = useScopedI18n("dashboard");
@@ -26,11 +26,12 @@ export default function DashboardContainer() {
   const dispatch = useAppDispatch();
 
   const {currentProfile} = useProfile();
-  const {myResourcesResponse} = useCloudResource();
   const {supportTicketList} = useSupportTicket();
   const {favoriteServicesList} = useFavoriteServices();
   const {apiServiceSubscriptionResponse} = useApiServiceSubscription();
   const {MyApplicationList} = useMyApplicationList();
+  const {MyDeploymentList} = useMyDeploymentList();
+  
   const [colFlex, setColFlex] = useState("20%");
   useEffect(() => {
     dispatch(fetchApiServiceSubscription("active"));
@@ -57,7 +58,7 @@ export default function DashboardContainer() {
   const applicationsCount = MyApplicationList?.length || 0;
   const favoritesCount = favoriteServicesList?.count || 0;
   const supportTicketsCount = supportTicketList?.count || 0;
-  const affiliationCount = myResourcesResponse?.length || 0;
+  const deploymentsCount = MyDeploymentList?.length || 0;
 
   const stats = [
     {
@@ -72,15 +73,15 @@ export default function DashboardContainer() {
       linkToMyServices: "/portal/my-api",
     },
     {
-      key: "affiliations",
-      title: dashboardtranslate("affiliations"),
-      value: affiliationCount,
-      icon: <Handshake style={{fontSize: 30, color: "#fff"}} />,
-      color: "#5394CC",
-      seeMyServices: dashboardtranslate("seeMyAffiliations"),
-      subscribeNew: dashboardtranslate("subscribeNewAffiliation"),
-      linkToServicesList: "/portal/cloud-resources",
-      linkToMyServices: "/portal/my-resources",
+        key: "deployments",
+        title: dashboardtranslate("deployments"),
+        value: deploymentsCount,
+        icon: <Handshake style={{ fontSize: 30, color: '#fff' }} />,
+        color: '#5394CC',
+        seeMyServices: dashboardtranslate('seeMyDeployments'),
+        subscribeNew: dashboardtranslate('subscribeNewDeployment'),
+        linkToServicesList: "/portal/deployments",
+        linkToMyServices: "/portal/my-deployments",
     },
     {
       key: "applications",

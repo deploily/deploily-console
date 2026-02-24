@@ -432,6 +432,9 @@ export default {
   "dashboard.seeMySupportTicket": "Mes tickets de support",
   "dashboard.addSupportTocket": "Ajouter un ticket de support",
   "dashboard.seeMyFavorites": "Mes favoris",
+  "dashboard.deployments": "Déploiements",
+  "dashboard.seeMyDeployments": "Voir mes déploiements",
+  "dashboard.subscribeNewDeployment": "Souscrire à un nouveau déploiement",
 
 
   "odooApp.password": "Mot de passe principal Odoo",

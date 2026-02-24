@@ -9,7 +9,7 @@ import { useAppDispatch } from "@/lib/hook";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { theme } from "@/styles/theme";
 import { HomeOutlined } from '@ant-design/icons';
-import {  Col, Grid, Row, Select, Skeleton, Space } from "antd";
+import {  Card, Col, Grid, Row, Select, Skeleton, Space } from "antd";
 import { PaymentSideBar } from "deploily-ui-components";
 import { PaymentAppBar } from "deploily-ui-components/components/applications/paymentSideBar";
 import { useRouter } from "next/navigation";
@@ -22,6 +22,7 @@ import ApplicationDescriptionContainer from "./containers/descriptionContainer";
 import AppPromoCodeTextField from "./containers/payment-components/appPromoCodeTextField";
 import PaymentDrawer from "./containers/payment-components/paymentDrawer";
 import SelectVpsPlanCard from "./containers/selectVpsPlanCard";
+import SelectVpsPlanTable from "./containers/selectVpsPlanTable";
 // import SelectVpsPlanTable from "./containers/selectVpsPlanTable";
 
 
@@ -226,13 +227,16 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                             </div>
                         )}
                         {app_service_plan && !app_service_plan.is_custom &&
-                            <>
-                                {/* <Card styles={{ body: { padding: 0 } }}>
-                                    <SelectVpsPlanTable applicationId={applicationId} subscriptionCategory={subscriptionCategory} />
-
-                                </Card> */}
-                                <SelectVpsPlanCard applicationId={applicationId} subscriptionCategory={subscriptionCategory} />
-                            </>
+                                <>
+                                    <Col xs={0} sm={0} md={24} lg={24}>
+                                        <Card styles={{ body: { padding: 0 } }}>
+                                            <SelectVpsPlanTable applicationId={applicationId} subscriptionCategory={subscriptionCategory} />
+                                        </Card>
+                                    </Col>
+                                    <Col xs={24} sm={24} md={0} lg={0}>
+                                        <SelectVpsPlanCard applicationId={applicationId} subscriptionCategory={subscriptionCategory} />
+                                    </Col>
+                                </>
                         }
 
                         <div style={{ padding: '8px 0' }}>
