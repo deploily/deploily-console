@@ -151,7 +151,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                         />
 
                         <div style={{ padding: '8px 0' }}>
-                            <ApplicationPlansContainer />
+                            <ApplicationPlansContainer screens={screens} />
                         </div>
 
                         {!screens.lg && !(applicationServiceById.is_subscribed) && app_service_plan && !app_service_plan.is_custom && (

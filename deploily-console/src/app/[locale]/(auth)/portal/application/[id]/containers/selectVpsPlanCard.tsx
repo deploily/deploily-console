@@ -80,24 +80,24 @@ export default function SelectVpsPlanCard({
 
     const responsive = {
         superLargeDesktop: {
-            breakpoint: { max: 3500, min: 2500 },
+            breakpoint: { max: 3500, min: 1600 },
             items: 3,
-            partialVisibilityGutter: 40,
+            partialVisibilityGutter: 0,
         },
         desktop: {
-            breakpoint: { max: 3000, min: 1300 },
+            breakpoint: { max: 1600, min: 1024 },
             items: 3,
-            partialVisibilityGutter: 30,
+            partialVisibilityGutter: 0,
         },
         tablet: {
-            breakpoint: { max: 1300, min: 640 },
+            breakpoint: { max: 1024, min: 600 },
             items: 2,
-            partialVisibilityGutter: 30,
+            partialVisibilityGutter: 40,
         },
         mobile: {
-            breakpoint: { max: 640, min: 0 },
+            breakpoint: { max: 600, min: 0 },
             items: 1,
-            partialVisibilityGutter: 30,
+            partialVisibilityGutter: 40,
         },
     };
 
@@ -178,55 +178,55 @@ export default function SelectVpsPlanCard({
                                             height: "100%",
                                         }}
                                     >
-                                        <div style={{ width: 40, height: "fit-content",margin:"2px" }} >
+                                        <div style={{ width: 40, height: "fit-content", margin: "2px" }} >
                                             <ImageFetcher
                                                 imagePath={plan.provider_info?.logo}
                                                 width={50}
                                                 height={50}
                                             />
                                         </div>
-                                            <div style={{ marginTop: 8, marginBottom: 8, textAlign: "center" }}>
-                                                {plan.isManaged && plan.isAlreadyPaid ? (
-                                                    <Typography.Text style={{ color: "#777" }}>—</Typography.Text>
-                                                ) : (
-                                                    <Typography.Title
-                                                        level={4}
-                                                        style={{ margin: 0, color: "white" }}
-                                                    >
-                                                        {plan.price?.toLocaleString()} DZD
-                                                    </Typography.Title>
-                                                )}
-                                            </div>
+                                        <div style={{ marginTop: 8, marginBottom: 8, textAlign: "center" }}>
+                                            {plan.isManaged && plan.isAlreadyPaid ? (
+                                                <Typography.Text style={{ color: "#777" }}>—</Typography.Text>
+                                            ) : (
+                                                <Typography.Title
+                                                    level={4}
+                                                    style={{ margin: 0, color: "white" }}
+                                                >
+                                                    {plan.price?.toLocaleString()} DZD
+                                                </Typography.Title>
+                                            )}
+                                        </div>
                                         <div style={{ marginTop: "12px" }}>
                                             <Typography.Text style={{ color: "#bbb" }}>
                                                 {t("preparation_time")}: {plan.preparation_time} {t("hours")}
                                             </Typography.Text>
-                                            </div>
+                                        </div>
                                         {Array.isArray(plan.options)
                                             ? plan.options
                                                 .filter((o: any) =>
                                                     ["ram", "cpu", "disque"].includes(o.option_type)
                                                 ).map((row: any) => (
-                                                <Row gutter={16} key={row.id} align="middle">
-                                                    <Col span={3}>
-                                                        {row.icon ? row.icon : <Check size={24} color={theme.token.gray100} />}
-                                                    </Col>
-                                                    <Col span={21}>
-                                                        <Typography.Paragraph
-                                                            style={{
-                                                                fontSize: 16,
-                                                                color: "white",
-                                                                margin: 0,
-                                                                display: "flex",
-                                                                alignItems: "center",
-                                                                minHeight: 24,
-                                                            }}
-                                                        >
-                                                            {row.html_content}
-                                                        </Typography.Paragraph>
-                                                    </Col>
-                                                </Row>
-                                            )): null
+                                                    <Row gutter={16} key={row.id} align="middle">
+                                                        <Col span={3}>
+                                                            {row.icon ? row.icon : <Check size={24} color={theme.token.gray100} />}
+                                                        </Col>
+                                                        <Col span={21}>
+                                                            <Typography.Paragraph
+                                                                style={{
+                                                                    fontSize: 16,
+                                                                    color: "white",
+                                                                    margin: 0,
+                                                                    display: "flex",
+                                                                    alignItems: "center",
+                                                                    minHeight: 24,
+                                                                }}
+                                                            >
+                                                                {row.html_content}
+                                                            </Typography.Paragraph>
+                                                        </Col>
+                                                    </Row>
+                                                )) : null
                                         }
                                     </div>
                                 </Card>

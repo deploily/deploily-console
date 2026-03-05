@@ -77,6 +77,28 @@ export interface MyResourcesList {
   total_price: number;
   created_on: string;
 }
+export interface MyWebHosting {
+  id: number;
+  options: ServicePlanOption;
+  plan_name: string;
+  preparation_time: number;
+  price: number;
+  provider_info: Provider;
+  service_id: number;
+  service_name: string;
+  service_plan_type: string;
+}
+export interface MyDns {
+  id: number;
+  options: ServicePlanOption;
+  plan_name: string;
+  preparation_time: number;
+  price: number;
+  provider_info: Provider;
+  service_id: number;
+  service_name: string;
+  service_plan_type: string;
+}
 export interface Filter {
   page_size?: number;
   page?: number;
@@ -131,4 +153,16 @@ export interface ManagedResourceListResponse {
   isLoading: boolean;
   managedResourceFailed: boolean;
   managedResourceResponse?: ManagedResourceList[];
+}
+
+export interface MyWebHostingsResponse {
+  isWebHostingsLoading: boolean;
+  isWebHostingsLoadingFailed: boolean;
+  WebHostingsList?: MyWebHosting[];
+}
+
+export interface MyDnsResponse {
+  isDnsLoading: boolean;
+  isDnsLoadingFailed: boolean;
+  dnsList?: MyDns[];
 }

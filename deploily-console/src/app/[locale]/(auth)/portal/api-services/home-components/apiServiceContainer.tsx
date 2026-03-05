@@ -4,7 +4,7 @@ import {useApiServices} from "@/lib/features/api-service/apiServiceSelectors";
 import {fetchApiServices} from "@/lib/features/api-service/apiServiceThunks";
 import {useFavoriteServices} from "@/lib/features/favorites/favoriteServiceSelectors";
 import {useAppDispatch} from "@/lib/hook";
-import {Button, Card, Col, Result, Row, Space} from "antd";
+import {Button, Result, Row, Space} from "antd";
 import {useRouter} from "next/navigation";
 import {useEffect} from "react";
 import {useI18n} from "../../../../../../../locales/client";

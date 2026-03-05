@@ -1,17 +1,21 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   CloudResourceResponse,
   ManagedResourceListResponse,
+  MyDnsResponse,
   MyResourcesList,
+  MyWebHostingsResponse,
   ProvidersListResponse,
   ResourceCategoriesResponse,
-  ResourceInterface,
+  ResourceInterface
 } from "./cloudResourceInterface";
 import {
   fetchCloudResources,
   fetchResourceCategories,
   getManagedResources,
+  getMyDns,
   getMyResources,
+  getMyWebHostings,
   getProvidersList,
   getResourceById,
   postAffiliation,
@@ -21,6 +25,8 @@ interface CloudResourceState {
   cloudResourceResponse?: CloudResourceResponse;
   providersListResponse?: ProvidersListResponse;
   myResourcesResponse?: MyResourcesList[];
+  myWebHostingsResponse: MyWebHostingsResponse;
+  myDnsResponse: MyDnsResponse;
   isLoading: boolean;
   cloudResourceLoadingError?: any;
   currentResource?: ResourceInterface;
@@ -48,6 +54,16 @@ const initialState: CloudResourceState = {
     managedResourceFailed: false,
     managedResourceResponse: undefined,
   },
+  myWebHostingsResponse: {
+    isWebHostingsLoading: false,
+    isWebHostingsLoadingFailed: false,
+    WebHostingsList: undefined,
+  },
+  myDnsResponse: {
+    isDnsLoading: false,
+    isDnsLoadingFailed: false,
+    dnsList: undefined,
+  },
 };
 const CloudResourceSlice = createSlice({
   name: "cloudResource",
@@ -58,44 +74,44 @@ const CloudResourceSlice = createSlice({
     },
   },
 
-    extraReducers: (builder) => {
-        builder
-            .addCase(fetchCloudResources.pending, (state) => {
-                state.isLoading = true;
-                state.cloudResourceLoadingError = null;
-            })
-            .addCase(fetchCloudResources.fulfilled, (state, action) => {
-                state.isAffiliationCreatedSuccess = false;
-                state.isLoading = false;
-                state.cloudResourceLoadingError = null;
-                const result = action.payload.ids.map((id: number, index: any) =>
-                    Object.assign({}, { id: id }, action.payload.result[index]),
-                );
-                const payload = Object.assign({}, action.payload, { result: result });
-                state.cloudResourceResponse = payload;
-            })
-            .addCase(fetchCloudResources.rejected, (state, { payload }) => {
-                state.isAffiliationCreatedSuccess = false;
-                state.isLoading = false;
-                state.cloudResourceLoadingError = payload;
-            })
-            .addCase(getResourceById.pending, (state) => {
-                state.isAffiliationCreatedSuccess = false;
-                state.isLoading = true;
-                state.cloudResourceLoadingError = null;
-            })
-            .addCase(getResourceById.fulfilled, (state, action) => {
-                state.isAffiliationCreatedSuccess = false;
-                state.isLoading = false;
-                state.cloudResourceLoadingError = null;
-                state.currentResource = { ...action.payload.result, ...{ id: action.payload.id } };
-                state.resource_id = action.payload.id;
-            })
-            .addCase(getResourceById.rejected, (state, { payload }) => {
-                state.isAffiliationCreatedSuccess = false;
-                state.isLoading = false;
-                state.cloudResourceLoadingError = payload;
-            })
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchCloudResources.pending, (state) => {
+        state.isLoading = true;
+        state.cloudResourceLoadingError = null;
+      })
+      .addCase(fetchCloudResources.fulfilled, (state, action) => {
+        state.isAffiliationCreatedSuccess = false;
+        state.isLoading = false;
+        state.cloudResourceLoadingError = null;
+        const result = action.payload.ids.map((id: number, index: any) =>
+          Object.assign({}, { id: id }, action.payload.result[index]),
+        );
+        const payload = Object.assign({}, action.payload, { result: result });
+        state.cloudResourceResponse = payload;
+      })
+      .addCase(fetchCloudResources.rejected, (state, { payload }) => {
+        state.isAffiliationCreatedSuccess = false;
+        state.isLoading = false;
+        state.cloudResourceLoadingError = payload;
+      })
+      .addCase(getResourceById.pending, (state) => {
+        state.isAffiliationCreatedSuccess = false;
+        state.isLoading = true;
+        state.cloudResourceLoadingError = null;
+      })
+      .addCase(getResourceById.fulfilled, (state, action) => {
+        state.isAffiliationCreatedSuccess = false;
+        state.isLoading = false;
+        state.cloudResourceLoadingError = null;
+        state.currentResource = { ...action.payload.result, ...{ id: action.payload.id } };
+        state.resource_id = action.payload.id;
+      })
+      .addCase(getResourceById.rejected, (state, { payload }) => {
+        state.isAffiliationCreatedSuccess = false;
+        state.isLoading = false;
+        state.cloudResourceLoadingError = payload;
+      })
 
       .addCase(postAffiliation.pending, (state) => {
         state.isAffiliationCreatedSuccess = false;
@@ -147,6 +163,35 @@ const CloudResourceSlice = createSlice({
         state.managedResourceListResponse.isLoading = false;
         state.managedResourceListResponse.managedResourceFailed = true;
       })
+
+      .addCase(getMyWebHostings.pending, (state) => {
+        state.myWebHostingsResponse.isWebHostingsLoading = true;
+        state.myWebHostingsResponse.isWebHostingsLoadingFailed = false;
+        state.myWebHostingsResponse.WebHostingsList = undefined;
+      })
+      .addCase(getMyWebHostings.fulfilled, (state, action) => {
+        state.myWebHostingsResponse.isWebHostingsLoading = false;
+        state.myWebHostingsResponse.isWebHostingsLoadingFailed = false;
+        state.myWebHostingsResponse.WebHostingsList = action.payload.result;
+      })
+      .addCase(getMyWebHostings.rejected, (state) => {
+        state.myWebHostingsResponse.isWebHostingsLoading = false;
+        state.myWebHostingsResponse.isWebHostingsLoadingFailed = true;
+      })
+      .addCase(getMyDns.pending, (state) => {
+        state.myDnsResponse.isDnsLoading = true;
+        state.myDnsResponse.isDnsLoadingFailed = false;
+        state.myDnsResponse.dnsList = undefined;
+      })
+      .addCase(getMyDns.fulfilled, (state, action) => {
+        state.myDnsResponse.isDnsLoading = false;
+        state.myDnsResponse.isDnsLoadingFailed = false;
+        state.myDnsResponse.dnsList = action.payload.result;
+      })
+      .addCase(getMyDns.rejected, (state) => {
+        state.myDnsResponse.isDnsLoading = false;
+        state.myDnsResponse.isDnsLoadingFailed = true;
+      })
       .addCase(getProvidersList.pending, (state) => {
         state.isLoading = true;
         state.providersListResponse = undefined;
@@ -176,6 +221,6 @@ const CloudResourceSlice = createSlice({
   },
 });
 
-export const {updateCloudResourcesSearchValue} = CloudResourceSlice.actions;
+export const { updateCloudResourcesSearchValue } = CloudResourceSlice.actions;
 
 export default CloudResourceSlice.reducer;

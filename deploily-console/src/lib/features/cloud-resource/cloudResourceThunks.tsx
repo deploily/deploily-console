@@ -1,8 +1,8 @@
 import axiosInstance from "@/app/api/axios-instance";
-import {deploilyApiUrls} from "@/deploilyWebsiteUrls";
-import {createAsyncThunk} from "@reduxjs/toolkit";
-import {getSession} from "next-auth/react";
-import {Filter} from "./cloudResourceInterface";
+import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { getSession } from "next-auth/react";
+import { Filter } from "./cloudResourceInterface";
 export const fetchCloudResources = createAsyncThunk(
   "cloudresources/getcloudresources",
   async (filterParams: Filter, thunkConfig) => {
@@ -13,7 +13,7 @@ export const fetchCloudResources = createAsyncThunk(
     const filters: any[] = [];
 
     if (searchValue) {
-      filters.push({col: "name", opr: "ct", value: searchValue});
+      filters.push({ col: "name", opr: "ct", value: searchValue });
     }
 
     if (providerFilterValue) {
@@ -190,7 +190,7 @@ export const fetchResourceCategories = createAsyncThunk(
 );
 
 export const getManagedResources = createAsyncThunk(
-  "resources/gemanagedResources",
+  "resources/getManagedResources",
   async (_, thunkConfig) => {
     try {
       const session = await getSession();
@@ -198,12 +198,69 @@ export const getManagedResources = createAsyncThunk(
         return thunkConfig.rejectWithValue("session expired");
       }
       const token = session.accessToken;
-      const response = await axiosInstance.get(`${deploilyApiUrls.MANAGED_RESSOURCE_URL}`, {
+      const response = await axiosInstance.get(`${deploilyApiUrls.MANAGED_RESSOURCE_URL}/vps`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
         },
       });
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        return thunkConfig.rejectWithValue("Failed to fetch managed resource");
+      }
+    } catch (error: any) {
+      return thunkConfig.rejectWithValue(error.message);
+    }
+  },
+);
+
+export const getMyWebHostings = createAsyncThunk(
+  "resources/getMyWebHostings",
+  async (_, thunkConfig) => {
+    try {
+      const session = await getSession();
+      if (!session) {
+        return thunkConfig.rejectWithValue("session expired");
+      }
+      const token = session.accessToken;
+      const response = await axiosInstance.get(`${deploilyApiUrls.MANAGED_RESSOURCE_URL}/web-hosting`, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("response========================", response.data);
+      console.log("response========================", response.status);
+
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        return thunkConfig.rejectWithValue("Failed to fetch managed resource");
+      }
+    } catch (error: any) {
+      return thunkConfig.rejectWithValue(error.message);
+    }
+  },
+);
+export const getMyDns = createAsyncThunk(
+  "resources/getMyDns",
+  async (_, thunkConfig) => {
+    try {
+      const session = await getSession();
+      if (!session) {
+        return thunkConfig.rejectWithValue("session expired");
+      }
+      const token = session.accessToken;
+      const response = await axiosInstance.get(`${deploilyApiUrls.MANAGED_RESSOURCE_URL}/dns`, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("response========================", response.data);
+      console.log("response========================", response.status);
+
       if (response.status === 200) {
         return response.data;
       } else {

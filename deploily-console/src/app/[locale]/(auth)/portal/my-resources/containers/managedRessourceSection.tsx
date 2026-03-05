@@ -16,7 +16,7 @@ export default function ManagedRessourcesComponent() {
   const t = useScopedI18n("affiliation");
   useEffect(() => {
     dispatch(getManagedResources());
-  }, []);
+  }, [dispatch]);
 
   const {managedResourceResponse, isLoading, managedResourceFailed} = useManagedResource();
   const {isAffiliationCreatedSuccess} = useCloudResource();

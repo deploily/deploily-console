@@ -68,7 +68,7 @@ export const deploilyApiUrls = {
 
   HISTORY_SUBSCRIPTION_URL: `${API_BASE_URL}/subscription/history`,
 
-  MANAGED_RESSOURCE_URL: `${API_BASE_URL}/managed-ressource/`,
+  MANAGED_RESSOURCE_URL: `${API_BASE_URL}/managed-ressource`,
 
 
   DEPLOYMENT_SERVICES_URL: `${API_BASE_URL}/deployment-service/`,
