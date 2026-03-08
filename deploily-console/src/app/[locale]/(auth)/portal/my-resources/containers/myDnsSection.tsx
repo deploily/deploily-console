@@ -80,7 +80,7 @@ export default function MyDnsContainer() {
           dataSource={isDnsLoading ? Array(3).fill({ key: Math.random() }) : dnsList}
           size="middle"
           className="custom-table"
-          style={{ marginTop: 40, borderRadius: 0 }}
+          style={{ marginTop: 10, borderRadius: 0 }}
           rowKey={(record) => record.id || `row-${Math.random()}`}
         />
       )}

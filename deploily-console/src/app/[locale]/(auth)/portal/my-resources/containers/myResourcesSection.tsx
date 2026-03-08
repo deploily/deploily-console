@@ -1,19 +1,19 @@
-import {MyResourcesList} from "@/lib/features/cloud-resource/cloudResourceInterface";
-import {useCloudResource} from "@/lib/features/cloud-resource/cloudResourceSelectors";
-import {getMyResources} from "@/lib/features/cloud-resource/cloudResourceThunks";
-import {useAppDispatch} from "@/lib/hook";
-import {theme} from "@/styles/theme";
-import {CheckCircleTwoTone} from "@ant-design/icons";
-import {Skeleton, Table, Tag, notification} from "antd";
-import {useEffect, useMemo} from "react";
-import {useScopedI18n} from "../../../../../../../locales/client";
+import { MyResourcesList } from "@/lib/features/cloud-resource/cloudResourceInterface";
+import { useCloudResource } from "@/lib/features/cloud-resource/cloudResourceSelectors";
+import { getMyResources } from "@/lib/features/cloud-resource/cloudResourceThunks";
+import { useAppDispatch } from "@/lib/hook";
+import { theme } from "@/styles/theme";
+import { CheckCircleTwoTone } from "@ant-design/icons";
+import { Skeleton, Table, Tag, notification } from "antd";
+import { useEffect, useMemo } from "react";
+import { useScopedI18n } from "../../../../../../../locales/client";
 import getStatusStyle from "./status";
 
 export default function MyResourcesContainer() {
   const dispatch = useAppDispatch();
   const t = useScopedI18n("affiliation");
-  const {myResourcesResponse, isLoading, cloudResourceLoadingError} = useCloudResource();
-  const {isAffiliationCreatedSuccess} = useCloudResource();
+  const { myResourcesResponse, isLoading, cloudResourceLoadingError } = useCloudResource();
+  const { isAffiliationCreatedSuccess } = useCloudResource();
   const toastTranslate = useScopedI18n("toast");
 
   const [api, contextHolder] = notification.useNotification();
@@ -21,12 +21,12 @@ export default function MyResourcesContainer() {
   const openNotification = () => {
     api.open({
       message: (
-        <div style={{display: "flex", alignItems: "center", gap: 8}}>
-          <CheckCircleTwoTone twoToneColor="#52c41a" style={{fontSize: 20}} />
-          <span style={{color: "#000", fontWeight: 600}}> {toastTranslate("titleSuccess")}</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <CheckCircleTwoTone twoToneColor="#52c41a" style={{ fontSize: 20 }} />
+          <span style={{ color: "#000", fontWeight: 600 }}> {toastTranslate("titleSuccess")}</span>
         </div>
       ),
-      description: <div style={{color: "#888", fontSize: 14}}>{toastTranslate("success")}</div>,
+      description: <div style={{ color: "#888", fontSize: 14 }}>{toastTranslate("success")}</div>,
       duration: 5,
       style: {
         backgroundColor: "#ffffff",
@@ -67,9 +67,9 @@ export default function MyResourcesContainer() {
         render: (total_price: number) =>
           total_price
             ? total_price.toLocaleString("fr-FR", {
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 0,
-              }) + " DZD "
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+            }) + " DZD "
             : "-",
       },
       {
@@ -77,7 +77,7 @@ export default function MyResourcesContainer() {
         dataIndex: "affiliation_state",
         key: "affiliation_state",
         render: (affiliation_state: string) => {
-          const {backgroundColor, color, label} = getStatusStyle(affiliation_state, theme, t);
+          const { backgroundColor, color, label } = getStatusStyle(affiliation_state, theme, t);
 
           return (
             <Tag
@@ -106,12 +106,12 @@ export default function MyResourcesContainer() {
         render: (created_on: Date) =>
           created_on
             ? new Date(created_on).toLocaleString("fr-FR", {
-                day: "2-digit",
-                month: "2-digit",
-                year: "numeric",
-                hour: "2-digit",
-                minute: "2-digit",
-              })
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+            })
             : "-",
       },
     ];
@@ -121,9 +121,9 @@ export default function MyResourcesContainer() {
     () =>
       isLoading
         ? columns.map((col) => ({
-            ...col,
-            render: () => <Skeleton.Input active />,
-          }))
+          ...col,
+          render: () => <Skeleton.Input active />,
+        }))
         : columns,
     [isLoading, columns],
   );
@@ -134,10 +134,10 @@ export default function MyResourcesContainer() {
       {!cloudResourceLoadingError && myResourcesResponse && (
         <Table<MyResourcesList>
           columns={skeletonColumns}
-          dataSource={isLoading ? Array(3).fill({key: Math.random()}) : myResourcesResponse}
+          dataSource={isLoading ? Array(3).fill({ key: Math.random() }) : myResourcesResponse}
           size="middle"
           className="custom-table"
-          style={{marginTop: 40, borderRadius: 0}}
+          style={{ marginTop: 10, borderRadius: 0 }}
           rowKey={(record) => record.id || `row-${Math.random()}`}
         />
       )}

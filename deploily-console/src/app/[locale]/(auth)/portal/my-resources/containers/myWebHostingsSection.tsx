@@ -83,7 +83,7 @@ export default function MyWebHostingsContainer() {
           dataSource={isWebHostingsLoading ? Array(3).fill({ key: Math.random() }) : WebHostingsList}
           size="middle"
           className="custom-table"
-          style={{ marginTop: 40, borderRadius: 0 }}
+          style={{ marginTop: 10, borderRadius: 0 }}
           rowKey={(record) => record.id || `row-${Math.random()}`}
         />
       )}

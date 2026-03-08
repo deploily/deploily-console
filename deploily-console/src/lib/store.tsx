@@ -29,6 +29,7 @@ import supportTicketSlice from "./features/support-ticket/supportTicketSlice";
 import ttkEpaySlice from "./features/ttk-epay/ttkEpaySlice";
 import myDeploymentSlice from "./features/my-deployments/myDeploymentSlice";
 import dockerSlice from "./features/docker/dockerSlice";
+import dashboardSlice from "@/app/[locale]/(auth)/portal/dashboard/features/dashboardSlice";
 export const makeStore = () => {
   return configureStore({
     reducer: {
@@ -59,6 +60,7 @@ export const makeStore = () => {
       hiEventsApp: hiEventsAppSlice,
       myDeployment: myDeploymentSlice,
       dockerDep:dockerSlice,
+      dashboard: dashboardSlice,
     },
     middleware: getDefaultMiddleware =>
       getDefaultMiddleware().prepend(resourceServicesPlansMiddleware as Middleware).prepend(paymentProfileMiddleware as Middleware).prepend(servicesPlansMiddleware as Middleware),

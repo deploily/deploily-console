@@ -78,14 +78,6 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
           </Link>
         ),
       },
-      {
-        key: "5",
-        label: (
-          <Link href="/portal/my-web-hostings">
-            <span style={labelStyle}>{scopedSidebar("myWebHostings")}</span>
-          </Link>
-        ),
-      },
     ],
   },
   {

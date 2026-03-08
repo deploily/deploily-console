@@ -117,6 +117,7 @@ const ApplicationServiceSlice = createSlice({
       .addCase(fetchApplicationServiceById.fulfilled, (state, action) => {
         state.applicationServicesById.isLoading = false;
         state.applicationServicesById.loadingError = null;
+        state.newApplicationSubscriptionResponse.newSubscriptionResponse = undefined;
         state.applicationServicesById.applicationServiceById = action.payload.result;
         if (Array(state.applicationServicesById.applicationServiceById?.app_versions).length > 0) {
           state.newAppSubscriptionState.selected_version =

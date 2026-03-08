@@ -1,15 +1,15 @@
 "use client";
+import { ManagedResourceList } from "@/lib/features/cloud-resource/cloudResourceInterface";
 import {
   useCloudResource,
   useManagedResource,
 } from "@/lib/features/cloud-resource/cloudResourceSelectors";
-import {getManagedResources} from "@/lib/features/cloud-resource/cloudResourceThunks";
-import {useAppDispatch} from "@/lib/hook";
-import {CheckCircleTwoTone} from "@ant-design/icons";
-import {Skeleton, Table, notification} from "antd";
-import {useEffect, useMemo} from "react";
-import {useScopedI18n} from "../../../../../../../locales/client";
-import {ManagedResourceList} from "@/lib/features/cloud-resource/cloudResourceInterface";
+import { getManagedResources } from "@/lib/features/cloud-resource/cloudResourceThunks";
+import { useAppDispatch } from "@/lib/hook";
+import { CheckCircleTwoTone } from "@ant-design/icons";
+import { Skeleton, Table, notification } from "antd";
+import { useEffect, useMemo } from "react";
+import { useScopedI18n } from "../../../../../../../locales/client";
 
 export default function ManagedRessourcesComponent() {
   const dispatch = useAppDispatch();
@@ -18,8 +18,8 @@ export default function ManagedRessourcesComponent() {
     dispatch(getManagedResources());
   }, [dispatch]);
 
-  const {managedResourceResponse, isLoading, managedResourceFailed} = useManagedResource();
-  const {isAffiliationCreatedSuccess} = useCloudResource();
+  const { managedResourceResponse, isLoading, managedResourceFailed } = useManagedResource();
+  const { isAffiliationCreatedSuccess } = useCloudResource();
   const toastTranslate = useScopedI18n("toast");
 
   const [api, contextHolder] = notification.useNotification();
@@ -27,12 +27,12 @@ export default function ManagedRessourcesComponent() {
   const openNotification = () => {
     api.open({
       message: (
-        <div style={{display: "flex", alignItems: "center", gap: 8}}>
-          <CheckCircleTwoTone twoToneColor="#52c41a" style={{fontSize: 20}} />
-          <span style={{color: "#000", fontWeight: 600}}> {toastTranslate("titleSuccess")}</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <CheckCircleTwoTone twoToneColor="#52c41a" style={{ fontSize: 20 }} />
+          <span style={{ color: "#000", fontWeight: 600 }}> {toastTranslate("titleSuccess")}</span>
         </div>
       ),
-      description: <div style={{color: "#888", fontSize: 14}}>{toastTranslate("success")}</div>,
+      description: <div style={{ color: "#888", fontSize: 14 }}>{toastTranslate("success")}</div>,
       duration: 5,
       style: {
         backgroundColor: "#ffffff",
@@ -71,8 +71,8 @@ export default function ManagedRessourcesComponent() {
         key: "price",
         render: (price: number) =>
           price
-            ? price.toLocaleString("fr-FR", {minimumFractionDigits: 0, maximumFractionDigits: 0}) +
-              " DZD"
+            ? price.toLocaleString("fr-FR", { minimumFractionDigits: 0, maximumFractionDigits: 0 }) +
+            " DZD"
             : "-",
       },
       {
@@ -96,9 +96,9 @@ export default function ManagedRessourcesComponent() {
     () =>
       isLoading
         ? columns.map((col) => ({
-            ...col,
-            render: () => <Skeleton.Input active />,
-          }))
+          ...col,
+          render: () => <Skeleton.Input active />,
+        }))
         : columns,
     [isLoading, columns],
   );
@@ -109,10 +109,10 @@ export default function ManagedRessourcesComponent() {
       {!managedResourceFailed && managedResourceResponse && (
         <Table<ManagedResourceList>
           columns={skeletonColumns}
-          dataSource={isLoading ? Array(3).fill({key: Math.random()}) : managedResourceResponse}
+          dataSource={isLoading ? Array(3).fill({ key: Math.random() }) : managedResourceResponse}
           size="middle"
           className="custom-table"
-          style={{marginTop: 40, borderRadius: 0}}
+          style={{ marginTop: 10, borderRadius: 0 }}
           rowKey={(record) => String(record.id)}
         />
       )}
