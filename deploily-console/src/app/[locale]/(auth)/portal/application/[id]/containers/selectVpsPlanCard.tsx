@@ -183,7 +183,7 @@ export default function SelectVpsPlanCard({
                                                     />
                                                 </div>
                                                 <Col style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: 4 }}>
-                                                    {!plan.isManaged && (
+                                                    {plan.isManaged && (
                                                         <span
                                                             style={{
                                                                 color: theme.token.colorSuccess,
