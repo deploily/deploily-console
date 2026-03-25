@@ -4,13 +4,11 @@ import {
   fetchPaymentProfiles,
   postPaymentProfile,
 } from "@/lib/features/payment-profiles/paymentProfilesThunks";
-import {useSelectWilaya} from "@/lib/features/select-wilaya/selectWilayaSelector";
-// import { fetchCommuneFromPosition, fetchWilayaFromPosition } from "@/lib/features/select-wilaya/selectWilayaThunks";
 import {useAppDispatch} from "@/lib/hook";
 import {Button, Col, Form, Input, message, Radio, Row} from "antd";
 import Title from "antd/es/typography/Title";
 import {useRouter} from "next/navigation";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {useScopedI18n} from "../../../../../../../../locales/client";
 import {theme} from "@/styles/theme";
 
@@ -20,7 +18,6 @@ export default function AddPaymentProfile() {
   const [form] = Form.useForm();
   const [isCompany, setIsCompany] = useState(false);
   const router = useRouter();
-  const {wilaya, commune} = useSelectWilaya();
 
   const handleFinish = async (values: any) => {
     const payload = {
@@ -48,31 +45,6 @@ export default function AddPaymentProfile() {
     </>
   );
 
-  // useEffect(() => {
-  //     if (navigator.geolocation) {
-  //         navigator.geolocation.getCurrentPosition((pos) => {
-  //             dispatch(fetchWilayaFromPosition({
-  //                 lat: pos.coords.latitude,
-  //                 long: pos.coords.longitude
-  //             }));
-
-  //             dispatch(fetchCommuneFromPosition({
-  //                 lat: pos.coords.latitude,
-  //                 long: pos.coords.longitude
-  //             }));
-  //         });
-  //     }
-  // }, []);
-
-  useEffect(() => {
-    if (wilaya) {
-      form.setFieldsValue({wilaya: wilaya.nom});
-    }
-    if (commune) {
-      form.setFieldsValue({city: commune.nom});
-      form.setFieldsValue({postal_code: commune.code_5});
-    }
-  }, [commune, form, wilaya]);
 
   return (
     <div style={{paddingInline: 10}}>
@@ -176,7 +148,7 @@ export default function AddPaymentProfile() {
         <Row gutter={16}>
           <Col md={24} xs={24}>
             <Form.Item
-              initialValue={wilaya?.nom || ""}
+              initialValue={""}
               label={renderLabel(t("wilaya"))}
               name="wilaya"
               rules={[{required: true}]}

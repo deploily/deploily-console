@@ -19,7 +19,6 @@ import profileSlice from "./features/profile/profileSlice";
 import PormoCodeSlice from "./features/promo-code/promoCodeSlice";
 import resourceServicesPlansMiddleware from "./features/resourceServicePlans/resourceServicesPlansMiddleware";
 import resourceServicesPlansSlice from "./features/resourceServicePlans/resourceServicesPlansSlice";
-import wilayaSlice from "./features/select-wilaya/selectWilayaSlice";
 import servicesPlansMiddleware from "./features/service-plans/servicePlanMiddleWare";
 import servicePlanSlice from "./features/service-plans/servicePlanSlice";
 import subscriptionSlice from "./features/subscriptions/subscriptionSlice";
@@ -55,7 +54,6 @@ export const makeStore = () => {
       odooApp: odooAppSlice,
       supabaseApp: supabaseAppSlice,
       subscription: subscriptionSlice,
-      wilaya: wilayaSlice,
       nextCloudApp: nextCloudAppSlice,
       hiEventsApp: hiEventsAppSlice,
       myDeployment: myDeploymentSlice,
