@@ -138,7 +138,7 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                     {t("moreDetails")}
                   </CustomTransparentOrangeButton>
                 </Col>
-                <Col
+                {ttkEpayById.service_details.documentation_url &&<Col
                   span={24}
                   style={{
                     display: "flex",
@@ -148,20 +148,16 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                 >
                   <CustomTransparentOrangeButton
                     href={
-                      ttkEpayById.service_details.documentation_url ??
-                      "https://docs.deploily.cloud/#/"
+                      ttkEpayById.service_details.documentation_url
                     }
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     {t("documentation")}
                   </CustomTransparentOrangeButton>
-                </Col>
-
-
-
-
-                <Col
+                </Col>}
+                {/* //TODO add emulator url  */}
+                {ttkEpayById.console_url && <Col
                   span={24}
                   style={{
                     display: "flex",
@@ -171,15 +167,14 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
                 >
                   <CustomTransparentOrangeButton
                     href={
-                      ttkEpayById.console_url ??
-                      "https://deploily.github.io/ttk-epay-admin-console/en/"
+                      ttkEpayById.console_url
                     }
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     {tSubscription("adminConsole")}
                   </CustomTransparentOrangeButton>
-                </Col>
+                </Col>}
 
               </Row>
             </Col>

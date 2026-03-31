@@ -54,22 +54,6 @@ export default function DocumentationComponent({
           {t("forum")}
         </CustomTransparentOrangeButton>
       </Col>
-      <Col
-        span={24}
-        style={{
-          display: "flex",
-          justifyContent: "end",
-          alignSelf: "start",
-        }}
-      >
-        <CustomTransparentOrangeButton
-          href={dockerById.demo_url}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {t("demo_link")}
-        </CustomTransparentOrangeButton>
-      </Col>
     </>
   );
 }
