@@ -2,11 +2,7 @@
 import { DivCard } from "@/styles/components/divStyle";
 import { theme } from "@/styles/theme";
 import { Row, Typography } from "antd";
-import { useI18n } from "../../../../../../locales/client";
-import RenewApiSubscriptionComponents from "../my-api/[id]/components/renewSubscription";
-import UpgradeApiSubscriptionComponents from "../my-api/[id]/components/upgradeSubscription";
-import { useState } from "react";
-import ShowdrawerSubscription from "../my-api/[id]/components/showDrawerSubscription";
+import { useI18n } from "../../../../../../../locales/client";
 
 export default function SubscriptionPlanCard({
   currentSubscription,
@@ -14,7 +10,7 @@ export default function SubscriptionPlanCard({
   currentSubscription: any;
 }) {
   const t = useI18n();
-  const [drawerActionType, setDrawerActionType] = useState<"upgrade" | "renew" | null>(null);
+  // const [drawerActionType, setDrawerActionType] = useState<"upgrade" | "renew" | null>(null);
 
   return (
     <>
@@ -24,7 +20,8 @@ export default function SubscriptionPlanCard({
             style={{
               background: theme.token.darkGray,
               borderRadius: 16,
-              padding: 32,
+              paddingLeft: 16,
+              paddingRight: 16,
               height: "100%",
               border: `1px solid ${theme.token.orange600}20`,
               position: "relative",
@@ -44,7 +41,7 @@ export default function SubscriptionPlanCard({
             />
 
             {/* Plan Name Header */}
-            <div style={{ marginBottom: 24 }}>
+            <Row style={{ marginBottom: 10 }}>
               <Typography.Title
                 level={3}
                 style={{
@@ -58,12 +55,21 @@ export default function SubscriptionPlanCard({
                 {currentSubscription.get_plan_details.plan?.name ||
                   currentSubscription.name}
               </Typography.Title>
-            </div>
+              {/* <Typography.Title level={2} style={{ color: theme.token.orange400 }}>
+                {Intl.NumberFormat("fr-FR", { useGrouping: true }).format(
+                  currentSubscription.total_amount / currentSubscription.duration_month,
+                )}{" "}
+                DZD {currentSubscription.service_plan?.unity} /{" "}
+                {currentSubscription.service_plan.subscription_category === "monthly"
+                  ? t("month")
+                  : t("year")}
+              </Typography.Title> */}
+            </Row>
 
             {/* OPTIONS */}
             {Array.isArray(currentSubscription.get_plan_details.options) &&
               currentSubscription.get_plan_details.options.length > 0 && (
-                <div style={{ marginTop: 32 }}>
+                <div style={{ marginTop: 10 }}>
                   <Typography.Text
                     style={{
                       fontSize: 12,
@@ -72,21 +78,21 @@ export default function SubscriptionPlanCard({
                       textTransform: "uppercase",
                       letterSpacing: "1px",
                       display: "block",
-                      marginBottom: 16,
+                      marginBottom: 5,
                     }}
                   >
                     {t("planOptions")}
                   </Typography.Text>
 
-                  <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
                     {currentSubscription.get_plan_details.options.map((option: any) => (
                       <div
                         key={option.id}
                         style={{
                           display: "flex",
-                          alignItems: "flex-start",
+                          alignItems: "center",
                           gap: 12,
-                          padding: "14px 16px",
+                          padding: "4px 5px",
                           background: `${theme.token.orange600}08`,
                           borderRadius: 12,
                           border: `1px solid ${theme.token.orange600}15`,
@@ -147,10 +153,10 @@ export default function SubscriptionPlanCard({
                   display: "flex",
                   flexDirection: "column",
                   gap: 12,
-                  marginTop: 32,
+                  marginTop: 16,
                 }}
               >
-                <RenewApiSubscriptionComponents
+                {/* <RenewApiSubscriptionComponents
                   serviceId={currentSubscription.service_details.id}
                   oldPrice={currentSubscription.price}
                   plan={currentSubscription.service_plan_id}
@@ -164,18 +170,18 @@ export default function SubscriptionPlanCard({
                   start_date={currentSubscription.start_date}
                   oldDuration={currentSubscription.duration_month}
                   onClick={() => setDrawerActionType("upgrade")}
-                />
+                /> */}
               </div>
             )}
           </DivCard>
         )}
       </Row>
 
-      <ShowdrawerSubscription
+      {/* <ShowdrawerSubscription
         IsSubscribed={currentSubscription.service_details.is_subscribed}
         subscriptionOldId={currentSubscription.id}
         drawerType={drawerActionType}
-      />
+      /> */}
     </>
   );
 }

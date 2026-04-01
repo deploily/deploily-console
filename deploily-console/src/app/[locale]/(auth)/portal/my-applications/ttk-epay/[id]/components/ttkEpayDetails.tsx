@@ -3,38 +3,24 @@ import { useTtkEpayById, useTtkEpayUpdate } from "@/lib/features/ttk-epay/ttkEpa
 import { fetchTtkEpayById } from "@/lib/features/ttk-epay/ttkEpayThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { handleCopy } from "@/lib/utils/handleCopy";
-import ImageFetcher from "@/lib/utils/imageFetcher";
-import { CustomTransparentOrangeButton } from "@/styles/components/buttonStyle";
-import { DatePickerStyle } from "@/styles/components/datePickerStyle";
-import { CustomSubscripionInput } from "@/styles/components/inputStyle";
-import { CustomTypography } from "@/styles/components/typographyStyle";
-import { theme } from "@/styles/theme";
-import { CalendarDots, Copy, LinkSimple, PauseCircle, PlayCircle } from "@phosphor-icons/react";
+import {
+  Copy,
+  LinkSimple
+} from "@phosphor-icons/react";
 import {
   Alert,
-  Badge,
   Button,
-  Col,
-  Input,
   Result,
-  Row,
   Skeleton,
   Space,
-  Tag,
-  Tooltip,
-  Typography,
+  Typography
 } from "antd";
-import Paragraph from "antd/es/typography/Paragraph";
-import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../../../locales/client";
-import { applicationStatusStyle } from "../../../../my-api/utils/subscriptionsConst";
 import DocumentationDrawer from "../../../../utils/documentationDrawer";
-import PlanDetailsComponent from "../../../../utils/planDetailsComponents";
-import RenewMyAppSubscriptionComponents from "../../../components/renewMyAppSubscription";
-import ShowdrawerSubscription from "../../../components/showMyAppDrawerSubscription";
-import UpgradeMyAppSubscriptionComponents from "../../../components/upgradeMyAppSubscription";
+import AppServiceSubscriptionSettingContent from "../../../containers/AppServiceSubscriptionSettingContent";
 import TtkEpayParams from "./ttkEpayParams";
+
 export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
   const t = useI18n();
   const tSubscription = useScopedI18n("subscription");
@@ -42,358 +28,145 @@ export default function MyAppDetails({ my_app_id }: { my_app_id: string }) {
   const dispatch = useAppDispatch();
   const { ttkEpayById, isLoading, loadingError } = useTtkEpayById();
   const { updateTtkEpay } = useTtkEpayUpdate();
-  const [remainingDuration, setRemainingDuration] = useState<number>();
   const [openDrawer, setOpenDrawer] = useState(false);
-
-  const [drawerActionType, setDrawerActionType] = useState<"upgrade" | "renew" | null>(null);
 
   useEffect(() => {
     dispatch(fetchTtkEpayById(my_app_id));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updateTtkEpay]);
 
-  useEffect(() => {
-    if (ttkEpayById !== undefined) {
-      setRemainingDuration(
-        getRemainingDuration(ttkEpayById.start_date, ttkEpayById.duration_month),
-      );
-    }
-  }, [ttkEpayById]);
 
-  const onClose = () => {
-    setOpenDrawer(false);
-  };
-  function getRemainingDuration(startDate: Date, durationMonths: number) {
-    const start = new Date(startDate);
-    const end = new Date(start);
-    end.setMonth(end.getMonth() + durationMonths);
-
-    const today = new Date();
-
-    if (today >= end) {
-      return 0;
-    }
-
-    const diffInMonths =
-      (end.getFullYear() - today.getFullYear()) * 12 + (end.getMonth() - today.getMonth());
-    return diffInMonths;
-  }
+  const onClose = () => setOpenDrawer(false);
 
   return (
-    <Space
-      direction="vertical"
-      size="large"
-      style={{ paddingInline: 40, marginBlock: 10, width: "100%", marginBottom: 50, paddingTop: 20 }}
+    <div
+      style={{
+        maxWidth: 1400,
+        margin: "0 auto",
+        padding: "40px 24px",
+        minHeight: "100vh",
+      }}
     >
       {isLoading && ttkEpayById === undefined && (
         <>
-          <Skeleton.Image active style={{ marginBottom: 10 }} />
-          <Skeleton active paragraph={{ rows: 2 }} />
+          <Skeleton.Image active style={{ width: 300, height: 300 }} />
+          <Skeleton active paragraph={{ rows: 6 }} style={{ marginTop: 24 }} />
         </>
       )}
+
       {!isLoading && ttkEpayById !== undefined && (
-        <>
-          <Row gutter={16}>
-            <Col md={16} xs={24}>
-              <Badge offset={[-20, 20]}>
-                {ttkEpayById.service_details && (
-                  <ImageFetcher
-                    imagePath={ttkEpayById.service_details.image_service}
-                    width={220}
-                    height={220}
-                  />
-                )}
-              </Badge>
-            </Col>
+        <Space direction="vertical" size={32} style={{ width: "100%" }}>
 
-            <Col md={8} xs={24}>
-              <Row>
-                <Col
-                  span={24}
-                  style={{
-                    display: "flex",
-                    justifyContent: "end",
-                    alignSelf: "start",
-                  }}
-                >
-                  <Typography.Title level={2} style={{ color: theme.token.orange400 }}>
-                    {Intl.NumberFormat("fr-FR", { useGrouping: true }).format(
-                      ttkEpayById.total_amount / ttkEpayById.duration_month,
-                    )}{" "}
-                    DZD {ttkEpayById.service_plan?.unity} /{" "}
-                    {ttkEpayById.service_plan.subscription_category === "monthly"
-                      ? t("month")
-                      : t("year")}
-                  </Typography.Title>
-                </Col>
-                <Col
-                  span={24}
-                  style={{
-                    display: "flex",
-                    justifyContent: "end",
-                    alignSelf: "start",
-                  }}
-                >
-                  <CustomTransparentOrangeButton onClick={() => setOpenDrawer(true)}>
-                    {t("moreDetails")}
-                  </CustomTransparentOrangeButton>
-                </Col>
-                {ttkEpayById.service_details.documentation_url &&<Col
-                  span={24}
-                  style={{
-                    display: "flex",
-                    justifyContent: "end",
-                    alignSelf: "start",
-                  }}
-                >
-                  <CustomTransparentOrangeButton
-                    href={
-                      ttkEpayById.service_details.documentation_url
-                    }
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {t("documentation")}
-                  </CustomTransparentOrangeButton>
-                </Col>}
-                {/* //TODO add emulator url  */}
-                {ttkEpayById.console_url && <Col
-                  span={24}
-                  style={{
-                    display: "flex",
-                    justifyContent: "end",
-                    alignSelf: "start",
-                  }}
-                >
-                  <CustomTransparentOrangeButton
-                    href={
-                      ttkEpayById.console_url
-                    }
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {tSubscription("adminConsole")}
-                  </CustomTransparentOrangeButton>
-                </Col>}
+          <AppServiceSubscriptionSettingContent appServiceSubscription={ttkEpayById} isLoading={isLoading} />
 
-              </Row>
-            </Col>
-          </Row>
-          <Row
-            gutter={16}
+          {/* ── ACCESS URL CARD ───────────────────────────────────── */}
+          <div
             style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              width: "100%",
+              background: "#1a1a1a",
+              borderRadius: 14,
+              border: "1px solid #2a2a2a",
+              overflow: "hidden",
             }}
           >
-            {ttkEpayById.service_details && (
-              <Typography.Title level={2}>
-                {ttkEpayById.service_details.name}
-                {ttkEpayById.status === "active" ? (
-                  <Tooltip placement="rightTop" title={t("subscription.active")} color={"green"}>
-                    <PlayCircle size={24} weight="bold" style={{ marginLeft: 10, color: "green" }} />
-                  </Tooltip>
-                ) : (
-                  <Tooltip placement="rightTop" title={t("subscription.inactive")} color={"red"}>
-                    <PauseCircle size={24} weight="bold" style={{ marginLeft: 10, color: "red" }} />
-                  </Tooltip>
-                )}
-              </Typography.Title>
-            )}
-
-            <Col xs={24} md={12} lg={8}>
-              <Row gutter={[16, 10]} justify="end">
-                <Tag
-                  bordered={false}
-                  color={applicationStatusStyle(ttkEpayById.application_status)}
-                  style={{
-                    height: "fit-content",
-                    fontSize: "14px",
-                    fontWeight: "bold",
-                    borderRadius: 20,
-                    padding: "5px 20px",
-                    textTransform: "capitalize",
-                  }}
-                >
-                  {tSubscription(
-                    ttkEpayById.application_status as "processing" | "error" | "deployed",
-                  )}
-                </Tag>
-                {ttkEpayById.status === "active" && (
-                  <div
-                    style={{
-                      display: "flex",
-                      gap: "8px",
-                      flexWrap: "wrap",
-                      justifyContent: "flex-end",
-                    }}
-                  >
-                    <UpgradeMyAppSubscriptionComponents
-                      serviceId={ttkEpayById.service_details.id}
-                      oldPrice={ttkEpayById.total_amount}
-                      start_date={ttkEpayById.start_date}
-                      onClick={() => setDrawerActionType("upgrade")}
-                    />
-                    <RenewMyAppSubscriptionComponents
-                      serviceId={ttkEpayById.service_details.id}
-                      oldPrice={ttkEpayById.total_amount}
-                      start_date={ttkEpayById.start_date}
-                      duration={ttkEpayById.duration_month}
-                      plan={ttkEpayById.service_plan?.id}
-                      selectedVpsPlan={ttkEpayById.managed_ressource_details?.id}
-                      onClick={() => setDrawerActionType("renew")}
-                    />
-                  </div>
-                )}
-              </Row>
-            </Col>
-          </Row>
-
-          <ShowdrawerSubscription
-            serviceId={ttkEpayById.service_details.id}
-            isSubscribed={ttkEpayById.service_details.is_subscribed}
-            subscriptionOldId={ttkEpayById.id}
-            drawerType={drawerActionType}
-          />
-
-          {ttkEpayById.service_details && (
-            <Row gutter={16} style={{ marginTop: 0 }}>
-              <Paragraph style={{ fontSize: 14 }}>
-                {ttkEpayById.service_details.description}
-              </Paragraph>
-            </Row>
-          )}
-
-          {/* <CustomTypography style={{ color: "rgba(221, 136, 89, 1)", textDecoration: "underline " }} >{tSubscription('application')}</CustomTypography> */}
-
-          <Row
-            gutter={[16, 24]}
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              marginBlock: 20,
-            }}
-          >
-            <Col xs={24} md={12} lg={8}>
-              <Row gutter={[16, 10]} align="middle">
-                <Col xs={24} md={8}>
-                  <CustomTypography>{t("startDate")}</CustomTypography>
-                </Col>
-                <Col xs={24} md={16}>
-                  <DatePickerStyle
-                    style={{ width: "100%", color: theme.token.colorWhite }}
-                    defaultValue={dayjs(ttkEpayById.start_date, "YYYY-MM-DD")}
-                    disabled
-                    suffixIcon={<CalendarDots size={24} style={{ color: theme.token.blue200 }} />}
-                  />
-                </Col>
-              </Row>
-            </Col>
-            <Col xs={24} md={12} lg={8}>
-              <Row gutter={[16, 10]} align="middle">
-                <Col xs={24} md={8}>
-                  <CustomTypography>{t("duration")}</CustomTypography>
-                </Col>
-                <Col xs={24} md={16}>
-                  <CustomSubscripionInput
-                    defaultValue={`${ttkEpayById.duration_month} / month(s)`}
-                    style={{ width: "100%", color: theme.token.colorWhite }}
-                    disabled
-                  />
-                </Col>
-              </Row>
-            </Col>
-
-            <Col xs={24} md={12} lg={8}>
-              <Row gutter={[16, 10]} align="middle">
-                <Col xs={24} md={8}>
-                  <CustomTypography>{t("remainingDuration")}</CustomTypography>
-                </Col>
-                <Col xs={24} md={16}>
-                  <CustomSubscripionInput
-                    defaultValue={`${getRemainingDuration(ttkEpayById.start_date, ttkEpayById.duration_month)} / month(s)`}
-                    style={{
-                      width: "100%",
-                      color:
-                        remainingDuration !== undefined && remainingDuration <= 1
-                          ? theme.token.colorError
-                          : theme.token.colorWhite,
-                    }}
-                    disabled
-                  />
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-          {/* === PLAN & PLAN OPTIONS DISPLAY === */}
-          <PlanDetailsComponent currentSubscription={ttkEpayById} />
-          {/* === END PLAN & PLAN OPTIONS DISPLAY === */}
-          {/* === MANAGED RESOURCE DISPLAY === */}
-          {/* <ManagedRessourceComponent ttkEpayById={ttkEpayById} /> */}
-          {/* === END MANAGED RESOURCE DISPLAY === */}
-
-          <div>
-            <Typography style={{ fontWeight: 700, fontSize: 24, color: theme.token.orange600 }}>
-              {tSubscription("accessUrl")}
-            </Typography>
+            {/* Header */}
             <div
               style={{
-                flexDirection: "row",
                 display: "flex",
-                justifyContent: "space-between",
-                width: "100%",
-                paddingBottom: "15px",
+                alignItems: "center",
+                padding: "18px 20px 14px",
+                gap: 10,
               }}
             >
-              <Input
-                value={ttkEpayById.access_url}
-                readOnly
+              <div
                 style={{
-                  cursor: "default",
-                  userSelect: "text",
-                  caretColor: "transparent",
-                  width: "fit",
-                  marginRight: "5px",
+                  width: 4,
+                  height: 22,
+                  background: "#4f8ef7",
+                  borderRadius: 2,
                 }}
               />
-              <Button
-                type="primary"
-                style={{ boxShadow: "none", marginRight: "5px" }}
-                icon={<LinkSimple size={20} />}
-                onClick={() => window.open(ttkEpayById.access_url, "_blank")}
-              />
-              <Button
-                type="primary"
-                style={{ boxShadow: "none" }}
-                icon={<Copy />}
-                onClick={() => handleCopy(ttkEpayById.access_url)}
-              />
+              <Typography.Title
+                level={5}
+                style={{ color: "#fff", margin: 0, fontSize: 16, fontWeight: 600 }}
+              >
+                {tSubscription("accessUrl")}
+              </Typography.Title>
+            </div>
+
+            <div style={{ padding: "0 20px 20px" }}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  background: "#0d0d0d",
+                  padding: "10px 14px",
+                  borderRadius: 8,
+                  border: "1px solid #2a2a2a",
+                  gap: 10,
+                }}
+              >
+                <span
+                  style={{
+                    flex: 1,
+                    color: "#e0e0e0",
+                    fontSize: 13,
+                    fontFamily: "monospace",
+                    wordBreak: "break-all",
+                  }}
+                >
+                  {ttkEpayById.access_url}
+                </span>
+                <div style={{ display: "flex", gap: 6, flexShrink: 0 }}>
+                  <Button
+                    type="text"
+                    size="small"
+                    icon={<LinkSimple size={16} color="#888" />}
+                    onClick={() => window.open(ttkEpayById.access_url, "_blank")}
+                    style={{ padding: "0 6px", height: 28 }}
+                  />
+                  <Button
+                    type="text"
+                    size="small"
+                    icon={<Copy size={16} color="#888" />}
+                    onClick={() => handleCopy(ttkEpayById.access_url)}
+                    style={{ padding: "0 6px", height: 28 }}
+                  />
+                </div>
+              </div>
             </div>
           </div>
-          {ttkEpayById.application_status == "error" && (
-            <div style={{ marginBlock: 20 }}>
-              <Alert
-                message={<span style={{ color: "black" }}>{t("error")}</span>}
-                description={<span style={{ color: "black" }}>{ttkEpayById.deployment_error}</span>}
-                type="error"
-                showIcon
-              />
-            </div>
+
+          {/* ── ERROR ALERT ───────────────────────────────────────── */}
+          {ttkEpayById.application_status === "error" && (
+            <Alert
+              message={<span style={{ color: "black" }}>{t("error")}</span>}
+              description={
+                <span style={{ color: "black" }}>{ttkEpayById.deployment_error}</span>
+              }
+              type="error"
+              showIcon
+            />
           )}
+
+          {/* ── TTK EPAY PARAMS ───────────────────────────────────── */}
           <TtkEpayParams data={ttkEpayById} />
+
           <DocumentationDrawer
             openDrawer={openDrawer}
             onClose={onClose}
             currentSubscription={ttkEpayById}
             t={t}
           />
-        </>
+        </Space>
       )}
+
       {!isLoading && loadingError && (
-        <Result status="500" title={t("error")} subTitle={t("subTitleError")} />
+        <Result
+          status="500"
+          title={t("errorMessage")}
+          subTitle={t("subTitleErrorMessage")}
+        />
       )}
-    </Space>
+    </div>
   );
 }

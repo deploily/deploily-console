@@ -524,4 +524,23 @@ export default {
   'dashboard.expiringSoonSubscriptions.status': 'Statut ',
   'dashboard.expiringSoonSubscriptions.amount': 'Montant ',
   'dashboard.expiringSoonSubscriptions.paymentMethod': 'Méthode de paiement ',
+
+  errorMessage: "Une erreur est survenue",
+  subTitleErrorMessage: "Une erreur inattendue s'est produite. Veuillez réessayer plus tard.",
+  apiAccessUrl: "URL d'accès",
+  apiServiceSubscription: {
+    apiKey: "Clé API",
+    active: "Actif",
+    inactive: "Inactif",
+    inactiveMessage: "Votre abonnement est actuellement inactif. Veuillez le renouveler ou le mettre à niveau pour retrouver l'accès.",
+  },
+  quickAccess: "Accès rapide",
+  resourcesAndDocumentation: "Ressources & Documentation",
+  apiReferenceAndGuides: "Référence API & guides",
+  subscriptionStatus: "Statut de l'abonnement",
+  months: "mois",
+  activeSecretKey: "Clé secrète active",
+  regenerateKeyWarning: "La régénération de votre clé révoquera immédiatement l'accès à la clé précédente.",
+  curlRequest: "Requête CURL",
+  curlRequestSubtitle: "Extrait de code pour exécution en terminal",
 } as const;

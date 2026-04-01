@@ -514,4 +514,23 @@ export default {
     'dashboard.expiringSoonSubscriptions.status': 'Status ',
     'dashboard.expiringSoonSubscriptions.amount': 'Amount ',
     'dashboard.expiringSoonSubscriptions.paymentMethod': 'Payment method ',
+    errorMessage: "Something went wrong",
+    subTitleErrorMessage: "An unexpected error occurred. Please try again later.",
+    apiAccessUrl: "Access URL",
+    apiServiceSubscription: {
+        apiKey: "API Key",
+        active: "Active",
+        inactive: "Inactive",
+        inactiveMessage:
+            "Your subscription is currently inactive. Please renew or upgrade your plan to regain access.",
+    },
+    quickAccess: "Quick Access",
+    resourcesAndDocumentation: "Resources & Documentation",
+    apiReferenceAndGuides: "API reference & guides",
+    subscriptionStatus: "Subscription Status",
+    months: "month(s)",
+    activeSecretKey: "Active Secret Key",
+    regenerateKeyWarning: "Regenerating your key will immediately revoke access to the previous key.",
+    curlRequest: "CURL Request",
+    curlRequestSubtitle: "Quick start code snippet for terminal execution",
 } as const
