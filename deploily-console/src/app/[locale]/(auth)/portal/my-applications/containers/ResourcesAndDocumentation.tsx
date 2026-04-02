@@ -17,37 +17,38 @@ interface ResourcesAndDocumentationProps {
   onMoreDetailsClick: () => void;
 }
 
-const DOC_URL_CONFIG: Record<
-  DocUrlType,
-  { labelKey: string; subtitleKey: string; icon: React.ReactNode }
-> = {
-  documentation: {
-    labelKey: "documentation",
-    subtitleKey: "apiReferenceAndGuides",
-    icon: <BookOpen size={20} color={theme.token.orange600} weight="duotone" />,
-  },
-  adminConsole: {
-    labelKey: "adminConsole",
-    subtitleKey: "manageYourService",
-    icon: <Monitor size={20} color={theme.token.orange600} weight="duotone" />,
-  },
-  demoUrl: {
-    labelKey: "liveDemo",
-    subtitleKey: "tryItOut",
-    icon: <Desktop size={20} color={theme.token.orange600} weight="duotone" />,
-  },
-  consoleUrl: {
-    labelKey: "console",
-    subtitleKey: "serviceConsole",
-    icon: <Code size={20} color={theme.token.orange600} weight="duotone" />,
-  },
-};
-
 export default function ResourcesAndDocumentation({
   docsUrls,
   onMoreDetailsClick,
 }: ResourcesAndDocumentationProps) {
   const t = useI18n();
+
+  // Defined inside the component so t() is available at render time
+  const DOC_URL_CONFIG: Record<
+    DocUrlType,
+    { label: string; subtitle: string; icon: React.ReactNode }
+  > = {
+    documentation: {
+      label: t("documentation"),
+      subtitle: t("apiReferenceAndGuides"),
+      icon: <BookOpen size={20} color={theme.token.orange600} weight="duotone" />,
+    },
+    adminConsole: {
+      label: t("adminConsole"),
+      subtitle: t("manageYourService"),
+      icon: <Monitor size={20} color={theme.token.orange600} weight="duotone" />,
+    },
+    demoUrl: {
+      label: t("liveDemo"),
+      subtitle: t("tryItOut"),
+      icon: <Desktop size={20} color={theme.token.orange600} weight="duotone" />,
+    },
+    consoleUrl: {
+      label: t("console"),
+      subtitle: t("serviceConsole"),
+      icon: <Code size={20} color={theme.token.orange600} weight="duotone" />,
+    },
+  };
 
   if (docsUrls.length === 0) return null;
 
@@ -156,10 +157,10 @@ export default function ResourcesAndDocumentation({
                         display: "block",
                       }}
                     >
-                      {t(config.labelKey as any)}
+                      {config.label}
                     </Typography.Text>
                     <Typography.Text style={{ fontSize: 11, color: "#555" }}>
-                      {t(config.subtitleKey as any)}
+                      {config.subtitle}
                     </Typography.Text>
                   </div>
                 </div>

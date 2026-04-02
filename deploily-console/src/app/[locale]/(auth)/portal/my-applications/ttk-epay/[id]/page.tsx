@@ -1,4 +1,4 @@
-import MyAppDetails from "./components/ttkEpayDetails";
+import TtkEpayDetails from "./components/ttkEpayDetails";
 
 type Props = {
   params: {id: string};
@@ -6,7 +6,7 @@ type Props = {
 export default function Page({params: {id}}: Props) {
   return (
     <>
-      <MyAppDetails my_app_id={id} />
+      <TtkEpayDetails my_app_id={id} />
     </>
   );
 }

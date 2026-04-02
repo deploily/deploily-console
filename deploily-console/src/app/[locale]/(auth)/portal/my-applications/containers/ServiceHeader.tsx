@@ -1,9 +1,10 @@
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { theme } from "@/styles/theme";
 import { PauseCircle, PlayCircle } from "@phosphor-icons/react";
-import { Tooltip, Typography } from "antd";
+import { Col, Tag, Tooltip, Typography } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
+import { applicationStatusStyle } from "../../my-api/utils/subscriptionsConst";
 
 interface ServiceDetails {
   image_service: string;
@@ -14,10 +15,12 @@ interface ServiceDetails {
 interface ServiceHeaderProps {
   serviceDetails: ServiceDetails;
   status: string;
+  application_status:string
 }
 
-export default function ServiceHeader({ serviceDetails, status }: ServiceHeaderProps) {
-  const tApiServiceSubscription = useScopedI18n("apiServiceSubscription");
+export default function ServiceHeader({ serviceDetails, status, application_status }: ServiceHeaderProps) {
+  const tSubscription = useScopedI18n("subscription");
+
   const t = useI18n();
 
   return (
@@ -83,20 +86,40 @@ export default function ServiceHeader({ serviceDetails, status }: ServiceHeaderP
             )}
           </Typography.Title>
 
-          {/* <Tag
+          <Tag
             bordered={false}
-            color={subscriptionStatusStyle(status)}
+            color={applicationStatusStyle(application_status)}
             style={{
-              fontSize: 10,
-              fontWeight: 700,
+              height: "fit-content",
+              fontSize: "14px",
+              fontWeight: "bold",
               borderRadius: 20,
-              padding: "3px 10px",
-              textTransform: "uppercase",
-              letterSpacing: "0.8px",
+              padding: "5px 20px",
+              textTransform: "capitalize",
             }}
           >
-            {tApiServiceSubscription(status as "active" | "inactive")}
-          </Tag> */}
+            {tSubscription(
+              application_status as "processing" | "error" | "deployed",
+            )}
+          </Tag>
+          <Col
+            span={24}
+            style={{
+              display: "flex",
+              justifyContent: "end",
+              alignSelf: "start",
+            }}
+          >
+            {/* <Typography.Title level={2} style={{ color: theme.token.orange400 }}>
+              {Intl.NumberFormat("fr-FR", { useGrouping: true }).format(
+              total_amount / duration_month,
+              )}{" "}
+              DZD /{" "}
+              {subscription_category === "monthly"
+                ? t("month")
+                : t("year")}
+            </Typography.Title> */}
+          </Col>
         </div>
 
         <Paragraph
