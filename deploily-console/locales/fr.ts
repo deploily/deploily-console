@@ -111,7 +111,7 @@ export default {
   "sidebar.sponsoring": "Sponsoring",
   "sidebar.account": "Compte",
   "sidebar.profile": "Profile",
-  "sidebar.logout": "déconnexion",
+  "sidebar.logout": "Déconnexion",
   "sidebar.collapse": "Réduire la barre",
   'sidebar.myDeployments': 'Mes déploiements',
 
@@ -543,4 +543,10 @@ export default {
   regenerateKeyWarning: "La régénération de votre clé révoquera immédiatement l'accès à la clé précédente.",
   curlRequest: "Requête CURL",
   curlRequestSubtitle: "Extrait de code pour exécution en terminal",
+  "adminConsole": "Console d'Administration",
+  "manageYourService": "Gérez votre service",
+  "liveDemo": "Démo en Direct",
+  "tryItOut": "Essayez-le",
+  "console": "Console",
+  "serviceConsole": "Console du Service",
 } as const;

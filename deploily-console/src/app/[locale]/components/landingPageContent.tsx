@@ -1,7 +1,6 @@
 "use client";
 import {Col, Row} from "antd";
 import Link from "antd/es/typography/Link";
-import Image from "next/image";
 import {useI18n} from "../../../../locales/client";
 
 export default function LandingPageContent({
@@ -27,29 +26,8 @@ export default function LandingPageContent({
         }}
       >
         <div></div>
-        <div
-          style={{
-            width: "80%",
-            height: "auto",
-            alignItems: "center",
-            display: "flex",
-            flexDirection: "column",
-            marginBottom: "50px",
-          }}
-        >
-          <div>
-            <Image
-              src="/images/logo_name.png"
-              width={200}
-              height={49}
-              alt="logo-deploily"
-              style={{
-                marginBottom: 50,
-              }}
-            />
-          </div>
+    
           <>{loginLogoutButton}</>
-        </div>
 
         <div>
           <Link href="https://deploily.cloud/en">

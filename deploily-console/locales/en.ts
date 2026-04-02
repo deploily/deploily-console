@@ -533,4 +533,11 @@ export default {
     regenerateKeyWarning: "Regenerating your key will immediately revoke access to the previous key.",
     curlRequest: "CURL Request",
     curlRequestSubtitle: "Quick start code snippet for terminal execution",
+  "adminConsole": "Admin Console",
+  "manageYourService": "Manage your service",
+  "liveDemo": "Live Demo",
+  "tryItOut": "Try it out",
+  "console": "Console",
+  "serviceConsole": "Service Console",
+
 } as const
