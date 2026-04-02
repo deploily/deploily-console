@@ -3,10 +3,8 @@ import { DivCard } from "@/styles/components/divStyle";
 import { theme } from "@/styles/theme";
 import { Row, Typography } from "antd";
 import { useI18n } from "../../../../../../locales/client";
-import RenewApiSubscriptionComponents from "../my-api/[id]/components/renewSubscription";
-import UpgradeApiSubscriptionComponents from "../my-api/[id]/components/upgradeSubscription";
-import { useState } from "react";
-import ShowdrawerSubscription from "../my-api/[id]/components/showDrawerSubscription";
+// import RenewApiSubscriptionComponents from "../my-api/[id]/components/renewSubscription";
+// import UpgradeApiSubscriptionComponents from "../my-api/[id]/components/upgradeSubscription";
 
 export default function SubscriptionPlanCard({
   currentSubscription,
@@ -14,7 +12,7 @@ export default function SubscriptionPlanCard({
   currentSubscription: any;
 }) {
   const t = useI18n();
-  const [drawerActionType, setDrawerActionType] = useState<"upgrade" | "renew" | null>(null);
+  // const [drawerActionType, setDrawerActionType] = useState<"upgrade" | "renew" | null>(null);
 
   return (
     <>
@@ -141,7 +139,7 @@ export default function SubscriptionPlanCard({
               )}
 
             {/* Action Buttons */}
-            {currentSubscription.status === "active" && (
+            {/* {currentSubscription.status === "active" && (
               <div
                 style={{
                   display: "flex",
@@ -166,16 +164,16 @@ export default function SubscriptionPlanCard({
                   onClick={() => setDrawerActionType("upgrade")}
                 />
               </div>
-            )}
+            )} */}
           </DivCard>
         )}
       </Row>
 
-      <ShowdrawerSubscription
+      {/* <ShowdrawerSubscription
         IsSubscribed={currentSubscription.service_details.is_subscribed}
         subscriptionOldId={currentSubscription.id}
         drawerType={drawerActionType}
-      />
+      /> */}
     </>
   );
 }
