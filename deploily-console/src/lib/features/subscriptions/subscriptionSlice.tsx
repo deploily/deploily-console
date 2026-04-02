@@ -31,7 +31,7 @@ const SubscriptionSlice = createSlice({
       .addCase(fetchSubscription.fulfilled, (state, action) => {
         state.subscriptionsState.subscriptionLoading = false;
         state.subscriptionsState.subscriptionLoadingError = null;
-        state.subscriptionsState.subscriptionResponse = action.payload.result;
+        state.subscriptionsState.subscriptionResponse = action.payload;
       })
       .addCase(fetchSubscription.rejected, (state, {payload}) => {
         state.subscriptionsState.subscriptionLoading = false;
