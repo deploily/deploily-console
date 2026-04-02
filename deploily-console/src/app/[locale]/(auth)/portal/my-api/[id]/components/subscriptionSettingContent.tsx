@@ -329,7 +329,7 @@ export default function ApiServiceSubscriptionSettingContent({
                   <div
                     style={{
                       display: "grid",
-                      gridTemplateColumns: "repeat(3, 1fr)",
+                      gridTemplateColumns: "repeat(4, 1fr)",
                       gap: 0,
                     }}
                   >
@@ -358,6 +358,38 @@ export default function ApiServiceSubscriptionSettingContent({
                         }}
                       >
                         {dayjs(currentApiServiceSubscription.start_date).format("YYYY-MM-DD")}
+                      </Typography.Text>
+                    </div>
+                    
+                    <div style={{
+                      paddingRight: 24, paddingLeft: 24, borderRight: "1px solid #1a1a1a" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 8 }}>
+                        <CalendarBlank size={13} color="#555" />
+                        <Typography.Text
+                          style={{
+                            fontSize: 10,
+                            color: "#555",
+                            fontWeight: 500,
+                            textTransform: "uppercase",
+                            letterSpacing: "0.6px",
+                          }}
+                        >
+                          {t("endDate")}
+                        </Typography.Text>
+                      </div>
+                      <Typography.Text
+                        style={{
+                          fontSize: 15,
+                          color: "#d0d0d0",
+                          fontWeight: 600,
+                          fontFamily: "monospace",
+                        }}
+                      >
+                        {dayjs(new Date(
+                          new Date(currentApiServiceSubscription.start_date).setMonth(
+                            new Date(currentApiServiceSubscription.start_date).getMonth() + currentApiServiceSubscription.duration_month
+                          )
+                        )).format("YYYY-MM-DD")}
                       </Typography.Text>
                     </div>
 
