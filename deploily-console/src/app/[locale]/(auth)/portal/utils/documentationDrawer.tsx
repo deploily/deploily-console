@@ -21,7 +21,6 @@ export default function DocumentationDrawer({
       placement="right"
       onClose={onClose}
       open={openDrawer}
-      getContainer={false}
       width={600}
     >
       <Row gutter={[16, 10]} key={currentSubscription.id}>

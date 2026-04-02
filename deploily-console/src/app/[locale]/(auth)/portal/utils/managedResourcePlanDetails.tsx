@@ -4,7 +4,7 @@ import {theme} from "@/styles/theme";
 import {CaretDown, CaretUp} from "@phosphor-icons/react";
 import {Col, Collapse, Row, Typography} from "antd";
 import {useI18n} from "../../../../../../locales/client";
-
+//TODO REMOVE IF NOT USED 
 export default function ManagedResourcePlanDetails({
   currentSubscription,
 }: {

@@ -9,7 +9,7 @@ export const deploilyApiUrls = {
   SERVICE_URL: `${API_BASE_URL}/service/`,
   API_SERVICE_URL: `${API_BASE_URL}/api-service/`,
   SERVICE_PLAN_URL: `${API_BASE_URL}/service-plan`,
-  SUBSCRIBE_URL: `${API_BASE_URL}/api-service-subscription/`,
+  SUBSCRIBE_URL: `${API_BASE_URL}/subscription/`,
   API_SERVICE_SUBSCRIBE_URL: `${API_BASE_URL}/api-service-subscription/`,
   MY_FAVORITE_URL: `${API_BASE_URL}/my-favorites/`,
   POST_FAVORITE_SERVICE_URL: `${API_BASE_URL}/my-favorites/service`,
