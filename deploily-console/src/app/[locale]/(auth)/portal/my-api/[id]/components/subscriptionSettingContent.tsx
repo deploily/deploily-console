@@ -1,28 +1,22 @@
 "use client";
-import {useAppDispatch} from "@/lib/hook";
+import { useAppDispatch } from "@/lib/hook";
 import ImageFetcher from "@/lib/utils/imageFetcher";
-import {CustomTransparentOrangeButton} from "@/styles/components/buttonStyle";
-import {DatePickerStyle} from "@/styles/components/datePickerStyle";
-import {CustomSubscripionInput} from "@/styles/components/inputStyle";
-import {CustomTypography} from "@/styles/components/typographyStyle";
-import {theme} from "@/styles/theme";
-import {CalendarDots} from "@phosphor-icons/react";
-import {Badge, Col, Result, Row, Skeleton, Space, Tag, Typography} from "antd";
+import { CustomTransparentOrangeButton } from "@/styles/components/buttonStyle";
+import { theme } from "@/styles/theme";
+import { BookOpen, Info, CalendarBlank, Timer, HourglassHigh } from "@phosphor-icons/react";
+import { Col, Result, Row, Skeleton, Space, Tag, Typography } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import dayjs from "dayjs";
 import Link from "next/link";
-import {useEffect, useState} from "react";
-import {useI18n, useScopedI18n} from "../../../../../../../../locales/client";
+import { useEffect, useState } from "react";
+import { useI18n, useScopedI18n } from "../../../../../../../../locales/client";
 import GenerateTokenComponent from "./generateTokenComponent";
-import {useApiServiceSubscription} from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionSelectors";
-import {fetchApiServiceSubscriptionById} from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionThunks";
-import {subscriptionItems} from "./subscriptionItems";
+import { useApiServiceSubscription } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionSelectors";
+import { fetchApiServiceSubscriptionById } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionThunks";
+import { subscriptionItems } from "./subscriptionItems";
 import DocumentationDrawer from "../../../utils/documentationDrawer";
-import {subscriptionStatusStyle} from "../../utils/subscriptionsConst";
-import UpgradeApiSubscriptionComponents from "./upgradeSubscription";
-import ShowdrawerSubscription from "./showDrawerSubscription";
-import RenewApiSubscriptionComponents from "./renewSubscription";
-import PlanDetailsComponent from "../../../utils/planDetailsComponents";
+import { subscriptionStatusStyle } from "../../utils/subscriptionsConst";
+import SubscriptionPlanCard from "../../../utils/subscriptionplanCard";
 
 export default function ApiServiceSubscriptionSettingContent({
   apiServiceSubscription_id,
@@ -41,13 +35,10 @@ export default function ApiServiceSubscriptionSettingContent({
   const [openDrawer, setOpenDrawer] = useState(false);
   const [remainingDuration, setRemainingDuration] = useState<number>();
 
-  const [isHovered, setIsHovered] = useState(false);
-  const onClose = () => {
-    setOpenDrawer(false);
-  };
+  const onClose = () => setOpenDrawer(false);
+
   useEffect(() => {
     dispatch(fetchApiServiceSubscriptionById(apiServiceSubscription_id));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -65,310 +56,482 @@ export default function ApiServiceSubscriptionSettingContent({
     const start = new Date(startDate);
     const end = new Date(start);
     end.setMonth(end.getMonth() + durationMonths);
-
     const today = new Date();
-
-    if (today >= end) {
-      return 0;
-    }
-
-    const diffInMonths =
-      (end.getFullYear() - today.getFullYear()) * 12 + (end.getMonth() - today.getMonth()); //TODO VERIFY IF IS MONTH OR DAY
-
-    return diffInMonths;
+    if (today >= end) return 0;
+    return (
+      (end.getFullYear() - today.getFullYear()) * 12 +
+      (end.getMonth() - today.getMonth())
+    );
   }
 
-  const [drawerActionType, setDrawerActionType] = useState<"upgrade" | "renew" | null>(null);
-
   return (
-    <Space
-      direction="vertical"
-      size="large"
-      style={{paddingInline: 40, marginBlock: 10, width: "100%", marginBottom: 50, paddingTop: 20}}
+    <div
+      style={{
+        maxWidth: 1400,
+        margin: "0 auto",
+        padding: "40px 24px",
+        minHeight: "100vh",
+      }}
     >
       {currentApiServiceSubscriptionLoading && currentApiServiceSubscription === undefined && (
         <>
-          <Skeleton.Image active />
-          <Skeleton active paragraph={{rows: 2}} />
+          <Skeleton.Image active style={{ width: 300, height: 300 }} />
+          <Skeleton active paragraph={{ rows: 6 }} style={{ marginTop: 24 }} />
         </>
       )}
+
       {!currentApiServiceSubscriptionLoading && currentApiServiceSubscription !== undefined && (
-        <>
-          <Row gutter={16}>
-            <Col md={16} xs={24}>
-              <Badge offset={[-20, 20]}>
-                {currentApiServiceSubscription.service_details && (
-                  <ImageFetcher
-                    imagePath={currentApiServiceSubscription.service_details.image_service}
-                    width={220}
-                    height={220}
-                  />
-                )}
-              </Badge>
-            </Col>
-
-            <Col md={8} xs={24}>
-              <Row>
-                <Col
-                  span={24}
+        <Space direction="vertical" size={32} style={{ width: "100%" }}>
+          <Row gutter={[32, 32]} align="stretch">
+            {/* LEFT - Service Info */}
+            <Col xs={24} lg={16}>
+              <div>
+                <div
                   style={{
-                    display: "flex",
-                    justifyContent: "end",
-                    alignSelf: "start",
+                    position: "absolute",
+                    top: -60,
+                    left: -60,
+                    width: 220,
+                    height: 220,
+                    borderRadius: "50%",
+                    background: `radial-gradient(circle, ${theme.token.orange600}08 0%, transparent 70%)`,
+                    pointerEvents: "none",
                   }}
-                >
-                  <Typography.Title level={2} style={{color: theme.token.orange400}}>
-                    {Intl.NumberFormat("fr-FR", {useGrouping: true}).format(
-                      currentApiServiceSubscription.price,
-                    )}{" "}
-                    DZD {currentApiServiceSubscription.service_plan.unity} /{" "}
-                    {currentApiServiceSubscription.service_plan.subscription_category === "monthly"
-                      ? t("month")
-                      : t("year")}
-                  </Typography.Title>
-                </Col>
-                <Col
-                  span={24}
-                  style={{
-                    display: "flex",
-                    justifyContent: "end",
-                    alignSelf: "start",
-                  }}
-                >
-                  <CustomTransparentOrangeButton onClick={() => setOpenDrawer(true)}>
-                    {t("moreDetails")}
-                  </CustomTransparentOrangeButton>
-                </Col>
-              </Row>
-            </Col>
-          </Row>
-          <Row gutter={16} justify="space-between" align="middle">
-            {/* Title */}
-            <Col xs={24} sm={16} md={16} lg={16} xl={18}>
-              {currentApiServiceSubscription.service_details && (
-                <Typography.Title level={2} style={{margin: 0}}>
-                  {currentApiServiceSubscription.service_details.name}
-                </Typography.Title>
-              )}
-            </Col>
+                />
 
-            {/* Actions */}
-            <Col xs={24} sm={8} md={8} lg={8} xl={6}>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "12px",
-                  alignItems: "flex-end",
-                }}
-              >
-                {/* Status Tag */}
-                <Tag
-                  bordered={false}
-                  color={subscriptionStatusStyle(currentApiServiceSubscription.status)}
-                  style={{
-                    height: "fit-content",
-                    fontSize: "14px",
-                    fontWeight: "bold",
-                    borderRadius: 20,
-                    padding: "5px 20px",
-                    textTransform: "capitalize",
-                  }}
-                >
-                  {tApiServiceSubscription(
-                    currentApiServiceSubscription.status as "active" | "inactive",
-                  )}
-                </Tag>
-
-                {/* Action Buttons - Only show if status is active */}
-                {currentApiServiceSubscription.status === "active" && (
+                <div style={{ padding: "28px 0px 0" }}>
+                  {/* Service header: logo + title */}
                   <div
                     style={{
                       display: "flex",
-                      gap: "8px",
-                      flexWrap: "wrap",
-                      justifyContent: "flex-end",
+                      alignItems: "flex-start",
+                      gap: 20,
+                      marginBottom: 28,
                     }}
                   >
-                    <UpgradeApiSubscriptionComponents
-                      serviceId={currentApiServiceSubscription.service_details.id}
-                      oldPrice={currentApiServiceSubscription.price}
-                      planSelectedId={currentApiServiceSubscription.service_plan_id}
-                      start_date={currentApiServiceSubscription.start_date}
-                      oldDuration={currentApiServiceSubscription.duration_month}
-                      onClick={() => setDrawerActionType("upgrade")}
-                    />
+                    {/* Logo */}
+                    <div
+                      style={{
+                        width: 80,
+                        height: 80,
+                        borderRadius: 16,
+                        background: "#1e1e1e",
+                        border: `1px solid ${theme.token.orange600}20`,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        overflow: "hidden",
+                        flexShrink: 0,
+                        boxShadow: `0 4px 20px ${theme.token.orange600}10`,
+                      }}
+                    >
+                      {currentApiServiceSubscription.service_details && (
+                        <ImageFetcher
+                          imagePath={currentApiServiceSubscription.service_details.image_service}
+                          width={60}
+                          height={60}
+                        />
+                      )}
+                    </div>
 
-                    <RenewApiSubscriptionComponents
-                      serviceId={currentApiServiceSubscription.service_details.id}
-                      oldPrice={currentApiServiceSubscription.price}
-                      plan={currentApiServiceSubscription.service_plan_id}
-                      start_date={currentApiServiceSubscription.start_date}
-                      onClick={() => setDrawerActionType("renew")}
-                    />
+                    {/* Title + status + description */}
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 10,
+                          flexWrap: "wrap",
+                          marginBottom: 6,
+                        }}
+                      >
+                        {currentApiServiceSubscription.service_details && (
+                          <Typography.Title
+                            level={2}
+                            style={{ margin: 0, fontSize: 26, fontWeight: 700, lineHeight: 1.2 }}
+                          >
+                            {currentApiServiceSubscription.service_details.name}
+                          </Typography.Title>
+                        )}
+                        <Tag
+                          bordered={false}
+                          color={subscriptionStatusStyle(currentApiServiceSubscription.status)}
+                          style={{
+                            fontSize: 10,
+                            fontWeight: 700,
+                            borderRadius: 20,
+                            padding: "3px 10px",
+                            textTransform: "uppercase",
+                            letterSpacing: "0.8px",
+                          }}
+                        >
+                          {tApiServiceSubscription(
+                            currentApiServiceSubscription.status as "active" | "inactive",
+                          )}
+                        </Tag>
+                      </div>
+
+                      {currentApiServiceSubscription.service_details && (
+                        <Paragraph
+                          style={{
+                            fontSize: 14,
+                            color: "#888",
+                            margin: 0,
+                            fontStyle: "italic",
+                            lineHeight: 1.6,
+                          }}
+                        >
+                          {currentApiServiceSubscription.service_details.short_description}
+                        </Paragraph>
+                      )}
+                    </div>
                   </div>
-                )}
+
+                  {/* Divider */}
+                  <div style={{ height: 1, background: "#1f1f1f", marginBottom: 28 }} />
+
+                  {/* RESOURCES & DOCUMENTATION */}
+                  {currentApiServiceSubscription.service_details && (
+                    <div style={{ marginBottom: 28 }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          marginBottom: 18,
+                        }}
+                      >
+                        <div>
+                          <Typography.Text
+                            style={{
+                              fontSize: 10,
+                              fontWeight: 600,
+                              color: "#555",
+                              textTransform: "uppercase",
+                              letterSpacing: "1.2px",
+                              display: "block",
+                              marginBottom: 4,
+                            }}
+                          >
+                            {t("quickAccess")}
+                          </Typography.Text>
+                          <Typography.Title
+                            level={4}
+                            style={{ margin: 0, fontSize: 18, fontWeight: 700 }}
+                          >
+                            {t("resourcesAndDocumentation")}
+                          </Typography.Title>
+                        </div>
+                        <CustomTransparentOrangeButton
+                          onClick={() => setOpenDrawer(true)}
+                          icon={<Info size={16} />}
+                          style={{ fontSize: 13 }}
+                        >
+                          {t("moreDetails")}
+                        </CustomTransparentOrangeButton>
+                      </div>
+
+                      <Row gutter={[14, 14]}>
+                        {currentApiServiceSubscription.service_details.api_playground_url && (
+                          <Col xs={24} sm={12} lg={8}>
+                            <Link
+                              href={currentApiServiceSubscription.service_details.api_playground_url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style={{ textDecoration: "none", display: "block" }}
+                            >
+                              <div
+                                style={{
+                                  background: "#0f0f0f",
+                                  borderRadius: 14,
+                                  padding: "18px 20px",
+                                  border: "1px solid #1f1f1f",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  gap: 14,
+                                  transition: "all 0.25s ease",
+                                  cursor: "pointer",
+                                }}
+                                onMouseEnter={(e) => {
+                                  (e.currentTarget as HTMLDivElement).style.borderColor = `${theme.token.orange600}40`;
+                                  (e.currentTarget as HTMLDivElement).style.background = "#141414";
+                                  (e.currentTarget as HTMLDivElement).style.transform = "translateY(-2px)";
+                                  (e.currentTarget as HTMLDivElement).style.boxShadow = `0 8px 24px ${theme.token.orange600}15`;
+                                }}
+                                onMouseLeave={(e) => {
+                                  (e.currentTarget as HTMLDivElement).style.borderColor = "#1f1f1f";
+                                  (e.currentTarget as HTMLDivElement).style.background = "#0f0f0f";
+                                  (e.currentTarget as HTMLDivElement).style.transform = "translateY(0)";
+                                  (e.currentTarget as HTMLDivElement).style.boxShadow = "none";
+                                }}
+                              >
+                                <div
+                                  style={{
+                                    width: 40,
+                                    height: 40,
+                                    borderRadius: 10,
+                                    background: `${theme.token.orange600}15`,
+                                    border: `1px solid ${theme.token.orange600}20`,
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    flexShrink: 0,
+                                  }}
+                                >
+                                  <BookOpen size={20} color={theme.token.orange600} weight="duotone" />
+                                </div>
+                                <div>
+                                  <Typography.Text
+                                    style={{
+                                      fontSize: 14,
+                                      fontWeight: 600,
+                                      color: "#e0e0e0",
+                                      display: "block",
+                                    }}
+                                  >
+                                    {t("documentation")}
+                                  </Typography.Text>
+                                  <Typography.Text style={{ fontSize: 11, color: "#555" }}>
+                                    {t("apiReferenceAndGuides")}
+                                  </Typography.Text>
+                                </div>
+                              </div>
+                            </Link>
+                          </Col>
+                        )}
+                      </Row>
+                    </div>
+                  )}
+                </div>
+
+                {/* SUBSCRIPTION STATUS — full-width footer strip */}
+                <div
+                  style={{
+                    background: "#0a0a0a",
+                    borderTop: "1px solid #1a1a1a",
+                    padding: "20px 28px",
+                  }}
+                >
+                  <Typography.Text
+                    style={{
+                      fontSize: 10,
+                      fontWeight: 600,
+                      color: "#444",
+                      textTransform: "uppercase",
+                      letterSpacing: "1.4px",
+                      display: "block",
+                      marginBottom: 16,
+                    }}
+                  >
+                    {t("subscriptionStatus")}
+                  </Typography.Text>
+
+                  <div
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "repeat(4, 1fr)",
+                      gap: 0,
+                    }}
+                  >
+                    {/* Start Date */}
+                    <div style={{ paddingRight: 24, borderRight: "1px solid #1a1a1a" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 8 }}>
+                        <CalendarBlank size={13} color="#555" />
+                        <Typography.Text
+                          style={{
+                            fontSize: 10,
+                            color: "#555",
+                            fontWeight: 500,
+                            textTransform: "uppercase",
+                            letterSpacing: "0.6px",
+                          }}
+                        >
+                          {t("startDate")}
+                        </Typography.Text>
+                      </div>
+                      <Typography.Text
+                        style={{
+                          fontSize: 15,
+                          color: "#d0d0d0",
+                          fontWeight: 600,
+                          fontFamily: "monospace",
+                        }}
+                      >
+                        {dayjs(currentApiServiceSubscription.start_date).format("YYYY-MM-DD")}
+                      </Typography.Text>
+                    </div>
+                    
+                    <div style={{
+                      paddingRight: 24, paddingLeft: 24, borderRight: "1px solid #1a1a1a" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 8 }}>
+                        <CalendarBlank size={13} color="#555" />
+                        <Typography.Text
+                          style={{
+                            fontSize: 10,
+                            color: "#555",
+                            fontWeight: 500,
+                            textTransform: "uppercase",
+                            letterSpacing: "0.6px",
+                          }}
+                        >
+                          {t("endDate")}
+                        </Typography.Text>
+                      </div>
+                      <Typography.Text
+                        style={{
+                          fontSize: 15,
+                          color: "#d0d0d0",
+                          fontWeight: 600,
+                          fontFamily: "monospace",
+                        }}
+                      >
+                        {dayjs(new Date(
+                          new Date(currentApiServiceSubscription.start_date).setMonth(
+                            new Date(currentApiServiceSubscription.start_date).getMonth() + currentApiServiceSubscription.duration_month
+                          )
+                        )).format("YYYY-MM-DD")}
+                      </Typography.Text>
+                    </div>
+
+                    {/* Duration */}
+                    <div
+                      style={{
+                        paddingLeft: 24,
+                        paddingRight: 24,
+                        borderRight: "1px solid #1a1a1a",
+                      }}
+                    >
+                      <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 8 }}>
+                        <Timer size={13} color="#555" />
+                        <Typography.Text
+                          style={{
+                            fontSize: 10,
+                            color: "#555",
+                            fontWeight: 500,
+                            textTransform: "uppercase",
+                            letterSpacing: "0.6px",
+                          }}
+                        >
+                          {t("duration")}
+                        </Typography.Text>
+                      </div>
+                      <Typography.Text style={{ fontSize: 15, color: "#d0d0d0", fontWeight: 600 }}>
+                        {currentApiServiceSubscription.duration_month}{" "}
+                        <span style={{ fontSize: 12, color: "#555", fontWeight: 400 }}>
+                          {t("months")}
+                        </span>
+                      </Typography.Text>
+                    </div>
+
+                    {/* Remaining */}
+                    <div style={{ paddingLeft: 24 }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 8 }}>
+                        <HourglassHigh
+                          size={13}
+                          color={
+                            remainingDuration !== undefined && remainingDuration <= 1
+                              ? theme.token.colorError
+                              : theme.token.orange600
+                          }
+                        />
+                        <Typography.Text
+                          style={{
+                            fontSize: 10,
+                            color: "#555",
+                            fontWeight: 500,
+                            textTransform: "uppercase",
+                            letterSpacing: "0.6px",
+                          }}
+                        >
+                          {t("remainingDuration")}
+                        </Typography.Text>
+                      </div>
+                      <Typography.Text
+                        style={{
+                          fontSize: 15,
+                          fontWeight: 600,
+                          color:
+                            remainingDuration !== undefined && remainingDuration <= 1
+                              ? theme.token.colorError
+                              : theme.token.orange600,
+                        }}
+                      >
+                        {getRemainingDuration(
+                          currentApiServiceSubscription.start_date,
+                          currentApiServiceSubscription.duration_month,
+                        )}{" "}
+                        <span
+                          style={{
+                            fontSize: 12,
+                            fontWeight: 400,
+                            color:
+                              remainingDuration !== undefined && remainingDuration <= 1
+                                ? theme.token.colorError
+                                : theme.token.orange600,
+                            opacity: 0.7,
+                          }}
+                        >
+                          {t("months")}
+                        </span>
+                      </Typography.Text>
+                    </div>
+                  </div>
+                </div>
               </div>
             </Col>
-          </Row>
-          <ShowdrawerSubscription
-            IsSubscribed={currentApiServiceSubscription.service_details.is_subscribed}
-            subscriptionOldId={currentApiServiceSubscription.id}
-            drawerType={drawerActionType}
-          />
-          {currentApiServiceSubscription.service_details && (
-            <Row gutter={16} style={{marginTop: 0}}>
-              <Paragraph style={{fontSize: 14}}>
-                {currentApiServiceSubscription.service_details.short_description}
-                {t("viewDocumentation")}&nbsp;
-                <Link
-                  href={
-                    currentApiServiceSubscription.service_details.api_playground_url ??
-                    "https://docs.deploily.cloud/#/"
-                  }
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onMouseEnter={() => setIsHovered(true)}
-                  onMouseLeave={() => setIsHovered(false)}
-                >
-                  <Typography.Title
-                    level={5}
-                    style={{
-                      fontSize: 14,
-                      color: theme.token.blue300,
-                      textDecoration: isHovered ? "underline" : "none",
-                      display: "inline-block",
-                      margin: 0,
-                    }}
-                  >
-                    {t("ApiDocumentation")}
-                  </Typography.Title>
-                </Link>
-              </Paragraph>
-            </Row>
-          )}
-          <Row
-            gutter={[16, 24]}
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-            }}
-          >
-            {/* Start Date */}
-            <Col xs={24} md={12} lg={8}>
-              <Row gutter={[16, 10]} align="middle">
-                <Col xs={24} md={8}>
-                  <CustomTypography>{t("startDate")}</CustomTypography>
-                </Col>
-                <Col xs={24} md={16}>
-                  <DatePickerStyle
-                    style={{width: 160, color: theme.token.colorWhite}}
-                    defaultValue={dayjs(currentApiServiceSubscription.start_date, "YYYY-MM-DD")}
-                    disabled
-                    suffixIcon={<CalendarDots size={24} style={{color: theme.token.blue200}} />}
-                  />
-                </Col>
-              </Row>
-            </Col>
-            {/* Duration */}
-            <Col xs={24} md={12} lg={8}>
-              <Row gutter={[16, 10]} align="middle">
-                <Col xs={24} md={8}>
-                  <CustomTypography>{t("duration")}</CustomTypography>
-                </Col>
-                <Col xs={24} md={16}>
-                  <CustomSubscripionInput
-                    defaultValue={`${currentApiServiceSubscription.duration_month} / month(s)`}
-                    style={{width: 160, color: theme.token.colorWhite}}
-                    disabled
-                  />
-                </Col>
-              </Row>
-            </Col>
 
-            {/* Remaining Duration */}
-            <Col xs={24} md={12} lg={8}>
-              <Row gutter={[16, 10]} align="middle">
-                <Col xs={24} md={8}>
-                  <CustomTypography>{t("remainingDuration")}</CustomTypography>
-                </Col>
-                <Col xs={24} md={16}>
-                  <CustomSubscripionInput
-                    defaultValue={`${getRemainingDuration(currentApiServiceSubscription.start_date, currentApiServiceSubscription.duration_month)} / month(s)`}
-                    style={{
-                      width: 160,
-                      color:
-                        remainingDuration !== undefined && remainingDuration <= 1
-                          ? theme.token.colorError
-                          : theme.token.colorWhite,
-                    }}
-                    disabled
-                  />
-                </Col>
-              </Row>
+            {/* RIGHT - Pricing Card */}
+            <Col xs={24} lg={8}>
+              <SubscriptionPlanCard currentSubscription={currentApiServiceSubscription} />
             </Col>
           </Row>
 
-          {/* {remainingDuration !== undefined && remainingDuration <= 1 &&//TODO WAIT FOR BACKEND
-                        <Row gutter={[16, 10]}>
-                            <Col md={16} xs={24} style={{ display: "flex", alignItems: "center" }}>
-                                <CustomTypography >
-                                    &quot;{translate('clickToRenewNow')}&quot;
-                                </CustomTypography>
-                            </Col>
-                            <Col md={8} xs={24}>
-                                <CustomErrorButton> {translate('renewNow')} </CustomErrorButton>
-                            </Col>
-                        </Row>
-                    } */}
-
-          {/* === PLAN & PLAN OPTIONS DISPLAY === */}
-
-          <PlanDetailsComponent currentSubscription={currentApiServiceSubscription} />
-
+          {/* ADDITIONAL CONTENT */}
           {currentApiServiceSubscription.service_details &&
-          currentApiServiceSubscription.status == "active" ? (
+            currentApiServiceSubscription.status === "active" ? (
             <>
               <GenerateTokenComponent apiServiceSubscription_id={apiServiceSubscription_id} />
-              <Row gutter={[16, 10]} key={currentApiServiceSubscription.id}>
-                {subscriptionItems(
-                  currentApiServiceSubscription,
-                  currentApiServiceSubscription.service_details,
-                  t,
-                ).map((item, index) => (
-                  <div key={index} style={{width: "100%"}}>
-                    {item.label}
-                    {item.children}
-                  </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 16, marginTop: 16 }}>
+                {subscriptionItems(currentApiServiceSubscription.service_details, t).map((item) => (
+                  <div key={item.key}>{item.content}</div>
                 ))}
-              </Row>
+              </div>
             </>
           ) : (
-            <Row gutter={[16, 10]} key={currentApiServiceSubscription.id}>
+            <div
+              style={{
+                textAlign: "center",
+                padding: 40,
+                background: `${theme.token.colorError}10`,
+                borderRadius: 16,
+                border: `1px solid ${theme.token.colorError}30`,
+              }}
+            >
               <Typography.Title
                 level={4}
-                style={{
-                  color: theme.token.colorError,
-                  fontSize: 16,
-                  textAlign: "center",
-                  marginTop: 20,
-                }}
+                style={{ color: theme.token.colorError, fontSize: 18, margin: 0 }}
               >
                 {tApiServiceSubscription("inactiveMessage")}
               </Typography.Title>
-            </Row>
+            </div>
           )}
+
           <DocumentationDrawer
             openDrawer={openDrawer}
             onClose={onClose}
             currentSubscription={currentApiServiceSubscription}
             t={t}
           />
-        </>
+        </Space>
       )}
+
       {!currentApiServiceSubscriptionLoading && currentApiServiceSubscriptionLoadingError && (
-        <Result status="500" title={t("error")} subTitle={t("subTitleError")} />
+        <Result
+          status="500"
+          title={t("errorMessage")}
+          subTitle={t("subTitleErrorMessage")}
+        />
       )}
-    </Space>
+    </div>
   );
 }

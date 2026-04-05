@@ -25,6 +25,7 @@ export interface ApiServiceSubscriptionInterface {
   promo_code_id: number;
   service_plan_id: number;
   start_date: Date;
+  end_date: Date;
   status: string;
   total_amount: number;
   service_details: ServiceDetails;
