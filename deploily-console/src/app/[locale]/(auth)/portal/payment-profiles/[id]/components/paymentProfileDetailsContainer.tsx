@@ -223,18 +223,18 @@ export default function ProfileDetailsContainer({profile_id}: {profile_id: strin
                 </Form.Item>
                 <Row gutter={[16, 16]}>
                   <Col md={12} xs={24}>
-                    <Form.Item label={t("commercialRegister")} name="commercialRegister">
+                    <Form.Item label={t("commercialRegister")} name="company_registration_number">
                       <CustomPayementInput
                         defaultValue={currentProfile.company_registration_number}
-                        style={{color: theme.token.colorWhite}}
+                        style={{ color: theme.token.colorWhite }}
                       />
                     </Form.Item>
                   </Col>
                   <Col md={12} xs={24}>
-                    <Form.Item label={t("taxArticle")} name="taxArticle">
+                    <Form.Item label={t("taxArticle")} name="tax_article">
                       <CustomPayementInput
                         defaultValue={currentProfile.tax_article}
-                        style={{color: theme.token.colorWhite}}
+                        style={{ color: theme.token.colorWhite }}
                       />
                     </Form.Item>
                   </Col>
