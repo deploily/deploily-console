@@ -1,5 +1,5 @@
-import {JWT, getToken} from "next-auth/jwt";
-import {NextRequest, NextResponse} from "next/server";
+import { JWT, getToken } from "next-auth/jwt";
+import { NextRequest, NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
 
 function logoutParams(token: JWT): Record<string, string> {
@@ -10,8 +10,8 @@ function logoutParams(token: JWT): Record<string, string> {
 }
 
 function handleEmptyToken() {
-  const response = {error: "No session present"};
-  const responseHeaders = {status: 400};
+  const response = { error: "No session present" };
+  const responseHeaders = { status: 400 };
   return NextResponse.json(response, responseHeaders);
 }
 
@@ -21,13 +21,20 @@ function sendEndSessionEndpointToURL(token: JWT) {
   );
   const params: Record<string, string> = logoutParams(token);
   const endSessionParams = new URLSearchParams(params);
-  const response = {url: `${endSessionEndPoint.href}/?${endSessionParams}`};
+  const response = { url: `${endSessionEndPoint.href}/?${endSessionParams}` };
   return NextResponse.json(response);
 }
 
 export async function GET(req: NextRequest) {
   try {
-    const token = await getToken({req});
+    const token = await getToken({ req });
+    // Enforce https redirect in production
+    const nextAuthUrl = process.env.NEXTAUTH_URL ?? "";
+    if (process.env.NODE_ENV === "production" && nextAuthUrl && !nextAuthUrl.startsWith("https://")) {
+      const response = { error: "Invalid NEXTAUTH_URL: must be https in production" };
+      const responseHeaders = { status: 400 };
+      return NextResponse.json(response, responseHeaders);
+    }
     if (token) {
       return sendEndSessionEndpointToURL(token);
     }
