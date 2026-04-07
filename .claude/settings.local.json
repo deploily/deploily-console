@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm audit:*)",
+      "Bash(python3 -c ':*)",
+      "Bash(node -e ':*)",
+      "Bash(git -C /c/PythonProjects/transformatek/deploily-console log --all --full-history -- '**/.env' '**/.env.*')"
+    ]
+  }
+}
