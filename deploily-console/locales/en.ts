@@ -372,6 +372,9 @@ export default {
     'affiliation.iAgree': 'I agree',
     'affiliation.orderResource': 'Order Resource',
     'affiliation.onDemand': 'On Demand',
+    'affiliation.startDate': 'Start date',
+    'affiliation.endDate': 'End date',
+    'affiliation.type':"Type",
 
     "toast.titleFailed": "Failed to Create item",
     "toast.failed": "Failed to Create item",
@@ -539,5 +542,10 @@ export default {
   "tryItOut": "Try it out",
   "console": "Console",
   "serviceConsole": "Service Console",
+
+    'resources.vps': 'VPS',
+    'resources.web_hosting': 'Web Hosting',
+    'resources.dns': 'DNS',
+    'resources.s3': 'S3',
 
 } as const

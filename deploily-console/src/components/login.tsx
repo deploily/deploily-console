@@ -1,11 +1,11 @@
 "use client";
+import { DivCard } from "@/styles/components/divStyle";
+import { theme } from "@/styles/theme";
 import { SignIn, UserPlus } from "@phosphor-icons/react/dist/ssr";
 import { Button, Col, Row } from "antd";
 import { signIn } from "next-auth/react";
-import { useCurrentLocale, useI18n } from "../../locales/client";
-import { theme } from "@/styles/theme";
-import { DivCard } from "@/styles/components/divStyle";
 import Image from "next/image";
+import { useCurrentLocale, useI18n } from "../../locales/client";
 
 export default function Login() {
   const t = useI18n();
@@ -14,20 +14,20 @@ export default function Login() {
 
   return (
 
-       <DivCard
-                style={{
-                width: "100%",
-                background: theme.token.darkGray,
-                borderRadius: 16,
-                paddingLeft: 16,
-                paddingRight: 16,
-                height: "100%",
-                border: `1px solid ${theme.token.orange600}20`,
-                position: "relative",
-                overflow: "hidden",
-                }}
-              >
-            {/* Accent line at top */}
+    <DivCard
+      style={{
+        width: "100%",
+        background: theme.token.darkGray,
+        borderRadius: 16,
+        paddingLeft: 16,
+        paddingRight: 16,
+        paddingBottom: 50,
+        border: `1px solid ${theme.token.orange600}20`,
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      {/* Accent line at top */}
       <div
         style={{
           width: "100%",
@@ -38,95 +38,95 @@ export default function Login() {
           marginBottom: "50px",
         }}
       >
-            <div
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                right: 0,
-                height: 3,
-                background: `linear-gradient(90deg, ${theme.token.orange600}, ${theme.token.orange600}80)`,
-              }}
-            />
-            <div>
-                       <Image
-                         src="/images/logo_name.png"
-                         width={200}
-                         height={49}
-                         alt="logo-deploily"
-                         style={{
-                           marginBottom: 30,
-                         }}
-                       />
-                     </div>
-                     </div>
-    <Row gutter={[16, 16]}>
-      {/* Login Button */}
-      <Col span={12}>
-        <Button
+        <div
           style={{
-            width: "100%",
-            color: "#fff",
-            height: "100px",
-            backgroundColor: "#D85912",
-            border: "none",
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            height: 3,
+            background: `linear-gradient(90deg, ${theme.token.orange600}, ${theme.token.orange600}80)`,
           }}
-          onClick={() =>
-            signIn("keycloak", {
-              callbackUrl: `/${locale}/portal/dashboard`,
-            })
-          }
-        >
-          <Col style={{paddingBottom: "10px"}}>
-            <SignIn style={{fontSize: 30, color: "#fff", marginBottom: "10px"}} />
-            <span
-              style={{
-                color: "rgba(220, 233, 245, 0.88)",
-                textAlign: "center",
-                fontSize: "16px",
-                fontWeight: 600,
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              {t("login")}
-            </span>
-          </Col>
-        </Button>
-      </Col>
+        />
+        <div>
+          <Image
+            src="/images/logo_name.png"
+            width={200}
+            height={49}
+            alt="logo-deploily"
+            style={{
+              marginBottom: 30,
+            }}
+          />
+        </div>
+      </div>
+      <Row gutter={[16, 16]}>
+        {/* Login Button */}
+        <Col span={12}>
+          <Button
+            style={{
+              width: "100%",
+              color: "#fff",
+              height: "100px",
+              backgroundColor: "#D85912",
+              border: "none",
+            }}
+            onClick={() =>
+              signIn("keycloak", {
+                callbackUrl: `/${locale}/portal/dashboard`,
+              })
+            }
+          >
+            <Col style={{ paddingBottom: "10px" }}>
+              <SignIn style={{ fontSize: 30, color: "#fff", marginBottom: "10px" }} />
+              <span
+                style={{
+                  color: "rgba(220, 233, 245, 0.88)",
+                  textAlign: "center",
+                  fontSize: "16px",
+                  fontWeight: 600,
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                {t("login")}
+              </span>
+            </Col>
+          </Button>
+        </Col>
 
-      {/* Register Button */}
-      <Col span={12}>
-        <Button
-          style={{
-            width: "100%",
-            color: "#fff",
-            height: "100px",
-            backgroundColor: "#1E88E5",
-            border: "none",
-          }}
-          onClick={() =>
-            signIn("keycloak", {callbackUrl: `/${locale}/portal/dashboard`}, {prompt: "create"})
-          }
-        >
-          <Col style={{paddingBottom: "10px"}}>
-            <UserPlus style={{fontSize: 30, color: "#fff", marginBottom: "10px"}} />
-            <span
-              style={{
-                color: "rgba(220, 233, 245, 0.88)",
-                textAlign: "center",
-                fontSize: "16px",
-                fontWeight: 600,
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              {t("register")}
-            </span>
-          </Col>
-        </Button>
-      </Col>
-    </Row>
+        {/* Register Button */}
+        <Col span={12}>
+          <Button
+            style={{
+              width: "100%",
+              color: "#fff",
+              height: "100px",
+              backgroundColor: "#1E88E5",
+              border: "none",
+            }}
+            onClick={() =>
+              signIn("keycloak", { callbackUrl: `/${locale}/portal/dashboard` }, { prompt: "create" })
+            }
+          >
+            <Col style={{ paddingBottom: "10px" }}>
+              <UserPlus style={{ fontSize: 30, color: "#fff", marginBottom: "10px" }} />
+              <span
+                style={{
+                  color: "rgba(220, 233, 245, 0.88)",
+                  textAlign: "center",
+                  fontSize: "16px",
+                  fontWeight: 600,
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                {t("register")}
+              </span>
+            </Col>
+          </Button>
+        </Col>
+      </Row>
     </DivCard >
   );
 }

@@ -139,16 +139,20 @@ export interface ServicePlanOption {
 
 export interface ManagedResourceList {
   id: number;
-  options: ServicePlanOption;
-  plan_name: string;
-  preparation_time: number;
-  price: number;
-  provider_info: Provider;
-  service_id: number;
-  service_name: string;
-  service_plan_type: string;
-}
+	"end_date": string,
+	"ressource_type": string,
+	"start_date": string,
 
+}
+ export interface service_details {
+  "plan": string,
+  "provider": {
+    "logo": string,
+    "name": string,
+    "website": string
+    },
+  "service_name": string,
+}
 export interface ManagedResourceListResponse {
   isLoading: boolean;
   managedResourceFailed: boolean;

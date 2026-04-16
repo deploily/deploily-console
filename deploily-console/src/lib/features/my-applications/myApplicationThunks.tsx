@@ -27,8 +27,6 @@ export const fetchMyApplications = createAsyncThunk(
         return thunkConfig.rejectWithValue("Failed to fetch my applications ");
       }
     } catch (error: any) {
-      console.log("==========================", error);
-
       return thunkConfig.rejectWithValue(error.message);
     }
   },

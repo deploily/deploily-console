@@ -381,6 +381,7 @@ export default {
   "affiliation.iAgree": "J'accepte",
   "affiliation.orderResource": "Commander la ressource",
   "affiliation.onDemand": "Sur demande",
+  'affiliation.type': "Type",
 
 
   "toast.titleFailed": "Échec de la création de l'élément",
@@ -549,4 +550,9 @@ export default {
   "tryItOut": "Essayez-le",
   "console": "Console",
   "serviceConsole": "Console du Service",
+
+  'resources.vps': 'VPS',
+  'resources.web_hosting': 'Hébergement Web',
+  'resources.dns': 'DNS',
+  'resources.s3': 'S3',
 } as const;
