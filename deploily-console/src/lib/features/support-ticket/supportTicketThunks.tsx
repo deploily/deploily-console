@@ -46,7 +46,6 @@ export const postSupportTicket = createAsyncThunk(
         {
           headers: {
             Accept: "application/json",
-            // "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`,
           },
         },
@@ -55,6 +54,46 @@ export const postSupportTicket = createAsyncThunk(
         return response.data;
       } else {
         return thunkConfig.rejectWithValue("Failed to create new support ticket");
+      }
+    } catch (error: any) {
+      return thunkConfig.rejectWithValue(error.message);
+    }
+  },
+);
+
+export const uploadSupportTicketImage = createAsyncThunk(
+  "supportTicket/uploadImage",
+  async (
+    { supportTicketId, imageFile }: { supportTicketId: number; imageFile: File },
+    thunkConfig
+  ) => {
+    try {
+      const session = await getSession();
+      if (!session) {
+        return thunkConfig.rejectWithValue("session expired");
+      }
+      const token = session.accessToken;
+
+      // Create FormData to send the image
+      const formData = new FormData();
+      formData.append("file", imageFile);
+
+      const response = await axiosInstance.patch(
+        `${deploilyApiUrls.SUPPORT_TICKET_URL}${supportTicketId}/upload-image`,
+        formData,
+        {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        return thunkConfig.rejectWithValue("Failed to upload image");
       }
     } catch (error: any) {
       return thunkConfig.rejectWithValue(error.message);

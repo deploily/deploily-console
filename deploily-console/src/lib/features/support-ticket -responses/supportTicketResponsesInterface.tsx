@@ -14,5 +14,11 @@ export interface SupportTicketChatResponseInterface {
   message: string;
   changed_on: string;
   created_on: string;
-  created_by?: any;
+  created_by: {
+    first_name: string,
+    id: number,
+    last_name: string,
+    username: string
+  },
+      
 }

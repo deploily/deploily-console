@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {SupportTicket, SupportTicketResponse} from "./supportTicketInterface";
-import {fetchSupportTicket, fetchSupportTicketById, postSupportTicket} from "./supportTicketThunks";
+import {fetchSupportTicket, fetchSupportTicketById, postSupportTicket, uploadSupportTicketImage} from "./supportTicketThunks";
 
 interface SupportTicketState {
   supportTicketList?: SupportTicketResponse;
@@ -13,6 +13,9 @@ interface SupportTicketState {
   getSupportTicketSuccess: any;
   getSupportTicketError: any;
   currentSupportTicket?: SupportTicket;
+  uploadImageLoading: boolean,
+  uploadImageSuccess: boolean,
+  uploadImageError:string | null,
 }
 
 const initialState: SupportTicketState = {
@@ -26,6 +29,9 @@ const initialState: SupportTicketState = {
   getSupportTicketLoading: false,
   getSupportTicketSuccess: false,
   getSupportTicketError: false,
+  uploadImageLoading: false,
+  uploadImageError: null,
+  uploadImageSuccess: false,
 };
 const SupportTicketSlice = createSlice({
   name: "supportTicket",
@@ -79,6 +85,21 @@ const SupportTicketSlice = createSlice({
         state.getSupportTicketLoading = false;
         state.getSupportTicketSuccess = false;
         state.getSupportTicketError = payload;
+      })  // New uploadSupportTicketImage reducers
+      .addCase(uploadSupportTicketImage.pending, (state) => {
+        state.uploadImageLoading = true;
+        state.uploadImageError = null;
+        state.uploadImageSuccess = false;
+      })
+      .addCase(uploadSupportTicketImage.fulfilled, (state) => {
+        state.uploadImageLoading = false;
+        state.uploadImageSuccess = true;
+        state.uploadImageError = null;
+      })
+      .addCase(uploadSupportTicketImage.rejected, (state, action) => {
+        state.uploadImageLoading = false;
+        state.uploadImageError = action.payload as string;
+        state.uploadImageSuccess = false;
       });
   },
 });
