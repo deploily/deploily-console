@@ -66,16 +66,33 @@ export interface MyResourcesResponses {
   list_columns: string[];
   list_title: string;
   order_columns: string[];
-  result: MyResourcesList[];
+  result: MyResource[];
 }
 
-export interface MyResourcesList {
+export interface MyResource {
   id: number;
   affiliation_state: string;
   provider_name: string;
-  service_name: string;
   total_price: number;
   created_on: string;
+  provider: {
+    name: string
+  },
+  service_details: {
+     name: string
+  },
+  service_plan: {
+    "display_on_app": boolean,
+    "id": number,
+    "is_custom": boolean,
+    "is_published": boolean,
+    "preparation_time": number,
+    "price":number,
+    "priority": number,
+    "service_plan_type": string,
+    "subscription_category": string,
+    "unity": string
+  },
 }
 export interface MyWebHosting {
   id: number;

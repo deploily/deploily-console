@@ -8,6 +8,7 @@ import MyResourcesContainer from './myResourcesSection';
 
 export default function MyRessourcesPageContent() {
   const t = useI18n();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const onChange = (key: string) => {
     };
     const items: TabsProps['items'] = [

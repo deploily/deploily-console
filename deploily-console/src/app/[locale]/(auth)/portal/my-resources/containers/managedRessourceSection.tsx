@@ -5,6 +5,7 @@ import {
   useManagedResource,
   useManagedResourceSearchParams,
 } from "@/lib/features/cloud-resource/cloudResourceSelectors";
+import { updateManagedResourceFilterParams } from "@/lib/features/cloud-resource/cloudResourceSlice";
 import { getManagedResources } from "@/lib/features/cloud-resource/cloudResourceThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { CheckCircleTwoTone } from "@ant-design/icons";
@@ -16,12 +17,13 @@ export default function ManagedRessourcesComponent() {
   const dispatch = useAppDispatch();
   const t = useScopedI18n("affiliation");
   const tResources = useScopedI18n("resources");
+  const { page, page_size, count } = useManagedResourceSearchParams();
+
   useEffect(() => {
     dispatch(getManagedResources());
-  }, [dispatch]);
+  }, [dispatch, page, page_size]);
 
-  const { managedResourceResponse, isLoading, managedResourceFailed  } = useManagedResource();
-  // const { managedResourceSearchParams  } = useManagedResourceSearchParams();
+  const { managedResourceResponse, isLoading, managedResourceFailed } = useManagedResource();
   const { isAffiliationCreatedSuccess } = useCloudResource();
   const toastTranslate = useScopedI18n("toast");
 
@@ -114,6 +116,15 @@ export default function ManagedRessourcesComponent() {
     [isLoading, columns],
   );
 
+  // Handle pagination change
+  const handleTableChange = (pagination: any) => {
+    dispatch(updateManagedResourceFilterParams({
+      page_size: pagination.pageSize,
+      page: pagination.current - 1,
+    }));
+  };
+
+
   return (
     <>
       {contextHolder}
@@ -125,11 +136,14 @@ export default function ManagedRessourcesComponent() {
           className="custom-table"
           style={{ marginTop: 10, borderRadius: 0 }}
           rowKey={(record) => String(record.id)}
-          // pagination={{
-          //   pageSize: managedResourceSearchParams.page_size,
-          //   total: managedResourceResponse.,
-          //   showSizeChanger: false,
-          // }}
+          pagination={{
+            current: page + 1,
+            pageSize: page_size,
+            total: count,
+            showSizeChanger: false,
+          }}
+          onChange={handleTableChange}
+          loading={isLoading}
         />
       )}
     </>

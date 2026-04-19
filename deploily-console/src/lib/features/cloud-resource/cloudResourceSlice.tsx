@@ -3,7 +3,7 @@ import {
   CloudResourceResponse,
   ManagedResourceListResponse,
   MyDnsResponse,
-  MyResourcesList,
+  MyResourcesResponses,
   MyWebHostingsResponse,
   ProvidersListResponse,
   ResourceCategoriesResponse,
@@ -22,7 +22,7 @@ import {
 interface CloudResourceState {
   cloudResourceResponse?: CloudResourceResponse;
   providersListResponse?: ProvidersListResponse;
-  myResourcesResponse?: MyResourcesList[];
+  myResourcesResponse?: MyResourcesResponses;
   myWebHostingsResponse: MyWebHostingsResponse;
   myDnsResponse: MyDnsResponse;
   isLoading: boolean;
@@ -37,8 +37,14 @@ interface CloudResourceState {
   managedResourceFilterParams: {
     page_size: number;
     page: number;
+    count: number;
   },
+  myResourceFilterParams: {
+    page_size: number;
+    page: number;
+  }
 }
+
 
 const initialState: CloudResourceState = {
   cloudResourceResponse: undefined,
@@ -52,7 +58,8 @@ const initialState: CloudResourceState = {
   searchValue: "",
   managedResourceFilterParams :{
     page_size: 10,
-    page: 1,
+    page: 0,
+    count: 0,
   },
   resourceCategoriesResponse: undefined,
   managedResourceListResponse: {
@@ -70,6 +77,10 @@ const initialState: CloudResourceState = {
     isDnsLoadingFailed: false,
     dnsList: undefined,
   },
+  myResourceFilterParams: {
+    page_size: 10,
+    page: 0,
+  }
 };
 const CloudResourceSlice = createSlice({
   name: "cloudResource",
@@ -78,8 +89,17 @@ const CloudResourceSlice = createSlice({
     updateCloudResourcesSearchValue: (state, action: PayloadAction<string>) => {
       state.searchValue = action.payload;
     },
-    updateManagedResourceFilterParams: (state, action:any) => {
-      state.managedResourceFilterParams = action.payload;
+    updateManagedResourceFilterParams: (state, action: PayloadAction<any>) => {
+      state.managedResourceFilterParams = {
+        ...state.managedResourceFilterParams, // Preserve existing properties
+        ...action.payload, // Merge new properties
+      };
+    },
+    updateMyResourceFilterParams: (state, action: PayloadAction<any>) => {
+      state.myResourceFilterParams = {
+        ...state.myResourceFilterParams, // Preserve existing properties
+        ...action.payload, // Merge new properties
+      };
     },
   },
 
@@ -142,7 +162,6 @@ const CloudResourceSlice = createSlice({
       .addCase(getMyResources.pending, (state) => {
         state.isAffiliationCreatedSuccess = false;
         state.isLoading = true;
-        state.myResourcesResponse = undefined;
         state.cloudResourceLoadingError = false;
       })
       .addCase(getMyResources.rejected, (state) => {
@@ -160,7 +179,7 @@ const CloudResourceSlice = createSlice({
       .addCase(getManagedResources.pending, (state) => {
         state.isAffiliationCreatedSuccess = false;
         state.managedResourceListResponse.isLoading = true;
-        state.managedResourceListResponse.managedResourceResponse = undefined;
+        // state.managedResourceListResponse.managedResourceResponse = undefined;
       })
       .addCase(getManagedResources.fulfilled, (state, action) => {
         state.isAffiliationCreatedSuccess = false;
@@ -202,5 +221,5 @@ const CloudResourceSlice = createSlice({
   },
 });
 
-export const { updateCloudResourcesSearchValue, updateManagedResourceFilterParams } = CloudResourceSlice.actions;
+export const { updateCloudResourcesSearchValue, updateManagedResourceFilterParams, updateMyResourceFilterParams } = CloudResourceSlice.actions;
 export default CloudResourceSlice.reducer;

@@ -158,7 +158,11 @@ export const getMyResources = createAsyncThunk(
         return thunkConfig.rejectWithValue("session expired");
       }
       const token = session.accessToken;
-      const response = await axiosInstance.get(`${deploilyApiUrls.AFFILIATION_URL}`, {
+      const state = thunkConfig.getState() as RootState;
+      const myResourceFilterParams = state.cloudResource.myResourceFilterParams;
+      const filters = `(page_size:${myResourceFilterParams.page_size},page:${myResourceFilterParams.page})`;
+      const query = `?q=${encodeURIComponent(filters)}`;
+      const response = await axiosInstance.get(`${deploilyApiUrls.AFFILIATION_URL}${query}`, {
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
