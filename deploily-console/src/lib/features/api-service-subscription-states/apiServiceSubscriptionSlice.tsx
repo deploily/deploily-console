@@ -1,7 +1,7 @@
-import {calculateRemainingSubscriptionValue} from "@/lib/utils/subscriptionUtils";
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {PaymentProfileInterface} from "../payment-profiles/paymentProfilesInterface";
-import {ServicePlan} from "../service-plans/servicePlanInterface";
+import { calculateRemainingSubscriptionValue } from "@/lib/utils/subscriptionUtils";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { PaymentProfileInterface } from "../payment-profiles/paymentProfilesInterface";
+import { ServicePlan } from "../service-plans/servicePlanInterface";
 
 interface ApiServiceSubscriptionStates {
   promoCode: string;
@@ -17,6 +17,8 @@ interface ApiServiceSubscriptionStates {
   selectedProfile?: PaymentProfileInterface;
   openDrawer: boolean;
   selectedPlan: ServicePlan | null;
+  phone?: string;
+
 }
 const initialState: ApiServiceSubscriptionStates = {
   promoCode: "",
@@ -32,6 +34,7 @@ const initialState: ApiServiceSubscriptionStates = {
   openDrawer: false,
   selectedPlan: null,
   oldDuration: 1,
+  phone: "",
 };
 
 const apiServiceSubscriptionStatesSlice = createSlice({
@@ -39,13 +42,13 @@ const apiServiceSubscriptionStatesSlice = createSlice({
   initialState,
   reducers: {
     updateApiServiceSubscriptionStates: (state, action: PayloadAction<any>) => {
-      let updatedState = {...state, ...action.payload};
+      let updatedState = { ...state, ...action.payload };
       let updatedAmount = updatedState.duration * updatedState.price;
       if (updatedState.promoCodeRate != undefined) {
-        updatedState = {...updatedState, promoColor: "green"};
+        updatedState = { ...updatedState, promoColor: "green" };
         updatedAmount = updatedAmount - (updatedAmount * updatedState.promoCodeRate) / 100;
       }
-      updatedState = {...updatedState, totalAmount: updatedAmount};
+      updatedState = { ...updatedState, totalAmount: updatedAmount };
 
       if (state.selectedProfile != undefined) {
         if (state.selectedProfile.balance - updatedState.totalAmount >= 0) {
@@ -59,7 +62,7 @@ const apiServiceSubscriptionStatesSlice = createSlice({
     },
 
     upgradeApiServiceSubscriptionStates: (state, action: PayloadAction<any>) => {
-      const updatedState = {...state, ...action.payload};
+      const updatedState = { ...state, ...action.payload };
 
       const oldPlanValueRemaining = calculateRemainingSubscriptionValue({
         price: updatedState.oldPrice,

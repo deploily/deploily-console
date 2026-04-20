@@ -1,17 +1,17 @@
 "use client";
-import {getBankCredEnvVars} from "@/actions/getBankCredEnvVars";
-import {useApiServiceSubscriptionStates} from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSelectors";
+import { getBankCredEnvVars } from "@/actions/getBankCredEnvVars";
+import { useApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSelectors";
 import {
   postApiServiceSubscription,
   postRenewApiServiceSubscription,
   postUpgradeApiServiceSubscription,
 } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionThunks";
-import {useAppDispatch} from "@/lib/hook";
-import {theme} from "@/styles/theme";
-import {Button, Card, Typography} from "antd";
-import {useRouter} from "next/navigation";
-import {useEffect, useState} from "react";
-import {useScopedI18n} from "../../../../../../../../../../locales/client";
+import { useAppDispatch } from "@/lib/hook";
+import { theme } from "@/styles/theme";
+import { Button, Card, Typography } from "antd";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useScopedI18n } from "../../../../../../../../../../locales/client";
 import bankPaymentInfo from "./bankPaymentData";
 
 export default function BankTransfertComponent({
@@ -25,7 +25,7 @@ export default function BankTransfertComponent({
   IsSubscribed?: any;
   drawerType?: any;
 }) {
-  const {totalAmount} = useApiServiceSubscriptionStates();
+  const { totalAmount } = useApiServiceSubscriptionStates();
   const tBankPayment = useScopedI18n("bankPayment");
   const tPayments = useScopedI18n("payments");
   const apiServiceSubscriptionStates = useApiServiceSubscriptionStates();
@@ -40,7 +40,11 @@ export default function BankTransfertComponent({
       payment_method: "bank_transfer",
       service_plan_selected_id: selectedPlan.id,
       profile_id: apiServiceSubscriptionStates.selectedProfile?.id ?? 1,
+      phone: apiServiceSubscriptionStates.phone,
     };
+
+
+    console.log(apiServiceSubscriptionStates.phone);
 
     if (IsSubscribed && drawerType === "upgrade") {
       return dispatch(
@@ -106,19 +110,19 @@ export default function BankTransfertComponent({
         },
       }}
     >
-      <div style={{display: "flex", flexDirection: "column", gap: 20}}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
         {/* Total Amount */}
-        <Typography.Title level={5} style={{fontWeight: 500}}>
+        <Typography.Title level={5} style={{ fontWeight: 500 }}>
           {tPayments("totalToPay")} :{" "}
-          <Typography.Text strong style={{fontSize: 18}}>
-            {Intl.NumberFormat("fr-FR", {useGrouping: true}).format(totalAmount)} DZD
+          <Typography.Text strong style={{ fontSize: 18 }}>
+            {Intl.NumberFormat("fr-FR", { useGrouping: true }).format(totalAmount)} DZD
           </Typography.Text>
         </Typography.Title>
 
         {/* Message */}
         <Typography.Title
           level={5}
-          style={{fontWeight: 500, color: theme.token.blue400, textAlign: "center"}}
+          style={{ fontWeight: 500, color: theme.token.blue400, textAlign: "center" }}
         >
           {tBankPayment("message")}
         </Typography.Title>
@@ -135,9 +139,9 @@ export default function BankTransfertComponent({
         >
           {bankTransfertInformation &&
             bankPaymentInfo(tBankPayment, bankTransfertInformation).map((info, index) => (
-              <Typography key={index} style={{fontWeight: 600}}>
+              <Typography key={index} style={{ fontWeight: 600 }}>
                 {info.title} :
-                <Typography.Text style={{fontWeight: 400, marginLeft: 5}}>
+                <Typography.Text style={{ fontWeight: 400, marginLeft: 5 }}>
                   {info.value}
                 </Typography.Text>
               </Typography>
@@ -145,7 +149,7 @@ export default function BankTransfertComponent({
         </div>
 
         {/* Pay Button */}
-        <div style={{display: "flex", justifyContent: "flex-end"}}>
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <Button
             style={{
               color: "#fff",

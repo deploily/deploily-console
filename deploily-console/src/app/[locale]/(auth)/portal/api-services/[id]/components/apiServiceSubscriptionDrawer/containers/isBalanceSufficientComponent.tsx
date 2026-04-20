@@ -26,7 +26,7 @@ export default function IsBalanceSufficientComponent({
   subscriptionOldId: any;
   drawerType?: any;
 }) {
-  const {selectedProfile, duration, totalAmount, promoCode} = useApiServiceSubscriptionStates();
+  const {selectedProfile, duration, totalAmount, promoCode , phone} = useApiServiceSubscriptionStates();
   const translate = useScopedI18n("apiServiceSubscription");
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -39,6 +39,8 @@ export default function IsBalanceSufficientComponent({
       payment_method: "cloud_credit",
       service_plan_selected_id: planSelected.id,
       profile_id: selectedProfile?.id || 1,
+      phone: phone,
+
     };
 
     // Upgrade
