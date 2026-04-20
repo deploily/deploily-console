@@ -21,5 +21,7 @@ export interface SupportTicket {
   description: string;
   status: string;
   image: string;
-  support_ticket_responses: SupportTicketChatResponseInterface[];
+  responses_with_details: SupportTicketChatResponseInterface[];
+  created_by_fk: number,
+  created_on: string,
 }

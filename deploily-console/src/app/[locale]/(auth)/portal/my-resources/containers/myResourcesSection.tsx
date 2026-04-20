@@ -1,5 +1,6 @@
-import { MyResourcesList } from "@/lib/features/cloud-resource/cloudResourceInterface";
-import { useCloudResource } from "@/lib/features/cloud-resource/cloudResourceSelectors";
+import { MyResource } from "@/lib/features/cloud-resource/cloudResourceInterface";
+import { useCloudResource, useMyResourceSearchParams } from "@/lib/features/cloud-resource/cloudResourceSelectors";
+import { updateMyResourceFilterParams } from "@/lib/features/cloud-resource/cloudResourceSlice";
 import { getMyResources } from "@/lib/features/cloud-resource/cloudResourceThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { theme } from "@/styles/theme";
@@ -13,6 +14,8 @@ export default function MyResourcesContainer() {
   const dispatch = useAppDispatch();
   const t = useScopedI18n("affiliation");
   const { myResourcesResponse, isLoading, cloudResourceLoadingError } = useCloudResource();
+
+  const { page, page_size } = useMyResourceSearchParams();
   const { isAffiliationCreatedSuccess } = useCloudResource();
   const toastTranslate = useScopedI18n("toast");
 
@@ -37,7 +40,7 @@ export default function MyResourcesContainer() {
   };
   useEffect(() => {
     dispatch(getMyResources());
-  }, [dispatch]);
+  }, [dispatch, page, page_size]);
 
   useEffect(() => {
     if (isAffiliationCreatedSuccess) {
@@ -48,17 +51,17 @@ export default function MyResourcesContainer() {
     return [
       {
         title: t("name"),
-        dataIndex: "service_name",
-        key: "service_name",
-        render: (service_name: string | null | undefined) =>
-          service_name ? service_name.charAt(0).toUpperCase() + service_name.slice(1) : "-",
+        dataIndex: "service_details",
+        key: "service_details",
+        render: (service_details: any | null | undefined) =>
+          service_details ? service_details.name.charAt(0).toUpperCase() + service_details.name.slice(1) : "-",
       },
       {
         title: t("providerName"),
-        dataIndex: "provider_name",
-        key: "provider_name",
-        render: (provider_name: string) =>
-          provider_name.charAt(0).toUpperCase() + provider_name.slice(1) || "-",
+        dataIndex: "provider",
+        key: "provider",
+        render: (provider: any) =>
+          provider.name.charAt(0).toUpperCase() + provider.name.slice(1) || "-",
       },
       {
         title: t("amount"),
@@ -128,17 +131,34 @@ export default function MyResourcesContainer() {
     [isLoading, columns],
   );
 
+  // Handle pagination change
+  const handleTableChange = (pagination: any) => {
+    dispatch(updateMyResourceFilterParams({
+      page_size: pagination.pageSize,
+      page: pagination.current - 1,
+    }));
+  };
+
+
   return (
     <>
       {contextHolder}
       {!cloudResourceLoadingError && myResourcesResponse && (
-        <Table<MyResourcesList>
+        <Table<MyResource>
           columns={skeletonColumns}
-          dataSource={isLoading ? Array(3).fill({ key: Math.random() }) : myResourcesResponse}
+          dataSource={isLoading ? Array(3).fill({ key: Math.random() }) : myResourcesResponse.result}
           size="middle"
+          loading={isLoading}
           className="custom-table"
           style={{ marginTop: 10, borderRadius: 0 }}
           rowKey={(record) => record.id || `row-${Math.random()}`}
+          pagination={{
+            current: page + 1,
+            pageSize: page_size,
+            total: myResourcesResponse.count,
+            showSizeChanger: false,
+          }}
+          onChange={handleTableChange}
         />
       )}
     </>

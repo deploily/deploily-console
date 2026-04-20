@@ -123,7 +123,9 @@ export default {
   "supportTicket.title": "Titre",
   "supportTicket.status": "Status",
   "supportTicket.open": "Ouvert",
-  "supportTicket.closed": "Fermé",
+  "supportTicket.closed": "Fermé", 
+  "supportTicket.reopen": "Ouvert",
+  "supportTicket.close": "Fermé",
   "supportTicket.service": "Service",
   "supportTicket.created_on": "Date de création",
 
@@ -366,6 +368,8 @@ export default {
   "affiliation.amount": "Montant",
   "affiliation.status": "Statut",
   "affiliation.created_on": "Date",
+  'affiliation.startDate': "Date de début",
+  'affiliation.endDate': 'Date de fin',
   "affiliation.confirmed": "Confirmée",
   "affiliation.pending": "En attente",
   "affiliation.website": "Site web ",
@@ -381,6 +385,7 @@ export default {
   "affiliation.iAgree": "J'accepte",
   "affiliation.orderResource": "Commander la ressource",
   "affiliation.onDemand": "Sur demande",
+  'affiliation.type': "Type",
 
 
   "toast.titleFailed": "Échec de la création de l'élément",
@@ -549,4 +554,9 @@ export default {
   "tryItOut": "Essayez-le",
   "console": "Console",
   "serviceConsole": "Console du Service",
+
+  'resources.vps': 'VPS',
+  'resources.web_hosting': 'Hébergement Web',
+  'resources.dns': 'DNS',
+  'resources.s3': 'S3',
 } as const;

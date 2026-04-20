@@ -1,22 +1,27 @@
 "use client";
-import { ManagedResourceList } from "@/lib/features/cloud-resource/cloudResourceInterface";
+import { ManagedResourceList, service_details } from "@/lib/features/cloud-resource/cloudResourceInterface";
 import {
   useCloudResource,
   useManagedResource,
+  useManagedResourceSearchParams,
 } from "@/lib/features/cloud-resource/cloudResourceSelectors";
+import { updateManagedResourceFilterParams } from "@/lib/features/cloud-resource/cloudResourceSlice";
 import { getManagedResources } from "@/lib/features/cloud-resource/cloudResourceThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { CheckCircleTwoTone } from "@ant-design/icons";
-import { Skeleton, Table, notification } from "antd";
+import { Skeleton, Table, Tag, notification } from "antd";
 import { useEffect, useMemo } from "react";
 import { useScopedI18n } from "../../../../../../../locales/client";
 
 export default function ManagedRessourcesComponent() {
   const dispatch = useAppDispatch();
   const t = useScopedI18n("affiliation");
+  const tResources = useScopedI18n("resources");
+  const { page, page_size, count } = useManagedResourceSearchParams();
+
   useEffect(() => {
     dispatch(getManagedResources());
-  }, [dispatch]);
+  }, [dispatch, page, page_size]);
 
   const { managedResourceResponse, isLoading, managedResourceFailed } = useManagedResource();
   const { isAffiliationCreatedSuccess } = useCloudResource();
@@ -51,44 +56,52 @@ export default function ManagedRessourcesComponent() {
     return [
       {
         title: t("name"),
-        dataIndex: "service_name",
-        key: "service_name",
-        render: (service_name: string | null | undefined) =>
-          service_name ? service_name.charAt(0).toUpperCase() + service_name.slice(1) : "-",
+        dataIndex: "service_details",
+        key: "service_details",
+        render: (service_details: service_details) =>
+          service_details ? service_details.service_name.charAt(0).toUpperCase() + service_details.service_name.slice(1) : "-",
       },
       {
-        title: t("providerName"),
-        dataIndex: ["provider_info", "name"],
-        key: "provider_name",
-        render: (_: any, record: ManagedResourceList) =>
-          record.provider_info?.name
-            ? record.provider_info.name.charAt(0).toUpperCase() + record.provider_info.name.slice(1)
-            : "-",
+        title: t('providerName'),
+        dataIndex: "provider",
+        key: "provider",
+        render: (service_details: service_details) =>
+          service_details && service_details.provider ? service_details.provider.name?.charAt(0).toUpperCase() + service_details.provider.name?.slice(1) : "-",
       },
       {
-        title: t("amount"),
-        dataIndex: "price",
-        key: "price",
-        render: (price: number) =>
-          price
-            ? price.toLocaleString("fr-FR", { minimumFractionDigits: 0, maximumFractionDigits: 0 }) +
-            " DZD"
-            : "-",
+        title: t('type'),
+        dataIndex: "ressource_type",
+        key: "ressource_type",
+        render: (ressource_type: string) =>
+          <Tag
+            color="green"
+            style={{
+              height: "fit-content",
+              fontSize: "14px",
+              fontWeight: "bold",
+              borderRadius: 20,
+              padding: "2px 10px",
+              textTransform: "capitalize",
+            }}
+          >
+            {tResources(ressource_type as 'vps' | 'web_hosting' | 'dns' | 's3')}
+          </Tag>
       },
       {
-        title: t("created_on"),
-        key: "created_on",
-        render: () => {
-          const fakeDate = new Date(); // Replace with real date if available
-          return fakeDate.toLocaleString("fr-FR", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-          });
-        },
+        title: t("startDate"),
+        key: "start_date",
+        dataIndex: "start_date",
+        render: (start_date?: string) =>
+          start_date ?? "-"
       },
+      {
+        title: t("endDate"),
+        key: "end_date",
+        dataIndex: "end_date",
+        render: (end_date?: string) =>
+          end_date ?? "-"
+      },
+
     ];
   }, [t]);
 
@@ -103,6 +116,15 @@ export default function ManagedRessourcesComponent() {
     [isLoading, columns],
   );
 
+  // Handle pagination change
+  const handleTableChange = (pagination: any) => {
+    dispatch(updateManagedResourceFilterParams({
+      page_size: pagination.pageSize,
+      page: pagination.current - 1,
+    }));
+  };
+
+
   return (
     <>
       {contextHolder}
@@ -114,6 +136,14 @@ export default function ManagedRessourcesComponent() {
           className="custom-table"
           style={{ marginTop: 10, borderRadius: 0 }}
           rowKey={(record) => String(record.id)}
+          pagination={{
+            current: page + 1,
+            pageSize: page_size,
+            total: count,
+            showSizeChanger: false,
+          }}
+          onChange={handleTableChange}
+          loading={isLoading}
         />
       )}
     </>

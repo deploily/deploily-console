@@ -3,7 +3,7 @@ import {
   CloudResourceResponse,
   ManagedResourceListResponse,
   MyDnsResponse,
-  MyResourcesList,
+  MyResourcesResponses,
   MyWebHostingsResponse,
   ProvidersListResponse,
   ResourceCategoriesResponse,
@@ -13,9 +13,7 @@ import {
   fetchCloudResources,
   fetchResourceCategories,
   getManagedResources,
-  getMyDns,
   getMyResources,
-  getMyWebHostings,
   getProvidersList,
   getResourceById,
   postAffiliation,
@@ -24,7 +22,7 @@ import {
 interface CloudResourceState {
   cloudResourceResponse?: CloudResourceResponse;
   providersListResponse?: ProvidersListResponse;
-  myResourcesResponse?: MyResourcesList[];
+  myResourcesResponse?: MyResourcesResponses;
   myWebHostingsResponse: MyWebHostingsResponse;
   myDnsResponse: MyDnsResponse;
   isLoading: boolean;
@@ -36,7 +34,17 @@ interface CloudResourceState {
   searchValue?: string;
   resourceCategoriesResponse?: ResourceCategoriesResponse;
   managedResourceListResponse: ManagedResourceListResponse;
+  managedResourceFilterParams: {
+    page_size: number;
+    page: number;
+    count: number;
+  },
+  myResourceFilterParams: {
+    page_size: number;
+    page: number;
+  }
 }
+
 
 const initialState: CloudResourceState = {
   cloudResourceResponse: undefined,
@@ -48,6 +56,11 @@ const initialState: CloudResourceState = {
   isAffiliationCreatedSuccess: false,
   isAffiliationCreatedFailed: false,
   searchValue: "",
+  managedResourceFilterParams :{
+    page_size: 10,
+    page: 0,
+    count: 0,
+  },
   resourceCategoriesResponse: undefined,
   managedResourceListResponse: {
     isLoading: false,
@@ -64,6 +77,10 @@ const initialState: CloudResourceState = {
     isDnsLoadingFailed: false,
     dnsList: undefined,
   },
+  myResourceFilterParams: {
+    page_size: 10,
+    page: 0,
+  }
 };
 const CloudResourceSlice = createSlice({
   name: "cloudResource",
@@ -71,6 +88,18 @@ const CloudResourceSlice = createSlice({
   reducers: {
     updateCloudResourcesSearchValue: (state, action: PayloadAction<string>) => {
       state.searchValue = action.payload;
+    },
+    updateManagedResourceFilterParams: (state, action: PayloadAction<any>) => {
+      state.managedResourceFilterParams = {
+        ...state.managedResourceFilterParams, // Preserve existing properties
+        ...action.payload, // Merge new properties
+      };
+    },
+    updateMyResourceFilterParams: (state, action: PayloadAction<any>) => {
+      state.myResourceFilterParams = {
+        ...state.myResourceFilterParams, // Preserve existing properties
+        ...action.payload, // Merge new properties
+      };
     },
   },
 
@@ -133,7 +162,6 @@ const CloudResourceSlice = createSlice({
       .addCase(getMyResources.pending, (state) => {
         state.isAffiliationCreatedSuccess = false;
         state.isLoading = true;
-        state.myResourcesResponse = undefined;
         state.cloudResourceLoadingError = false;
       })
       .addCase(getMyResources.rejected, (state) => {
@@ -151,46 +179,18 @@ const CloudResourceSlice = createSlice({
       .addCase(getManagedResources.pending, (state) => {
         state.isAffiliationCreatedSuccess = false;
         state.managedResourceListResponse.isLoading = true;
-        state.managedResourceListResponse.managedResourceResponse = undefined;
+        // state.managedResourceListResponse.managedResourceResponse = undefined;
       })
       .addCase(getManagedResources.fulfilled, (state, action) => {
         state.isAffiliationCreatedSuccess = false;
         state.managedResourceListResponse.isLoading = false;
         state.managedResourceListResponse.managedResourceResponse = action.payload.result;
+        state.managedResourceFilterParams.count = action.payload.count;
       })
       .addCase(getManagedResources.rejected, (state) => {
         state.isAffiliationCreatedSuccess = false;
         state.managedResourceListResponse.isLoading = false;
         state.managedResourceListResponse.managedResourceFailed = true;
-      })
-
-      .addCase(getMyWebHostings.pending, (state) => {
-        state.myWebHostingsResponse.isWebHostingsLoading = true;
-        state.myWebHostingsResponse.isWebHostingsLoadingFailed = false;
-        state.myWebHostingsResponse.WebHostingsList = undefined;
-      })
-      .addCase(getMyWebHostings.fulfilled, (state, action) => {
-        state.myWebHostingsResponse.isWebHostingsLoading = false;
-        state.myWebHostingsResponse.isWebHostingsLoadingFailed = false;
-        state.myWebHostingsResponse.WebHostingsList = action.payload.result;
-      })
-      .addCase(getMyWebHostings.rejected, (state) => {
-        state.myWebHostingsResponse.isWebHostingsLoading = false;
-        state.myWebHostingsResponse.isWebHostingsLoadingFailed = true;
-      })
-      .addCase(getMyDns.pending, (state) => {
-        state.myDnsResponse.isDnsLoading = true;
-        state.myDnsResponse.isDnsLoadingFailed = false;
-        state.myDnsResponse.dnsList = undefined;
-      })
-      .addCase(getMyDns.fulfilled, (state, action) => {
-        state.myDnsResponse.isDnsLoading = false;
-        state.myDnsResponse.isDnsLoadingFailed = false;
-        state.myDnsResponse.dnsList = action.payload.result;
-      })
-      .addCase(getMyDns.rejected, (state) => {
-        state.myDnsResponse.isDnsLoading = false;
-        state.myDnsResponse.isDnsLoadingFailed = true;
       })
       .addCase(getProvidersList.pending, (state) => {
         state.isLoading = true;
@@ -221,6 +221,5 @@ const CloudResourceSlice = createSlice({
   },
 });
 
-export const { updateCloudResourcesSearchValue } = CloudResourceSlice.actions;
-
+export const { updateCloudResourcesSearchValue, updateManagedResourceFilterParams, updateMyResourceFilterParams } = CloudResourceSlice.actions;
 export default CloudResourceSlice.reducer;
