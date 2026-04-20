@@ -1,22 +1,22 @@
 "use client";
+import { useApiServiceSubscription } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionSelectors";
+import { fetchApiServiceSubscriptionById } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionThunks";
 import { useAppDispatch } from "@/lib/hook";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { CustomTransparentOrangeButton } from "@/styles/components/buttonStyle";
 import { theme } from "@/styles/theme";
-import { BookOpen, Info, CalendarBlank, Timer, HourglassHigh } from "@phosphor-icons/react";
+import { BookOpen, CalendarBlank, HourglassHigh, Info, Timer } from "@phosphor-icons/react";
 import { Col, Result, Row, Skeleton, Space, Tag, Typography } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
 import dayjs from "dayjs";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../../locales/client";
-import GenerateTokenComponent from "./generateTokenComponent";
-import { useApiServiceSubscription } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionSelectors";
-import { fetchApiServiceSubscriptionById } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionThunks";
-import { subscriptionItems } from "./subscriptionItems";
 import DocumentationDrawer from "../../../utils/documentationDrawer";
-import { subscriptionStatusStyle } from "../../utils/subscriptionsConst";
 import SubscriptionPlanCard from "../../../utils/subscriptionplanCard";
+import { subscriptionStatusStyle } from "../../utils/subscriptionsConst";
+import GenerateTokenComponent from "./generateTokenComponent";
+import { subscriptionItems } from "./subscriptionItems";
 
 export default function ApiServiceSubscriptionSettingContent({
   apiServiceSubscription_id,
@@ -52,7 +52,7 @@ export default function ApiServiceSubscriptionSettingContent({
     }
   }, [currentApiServiceSubscription]);
 
-  function getRemainingDuration(startDate: Date, durationMonths: number) {
+  function getRemainingDuration(startDate: string, durationMonths: number) {
     const start = new Date(startDate);
     const end = new Date(start);
     end.setMonth(end.getMonth() + durationMonths);
@@ -360,9 +360,10 @@ export default function ApiServiceSubscriptionSettingContent({
                         {dayjs(currentApiServiceSubscription.start_date).format("YYYY-MM-DD")}
                       </Typography.Text>
                     </div>
-                    
+
                     <div style={{
-                      paddingRight: 24, paddingLeft: 24, borderRight: "1px solid #1a1a1a" }}>
+                      paddingRight: 24, paddingLeft: 24, borderRight: "1px solid #1a1a1a"
+                    }}>
                       <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 8 }}>
                         <CalendarBlank size={13} color="#555" />
                         <Typography.Text

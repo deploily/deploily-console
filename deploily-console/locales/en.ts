@@ -121,6 +121,8 @@ export default {
     'supportTicket.closed': 'Closed',
     'supportTicket.service': 'Service',
     'supportTicket.created_on': 'Creation date',
+    "supportTicket.reopen": "Reopen",
+    "supportTicket.close": "Close",
 
     'createSupportTicket.title': 'Create a new support ticket',
     'createSupportTicket.typography': 'Please assist us in directing your query to the appropriate team by selecting a server related to your request.',
@@ -374,7 +376,7 @@ export default {
     'affiliation.onDemand': 'On Demand',
     'affiliation.startDate': 'Start date',
     'affiliation.endDate': 'End date',
-    'affiliation.type':"Type",
+    'affiliation.type': "Type",
 
     "toast.titleFailed": "Failed to Create item",
     "toast.failed": "Failed to Create item",
@@ -505,7 +507,7 @@ export default {
     "usefulLinks": "Useful links",
     "specifications": "Specifications",
     "see_documentation": "See documentation",
-    
+
     'dashboard.expiringSoonSubscriptions.expiringSoonSubscriptions': 'Expiring soon subscriptions',
     'dashboard.expiringSoonSubscriptions.nOrder': 'N° Order',
     'dashboard.expiringSoonSubscriptions.serviceName': 'Service name',
@@ -536,12 +538,12 @@ export default {
     regenerateKeyWarning: "Regenerating your key will immediately revoke access to the previous key.",
     curlRequest: "CURL Request",
     curlRequestSubtitle: "Quick start code snippet for terminal execution",
-  "adminConsole": "Admin Console",
-  "manageYourService": "Manage your service",
-  "liveDemo": "Live Demo",
-  "tryItOut": "Try it out",
-  "console": "Console",
-  "serviceConsole": "Service Console",
+    "adminConsole": "Admin Console",
+    "manageYourService": "Manage your service",
+    "liveDemo": "Live Demo",
+    "tryItOut": "Try it out",
+    "console": "Console",
+    "serviceConsole": "Service Console",
 
     'resources.vps': 'VPS',
     'resources.web_hosting': 'Web Hosting',

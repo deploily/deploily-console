@@ -159,7 +159,14 @@ export interface ManagedResourceList {
 	"end_date": string,
 	"ressource_type": string,
 	"start_date": string,
-
+  options: ServicePlanOption;
+  plan_name: string;
+  preparation_time: number;
+  price: number;
+  provider_info: Provider;
+  service_id: number;
+  service_name: string;
+  service_plan_type: string;
 }
  export interface service_details {
   "plan": string,
