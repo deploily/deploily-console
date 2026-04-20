@@ -191,10 +191,10 @@ export default function CreateSupportTicket() {
             autoSize={{ minRows: 5, maxRows: 10 }}
           />
         </Form.Item>
-        <Form.Item label="Upload Image (Optional)">
+        <Form.Item label={t('uploadImageOptional')}>
           <Upload {...uploadProps}>
-            <Button icon={<UploadOutlined />}>
-              {imageFile ? `Selected: ${imageFile.name}` : 'Select Image'}
+            <Button icon={<UploadOutlined />} style={{ color: '#1890ff' }}>
+              { t("selectImage")}
             </Button>
           </Upload>
         </Form.Item>

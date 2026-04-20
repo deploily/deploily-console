@@ -132,6 +132,10 @@ export default {
     'createSupportTicket.createTicket': 'Create a ticket',
     'createSupportTicket.uploadFile': 'Upload file',
 
+    "createSupportTicket.uploadImageOptional": "Upload Image (Optional)",
+    "createSupportTicket.selectedImage": "Selected:",
+    "createSupportTicket.selectImage": "Select Image",
+
     'profilePayment.profilePayment': 'Payment profile',
     'profilePayment.addPaymentProfile': 'Add payment profile',
     'profilePayment.createProfile': 'Create a profile ',

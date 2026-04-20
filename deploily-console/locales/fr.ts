@@ -136,6 +136,9 @@ export default {
   "createSupportTicket.description": "Description*",
   "createSupportTicket.createTicket": "Créer un ticket",
   "createSupportTicket.uploadFile": "Télécharger un fichier",
+  "createSupportTicket.uploadImageOptional": "Télécharger une image (facultatif)",
+  "createSupportTicket.selectedImage": "Sélectionné :",
+  "createSupportTicket.selectImage": "Sélectionner une image",
 
   "profilePayment.profilePayment": "Profil de paiement",
   "profilePayment.addPaymentProfile": "Ajouter un profil de paiement",
