@@ -63,8 +63,8 @@ export default function ManagedRessourcesComponent() {
       },
       {
         title: t('providerName'),
-        dataIndex: "provider",
-        key: "provider",
+        dataIndex: "service_details",
+        key: "service_details",
         render: (service_details: service_details) =>
           service_details && service_details.provider ? service_details.provider.name?.charAt(0).toUpperCase() + service_details.provider.name?.slice(1) : "-",
       },

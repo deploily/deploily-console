@@ -1,9 +1,8 @@
 "use client";
-import * as React from "react";
-import {useEffect, useRef, useState} from "react";
-import {Col, Row} from "antd";
-import Layout, {Header} from "antd/es/layout/layout";
 import LocaleSwitcher from "@/components/locale/localeSwitcher";
+import { Col, Row } from "antd";
+import Layout, { Header } from "antd/es/layout/layout";
+import { useEffect, useRef, useState } from "react";
 
 function AppAppBar() {
   const [width, setWidth] = useState(0);
@@ -30,11 +29,14 @@ function AppAppBar() {
 
   return (
     <>
-      <Layout style={{}}>
+      <Layout style={{
+        backgroundColor: "transparent", 
+        backgroundImage: "none",
+      }}>
         <Header
           ref={observedDiv}
           style={{
-            backgroundColor: theme === "dark" ? "#0c0d0f" : "#FFFFFF",
+            backgroundColor: 'transparent',
             backgroundImage: "none",
             display: "flex",
             justifyContent: "center",
@@ -49,9 +51,9 @@ function AppAppBar() {
               justifyContent: "space-between",
             }}
           >
-            <Row align="middle" justify="end" style={{width: "100%"}}>
+            <Row align="middle" justify="end" style={{ width: "100%" }}>
               <Col
-                style={{display: "flex", alignItems: "start", height: "50%", paddingTop: "20px"}}
+                style={{ display: "flex", alignItems: "start", height: "50%", paddingTop: "20px" }}
               >
                 <LocaleSwitcher color={appBarColor} />
               </Col>

@@ -52,6 +52,10 @@ export default function ApiServiceSubscriptionSettingContent({
     }
   }, [currentApiServiceSubscription]);
 
+  console.log("currentApiServiceSubscription.end_date");
+  console.log(currentApiServiceSubscription?.end_date);
+  
+
   function getRemainingDuration(startDate: string, durationMonths: number) {
     const start = new Date(startDate);
     const end = new Date(start);
@@ -386,11 +390,8 @@ export default function ApiServiceSubscriptionSettingContent({
                           fontFamily: "monospace",
                         }}
                       >
-                        {dayjs(new Date(
-                          new Date(currentApiServiceSubscription.start_date).setMonth(
-                            new Date(currentApiServiceSubscription.start_date).getMonth() + currentApiServiceSubscription.duration_month
-                          )
-                        )).format("YYYY-MM-DD")}
+                        {currentApiServiceSubscription.end_date ?dayjs(currentApiServiceSubscription.end_date).format("YYYY-MM-DD") :'-'}
+
                       </Typography.Text>
                     </div>
 
