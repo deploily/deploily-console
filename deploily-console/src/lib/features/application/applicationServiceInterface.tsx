@@ -54,6 +54,9 @@ export interface NewApplicationSubscriptionState {
   promoCode: string;
   promoCodeRate?: number;
   promoColor?: string;
+  phone?: string;
+  byor: boolean;
+  provider_name?: string;
 }
 
 export interface ApplicationServicesState {

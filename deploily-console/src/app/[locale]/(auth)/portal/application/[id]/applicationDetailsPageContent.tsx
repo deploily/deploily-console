@@ -9,7 +9,7 @@ import { useAppDispatch } from "@/lib/hook";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { theme } from "@/styles/theme";
 import { HomeOutlined } from '@ant-design/icons';
-import {  Card, Col, Grid, Row, Select, Skeleton, Space } from "antd";
+import { Card, Col, Grid, Input, Row, Select, Skeleton, Space, Typography } from "antd";
 import { PaymentSideBar } from "deploily-ui-components";
 import { PaymentAppBar } from "deploily-ui-components/components/applications/paymentSideBar";
 import { useRouter } from "next/navigation";
@@ -39,7 +39,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
 
 
     const { applicationServiceById, isLoading, loadingError } = useApplicationServiceById();
-    const { totalAmount, duration, selected_version, app_service_plan, managed_ressource_details } = useNewApplicationSubscription();
+    const { totalAmount, duration, selected_version, app_service_plan, managed_ressource_details, byor, provider_name } = useNewApplicationSubscription();
 
 
     const tApplications = useScopedI18n('applications');
@@ -89,6 +89,10 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
             setFromPage(storedFrom);
         }
     }, []);
+
+
+console.log('manged resource');
+    console.log(managed_ressource_details);
 
 
     if (isLoading) return <Skeleton active />;
@@ -226,17 +230,111 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                 />
                             </div>
                         )}
-                        {app_service_plan && !app_service_plan.is_custom &&
-                                <>
-                                    <Col xs={0} sm={0} md={24} lg={24}>
-                                        <Card styles={{ body: { padding: 0 } }}>
-                                            <SelectVpsPlanTable applicationId={applicationId} subscriptionCategory={subscriptionCategory} />
-                                        </Card>
-                                    </Col>
-                                    <Col xs={24} sm={24} md={0} lg={0}>
-                                        <SelectVpsPlanCard applicationId={applicationId} subscriptionCategory={subscriptionCategory} />
-                                    </Col>
-                                </>
+
+                        <div
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '12px',
+                                padding: '14px 20px',
+                                borderRadius: '14px',
+                                border: `1.5px solid ${byor ? theme.token.colorPrimary : theme.token.gray300}`,
+                                backgroundColor: byor
+                                    ? `${theme.token.colorPrimary}14`
+                                    : theme.token.colorBgBase,
+                                cursor: 'pointer',
+                                transition: 'all 0.2s ease',
+                            }}
+                            onClick={() => dispatch(updateNewAppSubscriptionState({ byor: !byor }))}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.borderColor = theme.token.colorPrimary;
+                                e.currentTarget.style.backgroundColor = `${theme.token.colorPrimary}08`;
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.borderColor = byor ? theme.token.colorPrimary : theme.token.gray300;
+                                e.currentTarget.style.backgroundColor = byor
+                                    ? `${theme.token.colorPrimary}14`
+                                    : theme.token.colorBgBase;
+                            }}
+                        >
+                            <div
+                                style={{
+                                    width: 20,
+                                    height: 20,
+                                    borderRadius: '6px',
+                                    border: `2px solid ${byor ? theme.token.colorPrimary : theme.token.gray300}`,
+                                    backgroundColor: byor ? theme.token.colorPrimary : 'transparent',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    transition: 'all 0.18s ease',
+                                    flexShrink: 0,
+                                }}
+                            >
+                                {byor && (
+                                    <svg width="11" height="9" viewBox="0 0 11 9" fill="none">
+                                        <path
+                                            d="M1 4L4 7.5L10 1"
+                                            stroke="white"
+                                            strokeWidth="1.8"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        />
+                                    </svg>
+                                )}
+                            </div>
+                            <div>
+                                <Typography.Text
+                                    style={{
+                                        fontSize: '0.875rem',
+                                        fontWeight: 600,
+                                        color: byor ? theme.token.colorPrimary : theme.token.colorWhite,
+                                        lineHeight: 1.2,
+                                        transition: 'color 0.18s',
+                                        display: 'block',
+                                    }}
+                                >
+                                    Bring your own resource (BYOR)
+                                </Typography.Text>
+                                <Typography.Text
+                                    style={{
+                                        fontSize: '0.75rem',
+                                        color: theme.token.gray100,
+                                        marginTop: '2px',
+                                        display: 'block',
+                                    }}
+                                >
+                                    {/* //TODO */}
+                                </Typography.Text>
+                            </div>
+                        </div>
+                        <Typography.Title level={4} style={{ paddingTop: 20, paddingBottom: 10 }}>
+                            {/* {translate("selectProfile")} */}
+                            Enter your provider name to identify your resource
+                        </Typography.Title>
+                        <Input
+                            placeholder="Enter your phone number"
+                            value={provider_name}
+                            onChange={(e) => {
+                                dispatch(updateNewAppSubscriptionState({ phone: e.target.value }));
+                            }}
+                            onPressEnter={() => {
+                                dispatch(updateNewAppSubscriptionState({ phone: provider_name }));
+                            }
+                            }
+                            style={{ marginBottom: 0 }}
+                        />
+                        {!byor && app_service_plan && !app_service_plan.is_custom &&
+                            <>
+                                <Col xs={0} sm={0} md={24} lg={24}>
+                                    <Card styles={{ body: { padding: 0 } }}>
+                                        <SelectVpsPlanTable applicationId={applicationId} subscriptionCategory={subscriptionCategory} />
+                                    </Card>
+                                </Col>
+                                <Col xs={24} sm={24} md={0} lg={0}>
+                                    <SelectVpsPlanCard applicationId={applicationId} subscriptionCategory={subscriptionCategory} />
+                                </Col>
+                            </>
                         }
 
                         <div style={{ padding: '8px 0' }}>
@@ -255,11 +353,13 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                 items={[
                                     { label: tApplications('svc'), value: applicationServiceById.name },
                                     { label: tApplications("plan"), value: app_service_plan?.plan.name || "" },
-
-                                    { label: tApplications('provider'), value: managed_ressource_details?.provider_info?.name || "" },
-                                    { label: tApplications("vpsType"), value: managed_ressource_details?.service_name || "" },
-                                    { label: tApplications('resourcePlan'), value: managed_ressource_details?.plan_name || "" },
-                                    { label: tApplications('prepaTime'), value: `${managed_ressource_details?.preparation_time} h` || "" },
+                                    ...!byor ? [
+                                        { label: tApplications('provider'), value: managed_ressource_details?.provider_info?.name || "" },
+                                        { label: tApplications("vpsType"), value: managed_ressource_details?.service_name || "" },
+                                        { label: tApplications('resourcePlan'), value: managed_ressource_details?.plan_name || "" },
+                                        { label: tApplications('prepaTime'), value: `${managed_ressource_details?.preparation_time} h` || "" }
+                                    ] : []
+                                    ,
                                     {
                                         label: tApplications('version'),
                                         value: (
@@ -280,7 +380,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                         label: tApplications('duration'),
                                         value: (
                                             <Select
-                                                {...(managed_ressource_details?.isManaged
+                                                {...(managed_ressource_details?.isManaged && !byor
                                                     ? { value: managed_ressource_details?.time_remaining }
                                                     : { defaultValue: duration })}
                                                 style={{ width: 150, borderRadius: "10px" }}
@@ -289,7 +389,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                                     backgroundColor: theme.token.gray50,
                                                     border: `2px solid ${theme.token.gray100}`,
                                                 }}
-                                                options={managed_ressource_details?.isManaged ?
+                                                options={managed_ressource_details?.isManaged && !byor ?
                                                     [{
                                                         value: managed_ressource_details?.time_remaining,
                                                         label: `${managed_ressource_details?.time_remaining} Months`

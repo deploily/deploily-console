@@ -63,7 +63,7 @@ export default function ApiServiceSubscriptionDrawer({
                         }
                         }
                       style={{marginBottom: 0}}
-                    />
+          />
           <SelectProfileComponent />
           {selectedProfile !== undefined && (
             <div style={{padding: "5px 0px"}}>

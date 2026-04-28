@@ -3,30 +3,30 @@ import {
   useDeploymentServiceBySlug,
   useNewDeploymentSubscription,
 } from "@/lib/features/deployment/deploymentServiceSelectors";
-import {updateNewDeploymentSubscriptionState} from "@/lib/features/deployment/deploymentServiceSlice";
-import {deploymentSubscribe} from "@/lib/features/deployment/deploymentsServiceThunks";
-import {useNotDefaultPaymentProfiles} from "@/lib/features/payment-profiles/paymentProfilesSelectors";
-import {fetchNotDefaultPaymentProfiles} from "@/lib/features/payment-profiles/paymentProfilesThunks";
-import {useAppDispatch} from "@/lib/hook";
-import {Col, Drawer} from "antd";
+import { updateNewDeploymentSubscriptionState } from "@/lib/features/deployment/deploymentServiceSlice";
+import { deploymentSubscribe } from "@/lib/features/deployment/deploymentsServiceThunks";
+import { useNotDefaultPaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesSelectors";
+import { fetchNotDefaultPaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesThunks";
+import { useAppDispatch } from "@/lib/hook";
+import { Col, Drawer, Input, Typography } from "antd";
 import NewSubscriptionInfo from "deploily-ui-components/components/payment/newSubscriptionInfo";
 import SelectProfileComponent from "deploily-ui-components/components/payment/selectProfile";
-import {useRouter} from "next/navigation";
-import {useEffect} from "react";
-import {useScopedI18n} from "../../../../../../../../../locales/client";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useScopedI18n } from "../../../../../../../../../locales/client";
 import CreateProfileButton from "../../../../api-services/[id]/components/subscriptionDrawer/containers/createProfileButton";
 import DeploymentPaymentComponent from "./deploymentPaymentComponent";
 import IsBalanceSufficientComponent from "./isBalanceSufficientComponent";
 
-export default function PaymentDrawer({openDrawer, onClose}: {openDrawer: any; onClose: any}) {
+export default function PaymentDrawer({ openDrawer, onClose }: { openDrawer: any; onClose: any }) {
   const router = useRouter();
   const tDeployment = useScopedI18n("deployment");
   const tSubscription = useScopedI18n("subscription");
 
   const dispatch = useAppDispatch();
-  const {deploymentServiceBySlug} = useDeploymentServiceBySlug();
+  const { deploymentServiceBySlug } = useDeploymentServiceBySlug();
 
-  const {paymentProfilesList} = useNotDefaultPaymentProfiles();
+  const { paymentProfilesList } = useNotDefaultPaymentProfiles();
   const {
     promoCode,
     totalAmount,
@@ -36,11 +36,12 @@ export default function PaymentDrawer({openDrawer, onClose}: {openDrawer: any; o
     managed_ressource_details,
     selectedProfile,
     isBalanceSufficient,
+    phone
   } = useNewDeploymentSubscription();
 
   const handleSelectPaymentProfile = (value: any) => {
     const newSelectedProfile = paymentProfilesList?.result.find((profile) => profile.id === value);
-    dispatch(updateNewDeploymentSubscriptionState({selectedProfile: newSelectedProfile}));
+    dispatch(updateNewDeploymentSubscriptionState({ selectedProfile: newSelectedProfile }));
   };
 
   const handleSubscribe = async () => {
@@ -55,12 +56,13 @@ export default function PaymentDrawer({openDrawer, onClose}: {openDrawer: any; o
         payment_method: "cloud_credit",
         service_plan_selected_id: deployment_service_plan.id,
         ...(managed_ressource_details.isManaged
-          ? {managed_ressource_id: managed_ressource_details.managed_ressource_id}
-          : {ressource_service_plan_selected_id: managed_ressource_details.id}),
+          ? { managed_ressource_id: managed_ressource_details.managed_ressource_id }
+          : { ressource_service_plan_selected_id: managed_ressource_details.id }),
         profile_id: selectedProfile.id,
         version_selected_id: selected_version?.id,
         // managed_ressource_id: managed_ressource_details.service_id,
         // managed_ressource_id: managed_ressource_id,
+        phone: phone
       };
       dispatch(
         deploymentSubscribe({
@@ -98,7 +100,7 @@ export default function PaymentDrawer({openDrawer, onClose}: {openDrawer: any; o
           },
         }}
       >
-        <Col style={{padding: 20}}>
+        <Col style={{ padding: 20 }}>
           <NewSubscriptionInfo
             title={`${tDeployment("order")}`}
             newSubscriptionInfo={{
@@ -140,6 +142,22 @@ export default function PaymentDrawer({openDrawer, onClose}: {openDrawer: any; o
               },
             }}
           />
+          <Typography.Title level={4} style={{ paddingTop: 20, paddingBottom: 10 }}>
+            {/* {translate("selectProfile")} */}
+            Enter your phone number
+          </Typography.Title>
+          <Input
+            placeholder="Enter your phone number"
+            value={phone}
+            onChange={(e) => {
+              dispatch(updateNewDeploymentSubscriptionState({ phone: e.target.value }));
+            }}
+            onPressEnter={() => {
+              dispatch(updateNewDeploymentSubscriptionState({ phone: phone }));
+            }
+            }
+            style={{ marginBottom: 0 }}
+          />
           {paymentProfilesList?.count != undefined && paymentProfilesList?.count > 0 && (
             <SelectProfileComponent
               translations={{
@@ -153,7 +171,7 @@ export default function PaymentDrawer({openDrawer, onClose}: {openDrawer: any; o
             />
           )}
           {
-            <div style={{padding: "5px 0px"}}>
+            <div style={{ padding: "5px 0px" }}>
               {isBalanceSufficient === true ? (
                 <IsBalanceSufficientComponent
                   onClose={onClose}

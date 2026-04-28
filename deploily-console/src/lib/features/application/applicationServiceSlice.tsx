@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   ApplicationServiceByIdState,
   ApplicationServicesState,
@@ -49,6 +49,8 @@ const initialState: ApplicationServiceState = {
     promoCode: "",
     promoCodeRate: undefined,
     promoColor: undefined,
+    byor: false,
+    provider_name: undefined,
   },
   searchValue: "",
 };
@@ -57,10 +59,18 @@ const ApplicationServiceSlice = createSlice({
   initialState,
   reducers: {
     updateNewAppSubscriptionState: (state, action: PayloadAction<any>) => {
+      console.log("############################################");
+      console.log(state.newAppSubscriptionState);
+      console.log(action.payload);
+
+
       let updatedState: NewApplicationSubscriptionState = {
         ...state.newAppSubscriptionState,
         ...action.payload,
       };
+
+      console.log("++++++++++++++++++++++++++++", updatedState);
+
 
       let updatedAmount = 0;
 
@@ -71,14 +81,16 @@ const ApplicationServiceSlice = createSlice({
         updatedState.managed_ressource_details &&
         !updatedState.managed_ressource_details.isAlreadyPaid // 👈 condition
       ) {
+        console.log('=============================================');
+
         updatedAmount +=
           updatedState.duration * (updatedState.managed_ressource_details.price || 0);
       }
       if (updatedState.promoCodeRate !== undefined) {
-        updatedState = {...updatedState, promoColor: "green"};
+        updatedState = { ...updatedState, promoColor: "green" };
         updatedAmount = updatedAmount - (updatedAmount * (updatedState.promoCodeRate || 0)) / 100;
       }
-      updatedState = {...updatedState, totalAmount: updatedAmount};
+      updatedState = { ...updatedState, totalAmount: updatedAmount };
 
       if (updatedState.selectedProfile) {
         updatedState.isBalanceSufficient =
@@ -86,6 +98,10 @@ const ApplicationServiceSlice = createSlice({
       }
 
       state.newAppSubscriptionState = updatedState;
+      console.log("(((((((((((((((((((((((((((((((((((((((((((((((((");
+
+      console.log(state.newAppSubscriptionState);
+
       return state;
     },
 
@@ -102,12 +118,12 @@ const ApplicationServiceSlice = createSlice({
         state.applicationServices.isLoading = false;
         state.applicationServices.loadingError = null;
         const result = action.payload.ids.map((id: number, index: any) =>
-          Object.assign({}, {id: id}, action.payload.result[index]),
+          Object.assign({}, { id: id }, action.payload.result[index]),
         );
-        const payload = Object.assign({}, action.payload, {result: result});
+        const payload = Object.assign({}, action.payload, { result: result });
         state.applicationServices.applicationServicesList = payload;
       })
-      .addCase(fetchApplicationServices.rejected, (state, {payload}) => {
+      .addCase(fetchApplicationServices.rejected, (state, { payload }) => {
         state.applicationServices.isLoading = false;
         state.applicationServices.loadingError = payload;
       })
@@ -124,7 +140,7 @@ const ApplicationServiceSlice = createSlice({
             state.applicationServicesById.applicationServiceById?.app_versions[0];
         }
       })
-      .addCase(fetchApplicationServiceById.rejected, (state, {payload}) => {
+      .addCase(fetchApplicationServiceById.rejected, (state, { payload }) => {
         state.applicationServicesById.isLoading = false;
         state.applicationServicesById.loadingError = payload;
       })
@@ -133,7 +149,7 @@ const ApplicationServiceSlice = createSlice({
         state.newApplicationSubscriptionResponse.newSubscriptionFailed = false;
         state.newApplicationSubscriptionResponse.newSubscriptionResponse = undefined;
       })
-      .addCase(applicationSubscribe.fulfilled, (state, {payload}) => {
+      .addCase(applicationSubscribe.fulfilled, (state, { payload }) => {
         state.newApplicationSubscriptionResponse.newSubscriptionIsLoading = false;
         state.newApplicationSubscriptionResponse.newSubscriptionFailed = false;
         state.newApplicationSubscriptionResponse.newSubscriptionResponse = payload;
@@ -146,7 +162,7 @@ const ApplicationServiceSlice = createSlice({
   },
 });
 
-export const {updateNewAppSubscriptionState, updateApplicationServiceSearchValue} =
+export const { updateNewAppSubscriptionState, updateApplicationServiceSearchValue } =
   ApplicationServiceSlice.actions;
 
 export default ApplicationServiceSlice.reducer;

@@ -55,7 +55,7 @@ export default function SelectVpsPlanTable({
 
     const service =
       (servicePlansList?.result || []).map((plan) => ({
-        ...plan,
+        ...plan,         
         isManaged: false,
         isAlreadyPaid: false, // ✅ New service plans need payment
         options: Array.isArray(plan.options) ? plan.options : [],
