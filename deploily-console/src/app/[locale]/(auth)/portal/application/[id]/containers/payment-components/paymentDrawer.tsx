@@ -147,11 +147,10 @@ export default function PaymentDrawer({ openDrawer, onClose }: { openDrawer: any
             }}
           />
           <Typography.Title level={4} style={{ paddingTop: 20, paddingBottom: 10 }}>
-            {/* {translate("selectProfile")} */}
-            Enter your phone number
+            {tApplications("enterPhoneNumber")}
           </Typography.Title>
           <Input
-            placeholder="Enter your phone number"
+            placeholder={tApplications("enterPhoneNumber")}
             value={phone}
             onChange={(e) => {
               dispatch(updateNewAppSubscriptionState({ phone: e.target.value }));

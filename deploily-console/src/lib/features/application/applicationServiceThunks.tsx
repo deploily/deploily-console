@@ -1,6 +1,5 @@
 import axiosInstance from "@/app/api/axios-instance";
 import {deploilyApiUrls} from "@/deploilyWebsiteUrls";
-import {RootState} from "@/lib/store";
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {getSession} from "next-auth/react";
 import {getSubscribeToAppUrl} from "./getSubscribeToAppUrl";

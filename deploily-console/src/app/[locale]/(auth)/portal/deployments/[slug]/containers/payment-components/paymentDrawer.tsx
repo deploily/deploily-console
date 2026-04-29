@@ -21,6 +21,7 @@ import IsBalanceSufficientComponent from "./isBalanceSufficientComponent";
 export default function PaymentDrawer({ openDrawer, onClose }: { openDrawer: any; onClose: any }) {
   const router = useRouter();
   const tDeployment = useScopedI18n("deployment");
+  const tApplications = useScopedI18n("applications");
   const tSubscription = useScopedI18n("subscription");
 
   const dispatch = useAppDispatch();
@@ -143,11 +144,10 @@ export default function PaymentDrawer({ openDrawer, onClose }: { openDrawer: any
             }}
           />
           <Typography.Title level={4} style={{ paddingTop: 20, paddingBottom: 10 }}>
-            {/* {translate("selectProfile")} */}
-            Enter your phone number
+            {tApplications("enterPhoneNumber")}
           </Typography.Title>
           <Input
-            placeholder="Enter your phone number"
+            placeholder={tApplications("enterPhoneNumber")}
             value={phone}
             onChange={(e) => {
               dispatch(updateNewDeploymentSubscriptionState({ phone: e.target.value }));

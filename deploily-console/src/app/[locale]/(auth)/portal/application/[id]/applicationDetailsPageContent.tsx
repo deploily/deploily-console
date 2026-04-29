@@ -23,7 +23,6 @@ import AppPromoCodeTextField from "./containers/payment-components/appPromoCodeT
 import PaymentDrawer from "./containers/payment-components/paymentDrawer";
 import SelectVpsPlanCard from "./containers/selectVpsPlanCard";
 import SelectVpsPlanTable from "./containers/selectVpsPlanTable";
-// import SelectVpsPlanTable from "./containers/selectVpsPlanTable";
 
 
 export default function ApplicationDetailsPageContent({ applicationId }: { applicationId: any }) {
@@ -62,7 +61,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
     }, [subscriptionCategory]);
 
     useEffect(() => {
-        if (managed_ressource_details?.isManaged) {
+        if (managed_ressource_details?.isManaged && byor === false) {
             dispatch(updateNewAppSubscriptionState({ duration: managed_ressource_details?.time_remaining }));
         }
     }, [managed_ressource_details?.isManaged]);
@@ -91,7 +90,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
     }, []);
 
 
-console.log('manged resource');
+    console.log('manged resource');
     console.log(managed_ressource_details);
 
 
@@ -244,6 +243,7 @@ console.log('manged resource');
                                     : theme.token.colorBgBase,
                                 cursor: 'pointer',
                                 transition: 'all 0.2s ease',
+                                marginBottom: '10px'
                             }}
                             onClick={() => dispatch(updateNewAppSubscriptionState({ byor: !byor }))}
                             onMouseEnter={(e) => {
@@ -294,7 +294,7 @@ console.log('manged resource');
                                         display: 'block',
                                     }}
                                 >
-                                    Bring your own resource (BYOR)
+                                    {tApplications("useOwnServer")}
                                 </Typography.Text>
                                 <Typography.Text
                                     style={{
@@ -308,22 +308,23 @@ console.log('manged resource');
                                 </Typography.Text>
                             </div>
                         </div>
-                        <Typography.Title level={4} style={{ paddingTop: 20, paddingBottom: 10 }}>
-                            {/* {translate("selectProfile")} */}
-                            Enter your provider name to identify your resource
-                        </Typography.Title>
-                        <Input
-                            placeholder="Enter your phone number"
-                            value={provider_name}
-                            onChange={(e) => {
-                                dispatch(updateNewAppSubscriptionState({ phone: e.target.value }));
-                            }}
-                            onPressEnter={() => {
-                                dispatch(updateNewAppSubscriptionState({ phone: provider_name }));
-                            }
-                            }
-                            style={{ marginBottom: 0 }}
-                        />
+                        {byor && <>
+                            <Typography.Title level={4} style={{ paddingTop: 20, paddingBottom: 10 }}>
+                                {tApplications("enterProviderName")}
+                            </Typography.Title>
+                            <Input
+                                placeholder={tApplications("enterProviderName")}
+                                value={provider_name}
+                                onChange={(e) => {
+                                    dispatch(updateNewAppSubscriptionState({ phone: e.target.value }));
+                                }}
+                                onPressEnter={() => {
+                                    dispatch(updateNewAppSubscriptionState({ phone: provider_name }));
+                                }
+                                }
+                                style={{ marginBottom: 0 }}
+                            />
+                        </>}
                         {!byor && app_service_plan && !app_service_plan.is_custom &&
                             <>
                                 <Col xs={0} sm={0} md={24} lg={24}>

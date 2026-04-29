@@ -225,3 +225,33 @@ export const getManagedResources = createAsyncThunk(
     }
   },
 );
+
+
+export const getVpsManagedResources = createAsyncThunk(
+  "resources/getVpsManagedResources",
+  async (_, thunkConfig) => {
+    try {
+      const session = await getSession();
+      if (!session) {
+        return thunkConfig.rejectWithValue("session expired");
+      }
+      const token = session.accessToken;
+      const filters = `(page_size:10,page:0)`;
+      const query = `?q=${encodeURIComponent(filters)}`;
+
+      const response = await axiosInstance.get(`${deploilyApiUrls.MANAGED_RESSOURCE_URL}vps${query}`, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        return thunkConfig.rejectWithValue("Failed to fetch managed resource");
+      }
+    } catch (error: any) {
+      return thunkConfig.rejectWithValue(error.message);
+    }
+  },
+);

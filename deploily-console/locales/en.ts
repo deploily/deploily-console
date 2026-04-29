@@ -415,7 +415,11 @@ export default {
     "applications.prepaTime": "Preparation time",
     "applications.hours": "Hours",
     "applications.managed": "• Managed",
-
+    "applications":{
+        "useOwnServer": "I want to use my own server",
+        "enterPhoneNumber": "Enter your phone number",
+        "enterProviderName": "Enter your provider name to identify your resource"
+    },
     "dashboard.welcome": "👋 Welcome back, ",
     "dashboard.subTitle": "Your current stats at a glance",
     "dashboard.apiServices": "APIs Services",

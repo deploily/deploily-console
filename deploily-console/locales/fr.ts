@@ -425,6 +425,11 @@ export default {
   "applications.prepaTime": "Temps de préparation",
   "applications.hours": "Heures",
   "applications.managed": "• Géré",
+  "applications": {
+    "useOwnServer": "Je souhaite utiliser mon propre serveur",
+    "enterPhoneNumber": "Entrez votre numéro de téléphone",
+    "enterProviderName": "Entrez le nom de votre fournisseur pour identifier votre ressource"
+  },
 
   "dashboard.welcome": "👋 Bienvenue de nouveau, ",
   "dashboard.subTitle": "Vos statistiques actuelles en un coup d'œil",

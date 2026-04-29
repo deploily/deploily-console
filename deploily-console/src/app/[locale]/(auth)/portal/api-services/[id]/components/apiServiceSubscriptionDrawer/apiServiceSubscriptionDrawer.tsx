@@ -10,6 +10,7 @@ import NewApiServiceSubscriptionInfo from "./containers/newApiServiceSubscriptio
 import NewUpgradeApiServiceSubscriptionInfo from "./containers/newUpgradeApiServiceSubscriptionInfo";
 import { updateApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSlice";
 import { useAppDispatch } from "@/lib/hook";
+import { useScopedI18n } from "../../../../../../../../../locales/client";
 
 export default function ApiServiceSubscriptionDrawer({
   openDrawer,
@@ -28,6 +29,7 @@ export default function ApiServiceSubscriptionDrawer({
 }) {
   const dispatch=useAppDispatch();
   const {isBalanceSufficient, selectedProfile , phone} = useApiServiceSubscriptionStates();
+  const tApplications = useScopedI18n("applications");
   return (
     <>
       <Drawer
@@ -49,11 +51,10 @@ export default function ApiServiceSubscriptionDrawer({
             <NewApiServiceSubscriptionInfo planSelected={planSelected} />
           )}
           <Typography.Title level={4} style={{ paddingTop: 20, paddingBottom: 10 }}>
-            {/* {translate("selectProfile")} */}
-            Enter your phone number
+            {tApplications("enterPhoneNumber")}
           </Typography.Title>
           <Input
-                      placeholder="Enter your phone number"
+            placeholder={tApplications("enterPhoneNumber")}
                       value={phone}
                       onChange={(e) => {
                         dispatch(updateApiServiceSubscriptionStates({phone: e.target.value}));

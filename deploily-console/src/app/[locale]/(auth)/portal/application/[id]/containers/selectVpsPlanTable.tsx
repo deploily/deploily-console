@@ -12,10 +12,10 @@ import {useNewApplicationSubscription} from "@/lib/features/application/applicat
 import {useServicePlansByType} from "@/lib/features/resourceServicePlans/resourceServicesPlansSelectors";
 import {updateSelectedPlan} from "@/lib/features/resourceServicePlans/resourceServicesPlansSlice";
 import {fetchResourceServicesPlans} from "@/lib/features/resourceServicePlans/resourceServicesPlansThunk";
-import {getManagedResources} from "@/lib/features/cloud-resource/cloudResourceThunks";
+import {getManagedResources, getVpsManagedResources} from "@/lib/features/cloud-resource/cloudResourceThunks";
 import {ManagedRessourceDetails} from "@/lib/features/resourceServicePlans/resourceServicesPlansInterface";
 import {ServicePlanOption} from "@/lib/features/service-plans/servicePlanInterface";
-import {useManagedResource} from "@/lib/features/cloud-resource/cloudResourceSelectors";
+import { useVpsManagedResource} from "@/lib/features/cloud-resource/cloudResourceSelectors";
 import {useEffect} from "react";
 
 interface SelectVpsPlanTableProps {
@@ -35,18 +35,19 @@ export default function SelectVpsPlanTable({
   const tApplications = useScopedI18n("applications");
 
   const {servicePlansList} = useServicePlansByType();
-  const {managedResourceResponse} = useManagedResource();
+  const {vpsManagedResourceResponse} = useVpsManagedResource();
   const {managed_ressource_details} = useNewApplicationSubscription();
 
   useEffect(() => {
     dispatch(fetchResourceServicesPlans({serviceId: applicationId, subscriptionCategory}));
     dispatch(getManagedResources());
+    dispatch(getVpsManagedResources());
   }, [applicationId, subscriptionCategory, dispatch]);
 
   // ✅ Combine managed resources + service plans (unique keys)
   const allPlans = useMemo(() => {
     const managed =
-      (managedResourceResponse || []).map((plan) => ({
+      (vpsManagedResourceResponse || []).map((plan) => ({
         ...plan,
         isManaged: true,
         isAlreadyPaid: true, // ✅ Managed resources are already paid
@@ -62,7 +63,7 @@ export default function SelectVpsPlanTable({
       })) || [];
 
     return [...managed, ...service];
-  }, [managedResourceResponse, servicePlansList]);
+  }, [vpsManagedResourceResponse, servicePlansList]);
 
   // ✅ Use string keys to avoid collision
   const handlePlanChange = (selectedKey: string | number) => {
