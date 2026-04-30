@@ -52,8 +52,6 @@ export default function ApiServiceSubscriptionSettingContent({
     }
   }, [currentApiServiceSubscription]);
 
-  console.log("currentApiServiceSubscription.end_date");
-  console.log(currentApiServiceSubscription?.end_date);
   
 
   function getRemainingDuration(startDate: string, durationMonths: number) {

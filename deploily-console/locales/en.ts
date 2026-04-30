@@ -417,8 +417,15 @@ export default {
     "applications.managed": "• Managed",
     "applications":{
         "useOwnServer": "I want to use my own server",
+        "selectRes": "Select cloud resource",
+        "selectManagedRes": "Use my existing Server",
         "enterPhoneNumber": "Enter your phone number",
-        "enterProviderName": "Enter your provider name to identify your resource"
+        "enterProviderName": "Enter your provider name to identify your resource",
+        "providerIdentification": {
+            "title": "Identify Your Resource",
+            "description": "Enter your provider name to access your resources seamlessly",
+            "placeholder": "Enter your provider name"
+        }
     },
     "dashboard.welcome": "👋 Welcome back, ",
     "dashboard.subTitle": "Your current stats at a glance",

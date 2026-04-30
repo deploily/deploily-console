@@ -43,9 +43,6 @@ export default function BankTransfertComponent({
       phone: apiServiceSubscriptionStates.phone,
     };
 
-
-    console.log(apiServiceSubscriptionStates.phone);
-
     if (IsSubscribed && drawerType === "upgrade") {
       return dispatch(
         postUpgradeApiServiceSubscription({

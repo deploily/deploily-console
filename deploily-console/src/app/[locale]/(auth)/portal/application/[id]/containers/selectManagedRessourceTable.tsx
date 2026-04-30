@@ -8,70 +8,68 @@ import { TableComponentWithSelection } from "deploily-ui-components";
 import { useScopedI18n } from "../../../../../../../../locales/client";
 
 import { useNewApplicationSubscription } from "@/lib/features/application/applicationServiceSelectors";
-import { updateNewAppSubscriptionState } from "@/lib/features/application/applicationServiceSlice";
-import { getManagedResources, getVpsManagedResources } from "@/lib/features/cloud-resource/cloudResourceThunks";
+import { useVpsManagedResource } from "@/lib/features/cloud-resource/cloudResourceSelectors";
+import { getManagedResources } from "@/lib/features/cloud-resource/cloudResourceThunks";
 import { ManagedRessourceDetails } from "@/lib/features/resourceServicePlans/resourceServicesPlansInterface";
-import { useServicePlansByType } from "@/lib/features/resourceServicePlans/resourceServicesPlansSelectors";
 import { updateSelectedPlan } from "@/lib/features/resourceServicePlans/resourceServicesPlansSlice";
-import { fetchResourceServicesPlans } from "@/lib/features/resourceServicePlans/resourceServicesPlansThunk";
 import { ServicePlanOption } from "@/lib/features/service-plans/servicePlanInterface";
 import { useEffect } from "react";
 
 interface SelectVpsPlanTableProps {
   onVpsPlanSelect?: (plan: ManagedRessourceDetails) => void;
-  selectedVpsPlan?: ManagedRessourceDetails | null;
   applicationId?: any;
   subscriptionCategory?: any;
 }
-
-export default function SelectVpsPlanTable({
+export default function SelectManagedRessourceTable({
   onVpsPlanSelect,
-  selectedVpsPlan,
   applicationId,
   subscriptionCategory,
 }: SelectVpsPlanTableProps = {}) {
   const dispatch = useAppDispatch();
   const tApplications = useScopedI18n("applications");
 
-  const { servicePlansList } = useServicePlansByType();
+  const { vpsManagedResourceResponse } = useVpsManagedResource();
   const { managed_ressource_details } = useNewApplicationSubscription();
-  console.log("#######################################################");
-  console.log(managed_ressource_details);
-
 
   useEffect(() => {
-    dispatch(fetchResourceServicesPlans({ serviceId: applicationId, subscriptionCategory }));
-    dispatch(getVpsManagedResources());
+    dispatch(getManagedResources());
   }, [applicationId, subscriptionCategory, dispatch]);
 
-
-  // ✅ Use string keys to avoid collision
   const handlePlanChange = (selectedKey: string | number) => {
-    const foundPlan = servicePlansList?.result?.find(
-      (element) => element.id === selectedKey,
+    console.log("Selected key:", selectedKey);
+    console.log("Available plans:", vpsManagedResourceResponse);
+
+    const foundPlan = vpsManagedResourceResponse?.find(
+      (element) => element.id == selectedKey,
     );
 
+    console.log("Selected plan:", foundPlan);
+
     if (foundPlan) {
-      dispatch(updateSelectedPlan(foundPlan));
+      dispatch(updateSelectedPlan({
+        ...foundPlan,
+        isManaged: true,
+        isAlreadyPaid: true,
+      }));
+
+      // Call the callback if provided
+      onVpsPlanSelect?.(foundPlan);
     }
   };
 
-  useEffect(() => {
-    if ((!managed_ressource_details || (managed_ressource_details && managed_ressource_details.isManaged) )&& servicePlansList?.result && servicePlansList.result.length > 0) {
-      dispatch(updateSelectedPlan(servicePlansList?.result[0]));
-      dispatch(updateNewAppSubscriptionState({ duration: 12 }));
-    }
-  }, [managed_ressource_details?.isManaged, servicePlansList?.result, dispatch])
-
+  // Ensure we're using the correct ID for selection
+  const selectedRowKey = managed_ressource_details?.isManaged
+    ? `${managed_ressource_details.id}`
+    : undefined;
 
   return (
     <div>
-      {servicePlansList && servicePlansList.result && servicePlansList.result.length > 0 && (
+      {vpsManagedResourceResponse && vpsManagedResourceResponse.length > 0 && (
         <TableComponentWithSelection
-          selectedRowId={managed_ressource_details && !managed_ressource_details.isManaged ? managed_ressource_details.id : undefined}
+          selectedRowId={selectedRowKey}
           onChange={handlePlanChange}
-          data={servicePlansList.result.map((plan) => ({
-            key: plan.id,
+          data={vpsManagedResourceResponse.map((plan) => ({
+            key: `${plan.id}`,
             resource: plan,
             options: Array.isArray(plan.options)
               ? plan.options.filter((option: ServicePlanOption) =>

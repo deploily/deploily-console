@@ -8,8 +8,8 @@ import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThank
 import { useAppDispatch } from "@/lib/hook";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { theme } from "@/styles/theme";
-import { HomeOutlined } from '@ant-design/icons';
-import { Card, Col, Grid, Input, Row, Select, Skeleton, Space, Typography } from "antd";
+import { CloudServerOutlined, DatabaseOutlined, DesktopOutlined, HomeOutlined } from '@ant-design/icons';
+import { Card, Col, Grid, Input, Row, Segmented, Select, Skeleton, Space, Typography } from "antd";
 import { PaymentSideBar } from "deploily-ui-components";
 import { PaymentAppBar } from "deploily-ui-components/components/applications/paymentSideBar";
 import { useRouter } from "next/navigation";
@@ -21,10 +21,65 @@ import ApplicationPlansContainer from "./containers/applicationPlansContainer";
 import ApplicationDescriptionContainer from "./containers/descriptionContainer";
 import AppPromoCodeTextField from "./containers/payment-components/appPromoCodeTextField";
 import PaymentDrawer from "./containers/payment-components/paymentDrawer";
+import SelectManagedRessourceTable from "./containers/selectManagedRessourceTable";
 import SelectVpsPlanCard from "./containers/selectVpsPlanCard";
 import SelectVpsPlanTable from "./containers/selectVpsPlanTable";
+import SelectManagedRessourcePlanCard from "./containers/selectManagedRessourcePlanCard";
 
 
+
+const { Text, Title } = Typography;
+
+
+const segmentedStyles = `
+.custom-segmented {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px;
+}
+
+.custom-segmented .ant-segmented-group {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    width: 100%;
+    gap: 8px;
+}
+
+.custom-segmented .ant-segmented-item {
+    color: #999 !important;
+    border-radius: 4px;
+    transition: all 0.3s;
+    flex: 1 1 220px;
+    min-width: 180px;
+}
+
+.custom-segmented .ant-segmented-item-label {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    white-space: normal !important;
+    text-align: center;
+    line-height: 1.4;
+    padding: 10px 12px;
+    word-break: break-word;
+}
+
+.custom-segmented .ant-segmented-item-selected {
+    color: ${theme.token.colorPrimary} !important;
+    border-radius: 4px;
+}
+
+.custom-segmented .ant-segmented-item:hover:not(.ant-segmented-item-selected) {
+    color: #ccc !important;
+}
+
+.custom-segmented .ant-segmented-thumb {
+    background-color: transparent !important;
+    border: 1px solid ${theme.token.colorPrimary} !important;
+    border-radius: 4px;
+}
+`;
 export default function ApplicationDetailsPageContent({ applicationId }: { applicationId: any }) {
     const dispatch = useAppDispatch();
     const screens = Grid.useBreakpoint();
@@ -40,6 +95,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
     const { applicationServiceById, isLoading, loadingError } = useApplicationServiceById();
     const { totalAmount, duration, selected_version, app_service_plan, managed_ressource_details, byor, provider_name } = useNewApplicationSubscription();
 
+    console.log(duration);
 
     const tApplications = useScopedI18n('applications');
     const t = useI18n();
@@ -90,8 +146,8 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
     }, []);
 
 
-    console.log('manged resource');
-    console.log(managed_ressource_details);
+    const [ressourceType, setRessourceType] = useState("cloud");
+
 
 
     if (isLoading) return <Skeleton active />;
@@ -229,103 +285,129 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                 />
                             </div>
                         )}
-
-                        <div
-                            style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: '12px',
-                                padding: '14px 20px',
-                                borderRadius: '14px',
-                                border: `1.5px solid ${byor ? theme.token.colorPrimary : theme.token.gray300}`,
-                                backgroundColor: byor
-                                    ? `${theme.token.colorPrimary}14`
-                                    : theme.token.colorBgBase,
-                                cursor: 'pointer',
-                                transition: 'all 0.2s ease',
-                                marginBottom: '10px'
-                            }}
-                            onClick={() => dispatch(updateNewAppSubscriptionState({ byor: !byor }))}
-                            onMouseEnter={(e) => {
-                                e.currentTarget.style.borderColor = theme.token.colorPrimary;
-                                e.currentTarget.style.backgroundColor = `${theme.token.colorPrimary}08`;
-                            }}
-                            onMouseLeave={(e) => {
-                                e.currentTarget.style.borderColor = byor ? theme.token.colorPrimary : theme.token.gray300;
-                                e.currentTarget.style.backgroundColor = byor
-                                    ? `${theme.token.colorPrimary}14`
-                                    : theme.token.colorBgBase;
-                            }}
-                        >
-                            <div
-                                style={{
-                                    width: 20,
-                                    height: 20,
-                                    borderRadius: '6px',
-                                    border: `2px solid ${byor ? theme.token.colorPrimary : theme.token.gray300}`,
-                                    backgroundColor: byor ? theme.token.colorPrimary : 'transparent',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    transition: 'all 0.18s ease',
-                                    flexShrink: 0,
+                        <div style={{ marginBottom: '32px', width: '100%' }}>
+                            <style>{segmentedStyles}</style>
+                            <Segmented
+                                block={screens.xs}
+                                onChange={(value) => {
+                                    switch (value) {
+                                        case "own":
+                                            setRessourceType("own");
+                                            dispatch(updateNewAppSubscriptionState({ byor: true }));
+                                            break;
+                                        case "cloud":
+                                            setRessourceType("cloud");
+                                            dispatch(updateNewAppSubscriptionState({ byor: false }));
+                                            break;
+                                        case "managed":
+                                            setRessourceType("managed");
+                                            dispatch(updateNewAppSubscriptionState({ byor: false }));
+                                            break;
+                                        default:
+                                            break;
+                                    }
                                 }}
-                            >
-                                {byor && (
-                                    <svg width="11" height="9" viewBox="0 0 11 9" fill="none">
-                                        <path
-                                            d="M1 4L4 7.5L10 1"
-                                            stroke="white"
-                                            strokeWidth="1.8"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        />
-                                    </svg>
-                                )}
-                            </div>
-                            <div>
-                                <Typography.Text
-                                    style={{
-                                        fontSize: '0.875rem',
-                                        fontWeight: 600,
-                                        color: byor ? theme.token.colorPrimary : theme.token.colorWhite,
-                                        lineHeight: 1.2,
-                                        transition: 'color 0.18s',
-                                        display: 'block',
-                                    }}
-                                >
-                                    {tApplications("useOwnServer")}
-                                </Typography.Text>
-                                <Typography.Text
-                                    style={{
-                                        fontSize: '0.75rem',
-                                        color: theme.token.gray100,
-                                        marginTop: '2px',
-                                        display: 'block',
-                                    }}
-                                >
-                                    {/* //TODO */}
-                                </Typography.Text>
-                            </div>
+                                options={[
+                                    {
+                                        label: tApplications("selectRes"),
+                                        value: 'cloud',
+                                        icon: <CloudServerOutlined />,
+                                    },
+                                    {
+                                        value: 'managed',
+                                        label: tApplications("selectManagedRes"),
+                                        icon: <DatabaseOutlined />,
+                                    },
+                                    {
+                                        value: 'own',
+                                        label: tApplications('useOwnServer'),
+                                        icon: <DesktopOutlined />,
+                                    },
+                                ]}
+                                size="large"
+                                style={{
+                                    backgroundColor: '#1a1a1a',
+                                    padding: '4px',
+                                    borderRadius: '4px',
+                                    width: '100%',
+                                    flexWrap: 'wrap',
+                                }}
+                                className="custom-segmented responsive-segmented"
+                            />
                         </div>
                         {byor && <>
-                            <Typography.Title level={4} style={{ paddingTop: 20, paddingBottom: 10 }}>
-                                {tApplications("enterProviderName")}
-                            </Typography.Title>
-                            <Input
-                                placeholder={tApplications("enterProviderName")}
-                                value={provider_name}
-                                onChange={(e) => {
-                                    dispatch(updateNewAppSubscriptionState({ phone: e.target.value }));
+                            <Card
+                                style={{
+                                    border: 'none',
+                                    borderRadius: 16,
+                                    padding: '8px',
                                 }}
-                                onPressEnter={() => {
-                                    dispatch(updateNewAppSubscriptionState({ phone: provider_name }));
-                                }
-                                }
-                                style={{ marginBottom: 0 }}
-                            />
+                            >
+                                <div
+                                    style={{
+                                        borderRadius: 12,
+                                        padding: '2px',
+                                    }}
+                                >
+
+
+                                    {/* Title */}
+                                    <Title
+                                        level={3}
+                                        style={{
+                                            marginBottom: 8,
+                                            fontWeight: 600,
+                                            color: 'primary',
+                                            WebkitBackgroundClip: 'text',
+                                            backgroundClip: 'text',
+                                        }}
+                                    >
+                                        {tApplications("providerIdentification.title")}
+                                    </Title>
+
+                                    {/* Description */}
+                                    <Text
+                                        style={{
+                                            display: 'block',
+                                            marginBottom: 24,
+                                            color: 'grey',
+                                            fontSize: 14,
+                                            lineHeight: '1.6',
+                                        }}
+                                    >
+                                        {tApplications("providerIdentification.description")}
+                                    </Text>
+
+                                    {/* Input */}
+                                    <Input
+                                        size="large"
+                                        placeholder={tApplications("providerIdentification.placeholder")}
+                                        value={provider_name}
+                                        onChange={(e) => {
+                                            dispatch(updateNewAppSubscriptionState({ phone: e.target.value }));
+                                        }}
+                                        onPressEnter={() => {
+                                            dispatch(updateNewAppSubscriptionState({ phone: provider_name }));
+                                        }}
+                                        style={{
+                                            borderRadius: 8,
+                                            border: '2px solid #e2e8f0',
+                                            transition: 'all 0.3s ease',
+                                        }}
+                                        onFocus={(e) => {
+                                            e.target.style.borderColor = '#667eea';
+                                            e.target.style.boxShadow = '0 0 0 3px rgba(102, 126, 234, 0.1)';
+                                        }}
+                                        onBlur={(e) => {
+                                            e.target.style.borderColor = '#e2e8f0';
+                                            e.target.style.boxShadow = 'none';
+                                        }}
+                                    />
+                                </div>
+                            </Card>
+
                         </>}
-                        {!byor && app_service_plan && !app_service_plan.is_custom &&
+                        {!byor && ressourceType === "cloud" && app_service_plan && !app_service_plan.is_custom &&
                             <>
                                 <Col xs={0} sm={0} md={24} lg={24}>
                                     <Card styles={{ body: { padding: 0 } }}>
@@ -337,7 +419,19 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                 </Col>
                             </>
                         }
-
+                        {ressourceType === "managed" && !byor && (
+                            <>
+                                <Col xs={0} sm={0} md={24} lg={24}>
+                                    <Card styles={{ body: { padding: 0 } }}>
+                                        <SelectManagedRessourceTable applicationId={applicationId} subscriptionCategory={subscriptionCategory} />
+                                    </Card>
+                                </Col>
+                                <Col xs={24} sm={24} md={0} lg={0}>
+                                    <SelectManagedRessourcePlanCard applicationId={applicationId} subscriptionCategory={subscriptionCategory} />
+                                </Col>
+                            </>
+                        )
+                        }
                         <div style={{ padding: '8px 0' }}>
                             <ApplicationDetailsCollapseContainer description={applicationServiceById.description} specifications={applicationServiceById.specifications} documentationUrl={applicationServiceById.documentation_url}
                             // demoUrl={applicationServiceById.demo_url}
@@ -383,7 +477,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                             <Select
                                                 {...(managed_ressource_details?.isManaged && !byor
                                                     ? { value: managed_ressource_details?.time_remaining }
-                                                    : { defaultValue: duration })}
+                                                    : { value: duration })}
                                                 style={{ width: 150, borderRadius: "10px" }}
                                                 onChange={handleChangeDuration}
                                                 dropdownStyle={{

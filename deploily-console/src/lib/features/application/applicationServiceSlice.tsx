@@ -59,18 +59,10 @@ const ApplicationServiceSlice = createSlice({
   initialState,
   reducers: {
     updateNewAppSubscriptionState: (state, action: PayloadAction<any>) => {
-      console.log("############################################");
-      console.log(state.newAppSubscriptionState);
-      console.log(action.payload);
-
-
       let updatedState: NewApplicationSubscriptionState = {
         ...state.newAppSubscriptionState,
         ...action.payload,
       };
-
-      console.log("++++++++++++++++++++++++++++", updatedState);
-
 
       let updatedAmount = 0;
 
@@ -81,8 +73,6 @@ const ApplicationServiceSlice = createSlice({
         updatedState.managed_ressource_details &&
         !updatedState.managed_ressource_details.isAlreadyPaid // 👈 condition
       ) {
-        console.log('=============================================');
-
         updatedAmount +=
           updatedState.duration * (updatedState.managed_ressource_details.price || 0);
       }
@@ -98,10 +88,6 @@ const ApplicationServiceSlice = createSlice({
       }
 
       state.newAppSubscriptionState = updatedState;
-      console.log("(((((((((((((((((((((((((((((((((((((((((((((((((");
-
-      console.log(state.newAppSubscriptionState);
-
       return state;
     },
 
