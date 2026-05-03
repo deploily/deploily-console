@@ -45,7 +45,6 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
     const { applicationServiceById, isLoading, loadingError } = useApplicationServiceById();
     const { totalAmount, duration, selected_version, app_service_plan, managed_ressource_details, byor, provider_name } = useNewApplicationSubscription();
 
-    console.log(duration);
 
     const tApplications = useScopedI18n('applications');
     const t = useI18n();

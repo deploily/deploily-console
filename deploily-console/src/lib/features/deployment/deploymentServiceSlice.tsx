@@ -54,8 +54,6 @@ const DeploymentServiceSlice = createSlice({
   initialState,
   reducers: {
     updateNewDeploymentSubscriptionState: (state, action: PayloadAction<any>) => {
-      console.log(state);
-
       let updatedState: NewDeploymentSubscriptionState = {
         ...state.newDeploymentSubscriptionState,
         ...action.payload,

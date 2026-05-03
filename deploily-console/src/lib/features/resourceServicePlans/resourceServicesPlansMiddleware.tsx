@@ -9,8 +9,6 @@ const resourceServicesPlansMiddleware = (
   return (next: Dispatch<any>) => async (action: any) => {
     switch (action.type) {
       case "resourceServicesPlansSlice/updateSelectedPlan":
-        console.log('+++++++++++++++++++++++++++++++++++++++++++++');
-
         if (action.payload !== undefined) {
           store.dispatch(
             updateNewAppSubscriptionState({ managed_ressource_details: action.payload }),

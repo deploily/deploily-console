@@ -38,15 +38,9 @@ export default function SelectManagedRessourcePlanCard({
     }, [applicationId, subscriptionCategory, dispatch]);
 
     const handlePlanChange = (selectedKey: string | number) => {
-        console.log("Selected key:", selectedKey);
-        console.log("Available plans:", vpsManagedResourceResponse);
-
         const foundPlan = vpsManagedResourceResponse?.find(
             (element) => element.id == selectedKey,
         );
-
-        console.log("Selected plan:", foundPlan);
-
         if (foundPlan) {
             dispatch(updateSelectedPlan({
                 ...foundPlan,

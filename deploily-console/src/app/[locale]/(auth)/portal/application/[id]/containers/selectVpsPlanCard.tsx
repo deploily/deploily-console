@@ -36,8 +36,6 @@ export default function SelectVpsPlanCard({
 
     const { servicePlansList } = useServicePlansByType();
     const { managed_ressource_details } = useNewApplicationSubscription();
-    console.log("#######################################################");
-    console.log(managed_ressource_details);
 
     useEffect(() => {
         dispatch(fetchResourceServicesPlans({ serviceId: applicationId, subscriptionCategory }));

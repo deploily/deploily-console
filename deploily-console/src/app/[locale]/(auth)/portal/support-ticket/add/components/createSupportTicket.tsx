@@ -111,7 +111,6 @@ export default function CreateSupportTicket() {
             }),
           ).unwrap();
 
-          console.log('Image uploaded successfully:', uploadResult);
           messageApi.success("Support ticket created with image!");
         } catch (uploadError) {
           console.error('Image upload failed:', uploadError);

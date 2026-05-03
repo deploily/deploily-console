@@ -9,7 +9,7 @@ import { useScopedI18n } from "../../../../../../../../locales/client";
 
 import { useNewApplicationSubscription } from "@/lib/features/application/applicationServiceSelectors";
 import { updateNewAppSubscriptionState } from "@/lib/features/application/applicationServiceSlice";
-import { getManagedResources, getVpsManagedResources } from "@/lib/features/cloud-resource/cloudResourceThunks";
+import { getVpsManagedResources } from "@/lib/features/cloud-resource/cloudResourceThunks";
 import { ManagedRessourceDetails } from "@/lib/features/resourceServicePlans/resourceServicesPlansInterface";
 import { useServicePlansByType } from "@/lib/features/resourceServicePlans/resourceServicesPlansSelectors";
 import { updateSelectedPlan } from "@/lib/features/resourceServicePlans/resourceServicesPlansSlice";
@@ -35,8 +35,6 @@ export default function SelectVpsPlanTable({
 
   const { servicePlansList } = useServicePlansByType();
   const { managed_ressource_details } = useNewApplicationSubscription();
-  console.log("#######################################################");
-  console.log(managed_ressource_details);
 
 
   useEffect(() => {
@@ -57,7 +55,7 @@ export default function SelectVpsPlanTable({
   };
 
   useEffect(() => {
-    if ((!managed_ressource_details || (managed_ressource_details && managed_ressource_details.isManaged) )&& servicePlansList?.result && servicePlansList.result.length > 0) {
+    if ((!managed_ressource_details || (managed_ressource_details && managed_ressource_details.isManaged)) && servicePlansList?.result && servicePlansList.result.length > 0) {
       dispatch(updateSelectedPlan(servicePlansList?.result[0]));
       dispatch(updateNewAppSubscriptionState({ duration: 12 }));
     }

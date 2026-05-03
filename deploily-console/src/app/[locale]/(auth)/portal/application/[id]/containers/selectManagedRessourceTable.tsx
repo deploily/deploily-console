@@ -36,14 +36,9 @@ export default function SelectManagedRessourceTable({
   }, [applicationId, subscriptionCategory, dispatch]);
 
   const handlePlanChange = (selectedKey: string | number) => {
-    console.log("Selected key:", selectedKey);
-    console.log("Available plans:", vpsManagedResourceResponse);
-
     const foundPlan = vpsManagedResourceResponse?.find(
       (element) => element.id == selectedKey,
     );
-
-    console.log("Selected plan:", foundPlan);
 
     if (foundPlan) {
       dispatch(updateSelectedPlan({
@@ -64,7 +59,7 @@ export default function SelectManagedRessourceTable({
 
   return (
     <div>
-      {vpsManagedResourceResponse && vpsManagedResourceResponse.length > 0 && (
+      {vpsManagedResourceResponse && (
         <TableComponentWithSelection
           selectedRowId={selectedRowKey}
           onChange={handlePlanChange}
