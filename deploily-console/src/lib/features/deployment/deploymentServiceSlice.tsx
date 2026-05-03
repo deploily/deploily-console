@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   DeploymentServiceBySlugState,
   DeploymentServiceResponseState,
@@ -41,6 +41,7 @@ const initialState: DeploymentServiceState = {
     promoCode: "",
     promoCodeRate: undefined,
     promoColor: undefined,
+    phone: ""
   },
   newDeploymentSubscriptionResponse: {
     newSubscriptionIsLoading: false,
@@ -53,6 +54,8 @@ const DeploymentServiceSlice = createSlice({
   initialState,
   reducers: {
     updateNewDeploymentSubscriptionState: (state, action: PayloadAction<any>) => {
+      console.log(state);
+
       let updatedState: NewDeploymentSubscriptionState = {
         ...state.newDeploymentSubscriptionState,
         ...action.payload,
@@ -71,10 +74,10 @@ const DeploymentServiceSlice = createSlice({
           updatedState.duration * (updatedState.managed_ressource_details.price || 0);
       }
       if (updatedState.promoCodeRate !== undefined) {
-        updatedState = {...updatedState, promoColor: "green"};
+        updatedState = { ...updatedState, promoColor: "green" };
         updatedAmount = updatedAmount - (updatedAmount * (updatedState.promoCodeRate || 0)) / 100;
       }
-      updatedState = {...updatedState, totalAmount: updatedAmount};
+      updatedState = { ...updatedState, totalAmount: updatedAmount };
 
       if (updatedState.selectedProfile) {
         updatedState.isBalanceSufficient =
@@ -89,17 +92,18 @@ const DeploymentServiceSlice = createSlice({
     builder
       .addCase(fetchDeploymentServices.pending, (state) => {
         state.deploymentServicesResponse.isLoading = true;
+        state.newDeploymentSubscriptionResponse.newSubscriptionResponse = undefined;
       })
       .addCase(fetchDeploymentServices.fulfilled, (state, action) => {
         state.deploymentServicesResponse.isLoading = false;
         state.deploymentServicesResponse.loadingError = null;
         const result = action.payload.ids.map((id: number, index: any) =>
-          Object.assign({}, {id: id}, action.payload.result[index]),
+          Object.assign({}, { id: id }, action.payload.result[index]),
         );
-        const payload = Object.assign({}, action.payload, {result: result});
+        const payload = Object.assign({}, action.payload, { result: result });
         state.deploymentServicesResponse.deploymentServicesList = payload;
       })
-      .addCase(fetchDeploymentServices.rejected, (state, {payload}) => {
+      .addCase(fetchDeploymentServices.rejected, (state, { payload }) => {
         state.deploymentServicesResponse.isLoading = false;
         state.deploymentServicesResponse.loadingError = payload;
       })
@@ -121,7 +125,7 @@ const DeploymentServiceSlice = createSlice({
         //     state.deploymentServicesBySlugResponse.deploymentServiceBySlug?.deployment_versions[0];
         // }
       })
-      .addCase(fetchDeploymentServiceBySlug.rejected, (state, {payload}) => {
+      .addCase(fetchDeploymentServiceBySlug.rejected, (state, { payload }) => {
         state.deploymentServicesBySlugResponse.isLoading = false;
         state.deploymentServicesBySlugResponse.loadingError = payload;
       })
@@ -131,7 +135,7 @@ const DeploymentServiceSlice = createSlice({
         state.newDeploymentSubscriptionResponse.newSubscriptionFailed = false;
         state.newDeploymentSubscriptionResponse.newSubscriptionResponse = undefined;
       })
-      .addCase(deploymentSubscribe.fulfilled, (state, {payload}) => {
+      .addCase(deploymentSubscribe.fulfilled, (state, { payload }) => {
         state.newDeploymentSubscriptionResponse.newSubscriptionIsLoading = false;
         state.newDeploymentSubscriptionResponse.newSubscriptionFailed = false;
         state.newDeploymentSubscriptionResponse.newSubscriptionResponse = payload;
@@ -143,6 +147,6 @@ const DeploymentServiceSlice = createSlice({
       });
   },
 });
-export const {updateNewDeploymentSubscriptionState} = DeploymentServiceSlice.actions;
+export const { updateNewDeploymentSubscriptionState } = DeploymentServiceSlice.actions;
 
 export default DeploymentServiceSlice.reducer;

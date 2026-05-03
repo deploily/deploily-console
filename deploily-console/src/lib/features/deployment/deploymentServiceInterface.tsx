@@ -40,6 +40,7 @@ export interface NewDeploymentSubscriptionState {
   promoCode: string;
   promoCodeRate?: number;
   promoColor?: string;
+  phone?: string;
 }
 export interface DeploymentServiceResponseState {
   deploymentServicesList?: DeploymentServiceResponse;

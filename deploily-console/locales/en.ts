@@ -420,11 +420,13 @@ export default {
     "applications.hours": "Hours",
     "applications.managed": "• Managed",
     "applications":{
-        "useOwnServer": "I want to use my own server",
-        "selectRes": "Select cloud resource",
-        "selectManagedRes": "Use my existing Server",
+        "useOwnServer": "Use a resource from non deploily's partner",
+        "selectRes": "Order a resource from deploily's cloud partners",
+        "selectManagedRes": "Use my existing managed resource",
         "enterPhoneNumber": "Enter your phone number",
         "enterProviderName": "Enter your provider name to identify your resource",
+        "chooseResource": "Choose your resource",
+        "choosePlan": "Choose your plan",
         "providerIdentification": {
             "title": "Identify Your Resource",
             "description": "Enter your provider name to access your resources seamlessly",
