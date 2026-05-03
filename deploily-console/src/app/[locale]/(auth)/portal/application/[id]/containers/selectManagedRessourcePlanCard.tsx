@@ -1,12 +1,9 @@
 "use client";
 
 import { useNewApplicationSubscription } from "@/lib/features/application/applicationServiceSelectors";
-import { updateNewAppSubscriptionState } from "@/lib/features/application/applicationServiceSlice";
-import { getVpsManagedResources } from "@/lib/features/cloud-resource/cloudResourceThunks";
+import { getManagedResources } from "@/lib/features/cloud-resource/cloudResourceThunks";
 import { ManagedRessourceDetails } from "@/lib/features/resourceServicePlans/resourceServicesPlansInterface";
-import { useServicePlansByType } from "@/lib/features/resourceServicePlans/resourceServicesPlansSelectors";
 import { updateSelectedPlan } from "@/lib/features/resourceServicePlans/resourceServicesPlansSlice";
-import { fetchResourceServicesPlans } from "@/lib/features/resourceServicePlans/resourceServicesPlansThunk";
 import { useAppDispatch } from "@/lib/hook";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import { theme } from "@/styles/theme";
@@ -15,18 +12,17 @@ import { Card, Col, Grid, Row, Typography } from "antd";
 import { useEffect, useRef, useState } from "react";
 import Carousel from 'react-multi-carousel';
 import { useScopedI18n } from "../../../../../../../../locales/client";
+import { useVpsManagedResource } from "@/lib/features/cloud-resource/cloudResourceSelectors";
 
 
 interface SelectVpsPlanTableProps {
     onVpsPlanSelect?: (plan: ManagedRessourceDetails) => void;
-    selectedVpsPlan?: ManagedRessourceDetails | null;
     applicationId?: any;
     subscriptionCategory?: any;
 }
 
-export default function SelectVpsPlanCard({
+export default function SelectManagedRessourcePlanCard({
     onVpsPlanSelect,
-    selectedVpsPlan,
     applicationId,
     subscriptionCategory,
 }: SelectVpsPlanTableProps = {}) {
@@ -34,42 +30,37 @@ export default function SelectVpsPlanCard({
     const t = useScopedI18n("applications");
     const screens = Grid.useBreakpoint();
 
-    const { servicePlansList } = useServicePlansByType();
-    const { managed_ressource_details } = useNewApplicationSubscription();
-    console.log("#######################################################");
-    console.log(managed_ressource_details);
+   const { vpsManagedResourceResponse } = useVpsManagedResource();
+     const { managed_ressource_details } = useNewApplicationSubscription();
 
     useEffect(() => {
-        dispatch(fetchResourceServicesPlans({ serviceId: applicationId, subscriptionCategory }));
-        dispatch(getVpsManagedResources());
+         dispatch(getManagedResources());
     }, [applicationId, subscriptionCategory, dispatch]);
 
     const handlePlanChange = (selectedKey: string | number) => {
-        const foundPlan = servicePlansList?.result?.find(
-            (element) => element.id === selectedKey,
+        console.log("Selected key:", selectedKey);
+        console.log("Available plans:", vpsManagedResourceResponse);
+
+        const foundPlan = vpsManagedResourceResponse?.find(
+            (element) => element.id == selectedKey,
         );
+
+        console.log("Selected plan:", foundPlan);
+
         if (foundPlan) {
-            dispatch(updateSelectedPlan(foundPlan));
+            dispatch(updateSelectedPlan({
+                ...foundPlan,
+                isManaged: true,
+                isAlreadyPaid: true,
+            }));
+
+            // Call the callback if provided
             onVpsPlanSelect?.(foundPlan);
         }
     };
 
-    useEffect(() => {
-        if (
-            (!managed_ressource_details ||
-                (managed_ressource_details && managed_ressource_details.isManaged)) &&
-            servicePlansList?.result &&
-            servicePlansList.result.length > 0
-        ) {
-            dispatch(updateSelectedPlan(servicePlansList.result[0]));
-            dispatch(updateNewAppSubscriptionState({ duration: 12 }));
-        }
-    }, [managed_ressource_details?.isManaged, servicePlansList?.result, dispatch]);
-
-    // Mirror table's selectedRowId logic exactly:
-    // selected only when managed_ressource_details exists and is NOT managed
     const selectedId =
-        managed_ressource_details && !managed_ressource_details.isManaged
+        managed_ressource_details && managed_ressource_details.isManaged
             ? managed_ressource_details.id
             : undefined;
 
@@ -104,7 +95,7 @@ export default function SelectVpsPlanCard({
     const [canGoNext, setCanGoNext] = useState(true);
 
     const getMaxSlide = () => {
-        const count = servicePlansList?.result?.length ?? 0;
+        const count = vpsManagedResourceResponse?.length ?? 0;
         if (screens.xl) return count - 3;
         if (screens.lg) return count - 3;
         if (screens.md) return count - 2;
@@ -113,7 +104,7 @@ export default function SelectVpsPlanCard({
 
     return (
         <div style={{ padding: 20, backgroundColor: theme.token.darkGray, borderRadius: 16 }}>
-            {servicePlansList?.result && servicePlansList.result.length > 0 && (
+            {vpsManagedResourceResponse && vpsManagedResourceResponse.length > 0 && (
                 <Carousel
                     responsive={responsive}
                     arrows={false}
@@ -129,7 +120,7 @@ export default function SelectVpsPlanCard({
                         setCanGoNext(currentSlide < max);
                     }}
                 >
-                    {servicePlansList.result.map((plan) => {
+                    {vpsManagedResourceResponse.map((plan) => {
                         const isSelected = selectedId === plan.id;
 
                         return (

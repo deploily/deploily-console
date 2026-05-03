@@ -1,6 +1,6 @@
 "use client";
 import {theme} from "@/styles/theme";
-import {Col, Drawer} from "antd";
+import {Col, Drawer, Input, Typography} from "antd";
 import CreateProfileButton from "./containers/createProfileButton";
 import IsBalanceSufficientComponent from "./containers/isBalanceSufficientComponent";
 import PaymentComponent from "./containers/paymentComponent";
@@ -8,6 +8,9 @@ import SelectProfileComponent from "./containers/selectProfileComponent";
 import {useApiServiceSubscriptionStates} from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSelectors";
 import NewApiServiceSubscriptionInfo from "./containers/newApiServiceSubscriptionInfo";
 import NewUpgradeApiServiceSubscriptionInfo from "./containers/newUpgradeApiServiceSubscriptionInfo";
+import { updateApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSlice";
+import { useAppDispatch } from "@/lib/hook";
+import { useScopedI18n } from "../../../../../../../../../locales/client";
 
 export default function ApiServiceSubscriptionDrawer({
   openDrawer,
@@ -24,7 +27,9 @@ export default function ApiServiceSubscriptionDrawer({
   subscriptionOldId: any;
   drawerType?: any;
 }) {
-  const {isBalanceSufficient, selectedProfile} = useApiServiceSubscriptionStates();
+  const dispatch=useAppDispatch();
+  const {isBalanceSufficient, selectedProfile , phone} = useApiServiceSubscriptionStates();
+  const tApplications = useScopedI18n("applications");
   return (
     <>
       <Drawer
@@ -45,6 +50,21 @@ export default function ApiServiceSubscriptionDrawer({
           ) : (
             <NewApiServiceSubscriptionInfo planSelected={planSelected} />
           )}
+          <Typography.Title level={4} style={{ paddingTop: 20, paddingBottom: 10 }}>
+            {tApplications("enterPhoneNumber")}
+          </Typography.Title>
+          <Input
+            placeholder={tApplications("enterPhoneNumber")}
+                      value={phone}
+                      onChange={(e) => {
+                        dispatch(updateApiServiceSubscriptionStates({phone: e.target.value}));
+                      }}
+                      onPressEnter={() => {
+                        dispatch(updateApiServiceSubscriptionStates({phone: phone}));
+                        }
+                        }
+                      style={{marginBottom: 0}}
+          />
           <SelectProfileComponent />
           {selectedProfile !== undefined && (
             <div style={{padding: "5px 0px"}}>

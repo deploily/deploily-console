@@ -2,7 +2,7 @@
 
 import { useMemo, useRef, useState } from "react";
 import { useAppDispatch } from "@/lib/hook";
-import { Col, Grid, Row, Tooltip, Typography } from "antd";
+import { Col, Grid, Row, Typography } from "antd";
 import { theme } from "@/styles/theme";
 import { useScopedI18n } from "../../../../../../../../locales/client";
 import { useNewApplicationSubscription } from "@/lib/features/application/applicationServiceSelectors";

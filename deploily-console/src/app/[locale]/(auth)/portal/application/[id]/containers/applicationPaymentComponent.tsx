@@ -57,20 +57,30 @@ export default function ApplicationPaymentComponent({
       selected_version,
       duration,
       promoCode,
+      phone,
+      byor,
+      provider_name
     } = newApplicationSubscription;
 
-    if (app_service_plan && managed_ressource_details && selectedProfile) {
-      const baseSubscriptionObject = {
-        duration: Number.parseInt(`${duration}`),
-        promo_code: promoCode,
-        payment_method: paymentMethod,
-        service_plan_selected_id: app_service_plan.id,
-        ...(managed_ressource_details.isManaged
-          ? {managed_ressource_id: managed_ressource_details.managed_ressource_id}
-          : {ressource_service_plan_selected_id: managed_ressource_details.id}),
-        profile_id: selectedProfile.id,
-        version_selected_id: selected_version?.id,
-      };
+    if (
+      app_service_plan != undefined &&
+      (managed_ressource_details != undefined || byor) &&
+      selectedProfile != undefined
+    ) {
+        const baseSubscriptionObject = {
+          duration: Number.parseInt(`${duration}`),
+          promo_code: promoCode,
+          payment_method: paymentMethod,
+          service_plan_selected_id: app_service_plan.id,
+          ...!byor && managed_ressource_details != undefined && (managed_ressource_details.isManaged
+            ? { managed_ressource_id: managed_ressource_details.managed_ressource_id }
+            : { ressource_service_plan_selected_id: managed_ressource_details.id }),
+          profile_id: selectedProfile.id,
+          version_selected_id: selected_version?.id,
+          phone:phone,
+          byor:byor,
+          provider_name: byor ? provider_name : undefined
+        };
 
       const subscriptionPayload =
         paymentMethod === "card"

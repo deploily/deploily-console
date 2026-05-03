@@ -17,7 +17,6 @@ import CardPaymentComponent from "./cardPaymentComponent";
 
 export default function DeploymentPaymentComponent({
   isSubscribed,
-  subscriptionOldId,
   drawerType,
 }: {
   isSubscribed?: boolean;
@@ -53,6 +52,7 @@ export default function DeploymentPaymentComponent({
       selected_version,
       duration,
       promoCode,
+      phone
     } = newDeploymentSubscription;
 
     if (deployment_service_plan && managed_ressource_details && selectedProfile) {
@@ -67,6 +67,7 @@ export default function DeploymentPaymentComponent({
           : {ressource_service_plan_selected_id: managed_ressource_details.id}),
         profile_id: selectedProfile.id,
         version_selected_id: selected_version?.id,
+        phone:phone
       };
 
       const subscriptionPayload =

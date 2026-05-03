@@ -1,6 +1,6 @@
 "use client";
 import {DetailsCollapse} from "deploily-ui-components";
-import {useI18n, useScopedI18n} from "../../../../../../../../locales/client";
+import {useI18n} from "../../../../../../../../locales/client";
 import ReactMarkdown from "react-markdown";
 import Link from "next/link";
 

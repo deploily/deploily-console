@@ -95,6 +95,7 @@ export default function CardPaymentComponent({
         apiServiceSubscriptionStates.selectedProfile != null
           ? apiServiceSubscriptionStates.selectedProfile.id
           : 1,
+      phone: apiServiceSubscriptionStates.phone,
     };
 
     const newUpgradeApiServiceSubscriptionObject = {

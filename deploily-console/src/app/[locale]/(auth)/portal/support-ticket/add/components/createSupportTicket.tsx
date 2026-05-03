@@ -70,7 +70,6 @@ export default function CreateSupportTicket() {
         return false;
       }
 
-      console.log('File selected:', file);
 
       // Store the actual File object
       setImageFile(file as File);
@@ -86,8 +85,6 @@ export default function CreateSupportTicket() {
     setUploading(true);
 
     try {
-      console.log('Starting ticket creation...', values);
-      console.log('Image file to upload:', imageFile);
 
       // First, create the support ticket
       const resultAction = await dispatch(
@@ -99,22 +96,12 @@ export default function CreateSupportTicket() {
         }),
       );
 
-      console.log('Ticket created successfully:', resultAction);
 
       // Check different possible locations for ticket ID
       const ticketId = resultAction?.payload.id || resultAction?.payload.data?.id || resultAction?.payload.result?.id;
 
-      console.log('Ticket ID:', ticketId);
-      console.log('Has image file:', !!imageFile);
-
       // If there's an image and we have a ticket ID, upload it
       if (imageFile && ticketId) {
-        console.log('Uploading image for ticket:', ticketId);
-        console.log('Image file details:', {
-          name: imageFile.name,
-          type: imageFile.type,
-          size: imageFile.size
-        });
 
         try {
           const uploadResult = await dispatch(

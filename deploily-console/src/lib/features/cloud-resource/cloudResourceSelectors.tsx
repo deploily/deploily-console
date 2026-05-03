@@ -6,3 +6,6 @@ export const useMyResourceSearchParams = () => useSelector((state: RootState) =>
 export const useManagedResourceSearchParams = () => useSelector((state: RootState) => state.cloudResource.managedResourceFilterParams);
 export const useManagedResource = () =>
   useSelector((state: RootState) => state.cloudResource.managedResourceListResponse);
+
+export const useVpsManagedResource = () =>
+  useSelector((state: RootState) => state.cloudResource.vpsManagedResources);

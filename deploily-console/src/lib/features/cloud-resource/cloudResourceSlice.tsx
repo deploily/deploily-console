@@ -16,8 +16,10 @@ import {
   getMyResources,
   getProvidersList,
   getResourceById,
+  getVpsManagedResources,
   postAffiliation,
 } from "./cloudResourceThunks";
+import { ManagedRessourceDetails } from "../resourceServicePlans/resourceServicesPlansInterface";
 
 interface CloudResourceState {
   cloudResourceResponse?: CloudResourceResponse;
@@ -34,6 +36,11 @@ interface CloudResourceState {
   searchValue?: string;
   resourceCategoriesResponse?: ResourceCategoriesResponse;
   managedResourceListResponse: ManagedResourceListResponse;
+  vpsManagedResources: {
+    isLoading: boolean;
+    vpsManagedResourceFailed: boolean;
+    vpsManagedResourceResponse?: ManagedRessourceDetails[];
+  };
   managedResourceFilterParams: {
     page_size: number;
     page: number;
@@ -80,7 +87,12 @@ const initialState: CloudResourceState = {
   myResourceFilterParams: {
     page_size: 10,
     page: 0,
-  }
+  },
+  vpsManagedResources: {
+    isLoading: false,
+    vpsManagedResourceFailed: false,
+    vpsManagedResourceResponse: undefined,
+  },
 };
 const CloudResourceSlice = createSlice({
   name: "cloudResource",
@@ -217,7 +229,21 @@ const CloudResourceSlice = createSlice({
       .addCase(fetchResourceCategories.rejected, (state) => {
         state.isLoading = false;
         state.cloudResourceLoadingError = true;
-      });
+      })
+      .addCase(getVpsManagedResources.pending, (state) => {
+        state.isAffiliationCreatedSuccess = false;
+        state.vpsManagedResources.isLoading = true;
+        state.vpsManagedResources.vpsManagedResourceFailed = true;
+      })
+      .addCase(getVpsManagedResources.fulfilled, (state, action) => {
+        state.vpsManagedResources.isLoading = false;
+        state.vpsManagedResources.vpsManagedResourceResponse = action.payload.result;
+      })
+      .addCase(getVpsManagedResources.rejected, (state) => {
+        state.vpsManagedResources.isLoading = false;
+        state.vpsManagedResources.vpsManagedResourceFailed = true;
+      })
+      ;
   },
 });
 

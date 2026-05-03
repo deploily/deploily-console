@@ -428,6 +428,18 @@ export default {
   "applications.prepaTime": "Temps de préparation",
   "applications.hours": "Heures",
   "applications.managed": "• Géré",
+  "applications": {
+    "useOwnServer": "Je souhaite utiliser mon propre serveur",
+    "enterPhoneNumber": "Entrez votre numéro de téléphone",
+    "enterProviderName": "Entrez le nom de votre fournisseur pour identifier votre ressource",
+    "selectManagedRes": "Utilisez mon serveur existant",
+    "selectRes": "Sélectionnez une ressource cloud",
+        "providerIdentification": {
+      "title": "Identifiez Votre Ressource",
+      "description": "Saisissez le nom de votre fournisseur pour  accéder à vos ressources facilement",
+      "placeholder": "Entrez le nom de votre fournisseur"
+    }
+  },
 
   "dashboard.welcome": "👋 Bienvenue de nouveau, ",
   "dashboard.subTitle": "Vos statistiques actuelles en un coup d'œil",
