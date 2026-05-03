@@ -271,6 +271,8 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                                 case "own":
                                                     setRessourceType("own");
                                                     dispatch(updateNewAppSubscriptionState({ byor: true }));
+                                                    dispatch(updateNewAppSubscriptionState({ duration: 12 }));
+                                                    dispatch(updateNewAppSubscriptionState({ managed_ressource_details: undefined }));
                                                     break;
                                                 case "cloud":
                                                     setRessourceType("cloud");
