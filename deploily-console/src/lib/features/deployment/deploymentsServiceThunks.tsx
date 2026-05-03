@@ -1,8 +1,8 @@
 import axiosInstance from "@/app/api/axios-instance";
-import {deploilyApiUrls} from "@/deploilyWebsiteUrls";
-import {createAsyncThunk} from "@reduxjs/toolkit";
-import {getSession} from "next-auth/react";
-import {getSubscribeToDeploymentUrl} from "./getSubscribeToDeploymentUrl";
+import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { getSession } from "next-auth/react";
+import { getSubscribeToDeploymentUrl } from "./getSubscribeToDeploymentUrl";
 
 export const fetchDeploymentServices = createAsyncThunk(
   "deploymentsServices/getdeploymentsServices",
@@ -70,7 +70,8 @@ export const fetchDeploymentServiceBySlug = createAsyncThunk(
 
 export const deploymentSubscribe = createAsyncThunk(
   "deploymentService/postDeploymentSubscription",
-  async ({data, service_slug}: {data: any; service_slug?: string}, thunkConfig) => {
+  async ({ data, service_slug }: { data: any; service_slug?: string }, thunkConfig) => {
+    
     try {
       const session = await getSession();
       if (!session) {
