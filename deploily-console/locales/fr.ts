@@ -429,11 +429,13 @@ export default {
   "applications.hours": "Heures",
   "applications.managed": "• Géré",
   "applications": {
-    "useOwnServer": "Je souhaite utiliser mon propre serveur",
+    "useOwnServer": "Utiliser une ressource d’un partenaire hors Deploily",
+   "selectRes": "Commander une ressource auprès des partenaires cloud de Deploily",
+    "selectManagedRes": "Utiliser ma ressource gérée existante",
     "enterPhoneNumber": "Entrez votre numéro de téléphone",
     "enterProviderName": "Entrez le nom de votre fournisseur pour identifier votre ressource",
-    "selectManagedRes": "Utilisez mon serveur existant",
-    "selectRes": "Sélectionnez une ressource cloud",
+    "chooseResource": "Choisissez votre ressource",
+    "choosePlan": "Choisissez votre plan",
         "providerIdentification": {
       "title": "Identifiez Votre Ressource",
       "description": "Saisissez le nom de votre fournisseur pour  accéder à vos ressources facilement",
