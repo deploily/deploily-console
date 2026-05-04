@@ -52,7 +52,9 @@ export default function DeploymentPaymentComponent({
       selected_version,
       duration,
       promoCode,
-      phone
+      phone,
+      byor,
+      provider_name,
     } = newDeploymentSubscription;
 
     if (deployment_service_plan && managed_ressource_details && selectedProfile) {
@@ -67,7 +69,13 @@ export default function DeploymentPaymentComponent({
           : {ressource_service_plan_selected_id: managed_ressource_details.id}),
         profile_id: selectedProfile.id,
         version_selected_id: selected_version?.id,
-        phone:phone
+        phone:phone,
+        ...!byor && managed_ressource_details != undefined && (managed_ressource_details.isManaged
+          ? { managed_ressource_id: managed_ressource_details.managed_ressource_id }
+          : { ressource_service_plan_selected_id: managed_ressource_details.id }),
+        byor: byor,
+        provider_name: byor ? provider_name : undefined
+
       };
 
       const subscriptionPayload =

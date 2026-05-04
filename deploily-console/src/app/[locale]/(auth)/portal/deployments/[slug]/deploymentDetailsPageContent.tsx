@@ -11,8 +11,8 @@ import {fetchServicePlans} from "@/lib/features/service-plans/servicePlanThanks"
 import {useAppDispatch} from "@/lib/hook";
 import ImageFetcher from "@/lib/utils/imageFetcher";
 import {theme} from "@/styles/theme";
-import {HomeOutlined} from "@ant-design/icons";
-import { Card, Col, Grid, Row, Select, Skeleton, Space} from "antd";
+import {CloudServerOutlined, DatabaseOutlined, DesktopOutlined, HomeOutlined} from "@ant-design/icons";
+import { Card, Col, Divider, Grid, Input, Row, Select, Skeleton, Space, Typography} from "antd";
 import PaymentSideBar, {
   PaymentAppBar,
 } from "deploily-ui-components/components/Deployments/paymentSideBar";
@@ -27,9 +27,14 @@ import DeployementDescriptionContainer from "./containers/descriptionContainer";
 import PaymentDrawer from "./containers/payment-components/paymentDrawer";
 import SelectVpsPlanCard from "./containers/selectVpsPlanCard";
 import SelectVpsPlanTable from "./containers/selectVpsPlanTable";
+import { ToggleButton, ToggleButtonGroup } from "@mui/material";
+import SelectManagedRessourceTable from "./containers/selectManagedRessourceTable";
+import SelectManagedRessourcePlanCard from "./containers/selectManagedRessourcePlanCard";
+const { Text ,Title } = Typography;
 
 export default function DeploymentDetailsPageContent({deploymentSlug}: {deploymentSlug: any}) {
   const tdeployment = useScopedI18n("deployment");
+  const tApplications = useScopedI18n('applications');
   const dispatch = useAppDispatch();
   const screens = Grid.useBreakpoint();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -40,6 +45,7 @@ export default function DeploymentDetailsPageContent({deploymentSlug}: {deployme
   const [openDrawer, setOpenDrawer] = useState(false);
   const onClose = () => setOpenDrawer(false);
 
+  const [ressourceType, setRessourceType] = useState("cloud");
   const {isLoading, deploymentServiceBySlug, loadingError} = useDeploymentServiceBySlug();
   const {
     totalAmount,
@@ -47,6 +53,7 @@ export default function DeploymentDetailsPageContent({deploymentSlug}: {deployme
     // selected_version,
     deployment_service_plan,
     managed_ressource_details,
+    byor, provider_name
   } = useNewDeploymentSubscription();
   // const optionsVersion = deploymentServiceBySlug?.deployment_versions?.map((version) => ({
   //   value: version.id,
@@ -237,18 +244,179 @@ export default function DeploymentDetailsPageContent({deploymentSlug}: {deployme
                   />
                 </div>
               )}
-            {deployment_service_plan && !deployment_service_plan.is_custom && (
+
+
+            <Divider style={{ borderColor: '#4b4a4a', marginBottom: "5px" }}></Divider>
+            <div style={{ padding: '2px 2px 2px 2px', marginTop: '3px', marginBottom: '5px', }}>
+              <Title
+                level={3}
+                style={{
+                  marginBottom: 10,
+                  fontWeight: 500,
+                  color: 'primary',
+                  WebkitBackgroundClip: 'text',
+                  backgroundClip: 'text',
+                }}
+              >
+                {tApplications("chooseResource")}
+              </Title>
+              <div style={{ marginBottom: '32px', width: '100%' }}>
+                <ToggleButtonGroup
+                  value={ressourceType}
+                  exclusive
+                  onChange={(event, newValue) => {
+                    if (newValue !== null) {
+                      switch (newValue) {
+                        case "own":
+                          setRessourceType("own");
+                          dispatch(updateNewDeploymentSubscriptionState({ byor: true }));
+                          dispatch(updateNewDeploymentSubscriptionState({ duration: 12 }));
+                          dispatch(updateNewDeploymentSubscriptionState({ managed_ressource_details: undefined }));
+                          break;
+                        case "cloud":
+                          setRessourceType("cloud");
+                          dispatch(updateNewDeploymentSubscriptionState({ byor: false }));
+                          break;
+                        case "managed":
+                          setRessourceType("managed");
+                          dispatch(updateNewDeploymentSubscriptionState({ byor: false }));
+                          break;
+                        default:
+                          break;
+                      }
+                    }
+                  }}
+                  fullWidth
+                  sx={{
+                    backgroundColor: '#2d2520',
+                    padding: '4px',
+                    borderRadius: '8px',
+                    border: '1px solid #3d3530',
+                    gap: '4px',
+                    flexWrap: 'wrap',
+                    '& .MuiToggleButtonGroup-grouped': {
+                      border: '1px solid transparent',
+                      borderRadius: '6px !important',
+                      flex: '1 1 220px',
+                      minWidth: '180px',
+                      margin: 0,
+                      color: '#a67c52',
+                      textTransform: 'none',
+                      padding: '10px 16px',
+                      transition: 'all 0.3s ease',
+                      '&:not(:first-of-type)': {
+                        borderLeft: '1px solid transparent',
+                        marginLeft: 0,
+                      },
+                      '&:hover': {
+                        backgroundColor: 'rgba(166, 124, 82, 0.05)',
+                        color: '#c49365',
+                        border: '1px solid transparent',
+                      },
+                      '&.Mui-selected': {
+                        backgroundColor: 'rgba(255, 140, 66, 0.12)',
+                        color: '#ff8c42',
+                        border: '1px solid #ff8c42',
+                        '&:hover': {
+                          backgroundColor: 'rgba(255, 140, 66, 0.15)',
+                          color: '#ff8c42',
+                        },
+                        elevation: 2,
+                      },
+                    },
+                    '@media (max-width: 768px)': {
+                      '& .MuiToggleButtonGroup-grouped': {
+                        flex: '1 1 100%',
+                        minWidth: '100%',
+                      },
+                    },
+                  }}
+                >
+                  <ToggleButton value="cloud">
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', whiteSpace: 'normal', textAlign: 'center', lineHeight: 1.4, wordBreak: 'break-word' }}>
+                      <CloudServerOutlined />
+                      <span>{tApplications("selectRes")}</span>
+                    </div>
+                  </ToggleButton>
+                  <ToggleButton value="own">
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', whiteSpace: 'normal', textAlign: 'center', lineHeight: 1.4, wordBreak: 'break-word' }}>
+                      <DesktopOutlined />
+                      <span>{tApplications("useOwnServer")}</span>
+                    </div>
+                  </ToggleButton>
+                  <ToggleButton value="managed">
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', whiteSpace: 'normal', textAlign: 'center', lineHeight: 1.4, wordBreak: 'break-word' }}>
+                      <DatabaseOutlined />
+                      <span>{tApplications("selectManagedRes")}</span>
+                    </div>
+                  </ToggleButton>
+                </ToggleButtonGroup>
+              </div>
+            </div>
+            {byor && <>
+
+              <div
+                style={{
+                  borderRadius: 12,
+                  padding: '2px',
+                }}
+              >
+                {/* Description */}
+                <Text
+                  style={{
+                    display: 'block',
+                    marginBottom: 8,
+                    color: 'grey',
+                    fontSize: 16,
+                    lineHeight: '1.6',
+                    fontWeight: 500,
+                    WebkitBackgroundClip: 'text',
+                    backgroundClip: 'text',
+                  }}
+                >
+                  {tApplications("providerIdentification.description")}
+                </Text>
+
+                {/* Input */}
+                <Input
+                  size="large"
+                  placeholder={tApplications("providerIdentification.placeholder")}
+                  value={provider_name}
+                  onChange={(e) => {
+                    dispatch(updateNewDeploymentSubscriptionState({ provider_name: e.target.value }));
+                  }}
+                  onPressEnter={() => {
+                    dispatch(updateNewDeploymentSubscriptionState({ provider_name: provider_name }));
+                  }}
+                />
+              </div>
+
+            </>}
+            {!byor && ressourceType === "cloud" && deployment_service_plan && !deployment_service_plan.is_custom &&
               <>
                 <Col xs={0} sm={0} md={24} lg={24}>
                   <Card styles={{ body: { padding: 0 } }}>
-                    <SelectVpsPlanTable deploymentId={deploymentServiceBySlug.id} subscriptionCategory={subscriptionCategory} />
+                  <SelectVpsPlanTable deploymentId={deploymentServiceBySlug.id} subscriptionCategory={subscriptionCategory} />
                   </Card>
                 </Col>
                 <Col xs={24} sm={24} md={0} lg={0}>
-                  <SelectVpsPlanCard deploymentId={deploymentServiceBySlug.id} subscriptionCategory={subscriptionCategory} />
+                <SelectVpsPlanCard deploymentId={deploymentServiceBySlug.id} subscriptionCategory={subscriptionCategory} />
                 </Col>
               </>
-            )}
+            }
+            {ressourceType === "managed" && !byor && (
+              <>
+                <Col xs={0} sm={0} md={24} lg={24}>
+                  <Card styles={{ body: { padding: 0 } }}>
+                    <SelectManagedRessourceTable deploymentId={deploymentServiceBySlug.id} subscriptionCategory={subscriptionCategory} />
+                  </Card>
+                </Col>
+                <Col xs={24} sm={24} md={0} lg={0}>
+                  <SelectManagedRessourcePlanCard deploymentId={deploymentServiceBySlug.id} subscriptionCategory={subscriptionCategory} />
+                </Col>
+              </>
+            )
+            }
             <div style={{padding: "8px 0"}}>
               <DeploymentDetailsCollapseContainer
                 description={deploymentServiceBySlug.description}

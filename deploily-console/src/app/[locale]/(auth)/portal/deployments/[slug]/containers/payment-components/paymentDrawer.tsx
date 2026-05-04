@@ -37,7 +37,9 @@ export default function PaymentDrawer({ openDrawer, onClose }: { openDrawer: any
     managed_ressource_details,
     selectedProfile,
     isBalanceSufficient,
-    phone
+    phone,
+    byor,
+    provider_name
   } = useNewDeploymentSubscription();
 
   const handleSelectPaymentProfile = (value: any) => {
@@ -61,9 +63,12 @@ export default function PaymentDrawer({ openDrawer, onClose }: { openDrawer: any
           : { ressource_service_plan_selected_id: managed_ressource_details.id }),
         profile_id: selectedProfile.id,
         version_selected_id: selected_version?.id,
-        // managed_ressource_id: managed_ressource_details.service_id,
-        // managed_ressource_id: managed_ressource_id,
-        phone: phone
+        phone: phone,
+        ...!byor && managed_ressource_details != undefined && (managed_ressource_details.isManaged
+          ? { managed_ressource_id: managed_ressource_details.managed_ressource_id }
+          : { ressource_service_plan_selected_id: managed_ressource_details.id }),
+        byor: byor,
+        provider_name: byor ? provider_name : undefined
       };
       dispatch(
         deploymentSubscribe({
