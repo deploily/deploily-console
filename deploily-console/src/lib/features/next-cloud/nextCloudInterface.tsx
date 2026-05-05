@@ -58,6 +58,7 @@ export interface NextCloudAppInterface {
   service_plan_id: number;
   service_details: ServiceDetails;
   start_date: Date;
+  end_date: Date;
   status: string;
   total_amount: number;
   version: Version;

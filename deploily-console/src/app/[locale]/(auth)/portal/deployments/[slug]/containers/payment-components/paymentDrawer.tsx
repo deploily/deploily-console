@@ -32,7 +32,7 @@ export default function PaymentDrawer({ openDrawer, onClose }: { openDrawer: any
     promoCode,
     totalAmount,
     duration,
-    selected_version,
+    // selected_version,
     deployment_service_plan,
     managed_ressource_details,
     selectedProfile,
@@ -50,7 +50,7 @@ export default function PaymentDrawer({ openDrawer, onClose }: { openDrawer: any
   const handleSubscribe = async () => {
     if (
       deployment_service_plan != undefined &&
-      managed_ressource_details != undefined &&
+      (managed_ressource_details != undefined || byor) &&
       selectedProfile != undefined
     ) {
       const newSubscriptionObject = {
@@ -58,11 +58,7 @@ export default function PaymentDrawer({ openDrawer, onClose }: { openDrawer: any
         promo_code: promoCode,
         payment_method: "cloud_credit",
         service_plan_selected_id: deployment_service_plan.id,
-        ...(managed_ressource_details.isManaged
-          ? { managed_ressource_id: managed_ressource_details.managed_ressource_id }
-          : { ressource_service_plan_selected_id: managed_ressource_details.id }),
         profile_id: selectedProfile.id,
-        version_selected_id: selected_version?.id,
         phone: phone,
         ...!byor && managed_ressource_details != undefined && (managed_ressource_details.isManaged
           ? { managed_ressource_id: managed_ressource_details.managed_ressource_id }
@@ -108,6 +104,7 @@ export default function PaymentDrawer({ openDrawer, onClose }: { openDrawer: any
       >
         <Col style={{ padding: 20 }}>
           <NewSubscriptionInfo
+            byor={byor || !managed_ressource_details}
             title={`${tDeployment("order")}`}
             newSubscriptionInfo={{
               applicationName: {
@@ -126,10 +123,10 @@ export default function PaymentDrawer({ openDrawer, onClose }: { openDrawer: any
                 label: tDeployment("duration"),
                 value: `${duration}`,
               },
-              version: {
-                label: tDeployment("version"),
-                value: `${selected_version?.name}`,
-              },
+              // version: {
+              //   label: tDeployment("version"),
+              //   value: `${selected_version?.name}`,
+              // },
               providerName: {
                 label: tDeployment("provider"),
                 value: `${managed_ressource_details?.provider_info?.name}`,

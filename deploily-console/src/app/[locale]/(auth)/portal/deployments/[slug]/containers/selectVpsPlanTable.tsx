@@ -7,8 +7,6 @@ import { Col, Row, Typography } from "antd";
 import { TableComponentWithSelection } from "deploily-ui-components";
 import { useScopedI18n } from "../../../../../../../../locales/client";
 
-import { useNewApplicationSubscription } from "@/lib/features/application/applicationServiceSelectors";
-import { updateNewAppSubscriptionState } from "@/lib/features/application/applicationServiceSlice";
 import { getVpsManagedResources } from "@/lib/features/cloud-resource/cloudResourceThunks";
 import { ManagedRessourceDetails } from "@/lib/features/resourceServicePlans/resourceServicesPlansInterface";
 import { useServicePlansByType } from "@/lib/features/resourceServicePlans/resourceServicesPlansSelectors";
@@ -16,6 +14,8 @@ import { updateSelectedPlan } from "@/lib/features/resourceServicePlans/resource
 import { fetchResourceServicesPlans } from "@/lib/features/resourceServicePlans/resourceServicesPlansThunk";
 import { ServicePlanOption } from "@/lib/features/service-plans/servicePlanInterface";
 import { useEffect } from "react";
+import { useNewDeploymentSubscription } from "@/lib/features/deployment/deploymentServiceSelectors";
+import { updateNewDeploymentSubscriptionState } from "@/lib/features/deployment/deploymentServiceSlice";
 
 interface SelectVpsPlanTableProps {
   onVpsPlanSelect?: (plan: ManagedRessourceDetails) => void;
@@ -34,11 +34,11 @@ export default function SelectVpsPlanTable({
   const tApplications = useScopedI18n("applications");
 
   const { servicePlansList } = useServicePlansByType();
-  const { managed_ressource_details } = useNewApplicationSubscription();
+  const { managed_ressource_details } = useNewDeploymentSubscription();
 
 
   useEffect(() => {
-    dispatch(fetchResourceServicesPlans({ serviceId: deploymentId, subscriptionCategory }));
+    dispatch(fetchResourceServicesPlans({ subscriptionCategory }));
     dispatch(getVpsManagedResources());
   }, [deploymentId, subscriptionCategory, dispatch]);
 
@@ -57,7 +57,7 @@ export default function SelectVpsPlanTable({
   useEffect(() => {
     if ((!managed_ressource_details || (managed_ressource_details && managed_ressource_details.isManaged)) && servicePlansList?.result && servicePlansList.result.length > 0) {
       dispatch(updateSelectedPlan(servicePlansList?.result[0]));
-      dispatch(updateNewAppSubscriptionState({ duration: 12 }));
+      dispatch(updateNewDeploymentSubscriptionState({ duration: 12 }));
     }
   }, [managed_ressource_details?.isManaged, servicePlansList?.result, dispatch])
 

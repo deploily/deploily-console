@@ -105,7 +105,7 @@ export default function PaymentDrawer({ openDrawer, onClose }: { openDrawer: any
       >
         <Col style={{ padding: 20 }}>
           <NewSubscriptionInfo
-            byor={byor}
+            byor={byor || !managed_ressource_details}
             title={`${tApplications("order")}`}
             newSubscriptionInfo={{
               applicationName: {

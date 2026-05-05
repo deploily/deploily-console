@@ -8,32 +8,22 @@ import { TableComponentWithSelection } from "deploily-ui-components";
 import { useScopedI18n } from "../../../../../../../../locales/client";
 
 import { useVpsManagedResource } from "@/lib/features/cloud-resource/cloudResourceSelectors";
-import { getManagedResources } from "@/lib/features/cloud-resource/cloudResourceThunks";
 import { ManagedRessourceDetails } from "@/lib/features/resourceServicePlans/resourceServicesPlansInterface";
 import { updateSelectedPlan } from "@/lib/features/resourceServicePlans/resourceServicesPlansSlice";
 import { ServicePlanOption } from "@/lib/features/service-plans/servicePlanInterface";
-import { useEffect } from "react";
 import { useNewDeploymentSubscription } from "@/lib/features/deployment/deploymentServiceSelectors";
 
 interface SelectVpsPlanTableProps {
   onVpsPlanSelect?: (plan: ManagedRessourceDetails) => void;
-  deploymentId?: any;
-  subscriptionCategory?: any;
 }
 export default function SelectManagedRessourceTable({
   onVpsPlanSelect,
-  deploymentId,
-  subscriptionCategory,
 }: SelectVpsPlanTableProps = {}) {
   const dispatch = useAppDispatch();
   const tApplications = useScopedI18n("applications");
 
   const { vpsManagedResourceResponse } = useVpsManagedResource();
   const { managed_ressource_details } = useNewDeploymentSubscription();
-
-  useEffect(() => {
-    dispatch(getManagedResources());
-  }, [deploymentId, subscriptionCategory, dispatch]);
 
   const handlePlanChange = (selectedKey: string | number) => {
     const foundPlan = vpsManagedResourceResponse?.find(

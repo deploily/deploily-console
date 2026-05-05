@@ -26,6 +26,8 @@ import SelectManagedRessourcePlanCard from "./containers/selectManagedRessourceP
 import SelectManagedRessourceTable from "./containers/selectManagedRessourceTable";
 import SelectVpsPlanCard from "./containers/selectVpsPlanCard";
 import SelectVpsPlanTable from "./containers/selectVpsPlanTable";
+import { getManagedResources } from "@/lib/features/cloud-resource/cloudResourceThunks";
+import { useVpsManagedResource } from "@/lib/features/cloud-resource/cloudResourceSelectors";
 
 const { Text, Title } = Typography;
 
@@ -77,6 +79,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
     }));
 
     useEffect(() => {
+        dispatch(getManagedResources());
         dispatch(fetchApplicationServiceById(applicationId));
         dispatch(fetchServicePlans(applicationId));
     }, []);
@@ -94,11 +97,10 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
         }
     }, []);
 
-
     const [ressourceType, setRessourceType] = useState("cloud");
 
-
-
+    const { vpsManagedResourceResponse } = useVpsManagedResource();
+    
     if (isLoading) return <Skeleton active />;
     if (loadingError) return <div>Error: {loadingError}</div>;
     if (!applicationServiceById) return <div>No application found</div>;
@@ -338,18 +340,19 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                             <span>{tApplications("selectRes")}</span>
                                         </div>
                                     </ToggleButton>
-                                    <ToggleButton value="managed">
-                                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', whiteSpace: 'normal', textAlign: 'center', lineHeight: 1.4, wordBreak: 'break-word' }}>
-                                            <DatabaseOutlined />
-                                            <span>{tApplications("selectManagedRes")}</span>
-                                        </div>
-                                    </ToggleButton>
                                     <ToggleButton value="own">
                                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', whiteSpace: 'normal', textAlign: 'center', lineHeight: 1.4, wordBreak: 'break-word' }}>
                                             <DesktopOutlined />
                                             <span>{tApplications("useOwnServer")}</span>
                                         </div>
                                     </ToggleButton>
+                                    {vpsManagedResourceResponse && vpsManagedResourceResponse?.length >= 1 &&<ToggleButton value="managed">
+                                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', whiteSpace: 'normal', textAlign: 'center', lineHeight: 1.4, wordBreak: 'break-word' }}>
+                                            <DatabaseOutlined />
+                                            <span>{tApplications("selectManagedRes")}</span>
+                                        </div>
+                                    </ToggleButton>
+                                    }
                                 </ToggleButtonGroup>
                             </div>
                             {byor && <>
@@ -433,12 +436,12 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                 items={[
                                     { label: tApplications('svc'), value: applicationServiceById.name },
                                     { label: tApplications("plan"), value: app_service_plan?.plan.name || "" },
-                                    ...!byor ? [
+                                    ...(managed_ressource_details ? [
                                         { label: tApplications('provider'), value: managed_ressource_details?.provider_info?.name || "" },
                                         { label: tApplications("vpsType"), value: managed_ressource_details?.service_name || "" },
                                         { label: tApplications('resourcePlan'), value: managed_ressource_details?.plan_name || "" },
                                         { label: tApplications('prepaTime'), value: `${managed_ressource_details?.preparation_time} h` || "" }
-                                    ] : []
+                                    ] : [])
                                     ,
                                     {
                                         label: tApplications('version'),

@@ -39,6 +39,7 @@ export interface dockerDepInterface {
   service_plan: ServicePlan;
   service_plan_id: number;
   start_date: string;
+  end_date: string;
   status: string;
   deployment_status: string;
   total_amount: number;

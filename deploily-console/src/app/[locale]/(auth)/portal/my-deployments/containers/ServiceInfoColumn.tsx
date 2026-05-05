@@ -7,9 +7,10 @@ import ResourcesAndDocumentation, { DocUrl } from "./ResourcesAndDocumentation";
 import ServiceHeader from "./ServiceHeader";
 import SubscriptionStatusStrip from "./SubscriptionStatusStrip";
 import { dockerDepInterface } from "@/lib/features/docker/dockerInterface";
+import { webApplicationDepInterface } from "@/lib/features/webApplication/webApplicationInterface";
 
 interface ServiceInfoColumnProps {
-  deployment: dockerDepInterface;
+  deployment: dockerDepInterface | webApplicationDepInterface;
   remainingDuration: number;
 }
 
@@ -80,7 +81,12 @@ export default function ServiceInfoColumn({
         startDate={deployment.start_date}
         durationMonth={deployment.duration_month}
         remainingDuration={remainingDuration}
-        endDate={deployment.start_date}
+        // endDate={deployment.start_date}
+        endDate={deployment.end_date ?? new Date(
+          new Date(deployment.start_date).setMonth(
+            new Date(deployment.start_date).getMonth() + deployment.duration_month
+          )
+        )}
       />
 
       {/* Drawer scoped to this column via getContainer={false} */}

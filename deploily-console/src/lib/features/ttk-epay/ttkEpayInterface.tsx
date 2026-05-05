@@ -40,6 +40,7 @@ export interface TtkEpayInterface {
   managed_ressource: ManagedRessource;
   managed_ressource_details: ManagedRessourceDetails;
   start_date: Date;
+  end_date: Date;
   status: string;
   total_amount: number;
   service_details: ServiceDetails;

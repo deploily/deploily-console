@@ -14,7 +14,7 @@ export const fetchWebApplicationById = createAsyncThunk(
       }
       const token = session.accessToken;
       const response = await axiosInstance.get(
-        `${deploilyApiUrls.DEPLOYMENT_DOCKER_SUBSCRIPTION_URL}/${id}`,
+        `${deploilyApiUrls.DEPLOYMENT_WEB_APPLICATION_SUBSCRIPTION_URL}/${id}`,
         {
           headers: {
             Accept: "application/json",
@@ -83,7 +83,7 @@ export const UpdateWebApplicationdata = createAsyncThunk(
 
       const token = session.accessToken;
 
-      const response = await axiosInstance.put(`${deploilyApiUrls.DEPLOYMENT_DOCKER_SUBSCRIPTION_URL}/${data.webApplicationById}`,
+      const response = await axiosInstance.put(`${deploilyApiUrls.DEPLOYMENT_WEB_APPLICATION_SUBSCRIPTION_URL}/${data.webApplicationById}`,
         data.webApplicationdataUpdated,
         {
           headers: {

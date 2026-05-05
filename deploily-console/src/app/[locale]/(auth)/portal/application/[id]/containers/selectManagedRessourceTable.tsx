@@ -9,11 +9,9 @@ import { useScopedI18n } from "../../../../../../../../locales/client";
 
 import { useNewApplicationSubscription } from "@/lib/features/application/applicationServiceSelectors";
 import { useVpsManagedResource } from "@/lib/features/cloud-resource/cloudResourceSelectors";
-import { getManagedResources } from "@/lib/features/cloud-resource/cloudResourceThunks";
 import { ManagedRessourceDetails } from "@/lib/features/resourceServicePlans/resourceServicesPlansInterface";
 import { updateSelectedPlan } from "@/lib/features/resourceServicePlans/resourceServicesPlansSlice";
 import { ServicePlanOption } from "@/lib/features/service-plans/servicePlanInterface";
-import { useEffect } from "react";
 
 interface SelectVpsPlanTableProps {
   onVpsPlanSelect?: (plan: ManagedRessourceDetails) => void;
@@ -31,9 +29,7 @@ export default function SelectManagedRessourceTable({
   const { vpsManagedResourceResponse } = useVpsManagedResource();
   const { managed_ressource_details } = useNewApplicationSubscription();
 
-  useEffect(() => {
-    dispatch(getManagedResources());
-  }, [applicationId, subscriptionCategory, dispatch]);
+
 
   const handlePlanChange = (selectedKey: string | number) => {
     const foundPlan = vpsManagedResourceResponse?.find(
