@@ -1,10 +1,10 @@
 "use client";
-import {useAppDispatch} from "@/lib/hook";
-import {Form, Input, Row, Col, Button, Typography, Space} from "antd";
-import {Plus, Trash} from "@phosphor-icons/react";
-import {postDockerParameters} from "@/lib/features/docker/dockerThunks";
-import {useScopedI18n} from "../../../../../../../../../locales/client";
-import {theme} from "@/styles/theme";
+import { useAppDispatch } from "@/lib/hook";
+import { theme } from "@/styles/theme";
+import { Plus, Trash } from "@phosphor-icons/react";
+import { Button, Col, Form, Input, Row, Space, Typography } from "antd";
+import { useScopedI18n } from "../../../../../../../../../locales/client";
+import { postWebApplicationParameters } from "@/lib/features/webApplication/webApplicationThunks";
 
 interface Parameter {
   id: number;
@@ -13,10 +13,10 @@ interface Parameter {
 }
 
 interface ParametersSectionProps {
-  dockerById: any;
+  webApplicationById: any;
 }
 
-export default function ParametersSection({dockerById}: ParametersSectionProps) {
+export default function ParametersSection({ webApplicationById }: ParametersSectionProps) {
   const dispatch = useAppDispatch();
   const tDeployments = useScopedI18n("deployment");
   const [form] = Form.useForm();
@@ -24,9 +24,9 @@ export default function ParametersSection({dockerById}: ParametersSectionProps) 
   const handleFinish = (values: any) => {
     // send single param with deployment_subscription_id
     dispatch(
-      postDockerParameters({
+      postWebApplicationParameters({
         data: {
-          deployment_subscription_id: dockerById.id,
+          deployment_subscription_id: webApplicationById.id,
           name: values.name,
           value: values.value,
         },
@@ -36,7 +36,7 @@ export default function ParametersSection({dockerById}: ParametersSectionProps) 
   };
 
   return (
-    <div style={{marginTop: 30}}>
+    <div style={{ marginTop: 30 }}>
       <Typography
         style={{
           fontWeight: 700,
@@ -48,9 +48,9 @@ export default function ParametersSection({dockerById}: ParametersSectionProps) 
       </Typography>
 
       {/* Display existing parameters */}
-      {dockerById?.custom_paramters?.length > 0 && (
-        <div style={{marginTop: 15}}>
-          {dockerById.custom_paramters.map((param: Parameter) => (
+      {webApplicationById?.custom_paramters?.length > 0 && (
+        <div style={{ marginTop: 15 }}>
+          {webApplicationById.custom_paramters.map((param: Parameter) => (
             <Row
               key={param.id}
               style={{
@@ -62,7 +62,7 @@ export default function ParametersSection({dockerById}: ParametersSectionProps) 
                 background: "#1a1818ff",
               }}
             >
-              <Col flex="auto" style={{display: "flex", alignItems: "center", gap: "12px"}}>
+              <Col flex="auto" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
                 <Typography.Text strong>{param.name}</Typography.Text>
                 <Typography.Text type="secondary">= {param.value}</Typography.Text>
               </Col>
@@ -77,8 +77,8 @@ export default function ParametersSection({dockerById}: ParametersSectionProps) 
                     icon={<Trash />}
                     onClick={() =>
                       dispatch(
-                        postDockerParameters({
-                          parameters: dockerById.parameters
+                        postWebApplicationParameters({
+                          parameters: webApplicationById.parameters
                             .filter((p: any) => p.id !== param.id)
                             .reduce((acc: Record<string, string>, curr: any) => {
                               acc[curr.key] = curr.value;
@@ -97,12 +97,12 @@ export default function ParametersSection({dockerById}: ParametersSectionProps) 
 
       {/* Form for adding new single parameter */}
       <Form form={form} onFinish={handleFinish} autoComplete="off" layout="vertical">
-        <Row gutter={8} align="middle" style={{display: "flex", justifyItems: "center"}}>
+        <Row gutter={8} align="middle" style={{ display: "flex", justifyItems: "center" }}>
           <Col flex="1">
             <Form.Item
               name="name"
-              style={{marginBottom: 0}}
-              rules={[{required: true, message: "Key required"}]}
+              style={{ marginBottom: 0 }}
+              rules={[{ required: true, message: "Key required" }]}
             >
               <Input placeholder="Key" />
             </Form.Item>
@@ -110,14 +110,14 @@ export default function ParametersSection({dockerById}: ParametersSectionProps) 
           <Col flex="1">
             <Form.Item
               name="value"
-              style={{marginBottom: 0}}
-              rules={[{required: true, message: "Value required"}]}
+              style={{ marginBottom: 0 }}
+              rules={[{ required: true, message: "Value required" }]}
             >
               <Input placeholder="Value" />
             </Form.Item>
           </Col>
           <Col>
-            <Button type="primary" htmlType="submit" style={{boxShadow: "none"}} icon={<Plus />}>
+            <Button type="primary" htmlType="submit" style={{ boxShadow: "none" }} icon={<Plus />}>
               {tDeployments("addParameter")}
             </Button>
           </Col>

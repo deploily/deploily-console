@@ -84,7 +84,7 @@ export default function ServiceInfoColumn({
         startDate={subscription.start_date}
         durationMonth={subscription.duration_month}
         remainingDuration={remainingDuration}
-        endDate={new Date(
+        endDate={subscription.end_date ??  new Date(
           new Date(subscription.start_date).setMonth(
             new Date(subscription.start_date).getMonth() + subscription.duration_month
           )

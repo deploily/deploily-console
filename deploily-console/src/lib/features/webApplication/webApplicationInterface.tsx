@@ -1,19 +1,19 @@
-export interface DockerDataUpdatedState {
-  dockerUpdated?: any;
+export interface WebApplicationDataUpdatedState {
+  webApplicationUpdated?: any;
   isLoading: boolean;
   loadingError?: any;
 }
 
 
-export interface DockerByIdState {
-  dockerById?: dockerDepInterface;
+export interface WebApplicationByIdState {
+  webApplicationById?: webApplicationDepInterface;
   isLoading: boolean;
   loadingError?: any;
 }
-export interface DockerDeptResponse {
-  result: dockerDepInterface[];
+export interface WebApplicationDeptResponse {
+  result: webApplicationDepInterface[];
 }
-export interface dockerDepInterface {
+export interface webApplicationDepInterface {
   access_url: string;
   api_key: string;
   argocd_url: string;
@@ -39,6 +39,7 @@ export interface dockerDepInterface {
   service_plan: ServicePlan;
   service_plan_id: number;
   start_date: string;
+  end_date: string;
   status: string;
   deployment_status: string;
   total_amount: number;

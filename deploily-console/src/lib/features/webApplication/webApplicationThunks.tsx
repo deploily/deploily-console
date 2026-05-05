@@ -3,8 +3,8 @@ import { deploilyApiUrls } from "@/deploilyWebsiteUrls";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getSession } from "next-auth/react";
 
-export const fetchDockerById = createAsyncThunk(
-  "docker/getDockerById",
+export const fetchWebApplicationById = createAsyncThunk(
+  "webApplication/getWebApplicationById",
   async (id: number, thunkConfig) => {
     try {
       const session = await getSession();
@@ -14,7 +14,7 @@ export const fetchDockerById = createAsyncThunk(
       }
       const token = session.accessToken;
       const response = await axiosInstance.get(
-        `${deploilyApiUrls.DEPLOYMENT_DOCKER_SUBSCRIPTION_URL}/${id}`,
+        `${deploilyApiUrls.DEPLOYMENT_WEB_APPLICATION_SUBSCRIPTION_URL}/${id}`,
         {
           headers: {
             Accept: "application/json",
@@ -25,7 +25,7 @@ export const fetchDockerById = createAsyncThunk(
       if (response.status === 200) {
         return response.data;
       } else {
-        return thunkConfig.rejectWithValue("Failed to fetch docker service by id");
+        return thunkConfig.rejectWithValue("Failed to fetch webApplication service by id");
       }
     } catch (error: any) {
       return thunkConfig.rejectWithValue(error.message);
@@ -33,8 +33,8 @@ export const fetchDockerById = createAsyncThunk(
   },
 );
 
-export const postDockerParameters = createAsyncThunk(
-  "docker/postDockerParameters",
+export const postWebApplicationParameters = createAsyncThunk(
+  "webApplication/postWebApplicationParameters",
   async (data: any, thunkConfig) => {
     try {
       const session = await getSession();
@@ -58,7 +58,7 @@ export const postDockerParameters = createAsyncThunk(
       if (response.status === 201) {
         return response.data;
       } else {
-        return thunkConfig.rejectWithValue("Failed to update docker parameters");
+        return thunkConfig.rejectWithValue("Failed to update webApplication parameters");
       }
     } catch (error: any) {
       return thunkConfig.rejectWithValue(error.message);
@@ -69,8 +69,8 @@ export const postDockerParameters = createAsyncThunk(
 
 
 
-export const UpdateDockerdata = createAsyncThunk(
-  "docker/updateDockerdata",
+export const UpdateWebApplicationdata = createAsyncThunk(
+  "webApplication/updateWebApplicationdata",
   async (data: any, thunkConfig) => {
 
 
@@ -83,8 +83,8 @@ export const UpdateDockerdata = createAsyncThunk(
 
       const token = session.accessToken;
 
-      const response = await axiosInstance.put(`${deploilyApiUrls.DEPLOYMENT_DOCKER_SUBSCRIPTION_URL}/${data.dockerById}`,
-        data.dockerdataUpdated,
+      const response = await axiosInstance.put(`${deploilyApiUrls.DEPLOYMENT_WEB_APPLICATION_SUBSCRIPTION_URL}/${data.webApplicationById}`,
+        data.webApplicationdataUpdated,
         {
           headers: {
             Accept: "application/json",
@@ -95,7 +95,7 @@ export const UpdateDockerdata = createAsyncThunk(
       if (response.status === 200) {
         return response.data;
       } else {
-        return thunkConfig.rejectWithValue("Failed to update docker parameters");
+        return thunkConfig.rejectWithValue("Failed to update webApplication parameters");
       }
     } catch (error: any) {
       return thunkConfig.rejectWithValue(error.message);
@@ -103,8 +103,8 @@ export const UpdateDockerdata = createAsyncThunk(
   },
 );
 
-// export const deleteDockerParameters = createAsyncThunk(
-//     "docker/deleteDockerParameters",
+// export const deleteWebApplicationParameters = createAsyncThunk(
+//     "webApplication/deleteWebApplicationParameters",
 //     async ({ id }: { id: number }, thunkConfig) => {
 //         try {
 //             const session = await getSession();
@@ -124,15 +124,15 @@ export const UpdateDockerdata = createAsyncThunk(
 //             if (response.status === 200) {
 //                 return response.data;
 //             } else {
-//                 return thunkConfig.rejectWithValue("Failed to delete docker parameters");
+//                 return thunkConfig.rejectWithValue("Failed to delete webApplication parameters");
 //             }
 //         } catch (error: any) {
 //             return thunkConfig.rejectWithValue(error.message);
 //         }
 //     }
 // );
-// export const deleteDockerParameterById = createAsyncThunk(
-//     "docker/deleteDockerParameterById",
+// export const deleteWebApplicationParameterById = createAsyncThunk(
+//     "webApplication/deleteWebApplicationParameterById",
 //     async ({ id, paramId }: { id: any; paramId: number }, thunkConfig) => {
 //         try {
 //             const session = await getSession();
@@ -152,7 +152,7 @@ export const UpdateDockerdata = createAsyncThunk(
 //             if (response.status === 200) {
 //                 return response.data;
 //             } else {
-//                 return thunkConfig.rejectWithValue("Failed to delete docker parameter");
+//                 return thunkConfig.rejectWithValue("Failed to delete webApplication parameter");
 //             }
 //         } catch (error: any) {
 //             return thunkConfig.rejectWithValue(error.message);

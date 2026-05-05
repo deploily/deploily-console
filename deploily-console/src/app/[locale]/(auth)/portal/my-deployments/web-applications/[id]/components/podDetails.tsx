@@ -4,14 +4,14 @@ import { Button, Input, Typography } from 'antd';
 import { useState } from "react";
 import { useScopedI18n } from "../../../../../../../../../locales/client";
 
-const PodsDetails = ({ dockerById, planNames, theme, handleCopy, onSave }: {
-    dockerById: any,
+const PodsDetails = ({ webApplicationById, planNames, theme, handleCopy, onSave }: {
+    webApplicationById: any,
     planNames: any,
     theme: any,
     handleCopy: (text: string) => void,
     onSave: (updatedPodNames: string[]) => void
 }) => {
-    const plan = dockerById.get_plan_details.plan.name;
+    const plan = webApplicationById.get_plan_details.plan.name;
     const t = useScopedI18n("deployment");
 
     const podCount = plan === planNames.BASIC ? 2 :
@@ -19,8 +19,8 @@ const PodsDetails = ({ dockerById, planNames, theme, handleCopy, onSave }: {
             plan === planNames.PREMIUM ? 6 : 0;
 
     const podNamesAndUrls = Array.from({ length: podCount }, (_, index) => ({
-        name: dockerById[`pod_name_${index + 1}`] ?? 'name',
-        url: dockerById[`pod_url_${index + 1}`] ?? 'url'
+        name: webApplicationById[`pod_name_${index + 1}`] ?? 'name',
+        url: webApplicationById[`pod_url_${index + 1}`] ?? 'url'
     }));
 
     const [podNames, setPodNames] = useState(podNamesAndUrls.map(pod => pod.name));

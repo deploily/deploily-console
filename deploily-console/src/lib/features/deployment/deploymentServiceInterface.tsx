@@ -41,6 +41,8 @@ export interface NewDeploymentSubscriptionState {
   promoCodeRate?: number;
   promoColor?: string;
   phone?: string;
+  byor: boolean;
+  provider_name?: string;
 }
 export interface DeploymentServiceResponseState {
   deploymentServicesList?: DeploymentServiceResponse;

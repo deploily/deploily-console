@@ -41,7 +41,9 @@ const initialState: DeploymentServiceState = {
     promoCode: "",
     promoCodeRate: undefined,
     promoColor: undefined,
-    phone: ""
+    phone: "",
+    byor: false,
+    provider_name: undefined,
   },
   newDeploymentSubscriptionResponse: {
     newSubscriptionIsLoading: false,
