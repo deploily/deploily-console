@@ -77,9 +77,6 @@ export const deploilyApiUrls = {
 
   DEPLOYMENT_WEB_APPLICATION_SUBSCRIBE_URL: `${API_BASE_URL}/web-application-deployment-service-subscription/subscribe`,
   DEPLOYMENT_WEB_APPLICATION_SUBSCRIPTION_URL: `${API_BASE_URL}/web-application-deployment-service-subscription`,
-
-  DEPLOYMENT_DOCKER_SUBSCRIBE_URL: `${API_BASE_URL}/docker-deployment-service-subscription/subscribe`,
-  DEPLOYMENT_DOCKER_SUBSCRIPTION_URL: `${API_BASE_URL}/docker-deployment-service-subscription`,
   
   DASHBOARD_URL: `${API_BASE_URL}/dashboard/`
 
@@ -93,5 +90,4 @@ export const NEXT_CLOUD_SLUG = "nextcloud";
 export const HI_EVENTS_SLUG = "hievents";
 
 // Deployment Service Slugs
-export const DOCKER_SLUG = "docker";
 export const WEB_APPLICATION_SLUG = "web-application";

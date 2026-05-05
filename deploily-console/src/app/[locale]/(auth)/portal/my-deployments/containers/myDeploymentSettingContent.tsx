@@ -6,14 +6,14 @@ import { useI18n } from "../../../../../../../locales/client";
 import ManagedResourcePlanDetails from "./managedResourcePlanDetails";
 import ServiceInfoColumn from "./ServiceInfoColumn";
 import SubscriptionPlanCard from "./subscriptionplanCard";
-import { dockerDepInterface } from "@/lib/features/docker/dockerInterface";
+import { webApplicationDepInterface } from "@/lib/features/webApplication/webApplicationInterface";
 
 export default function MyDeploymentSettingContent({
   myDeployment,
   isLoading,
   paramsComponent,
 }: {
-    myDeployment:dockerDepInterface ;
+    myDeployment:webApplicationDepInterface ;
   isLoading: boolean;
   paramsComponent?: React.ReactNode;
 }) {

@@ -6,15 +6,14 @@ import DocumentationDrawer from "../../utils/documentationDrawer";
 import ResourcesAndDocumentation, { DocUrl } from "./ResourcesAndDocumentation";
 import ServiceHeader from "./ServiceHeader";
 import SubscriptionStatusStrip from "./SubscriptionStatusStrip";
-import { dockerDepInterface } from "@/lib/features/docker/dockerInterface";
 import { webApplicationDepInterface } from "@/lib/features/webApplication/webApplicationInterface";
 
 interface ServiceInfoColumnProps {
-  deployment: dockerDepInterface | webApplicationDepInterface;
+  deployment:  webApplicationDepInterface;
   remainingDuration: number;
 }
 
-function buildDocsUrls(deployment: dockerDepInterface  ): DocUrl[] {
+function buildDocsUrls(deployment: webApplicationDepInterface  ): DocUrl[] {
   const urls: DocUrl[] = [];
 
   const addIfPresent = (url: string | undefined | null, type: DocUrl["type"]) => {
