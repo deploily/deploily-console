@@ -567,4 +567,112 @@ export default {
     'resources.dns': 'DNS',
     'resources.s3': 'S3',
 
+    // ── WelcomeHeader ──────────────────────────────────────────────────────────
+    welcome: "Welcome back,",
+    subtitle: "Explore our solutions and manage your active services from your central hub.",
+
+    // ── StatsCards ─────────────────────────────────────────────────────────────
+    StatsCards :{
+        apiServices: "APIS SERVICES",
+        deployments: "DEPLOYMENTS",
+        applications: "APPLICATIONS",
+        supportTickets: "SUPPORT TICKETS",
+        favorites: "FAVORITES"
+    },
+
+    seeMyApis: "See My APIs",
+    seeMyDeployments: "See My Deployments",
+    seeMyApplications: "See My Applications",
+    seeMySupportTicket: "See My Support Tickets",
+    seeMyFavorites: "See My Favorites",
+
+    subscribeNewApi: "Subscribe to a new API",
+    subscribeNewDeployment: "Subscribe to a new Deployment",
+    subscribeNewApplication: "Subscribe to a new Application",
+    addSupportTocket: "Open a Support Ticket",
+
+    // ── QuickActionCards ───────────────────────────────────────────────────────
+    quickActions: {
+        startups: {
+            title: "Startup",
+            description:
+                "You are a startup and you want to deploy your application in compliance with Data privacy regulations.",
+            button: "Explore our Deployments packs",
+        },
+        businesses: {
+            title: "Business",
+            description:
+                "You are a business owner and you need a ready to use application to enhance your efficiency.",
+            button: "Explore our Applications packs",
+        },
+        developers: {
+            title: "Developer",
+            description:
+                "You are a developer and you want to integrate API in your Application.",
+            button: "Explore our APIs",
+        },
+        cloud: {
+            title: "Cloud",
+            description:
+                "You need a cloud resource and you are lost choosing the right one.",
+            button: "Explore our Resources",
+        },
+    },
+
+    // ── ExpiringSubscriptionsCard ──────────────────────────────────────────────
+    expiringSoonSubscriptions: {
+        expiringSoonSubscriptions: "Expiring Soon Subscriptions",
+        nOrder: "N° Order",
+        serviceName: "Service Name",
+        planName: "Plan Name",
+        amount: "Amount",
+        startDate: "Start Date",
+        expirayDate: "Expiry Date",
+        status: "Status",
+
+        // status labels (used in getStatusStyle)
+        active: "Active",
+        expired: "Expired",
+        pending: "Pending",
+        cancelled: "Cancelled",
+    },
+
+    // ── ReadyToScaleSection ────────────────────────────────────────────────────
+    readyToScale: {
+        title: "Ready to scale?",
+        description: "Ensure uninterrupted service for your applications.",
+        button: "Create a Payment profile if not already done",
+    },
+
+    // ── NotificationsList ──────────────────────────────────────────────────────
+    notifications: {
+        title: "Notifications",
+        expiring: {
+            title: "Subscription expiring soon",
+            description: "Your 'Premium API Service' subscription expires on 29/05/2026.",
+            action: "RENEW NOW",
+        },
+        warning: {
+            title: "Managed resource expiring soon",
+            description: "Cloud Node #3 is reaching its quota limit.",
+            action: "MANAGE",
+        },
+        success: {
+            title: "Support Ticket Answered",
+            description: "Request #4929 \"Wrong account config status 'XXL Configuration'\".",
+            action: "VIEW REPLY",
+        },
+        payment: {
+            title: "Pending payment",
+            description: "Invoice #887 ($40) is pending while your subscription remains active.",
+            action: "PAY NOW",
+        },
+        profile: {
+            title: "Complete your payment profile",
+            description: "Your billing information is not fully submitted yet.",
+            action: "SETUP PROFILE",
+        },
+    },
+
+    subTitleError2: "An error occurred while loading the dashboard. Please try again later.",
 } as const

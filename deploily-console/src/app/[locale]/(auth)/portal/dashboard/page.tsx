@@ -1,4 +1,4 @@
-import DashboardContainer from "./home-components/dashboardContainer";
+import DashboardContainer from "./dashboardContainer";
 
 export default function Page() {
   return (
