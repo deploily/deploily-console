@@ -138,7 +138,7 @@ export default function ExpiringSoonSubscriptionsListContainer() {
       )}
 
       {!dashboardLoading && dashboardError && (
-        <Result status="500" title={translate("error")} subTitle={translate("subTitleError")} />
+        <Result status="500" title={translate("errorMessage")} subTitle={translate("subTitleError2")} />
       )}
     </>
   );

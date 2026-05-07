@@ -3,7 +3,7 @@ export interface DashboardResponse {
   "api_subscriptions": number,
   "app_subscriptions": number,
   "deployment_subscriptions": number,
-    "expiring_soon": 
+  "expiring_soon": 
       {
         "duration_month": number,
         "expiry_date": string,

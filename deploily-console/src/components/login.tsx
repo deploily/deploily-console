@@ -16,7 +16,7 @@ export default function Login() {
 
     <DivCard
       style={{
-        width: "100%",
+        width: "90%",
         background: theme.token.darkGray,
         borderRadius: 16,
         paddingLeft: 16,
@@ -25,6 +25,7 @@ export default function Login() {
         border: `1px solid ${theme.token.orange600}20`,
         position: "relative",
         overflow: "hidden",
+        margin: '150px'
       }}
     >
       {/* Accent line at top */}

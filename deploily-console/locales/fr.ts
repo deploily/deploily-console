@@ -576,4 +576,113 @@ export default {
   'resources.web_hosting': 'Hébergement Web',
   'resources.dns': 'DNS',
   'resources.s3': 'S3',
+
+  // ── WelcomeHeader ──────────────────────────────────────────────────────────
+  welcome: "Bon retour,",
+  subtitle: "Explorez nos solutions et gérez vos services actifs depuis votre espace central.",
+
+  // ── StatsCards ─────────────────────────────────────────────────────────────
+  StatsCards: {
+    apiServices: "SERVICES API",
+    deployments: "DÉPLOIEMENTS",
+    applications: "APPLICATIONS",
+    supportTickets: "TICKETS DE SUPPORT",
+    favorites: "FAVORIS"
+  },
+
+  seeMyApis: "Voir mes APIs",
+  seeMyDeployments: "Voir mes déploiements",
+  seeMyApplications: "Voir mes applications",
+  seeMySupportTicket: "Voir mes tickets de support",
+  seeMyFavorites: "Voir mes favoris",
+
+  subscribeNewApi: "Souscrire à une nouvelle API",
+  subscribeNewDeployment: "Souscrire à un nouveau déploiement",
+  subscribeNewApplication: "Souscrire à une nouvelle application",
+  addSupportTocket: "Ouvrir un ticket de support",
+
+  // ── QuickActionCards ───────────────────────────────────────────────────────
+  quickActions: {
+    startups: {
+      title: "Startup",
+      description:
+        "Vous êtes une startup et vous souhaitez déployer votre application conformément aux réglementations sur la confidentialité des données.",
+      button: "Découvrir nos packs de déploiement",
+    },
+    businesses: {
+      title: "Entreprise",
+      description:
+        "Vous êtes un chef d’entreprise et vous avez besoin d’une application prête à l’emploi pour améliorer votre efficacité.",
+      button: "Découvrir nos packs d’applications",
+    },
+    developers: {
+      title: "Développeur",
+      description:
+        "Vous êtes développeur et vous souhaitez intégrer des APIs dans votre application.",
+      button: "Découvrir nos APIs",
+    },
+    cloud: {
+      title: "Cloud",
+      description:
+        "Vous avez besoin d’une ressource cloud et vous ne savez pas laquelle choisir.",
+      button: "Découvrir nos ressources",
+    },
+  },
+
+  // ── ExpiringSubscriptionsCard ──────────────────────────────────────────────
+  expiringSoonSubscriptions: {
+    expiringSoonSubscriptions: "Abonnements expirant bientôt",
+    nOrder: "N° Commande",
+    serviceName: "Nom du service",
+    planName: "Nom du plan",
+    amount: "Montant",
+    startDate: "Date de début",
+    expirayDate: "Date d’expiration",
+    status: "Statut",
+
+    // status labels (used in getStatusStyle)
+    active: "Actif",
+    expired: "Expiré",
+    pending: "En attente",
+    cancelled: "Annulé",
+  },
+
+  // ── ReadyToScaleSection ────────────────────────────────────────────────────
+  readyToScale: {
+    title: "Prêt à évoluer ?",
+    description: "Assurez un service ininterrompu pour vos applications.",
+    button: "Créer un profil de paiement si ce n’est pas déjà fait",
+  },
+
+  // ── NotificationsList ──────────────────────────────────────────────────────
+  notifications: {
+    title: "Notifications",
+    expiring: {
+      title: "Abonnement expirant bientôt",
+      description: "Votre abonnement « Premium API Service » expire le 29/05/2026.",
+      action: "RENOUVELER MAINTENANT",
+    },
+    warning: {
+      title: "Ressource gérée expirant bientôt",
+      description: "Le nœud cloud #3 atteint sa limite de quota.",
+      action: "GÉRER",
+    },
+    success: {
+      title: "Réponse au ticket de support",
+      description: "Demande #4929 « Mauvais statut de configuration du compte 'XXL Configuration' ».",
+      action: "VOIR LA RÉPONSE",
+    },
+    payment: {
+      title: "Paiement en attente",
+      description: "La facture #887 (40 $) est en attente alors que votre abonnement reste actif.",
+      action: "PAYER MAINTENANT",
+    },
+    profile: {
+      title: "Complétez votre profil de paiement",
+      description: "Vos informations de facturation ne sont pas encore entièrement soumises.",
+      action: "CONFIGURER LE PROFIL",
+    },
+  },
+
+  subTitleError2: "Une erreur est survenue lors du chargement du tableau de bord. Veuillez réessayer plus tard.",
 } as const;
