@@ -8,7 +8,7 @@ export default {
     'Members': 'Members',
     'myFavorites': 'My favorites',
     'myManagedResources': 'My managed resources',
-    'myResources': 'My resources',
+    'myAffiliations': 'My Affiliations',
     'myWebHostings': 'Web hostings',
     'myDns': 'Dns',
     'vps': 'VPS',
@@ -359,6 +359,7 @@ export default {
     "itemsHelp.label6": "What is the process?",
 
     "affiliation.name": "Service Name",
+    "affiliation.hostName": "Host Name",
     "affiliation.providerName": "Provider Name",
     "affiliation.amount": "Amount",
     "affiliation.status": "Status",

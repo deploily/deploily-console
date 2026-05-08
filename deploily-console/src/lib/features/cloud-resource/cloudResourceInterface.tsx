@@ -156,6 +156,7 @@ export interface ServicePlanOption {
 
 export interface ManagedResourceList {
   id: number;
+  host_name: string;
 	"end_date": string,
 	"ressource_type": string,
 	"start_date": string,

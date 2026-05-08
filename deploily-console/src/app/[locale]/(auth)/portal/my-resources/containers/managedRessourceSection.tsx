@@ -55,11 +55,11 @@ export default function ManagedRessourcesComponent() {
   const columns = useMemo(() => {
     return [
       {
-        title: t("name"),
-        dataIndex: "service_details",
-        key: "service_details",
-        render: (service_details: service_details) =>
-          service_details ? service_details.service_name.charAt(0).toUpperCase() + service_details.service_name.slice(1) : "-",
+        title: t("hostName"),
+        dataIndex: "host_name",
+        key: "host_name",
+        render: (host_name?: string) =>
+          host_name ?? "-"
       },
       {
         title: t('providerName'),

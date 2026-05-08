@@ -56,6 +56,7 @@ export default function ProfilePayementContainer() {
           render: (element: any) => (
             <CustomTypography>
               {element.name}
+              {element.last_name}
               {element.company_name !== null && element.company_name !== "" && (
                 <Tag
                   color={"magenta"}

@@ -19,7 +19,7 @@ export default function MyRessourcesPageContent() {
         },
         {
             key: '2',
-            label: t("myResources"),
+            label: t("myAffiliations"),
             children: <MyResourcesContainer/>,
         }
     ];
