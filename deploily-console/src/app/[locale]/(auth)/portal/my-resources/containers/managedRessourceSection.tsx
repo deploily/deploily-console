@@ -62,13 +62,6 @@ export default function ManagedRessourcesComponent() {
           host_name ?? "-"
       },
       {
-        title: t('providerName'),
-        dataIndex: "service_details",
-        key: "service_details",
-        render: (service_details: service_details) =>
-          service_details && service_details.provider ? service_details.provider.name?.charAt(0).toUpperCase() + service_details.provider.name?.slice(1) : "-",
-      },
-      {
         title: t('type'),
         dataIndex: "ressource_type",
         key: "ressource_type",
@@ -87,6 +80,13 @@ export default function ManagedRessourcesComponent() {
             {tResources(ressource_type as 'vps' | 'web_hosting' | 'dns' | 's3')}
           </Tag>
       },
+      {
+        title: t('providerName'),
+        dataIndex: "service_details",
+        key: "service_details",
+        render: (service_details: service_details) =>
+          service_details && service_details.provider ? service_details.provider.name?.charAt(0).toUpperCase() + service_details.provider.name?.slice(1) : "-",
+      },      
       {
         title: t("startDate"),
         key: "start_date",
