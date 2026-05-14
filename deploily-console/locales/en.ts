@@ -83,6 +83,7 @@ export default {
     "price": "Price",
     "favorite": "Favorite",
 
+    'sidebar.marketplace': 'Marketplace',
     'sidebar.home': 'Home',
     'sidebar.dashboard': 'Dashboard',
     'sidebar.members': 'Members',
@@ -419,6 +420,7 @@ export default {
     "applications.prepaTime": "Preparation time",
     "applications.hours": "Hours",
     "applications.managed": "• Managed",
+    "applications.status":"Status",
     "applications":{
         "useOwnServer": "Use a resource from non deploily's partner",
         "selectRes": "Order a resource from deploily's cloud partners",

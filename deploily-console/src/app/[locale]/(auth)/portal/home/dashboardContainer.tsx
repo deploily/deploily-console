@@ -4,14 +4,12 @@ import { useProfile } from "@/lib/features/profile/profileSelectors";
 import { getProfile } from "@/lib/features/profile/profileThunks";
 import { useAppDispatch } from "@/lib/hook";
 import { useEffect, useState } from "react";
-import NotificationsList from "./components/NotificationsList";
 import QuickActionCards from "./components/QuickActionCards";
-import ReadyToScaleSection from "./components/ReadyToScaleSection";
 import StatsCards from "./components/StatsCards";
 import WelcomeHeader from "./components/WelcomeHeader";
-import { useDashboard } from "./features/dashboardSelector";
 import { fetchDashboardData } from "./features/dashboardThunks";
 import ExpiringSubscriptionsCard from "./components/ExpiringSubscriptionsCard";
+import { useDashboard } from "./features/dashboardSelector";
 
 export default function DashboardPage() {
   const dispatch = useAppDispatch();

@@ -86,6 +86,7 @@ export default {
   "price": "Prix",
   "favorite": "Favori",
 
+  "sidebar.marketplace": "Marketplace",
   "sidebar.home": "Accueil",
   "sidebar.dashboard": "Tableau de bord",
   "sidebar.myApi": "Mes API",
@@ -428,6 +429,7 @@ export default {
   "applications.prepaTime": "Temps de préparation",
   "applications.hours": "Heures",
   "applications.managed": "• Géré",
+  "applications.status": "Status",
   "applications": {
     "useOwnServer": "Utiliser une ressource d’un partenaire hors Deploily",
    "selectRes": "Commander une ressource auprès des partenaires cloud de Deploily",

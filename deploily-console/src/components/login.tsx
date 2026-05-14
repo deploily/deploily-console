@@ -16,7 +16,7 @@ export default function Login() {
 
     <DivCard
       style={{
-        width: "90%",
+        width: "80%",
         background: theme.token.darkGray,
         borderRadius: 16,
         paddingLeft: 16,
@@ -56,14 +56,14 @@ export default function Login() {
             height={49}
             alt="logo-deploily"
             style={{
-              marginBottom: 30,
+              marginBottom: 0,
             }}
           />
         </div>
       </div>
-      <Row gutter={[16, 16]}>
+      <Row gutter={[16, 16]} style={{ padding: "10px" }}>
         {/* Login Button */}
-        <Col span={12}>
+        <Col span={24}>
           <Button
             style={{
               width: "100%",
@@ -74,7 +74,7 @@ export default function Login() {
             }}
             onClick={() =>
               signIn("keycloak", {
-                callbackUrl: `/${locale}/portal/dashboard`,
+                callbackUrl: `/${locale}/portal/home`,
               })
             }
           >
@@ -97,7 +97,7 @@ export default function Login() {
         </Col>
 
         {/* Register Button */}
-        <Col span={12}>
+        <Col span={24}>
           <Button
             style={{
               width: "100%",
@@ -107,7 +107,7 @@ export default function Login() {
               border: "none",
             }}
             onClick={() =>
-              signIn("keycloak", { callbackUrl: `/${locale}/portal/dashboard` }, { prompt: "create" })
+              signIn("keycloak", { callbackUrl: `/${locale}/portal/home` }, { prompt: "create" })
             }
           >
             <Col style={{ paddingBottom: "10px" }}>

@@ -68,7 +68,7 @@ export function AppAppBarDesktop() {
       >
         <Row align="middle" justify="space-between" style={{width: "100%"}}>
           <Col style={{flexGrow: 1}}>
-            <Link href="/portal/dashboard">
+            <Link href="/portal/home">
               <Image
                 src="/images/logo_name.png"
                 width={202}
