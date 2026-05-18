@@ -10,6 +10,8 @@ import {useEffect} from "react";
 import {useI18n, useScopedI18n} from "../../../../../../../locales/client";
 import HomeCarousel from "../../components/homeCarousel";
 import DeploymentsServiceCard from "./deploymentsServiceCard";
+import { deploymentSlugs } from "../utils/deploymentConst";
+import { ServiceCardsSkeleton } from "@/components/containers/serviceCardSkeleton";
 
 export default function DeploymentsServiceContainer() {
   const {isLoading, deploymentServicesList} = useDeploymentServices();
@@ -57,7 +59,11 @@ export default function DeploymentsServiceContainer() {
         </Row>
 
         <div style={{position: "relative", padding: "0 2rem"}}>
-          {!isLoading && deploymentServicesList !== undefined && (
+            {isLoading ? (
+                      <ServiceCardsSkeleton />
+                    ) : (
+          
+          deploymentServicesList !== undefined && (
             <HomeCarousel>
               {deploymentServicesList?.result?.map((row: DeploymentsServiceInterface, index) => (
                 <div
@@ -67,15 +73,15 @@ export default function DeploymentsServiceContainer() {
                     justifyContent: "center",
                     alignItems: "center",
                     margin: "0 10px",
-                    opacity: index === 0 ? 1 : 0.5, // Show first item, hide others with reduced opacity
-                    pointerEvents: index === 0 ? "auto" : "none", // Enable interaction for the first item only
+                    opacity: row.service_slug && deploymentSlugs.includes(row.service_slug) ? 1 : 0.5, // Show first item, hide others with reduced opacity
+                    pointerEvents: row.service_slug && deploymentSlugs.includes(row.service_slug) ? "auto" : "none", // Enable interaction for the first item only
                   }}
                 >
                   <DeploymentsServiceCard data={row} />
                 </div>
               ))}
             </HomeCarousel>
-          )}
+          ))}
         </div>
       </Space>
     </>

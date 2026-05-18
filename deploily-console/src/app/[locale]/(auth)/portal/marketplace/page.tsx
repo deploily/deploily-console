@@ -6,9 +6,7 @@ import DeploymentsServiceContainer from "../deployments/home-components/deployme
 export default function Page() {
   return (
     <div style={{padding: "6px"}}>
-      {/* <div style={{ opacity: 0.5, pointerEvents: "none" }}> */}
       <DeploymentsServiceContainer />
-      {/* </div> */}
       <ApplicationServiceContainer />
       <ApiServiceContainer />
       <CloudResourceContainer />

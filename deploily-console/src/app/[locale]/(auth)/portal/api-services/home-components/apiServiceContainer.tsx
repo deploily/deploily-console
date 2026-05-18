@@ -10,6 +10,7 @@ import {useEffect} from "react";
 import {useI18n} from "../../../../../../../locales/client";
 import HomeCarousel from "../../components/homeCarousel";
 import ApiServiceCard from "./apiServiceCard";
+import { ServiceCardsSkeleton } from "@/components/containers/serviceCardSkeleton";
 
 export default function ApiServiceContainer() {
   const router = useRouter();
@@ -59,7 +60,12 @@ export default function ApiServiceContainer() {
         </Button>
       </Row>
       <div style={{position: "relative", padding: "0 2rem"}}>
-        {!isLoadingServiceResponse && apiServiceResponse?.result !== undefined && (
+          {
+            isLoadingServiceResponse ? (
+                    <ServiceCardsSkeleton />
+                  ) : (
+        
+        apiServiceResponse?.result !== undefined && (
           <HomeCarousel>
             {apiServiceResponse?.result?.map((row: ApiServiceInterface, index) => (
               <div
@@ -75,7 +81,7 @@ export default function ApiServiceContainer() {
               </div>
             ))}
           </HomeCarousel>
-        )}
+        ))}
       </div>
       {!isLoadingServiceResponse && apiServiceLoadingError && (
         <Result status="500" title={t("error")} subTitle={t("subTitleError")} />

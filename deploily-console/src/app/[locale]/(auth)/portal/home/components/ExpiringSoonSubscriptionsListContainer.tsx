@@ -1,52 +1,42 @@
 "use client";
 
+import LoadingErrorContainer from "@/components/containers/loadingErrorContainer";
 import { theme } from "@/styles/theme";
 import {
-  ArrowRight,
+  ArrowSquareOut,
   CalendarX,
-  CurrencyDollar,
+  CurrencyDollar
 } from "@phosphor-icons/react/dist/ssr";
-import { Card, Result, Skeleton } from "antd";
+import { Card, Skeleton } from "antd";
 import { useRouter } from "next/navigation";
-import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
+import { useScopedI18n } from "../../../../../../../locales/client";
 import getStatusStyle from "../../utils/getStatusStyle";
 import { useDashboard } from "../features/dashboardSelector";
 
-// Deterministic accent color per status
 function getAccentColor(status: string): string {
   switch (status?.toLowerCase()) {
-    case "active":
-      return "#51CF66";
-    case "expired":
-      return "#FF6B6B";
-    case "pending":
-      return "#FFA500";
-    case "cancelled":
-      return "#94a3b8";
-    default:
-      return "#4facfe";
+    case "active": return "#51CF66";
+    case "expired": return "#FF6B6B";
+    case "pending": return "#FFA500";
+    case "cancelled": return "#94a3b8";
+    default: return "#fea94f";
   }
 }
 
 function formatDate(date: Date | string | undefined): string {
   if (!date) return "-";
   return new Date(date).toLocaleString("fr-FR", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
+    day: "2-digit", month: "2-digit", year: "numeric",
+    hour: "2-digit", minute: "2-digit",
   });
 }
 
 function formatAmount(amount: number | undefined): string {
   if (!amount) return "-";
-  return (
-    amount.toLocaleString("fr-FR", {
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }) + " DZD"
-  );
+  return amount.toLocaleString("fr-FR", {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }) + " DZD";
 }
 
 // ── Skeleton row ──────────────────────────────────────────────────────────────
@@ -61,7 +51,7 @@ function SkeletonRow() {
           <Skeleton.Input active size="small" style={{ width: 180, marginBottom: 6 }} />
           <Skeleton.Input active size="small" style={{ width: 260 }} />
         </div>
-        <Skeleton.Button active size="small" style={{ width: 90 }} />
+        <Skeleton.Button active size="small" style={{ width: 36, height: 36, borderRadius: 8, flexShrink: 0 }} />
       </div>
     </Card>
   );
@@ -74,16 +64,16 @@ function ExpiringRow({
   onClick,
 }: {
   record: {
-    "duration_month": number,
-    "expiry_date": string,
-    "id": number,
-    "name": string,
-    "payment_status": string,
-    "price": number,
-    "service_plan": string,
-    "start_date": string,
-    "status": string,
-    "total_amount": number
+    duration_month: number;
+    expiry_date: string;
+    id: number;
+    name: string;
+    payment_status: string;
+    price: number;
+    service_plan: string;
+    start_date: string;
+    status: string;
+    total_amount: number;
   };
   t: ReturnType<typeof useScopedI18n<"dashboard.expiringSoonSubscriptions">>;
   onClick: () => void;
@@ -102,7 +92,7 @@ function ExpiringRow({
           <CalendarX size={24} weight="duotone" />
         </div>
 
-        {/* Main text block */}
+        {/* Text */}
         <div className="expiring-text">
           <h4 className="expiring-title">
             {record.service_plan || record.name || "-"}
@@ -120,17 +110,18 @@ function ExpiringRow({
           </p>
         </div>
 
-        {/* Status badge acting as action */}
+        {/*
+          Button is the LAST child inside the flex row.
+          → Large screens: naturally sits at the right end of the row.
+          → Small screens: pulled out via position:absolute to the top-right corner.
+        */}
         <button
           className="expiring-action"
-          style={{ color: accentColor, borderColor: accentColor }}
-          onClick={(e) => {
-            e.stopPropagation();
-            onClick();
-          }}
+          style={{ color: accentColor }}
+          onClick={(e) => { e.stopPropagation(); onClick(); }}
+          aria-label="Open"
         >
-          {statusLabel}
-          <ArrowRight size={12} weight="bold" className="expiring-arrow" />
+          <ArrowSquareOut size={18} weight="bold" className="expiring-arrow" />
         </button>
       </div>
     </Card>
@@ -141,19 +132,11 @@ function ExpiringRow({
 export default function ExpiringSoonSubscriptionsListContainer() {
   const router = useRouter();
   const t = useScopedI18n("dashboard.expiringSoonSubscriptions");
-  const translate = useI18n();
   const { dashboardResponse, dashboardLoading, dashboardError } = useDashboard();
 
   if (!dashboardLoading && dashboardError) {
-    return (
-      <Result
-        status="500"
-        title={translate("error")}
-        subTitle={translate("subTitleError")}
-      />
-    );
+    return (<LoadingErrorContainer />);
   }
-
 
   return (
     <>
@@ -181,34 +164,34 @@ export default function ExpiringSoonSubscriptionsListContainer() {
           gap: 12px;
         }
 
-        /* ── Card — mirrors .notification-card ── */
+        /* ── Card ── */
         .expiring-card.ant-card {
-          background: rgba(30, 41, 59, 0.6) !important;
-          border: 1px solid rgba(71, 85, 105, 0.3) !important;
+          background: #1d1d1d !important;
+          border: 1px solid rgba(81, 66, 54, 0.5) !important;
           border-radius: 12px !important;
           backdrop-filter: blur(10px);
           transition: all 0.3s ease;
           cursor: pointer;
+          position: relative !important;
         }
 
         .expiring-card.ant-card:hover {
-          background: rgba(30, 41, 59, 0.8) !important;
-          border-color: rgba(71, 85, 105, 0.5) !important;
+          border-color: rgba(81, 66, 54, 0.5) !important;
           transform: translateX(4px);
         }
 
         .expiring-card .ant-card-body {
-          padding: 16px !important;
         }
 
-        /* ── Row layout — mirrors .notification-content ── */
+        /* ── Row layout: single flex row, never wraps ── */
         .expiring-content {
           display: flex;
           align-items: center;
           gap: 16px;
+          /* no flex-wrap — button must never drop to a new line */
         }
 
-        /* ── Icon box — mirrors .notification-icon ── */
+        /* ── Icon box ── */
         .expiring-icon-box {
           width: 48px;
           height: 48px;
@@ -219,9 +202,9 @@ export default function ExpiringSoonSubscriptionsListContainer() {
           flex-shrink: 0;
         }
 
-        /* ── Text block — mirrors .notification-text ── */
+        /* ── Text block: grows, shrinks, clips — never pushes button out ── */
         .expiring-text {
-          flex: 1;
+          flex: 1 1 0;
           min-width: 0;
         }
 
@@ -233,16 +216,19 @@ export default function ExpiringSoonSubscriptionsListContainer() {
           display: flex;
           align-items: center;
           gap: 8px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         .expiring-id {
-          color: #64748b;
+          color: #8b7c64;
           font-size: 12px;
           font-weight: 400;
         }
 
         .expiring-description {
-          color: #94a3b8;
+          color: #b8a394;
           font-size: 13px;
           margin: 0;
           line-height: 1.4;
@@ -262,26 +248,25 @@ export default function ExpiringSoonSubscriptionsListContainer() {
           color: #475569;
         }
 
-        /* ── Action button — mirrors .notification-action ── */
+        /* ── Action button — always last child in the flex row ── */
         .expiring-action {
-          background: transparent;
-          border: 1.5px solid;
-          padding: 8px 14px;
-          border-radius: 6px;
-          font-size: 12px;
-          font-weight: 600;
-          cursor: pointer;
-          transition: all 0.2s;
-          white-space: nowrap;
+          /* Keep it in the normal flow on large screens */
+          position: static;
           flex-shrink: 0;
+          background: transparent;
+          border: none;
+          padding: 8px;
+          border-radius: 8px;
+          cursor: pointer;
+          transition: opacity 0.2s, transform 0.2s, background 0.2s;
           display: inline-flex;
           align-items: center;
-          gap: 5px;
+          justify-content: center;
         }
 
         .expiring-action:hover {
-          opacity: 0.8;
-          transform: scale(1.05);
+          opacity: 0.85;
+          background: rgba(255, 255, 255, 0.06);
         }
 
         .expiring-arrow {
@@ -289,32 +274,25 @@ export default function ExpiringSoonSubscriptionsListContainer() {
         }
 
         .expiring-action:hover .expiring-arrow {
-          transform: translateX(3px);
+          transform: translate(2px, -2px);
         }
 
-        /* ── Empty ── */
-        .expiring-empty {
-          color: #94a3b8;
-          font-size: 14px;
-          text-align: center;
-          padding: 32px 0;
-          margin: 0;
-        }
-
-        /* ── Responsive ── */
-        @media (max-width: 1024px) {
-          .expiring-content {
-            flex-wrap: wrap;
+        /* ── Small screens: pin button to top-right corner of the card ── */
+        @media (max-width: 560px) {
+          .expiring-card .ant-card-body {
+            padding: 14px !important;
+            /* reserve space in top-right so content never slides under the button */
+            padding-right: 44px !important;
           }
 
           .expiring-action {
-            width: 100%;
-            justify-content: center;
-            margin-top: 4px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 6px;
+            border-radius: 6px;
           }
-        }
 
-        @media (max-width: 768px) {
           .expiring-icon-box {
             width: 40px;
             height: 40px;
@@ -327,6 +305,15 @@ export default function ExpiringSoonSubscriptionsListContainer() {
           .expiring-description {
             font-size: 12px;
           }
+        }
+
+        /* ── Empty ── */
+        .expiring-empty {
+          color: #b8a194;
+          font-size: 14px;
+          text-align: center;
+          padding: 32px 0;
+          margin: 0;
         }
       `}</style>
     </>

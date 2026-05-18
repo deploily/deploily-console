@@ -1,22 +1,22 @@
 import { MyResource } from "@/lib/features/cloud-resource/cloudResourceInterface";
 import { ServiceDetails } from "@/lib/features/my-applications/myApplicationInterface";
+import { useMyDeploymentList } from "@/lib/features/my-deployments/myDeploymentSelector";
 import { theme } from "@/styles/theme";
 import { Skeleton, Table, Tag } from "antd";
 import { useMemo } from "react";
 import { useScopedI18n } from "../../../../../../../locales/client";
 import getStatusStyle from "../../utils/getStatusStyle";
-import { useApiServiceSubscription } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionSelectors";
 import styles from "./TableStyles.module.css";
 
-export default function RecentApiSubscriptions() {
-    const t = useScopedI18n("apiServiceSubscription");
+export default function RecentDeploymentsSubscriptions() {
+    const t = useScopedI18n("deployment");
     const tApplications = useScopedI18n("applications");
-    const { apiServiceSubscriptionLoading, apiServiceSubscriptionResponse, apiServiceSubscriptionLoadingError } = useApiServiceSubscription();
+    const { isLoading, MyDeploymentList, loadingError } = useMyDeploymentList();
 
     const columns = useMemo(() => {
         return [
             {
-                title: t("api"),
+                title: t("svc"),
                 dataIndex: "service_details",
                 key: "service_details",
                 width: 120,
@@ -71,25 +71,25 @@ export default function RecentApiSubscriptions() {
 
     const skeletonColumns = useMemo(
         () =>
-            apiServiceSubscriptionLoading
+            isLoading
                 ? columns.map((col) => ({
                     ...col,
                     render: () => <Skeleton.Input active />,
                 }))
                 : columns,
-        [apiServiceSubscriptionLoading, columns],
+        [isLoading, columns],
     );
 
 
     return (
         <>
-            {!apiServiceSubscriptionLoadingError && apiServiceSubscriptionResponse && (
+            {!loadingError && MyDeploymentList && (
                 <div className={styles.tableContainer}>
                     <Table<MyResource>
                         columns={skeletonColumns}
-                        dataSource={apiServiceSubscriptionLoading ? Array(3).fill({ key: Math.random() }) : apiServiceSubscriptionResponse.slice(0, 3)}
+                        dataSource={isLoading ? Array(3).fill({ key: Math.random() }) : MyDeploymentList.slice(0, 3)}
                         size="small"
-                        loading={apiServiceSubscriptionLoading}
+                        loading={isLoading}
                         className={styles.customTable}
                         rowKey={(record) => record.id || `row-${Math.random()}`}
                         pagination={false}

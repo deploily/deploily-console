@@ -56,6 +56,7 @@ export default {
     "error": "Error",
     "subTitleError": "Sorry, something went wrong.",
     "seeAll": "See all",
+    "viewAll": "View all",
     "history": "History",
     "myApisHisotry": "My APIs History",
     "myApplicationsHistory": "My Applications History",
@@ -320,6 +321,7 @@ export default {
     'apiServiceSubscription.active': 'Active',
     'apiServiceSubscription.inactive': 'Inactive',
     'apiServiceSubscription.apiKey': 'API key',
+    'apiServiceSubscription.api': 'API',
     'apiServiceSubscription.inactiveMessage': 'Your api Service Subscription is inactive. Please verify your payments.',
     'apiServiceSubscription.noApi': 'You currently do not have any API subscriptions. Feel free to explore and subscribe to the available APIs!',
     'apiServiceSubscription.noActiveApiFound': 'You currently do not have any active API subscriptions. Feel free to explore and subscribe to the available APIs!',
@@ -382,6 +384,7 @@ export default {
     'affiliation.startDate': 'Start date',
     'affiliation.endDate': 'End date',
     'affiliation.type': "Type",
+
 
     "toast.titleFailed": "Failed to Create item",
     "toast.failed": "Failed to Create item",
@@ -619,6 +622,10 @@ export default {
                 "You need a cloud resource and you are lost choosing the right one.",
             button: "Explore our Resources",
         },
+        "apis":"APIs",
+        "applications": "Applications",
+        "affiliations": "Affiliations",
+        'deployments': 'Deployments',
     },
 
     // ── ExpiringSubscriptionsCard ──────────────────────────────────────────────
@@ -677,4 +684,6 @@ export default {
     },
 
     subTitleError2: "An error occurred while loading the dashboard. Please try again later.",
+    "retry":"Try Again",
+    "emptyList":"No items found"
 } as const

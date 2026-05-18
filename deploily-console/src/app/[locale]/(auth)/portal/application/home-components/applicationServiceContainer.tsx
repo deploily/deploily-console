@@ -9,6 +9,7 @@ import {useEffect} from "react";
 import {useI18n} from "../../../../../../../locales/client";
 import HomeCarousel from "../../components/homeCarousel";
 import ApplicationServiceCard from "./applicationServiceCard";
+import { ServiceCardsSkeleton } from "@/components/containers/serviceCardSkeleton";
 
 export default function ApplicationServiceContainer() {
   const t = useI18n();
@@ -56,7 +57,9 @@ export default function ApplicationServiceContainer() {
           </Button>
         </Row>
         <div style={{position: "relative", padding: "0 2rem"}}>
-          {!isLoading && applicationServicesList !== undefined && (
+          {isLoading ? (
+            <ServiceCardsSkeleton />
+          ) : (applicationServicesList !== undefined && (
             <HomeCarousel>
               {applicationServicesList?.result?.map((row: ApplicationServiceInterface, index) => (
                 <div
@@ -72,7 +75,7 @@ export default function ApplicationServiceContainer() {
                 </div>
               ))}
             </HomeCarousel>
-          )}
+          ))}
         </div>
       </Space>
     </>

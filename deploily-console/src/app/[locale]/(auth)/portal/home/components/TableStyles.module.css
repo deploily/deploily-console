@@ -1,0 +1,307 @@
+/* ─── Table Container ─────────────────────────────────────────── */
+.tableContainer {
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x: auto;
+    border-radius: 0 0 16px 16px;
+}
+
+/* ─── Base Table ──────────────────────────────────────────────── */
+.customTable :global(.ant-table) {
+    background: transparent;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    font-family: 'DM Mono', 'Fira Code', 'Courier New', monospace;
+}
+
+/* ─── Header ──────────────────────────────────────────────────── */
+.customTable :global(.ant-table-thead > tr > th) {
+    background: #111111;
+    color: rgba(255, 122, 0, 0.55);
+    border-bottom: 1px solid rgba(255, 122, 0, 0.18);
+    border-top: none;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 10px 12px;
+    white-space: nowrap;
+}
+
+.customTable :global(.ant-table-thead > tr > th::before) {
+    display: none !important; /* remove ant divider */
+}
+
+/* ─── Body Rows ───────────────────────────────────────────────── */
+.customTable :global(.ant-table-tbody > tr > td) {
+    background: transparent;
+    color: rgba(255, 255, 255, 0.88);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    font-size: 12.5px;
+    padding: 11px 12px;
+    transition: background 0.18s ease;
+    vertical-align: middle;
+}
+
+.customTable :global(.ant-table-tbody > tr:last-child > td) {
+    border-bottom: none;
+}
+
+.customTable :global(.ant-table-tbody > tr:hover > td) {
+    background: rgba(255, 122, 0, 0.07) !important;
+}
+
+/* zebra stripe */
+.customTable :global(.ant-table-tbody > tr:nth-child(even) > td) {
+    background: rgba(255, 255, 255, 0.018);
+}
+
+/* ─── Container border radius fix ────────────────────────────── */
+.customTable :global(.ant-table-container) {
+    border-radius: 0;
+}
+
+/* ─── Scrollbar ───────────────────────────────────────────────── */
+.tableContainer::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+.tableContainer::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.tableContainer::-webkit-scrollbar-thumb {
+    background: rgba(255, 122, 0, 0.3);
+    border-radius: 4px;
+}
+
+.tableContainer::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 122, 0, 0.55);
+}
+
+/* ─── Status Tag ──────────────────────────────────────────────── */
+.statusTag {
+    border: none !important;
+    padding: 3px 10px !important;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    border-radius: 20px;
+    min-width: 84px;
+    text-align: center;
+    display: inline-block;
+    text-transform: capitalize;
+}
+
+/* ─── Cell: Name / Primary ────────────────────────────────────── */
+.cellPrimary {
+    font-weight: 600;
+    color: #ffffff;
+    font-size: 12.5px;
+}
+
+/* ─── Cell: Amount ────────────────────────────────────────────── */
+.cellAmount {
+    font-family: 'DM Mono', 'Fira Code', monospace;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.75);
+    letter-spacing: 0.02em;
+}
+
+/* ─── Card header row ─────────────────────────────────────────── */
+.cardHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px 10px 16px;
+    border-bottom: 1px solid rgba(255, 122, 0, 0.12);
+}
+
+.cardHeaderTitle {
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.cardHeaderLink {
+    color: rgba(255, 122, 0, 0.75);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.15s ease;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.cardHeaderLink:hover {
+    color: #ff7a00;
+}
+
+/* ─── Hero Ad Banner ──────────────────────────────────────────── */
+.adHeroSection {
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+.adHeroBanner {
+    position: relative;
+    width: 100%;
+    min-height: 280px;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* dark gradient overlay — left content area stays readable */
+.adHeroBanner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        105deg,
+        rgba(0, 0, 0, 0.82) 0%,
+        rgba(0, 0, 0, 0.60) 45%,
+        rgba(0, 0, 0, 0.15) 100%
+    );
+    z-index: 1;
+}
+
+/* subtle orange glow bottom-left */
+.adHeroBanner::after {
+    content: '';
+    position: absolute;
+    bottom: -60px;
+    left: -40px;
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, rgba(255, 122, 0, 0.18) 0%, transparent 70%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.adHeroContent {
+    position: relative;
+    z-index: 2;
+    padding: 48px 52px;
+    max-width: 580px;
+}
+
+.adHeroEyebrow {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #ff7a00;
+    margin-bottom: 14px;
+    border-left: 2px solid #ff7a00;
+    padding-left: 8px;
+}
+
+.adHeroTitle {
+    font-size: 34px;
+    font-weight: 800;
+    line-height: 1.15;
+    margin: 0 0 6px 0;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+}
+
+.adHeroTitleAccent {
+    color: #ff7a00;
+}
+
+.adHeroSubtitle {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.72);
+    line-height: 1.6;
+    margin: 0 0 28px 0;
+    max-width: 420px;
+}
+
+.adHeroActions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.adHeroCtaPrimary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #ff7a00;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    border-radius: 8px;
+    padding: 11px 24px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+    box-shadow: 0 4px 20px rgba(255, 122, 0, 0.35);
+    text-decoration: none;
+}
+
+.adHeroCtaPrimary:hover {
+    background: #ff8f1f;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(255, 122, 0, 0.45);
+}
+
+.adHeroCtaSecondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    border-radius: 8px;
+    padding: 10px 22px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    cursor: pointer;
+    transition: border-color 0.18s ease, color 0.18s ease, background 0.18s ease;
+    text-decoration: none;
+}
+
+.adHeroCtaSecondary:hover {
+    border-color: rgba(255, 122, 0, 0.5);
+    color: #fff;
+    background: rgba(255, 122, 0, 0.08);
+}
+
+@media (max-width: 768px) {
+    .adHeroBanner {
+        min-height: 220px;
+        border-radius: 14px;
+    }
+    .adHeroContent {
+        padding: 32px 24px;
+    }
+    .adHeroTitle {
+        font-size: 24px;
+    }
+    .adHeroSubtitle {
+        font-size: 13px;
+    }
+    .adHeroCtaPrimary,
+    .adHeroCtaSecondary {
+        font-size: 12px;
+        padding: 9px 18px;
+    }
+}
