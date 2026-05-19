@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { useScopedI18n } from "../../../../../../../locales/client";
 import getStatusStyle from "../../utils/getStatusStyle";
 import { useDashboard } from "../features/dashboardSelector";
+import EmptyListContainer from "@/components/containers/emptyListContainer";
 
 function getAccentColor(status: string): string {
   switch (status?.toLowerCase()) {
@@ -136,7 +137,10 @@ export default function ExpiringSoonSubscriptionsListContainer() {
 
   if (!dashboardLoading && dashboardError) {
     return (<LoadingErrorContainer />);
-  }
+  }    
+  if(!dashboardLoading && dashboardResponse?.expiring_soon.length === 0) { 
+       return <EmptyListContainer />
+      }
 
   return (
     <>
@@ -151,10 +155,6 @@ export default function ExpiringSoonSubscriptionsListContainer() {
               onClick={() => router.push(`/portal/my-api/${record.id}`)}
             />
           ))}
-
-        {!dashboardLoading && dashboardResponse?.expiring_soon.length === 0 && (
-          <p className="expiring-empty">{t("noData" as any) ?? "No expiring subscriptions."}</p>
-        )}
       </div>
 
       <style jsx global>{`
