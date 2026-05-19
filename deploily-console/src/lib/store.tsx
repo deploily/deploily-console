@@ -27,7 +27,7 @@ import supportTicketResponsesSlice from "./features/support-ticket -responses/su
 import supportTicketSlice from "./features/support-ticket/supportTicketSlice";
 import ttkEpaySlice from "./features/ttk-epay/ttkEpaySlice";
 import myDeploymentSlice from "./features/my-deployments/myDeploymentSlice";
-import dashboardSlice from "@/app/[locale]/(auth)/portal/dashboard/features/dashboardSlice";
+import dashboardSlice from "@/app/[locale]/(auth)/portal/home/features/dashboardSlice";
 import webApplicationSlice from "./features/webApplication/webApplicationSlice";
 export const makeStore = () => {
   return configureStore({
