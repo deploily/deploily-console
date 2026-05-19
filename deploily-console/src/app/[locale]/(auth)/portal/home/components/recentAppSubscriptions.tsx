@@ -1,4 +1,3 @@
-import { MyResource } from "@/lib/features/cloud-resource/cloudResourceInterface";
 import { ServiceDetails } from "@/lib/features/my-applications/myApplicationInterface";
 import { useMyApplicationList } from "@/lib/features/my-applications/myApplicationSelector";
 import { theme } from "@/styles/theme";
@@ -84,7 +83,7 @@ export default function RecentAppSubscriptions() {
         <>
             {!loadingError && MyApplicationList && (
                 <div className={styles.tableContainer}>
-                    <Table<MyResource>
+                    <Table
                         columns={skeletonColumns}
                         dataSource={isLoading ? Array(3).fill({ key: Math.random() }) : MyApplicationList.slice(0, 3)}
                         size="small"

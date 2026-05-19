@@ -1,4 +1,3 @@
-import { MyResource } from "@/lib/features/cloud-resource/cloudResourceInterface";
 import { ServiceDetails } from "@/lib/features/my-applications/myApplicationInterface";
 import { theme } from "@/styles/theme";
 import { Skeleton, Table, Tag } from "antd";
@@ -85,7 +84,7 @@ export default function RecentApiSubscriptions() {
         <>
             {!apiServiceSubscriptionLoadingError && apiServiceSubscriptionResponse && (
                 <div className={styles.tableContainer}>
-                    <Table<MyResource>
+                    <Table
                         columns={skeletonColumns}
                         dataSource={apiServiceSubscriptionLoading ? Array(3).fill({ key: Math.random() }) : apiServiceSubscriptionResponse.slice(0, 3)}
                         size="small"

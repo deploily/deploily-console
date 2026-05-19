@@ -1,4 +1,3 @@
-import { MyResource } from "@/lib/features/cloud-resource/cloudResourceInterface";
 import { useCloudResource } from "@/lib/features/cloud-resource/cloudResourceSelectors";
 import { theme } from "@/styles/theme";
 import { CheckCircleTwoTone } from "@ant-design/icons";
@@ -140,7 +139,7 @@ export default function RecentRessourceAffiliations() {
             {contextHolder}
             {!cloudResourceLoadingError && myResourcesResponse && (
                 <div className={styles.tableContainer}>
-                    <Table<MyResource>
+                    <Table<any>
                         columns={skeletonColumns}
                         dataSource={
                             isLoading

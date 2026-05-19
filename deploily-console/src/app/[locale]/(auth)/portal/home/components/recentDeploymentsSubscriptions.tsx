@@ -1,4 +1,3 @@
-import { MyResource } from "@/lib/features/cloud-resource/cloudResourceInterface";
 import { ServiceDetails } from "@/lib/features/my-applications/myApplicationInterface";
 import { useMyDeploymentList } from "@/lib/features/my-deployments/myDeploymentSelector";
 import { theme } from "@/styles/theme";
@@ -85,7 +84,7 @@ export default function RecentDeploymentsSubscriptions() {
         <>
             {!loadingError && MyDeploymentList && (
                 <div className={styles.tableContainer}>
-                    <Table<MyResource>
+                    <Table
                         columns={skeletonColumns}
                         dataSource={isLoading ? Array(3).fill({ key: Math.random() }) : MyDeploymentList.slice(0, 3)}
                         size="small"
