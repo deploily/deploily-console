@@ -57,6 +57,7 @@ export default {
   "subTitleError": "Désolé, une erreur s'est produite.",
   "viewApiDocumentation": "View API documentation",
   "seeAll": "Tout afficher",
+  "viewAll": "Tout afficher",
   "feedback.title": "Commentaire",
   "feedback.send": "Envoyer",
   "subscribed": "Abonné",
@@ -86,6 +87,7 @@ export default {
   "price": "Prix",
   "favorite": "Favori",
 
+  "sidebar.marketplace": "Marketplace",
   "sidebar.home": "Accueil",
   "sidebar.dashboard": "Tableau de bord",
   "sidebar.myApi": "Mes API",
@@ -123,7 +125,7 @@ export default {
   "supportTicket.title": "Titre",
   "supportTicket.status": "Status",
   "supportTicket.open": "Ouvert",
-  "supportTicket.closed": "Fermé", 
+  "supportTicket.closed": "Fermé",
   "supportTicket.reopen": "Ouvert",
   "supportTicket.close": "Fermé",
   "supportTicket.service": "Service",
@@ -322,6 +324,7 @@ export default {
   "apiServiceSubscription.active": "Active",
   "apiServiceSubscription.inactive": "Inactive",
   "apiServiceSubscription.apiKey": "Clé API",
+  "apiServiceSubscription.api": "API",
   "apiServiceSubscription.inactiveMessage": "Votre inscription est inactive, please verify your payments.",
   "apiServiceSubscription.confirmAffiliation": "Je confirme que j'accepte de partager mes données personnelles (nom, email) avec les partenaires de confiance de Deploily dans le but de fournir des services pertinents.",
   "apiServiceSubscription.clickToRenewNow": "Maintenez votre service actif sans interruption. Cliquez pour renouveler maintenant.",
@@ -428,15 +431,16 @@ export default {
   "applications.prepaTime": "Temps de préparation",
   "applications.hours": "Heures",
   "applications.managed": "• Géré",
+  "applications.status": "Status",
   "applications": {
     "useOwnServer": "Utiliser une ressource d’un partenaire hors Deploily",
-   "selectRes": "Commander une ressource auprès des partenaires cloud de Deploily",
+    "selectRes": "Commander une ressource auprès des partenaires cloud de Deploily",
     "selectManagedRes": "Utiliser ma ressource gérée existante",
     "enterPhoneNumber": "Entrez votre numéro de téléphone",
     "enterProviderName": "Entrez le nom de votre fournisseur pour identifier votre ressource",
     "chooseResource": "Choisissez votre ressource",
     "choosePlan": "Choisissez votre plan",
-        "providerIdentification": {
+    "providerIdentification": {
       "title": "Identifiez Votre Ressource",
       "description": "Saisissez le nom de votre fournisseur pour  accéder à vos ressources facilement",
       "placeholder": "Entrez le nom de votre fournisseur"
@@ -627,6 +631,10 @@ export default {
         "Vous avez besoin d’une ressource cloud et vous ne savez pas laquelle choisir.",
       button: "Découvrir nos ressources",
     },
+    "apis": "APIs",
+    "applications": "Applications",
+    "affiliations": "Affiliations",
+    'deployments': 'Déploiements',
   },
 
   // ── ExpiringSubscriptionsCard ──────────────────────────────────────────────
@@ -685,4 +693,6 @@ export default {
   },
 
   subTitleError2: "Une erreur est survenue lors du chargement du tableau de bord. Veuillez réessayer plus tard.",
+  "retry": "Réessayer",
+  "emptyList": "Aucun élément trouvé"
 } as const;

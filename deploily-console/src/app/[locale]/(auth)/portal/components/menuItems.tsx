@@ -2,11 +2,11 @@ import {DOC_URL} from "@/deploilyWebsiteUrls";
 import {
   Books,
   CalendarStar,
-  Gauge,
   HardDrives,
   HouseLine,
   Invoice,
   Question,
+  Storefront,
 } from "@phosphor-icons/react/dist/ssr";
 import type {MenuProps} from "antd";
 import Link from "next/link";
@@ -18,15 +18,6 @@ const labelStyle = {
 
 export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
   {
-    key: "dashboard",
-    label: (
-      <Link href="/portal/dashboard">
-        <span style={labelStyle}>{scopedSidebar("dashboard")}</span>
-      </Link>
-    ),
-    icon: <Gauge size={24} />,
-  },
-  {
     key: "home",
     label: (
       <Link href="/portal/home">
@@ -34,6 +25,15 @@ export const menuItems = (scopedSidebar: any): MenuProps["items"] => [
       </Link>
     ),
     icon: <HouseLine size={24} />,
+  },
+  {
+    key: "marketplace",
+    label: (
+      <Link href="/portal/marketplace">
+        <span style={labelStyle}>{scopedSidebar("marketplace")}</span>
+      </Link>
+    ),
+    icon: <Storefront size={24} />,
   },
   {
     key: "subscriptions",

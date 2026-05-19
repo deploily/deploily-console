@@ -10,6 +10,7 @@ import {useRouter} from "next/navigation";
 import {useEffect, useState} from "react";
 import {useI18n, useScopedI18n} from "../../../../../../../locales/client";
 import DeploymentsServiceCard from "../home-components/deploymentsServiceCard";
+import { deploymentSlugs } from "../utils/deploymentConst";
 
 export default function AllDeploymentServiceContainer() {
   const [searchTerm] = useState("");
@@ -112,8 +113,8 @@ export default function AllDeploymentServiceContainer() {
               style={{
                 display: "flex",
                 justifyContent: "center",
-                opacity: index === 0 ? 1 : 0.5, // Show first item, hide others with reduced opacity
-                pointerEvents: index === 0 ? "auto" : "none", // Enable interaction for the first item only
+                opacity: row.service_slug && deploymentSlugs.includes(row.service_slug) ? 1 : 0.5, // Show first item, hide others with reduced opacity
+                pointerEvents: row.service_slug && deploymentSlugs.includes(row.service_slug) ? "auto" : "none", // Enable interaction for the first item only
               }}
             >
               <DeploymentsServiceCard data={row} />

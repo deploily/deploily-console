@@ -39,14 +39,14 @@ export interface myApplicationInterface {
   managed_ressource_details: ManagedRessourceDetails;
 }
 
-interface Service_plan {
+export interface Service_plan {
   id: number;
   is_custom: boolean;
   price: number;
   subscription_category: string;
   unity: string;
 }
-interface ServiceDetails {
+export interface ServiceDetails {
   id: number;
   description: string;
   documentation_url: string;
@@ -61,20 +61,6 @@ interface ServiceDetails {
   unit_price: number;
 }
 
-interface ServiceDetails {
-  id: number;
-  description: string;
-  documentation_url: string;
-  image_service: string;
-  monitoring: string;
-  name: string;
-  service_slug: string;
-  short_description: string;
-  specifications: string;
-  ssh_access: string;
-  type: string;
-  unit_price: number;
-}
 export interface UpgradeMyApplicationState {
   upgradeMyApplication?: any;
   isLoadingUpgrade: boolean;

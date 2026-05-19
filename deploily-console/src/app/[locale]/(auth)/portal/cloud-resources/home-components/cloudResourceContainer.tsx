@@ -4,12 +4,13 @@ import {useCloudResource} from "@/lib/features/cloud-resource/cloudResourceSelec
 import {fetchCloudResources} from "@/lib/features/cloud-resource/cloudResourceThunks";
 import {useFavoriteServices} from "@/lib/features/favorites/favoriteServiceSelectors";
 import {useAppDispatch} from "@/lib/hook";
-import {Button, Card, Col, Result, Row, Space} from "antd";
+import {Button, Result, Row, Space} from "antd";
 import {useRouter} from "next/navigation";
 import {useEffect} from "react";
 import {useI18n} from "../../../../../../../locales/client";
 import HomeCarousel from "../../components/homeCarousel";
 import CloudResourceCard from "./cloudResourceCard";
+import { ServiceCardsSkeleton } from "@/components/containers/serviceCardSkeleton";
 
 export default function CloudResourceContainer() {
   const t = useI18n();
@@ -58,7 +59,9 @@ export default function CloudResourceContainer() {
         </Row>
 
         <div style={{position: "relative", padding: "0 2rem"}}>
-          {!isLoading && cloudResourceResponse !== undefined && (
+            {isLoading ? (
+                      <ServiceCardsSkeleton />
+                    ) : (cloudResourceResponse !== undefined && (
             <HomeCarousel key={`${favoriteServiceAdded}-${favoriteServiceDeleted}`}>
               {cloudResourceResponse?.result?.map((row: CloudResourceInterface, index) => (
                 <div
@@ -74,7 +77,7 @@ export default function CloudResourceContainer() {
                 </div>
               ))}
             </HomeCarousel>
-          )}
+          ))}
         </div>
         {!isLoading && cloudResourceLoadingError && (
           <Result status="500" title={t("error")} subTitle={t("subTitleError")} />
