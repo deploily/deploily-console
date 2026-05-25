@@ -11,6 +11,8 @@ import {useI18n} from "../../../../../../../locales/client";
 import HomeCarousel from "../../components/homeCarousel";
 import CloudResourceCard from "./cloudResourceCard";
 import { ServiceCardsSkeleton } from "@/components/containers/serviceCardSkeleton";
+import {  Cloud } from "@phosphor-icons/react"
+
 
 export default function CloudResourceContainer() {
   const t = useI18n();
@@ -37,6 +39,7 @@ export default function CloudResourceContainer() {
               fontWeight: 800,
             }}
           >
+            <Cloud size={24} weight="bold" style={{marginRight: "8px"}} />
             {t("cloudResources")}
           </span>
           <Button

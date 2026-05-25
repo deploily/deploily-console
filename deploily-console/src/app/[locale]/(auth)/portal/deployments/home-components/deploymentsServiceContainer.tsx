@@ -12,6 +12,8 @@ import HomeCarousel from "../../components/homeCarousel";
 import DeploymentsServiceCard from "./deploymentsServiceCard";
 import { deploymentSlugs } from "../utils/deploymentConst";
 import { ServiceCardsSkeleton } from "@/components/containers/serviceCardSkeleton";
+import { RocketLaunch } from "@phosphor-icons/react"
+
 
 export default function DeploymentsServiceContainer() {
   const {isLoading, deploymentServicesList} = useDeploymentServices();
@@ -36,6 +38,7 @@ export default function DeploymentsServiceContainer() {
               fontWeight: 800,
             }}
           >
+            <RocketLaunch size={24} weight="bold" style={{marginRight: "8px"}} />
             {tdeployment("deployments")}
           </span>
           <Button

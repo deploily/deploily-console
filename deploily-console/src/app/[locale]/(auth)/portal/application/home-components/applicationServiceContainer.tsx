@@ -10,6 +10,8 @@ import {useI18n} from "../../../../../../../locales/client";
 import HomeCarousel from "../../components/homeCarousel";
 import ApplicationServiceCard from "./applicationServiceCard";
 import { ServiceCardsSkeleton } from "@/components/containers/serviceCardSkeleton";
+import { Monitor } from "@phosphor-icons/react"
+
 
 export default function ApplicationServiceContainer() {
   const t = useI18n();
@@ -35,6 +37,7 @@ export default function ApplicationServiceContainer() {
               fontWeight: 800,
             }}
           >
+            <Monitor size={24} weight="bold" style={{marginRight: "8px"}} />
             {t("application")}
           </span>
           <Button

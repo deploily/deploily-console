@@ -11,6 +11,8 @@ import {useI18n} from "../../../../../../../locales/client";
 import HomeCarousel from "../../components/homeCarousel";
 import ApiServiceCard from "./apiServiceCard";
 import { ServiceCardsSkeleton } from "@/components/containers/serviceCardSkeleton";
+import { Link } from "@phosphor-icons/react"
+
 
 export default function ApiServiceContainer() {
   const router = useRouter();
@@ -37,6 +39,7 @@ export default function ApiServiceContainer() {
             fontWeight: 800,
           }}
         >
+          <Link size={24} weight="bold" style={{marginRight: "8px"}} />
           {t("APIService")}
         </span>
 
