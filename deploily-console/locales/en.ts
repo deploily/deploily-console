@@ -244,7 +244,9 @@ export default {
     'subscription.back': 'Back',
     'subscription.next': 'Next',
     'subscription.save': 'Save',
-
+    'subscription.argocdDescription': "Connection and access settings for your ArgoCD instance.",
+    'subscription.argocdAdminSection': "Administrator Access",
+    'subscription.argocdReadonlySection': "Read-only Access",
     'ttkEpay.client_site_name': 'Client site name',
     'ttkEpay.client_site_address': 'Client site address',
     'ttkEpay.client_site_email': 'Client site email',

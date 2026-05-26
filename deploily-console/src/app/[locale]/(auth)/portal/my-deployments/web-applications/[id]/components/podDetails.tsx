@@ -97,27 +97,34 @@ const PodsDetails = ({ webApplicationById, planNames, theme, handleCopy, onSave 
     return (
         <div>
             {podNamesAndUrls.map((pod, index) => renderPodDetails(pod, index + 1))}
-            <div style={{ display: "flex", justifyContent: "end", gap: 10 }}>
+            {podNamesAndUrls.length>0 &&<div style={{ display: "flex", justifyContent: "end", gap: 10 }}>
                 <Button
                     type="primary"
                     style={{
                         backgroundColor: "#D85912",
                         border: "none",
-                        boxShadow: "none",
+                        borderRadius: "8px",
+                        height: "38px",
+                        padding: "0 32px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
                     }}
                     onClick={handleSave}
                 >
                     <span
                         style={{
-                            color: "rgba(220, 233, 245, 0.88)",
+                            color: "#FFFFFF",
                             fontSize: "16px",
                             fontWeight: 600,
+                            letterSpacing: "0.3px",
+                            textShadow: "0 1px 2px rgba(0, 0, 0, 0.1)",
                         }}
                     >
                         Save
                     </span>
                 </Button>
-            </div>
+            </div>}
         </div>
     );
 };

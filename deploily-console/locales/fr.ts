@@ -249,6 +249,9 @@ export default {
   'subscription.back': 'Retour',
   'subscription.next': 'Suivant',
   "subscription.year": "Année",
+  "subscription.argocdDescription": "Les paramètres de connexion et d'accès pour votre instance ArgoCD.",
+  "subscription.argocdAdminSection": "Accès Administrateur",
+  "subscription.argocdReadonlySection": "Accès Lecture Seule",
 
   "ttkEpay.client_site_name": "Nom du site client",
   "ttkEpay.client_site_address": "Adresse du site client",
