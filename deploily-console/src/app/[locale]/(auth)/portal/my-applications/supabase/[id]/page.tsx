@@ -1,9 +1,11 @@
 import MyAppDetails from "./components/supabaseDetails";
 
 type Props = {
-  params: {id: string};
+  params: Promise<{ id: string }>;
 };
-export default function Page({params: {id}}: Props) {
+
+export default async function Page({ params }: Props) {
+  const { id } = await params;
   return (
     <>
       <MyAppDetails my_app_id={id} />

@@ -1,8 +1,11 @@
 import DeploymentDetailsPageContent from "./deploymentDetailsPageContent";
 
+
 type Props = {
-  params: {slug: string};
+  params: Promise<{ slug: string }>;
 };
-export default function Page({params: {slug}}: Props) {
+
+export default async function Page({ params }: Props) {
+  const { slug } = await params;
   return <DeploymentDetailsPageContent deploymentSlug={slug} />;
 }

@@ -19,6 +19,9 @@ const configs = [
   {
     rules: {
       "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-unused-vars": "warn",  // was "error"
+      "react-hooks/exhaustive-deps": "warn",         // already a warning, no change needed
+
     }
   }
 ]

@@ -1,12 +1,16 @@
 "use client";
-import React, {useEffect, useState} from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import {Layout} from "antd";
 import {MainSideBar} from "../components/sideBar";
 import {AppAppBarDesktop, AppAppBarMobile} from "../components/appBar";
 
 const {Content} = Layout;
 
-export default function PortalContent({children}: any) {
+export default function PortalContent({
+  children,
+}: {
+  children: ReactNode;
+}) {
   const [shouldShowDesktop, setShouldShowDeskttop] = useState(true);
   const updateDesktopVisibility = () => {
     if (window != undefined) {

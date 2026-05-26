@@ -7,7 +7,7 @@ export function ServiceCardSkeleton() {
     return (
         <Card
             style={{ minWidth: 250, maxWidth: 270, height: 350 }}
-            bodyStyle={{ padding: 16, height: "100%" }}
+              styles={{ body: { padding: 16, height: "100%" }}}
         >
             <div style={{ height: "280px" }}>
                 {/* Header */}

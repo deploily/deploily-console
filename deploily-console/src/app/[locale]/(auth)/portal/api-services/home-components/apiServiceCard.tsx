@@ -29,7 +29,7 @@ export default function ApiServiceCard({service}: {service: ApiServiceInterface}
         maxWidth: 270,
         height: 350,
       }}
-      bodyStyle={{padding: 16, height: "100%"}}
+      styles={{ body: {padding: 16, height: "100%"}}}
       onClick={() => router.push(`/portal/api-services/${service.id}`)}
     >
       <div style={{height: "100%"}}>

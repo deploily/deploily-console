@@ -1,19 +1,16 @@
-import {Col, Space} from "antd";
+import { Col, Space } from "antd";
 import PortalContent from "./containers/portalContent";
-import {ReactElement} from "react";
+import { ReactNode } from "react";
 
 export default async function HomeLayout({
   children,
 }: {
-  children: ReactElement;
-  // params: Promise<{locale: string}>;
+  children: ReactNode;
 }) {
-  // const {locale} = await params;
-
   return (
     <>
       <main>
-        <Space direction="vertical" size="middle" style={{display: "flex", margin: "0px"}}>
+        <Space direction="vertical" size="middle" style={{ display: "flex", margin: "0px" }}>
           <Col
             style={{
               display: "flex",

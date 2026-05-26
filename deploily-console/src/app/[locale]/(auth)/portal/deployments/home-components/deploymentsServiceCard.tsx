@@ -24,7 +24,7 @@ export default function DeploymentsServiceCard({data}: {data: DeploymentsService
         position: "relative",
         marginRight: 16,
       }}
-      bodyStyle={{padding: 16, height: "100%"}}
+      styles={{ body: {padding: 16, height: "100%"}}}
       onClick={() => router.push(`/portal/deployments/${data.service_slug}`)}
     >
       <div style={{height: "280px"}}>

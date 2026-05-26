@@ -136,7 +136,7 @@ export function AppAppBarDesktop() {
                       marginBottom: "0px",
                     }}
                     onChange={(value) => handleSelectedProfile(Number(value.key))}
-                    dropdownRender={(menu) => (
+                    popupRender={(menu) => (
                       <>
                         <style>
                           {`

@@ -1,9 +1,12 @@
 import MyWebApplicationDetails from "./components/webApplicationDetails";
 
 type Props = {
-  params: { id: number };
+  params: Promise<{ id: number }>;
 };
-export default function Page({ params: { id } }: Props) {
+
+export default async function Page({ params }: Props) {
+  const { id } = await params;
+
   return (
     <>
       <MyWebApplicationDetails my_dep_id={id} />

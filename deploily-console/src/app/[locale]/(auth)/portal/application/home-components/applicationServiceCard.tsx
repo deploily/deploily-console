@@ -32,7 +32,7 @@ export default function ApplicationServiceCard({ data }: { data: ApplicationServ
                 maxWidth: 270,
                 height: 350,
             }}
-            bodyStyle={{ padding: 16, height: "100%" }}
+            styles={{ body: { padding: 16, height: "100%" }}}
             onClick={() => router.push(`/portal/application/${data.id}`)}
         >
             <div style={{ height: "280px" }}>

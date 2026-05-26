@@ -59,7 +59,7 @@ export default function SelectProfileComponent() {
               <Select
                 defaultValue={selectedProfile?.id}
                 style={{width: "100%"}}
-                dropdownRender={(menu) => (
+                popupRender={(menu) => (
                   <>
                     <style>
                       {`
