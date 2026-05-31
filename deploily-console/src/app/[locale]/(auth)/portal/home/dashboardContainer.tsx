@@ -8,7 +8,6 @@ import ExpiringSubscriptionsCard from "./components/ExpiringSubscriptionsCard";
 import QuickActionCards from "./components/QuickActionCards";
 import styles from "./components/TableStyles.module.css";
 import WelcomeHeader from "./components/WelcomeHeader";
-import { useDashboard } from "./features/dashboardSelector";
 import { fetchDashboardData } from "./features/dashboardThunks";
 
 // ─── Ad Banner Type ────────────────────────────────────────────────────────────
@@ -112,7 +111,6 @@ export default function DashboardPage() {
   const dispatch = useAppDispatch();
 
   const { currentProfile } = useProfile();
-  const { dashboardResponse } = useDashboard();
 
   const [colFlex, setColFlex] = useState("20%");
 

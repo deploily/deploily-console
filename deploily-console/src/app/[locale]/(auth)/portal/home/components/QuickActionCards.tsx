@@ -67,7 +67,6 @@ export default function QuickActionCards() {
   const myDeployments = useMyDeploymentList();
   const { apiServiceSubscriptionResponse, apiServiceSubscriptionLoading } = useApiServiceSubscription();
 
-
   return (
     <div className="quick-actions">
       <Row gutter={[16, 16]}>
@@ -130,41 +129,9 @@ export default function QuickActionCards() {
           height: 100%;
         }
 
-        .action-icon {
-          font-size: 32px;
-          margin-bottom: 12px;
-          animation: float 3s ease-in-out infinite;
-        }
-
         @keyframes float {
           0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-5px); }
-        }
-
-        .action-content {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-        }
-
-        .action-title {
-          color: #ffffff;
-          font-size: 16px;
-          font-weight: 600;
-          margin: 0 0 6px 0;
-        }
-
-        .action-description {
-          color: rgba(192, 187, 187, 0.63);
-          font-size: 13px;
-          margin: 0 0 12px 0;
-          line-height: 1.4;
-        }
-
-        @media (max-width: 768px) {
-          .action-icon { font-size: 28px; }
-          .action-title { font-size: 15px; }
-          .action-description { font-size: 12px; }
+          50% { transform: translateY(-6px); }
         }
       `}</style>
     </div>
@@ -184,7 +151,6 @@ export function QuickActionCardComponent({
   const translate = useI18n();
   const router = useRouter();
   const hasData = !isloading && response != null && response.length > 0;
-
 
   return (
     <Card style={{ padding: "0px" }} className="action-card" hoverable>
@@ -215,7 +181,9 @@ export function QuickActionCardComponent({
           }}
         />
 
-        {isloading ? <QuickActionCardSkeleton /> : hasData ? (
+        {isloading ? (
+          <QuickActionCardSkeleton />
+        ) : hasData ? (
           <>
             {/* Card header with title + "View all" */}
             <div className={styles.cardHeader}>
@@ -229,29 +197,108 @@ export function QuickActionCardComponent({
                 tabIndex={0}
                 onKeyDown={(e) => e.key === "Enter" && router.push(action.link)}
               >
-                {translate('viewAll')}
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M2 8L8 2M8 2H3.5M8 2V6.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                {translate("viewAll")}
+                <svg
+                  width="10"
+                  height="10"
+                  viewBox="0 0 10 10"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2 8L8 2M8 2H3.5M8 2V6.5"
+                    stroke="currentColor"
+                    strokeWidth="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </span>
             </div>
             {action.tableOfRecentSubscriptions}
           </>
         ) : (
+          /* ── Empty state: new horizontal layout ── */
           <div
             style={{
-              paddingLeft: 16,
-              paddingRight: 16,
-              paddingTop: 16,
-              paddingBottom: 16,
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "stretch",
+              padding: "20px 20px 20px 20px",
+              gap: 20,
+              flex: 1,
+              minHeight: 140,
             }}
           >
-            <div className="action-icon">{action.icon}</div>
-            <div className="action-content">
-              <h3 className="action-title">{t(`${action.key}.title` as any)}</h3>
-              <p className="action-description">{t(`${action.key}.description` as any)}</p>
+            {/* Left: large icon */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+                width: 84,
+                height: 84,
+                borderRadius: 14,
+                background: `${theme.token.orange600}18`,
+                border: `1px solid ${theme.token.orange600}30`,
+                alignSelf: "center",
+                animation: "float 3s ease-in-out infinite",
+              }}
+            >
+              <span style={{ fontSize: 44, lineHeight: 1 }}>{action.icon}</span>
             </div>
-              <div style={{ display: "flex", marginTop: "auto" }}>
+
+            {/* Divider */}
+            <div
+              style={{
+                width: 1,
+                alignSelf: "stretch",
+                background: `${theme.token.orange600}25`,
+                flexShrink: 0,
+              }}
+            />
+
+            {/* Right: text + button */}
+            <div
+              style={{
+                flex: 1,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                gap: 10,
+                minWidth: 0,
+              }}
+            >
+              {/* Title */}
+              <h3
+                style={{
+                  color: "#ffffff",
+                  fontSize: 18,
+                  fontWeight: 700,
+                  margin: 0,
+                  lineHeight: 1.2,
+                  letterSpacing: "-0.02em",
+                }}
+              >
+                {t(`${action.key}.title` as any)}
+              </h3>
+
+              {/* Description */}
+              <p
+                style={{
+                  color: "rgba(255, 255, 255, 0.91)",
+                  fontSize: 14,
+                  margin: 0,
+                  lineHeight: 1.5,
+                  flex: 1,
+                }}
+              >
+                {t(`${action.key}.description` as any)}
+              </p>
+
+              {/* Button — bottom right */}
+              <div style={{ display: "flex", justifyContent: "flex-end" }}>
                 <Button
                   onClick={() => router.push(action.link)}
                   style={{
@@ -259,18 +306,18 @@ export function QuickActionCardComponent({
                     color: "white",
                     fontWeight: "bold",
                     fontSize: "12px",
-                    borderRadius: "6px",
+                    borderRadius: "8px",
                     border: "none",
                     cursor: "pointer",
-                    height: "40px",
-                    marginLeft: "auto",
-                    minWidth: "220px",
+                    height: "38px",
+                    paddingLeft: 18,
+                    paddingRight: 18,
                   }}
                 >
                   {t(`${action.key}.button` as any)}
                 </Button>
               </div>
-
+            </div>
           </div>
         )}
       </DivCard>
@@ -278,12 +325,9 @@ export function QuickActionCardComponent({
   );
 }
 
-
 function QuickActionCardSkeleton() {
   return (
-    <Card
-      style={{ padding: "0px" }}
-      className="action-card">
+    <Card style={{ padding: "0px" }} className="action-card">
       <DivCard
         style={{
           margin: 0,
@@ -313,13 +357,15 @@ function QuickActionCardSkeleton() {
         />
 
         {/* Skeleton header */}
-        <div style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "14px 16px 10px 16px",
-          borderBottom: "1px solid rgba(255, 122, 0, 0.12)",
-        }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: "14px 16px 10px 16px",
+            borderBottom: "1px solid rgba(255, 122, 0, 0.12)",
+          }}
+        >
           <Skeleton.Input active size="small" style={{ width: 100, height: 14 }} />
           <Skeleton.Input active size="small" style={{ width: 50, height: 12 }} />
         </div>
@@ -327,13 +373,16 @@ function QuickActionCardSkeleton() {
         {/* Skeleton rows */}
         <div style={{ padding: "8px 0" }}>
           {Array.from({ length: 3 }).map((_, i) => (
-            <div key={i} style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 12,
-              padding: "10px 12px",
-              borderBottom: i < 2 ? "1px solid rgba(255,255,255,0.04)" : "none",
-            }}>
+            <div
+              key={i}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 12,
+                padding: "10px 12px",
+                borderBottom: i < 2 ? "1px solid rgba(255,255,255,0.04)" : "none",
+              }}
+            >
               <Skeleton.Input active size="small" style={{ width: "22%", height: 14 }} />
               <Skeleton.Input active size="small" style={{ width: "22%", height: 14 }} />
               <Skeleton.Input active size="small" style={{ width: "18%", height: 14 }} />

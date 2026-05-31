@@ -6,6 +6,8 @@ import { useMemo } from "react";
 import { useScopedI18n } from "../../../../../../../locales/client";
 import getStatusStyle from "../../utils/getStatusStyle";
 import styles from "./TableStyles.module.css";
+import { myApplicationsUrls } from "../../my-applications/utils/myApplicationsUrls";
+import { useRouter } from "next/navigation";
 
 export default function RecentAppSubscriptions() {
     const t = useScopedI18n("applications");
@@ -77,6 +79,7 @@ export default function RecentAppSubscriptions() {
                 : columns,
         [isLoading, columns],
     );
+    const router = useRouter();
 
 
     return (
@@ -92,6 +95,14 @@ export default function RecentAppSubscriptions() {
                         rowKey={(record) => record.id || `row-${Math.random()}`}
                         pagination={false}
                         scroll={{ x: 'max-content' }}
+                          onRow={(record) => ({
+                                                    onClick: () => {
+                                                        if (!isLoading && record.id) {
+                                                            router.push(`/portal/my-applications/${myApplicationsUrls(record.service_details.service_slug)}/${record.id}`);
+                                                        }
+                                                    },
+                                                    style: { cursor: isLoading ? "default" : "pointer" },
+                                                })}
                     />
                 </div>
             )}

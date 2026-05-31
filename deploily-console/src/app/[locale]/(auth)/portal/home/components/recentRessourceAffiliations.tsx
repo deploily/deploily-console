@@ -6,6 +6,7 @@ import { useEffect, useMemo } from "react";
 import { useScopedI18n } from "../../../../../../../locales/client";
 import getStatusStyle from "../../utils/getStatusStyle";
 import styles from "./TableStyles.module.css";
+import { useRouter } from "next/navigation";
 
 export default function RecentRessourceAffiliations() {
     const t = useScopedI18n("affiliation");
@@ -133,6 +134,7 @@ export default function RecentRessourceAffiliations() {
                 : columns,
         [isLoading, columns],
     );
+    const router = useRouter();
 
     return (
         <>
@@ -152,6 +154,14 @@ export default function RecentRessourceAffiliations() {
                         rowKey={(record) => record.id || `row-${Math.random()}`}
                         pagination={false}
                         scroll={{ x: "max-content" }}
+                        onRow={(record) => ({
+                            onClick: () => {
+                                if (!isLoading && record.id) {
+                                    router.push(`/portal/my-resources`);
+                                }
+                            },
+                            style: { cursor: isLoading ? "default" : "pointer" },
+                        })}
                     />
                 </div>
             )}

@@ -6,6 +6,7 @@ import { useScopedI18n } from "../../../../../../../locales/client";
 import getStatusStyle from "../../utils/getStatusStyle";
 import { useApiServiceSubscription } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionSelectors";
 import styles from "./TableStyles.module.css";
+import { useRouter } from "next/navigation";
 
 export default function RecentApiSubscriptions() {
     const t = useScopedI18n("apiServiceSubscription");
@@ -78,7 +79,7 @@ export default function RecentApiSubscriptions() {
                 : columns,
         [apiServiceSubscriptionLoading, columns],
     );
-
+    const router = useRouter();
 
     return (
         <>
@@ -93,6 +94,14 @@ export default function RecentApiSubscriptions() {
                         rowKey={(record) => record.id || `row-${Math.random()}`}
                         pagination={false}
                         scroll={{ x: 'max-content' }}
+                         onRow={(record) => ({
+                                                onClick: () => {
+                                                    if (!apiServiceSubscriptionLoading && record.id) {
+                                                            router.push(`/portal/my-api/${record.id}`);
+                                                    }
+                                                },
+                                                style: { cursor: apiServiceSubscriptionLoading ? "default" : "pointer" },
+                                                })}
                     />
                 </div>
             )}
