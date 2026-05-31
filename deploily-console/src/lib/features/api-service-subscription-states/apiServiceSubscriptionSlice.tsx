@@ -13,7 +13,7 @@ interface ApiServiceSubscriptionStates {
   promoColor?: string;
   price: number;
   oldPrice: number;
-  start_date: Date;
+  start_date: string;
   selectedProfile?: PaymentProfileInterface;
   openDrawer: boolean;
   selectedPlan: ServicePlan | null;
@@ -29,7 +29,7 @@ const initialState: ApiServiceSubscriptionStates = {
   duration: 1,
   price: 0,
   oldPrice: 0,
-  start_date: new Date(),
+  start_date: new Date().toISOString(),
   selectedProfile: undefined,
   openDrawer: false,
   selectedPlan: null,

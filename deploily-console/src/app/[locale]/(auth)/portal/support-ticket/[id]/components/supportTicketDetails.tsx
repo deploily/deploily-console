@@ -1,3 +1,4 @@
+"use client"
 import { getImageUrl } from "@/actions/getImageUrl";
 import { useSupportTicketResponse } from "@/lib/features/support-ticket -responses/supportTicketResponsesSelector";
 import { postSupportTicketResponse } from "@/lib/features/support-ticket -responses/supportTicketResponsesThunks";

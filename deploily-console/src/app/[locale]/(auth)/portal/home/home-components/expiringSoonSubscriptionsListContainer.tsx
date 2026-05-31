@@ -119,18 +119,18 @@ export default function ExpiringSoonSubscriptionsListContainer() {
   return (
     <>
       {!dashboardError && (
-        <CustomStyledTable<any>
-          columns={skeletonColumns}
+        <CustomStyledTable
+          columns={skeletonColumns as any}
           dataSource={dashboardError ? Array(3).fill({ key: Math.random() }) : dashboardResponse?.expiring_soon || []}
           size="middle"
           className="custom-table"
           style={{ marginTop: 5, borderRadius: 0 }}
           scroll={{ x: 730, y: 400 }}
           pagination={false}
-          rowKey={(record: PaymentInterface | { key: number }) =>
+          rowKey={(record: any) =>
             "id" in record ? record.id : `row-${Math.random()}`
           }
-          onRow={(record: PaymentInterface) => ({
+          onRow={(record: any) => ({
             onClick: () => router.push(`/portal/payments/${record.id}`),
             style: { cursor: "pointer" },
           })}
