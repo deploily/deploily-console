@@ -12,6 +12,7 @@ env:
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
+    environment: development
     if: github.repository_owner == 'deploily'
     permissions:
       contents: read
