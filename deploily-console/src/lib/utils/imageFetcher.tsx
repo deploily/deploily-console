@@ -14,6 +14,11 @@ export default function ImageFetcher({ imagePath, width, height }: Props) {
     const defaultImagePath = "/images/logo_service.png";
     const [imageUrl, setImageUrl] = useState<string | undefined>(undefined); // default fallback
 
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+    console.log("*********************************************************************************");
+    console.log(baseUrl);
+    console.log("*********************************************************************************");
+
     useEffect(() => {
         const resolveImage = async () => {
             if (!imagePath) return;
