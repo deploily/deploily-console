@@ -14,7 +14,7 @@ export const fetchMobileApplicationById = createAsyncThunk(
       }
       const token = session.accessToken;
       const response = await axiosInstance.get(
-        `${deploilyApiUrls.DEPLOYMENT_WEB_APPLICATION_SUBSCRIPTION_URL}/${id}`,
+        `${deploilyApiUrls.DEPLOYMENT_MOBILE_APPLICATION_SUBSCRIPTION_URL}/${id}`,
         {
           headers: {
             Accept: "application/json",
@@ -83,7 +83,7 @@ export const UpdateMobileApplicationdata = createAsyncThunk(
 
       const token = session.accessToken;
 
-      const response = await axiosInstance.put(`${deploilyApiUrls.DEPLOYMENT_WEB_APPLICATION_SUBSCRIPTION_URL}/${data.mobileApplicationById}`,
+      const response = await axiosInstance.put(`${deploilyApiUrls.DEPLOYMENT_MOBILE_APPLICATION_SUBSCRIPTION_URL}/${data.mobileApplicationById}`,
         data.mobileApplicationdataUpdated,
         {
           headers: {

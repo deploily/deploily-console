@@ -77,7 +77,10 @@ export const deploilyApiUrls = {
 
   DEPLOYMENT_WEB_APPLICATION_SUBSCRIBE_URL: `${API_BASE_URL}/web-application-deployment-service-subscription/subscribe`,
   DEPLOYMENT_WEB_APPLICATION_SUBSCRIPTION_URL: `${API_BASE_URL}/web-application-deployment-service-subscription`,
-  
+
+  DEPLOYMENT_MOBILE_APPLICATION_SUBSCRIBE_URL: `${API_BASE_URL}/mobile-application-deployment-service-subscription/subscribe`,
+  DEPLOYMENT_MOBILE_APPLICATION_SUBSCRIPTION_URL: `${API_BASE_URL}/mobile-application-deployment-service-subscription`,
+
   DASHBOARD_URL: `${API_BASE_URL}/dashboard/`
 
 };
@@ -91,3 +94,4 @@ export const HI_EVENTS_SLUG = "hievents";
 
 // Deployment Service Slugs
 export const WEB_APPLICATION_SLUG = "web-application";
+export const MOBILE_APPLICATION_SLUG = "mobile-application";

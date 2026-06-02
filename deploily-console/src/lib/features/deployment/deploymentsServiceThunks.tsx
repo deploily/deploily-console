@@ -78,6 +78,9 @@ export const deploymentSubscribe = createAsyncThunk(
         return thunkConfig.rejectWithValue("session expired");
       }
       const token = session.accessToken;
+      console.log("----------------------------");
+      console.log(service_slug)
+      console.log(getSubscribeToDeploymentUrl(service_slug));
 
       const response = await axiosInstance.post(
         `${getSubscribeToDeploymentUrl(service_slug)}`,
