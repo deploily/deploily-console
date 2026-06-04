@@ -52,7 +52,7 @@ export default function MyMobileApplicationDetails({ my_dep_id }: { my_dep_id: n
       {!isLoading && mobileApplicationById !== undefined && (
         <>
           {contextHolder}
-          <MyDeploymentSettingContent myDeployment={mobileApplicationById} isLoading={isLoading} paramsComponent={<MobileApplicationParamsComponent mobileApplicationById={mobileApplicationById} />} />
+          <MyDeploymentSettingContent myDeployment={mobileApplicationById} isLoading={isLoading} paramsComponent={<MobileApplicationParamsComponent  />} />
 
           <DocumentationDrawer
             openDrawer={openDrawer}
