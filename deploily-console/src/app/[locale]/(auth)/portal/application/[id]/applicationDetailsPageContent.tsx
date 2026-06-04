@@ -3,6 +3,8 @@
 import { useApplicationServiceById, useNewApplicationSubscription } from "@/lib/features/application/applicationServiceSelectors";
 import { updateNewAppSubscriptionState } from "@/lib/features/application/applicationServiceSlice";
 import { fetchApplicationServiceById } from "@/lib/features/application/applicationServiceThunks";
+import { useVpsManagedResource } from "@/lib/features/cloud-resource/cloudResourceSelectors";
+import { getManagedResources } from "@/lib/features/cloud-resource/cloudResourceThunks";
 import { fetchResourceServicesPlans } from "@/lib/features/resourceServicePlans/resourceServicesPlansThunk";
 import { fetchServicePlans } from "@/lib/features/service-plans/servicePlanThanks";
 import { useAppDispatch } from "@/lib/hook";
@@ -26,8 +28,6 @@ import SelectManagedRessourcePlanCard from "./containers/selectManagedRessourceP
 import SelectManagedRessourceTable from "./containers/selectManagedRessourceTable";
 import SelectVpsPlanCard from "./containers/selectVpsPlanCard";
 import SelectVpsPlanTable from "./containers/selectVpsPlanTable";
-import { getManagedResources } from "@/lib/features/cloud-resource/cloudResourceThunks";
-import { useVpsManagedResource } from "@/lib/features/cloud-resource/cloudResourceSelectors";
 
 const { Text, Title } = Typography;
 
@@ -97,10 +97,18 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
         }
     }, []);
 
+    useEffect(() => {
+        console.log(app_service_plan);
+        if (app_service_plan?.is_trial) {
+            dispatch(updateNewAppSubscriptionState({ duration: 3 }));
+            setSubscriptionCategory("monthly");
+        }
+    }, [app_service_plan]);
+
     const [ressourceType, setRessourceType] = useState("cloud");
 
     const { vpsManagedResourceResponse } = useVpsManagedResource();
-    
+
     if (isLoading) return <Skeleton active />;
     if (loadingError) return <div>Error: {loadingError}</div>;
     if (!applicationServiceById) return <div>No application found</div>;
@@ -194,7 +202,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                             >
                                 <PaymentAppBar
                                     price={totalAmount}
-                                    buttonText={tApplications('confirm')}
+                                    buttonText={app_service_plan?.is_trial ? tApplications('tryForFree') : tApplications('confirm')}
                                     items={[
 
                                         {
@@ -202,6 +210,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                             value: (
                                                 <Select
                                                     defaultValue={duration}
+                                                    disabled={app_service_plan.is_trial}
                                                     style={{
                                                         width: '100%',
                                                         maxWidth: 700, // Adjust this based on your layout
@@ -248,178 +257,180 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                 />
                             </div>
                         )}
-                        <Divider style={{ borderColor: '#4b4a4a', marginBottom: "5px" }}></Divider>
-                        <div style={{ padding: '2px 2px 2px 2px', marginTop: '3px', marginBottom: '5px', }}>
-                            <Title
-                                level={3}
-                                style={{
-                                    marginBottom: 10,
-                                    fontWeight: 500,
-                                    color: 'primary',
-                                    WebkitBackgroundClip: 'text',
-                                    backgroundClip: 'text',
-                                }}
-                            >
-                                {tApplications("chooseResource")}
-                            </Title>
-                            <div style={{ marginBottom: '32px', width: '100%' }}>
-                                <ToggleButtonGroup
-                                    value={ressourceType}
-                                    exclusive
-                                    onChange={(event, newValue) => {
-                                        if (newValue !== null) {
-                                            switch (newValue) {
-                                                case "own":
-                                                    setRessourceType("own");
-                                                    dispatch(updateNewAppSubscriptionState({ byor: true }));
-                                                    dispatch(updateNewAppSubscriptionState({ duration: 12 }));
-                                                    dispatch(updateNewAppSubscriptionState({ managed_ressource_details: undefined }));
-                                                    break;
-                                                case "cloud":
-                                                    setRessourceType("cloud");
-                                                    dispatch(updateNewAppSubscriptionState({ byor: false }));
-                                                    break;
-                                                case "managed":
-                                                    setRessourceType("managed");
-                                                    dispatch(updateNewAppSubscriptionState({ byor: false }));
-                                                    break;
-                                                default:
-                                                    break;
-                                            }
-                                        }
-                                    }}
-                                    fullWidth
-                                    sx={{
-                                        backgroundColor: '#2d2520',
-                                        padding: '4px',
-                                        borderRadius: '8px',
-                                        border: '1px solid #3d3530',
-                                        gap: '4px',
-                                        flexWrap: 'wrap',
-                                        '& .MuiToggleButtonGroup-grouped': {
-                                            border: '1px solid transparent',
-                                            borderRadius: '6px !important',
-                                            flex: '1 1 220px',
-                                            minWidth: '180px',
-                                            margin: 0,
-                                            color: '#a67c52',
-                                            textTransform: 'none',
-                                            padding: '10px 16px',
-                                            transition: 'all 0.3s ease',
-                                            '&:not(:first-of-type)': {
-                                                borderLeft: '1px solid transparent',
-                                                marginLeft: 0,
-                                            },
-                                            '&:hover': {
-                                                backgroundColor: 'rgba(166, 124, 82, 0.05)',
-                                                color: '#c49365',
-                                                border: '1px solid transparent',
-                                            },
-                                            '&.Mui-selected': {
-                                                backgroundColor: 'rgba(255, 140, 66, 0.12)',
-                                                color: '#ff8c42',
-                                                border: '1px solid #ff8c42',
-                                                '&:hover': {
-                                                    backgroundColor: 'rgba(255, 140, 66, 0.15)',
-                                                    color: '#ff8c42',
-                                                },
-                                                elevation: 2,
-                                            },
-                                        },
-                                        '@media (max-width: 768px)': {
-                                            '& .MuiToggleButtonGroup-grouped': {
-                                                flex: '1 1 100%',
-                                                minWidth: '100%',
-                                            },
-                                        },
-                                    }}
-                                >
-                                    <ToggleButton value="cloud">
-                                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', whiteSpace: 'normal', textAlign: 'center', lineHeight: 1.4, wordBreak: 'break-word' }}>
-                                            <CloudServerOutlined />
-                                            <span>{tApplications("selectRes")}</span>
-                                        </div>
-                                    </ToggleButton>
-                                    <ToggleButton value="own">
-                                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', whiteSpace: 'normal', textAlign: 'center', lineHeight: 1.4, wordBreak: 'break-word' }}>
-                                            <DesktopOutlined />
-                                            <span>{tApplications("useOwnServer")}</span>
-                                        </div>
-                                    </ToggleButton>
-                                    {vpsManagedResourceResponse && vpsManagedResourceResponse?.length >= 1 &&<ToggleButton value="managed">
-                                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', whiteSpace: 'normal', textAlign: 'center', lineHeight: 1.4, wordBreak: 'break-word' }}>
-                                            <DatabaseOutlined />
-                                            <span>{tApplications("selectManagedRes")}</span>
-                                        </div>
-                                    </ToggleButton>
-                                    }
-                                </ToggleButtonGroup>
-                            </div>
-                            {byor && <>
-
-                                <div
+                        {!app_service_plan?.is_trial && <>
+                            <Divider style={{ borderColor: '#4b4a4a', marginBottom: "5px" }}></Divider>
+                            <div style={{ padding: '2px 2px 2px 2px', marginTop: '3px', marginBottom: '5px', }}>
+                                <Title
+                                    level={3}
                                     style={{
-                                        borderRadius: 12,
-                                        padding: '2px',
+                                        marginBottom: 10,
+                                        fontWeight: 500,
+                                        color: 'primary',
+                                        WebkitBackgroundClip: 'text',
+                                        backgroundClip: 'text',
                                     }}
                                 >
-                                    {/* Description */}
-                                    <Text
-                                        style={{
-                                            display: 'block',
-                                            marginBottom: 8,
-                                            color: 'grey',
-                                            fontSize: 16,
-                                            lineHeight: '1.6',
-                                            fontWeight: 500,
-                                            WebkitBackgroundClip: 'text',
-                                            backgroundClip: 'text',
+                                    {tApplications("chooseResource")}
+                                </Title>
+                                <div style={{ marginBottom: '32px', width: '100%' }}>
+                                    <ToggleButtonGroup
+                                        value={ressourceType}
+                                        exclusive
+                                        onChange={(event, newValue) => {
+                                            if (newValue !== null) {
+                                                switch (newValue) {
+                                                    case "own":
+                                                        setRessourceType("own");
+                                                        dispatch(updateNewAppSubscriptionState({ byor: true }));
+                                                        dispatch(updateNewAppSubscriptionState({ duration: 12 }));
+                                                        dispatch(updateNewAppSubscriptionState({ managed_ressource_details: undefined }));
+                                                        break;
+                                                    case "cloud":
+                                                        setRessourceType("cloud");
+                                                        dispatch(updateNewAppSubscriptionState({ byor: false }));
+                                                        break;
+                                                    case "managed":
+                                                        setRessourceType("managed");
+                                                        dispatch(updateNewAppSubscriptionState({ byor: false }));
+                                                        break;
+                                                    default:
+                                                        break;
+                                                }
+                                            }
+                                        }}
+                                        fullWidth
+                                        sx={{
+                                            backgroundColor: '#2d2520',
+                                            padding: '4px',
+                                            borderRadius: '8px',
+                                            border: '1px solid #3d3530',
+                                            gap: '4px',
+                                            flexWrap: 'wrap',
+                                            '& .MuiToggleButtonGroup-grouped': {
+                                                border: '1px solid transparent',
+                                                borderRadius: '6px !important',
+                                                flex: '1 1 220px',
+                                                minWidth: '180px',
+                                                margin: 0,
+                                                color: '#a67c52',
+                                                textTransform: 'none',
+                                                padding: '10px 16px',
+                                                transition: 'all 0.3s ease',
+                                                '&:not(:first-of-type)': {
+                                                    borderLeft: '1px solid transparent',
+                                                    marginLeft: 0,
+                                                },
+                                                '&:hover': {
+                                                    backgroundColor: 'rgba(166, 124, 82, 0.05)',
+                                                    color: '#c49365',
+                                                    border: '1px solid transparent',
+                                                },
+                                                '&.Mui-selected': {
+                                                    backgroundColor: 'rgba(255, 140, 66, 0.12)',
+                                                    color: '#ff8c42',
+                                                    border: '1px solid #ff8c42',
+                                                    '&:hover': {
+                                                        backgroundColor: 'rgba(255, 140, 66, 0.15)',
+                                                        color: '#ff8c42',
+                                                    },
+                                                    elevation: 2,
+                                                },
+                                            },
+                                            '@media (max-width: 768px)': {
+                                                '& .MuiToggleButtonGroup-grouped': {
+                                                    flex: '1 1 100%',
+                                                    minWidth: '100%',
+                                                },
+                                            },
                                         }}
                                     >
-                                        {tApplications("providerIdentification.description")}
-                                    </Text>
-
-                                    {/* Input */}
-                                    <Input
-                                        size="large"
-                                        placeholder={tApplications("providerIdentification.placeholder")}
-                                        value={provider_name}
-                                        onChange={(e) => {
-                                            dispatch(updateNewAppSubscriptionState({ provider_name: e.target.value }));
-                                        }}
-                                        onPressEnter={() => {
-                                            dispatch(updateNewAppSubscriptionState({ provider_name: provider_name }));
-                                        }}
-                                    />
+                                        <ToggleButton value="cloud">
+                                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', whiteSpace: 'normal', textAlign: 'center', lineHeight: 1.4, wordBreak: 'break-word' }}>
+                                                <CloudServerOutlined />
+                                                <span>{tApplications("selectRes")}</span>
+                                            </div>
+                                        </ToggleButton>
+                                        <ToggleButton value="own">
+                                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', whiteSpace: 'normal', textAlign: 'center', lineHeight: 1.4, wordBreak: 'break-word' }}>
+                                                <DesktopOutlined />
+                                                <span>{tApplications("useOwnServer")}</span>
+                                            </div>
+                                        </ToggleButton>
+                                        {vpsManagedResourceResponse && vpsManagedResourceResponse?.length >= 1 && <ToggleButton value="managed">
+                                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', whiteSpace: 'normal', textAlign: 'center', lineHeight: 1.4, wordBreak: 'break-word' }}>
+                                                <DatabaseOutlined />
+                                                <span>{tApplications("selectManagedRes")}</span>
+                                            </div>
+                                        </ToggleButton>
+                                        }
+                                    </ToggleButtonGroup>
                                 </div>
+                                {byor && <>
 
-                            </>}
-                            {!byor && ressourceType === "cloud" && app_service_plan && !app_service_plan.is_custom &&
-                                <>
-                                    <Col xs={0} sm={0} md={24} lg={24}>
-                                        <Card styles={{ body: { padding: 0 } }}>
-                                            <SelectVpsPlanTable applicationId={applicationId} subscriptionCategory={subscriptionCategory} />
-                                        </Card>
-                                    </Col>
-                                    <Col xs={24} sm={24} md={0} lg={0}>
-                                        <SelectVpsPlanCard applicationId={applicationId} subscriptionCategory={subscriptionCategory} />
-                                    </Col>
-                                </>
-                            }
-                            {ressourceType === "managed" && !byor && (
-                                <>
-                                    <Col xs={0} sm={0} md={24} lg={24}>
-                                        <Card styles={{ body: { padding: 0 } }}>
-                                            <SelectManagedRessourceTable applicationId={applicationId} subscriptionCategory={subscriptionCategory} />
-                                        </Card>
-                                    </Col>
-                                    <Col xs={24} sm={24} md={0} lg={0}>
-                                        <SelectManagedRessourcePlanCard applicationId={applicationId} subscriptionCategory={subscriptionCategory} />
-                                    </Col>
-                                </>
-                            )
-                            }
-                        </div>
+                                    <div
+                                        style={{
+                                            borderRadius: 12,
+                                            padding: '2px',
+                                        }}
+                                    >
+                                        {/* Description */}
+                                        <Text
+                                            style={{
+                                                display: 'block',
+                                                marginBottom: 8,
+                                                color: 'grey',
+                                                fontSize: 16,
+                                                lineHeight: '1.6',
+                                                fontWeight: 500,
+                                                WebkitBackgroundClip: 'text',
+                                                backgroundClip: 'text',
+                                            }}
+                                        >
+                                            {tApplications("providerIdentification.description")}
+                                        </Text>
+
+                                        {/* Input */}
+                                        <Input
+                                            size="large"
+                                            placeholder={tApplications("providerIdentification.placeholder")}
+                                            value={provider_name}
+                                            onChange={(e) => {
+                                                dispatch(updateNewAppSubscriptionState({ provider_name: e.target.value }));
+                                            }}
+                                            onPressEnter={() => {
+                                                dispatch(updateNewAppSubscriptionState({ provider_name: provider_name }));
+                                            }}
+                                        />
+                                    </div>
+
+                                </>}
+                                {!byor && ressourceType === "cloud" && app_service_plan && !app_service_plan.is_custom &&
+                                    <>
+                                        <Col xs={0} sm={0} md={24} lg={24}>
+                                            <Card styles={{ body: { padding: 0 } }}>
+                                                <SelectVpsPlanTable applicationId={applicationId} subscriptionCategory={subscriptionCategory} />
+                                            </Card>
+                                        </Col>
+                                        <Col xs={24} sm={24} md={0} lg={0}>
+                                            <SelectVpsPlanCard applicationId={applicationId} subscriptionCategory={subscriptionCategory} />
+                                        </Col>
+                                    </>
+                                }
+                                {ressourceType === "managed" && !byor && (
+                                    <>
+                                        <Col xs={0} sm={0} md={24} lg={24}>
+                                            <Card styles={{ body: { padding: 0 } }}>
+                                                <SelectManagedRessourceTable applicationId={applicationId} subscriptionCategory={subscriptionCategory} />
+                                            </Card>
+                                        </Col>
+                                        <Col xs={24} sm={24} md={0} lg={0}>
+                                            <SelectManagedRessourcePlanCard applicationId={applicationId} subscriptionCategory={subscriptionCategory} />
+                                        </Col>
+                                    </>
+                                )
+                                }
+                            </div>
+                        </>}
                         <Divider style={{ borderColor: '#4b4a4a', marginBottom: "5px" }}></Divider>
                         <div style={{ padding: '8px 0' }}>
                             <ApplicationDetailsCollapseContainer description={applicationServiceById.description} specifications={applicationServiceById.specifications} documentationUrl={applicationServiceById.documentation_url}
@@ -432,7 +443,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                         <Col xs={24} lg={8} style={{ position: 'sticky', top: 16, alignSelf: 'flex-start' }}>
                             <PaymentSideBar
                                 price={totalAmount}
-                                buttonText={tApplications('confirm')}
+                                buttonText={app_service_plan?.is_trial ?tApplications('tryForFree'): tApplications('confirm')}
                                 items={[
                                     { label: tApplications('svc'), value: applicationServiceById.name },
                                     { label: tApplications("plan"), value: app_service_plan?.plan.name || "" },
@@ -468,6 +479,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                                     : { value: duration })}
                                                 style={{ width: 150, borderRadius: "10px" }}
                                                 onChange={handleChangeDuration}
+                                                disabled={app_service_plan.is_trial}
                                                 dropdownStyle={{
                                                     backgroundColor: theme.token.gray50,
                                                     border: `2px solid ${theme.token.gray100}`,
@@ -482,13 +494,12 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                             />
                                         ),
                                     },
-
-                                    {
+                                    ...!app_service_plan?.is_trial ?[ {
                                         label: tApplications('promoCode'),
                                         value: (
                                             <AppPromoCodeTextField />
                                         ),
-                                    },
+                                    }]:[],
                                 ]}
                                 onClick={() => setOpenDrawer(true)}
                             />

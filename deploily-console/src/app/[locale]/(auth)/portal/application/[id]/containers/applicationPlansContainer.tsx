@@ -110,6 +110,7 @@ export default function ApplicationPlansContainer({ screens }: { screens: Return
                   title={plan.plan.name}
                   onClick={() => dispatch(updateNewAppSubscriptionState({ app_service_plan: plan }))}
                   isCustomPlan={plan.is_custom}
+                  isTrialPlan={plan.is_trial}
                   translations={{
                     onDemand: translate("ondemand"),
                     DZD: translate("DZD"),

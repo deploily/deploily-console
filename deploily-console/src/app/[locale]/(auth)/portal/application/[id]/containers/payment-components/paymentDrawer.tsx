@@ -46,12 +46,32 @@ export default function PaymentDrawer({ openDrawer, onClose }: { openDrawer: any
   };
 
   const handleSubscribe = async () => {
+    let newSubscriptionObject = {};
     if (
-      app_service_plan != undefined &&
-      (managed_ressource_details != undefined || byor) &&
-      selectedProfile != undefined
-    ) {
-      const newSubscriptionObject = {
+      app_service_plan != undefined  ) {
+        if(app_service_plan.is_trial){ 
+           newSubscriptionObject = {
+            duration: Number.parseInt(`${duration}`),
+            promo_code: promoCode,
+            payment_method: "cloud_credit",
+            service_plan_selected_id: app_service_plan.id,
+            profile_id: selectedProfile?.id,
+            version_selected_id: selected_version?.id,
+            phone: phone,
+          };
+          dispatch(
+            applicationSubscribe({
+              service_slug: applicationServiceById?.service_slug,
+              data: newSubscriptionObject,
+            }),
+          ).then((response: any) => {
+            if (response.meta.requestStatus === "fulfilled") {
+              router.push(`/portal/my-applications`);
+            }
+          });
+        }
+      else if ((managed_ressource_details != undefined || byor) && selectedProfile != undefined){
+       newSubscriptionObject = {
         duration: Number.parseInt(`${duration}`),
         promo_code: promoCode,
         payment_method: "cloud_credit",
@@ -61,22 +81,21 @@ export default function PaymentDrawer({ openDrawer, onClose }: { openDrawer: any
           : { ressource_service_plan_selected_id: managed_ressource_details.id }),
         profile_id: selectedProfile.id,
         version_selected_id: selected_version?.id,
-        // managed_ressource_id: managed_ressource_details.id,
         phone: phone,
         byor: byor,
         provider_name:byor ? provider_name : undefined
-
       };
-      dispatch(
-        applicationSubscribe({
-          service_slug: applicationServiceById?.service_slug,
-          data: newSubscriptionObject,
-        }),
-      ).then((response: any) => {
-        if (response.meta.requestStatus === "fulfilled") {
-          router.push(`/portal/my-applications`);
-        }
-      });
+          dispatch(
+            applicationSubscribe({
+              service_slug: applicationServiceById?.service_slug,
+              data: newSubscriptionObject,
+            }),
+          ).then((response: any) => {
+            if (response.meta.requestStatus === "fulfilled") {
+              router.push(`/portal/my-applications`);
+            }
+          });
+      }
     }
   };
 
@@ -161,7 +180,7 @@ export default function PaymentDrawer({ openDrawer, onClose }: { openDrawer: any
             }
             style={{ marginBottom: 0 }}
           />
-          {paymentProfilesList?.count != undefined && paymentProfilesList?.count > 0 && (
+          { !app_service_plan?.is_trial &&  paymentProfilesList?.count != undefined && paymentProfilesList?.count > 0 && (
             <SelectProfileComponent
               translations={{
                 title: tSubscription("selectProfile"),
@@ -175,7 +194,7 @@ export default function PaymentDrawer({ openDrawer, onClose }: { openDrawer: any
           )}
           {
             <div style={{ padding: "5px 0px" }}>
-              {isBalanceSufficient === true ? (
+              {app_service_plan?.is_trial==true ||  isBalanceSufficient === true ? (
                 <IsBalanceSufficientComponent
                   onClose={onClose}
                   handleSubscribe={() => handleSubscribe()}

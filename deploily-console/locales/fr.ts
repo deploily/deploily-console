@@ -433,6 +433,7 @@ export default {
   "applications.hours": "Heures",
   "applications.managed": "• Géré",
   "applications.status": "Status",
+  "applications.tryForFree": "Essayez-le gratuitement",
   "applications": {
     "useOwnServer": "Utiliser une ressource d’un partenaire hors Deploily",
     "selectRes": "Commander une ressource auprès des partenaires cloud de Deploily",

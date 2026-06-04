@@ -1,6 +1,7 @@
-import {theme} from "@/styles/theme";
-import {Button, Typography} from "antd";
-import {useScopedI18n} from "../../../../../../../../../locales/client";
+import { useNewApplicationSubscription } from "@/lib/features/application/applicationServiceSelectors";
+import { theme } from "@/styles/theme";
+import { Button, Typography } from "antd";
+import { useScopedI18n } from "../../../../../../../../../locales/client";
 
 export default function IsBalanceSufficientComponent({
   onClose,
@@ -10,19 +11,21 @@ export default function IsBalanceSufficientComponent({
   handleSubscribe: () => void;
 }) {
   const translate = useScopedI18n("subscription");
-
+  const { app_service_plan } = useNewApplicationSubscription();
+  console.log('""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""');
   return (
     <>
-      <Typography.Text
-        style={{
-          color: theme.token.green,
-          paddingTop: 30,
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        {translate("sufficientBalance")}
-      </Typography.Text>
+      {
+        !app_service_plan?.is_trial && <Typography.Text
+          style={{
+            color: theme.token.green,
+            paddingTop: 30,
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          {translate("sufficientBalance")}
+        </Typography.Text>}
       <div
         style={{
           paddingTop: "50px",
