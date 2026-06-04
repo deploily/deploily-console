@@ -32,6 +32,7 @@ import SelectManagedRessourcePlanCard from "./containers/selectManagedRessourceP
 import SelectManagedRessourceTable from "./containers/selectManagedRessourceTable";
 import SelectVpsPlanCard from "./containers/selectVpsPlanCard";
 import SelectVpsPlanTable from "./containers/selectVpsPlanTable";
+import { MOBILE_APPLICATION_SLUG } from "@/deploilyWebsiteUrls";
 const { Text, Title } = Typography;
 
 export default function DeploymentDetailsPageContent({ deploymentSlug }: { deploymentSlug: any }) {
@@ -177,6 +178,7 @@ export default function DeploymentDetailsPageContent({ deploymentSlug }: { deplo
             <div style={{ padding: "8px 0" }}>
               <DeploymentPlansContainer />
             </div>
+            
             {!screens.lg &&
               !deploymentServiceBySlug.is_subscribed &&
               deployment_service_plan &&
@@ -251,8 +253,9 @@ export default function DeploymentDetailsPageContent({ deploymentSlug }: { deplo
                   />
                 </div>
               )}
-
-
+           
+            {!(deploymentServiceBySlug.service_slug == MOBILE_APPLICATION_SLUG) &&
+              <>
             <Divider style={{ borderColor: '#4b4a4a', marginBottom: "5px" }}></Divider>
             <div style={{ padding: '2px 2px 2px 2px', marginTop: '3px', marginBottom: '5px', }}>
               <Title
@@ -424,6 +427,7 @@ export default function DeploymentDetailsPageContent({ deploymentSlug }: { deplo
               </>
             )
             }
+              </>}
             <div style={{ padding: "8px 0" }}>
               <DeploymentDetailsCollapseContainer
                 description={deploymentServiceBySlug.description}

@@ -22,6 +22,7 @@ export interface ServicePlan {
   service: ApiServiceInterface;
   options: ServicePlanOption[];
   is_custom: boolean;
+  is_trial: boolean;
   provider_info?: ServiceProviderInfo;
   subscription_category: string;
 }

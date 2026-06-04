@@ -27,6 +27,7 @@ export interface myApplicationInterface {
   unity: string;
   duration_month: number;
   is_expired: boolean;
+  is_trial: boolean;
   service_plan_id: number;
   start_date: Date;
   total_amount: number;

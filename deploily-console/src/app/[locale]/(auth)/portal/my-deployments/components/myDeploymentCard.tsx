@@ -14,6 +14,11 @@ export default function MyDeploymentCard({data}: {data: myDeploymentInterface}) 
   const router = useRouter();
 
   const handleClick = async (service_slug: string) => {
+    console.log("ààààààààààààààààààààààààààààààààààà");
+    console.log(service_slug);
+    console.log(myDeploymentsUrls(service_slug));
+    
+    
     router.push(`/portal/my-deployments/${myDeploymentsUrls(service_slug)}/${data.id}`);
   };
 
