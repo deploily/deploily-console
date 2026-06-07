@@ -64,34 +64,11 @@ const SupportTicketDetails = ({ support_ticket_id }: { support_ticket_id: any })
     return `${user.first_name || ""} ${user.last_name || ""}`.trim() || user.username || "Unknown";
   };
   const defaultImagePath = "/images/logo_service.png";
-  const [imageUrl, setImageUrl] = useState<string | undefined>(undefined); // default fallback
 
-  useEffect(() => {
-    const resolveImage = async () => {
-      if (!currentSupportTicket?.image) return;
-      if (currentSupportTicket?.image.startsWith("http")) {
-        setImageUrl(currentSupportTicket?.image);
-      } else if (currentSupportTicket?.image.startsWith("/images/")) {
-        setImageUrl(currentSupportTicket?.image);
-      }
-      else {
-        try {
-          const res = await getImageUrl(currentSupportTicket?.image);
-          if (res) {
-            setImageUrl(res);
-          }
-          else {
-            setImageUrl(defaultImagePath);
-          }
-        } catch (err) {
-          setImageUrl(defaultImagePath);
-          console.error("Failed to fetch image URL", err);
-        }
-      }
-    };
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+  const imageUrl = `${baseUrl}/static/uploads/${currentSupportTicket?.image}`;
 
-    resolveImage();
-  }, [currentSupportTicket?.image]);
+  
 
   return (
     <div>
@@ -201,7 +178,7 @@ const SupportTicketDetails = ({ support_ticket_id }: { support_ticket_id: any })
                 </div>
               )}
               <Image
-                src={imageUrl}
+                src={currentSupportTicket.image ? imageUrl : defaultImagePath }
                 alt="Support ticket attachment"
                 style={{
                   maxWidth: "100%",

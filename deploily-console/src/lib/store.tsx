@@ -29,6 +29,7 @@ import ttkEpaySlice from "./features/ttk-epay/ttkEpaySlice";
 import myDeploymentSlice from "./features/my-deployments/myDeploymentSlice";
 import dashboardSlice from "@/app/[locale]/(auth)/portal/home/features/dashboardSlice";
 import webApplicationSlice from "./features/webApplication/webApplicationSlice";
+import mobileApplicationSlice from "./features/mobileApplication/mobileApplicationSlice";
 export const makeStore = () => {
   return configureStore({
     reducer: {
@@ -58,6 +59,7 @@ export const makeStore = () => {
       hiEventsApp: hiEventsAppSlice,
       myDeployment: myDeploymentSlice,
       webApplicationDep:webApplicationSlice,
+      mobileApplicationDep: mobileApplicationSlice,
       dashboard: dashboardSlice,
     },
     middleware: getDefaultMiddleware =>

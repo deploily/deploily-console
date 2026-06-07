@@ -14,6 +14,7 @@ import {useEffect, useState} from "react";
 import {useScopedI18n} from "../../../../../../../../../locales/client";
 import BankTransfertComponent from "./bankTransfertComponent";
 import CardPaymentComponent from "./cardPaymentComponent";
+import { MOBILE_APPLICATION_SLUG } from "@/deploilyWebsiteUrls";
 
 export default function DeploymentPaymentComponent({
   isSubscribed,
@@ -57,7 +58,7 @@ export default function DeploymentPaymentComponent({
       provider_name,
     } = newDeploymentSubscription;
 
-    if (deployment_service_plan && (managed_ressource_details != undefined || byor) &&
+    if (deployment_service_plan && (managed_ressource_details != undefined || byor || deploymentServiceBySlug?.service_slug == MOBILE_APPLICATION_SLUG ) &&
       selectedProfile != undefined) {
       // if (deployment_service_plan && selectedProfile) {
       const baseSubscriptionObject = {
@@ -67,7 +68,7 @@ export default function DeploymentPaymentComponent({
         service_plan_selected_id: deployment_service_plan.id,
         profile_id: selectedProfile.id,
         phone:phone,
-        ...!byor && managed_ressource_details != undefined && (managed_ressource_details.isManaged
+        ...!byor && managed_ressource_details != undefined && !(deploymentServiceBySlug?.service_slug == MOBILE_APPLICATION_SLUG) && (managed_ressource_details.isManaged
           ? { managed_ressource_id: managed_ressource_details.managed_ressource_id }
           : { ressource_service_plan_selected_id: managed_ressource_details.id }),
         byor: byor,

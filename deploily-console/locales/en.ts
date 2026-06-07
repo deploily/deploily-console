@@ -427,6 +427,7 @@ export default {
     "applications.hours": "Hours",
     "applications.managed": "• Managed",
     "applications.status":"Status",
+    "applications.tryForFree":"Try it for free",
     "applications":{
         "useOwnServer": "Use a resource from non deploily's partner",
         "selectRes": "Order a resource from deploily's cloud partners",
