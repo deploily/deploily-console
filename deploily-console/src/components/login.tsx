@@ -21,11 +21,9 @@ export default function Login() {
         borderRadius: 16,
         paddingLeft: 16,
         paddingRight: 16,
-        paddingBottom: 50,
         border: `1px solid ${theme.token.orange600}20`,
         position: "relative",
         overflow: "hidden",
-        margin: '150px'
       }}
     >
       {/* Accent line at top */}
