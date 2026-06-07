@@ -1,18 +1,9 @@
 "use client";
-import {getEpaymentPermission} from "@/actions/getEpaymentPermission";
 import {theme} from "@/styles/theme";
 import {Button, Image} from "antd";
-import {useEffect, useState} from "react";
 
 export default function EpayButton({handleSubscribe}: {handleSubscribe: () => void}) {
-  const [isPaymentEnabled, setIsPaymentEnabled] = useState<any>(undefined);
-  useEffect(() => {
-    const checkEpaymentPermission = async () => {
-      const paymentEnabled = await getEpaymentPermission();
-      setIsPaymentEnabled(paymentEnabled);
-    };
-    checkEpaymentPermission();
-  }, []);
+  const isPaymentEnabled = process.env.NEXT_PUBLIC_PAYMENT_ENABLED === "true" ? true : false;
   return (
     <>
       <Button

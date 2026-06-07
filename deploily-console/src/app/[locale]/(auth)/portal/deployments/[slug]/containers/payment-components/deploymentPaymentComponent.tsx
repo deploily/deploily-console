@@ -1,5 +1,4 @@
 "use client";
-import {getEpaymentPermission} from "@/actions/getEpaymentPermission";
 import {
   useDeploymentServiceBySlug,
   useNewDeploymentSubscription,
@@ -120,14 +119,8 @@ export default function DeploymentPaymentComponent({
     }
   };
 
-  const [isPaymentEnabled, setIsPaymentEnabled] = useState<any>(undefined);
-  useEffect(() => {
-    const checkEpaymentPermission = async () => {
-      const paymentEnabled = await getEpaymentPermission();
-      setIsPaymentEnabled(paymentEnabled);
-    };
-    checkEpaymentPermission();
-  }, []);
+  const isPaymentEnabled = process.env.NEXT_PUBLIC_PAYMENT_ENABLED === "true" ? true : false;
+
 
   return (
     <>

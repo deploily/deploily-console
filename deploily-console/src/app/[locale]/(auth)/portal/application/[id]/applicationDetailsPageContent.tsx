@@ -97,10 +97,13 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
         }
     }, []);
 
+    console.log(process.env.NEXT_PUBLIC_TRIAL_PLAN_DURATION);
+
+
     useEffect(() => {
         console.log(app_service_plan);
         if (app_service_plan?.is_trial) {
-            dispatch(updateNewAppSubscriptionState({ duration: 3 }));
+            dispatch(updateNewAppSubscriptionState({ duration: Number.parseInt(process.env.NEXT_PUBLIC_TRIAL_PLAN_DURATION ?? "3") }));
             setSubscriptionCategory("monthly");
         }
     }, [app_service_plan]);
@@ -217,9 +220,13 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                                         borderRadius: '10px',
                                                     }}
                                                     onChange={handleChangeDuration}
-                                                    dropdownStyle={{
-                                                        backgroundColor: theme.token.gray50,
-                                                        border: `2px solid ${theme.token.gray100}`,
+                                                    styles={{
+                                                        popup: {
+                                                            root: {
+                                                                backgroundColor: theme.token.gray50,
+                                                                border: `2px solid ${theme.token.gray100}`,
+                                                            }
+                                                        }
                                                     }}
                                                     options={options}
                                                 />
@@ -236,9 +243,13 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                                         borderRadius: '10px',
                                                     }}
                                                     onChange={handleChangeVersion}
-                                                    dropdownStyle={{
-                                                        backgroundColor: theme.token.gray50,
-                                                        border: `2px solid ${theme.token.gray100}`,
+                                                    styles={{
+                                                        popup: {
+                                                            root: {
+                                                                backgroundColor: theme.token.gray50,
+                                                                border: `2px solid ${theme.token.gray100}`,
+                                                            }
+                                                        }
                                                     }}
                                                     options={optionsVersion}
                                                 />
@@ -443,7 +454,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                         <Col xs={24} lg={8} style={{ position: 'sticky', top: 16, alignSelf: 'flex-start' }}>
                             <PaymentSideBar
                                 price={totalAmount}
-                                buttonText={app_service_plan?.is_trial ?tApplications('tryForFree'): tApplications('confirm')}
+                                buttonText={app_service_plan?.is_trial ? tApplications('tryForFree') : tApplications('confirm')}
                                 items={[
                                     { label: tApplications('svc'), value: applicationServiceById.name },
                                     { label: tApplications("plan"), value: app_service_plan?.plan.name || "" },
@@ -461,9 +472,13 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                                 defaultValue={typeof selected_version?.id === "number" ? selected_version.id : undefined}
                                                 style={{ width: 150, borderRadius: "10px" }}
                                                 onChange={handleChangeVersion}
-                                                dropdownStyle={{
-                                                    backgroundColor: theme.token.gray50,
-                                                    border: `2px solid ${theme.token.gray100}`,
+                                                styles={{
+                                                    popup: {
+                                                        root: {
+                                                            backgroundColor: theme.token.gray50,
+                                                            border: `2px solid ${theme.token.gray100}`,
+                                                        }
+                                                    }
                                                 }}
                                                 options={optionsVersion}
                                             />
@@ -480,9 +495,13 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                                 style={{ width: 150, borderRadius: "10px" }}
                                                 onChange={handleChangeDuration}
                                                 disabled={app_service_plan.is_trial}
-                                                dropdownStyle={{
-                                                    backgroundColor: theme.token.gray50,
-                                                    border: `2px solid ${theme.token.gray100}`,
+                                                styles={{
+                                                    popup: {
+                                                        root: {
+                                                            backgroundColor: theme.token.gray50,
+                                                            border: `2px solid ${theme.token.gray100}`,
+                                                        }
+                                                    }
                                                 }}
                                                 options={managed_ressource_details?.isManaged && !byor ?
                                                     [{
@@ -494,12 +513,12 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                             />
                                         ),
                                     },
-                                    ...!app_service_plan?.is_trial ?[ {
+                                    ...!app_service_plan?.is_trial ? [{
                                         label: tApplications('promoCode'),
                                         value: (
                                             <AppPromoCodeTextField />
                                         ),
-                                    }]:[],
+                                    }] : [],
                                 ]}
                                 onClick={() => setOpenDrawer(true)}
                             />

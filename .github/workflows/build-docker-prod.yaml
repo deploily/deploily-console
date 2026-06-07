@@ -52,6 +52,7 @@ jobs:
             NEXT_PUBLIC_BASE_URL=${{ vars.NEXT_PUBLIC_BASE_URL }}
             NEXT_PUBLIC_PAYMENT_ENABLED=${{ vars.NEXT_PUBLIC_PAYMENT_ENABLED }}
             NEXTAUTH_URL=${{ vars.NEXTAUTH_URL }}
+            NEXT_PUBLIC_TRIAL_PLAN_DURATION=${{ vars.NEXT_PUBLIC_TRIAL_PLAN_DURATION }}
 
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v1

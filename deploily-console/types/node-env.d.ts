@@ -12,5 +12,6 @@ declare namespace NodeJS {
         BANK_ACCOUNT_BANK_AGENCY: string
         BANK_ACCOUNT_NUMBER: string
         NEXT_PUBLIC_PAYMENT_ENABLED: string
+        NEXT_PUBLIC_TRIAL_PLAN_DURATION: string
     }
 }

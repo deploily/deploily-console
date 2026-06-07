@@ -1,20 +1,12 @@
 "use client";
-import {getEpaymentPermission} from "@/actions/getEpaymentPermission";
 import {PayButton} from "@/styles/components/buttonStyle";
 import {InterBold18} from "@/styles/components/typographyStyle";
 import {theme} from "@/styles/theme";
 import {Image} from "antd";
-import {useEffect, useState} from "react";
 
 export default function EpayButton({handleBalanceRecharge}: {handleBalanceRecharge: () => void}) {
-  const [isPaymentEnabled, setIsPaymentEnabled] = useState<any>(undefined);
-  useEffect(() => {
-    const checkEpaymentPermission = async () => {
-      const paymentEnabled = await getEpaymentPermission();
-      setIsPaymentEnabled(paymentEnabled);
-    };
-    checkEpaymentPermission();
-  }, []);
+  const isPaymentEnabled = process.env.NEXT_PUBLIC_PAYMENT_ENABLED === "true" ? true : false;
+
   return (
     <>
       <PayButton
