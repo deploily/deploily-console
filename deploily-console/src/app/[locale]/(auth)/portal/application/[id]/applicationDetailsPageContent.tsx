@@ -97,13 +97,11 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
         }
     }, []);
 
-    console.log(process.env.NEXT_PUBLIC_TRIAL_PLAN_DURATION);
-
 
     useEffect(() => {
-        console.log(app_service_plan);
         if (app_service_plan?.is_trial) {
             dispatch(updateNewAppSubscriptionState({ duration: Number.parseInt(process.env.NEXT_PUBLIC_TRIAL_PLAN_DURATION ?? "3") }));
+            dispatch(updateNewAppSubscriptionState({ managed_ressource_details: undefined }));
             setSubscriptionCategory("monthly");
         }
     }, [app_service_plan]);

@@ -12,7 +12,6 @@ export default function IsBalanceSufficientComponent({
 }) {
   const translate = useScopedI18n("subscription");
   const { app_service_plan } = useNewApplicationSubscription();
-  console.log('""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""');
   return (
     <>
       {
