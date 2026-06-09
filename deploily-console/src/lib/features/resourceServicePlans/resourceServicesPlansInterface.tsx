@@ -18,6 +18,7 @@ export interface ManagedRessourceDetails {
   service_id: number;
   managed_ressource_id?: number;
   time_remaining?: number;
+  tva_rate?: number;
   isManaged?: boolean; // existing managed resource selected from list
   isAlreadyPaid?: boolean;
 }

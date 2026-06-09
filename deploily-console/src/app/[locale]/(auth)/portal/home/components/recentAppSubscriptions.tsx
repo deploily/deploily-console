@@ -21,7 +21,7 @@ export default function RecentAppSubscriptions() {
                 key: "service_details",
                 width: 120,
                 render: (service_details: ServiceDetails | null | undefined) =>
-                    service_details ? service_details.name.charAt(0).toUpperCase() + service_details.name.slice(1) : "-",
+                    service_details ? service_details.name?.charAt(0).toUpperCase() + service_details.name?.slice(1) : "-",
             },
             {
                 title: t("plan"),

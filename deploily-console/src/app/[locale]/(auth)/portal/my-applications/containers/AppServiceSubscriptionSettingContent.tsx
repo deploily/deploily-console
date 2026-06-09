@@ -51,7 +51,7 @@ export default function AppServiceSubscriptionSettingContent({
     <>
       <Typography.Title level={2} style={{ color: theme.token.orange400 }}>
         {Intl.NumberFormat("fr-FR", { useGrouping: true }).format(
-          appServiceSubscription?.total_amount / appServiceSubscription?.duration_month,
+          appServiceSubscription?.price / appServiceSubscription?.duration_month,
         )}{" "}
         DZD /{" "}
         {appServiceSubscription?.service_plan.subscription_category === "monthly"
