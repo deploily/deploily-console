@@ -449,7 +449,9 @@ export default {
       "title": "Identifiez Votre Ressource",
       "description": "Saisissez le nom de votre fournisseur pour  accéder à vos ressources facilement",
       "placeholder": "Entrez le nom de votre fournisseur"
-    }
+    },
+    tva_rate: 'Taux de TVA:',
+    price_ttc: 'Prix TTC:',
   },
 
   "dashboard.welcome": "👋 Bienvenue de nouveau, ",

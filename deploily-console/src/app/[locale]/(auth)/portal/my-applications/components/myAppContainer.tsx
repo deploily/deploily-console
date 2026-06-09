@@ -1,14 +1,17 @@
-import {useMyApplicationList} from "@/lib/features/my-applications/myApplicationSelector";
-import {fetchMyApplications} from "@/lib/features/my-applications/myApplicationThunks";
-import {useAppDispatch} from "@/lib/hook";
-import {Card, Col, Result, Row} from "antd";
-import {useEffect} from "react";
-import {useI18n, useScopedI18n} from "../../../../../../../locales/client";
+import { useMyApplicationList } from "@/lib/features/my-applications/myApplicationSelector";
+import { fetchMyApplications } from "@/lib/features/my-applications/myApplicationThunks";
+import { useAppDispatch } from "@/lib/hook";
+import { Card, Col, Result, Row } from "antd";
+import { useEffect } from "react";
+import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import MyAppCard from "./myAppCard";
 
 export default function MyAppContainer() {
+
+  console.log("ààààààààààààààààààààààààààààààààààààààààààààààààààà");
+
   const dispatch = useAppDispatch();
-  const {isLoading, MyApplicationList, loadingError} = useMyApplicationList();
+  const { isLoading, MyApplicationList, loadingError } = useMyApplicationList();
   const t = useI18n();
   const tApp = useScopedI18n("applications");
   useEffect(() => {
@@ -26,15 +29,15 @@ export default function MyAppContainer() {
           md={10}
           lg={8}
           xl={8}
-          style={{display: "flex", justifyContent: "center"}}
+          style={{ display: "flex", justifyContent: "center" }}
         >
-          <Card loading={true} style={{minWidth: 300}} />
+          <Card loading={true} style={{ minWidth: 300 }} />
         </Col>
       )}
 
       {/* Success */}
       {!isLoading && !loadingError && MyApplicationList && MyApplicationList?.length > 0 && (
-        <Row gutter={[24, 24]} justify="start" style={{margin: 0}}>
+        <Row gutter={[24, 24]} justify="start" style={{ margin: 0 }}>
           {MyApplicationList?.map((row) => (
             <Col
               key={row.id}
@@ -43,7 +46,7 @@ export default function MyAppContainer() {
               md={10}
               lg={8}
               xl={8}
-              style={{display: "flex", justifyContent: "center"}}
+              style={{ display: "flex", justifyContent: "center" }}
             >
               <MyAppCard data={row} />
             </Col>

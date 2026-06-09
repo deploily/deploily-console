@@ -440,7 +440,9 @@ export default {
             "title": "Identify Your Resource",
             "description": "Enter your provider name to access your resources seamlessly",
             "placeholder": "Enter your provider name"
-        }
+        },
+        tva_rate:'TVA Rate:',
+        price_ttc:'Price TTC:',
     },
     "dashboard.welcome": "👋 Welcome back, ",
     "dashboard.subTitle": "Your current stats at a glance",

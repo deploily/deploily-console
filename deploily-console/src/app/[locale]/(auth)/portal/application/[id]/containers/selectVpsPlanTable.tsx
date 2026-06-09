@@ -68,18 +68,23 @@ export default function SelectVpsPlanTable({
         <TableComponentWithSelection
           selectedRowId={managed_ressource_details && !managed_ressource_details.isManaged ? managed_ressource_details.id : undefined}
           onChange={handlePlanChange}
-          data={servicePlansList.result.map((plan) => ({
-            key: plan.id,
-            resource: plan,
-            options: Array.isArray(plan.options)
-              ? plan.options.filter((option: ServicePlanOption) =>
-                ["ram", "cpu", "disque"].includes(option.option_type),
-              )
-              : [],
-            price: plan.price,
-            preparation_time: plan.preparation_time,
-            isManaged: plan.isManaged,
-          }))}
+          data={servicePlansList.result.map((plan) => {
+            console.log("###################################");
+            console.log(plan.tva_rate);
+            return ({
+              key: plan.id,
+              resource: plan,
+              options: Array.isArray(plan.options)
+                ? plan.options.filter((option: ServicePlanOption) =>
+                  ["ram", "cpu", "disque"].includes(option.option_type),
+                )
+                : [],
+              price: plan.price,
+              preparation_time: plan.preparation_time,
+              isManaged: plan.isManaged,
+              tva_rate: plan.tva_rate,
+            })
+          })}
           columns={[
             {
               title: tApplications("resource"),
@@ -146,13 +151,36 @@ export default function SelectVpsPlanTable({
               title: tApplications("price"),
               dataIndex: "price",
               fixed: "right",
-              width: 100,
-              render: (price, record) =>
-                record.isManaged && record.isAlreadyPaid ? (
+              width: 180,
+              render: (price, record) => {
+                console.log("record   ", record);
+                console.log(record.tva_rate != null);
+                console.log( record.tva_rate > 0);
+                console.log(record.tva_rate != null && record.tva_rate > 0);
+                
+
+                return record.isManaged && record.isAlreadyPaid ? (
                   <Typography.Text style={{ color: theme.token.gray300 }}>—</Typography.Text>
                 ) : (
-                  <Typography.Text>{`${price?.toLocaleString()} DZD`}</Typography.Text>
-                ),
+                  <>
+                    <Typography.Text style={{ color: theme.token.colorPrimary, fontWeight: "bold" }}>
+                      {`${price?.toLocaleString()} DZD`}
+                    </Typography.Text>
+                      {(record.tva_rate != null && record.tva_rate > 0) && <Typography.Text style={{ color: theme.token.gray300, fontSize: 12, display: "block" }}>
+                        { tApplications('tva_rate')}
+                        <span style={{ color: theme.token.gray300, fontSize: 12, marginLeft: 4, fontWeight: "bold" }}>
+                          {` ${record.tva_rate + "%"}`}
+                        </span>
+                    </Typography.Text>}
+                      {(record.tva_rate != null && record.tva_rate > 0) && <Typography.Text style={{ color: theme.token.gray300, fontSize: 12, display: "block" }}>
+                      { tApplications('price_ttc')}
+                        <span style={{ color: theme.token.gray300, fontSize: 12, marginLeft: 4, fontWeight: "bold" }}>
+                          {` ${Math.round(record.price * (1 + record.tva_rate / 100) * 100) / 100} `+"DZD"}
+                      </span>
+                    </Typography.Text>}
+                  </>
+                )
+              }
             },
           ]}
         />

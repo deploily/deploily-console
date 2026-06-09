@@ -65,16 +65,20 @@ const ApplicationServiceSlice = createSlice({
       };
 
       let updatedAmount = 0;
-
       if (updatedState.app_service_plan) {
         updatedAmount = updatedState.duration * updatedState.app_service_plan.price;
       }
-      if (
-        updatedState.managed_ressource_details &&
-        !updatedState.managed_ressource_details.isAlreadyPaid // 👈 condition
-      ) {
-        updatedAmount +=
-          updatedState.duration * (updatedState.managed_ressource_details.price || 0);
+      if (updatedState.managed_ressource_details && !updatedState.managed_ressource_details.isAlreadyPaid) {
+        const { price, tva_rate, isManaged } = updatedState.managed_ressource_details;
+        const total_price_ressource = price * updatedState.duration;
+        if (!isManaged && tva_rate) {
+          // price_ttc already includes base price
+          const price_ttc = Math.round(total_price_ressource * (1 + tva_rate / 100) * 100) / 100;
+          updatedAmount += price_ttc;
+        } else {
+          // no TVA, just add base price
+          updatedAmount += total_price_ressource;
+        }
       }
       if (updatedState.promoCodeRate !== undefined) {
         updatedState = { ...updatedState, promoColor: "green" };
