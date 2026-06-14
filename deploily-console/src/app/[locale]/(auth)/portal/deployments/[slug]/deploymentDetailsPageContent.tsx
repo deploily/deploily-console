@@ -113,6 +113,12 @@ export default function DeploymentDetailsPageContent({ deploymentSlug }: { deplo
     }
   }, [managed_ressource_details?.isManaged]);
 
+  useEffect(() => {
+    if (deploymentServiceBySlug && deploymentServiceBySlug.service_slug == MOBILE_APPLICATION_SLUG) {
+        dispatch(updateNewDeploymentSubscriptionState({ managed_ressource_details: undefined }));
+      }
+  }, [deploymentServiceBySlug]);
+
   const { vpsManagedResourceResponse } = useVpsManagedResource();
 
 
