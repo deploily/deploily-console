@@ -8,8 +8,6 @@ import MyAppCard from "./myAppCard";
 
 export default function MyAppContainer() {
 
-  console.log("ààààààààààààààààààààààààààààààààààààààààààààààààààà");
-
   const dispatch = useAppDispatch();
   const { isLoading, MyApplicationList, loadingError } = useMyApplicationList();
   const t = useI18n();
