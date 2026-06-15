@@ -466,11 +466,13 @@ export default function DeploymentDetailsPageContent({ deploymentSlug }: { deplo
                       label: tdeployment("resourcePlan"),
                       value: managed_ressource_details?.plan_name || "",
                     },
+                   ] : []),
                     {
                       label: tdeployment("prepaTime"),
-                      value: `${managed_ressource_details?.preparation_time} h` || "",
-                    }] : []),  // Return empty array when falsy
-
+                      value: managed_ressource_details?.preparation_time ?
+                        `${managed_ressource_details?.preparation_time}` + deploymentServiceBySlug.service_slug == MOBILE_APPLICATION_SLUG ? tdeployment("days") : tdeployment("hours")
+                              : "",
+                    },
                     {
                       label: tdeployment("duration"),
                       value: (

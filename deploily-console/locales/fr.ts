@@ -521,6 +521,7 @@ export default {
     "price": "Prix",
     "preparation_time": "Temps de préparation",
     "hours": "Heures",
+    "days": "Jours",
     "svc": "Nom du déploiement",
     "plan": "Forfait",
     "provider": "Fournisseur de ressources",

@@ -511,6 +511,7 @@ export default {
         "price": "Price",
         "preparation_time": "Preparation time",
         "hours": "Hours",
+        "days": "Days",
         "svc": "Deployment name",
         "plan": "Plan",
         "provider": "Resource provider",
