@@ -21,7 +21,6 @@ export interface ApiServiceSubscriptionInterface {
   name: string;
   price: number;
   price_category: string;
-  unity: string;
   promo_code_id: number;
   service_plan_id: number;
   start_date: string;
@@ -65,7 +64,6 @@ export interface ServiceDetails {
   api_playground_url: string;
   unit_price: number;
   price_category: string;
-  unity: string;
   service_url: string;
   image_service: string;
   short_description: string;
@@ -78,7 +76,6 @@ export interface ServicePlan {
   id: number;
   price: number;
   subscription_category: string;
-  unity: string;
 }
 
 export interface NewUpgradeApiSubscription {

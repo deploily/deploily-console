@@ -17,7 +17,6 @@ export interface CloudResourceInterface {
   is_in_favorite: boolean;
   image_service: string;
   unit_price: number;
-  service_unity: string;
   price_category: string;
   logo: string;
 }
@@ -36,7 +35,6 @@ export interface ResourceInterface {
   provider?: Provider;
   discount: number;
   price_category: string;
-  service_unity: string;
 }
 
 export interface Provider {
@@ -91,7 +89,6 @@ export interface MyResource {
     "priority": number,
     "service_plan_type": string,
     "subscription_category": string,
-    "unity": string
   },
 }
 export interface MyWebHosting {

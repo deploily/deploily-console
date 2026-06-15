@@ -56,15 +56,6 @@ export default function SubscriptionPlanCard({
             {currentSubscription.get_plan_details.plan?.name ||
               currentSubscription.name}
           </Typography.Title>
-          {/* <Typography.Title level={2} style={{ color: theme.token.orange400 }}>
-                {Intl.NumberFormat("fr-FR", { useGrouping: true }).format(
-                  currentSubscription.total_amount / currentSubscription.duration_month,
-                )}{" "}
-                DZD {currentSubscription.service_plan?.unity} /{" "}
-                {currentSubscription.service_plan.subscription_category === "monthly"
-                  ? t("month")
-                  : t("year")}
-              </Typography.Title> */}
         </Row>
 
         {/* OPTIONS */}

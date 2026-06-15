@@ -24,7 +24,6 @@ interface Service_plan {
   is_custom: boolean;
   price: number;
   subscription_category: string;
-  unity: string;
 }
 export interface ServiceDetails {
   api_key: string | null;

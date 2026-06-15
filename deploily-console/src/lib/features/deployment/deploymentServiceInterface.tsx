@@ -16,7 +16,6 @@ export interface DeploymentsServiceInterface {
   price: string;
   image_service: string;
   price_category: string;
-  service_unity: string;
   description: string;
   is_subscribed: boolean;
   short_description: string;

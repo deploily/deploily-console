@@ -37,7 +37,6 @@ export interface ApplicationServiceInterface {
   unit_price: number;
   min_app_price: number;
   price_category: string;
-  service_unity: string;
   app_versions: AppVersionInterface[];
   is_subscribed: boolean;
 }

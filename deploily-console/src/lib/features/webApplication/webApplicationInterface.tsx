@@ -102,7 +102,6 @@ export interface ServiceDetails {
   price_category: string;
   sequence: number;
   service_slug: string;
-  service_unity: string;
   short_description: string;
   specifications: string;
   type: string;
@@ -119,5 +118,4 @@ export interface ServicePlan {
   priority: number;
   service_plan_type: string;
   subscription_category: string;
-  unity: string;
 }

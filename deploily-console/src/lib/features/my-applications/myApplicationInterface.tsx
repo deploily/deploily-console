@@ -24,7 +24,6 @@ export interface myApplicationInterface {
   application_status: string;
   price: number;
   price_category: string;
-  unity: string;
   duration_month: number;
   is_expired: boolean;
   is_trial: boolean;
@@ -45,7 +44,6 @@ export interface Service_plan {
   is_custom: boolean;
   price: number;
   subscription_category: string;
-  unity: string;
 }
 export interface ServiceDetails {
   id: number;
