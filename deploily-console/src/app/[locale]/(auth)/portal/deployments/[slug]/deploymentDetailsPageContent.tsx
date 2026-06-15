@@ -469,8 +469,8 @@ export default function DeploymentDetailsPageContent({ deploymentSlug }: { deplo
                    ] : []),
                     {
                       label: tdeployment("prepaTime"),
-                      value: managed_ressource_details?.preparation_time ?
-                        `${managed_ressource_details?.preparation_time}` + deploymentServiceBySlug.service_slug == MOBILE_APPLICATION_SLUG ? tdeployment("days") : tdeployment("hours")
+                      value: deployment_service_plan?.preparation_time ?
+                        `${deployment_service_plan?.preparation_time}` + deploymentServiceBySlug.service_slug == MOBILE_APPLICATION_SLUG ? tdeployment("days") : tdeployment("hours")
                               : "",
                     },
                     {

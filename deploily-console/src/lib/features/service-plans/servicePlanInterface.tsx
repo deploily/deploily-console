@@ -1,4 +1,4 @@
-import {ApiServiceInterface} from "../api-service/apiServiceInterface";
+import { ApiServiceInterface } from "../api-service/apiServiceInterface";
 
 export interface ServicePlanResponse {
   count: number;
@@ -25,6 +25,7 @@ export interface ServicePlan {
   is_trial: boolean;
   provider_info?: ServiceProviderInfo;
   subscription_category: string;
+  preparation_time?: number,
 }
 
 export interface Plan {
