@@ -15,9 +15,10 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# ✅ ADD THESE 3 LINES
 ARG NEXT_PUBLIC_BASE_URL
 ARG NEXT_PUBLIC_PAYMENT_ENABLED
+ARG NEXTAUTH_URL
+
 ENV NEXT_PUBLIC_BASE_URL=$NEXT_PUBLIC_BASE_URL
 ENV NEXT_PUBLIC_PAYMENT_ENABLED=$NEXT_PUBLIC_PAYMENT_ENABLED
 ENV NEXTAUTH_URL=$NEXTAUTH_URL
@@ -35,8 +36,9 @@ ENV NEXT_TELEMETRY_DISABLED=1
 RUN addgroup --system --gid 1001 app
 RUN adduser --system --uid 1001 app
 
-COPY --chown=app:app --from=builder /app/.next/standalone ./
-COPY --chown=app:app --from=builder /app/.next/static ./.next/static
+COPY --chown=app:app --from=builder /app/package.json ./package.json
+COPY --chown=app:app --from=builder /app/node_modules ./node_modules
+COPY --chown=app:app --from=builder /app/.next ./.next
 COPY --chown=app:app --from=builder /app/public ./public
 
 USER app
@@ -44,4 +46,4 @@ USER app
 ENV PORT=3000
 EXPOSE 3000
 
-CMD ["node", "server.js"]
+CMD ["node_modules/.bin/next", "start"]

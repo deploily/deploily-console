@@ -125,10 +125,7 @@ export default function DeploymentDetailsPageContent({ deploymentSlug }: { deplo
   if (isLoading) return <Skeleton active />;
   if (loadingError) return <div>Error: {loadingError}</div>;
   if (!deploymentServiceBySlug) return <div>No Deployment found</div>;
-  console.log("|||||||||||||||||||||||||||||||||||||||||||");
-
-  console.log(deployment_service_plan?.preparation_time);
-
+  
   return (
     <>
       <Space

@@ -69,8 +69,6 @@ export default function SelectVpsPlanTable({
           selectedRowId={managed_ressource_details && !managed_ressource_details.isManaged ? managed_ressource_details.id : undefined}
           onChange={handlePlanChange}
           data={servicePlansList.result.map((plan) => {
-            console.log("###################################");
-            console.log(plan.tva_rate);
             return ({
               key: plan.id,
               resource: plan,
@@ -153,12 +151,6 @@ export default function SelectVpsPlanTable({
               fixed: "right",
               width: 180,
               render: (price, record) => {
-                console.log("record   ", record);
-                console.log(record.tva_rate != null);
-                console.log( record.tva_rate > 0);
-                console.log(record.tva_rate != null && record.tva_rate > 0);
-                
-
                 return record.isManaged && record.isAlreadyPaid ? (
                   <Typography.Text style={{ color: theme.token.gray300 }}>—</Typography.Text>
                 ) : (

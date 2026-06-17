@@ -2,7 +2,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     transpilePackages: ['next-international', 'international-types',"deploily-ui-components"],
-    output: "standalone",
     images: {
         remotePatterns: [
             {

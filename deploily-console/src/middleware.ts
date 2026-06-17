@@ -29,26 +29,25 @@ export default async function middleware(req: NextRequest) {
   const publicPathnameRegex = RegExp(excludePattern, "i");
   const isPublicPage = !publicPathnameRegex.test(req.nextUrl.pathname);
 
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "";
 
-  // const externalSrc = `${process.env.CSP_HEADER_DEFAULT_SRC || process.env.NEXT_PUBLIC_BASE_URL}`;
-
-  // const cspHeader = `
-  //   default-src 'self' ${externalSrc} https://www.google.com/;
-  //   script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.google.com https://www.gstatic.com;
-  //   style-src 'self' 'unsafe-inline';
-  //   img-src * 'self' data: https:;
-  //   font-src 'self';
-  //   object-src 'none';
-  //   base-uri 'self';
-  //   form-action 'self';
-  //   frame-ancestors 'none';
-  //   connect-src 'self' https://www.facebook.com/tr/ https://www.google-analytics.com ${process.env.CSP_HEADER_CONNECT_SRC} ;
-  //   upgrade-insecure-requests;
-  //   `
+  const cspHeader = `
+  default-src 'self' ${baseUrl} https://www.google.com/;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.google.com https://www.gstatic.com;
+  style-src 'self' 'unsafe-inline';
+  img-src * 'self' data: https:;
+  font-src 'self';
+  object-src 'none';
+  base-uri 'self';
+  form-action 'self';
+  frame-ancestors 'none';
+  connect-src 'self' ${baseUrl} https://www.facebook.com/tr/ https://www.google-analytics.com;
+  upgrade-insecure-requests;
+`;
   // Replace newline characters and spaces
-  // const contentSecurityPolicyHeaderValue = cspHeader
-  //   .replace(/\s{2,}/g, " ")
-  //   .trim();
+  const contentSecurityPolicyHeaderValue = cspHeader
+    .replace(/\s{2,}/g, " ")
+    .trim();
 
   const requestHeaders = new Headers(req.headers);
   const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
@@ -56,10 +55,10 @@ export default async function middleware(req: NextRequest) {
   requestHeaders.set("x-nonce", nonce);
 
 
-  // requestHeaders.set(
-  //   "Content-Security-Policy",
-  //   contentSecurityPolicyHeaderValue
-  // );
+  requestHeaders.set(
+    "Content-Security-Policy",
+    contentSecurityPolicyHeaderValue
+  );
 
   let response;
   if (isPublicPage) {
@@ -70,10 +69,10 @@ export default async function middleware(req: NextRequest) {
   const defaultLocale = req.headers.get("x-your-custom-locale") || "en";
 
   response.headers.set("x-your-custom-locale", defaultLocale);
-  // response.headers.set(
-  //   "Content-Security-Policy",
-  //   contentSecurityPolicyHeaderValue
-  // );
+  response.headers.set(
+    "Content-Security-Policy",
+    contentSecurityPolicyHeaderValue
+  );
   response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
   response.headers.set("X-Frame-Options", "DENY");
   response.headers.set("X-Content-Type-Options", "nosniff");
