@@ -188,7 +188,7 @@ export function QuickActionCardComponent({
             {/* Card header with title + "View all" */}
             <div className={styles.cardHeader}>
               <h3 className={styles.cardHeaderTitle}>
-                  {t(`${action.listTitle}` as any)} + {` (${response.length})`}
+                  {t(`${action.listTitle}` as any)} {` (${response.length})`}
               </h3>
               <span
                 className={styles.cardHeaderLink}
