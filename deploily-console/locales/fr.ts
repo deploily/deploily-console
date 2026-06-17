@@ -558,6 +558,7 @@ export default {
   'dashboard.expiringSoonSubscriptions.status': 'Statut ',
   'dashboard.expiringSoonSubscriptions.amount': 'Montant ',
   'dashboard.expiringSoonSubscriptions.paymentMethod': 'Méthode de paiement ',
+  'dashboard.expiringSoonSubscriptions.notifications': 'Notifications',
 
   errorMessage: "Une erreur est survenue",
   subTitleErrorMessage: "Une erreur inattendue s'est produite. Veuillez réessayer plus tard.",
@@ -665,9 +666,9 @@ export default {
 
   // ── ReadyToScaleSection ────────────────────────────────────────────────────
   readyToScale: {
-    title: "Prêt à évoluer ?",
-    description: "Assurez un service ininterrompu pour vos applications.",
-    button: "Créer un profil de paiement si ce n’est pas déjà fait",
+    title: "Configurez votre profil de paiement",
+    description: "Ajoutez vos informations de facturation une seule fois et réutilisez-les pour toutes vos transactions. Moins d'une minute suffit.",
+    button: "Créer un profil de paiement",
   },
 
   // ── NotificationsList ──────────────────────────────────────────────────────

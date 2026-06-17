@@ -547,6 +547,7 @@ export default {
     'dashboard.expiringSoonSubscriptions.profile': 'Profile ',
     'dashboard.expiringSoonSubscriptions.status': 'Status ',
     'dashboard.expiringSoonSubscriptions.amount': 'Amount ',
+    'dashboard.expiringSoonSubscriptions.notifications': 'Notifications',
     'dashboard.expiringSoonSubscriptions.paymentMethod': 'Payment method ',
     errorMessage: "Something went wrong",
     subTitleErrorMessage: "An unexpected error occurred. Please try again later.",
@@ -655,9 +656,9 @@ export default {
 
     // ── ReadyToScaleSection ────────────────────────────────────────────────────
     readyToScale: {
-        title: "Ready to scale?",
-        description: "Ensure uninterrupted service for your applications.",
-        button: "Create a Payment profile if not already done",
+        title: "Set up your payment profile",
+        description: "Add your billing details once and reuse them across all your transactions. Takes less than a minute.",
+        button: "Create Payment profile",
     },
 
     // ── NotificationsList ──────────────────────────────────────────────────────

@@ -1,10 +1,10 @@
 "use client";
-import React, { ReactNode, useEffect, useState } from "react";
-import {Layout} from "antd";
-import {MainSideBar} from "../components/sideBar";
-import {AppAppBarDesktop, AppAppBarMobile} from "../components/appBar";
+import { Layout } from "antd";
+import { ReactNode, useEffect, useState } from "react";
+import { AppAppBarDesktop, AppAppBarMobile } from "../components/appBar";
+import { MainSideBar } from "../components/sideBar";
 
-const {Content} = Layout;
+const { Content } = Layout;
 
 export default function PortalContent({
   children,
@@ -28,7 +28,7 @@ export default function PortalContent({
   }, []);
 
   return (
-    <Layout style={{overflow: "hidden", height: "100vh"}}>
+    <Layout style={{ overflow: "hidden", height: "100vh" }}>
       {shouldShowDesktop && <AppAppBarDesktop />}
       {!shouldShowDesktop && <AppAppBarMobile />}
       <Layout>
@@ -41,9 +41,12 @@ export default function PortalContent({
             backgroundRepeat: "no-repeat, no-repeat",
             backgroundPosition: "bottom left, top right",
             backgroundAttachment: "fixed",
+            // backgroundColor:'#16181F'
+            // backgroundColor: '#25262C'
+            backgroundColor: '#2A2A2A'
           }}
         >
-          <Content style={{padding: "0px", maxWidth: "1200px", margin: "0 auto", width: "100%"}}>
+          <Content style={{ padding: "0px", maxWidth: "1200px", margin: "0 auto", width: "100%" }}>
             {children}
           </Content>
         </Content>
