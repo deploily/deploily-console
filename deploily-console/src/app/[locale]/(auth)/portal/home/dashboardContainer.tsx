@@ -9,6 +9,7 @@ import QuickActionCards from "./components/QuickActionCards";
 import styles from "./components/TableStyles.module.css";
 import WelcomeHeader from "./components/WelcomeHeader";
 import { fetchDashboardData } from "./features/dashboardThunks";
+import ReadyToScaleSection from "./components/ReadyToScaleSection";
 
 // ─── Ad Banner Type ────────────────────────────────────────────────────────────
 // This single object drives the full-width hero banner.
@@ -133,12 +134,12 @@ export default function DashboardPage() {
       <WelcomeHeader firstName={currentProfile?.first_name} />
 
       {/* <AdHeroBannerSection /> */}
+      <ReadyToScaleSection />
 
       <QuickActionCards />
 
-
-
       <ExpiringSubscriptionsCard />
+      
 
 
       <style jsx>{`

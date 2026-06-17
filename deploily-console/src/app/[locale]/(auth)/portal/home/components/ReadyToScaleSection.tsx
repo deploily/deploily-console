@@ -1,35 +1,40 @@
-import { Card, Button } from "antd";
-import { Rocket } from "@phosphor-icons/react/dist/ssr";
+import { usePaymentProfiles } from "@/lib/features/payment-profiles/paymentProfilesSelectors";
+import { RocketIcon } from "@phosphor-icons/react";
+import { Button, Card } from "antd";
 import { useRouter } from "next/navigation";
 import { useScopedI18n } from "../../../../../../../locales/client";
 
 export default function ReadyToScaleSection() {
   const router = useRouter();
   const t = useScopedI18n("readyToScale");
+  const { paymentProfilesList } = usePaymentProfiles();
 
   return (
-    <div className="scale-section">
-      <Card className="scale-card">
-        <div className="scale-content">
-          <div className="scale-icon-wrapper">
-            <Rocket size={48} weight="duotone" className="scale-icon" />
-          </div>
-          <div className="scale-text">
-            <h3 className="scale-title">{t("title")}</h3>
-            <p className="scale-description">{t("description")}</p>
-          </div>
-          <Button
-            type="primary"
-            size="large"
-            className="scale-button"
-            onClick={() => router.push("/portal/create-payment")}
-          >
-            {t("button")}
-          </Button>
-        </div>
-      </Card>
+    <>
+      {paymentProfilesList && paymentProfilesList.result.length > 0 && paymentProfilesList.result.find(
+        (profile) => profile.profile_type != "default" ) == undefined &&
+        <div className="scale-section">
+          <Card className="scale-card">
+            <div className="scale-content">
+              <div className="scale-icon-wrapper">
+                <RocketIcon size={48} weight="duotone" className="scale-icon" />
+              </div>
+              <div className="scale-text">
+                <h3 className="scale-title">{t("title")}</h3>
+                <p className="scale-description">{t("description")}</p>
+              </div>
+              <Button
+                type="primary"
+                size="large"
+                className="scale-button"
+                onClick={() => router.push("/portal/payment-profiles/add")}
+              >
+                {t("button")}
+              </Button>
+            </div>
+          </Card>
 
-      <style jsx>{`
+          <style jsx>{`
         .scale-section {
           margin-bottom: 24px;
           position: relative;
@@ -37,7 +42,7 @@ export default function ReadyToScaleSection() {
         }
 
         :global(.scale-card) {
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+          background: linear-gradient(135deg, #8e6d4c 0%, #3b4b5a 100%) !important;
           border: none !important;
           border-radius: 16px !important;
           overflow: hidden;
@@ -104,7 +109,7 @@ export default function ReadyToScaleSection() {
 
         :global(.scale-button) {
           background: #fff !important;
-          color: #667eea !important;
+          color: #8d5718 !important;
           border: none !important;
           font-weight: 600 !important;
           height: 48px !important;
@@ -154,6 +159,7 @@ export default function ReadyToScaleSection() {
           }
         }
       `}</style>
-    </div>
+        </div>}
+    </>
   );
 }

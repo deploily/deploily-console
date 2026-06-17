@@ -1,16 +1,16 @@
 "use client";
 import federatedLogout from "@/lib/utils/federatedLogout";
-import {CaretUp, User} from "@phosphor-icons/react";
-import {ArrowLeft, ArrowRight, SignOut} from "@phosphor-icons/react/dist/ssr";
-import {Button, Dropdown, Layout, Menu, Space} from "antd";
+import { CaretUp, User } from "@phosphor-icons/react";
+import { ArrowLeft, ArrowRight, SignOut } from "@phosphor-icons/react/dist/ssr";
+import { Button, Dropdown, Layout, Menu, Space } from "antd";
 import Link from "next/link";
-import {usePathname} from "next/navigation";
-import {useState} from "react";
-import {useScopedI18n} from "../../../../../../locales/client";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
+import { useScopedI18n } from "../../../../../../locales/client";
 import FeedbackAlert from "../feed-back/feedBackAlert";
-import {menuItems} from "./menuItems";
+import { menuItems } from "./menuItems";
 
-const {Sider} = Layout;
+const { Sider } = Layout;
 
 export function MainSideBar() {
   const [collapsed, setCollapsed] = useState(false);
@@ -39,7 +39,7 @@ export function MainSideBar() {
       label: (
         <div
           onClick={() => federatedLogout()}
-          style={{display: "flex", alignItems: "center", gap: 8, cursor: "pointer"}}
+          style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer" }}
         >
           <SignOut size={24} />
           <span>{scopedSidebar("logout")}</span>
@@ -57,7 +57,9 @@ export function MainSideBar() {
       style={{
         lineHeight: "120px",
         color: "#fff",
-        background: "rgba(12, 13, 15, 0.85)",
+        // background: "#0E0F14",
+        // background: "#1B1C20",
+        backgroundColor: '#181818',
         display: "flex",
         flexDirection: "column",
       }}
@@ -66,9 +68,10 @@ export function MainSideBar() {
         defaultSelectedKeys={["1"]}
         mode="inline"
         items={menuItems(scopedSidebar)}
-        style={{flexGrow: 1}}
+        style={{ flexGrow: 1, background: "#181818" }}
         selectable
         selectedKeys={[`${parentKey}`]}
+      
       />
       <div
         style={{
@@ -76,7 +79,7 @@ export function MainSideBar() {
           textAlign: "center",
           cursor: "pointer",
           color: "#fff",
-          background: "rgba(12, 13, 15, 0.9)",
+          background: "#181818",
           padding: "10px",
           marginTop: "auto",
           position: "absolute",
@@ -90,14 +93,14 @@ export function MainSideBar() {
           ) : (
             <>
               <ArrowLeft size={24} color="#7D7D7D" />
-              <span style={{paddingLeft: 10, fontSize: 16, color: "#7D7D7D"}}>
+              <span style={{ paddingLeft: 10, fontSize: 16, color: "#7D7D7D" }}>
                 {scopedSidebar("collapse")}
               </span>
             </>
           )}
         </Space>
 
-        <Dropdown menu={{items}} trigger={["click"]}>
+        <Dropdown menu={{ items }} trigger={["click"]}>
           <Button
             style={{
               width: "100%",
@@ -108,6 +111,7 @@ export function MainSideBar() {
               display: "flex",
               justifyContent: "space-evenly",
               alignItems: "center",
+              background: "#181818",
             }}
           >
             <User size={24} color="rgba(220, 233, 245, 0.88)" />
@@ -148,7 +152,7 @@ export function MainSideBarMobile() {
       label: (
         <div
           onClick={() => federatedLogout()}
-          style={{display: "flex", alignItems: "center", gap: 8, cursor: "pointer"}}
+          style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer" }}
         >
           <SignOut size={24} />
           <span>{scopedSidebar("logout")}</span>
@@ -159,7 +163,7 @@ export function MainSideBarMobile() {
 
   return (
     <>
-      <div style={{textAlign: "center"}}>
+      <div style={{ textAlign: "center" }}>
         <FeedbackAlert />
       </div>
 
@@ -168,10 +172,10 @@ export function MainSideBarMobile() {
         defaultOpenKeys={["sub1"]}
         mode="inline"
         items={menuItems(scopedSidebar)}
-        style={{flexGrow: 1}}
+        style={{ flexGrow: 1 }}
       />
 
-      <Dropdown menu={{items}} trigger={["click"]}>
+      <Dropdown menu={{ items }} trigger={["click"]}>
         <Button
           style={{
             width: "100%",
