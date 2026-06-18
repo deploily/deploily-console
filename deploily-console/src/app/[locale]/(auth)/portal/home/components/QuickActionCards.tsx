@@ -188,7 +188,7 @@ export function QuickActionCardComponent({
             {/* Card header with title + "View all" */}
             <div className={styles.cardHeader}>
               <h3 className={styles.cardHeaderTitle}>
-                {t(`${action.listTitle}` as any)}
+                  {t(`${action.listTitle}` as any)} {` (${response.length})`}
               </h3>
               <span
                 className={styles.cardHeaderLink}
@@ -302,16 +302,17 @@ export function QuickActionCardComponent({
                 <Button
                   onClick={() => router.push(action.link)}
                   style={{
-                    backgroundColor: theme.token.orange400,
+                    backgroundColor: theme.token.orange600,
                     color: "white",
-                    fontWeight: "bold",
-                    fontSize: "12px",
+                    fontWeight: "900",
+                    fontSize: "13px",
                     borderRadius: "8px",
                     border: "none",
                     cursor: "pointer",
                     height: "38px",
                     paddingLeft: 18,
                     paddingRight: 18,
+                    minWidth: "250px"
                   }}
                 >
                   {t(`${action.key}.button` as any)}
@@ -332,7 +333,7 @@ function QuickActionCardSkeleton() {
         style={{
           margin: 0,
           width: "100%",
-          background: theme.token.darkGray,
+          background: '#1d1d1d',
           borderRadius: 16,
           padding: 0,
           height: "100%",

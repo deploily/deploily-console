@@ -1,17 +1,24 @@
 import { Card } from "antd";
+import { useScopedI18n } from "../../../../../../../locales/client";
+import { useDashboard } from "../features/dashboardSelector";
 import ExpiringSoonSubscriptionsListContainer from "./ExpiringSoonSubscriptionsListContainer";
 
 export default function ExpiringSubscriptionsCard() {
+  const { dashboardResponse, dashboardLoading } = useDashboard();
+  const t = useScopedI18n("dashboard.expiringSoonSubscriptions");
 
+  if (!dashboardLoading && dashboardResponse?.expiring_soon.length === 0) {
+    return <></>
+  }
   return (
     <div className="expiring-section">
-      <Card 
+      <Card
         className="expiring-card"
-        // title={
-        //   <span className="card-title">
-        //     {dashboardTranslate("expiringSoonSubscriptions.expiringSoonSubscriptions")}
-        //   </span>
-        // }
+        title={
+          <span className="card-title">
+            {t("notifications")}
+          </span>
+        }
       >
         <ExpiringSoonSubscriptionsListContainer />
       </Card>
@@ -32,7 +39,7 @@ export default function ExpiringSubscriptionsCard() {
 
         :global(.expiring-card .ant-card-head) {
           border-bottom: 1px solid #1d1d1d !important;
-          background: rgba(15, 23, 42, 0.4);
+          background: #1d1d1d;
         }
 
         :global(.card-title) {

@@ -139,7 +139,7 @@ export default function ExpiringSoonSubscriptionsListContainer() {
     return (<LoadingErrorContainer />);
   }    
   if(!dashboardLoading && dashboardResponse?.expiring_soon.length === 0) { 
-       return <EmptyListContainer />
+       return <></>
       }
 
   return (
