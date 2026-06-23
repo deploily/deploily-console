@@ -22,7 +22,6 @@ import { options } from "../utils/applicationConst";
 import ApplicationDetailsCollapseContainer from "./containers/applicationDetailsCollapseContainer";
 import ApplicationPlansContainer from "./containers/applicationPlansContainer";
 import ApplicationDescriptionContainer from "./containers/descriptionContainer";
-import AppPromoCodeTextField from "./containers/payment-components/appPromoCodeTextField";
 import PaymentDrawer from "./containers/payment-components/paymentDrawer";
 import SelectManagedRessourcePlanCard from "./containers/selectManagedRessourcePlanCard";
 import SelectManagedRessourceTable from "./containers/selectManagedRessourceTable";
@@ -253,14 +252,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
                                                 />
 
                                             ),
-                                        },
-                                        {
-                                            label: tApplications('promoCode'),
-                                            value: (
-                                                <AppPromoCodeTextField />
-                                            ),
-                                        },
-
+                                        }
                                     ]}
                                     onClick={() => setOpenDrawer(true)}
                                 />
@@ -510,13 +502,7 @@ export default function ApplicationDetailsPageContent({ applicationId }: { appli
 
                                             />
                                         ),
-                                    },
-                                    ...!app_service_plan?.is_trial ? [{
-                                        label: tApplications('promoCode'),
-                                        value: (
-                                            <AppPromoCodeTextField />
-                                        ),
-                                    }] : [],
+                                    }
                                 ]}
                                 onClick={() => setOpenDrawer(true)}
                             />

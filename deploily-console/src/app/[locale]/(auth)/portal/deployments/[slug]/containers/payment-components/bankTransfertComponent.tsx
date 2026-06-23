@@ -4,7 +4,6 @@ import {theme} from "@/styles/theme";
 import {Button, Card, Typography} from "antd";
 import {useEffect, useState} from "react";
 import {useScopedI18n} from "../../../../../../../../../locales/client";
-// import { useUpgradeRenewMyApplicationDataState } from "@/lib/features/my-applications/myApplicationSelector";
 import {useNewDeploymentSubscription} from "@/lib/features/deployment/deploymentServiceSelectors";
 import bankPaymentInfo from "./bankPaymentData";
 
@@ -16,7 +15,6 @@ export default function BankTransfertComponent({
   handleSubscribe: () => Promise<void>;
 }) {
   const {totalAmount} = useNewDeploymentSubscription();
-  // const { totalamount } = useUpgradeRenewMyApplicationDataState()
   const tBankPayment = useScopedI18n("bankPayment");
   const tPayments = useScopedI18n("payments");
 
@@ -52,14 +50,7 @@ export default function BankTransfertComponent({
     >
       <div style={{display: "flex", flexDirection: "column", gap: 20}}>
         {/* Total Amount */}
-        {isSubscribed ? (
-          <Typography.Title level={5} style={{fontWeight: 500}}>
-            {tPayments("totalToPay")}:{" "}
-            <Typography.Text strong style={{fontSize: 18}}>
-              {/* {Intl.NumberFormat('fr-FR', { useGrouping: true }).format(totalamount)} DZD */}
-            </Typography.Text>
-          </Typography.Title>
-        ) : (
+        {(
           <Typography.Title level={5} style={{fontWeight: 500}}>
             {tPayments("totalToPay")}:{" "}
             <Typography.Text strong style={{fontSize: 18}}>

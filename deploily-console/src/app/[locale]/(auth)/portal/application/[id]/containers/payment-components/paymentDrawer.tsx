@@ -27,7 +27,6 @@ export default function PaymentDrawer({ openDrawer, onClose }: { openDrawer: any
   const { applicationServiceById } = useApplicationServiceById();
   const { paymentProfilesList } = useNotDefaultPaymentProfiles();
   const {
-    promoCode,
     totalAmount,
     duration,
     selected_version,
@@ -52,7 +51,6 @@ export default function PaymentDrawer({ openDrawer, onClose }: { openDrawer: any
         if(app_service_plan.is_trial){ 
            newSubscriptionObject = {
             duration: Number.parseInt(`${duration}`),
-            promo_code: promoCode,
             payment_method: "cloud_credit",
             service_plan_selected_id: app_service_plan.id,
             profile_id: selectedProfile?.id,
@@ -73,7 +71,6 @@ export default function PaymentDrawer({ openDrawer, onClose }: { openDrawer: any
       else if ((managed_ressource_details != undefined || byor) && selectedProfile != undefined){
        newSubscriptionObject = {
         duration: Number.parseInt(`${duration}`),
-        promo_code: promoCode,
         payment_method: "cloud_credit",
         service_plan_selected_id: app_service_plan.id,
         ...!byor && managed_ressource_details != undefined && (managed_ressource_details.isManaged

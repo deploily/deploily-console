@@ -46,9 +46,6 @@ const initialState: ApplicationServiceState = {
     selectedProfile: undefined,
     isBalanceSufficient: null,
     selected_version: undefined,
-    promoCode: "",
-    promoCodeRate: undefined,
-    promoColor: undefined,
     byor: false,
     provider_name: undefined,
   },
@@ -79,10 +76,6 @@ const ApplicationServiceSlice = createSlice({
           // no TVA, just add base price
           updatedAmount += total_price_ressource;
         }
-      }
-      if (updatedState.promoCodeRate !== undefined) {
-        updatedState = { ...updatedState, promoColor: "green" };
-        updatedAmount = updatedAmount - (updatedAmount * (updatedState.promoCodeRate || 0)) / 100;
       }
       updatedState = { ...updatedState, totalAmount: updatedAmount };
 

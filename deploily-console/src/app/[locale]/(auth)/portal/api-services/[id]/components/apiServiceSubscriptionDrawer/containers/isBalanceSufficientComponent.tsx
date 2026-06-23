@@ -3,8 +3,6 @@
 import {useApiServiceSubscriptionStates} from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSelectors";
 import {
   postApiServiceSubscription,
-  postRenewApiServiceSubscription,
-  postUpgradeApiServiceSubscription,
 } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionThunks";
 import {fetchPaymentProfiles} from "@/lib/features/payment-profiles/paymentProfilesThunks";
 import {useAppDispatch} from "@/lib/hook";
@@ -26,7 +24,7 @@ export default function IsBalanceSufficientComponent({
   subscriptionOldId: any;
   drawerType?: any;
 }) {
-  const {selectedProfile, duration, totalAmount, promoCode , phone} = useApiServiceSubscriptionStates();
+  const {selectedProfile, duration, totalAmount , phone} = useApiServiceSubscriptionStates();
   const translate = useScopedI18n("apiServiceSubscription");
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -35,43 +33,12 @@ export default function IsBalanceSufficientComponent({
     const baseSubscriptionData = {
       duration,
       total_amount: totalAmount,
-      promo_code: promoCode,
       payment_method: "cloud_credit",
       service_plan_selected_id: planSelected.id,
       profile_id: selectedProfile?.id || 1,
       phone: phone,
 
     };
-
-    // Upgrade
-    if (IsSubscribed && drawerType === "upgrade") {
-      return dispatch(
-        postUpgradeApiServiceSubscription({
-          ...baseSubscriptionData,
-          old_subscription_id: subscriptionOldId,
-        }),
-      ).then((response: any) => {
-        if (response.meta.requestStatus === "fulfilled") {
-          dispatch(fetchPaymentProfiles());
-          router.push("/portal/my-api/");
-        }
-      });
-    }
-
-    // Renew
-    if (IsSubscribed && drawerType === "renew") {
-      return dispatch(
-        postRenewApiServiceSubscription({
-          ...baseSubscriptionData,
-          old_subscription_id: subscriptionOldId,
-        }),
-      ).then((response: any) => {
-        if (response.meta.requestStatus === "fulfilled") {
-          dispatch(fetchPaymentProfiles());
-          router.push("/portal/my-api/");
-        }
-      });
-    }
 
     // New Subscription
     return dispatch(postApiServiceSubscription(baseSubscriptionData)).then((response: any) => {
