@@ -50,9 +50,6 @@ export interface NewApplicationSubscriptionState {
   managed_ressource_details?: ManagedRessourceDetails;
   app_service_plan?: ServicePlan;
   selected_version?: AppVersionInterface;
-  promoCode: string;
-  promoCodeRate?: number;
-  promoColor?: string;
   phone?: string;
   byor: boolean;
   provider_name?: string;
@@ -88,7 +85,6 @@ export interface ApplicationSubscriptionInterface {
   duration_month: number;
   name: string;
   price: number;
-  promo_code_id: number;
   service_plan_id: number;
   start_date: Date;
   status: string;

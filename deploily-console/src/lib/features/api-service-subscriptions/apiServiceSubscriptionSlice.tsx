@@ -2,16 +2,12 @@ import {createSlice} from "@reduxjs/toolkit";
 import {
   ApiServiceSubscriptionInterface,
   NewApiServiceSubscriptionResponse,
-  NewUpgradeApiSubscription,
-  RenewApiSubscription,
 } from "./apiServiceSubscriptionInterface";
 import {
   fetchApiServiceSubscription,
   fetchApiServiceSubscriptionById,
   generateTokenThunk,
   postApiServiceSubscription,
-  postRenewApiServiceSubscription,
-  postUpgradeApiServiceSubscription,
 } from "./apiServiceSubscriptionThunks";
 
 interface ApiServiceSubscriptionState {
@@ -28,8 +24,6 @@ interface ApiServiceSubscriptionState {
   isApiServiceSubscriptionCreatedSuccess: boolean;
   isApiServiceSubscriptionCreatedFailed: boolean;
   newApiServiceSubscriptionResponse?: NewApiServiceSubscriptionResponse;
-  newUpgradeApiSubscriptionResponse: NewUpgradeApiSubscription;
-  renewApiSubscriptionResponse: RenewApiSubscription;
 }
 
 const initialState: ApiServiceSubscriptionState = {
@@ -46,17 +40,6 @@ const initialState: ApiServiceSubscriptionState = {
   isApiServiceSubscriptionCreatedSuccess: false,
   isApiServiceSubscriptionCreatedFailed: false,
   newApiServiceSubscriptionResponse: undefined,
-
-  newUpgradeApiSubscriptionResponse: {
-    newUpgradeApiSubscriptionIsLoading: false,
-    newpgradeApiSubscriptionFailed: false,
-    upgradeApiSubscriptionCreatedSuccess: undefined,
-  },
-  renewApiSubscriptionResponse: {
-    renewApiSubscriptionIsLoading: false,
-    renewApiSubscriptionFailed: false,
-    renewApiSubscriptionCreatedSuccess: undefined,
-  },
 };
 const apiServiceSubscriptionSlice = createSlice({
   name: "apiServiceSubscription",
@@ -124,36 +107,6 @@ const apiServiceSubscriptionSlice = createSlice({
         state.isApiServiceSubscriptionCreatedSuccess = true;
         state.newApiServiceSubscriptionResponse = payload;
         state.isApiServiceSubscriptionCreatedFailed = false;
-      })
-      .addCase(postUpgradeApiServiceSubscription.pending, (state) => {
-        state.newUpgradeApiSubscriptionResponse.newUpgradeApiSubscriptionIsLoading = true;
-        state.newUpgradeApiSubscriptionResponse.upgradeApiSubscriptionCreatedSuccess = undefined;
-        state.newUpgradeApiSubscriptionResponse.newpgradeApiSubscriptionFailed = false;
-      })
-      .addCase(postUpgradeApiServiceSubscription.rejected, (state) => {
-        state.newUpgradeApiSubscriptionResponse.newUpgradeApiSubscriptionIsLoading = false;
-        state.newUpgradeApiSubscriptionResponse.newpgradeApiSubscriptionFailed = true;
-        state.newUpgradeApiSubscriptionResponse.upgradeApiSubscriptionCreatedSuccess = undefined;
-      })
-      .addCase(postUpgradeApiServiceSubscription.fulfilled, (state, {payload}) => {
-        state.newUpgradeApiSubscriptionResponse.newUpgradeApiSubscriptionIsLoading = false;
-        state.newUpgradeApiSubscriptionResponse.upgradeApiSubscriptionCreatedSuccess = payload;
-        state.newUpgradeApiSubscriptionResponse.newpgradeApiSubscriptionFailed = false;
-      })
-      .addCase(postRenewApiServiceSubscription.pending, (state) => {
-        state.renewApiSubscriptionResponse.renewApiSubscriptionIsLoading = true;
-        state.renewApiSubscriptionResponse.renewApiSubscriptionCreatedSuccess = undefined;
-        state.renewApiSubscriptionResponse.renewApiSubscriptionFailed = false;
-      })
-      .addCase(postRenewApiServiceSubscription.rejected, (state) => {
-        state.renewApiSubscriptionResponse.renewApiSubscriptionIsLoading = false;
-        state.renewApiSubscriptionResponse.renewApiSubscriptionFailed = true;
-        state.renewApiSubscriptionResponse.renewApiSubscriptionCreatedSuccess = undefined;
-      })
-      .addCase(postRenewApiServiceSubscription.fulfilled, (state, {payload}) => {
-        state.renewApiSubscriptionResponse.renewApiSubscriptionIsLoading = false;
-        state.renewApiSubscriptionResponse.renewApiSubscriptionCreatedSuccess = payload;
-        state.renewApiSubscriptionResponse.renewApiSubscriptionFailed = false;
       });
   },
 });

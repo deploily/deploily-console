@@ -51,7 +51,6 @@ export default function DeploymentPaymentComponent({
       selectedProfile,
       // selected_version,
       duration,
-      promoCode,
       phone,
       byor,
       provider_name,
@@ -62,7 +61,6 @@ export default function DeploymentPaymentComponent({
       // if (deployment_service_plan && selectedProfile) {
       const baseSubscriptionObject = {
         duration: Number.parseInt(`${duration}`),
-        promo_code: promoCode,
         payment_method: paymentMethod,
         service_plan_selected_id: deployment_service_plan.id,
         profile_id: selectedProfile.id,
@@ -80,33 +78,6 @@ export default function DeploymentPaymentComponent({
           ? {...baseSubscriptionObject, captcha_token: captchaToken}
           : baseSubscriptionObject;
       if (isSubscribed) {
-        if (drawerType === "renew") {
-          // dispatch(
-          //   renewMyApplication({
-          //     service_slug: deploymentServiceById?.service_slug,
-          //     payment_method: "bank_transfer",
-          //     subscriptionOldId: subscriptionOldId,
-          //   }),
-          // ).then((response: any) => {
-          //   if (response.meta.requestStatus === "fulfilled") {
-          //     router.push(`/portal/my-applications`);
-          //   }
-          // });
-        }
-
-        if (drawerType === "upgrade") {
-          // dispatch(
-          //   upgradeMyApplication({
-          //     service_slug: deploymentServiceById?.service_slug,
-          //     payment_method: "bank_transfer",
-          //     subscriptionOldId: subscriptionOldId,
-          //   }),
-          // ).then((response: any) => {
-          //   if (response.meta.requestStatus === "fulfilled") {
-          //     router.push(`/portal/my-applications`);
-          //   }
-          // });
-        }
       } else {
         // otherwise, it's a new subscription
         dispatch(

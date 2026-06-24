@@ -3,8 +3,6 @@ import { DivCard } from "@/styles/components/divStyle";
 import { theme } from "@/styles/theme";
 import { Row, Typography } from "antd";
 import { useI18n } from "../../../../../../locales/client";
-// import RenewApiSubscriptionComponents from "../my-api/[id]/components/renewSubscription";
-// import UpgradeApiSubscriptionComponents from "../my-api/[id]/components/upgradeSubscription";
 
 export default function SubscriptionPlanCard({
   currentSubscription,
@@ -12,7 +10,6 @@ export default function SubscriptionPlanCard({
   currentSubscription: any;
 }) {
   const t = useI18n();
-  // const [drawerActionType, setDrawerActionType] = useState<"upgrade" | "renew" | null>(null);
 
   return (
     <>
@@ -138,42 +135,10 @@ export default function SubscriptionPlanCard({
                 </div>
               )}
 
-            {/* Action Buttons */}
-            {/* {currentSubscription.status === "active" && (
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 12,
-                  marginTop: 32,
-                }}
-              >
-                <RenewApiSubscriptionComponents
-                  serviceId={currentSubscription.service_details.id}
-                  oldPrice={currentSubscription.price}
-                  plan={currentSubscription.service_plan_id}
-                  start_date={currentSubscription.start_date}
-                  onClick={() => setDrawerActionType("renew")}
-                />
-                <UpgradeApiSubscriptionComponents
-                  serviceId={currentSubscription.service_details.id}
-                  oldPrice={currentSubscription.price}
-                  planSelectedId={currentSubscription.service_plan_id}
-                  start_date={currentSubscription.start_date}
-                  oldDuration={currentSubscription.duration_month}
-                  onClick={() => setDrawerActionType("upgrade")}
-                />
-              </div>
-            )} */}
+          
           </DivCard>
         )}
       </Row>
-
-      {/* <ShowdrawerSubscription
-        IsSubscribed={currentSubscription.service_details.is_subscribed}
-        subscriptionOldId={currentSubscription.id}
-        drawerType={drawerActionType}
-      /> */}
     </>
   );
 }

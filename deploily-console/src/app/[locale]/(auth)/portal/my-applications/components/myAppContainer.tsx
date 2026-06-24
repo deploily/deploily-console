@@ -5,6 +5,7 @@ import { Card, Col, Result, Row } from "antd";
 import { useEffect } from "react";
 import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
 import MyAppCard from "./myAppCard";
+import NoResult from "@/components/containers/noResultComponent";
 
 export default function MyAppContainer() {
 
@@ -59,11 +60,11 @@ export default function MyAppContainer() {
 
       {/* Empty */}
       {!isLoading && !loadingError && MyApplicationList?.length === 0 && (
-        <Result
-          status="404"
+        <NoResult        
           title={tApp("noApplications")}
-          subTitle={tApp("noActiveApplicationsFound")}
-        />
+          subTitle={tApp("noActiveApplicationsFound")} 
+          redirectLabel={tApp("explore")} 
+          redirectUrl="/portal/application" />
       )}
     </>
   );

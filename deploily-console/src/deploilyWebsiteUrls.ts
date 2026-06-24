@@ -24,7 +24,6 @@ export const deploilyApiUrls = {
   PAYMENT_RECEIPT: `/upload-receipt`,
   SERVICE_SUBSCRIPTION: `${API_BASE_URL}/api-service-subscription/subscribe`,
   API_SERVICE_SUBSCRIPTION: `${API_BASE_URL}/api-service-subscription/subscribe`,
-  CHECK_PROMO_CODE: `${API_BASE_URL}/promo-code/`,
   EPAYMENT_STATUS: `${API_BASE_URL}/service-subscription/payment-status`,
   CONTACT_US: `${API_BASE_URL}/contact-us/`,
   USER: `${API_BASE_URL}/user/me`,
@@ -41,30 +40,18 @@ export const deploilyApiUrls = {
   APP_SERVICE_SUBSCRIPTION_URL: `${API_BASE_URL}/app-service-subscription/`,
   TTK_EPAY_APP_SUBSCRIPTION_URL: `${API_BASE_URL}/ttk-epay-app-service-subscription`,
   RESOURCE_SERVICE_PLANS_URL: `${API_BASE_URL}/service-plan-ressource-vps/all`,
-  API_SERVICE_SUBSCRIPTION_UPGRADE: `${API_BASE_URL}/api-service-subscription/upgrade`,
-  API_SERVICE_SUBSCRIPTION_RENEW: `${API_BASE_URL}/api-service-subscription/renew`,
-  TTK_EPAY_APP_SUBSCRIPTION_RENEW: `${API_BASE_URL}/ttk-epay-app-service-subscription/renew`,
-  TTK_EPAY_APP_SUBSCRIPTION_UPGRADE_URL: `${API_BASE_URL}/ttk-epay-app-service-subscription/upgrade`,
 
   ODOO_APP_SUBSCRIPTION_URL: `${API_BASE_URL}/odoo-app-service-subscription`,
   APP_ODOO_SUBSCRIBE_URL: `${API_BASE_URL}/odoo-app-service-subscription/subscribe`,
-  ODOO_APP_SUBSCRIPTION_RENEW_URL: `${API_BASE_URL}/odoo-app-service-subscription/renew`,
-  ODOO_APP_SUBSCRIPTION_UPGRADE_URL: `${API_BASE_URL}/odoo-app-service-subscription/upgrade`,
 
   SUPABASE_APP_SUBSCRIBE_URL: `${API_BASE_URL}/supabase-app-service-subscription/subscribe`,
   SUPABASE_APP_SUBSCRIPTION_URL: `${API_BASE_URL}/supabse-app-service-subscription`,
-  SUPABASE_APP_SUBSCRIPTION_RENEW_URL: `${API_BASE_URL}/supabase-app-service-subscription/renew`,
-  SUPABASE_APP_SUBSCRIPTION_UPGRADE_URL: `${API_BASE_URL}/supabase-app-service-subscription/upgrade`,
 
   NEXT_CLOUD_APP_SUBSCRIBE_URL: `${API_BASE_URL}/nextcloud-app-service-subscription/subscribe`,
   NEXT_CLOUD_APP_SUBSCRIPTION_URL: `${API_BASE_URL}/nextcloud-app-service-subscription`,
-  NEXT_CLOUD_APP_SUBSCRIPTION_RENEW_URL: `${API_BASE_URL}/nextcloud-app-service-subscription/renew`,
-  NEXT_CLOUD_APP_SUBSCRIPTION_UPGRADE_URL: `${API_BASE_URL}/nextcloud-app-service-subscription/upgrade`,
 
   HI_EVENTS_APP_SUBSCRIBE_URL: `${API_BASE_URL}/hi-events-app-service-subscription/subscribe`,
   HI_EVENTS_APP_SUBSCRIPTION_URL: `${API_BASE_URL}/hi-events-app-service-subscription`,
-  HI_EVENTS_APP_SUBSCRIPTION_RENEW_URL: `${API_BASE_URL}/hi-events-app-service-subscription/renew`,
-  HI_EVENTS_APP_SUBSCRIPTION_UPGRADE_URL: `${API_BASE_URL}/hi-events-app-service-subscription/upgrade`,
 
   HISTORY_SUBSCRIPTION_URL: `${API_BASE_URL}/subscription/history`,
 

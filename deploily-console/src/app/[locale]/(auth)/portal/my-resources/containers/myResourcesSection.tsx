@@ -61,7 +61,7 @@ export default function MyResourcesContainer() {
         dataIndex: "provider",
         key: "provider",
         render: (provider: any) =>
-          provider.name.charAt(0).toUpperCase() + provider.name.slice(1) || "-",
+          provider?.name?.charAt(0).toUpperCase() + provider?.name?.slice(1) || "-",
       },
       {
         title: t("amount"),

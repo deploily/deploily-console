@@ -325,8 +325,9 @@ export default {
     'apiServiceSubscription.apiKey': 'API key',
     'apiServiceSubscription.api': 'API',
     'apiServiceSubscription.inactiveMessage': 'Your api Service Subscription is inactive. Please verify your payments.',
-    'apiServiceSubscription.noApi': 'You currently do not have any API subscriptions. Feel free to explore and subscribe to the available APIs!',
+    'apiServiceSubscription.noApi': 'No API subscriptions found',
     'apiServiceSubscription.noActiveApiFound': 'You currently do not have any active API subscriptions. Feel free to explore and subscribe to the available APIs!',
+    'apiServiceSubscription.explore': "Explore our APIs",
 
     "bankPayment.title": "Payment by Bank",
     "bankPayment.message": "This is our bank account, you can transfer the amount! ",
@@ -421,14 +422,16 @@ export default {
     "applications.noResultDescription": "Try adjusting your search or filter.",
     "applications.promoCode": "Promo code :",
     "applications.promoCodePlaceHolder": "Promo code",
-    "applications.noApplications": "You don't have any applications yet. Feel free to create one!",
+    "applications.noApplications": "No applications found",
     "applications.noActiveApplicationsFound": "You don't have any active applications. Feel free to create one!",
+    'applications.explore': "Explore our applications",
+
     "applications.prepaTime": "Preparation time",
     "applications.hours": "Hours",
     "applications.managed": "• Managed",
-    "applications.status":"Status",
-    "applications.tryForFree":"Try it for free",
-    "applications":{
+    "applications.status": "Status",
+    "applications.tryForFree": "Try it for free",
+    "applications": {
         "useOwnServer": "Use a resource from non deploily's partner",
         "selectRes": "Order a resource from deploily's cloud partners",
         "selectManagedRes": "Use my existing managed resource",
@@ -441,8 +444,8 @@ export default {
             "description": "Enter your provider name to access your resources seamlessly",
             "placeholder": "Enter your provider name"
         },
-        tva_rate:'TVA Rate:',
-        price_ttc:'Price TTC:',
+        tva_rate: 'TVA Rate:',
+        price_ttc: 'Price TTC:',
     },
     "dashboard.welcome": "👋 Welcome back, ",
     "dashboard.subTitle": "Your current stats at a glance",
@@ -526,7 +529,8 @@ export default {
         "myWebHostings": "My web hosting",
         "configureSettings": "Configure the settings",
         "addParameter": "Add Parameter",
-        "noDeployments": "You don't have any deployments yet. Feel free to create one!",
+        "noDeployments": "No deployments found",
+        "explore": "Explore our Deployments",
         "noActiveDeploymentFound": "You don't have any active deployments. Feel free to create one!",
         "podDetails": "Pod {podNumber} Details",
         "name": "Name",
@@ -585,7 +589,7 @@ export default {
     subtitle: "Explore our solutions and manage your active services from your central hub.",
 
     // ── StatsCards ─────────────────────────────────────────────────────────────
-    StatsCards :{
+    StatsCards: {
         apiServices: "APIS SERVICES",
         deployments: "DEPLOYMENTS",
         applications: "APPLICATIONS",
@@ -630,7 +634,7 @@ export default {
                 "You need a cloud resource and you are lost choosing the right one.",
             button: "Explore our Resources",
         },
-        "apis":"APIs",
+        "apis": "APIs",
         "applications": "Applications",
         "affiliations": "Affiliations",
         'deployments': 'Deployments',
@@ -692,6 +696,6 @@ export default {
     },
 
     subTitleError2: "An error occurred while loading the dashboard. Please try again later.",
-    "retry":"Try Again",
-    "emptyList":"No items found"
+    "retry": "Try Again",
+    "emptyList": "No items found"
 } as const

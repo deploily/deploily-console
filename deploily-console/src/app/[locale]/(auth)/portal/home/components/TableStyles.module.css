@@ -3,7 +3,7 @@
     max-height: 300px;
     overflow-y: auto;
     overflow-x: auto;
-    border-radius: 0 0 16px 16px;
+    border-radius: 0 0 0 0;
 }
 
 /* ─── Base Table ──────────────────────────────────────────────── */
@@ -17,7 +17,7 @@
 
 /* ─── Header ──────────────────────────────────────────────────── */
 .customTable :global(.ant-table-thead > tr > th) {
-    background: #111111;
+    background: #333232 !important;
     color: rgba(255, 122, 0, 0.55);
     border-bottom: 1px solid rgba(255, 122, 0, 0.18);
     border-top: none;
@@ -35,7 +35,7 @@
 
 /* ─── Body Rows ───────────────────────────────────────────────── */
 .customTable :global(.ant-table-tbody > tr > td) {
-    background: transparent;
+    background: #1d1d1d !important;
     color: rgba(255, 255, 255, 0.88);
     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
     font-size: 12.5px;

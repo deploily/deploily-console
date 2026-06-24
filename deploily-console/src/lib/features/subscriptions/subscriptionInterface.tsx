@@ -15,7 +15,6 @@ export interface SubscriptionInterface {
   name: string;
   price: number;
   price_category: string;
-  promo_code_id: number;
   service_plan_id: number;
   start_date: Date;
   status: string;
@@ -51,15 +50,11 @@ export interface SubscriptionHistory {
   id: number;
   is_encrypted: boolean;
   is_expired: boolean;
-  is_renew: boolean;
-  is_upgrade: boolean;
   name: string;
   payment_status: string;
   price: number;
   profile_id: number;
   profile_name: string;
-  promo_code_id: number;
-  promo_code_name: string;
   service_plan_id: number;
   start_date: string;
   status: string;

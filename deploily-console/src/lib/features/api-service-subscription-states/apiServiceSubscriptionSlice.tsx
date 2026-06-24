@@ -4,13 +4,10 @@ import { PaymentProfileInterface } from "../payment-profiles/paymentProfilesInte
 import { ServicePlan } from "../service-plans/servicePlanInterface";
 
 interface ApiServiceSubscriptionStates {
-  promoCode: string;
   duration: number;
   oldDuration: number;
   isBalanceSufficient: boolean | null;
   totalAmount: number;
-  promoCodeRate?: number;
-  promoColor?: string;
   price: number;
   oldPrice: number;
   start_date: string;
@@ -21,11 +18,8 @@ interface ApiServiceSubscriptionStates {
 
 }
 const initialState: ApiServiceSubscriptionStates = {
-  promoCode: "",
   isBalanceSufficient: null,
   totalAmount: 0,
-  promoCodeRate: undefined,
-  promoColor: undefined,
   duration: 1,
   price: 0,
   oldPrice: 0,
@@ -43,11 +37,7 @@ const apiServiceSubscriptionStatesSlice = createSlice({
   reducers: {
     updateApiServiceSubscriptionStates: (state, action: PayloadAction<any>) => {
       let updatedState = { ...state, ...action.payload };
-      let updatedAmount = updatedState.duration * updatedState.price;
-      if (updatedState.promoCodeRate != undefined) {
-        updatedState = { ...updatedState, promoColor: "green" };
-        updatedAmount = updatedAmount - (updatedAmount * updatedState.promoCodeRate) / 100;
-      }
+      const updatedAmount = updatedState.duration * updatedState.price;
       updatedState = { ...updatedState, totalAmount: updatedAmount };
 
       if (state.selectedProfile != undefined) {
@@ -59,34 +49,6 @@ const apiServiceSubscriptionStatesSlice = createSlice({
       }
 
       return updatedState;
-    },
-
-    upgradeApiServiceSubscriptionStates: (state, action: PayloadAction<any>) => {
-      const updatedState = { ...state, ...action.payload };
-
-      const oldPlanValueRemaining = calculateRemainingSubscriptionValue({
-        price: updatedState.oldPrice,
-        start_date: updatedState.start_date,
-        duration_month: updatedState.oldDuration,
-      });
-      let newTotal = updatedState.duration * updatedState.price;
-      if (updatedState.promoCodeRate !== undefined) {
-        updatedState.promoColor = "green";
-        newTotal = newTotal - (newTotal * updatedState.promoCodeRate) / 100;
-      }
-      if (newTotal < oldPlanValueRemaining) {
-        updatedState.totalAmount = 0;
-      } else {
-        const finalAmount = newTotal - oldPlanValueRemaining;
-        updatedState.totalAmount = Math.round(finalAmount);
-      }
-
-      if (updatedState.selectedProfile) {
-        updatedState.isBalanceSufficient =
-          updatedState.selectedProfile.balance >= updatedState.totalAmount;
-      }
-      state = updatedState;
-      return state;
     },
 
     updateSelectedProfile: (state, action) => {
@@ -112,7 +74,6 @@ const apiServiceSubscriptionStatesSlice = createSlice({
 
 export const {
   updateApiServiceSubscriptionStates,
-  upgradeApiServiceSubscriptionStates,
   openDrawer,
   closeDrawer,
 } = apiServiceSubscriptionStatesSlice.actions;

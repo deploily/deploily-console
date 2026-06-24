@@ -29,7 +29,6 @@ export default function PaymentDrawer({ openDrawer, onClose }: { openDrawer: any
 
   const { paymentProfilesList } = useNotDefaultPaymentProfiles();
   const {
-    promoCode,
     totalAmount,
     duration,
     // selected_version,
@@ -55,7 +54,6 @@ export default function PaymentDrawer({ openDrawer, onClose }: { openDrawer: any
     ) {
       const newSubscriptionObject = {
         duration: Number.parseInt(`${duration}`),
-        promo_code: promoCode,
         payment_method: "cloud_credit",
         service_plan_selected_id: deployment_service_plan.id,
         profile_id: selectedProfile.id,
