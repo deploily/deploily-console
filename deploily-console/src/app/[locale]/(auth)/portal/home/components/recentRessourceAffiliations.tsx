@@ -64,7 +64,7 @@ export default function RecentRessourceAffiliations() {
                 render: (provider: any) => (
                     <span style={{ color: "rgba(255,255,255,0.65)", fontSize: 12 }}>
                         {provider?.name
-                            ? provider.name.charAt(0).toUpperCase() + provider.name.slice(1)
+                            ? provider?.name?.charAt(0).toUpperCase() + provider?.name?.slice(1)
                             : "—"}
                     </span>
                 ),

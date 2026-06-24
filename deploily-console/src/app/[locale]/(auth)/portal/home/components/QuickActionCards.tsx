@@ -26,28 +26,28 @@ const quickActions = [
     listTitle: "deployments",
     icon: "🚀",
     link: "/portal/deployments",
-    tableOfRecentSubscriptions: <RecentDeploymentsSubscriptions />,
+    TableOfRecentSubscriptions: RecentDeploymentsSubscriptions,
   },
   {
     key: "businesses",
     listTitle: "applications",
     icon: "💼",
     link: "/portal/application",
-    tableOfRecentSubscriptions: <RecentAppSubscriptions />,
+    TableOfRecentSubscriptions: RecentAppSubscriptions,
   },
   {
     key: "developers",
     listTitle: "apis",
     icon: "👨‍💻",
     link: "/portal/api-services",
-    tableOfRecentSubscriptions: <RecentApiSubscriptions />,
+    TableOfRecentSubscriptions: RecentApiSubscriptions,
   },
   {
     key: "cloud",
     icon: "☁️",
     listTitle: "affiliations",
     link: "/portal/cloud-resources",
-    tableOfRecentSubscriptions: <RecentRessourceAffiliations />,
+    TableOfRecentSubscriptions: RecentRessourceAffiliations,
   },
 ];
 
@@ -152,6 +152,8 @@ export function QuickActionCardComponent({
   const router = useRouter();
   const hasData = !isloading && response != null && response.length > 0;
 
+  const { TableOfRecentSubscriptions } = action;
+
   return (
     <Card style={{ padding: "0px" }} className="action-card" hoverable>
       <DivCard
@@ -188,7 +190,7 @@ export function QuickActionCardComponent({
             {/* Card header with title + "View all" */}
             <div className={styles.cardHeader}>
               <h3 className={styles.cardHeaderTitle}>
-                  {t(`${action.listTitle}` as any)} {` (${response.length})`}
+                {t(`${action.listTitle}` as any)} {` (${response.length})`}
               </h3>
               <span
                 className={styles.cardHeaderLink}
@@ -215,7 +217,7 @@ export function QuickActionCardComponent({
                 </svg>
               </span>
             </div>
-            {action.tableOfRecentSubscriptions}
+            <TableOfRecentSubscriptions />
           </>
         ) : (
           /* ── Empty state: new horizontal layout ── */
@@ -312,7 +314,7 @@ export function QuickActionCardComponent({
                     height: "38px",
                     paddingLeft: 18,
                     paddingRight: 18,
-                    minWidth: "250px"
+                    minWidth: "250px",
                   }}
                 >
                   {t(`${action.key}.button` as any)}
@@ -333,7 +335,7 @@ function QuickActionCardSkeleton() {
         style={{
           margin: 0,
           width: "100%",
-          background: '#1d1d1d',
+          background: "#1d1d1d",
           borderRadius: 16,
           padding: 0,
           height: "100%",
