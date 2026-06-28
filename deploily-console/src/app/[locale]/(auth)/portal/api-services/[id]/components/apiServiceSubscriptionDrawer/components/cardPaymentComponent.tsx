@@ -3,8 +3,7 @@ import {getCaptchaSiteKey} from "@/actions/getCaptchaSiteKey";
 import {useApiServiceSubscriptionStates} from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSelectors";
 import {useApiServiceSubscription} from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionSelectors";
 import {
-  postApiServiceSubscription,
-  postUpgradeApiServiceSubscription,
+  postApiServiceSubscription
 } from "@/lib/features/api-service-subscriptions/apiServiceSubscriptionThunks";
 import {useAppDispatch} from "@/lib/hook";
 import {theme} from "@/styles/theme";
@@ -69,26 +68,12 @@ export default function CardPaymentComponent({
     fetchCaptchaSiteKey();
   }, []);
 
-  // const handleSubscribe = async () => {
-  //     const newApiServiceSubscriptionObject = {
-  //         captcha_token: captchaToken,
-  //         duration: apiServiceSubscriptionStates.duration,
-  //         total_amount: apiServiceSubscriptionStates.totalAmount,
-  //         promo_code: apiServiceSubscriptionStates.promoCode,
-  //         payment_method: "card",
-  //         service_plan_selected_id: selectedPlan.id,
-  //         profile_id: apiServiceSubscriptionStates.selectedProfile != null ? apiServiceSubscriptionStates.selectedProfile.id : 1
-  //     };
-
-  //     dispatch(postApiServiceSubscription(newApiServiceSubscriptionObject));
-  // };
 
   const handleApiServiceSubscription = async () => {
     const newApiServiceSubscriptionObject = {
       captcha_token: captchaToken,
       duration: apiServiceSubscriptionStates.duration,
       total_amount: apiServiceSubscriptionStates.totalAmount,
-      promo_code: apiServiceSubscriptionStates.promoCode,
       payment_method: "card",
       service_plan_selected_id: selectedPlan.id,
       profile_id:
@@ -98,13 +83,7 @@ export default function CardPaymentComponent({
       phone: apiServiceSubscriptionStates.phone,
     };
 
-    const newUpgradeApiServiceSubscriptionObject = {
-      ...newApiServiceSubscriptionObject,
-      old_subscription_id: subscriptionOldId,
-    };
-
     if (IsSubscribed) {
-      dispatch(postUpgradeApiServiceSubscription(newUpgradeApiServiceSubscriptionObject));
     } else {
       dispatch(postApiServiceSubscription(newApiServiceSubscriptionObject));
     }

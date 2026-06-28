@@ -1,7 +1,4 @@
-import {AppVersionInterface} from "../application/applicationServiceInterface";
-import {PaymentProfileInterface} from "../payment-profiles/paymentProfilesInterface";
 import {ManagedRessourceDetails} from "../resourceServicePlans/resourceServicesPlansInterface";
-import {ServicePlan} from "../service-plans/servicePlanInterface";
 
 export interface MyApplicationState {
   MyApplicationList?: myApplicationInterface[];
@@ -58,32 +55,4 @@ export interface ServiceDetails {
   ssh_access: string;
   type: string;
   unit_price: number;
-}
-
-export interface UpgradeMyApplicationState {
-  upgradeMyApplication?: any;
-  isLoadingUpgrade: boolean;
-  loadingError?: any;
-}
-export interface RenewMyApplicationState {
-  renewMyApplication?: any;
-  isLoadingRenew: boolean;
-  loadingError?: any;
-}
-
-export interface UpgradeMyApplicationInterface {
-  duration: number;
-  price: number;
-  totalamount: number;
-  selectedProfile?: PaymentProfileInterface;
-  isBalanceSufficient: boolean | null;
-  managed_ressource_details?: ManagedRessourceDetails;
-  app_service_plan?: ServicePlan;
-  selected_version?: AppVersionInterface;
-  promoCode: string;
-  promoCodeRate?: number;
-  promoColor?: string;
-  oldAppServicePrice?: number;
-  oldAppServiceStartDate?: Date;
-  oldAppServiceDuration?: number;
 }

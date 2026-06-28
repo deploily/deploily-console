@@ -5,6 +5,7 @@ import {fetchMyDeployments} from "@/lib/features/my-deployments/myDeploymentThun
 import {useMyDeploymentList} from "@/lib/features/my-deployments/myDeploymentSelector";
 import {useAppDispatch} from "@/lib/hook";
 import MyDeploymentCard from "./myDeploymentCard";
+import NoResult from "@/components/containers/noResultComponent";
 
 export default function MyDeploymentContainer() {
   const dispatch = useAppDispatch();
@@ -58,11 +59,11 @@ export default function MyDeploymentContainer() {
 
       {/* Empty */}
       {!isLoading && !loadingError && MyDeploymentList?.length === 0 && (
-        <Result
-          status="404"
+        <NoResult
           title={tDeployment("noDeployments")}
           subTitle={tDeployment("noActiveDeploymentFound")}
-        />
+          redirectLabel={tDeployment("explore")}
+          redirectUrl="/portal/deployments" />
       )}
     </>
   );

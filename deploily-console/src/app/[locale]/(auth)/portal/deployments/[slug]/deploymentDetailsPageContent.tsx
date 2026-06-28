@@ -26,7 +26,6 @@ import { useScopedI18n } from "../../../../../../../locales/client";
 import { options } from "../utils/deploymentConst";
 import DeploymentDetailsCollapseContainer from "./containers/deploymentDetailsCollapseContainer";
 import DeploymentPlansContainer from "./containers/deploymentPlansContainer";
-import DeploymentPromoCodeTextField from "./containers/deploymentPromoCodeTextField";
 import DeployementDescriptionContainer from "./containers/descriptionContainer";
 import PaymentDrawer from "./containers/payment-components/paymentDrawer";
 import SelectManagedRessourcePlanCard from "./containers/selectManagedRessourcePlanCard";
@@ -226,34 +225,7 @@ export default function DeploymentDetailsPageContent({ deploymentSlug }: { deplo
                             options={options}
                           />
                         ),
-                      },
-                      // {
-                      //   label: tdeployment("version"),
-                      //   value: (
-                      //     <Select
-                      //       defaultValue={
-                      //         typeof selected_version?.id === "number"
-                      //           ? selected_version.id
-                      //           : undefined
-                      //       }
-                      //       style={{
-                      //         width: "100%",
-                      //         maxWidth: 700,
-                      //         borderRadius: "10px",
-                      //       }}
-                      //       onChange={handleChangeVersion}
-                      //       dropdownStyle={{
-                      //         backgroundColor: theme.token.gray50,
-                      //         border: `2px solid ${theme.token.gray100}`,
-                      //       }}
-                      //       options={optionsVersion}
-                      //     />
-                      //   ),
-                      // },
-                      {
-                        label: tdeployment("promoCode"),
-                        value: <DeploymentPromoCodeTextField />,
-                      },
+                      }
                     ]}
                     onClick={() => setOpenDrawer(true)}
                   />
@@ -498,11 +470,7 @@ export default function DeploymentDetailsPageContent({ deploymentSlug }: { deplo
                           }
                         />
                       ),
-                    },
-                    {
-                      label: tdeployment("promoCode"),
-                      value: <DeploymentPromoCodeTextField />,
-                    },
+                    }
                   ]}
                   onClick={() => setOpenDrawer(true)}
                 />

@@ -1,8 +1,6 @@
 "use client";
 import {useApiServiceSubscriptionStates} from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSelectors";
 import {updateApiServiceSubscriptionStates} from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSlice";
-import {usePromoCode} from "@/lib/features/promo-code/promoCodeSelectors";
-import {checkPromoCode} from "@/lib/features/promo-code/promoCodeThunks";
 import {useAppDispatch} from "@/lib/hook";
 import {theme} from "@/styles/theme";
 import {Card, Col, ConfigProvider, Input, Row, Select, Space, Typography} from "antd";
@@ -11,52 +9,15 @@ import {useScopedI18n} from "../../../../../../../../../../locales/client";
 import {options} from "../../../../utils/apiServicesConst";
 
 export default function NewApiServiceSubscriptionInfo({planSelected}: {planSelected: any}) {
-  const {totalAmount, promoColor, duration} = useApiServiceSubscriptionStates();
+  const {totalAmount, duration} = useApiServiceSubscriptionStates();
 
   const translate = useScopedI18n("apiServiceSubscription");
-  const [promoCode, setPromoCode] = useState("");
   const dispatch = useAppDispatch();
-  const {promoCodeResponse, promoCodeLoadingError} = usePromoCode();
 
   const handleChangeDuration = (value: number) => {
     dispatch(updateApiServiceSubscriptionStates({duration: value}));
   };
 
-  useEffect(() => {
-    if (promoCodeLoadingError) {
-      dispatch(
-        updateApiServiceSubscriptionStates({
-          promoCodeRate: undefined,
-          promoCode: "",
-          promoColor: undefined,
-        }),
-      );
-    }
-    if (promoCodeResponse?.rate !== undefined) {
-      dispatch(
-        updateApiServiceSubscriptionStates({
-          promoCodeRate: promoCodeResponse.rate,
-          promoCode: promoCode,
-        }),
-      );
-    }
-  }, [promoCodeResponse, promoCodeLoadingError]);
-
-  const handleSubmitPromoCode = () => {
-    if (promoCode.trim() !== "") {
-      dispatch(checkPromoCode(promoCode));
-    }
-  };
-  const handleChangePromoCode = (value: string) => {
-    setPromoCode(value);
-    dispatch(
-      updateApiServiceSubscriptionStates({
-        promoCodeRate: undefined,
-        promoCode: "",
-        promoColor: undefined,
-      }),
-    );
-  };
 
   return (
     <>
@@ -137,27 +98,6 @@ export default function NewApiServiceSubscriptionInfo({planSelected}: {planSelec
                   {Intl.NumberFormat("fr-FR", {useGrouping: true}).format(planSelected.price)}{" "}
                 </Typography.Text>
                 <Typography.Text> DZD </Typography.Text>{" "}
-              </Col>
-            </Row>
-
-            <Row gutter={16} align="top">
-              <Col span={14}>
-                {" "}
-                <Typography.Text strong>{translate("promoCode")}</Typography.Text>
-              </Col>
-              <Col span={10}>
-                <Input
-                  placeholder={translate("promoCodePlaceHolder")}
-                  value={promoCode}
-                  onChange={(e) => handleChangePromoCode(e.target.value)}
-                  onPressEnter={handleSubmitPromoCode}
-                  onBlur={handleSubmitPromoCode}
-                  style={{
-                    boxShadow: "none",
-                    textIndent: 0,
-                    color: promoColor,
-                  }}
-                />
               </Col>
             </Row>
             <Row gutter={16} align="top">

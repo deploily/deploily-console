@@ -16,7 +16,6 @@ import paymentProfileMiddleware from "./features/payment-profiles/paymentProfile
 import profileServiceSlice from "./features/payment-profiles/paymentProfilesSlice";
 import paymentSlice from "./features/payments/paymentSlice";
 import profileSlice from "./features/profile/profileSlice";
-import PormoCodeSlice from "./features/promo-code/promoCodeSlice";
 import resourceServicesPlansMiddleware from "./features/resourceServicePlans/resourceServicesPlansMiddleware";
 import resourceServicesPlansSlice from "./features/resourceServicePlans/resourceServicesPlansSlice";
 import servicesPlansMiddleware from "./features/service-plans/servicePlanMiddleWare";
@@ -40,7 +39,6 @@ export const makeStore = () => {
       servicePlan: servicePlanSlice,
       profileService: profileServiceSlice,
       payment: paymentSlice,
-      promoCode: PormoCodeSlice,
       epayment: epaymentSlice,
       apiServiceSubscriptionStates: apiServiceSubscriptionStatesSlice,
       deploymentService: DeploymentServiceSlice,

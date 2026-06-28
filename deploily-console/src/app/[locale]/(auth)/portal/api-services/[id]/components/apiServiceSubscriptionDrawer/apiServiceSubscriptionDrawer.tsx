@@ -7,7 +7,6 @@ import PaymentComponent from "./containers/paymentComponent";
 import SelectProfileComponent from "./containers/selectProfileComponent";
 import {useApiServiceSubscriptionStates} from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSelectors";
 import NewApiServiceSubscriptionInfo from "./containers/newApiServiceSubscriptionInfo";
-import NewUpgradeApiServiceSubscriptionInfo from "./containers/newUpgradeApiServiceSubscriptionInfo";
 import { updateApiServiceSubscriptionStates } from "@/lib/features/api-service-subscription-states/apiServiceSubscriptionSlice";
 import { useAppDispatch } from "@/lib/hook";
 import { useScopedI18n } from "../../../../../../../../../locales/client";
@@ -45,11 +44,9 @@ export default function ApiServiceSubscriptionDrawer({
         }}
       >
         <Col style={{padding: 20}}>
-          {IsSubscribed ? (
-            <NewUpgradeApiServiceSubscriptionInfo planSelected={planSelected} />
-          ) : (
+          {
             <NewApiServiceSubscriptionInfo planSelected={planSelected} />
-          )}
+          }
           <Typography.Title level={4} style={{ paddingTop: 20, paddingBottom: 10 }}>
             {tApplications("enterPhoneNumber")}
           </Typography.Title>

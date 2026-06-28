@@ -38,9 +38,6 @@ const initialState: DeploymentServiceState = {
     selectedProfile: undefined,
     isBalanceSufficient: null,
     selected_version: undefined,
-    promoCode: "",
-    promoCodeRate: undefined,
-    promoColor: undefined,
     phone: "",
     byor: false,
     provider_name: undefined,
@@ -72,10 +69,6 @@ const DeploymentServiceSlice = createSlice({
       ) {
         updatedAmount +=
           updatedState.duration * (updatedState.managed_ressource_details.price || 0);
-      }
-      if (updatedState.promoCodeRate !== undefined) {
-        updatedState = { ...updatedState, promoColor: "green" };
-        updatedAmount = updatedAmount - (updatedAmount * (updatedState.promoCodeRate || 0)) / 100;
       }
       updatedState = { ...updatedState, totalAmount: updatedAmount };
 

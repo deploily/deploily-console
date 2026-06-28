@@ -5,10 +5,6 @@ import {
   useNewApplicationSubscriptionResponse,
 } from "@/lib/features/application/applicationServiceSelectors";
 import {applicationSubscribe} from "@/lib/features/application/applicationServiceThunks";
-import {
-  renewMyApplication,
-  upgradeMyApplication,
-} from "@/lib/features/my-applications/myApplicationThunks";
 import {useAppDispatch} from "@/lib/hook";
 import {theme} from "@/styles/theme";
 import {Flex, Radio, RadioChangeEvent, Typography} from "antd";
@@ -20,12 +16,8 @@ import CardPaymentComponent from "./payment-components/cardPaymentComponent";
 
 export default function ApplicationPaymentComponent({
   isSubscribed,
-  subscriptionOldId,
-  drawerType,
 }: {
   isSubscribed?: boolean;
-  subscriptionOldId?: any;
-  drawerType?: any;
 }) {
   const translate = useScopedI18n("subscription");
   const dispatch = useAppDispatch();
@@ -55,7 +47,6 @@ export default function ApplicationPaymentComponent({
       selectedProfile,
       selected_version,
       duration,
-      promoCode,
       phone,
       byor,
       provider_name
@@ -68,7 +59,6 @@ export default function ApplicationPaymentComponent({
     ) {
         const baseSubscriptionObject = {
           duration: Number.parseInt(`${duration}`),
-          promo_code: promoCode,
           payment_method: paymentMethod,
           service_plan_selected_id: app_service_plan.id,
           ...!byor && managed_ressource_details != undefined && (managed_ressource_details.isManaged
@@ -85,43 +75,13 @@ export default function ApplicationPaymentComponent({
         paymentMethod === "card"
           ? {...baseSubscriptionObject, captcha_token: captchaToken}
           : baseSubscriptionObject;
-      if (isSubscribed) {
-        if (drawerType === "renew") {
-          dispatch(
-            renewMyApplication({
-              service_slug: applicationServiceById?.service_slug,
-              payment_method: "bank_transfer",
-              subscriptionOldId: subscriptionOldId,
-            }),
-          ).then((response: any) => {
-            if (response.meta.requestStatus === "fulfilled") {
-              router.push(`/portal/my-applications`);
-            }
-          });
-        }
-
-        if (drawerType === "upgrade") {
-          dispatch(
-            upgradeMyApplication({
-              service_slug: applicationServiceById?.service_slug,
-              payment_method: "bank_transfer",
-              subscriptionOldId: subscriptionOldId,
-            }),
-          ).then((response: any) => {
-            if (response.meta.requestStatus === "fulfilled") {
-              router.push(`/portal/my-applications`);
-            }
-          });
-        }
-      } else {
-        // otherwise, it's a new subscription
+   
         dispatch(
           applicationSubscribe({
             service_slug: applicationServiceById?.service_slug,
             data: subscriptionPayload,
           }),
         );
-      }
     }
   };
 
