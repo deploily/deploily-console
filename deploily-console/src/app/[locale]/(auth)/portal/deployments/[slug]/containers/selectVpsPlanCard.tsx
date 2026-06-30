@@ -108,6 +108,8 @@ export default function SelectVpsPlanCard({
         return count - 1;
     };
 
+    const tApplications = useScopedI18n("applications");
+
     return (
         <div style={{ padding: 20, backgroundColor: theme.token.darkGray, borderRadius: 16 }}>
             {servicePlansList?.result && servicePlansList.result.length > 0 && (
@@ -181,9 +183,27 @@ export default function SelectVpsPlanCard({
                                 >
                                     <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
                                         <div style={{ marginTop: 3, marginBottom: 8, textAlign: "center" }}>
-                                            <Typography.Title level={4} style={{ margin: 0, color: "white" }}>
-                                                {plan.price?.toLocaleString()} DZD
-                                            </Typography.Title>
+                                            {plan.isManaged && plan.isAlreadyPaid ? (
+                                            <Typography.Text style={{ color: theme.token.gray300 }}>—</Typography.Text>
+                                            ) : (
+                                            <>
+                                                <Typography.Text style={{ color: theme.token.colorPrimary, fontWeight: "bold" }}>
+                                                            {`${plan.price?.toLocaleString()} DZD`}
+                                                </Typography.Text>
+                                                        {(plan.tva_rate != null && plan.tva_rate > 0) && <Typography.Text style={{ color: theme.token.gray300, fontSize: 12, display: "block" }}>
+                                                    {tApplications('tva_rate')}
+                                                    <span style={{ color: theme.token.gray300, fontSize: 12, marginLeft: 4, fontWeight: "bold" }}>
+                                                                {` ${plan.tva_rate + "%"}`}
+                                                    </span>
+                                                </Typography.Text>}
+                                                        {(plan.tva_rate != null && plan.tva_rate > 0) && <Typography.Text style={{ color: theme.token.gray300, fontSize: 12, display: "block" }}>
+                                                    {tApplications('price_ttc')}
+                                                    <span style={{ color: theme.token.gray300, fontSize: 12, marginLeft: 4, fontWeight: "bold" }}>
+                                                                {` ${Math.round(plan.price * (1 + plan.tva_rate / 100) * 100) / 100} ` + "DZD"}
+                                                    </span>
+                                                </Typography.Text>}
+                                            </>
+                                            )}
                                         </div>
 
                                         {Array.isArray(plan.options)

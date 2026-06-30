@@ -8,14 +8,14 @@ import { TableComponentWithSelection } from "deploily-ui-components";
 import { useScopedI18n } from "../../../../../../../../locales/client";
 
 import { getVpsManagedResources } from "@/lib/features/cloud-resource/cloudResourceThunks";
+import { useNewDeploymentSubscription } from "@/lib/features/deployment/deploymentServiceSelectors";
+import { updateNewDeploymentSubscriptionState } from "@/lib/features/deployment/deploymentServiceSlice";
 import { ManagedRessourceDetails } from "@/lib/features/resourceServicePlans/resourceServicesPlansInterface";
 import { useServicePlansByType } from "@/lib/features/resourceServicePlans/resourceServicesPlansSelectors";
 import { updateSelectedPlan } from "@/lib/features/resourceServicePlans/resourceServicesPlansSlice";
 import { fetchResourceServicesPlans } from "@/lib/features/resourceServicePlans/resourceServicesPlansThunk";
 import { ServicePlanOption } from "@/lib/features/service-plans/servicePlanInterface";
 import { useEffect } from "react";
-import { useNewDeploymentSubscription } from "@/lib/features/deployment/deploymentServiceSelectors";
-import { updateNewDeploymentSubscriptionState } from "@/lib/features/deployment/deploymentServiceSlice";
 
 interface SelectVpsPlanTableProps {
   onVpsPlanSelect?: (plan: ManagedRessourceDetails) => void;
@@ -79,6 +79,7 @@ export default function SelectVpsPlanTable({
             price: plan.price,
             preparation_time: plan.preparation_time,
             isManaged: plan.isManaged,
+            tva_rate: plan.tva_rate,
           }))}
           columns={[
             {
@@ -151,7 +152,23 @@ export default function SelectVpsPlanTable({
                 record.isManaged && record.isAlreadyPaid ? (
                   <Typography.Text style={{ color: theme.token.gray300 }}>—</Typography.Text>
                 ) : (
-                  <Typography.Text>{`${price?.toLocaleString()} DZD`}</Typography.Text>
+                  <>
+                    <Typography.Text style={{ color: theme.token.colorPrimary, fontWeight: "bold" }}>
+                      {`${price?.toLocaleString()} DZD`}
+                    </Typography.Text>
+                    {(record.tva_rate != null && record.tva_rate > 0) && <Typography.Text style={{ color: theme.token.gray300, fontSize: 12, display: "block" }}>
+                      {tApplications('tva_rate')}
+                      <span style={{ color: theme.token.gray300, fontSize: 12, marginLeft: 4, fontWeight: "bold" }}>
+                        {` ${record.tva_rate + "%"}`}
+                      </span>
+                    </Typography.Text>}
+                    {(record.tva_rate != null && record.tva_rate > 0) && <Typography.Text style={{ color: theme.token.gray300, fontSize: 12, display: "block" }}>
+                      {tApplications('price_ttc')}
+                      <span style={{ color: theme.token.gray300, fontSize: 12, marginLeft: 4, fontWeight: "bold" }}>
+                        {` ${Math.round(record.price * (1 + record.tva_rate / 100) * 100) / 100} ` + "DZD"}
+                      </span>
+                    </Typography.Text>}
+                  </>
                 ),
             },
           ]}

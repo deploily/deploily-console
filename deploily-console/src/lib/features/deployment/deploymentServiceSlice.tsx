@@ -67,9 +67,18 @@ const DeploymentServiceSlice = createSlice({
         updatedState.managed_ressource_details &&
         !updatedState.managed_ressource_details.isAlreadyPaid // 👈 condition
       ) {
-        updatedAmount +=
-          updatedState.duration * (updatedState.managed_ressource_details.price || 0);
-      }
+        const { price, tva_rate, isManaged } = updatedState.managed_ressource_details;
+        const total_price_ressource = price * updatedState.duration;
+        if (!isManaged && tva_rate) {
+          // price_ttc already includes base price
+          const price_ttc = Math.round(total_price_ressource * (1 + tva_rate / 100) * 100) / 100;
+          updatedAmount += price_ttc;
+        } else {
+          // no TVA, just add base price
+          updatedAmount += total_price_ressource;
+        }
+        }
+
       updatedState = { ...updatedState, totalAmount: updatedAmount };
 
       if (updatedState.selectedProfile) {
