@@ -19,6 +19,7 @@ const resourceServicesPlansMiddleware = (
         break;
       case "ressourcePlans/getResourceServicesPlans/fulfilled":
         if (action.payload !== undefined && action.payload.result.length > 0) {
+          store.dispatch(updateNewAppSubscriptionState({ "managed_ressource_details": action.payload.result[0] }));
         }
         break;
       default:
