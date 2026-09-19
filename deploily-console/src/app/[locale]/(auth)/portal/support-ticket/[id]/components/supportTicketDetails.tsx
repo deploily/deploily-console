@@ -4,13 +4,14 @@ import { postSupportTicketResponse } from "@/lib/features/support-ticket -respon
 import { useSupportTicket } from "@/lib/features/support-ticket/supportTicketSelector";
 import { fetchSupportTicketById, updateSupportTicketStatus } from "@/lib/features/support-ticket/supportTicketThunks";
 import { useAppDispatch } from "@/lib/hook";
-import { FileImageOutlined, SendOutlined } from "@ant-design/icons";
+import { FileImageOutlined,  SendOutlined, CustomerServiceOutlined} from "@ant-design/icons";
 import { Chip } from "@mui/material";
 import { Eye } from "@phosphor-icons/react";
 import { Avatar, Button, Image, Input, Row, Spin, Typography } from "antd";
 import { useEffect, useState } from "react";
-import { useScopedI18n } from "../../../../../../../../locales/client";
+import { useI18n, useScopedI18n } from "../../../../../../../../locales/client";
 import { supportTicketStatus } from "../../utils/supportTicketConst";
+import { useRouter } from "next/navigation";
 
 const { Title, Text } = Typography;
 
@@ -23,6 +24,8 @@ const SupportTicketDetails = ({ support_ticket_id }: { support_ticket_id: any })
 
   const [newMessage, setNewMessage] = useState("");
   const [imageLoading, setImageLoading] = useState(true);
+  const router = useRouter();
+  const t = useI18n();
 
   useEffect(() => {
     dispatch(fetchSupportTicketById(support_ticket_id));
@@ -67,7 +70,7 @@ const SupportTicketDetails = ({ support_ticket_id }: { support_ticket_id: any })
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
   const imageUrl = `${baseUrl}/static/uploads/${currentSupportTicket?.image}`;
 
-  
+
 
   return (
     <div>
@@ -90,7 +93,12 @@ const SupportTicketDetails = ({ support_ticket_id }: { support_ticket_id: any })
               flexDirection: "row",
               display: "flex",
             }}>
-              <Title level={4} style={{ color: "white", margin: 0 }}>
+              <span style={{ color: "white", fontSize: "24px", fontWeight: 800, }}>
+                <CustomerServiceOutlined
+                  onClick={() => router.back()}
+                /> / 
+              </span>
+              <Title level={3} style={{ color: "white", margin: 0, marginLeft: "08px" }}>
                 {currentSupportTicket.title}
               </Title>
               <Chip label={tSupportTicket(currentSupportTicket.status as "open" | "closed")}
@@ -126,6 +134,13 @@ const SupportTicketDetails = ({ support_ticket_id }: { support_ticket_id: any })
             </div>
           </div>
 
+          <Title level={4}>
+            {currentSupportTicket.subscription !== undefined &&
+              currentSupportTicket.subscription !== null
+              ? currentSupportTicket.subscription.name
+              : ""}
+          </Title>
+
           {/* Ticket Info */}
           <div
             style={{
@@ -135,15 +150,9 @@ const SupportTicketDetails = ({ support_ticket_id }: { support_ticket_id: any })
               marginBottom: 24,
             }}
           >
-            <Text strong>
-              {currentSupportTicket.subscription !== undefined &&
-                currentSupportTicket.subscription !== null
-                ? currentSupportTicket.subscription.name
-                : ""}
-            </Text>
-            <div style={{ display: "flex", justifyContent: "space-between", marginTop: 8 }}>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
               <div style={{ flex: 1 }}>
-                <Text style={{ color: "#ddd" }}>{currentSupportTicket.description}</Text>
+                <Text style={{color: "#ddd", whiteSpace: "pre-wrap", fontSize: "16px" }}>{currentSupportTicket.description}</Text>
               </div>
             </div>
           </div>
@@ -177,7 +186,7 @@ const SupportTicketDetails = ({ support_ticket_id }: { support_ticket_id: any })
                 </div>
               )}
               <Image
-                src={currentSupportTicket.image ? imageUrl : defaultImagePath }
+                src={currentSupportTicket.image ? imageUrl : defaultImagePath}
                 alt="Support ticket attachment"
                 style={{
                   maxWidth: "100%",
