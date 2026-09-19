@@ -271,12 +271,17 @@ const SupportTicketDetails = ({ support_ticket_id }: { support_ticket_id: any })
                       >
                         {userName}
                       </Text>
+
+                                      <Text style={{color: "#ddd", whiteSpace: "pre-wrap", fontSize: "16px" }}>{currentSupportTicket.description}</Text>
+
                       <div
                         style={{
                           background: !isTicketCreator ? "#2a2b30" : "rgb(99, 74, 54)",
                           padding: 12,
                           borderRadius: 8,
                           color: "#ccc",
+                          whiteSpace: "pre-wrap", 
+                          fontSize: "14px"
                         }}
                       >
                         {msg.message}
