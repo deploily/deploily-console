@@ -136,18 +136,20 @@ export default function SupportTicketListContainer() {
         </Col>
       </Row>
 
-      <Table<SupportTicket>
-        columns={isLoading ? skeletonColumns : supportTicketList && keysToColumn()}
-        dataSource={isLoading ? Array(1).fill({key: Math.random()}) : supportTicketList?.result}
-        size="middle"
-        className="custom-table"
-        style={{marginTop: 40, borderRadius: 0}}
-        scroll={{y: 55 * 5}}
-        onRow={(record) => ({
-          onClick: () => router.push(`/portal/support-ticket/${record.id}`),
-          style: {cursor: "pointer"},
-        })}
-      />
+      <div style={{display: "flex", flexDirection: "column", flex: 1, minHeight: 0}}>
+        <Table<SupportTicket>
+          columns={isLoading ? skeletonColumns : supportTicketList && keysToColumn()}
+          dataSource={isLoading ? Array(1).fill({key: Math.random()}) : supportTicketList?.result}
+          size="middle"
+          className="custom-table"
+          style={{marginTop: 40, borderRadius: 0, width: "100%", flex: 1}}
+          scroll={{y: "calc(100vh - 260px)"}}
+          onRow={(record) => ({
+            onClick: () => router.push(`/portal/support-ticket/${record.id}`),
+            style: {cursor: "pointer"},
+          })}
+        />
+      </div>
     </>
   );
 }
