@@ -7,13 +7,14 @@ import ResourcesAndDocumentation, { DocUrl } from "./ResourcesAndDocumentation";
 import ServiceHeader from "./ServiceHeader";
 import SubscriptionStatusStrip from "./SubscriptionStatusStrip";
 import { webApplicationDepInterface } from "@/lib/features/webApplication/webApplicationInterface";
+import { Typography } from "antd";
 
 interface ServiceInfoColumnProps {
-  deployment:  webApplicationDepInterface;
+  deployment: webApplicationDepInterface;
   remainingDuration: number;
 }
 
-function buildDocsUrls(deployment: webApplicationDepInterface  ): DocUrl[] {
+function buildDocsUrls(deployment: webApplicationDepInterface): DocUrl[] {
   const urls: DocUrl[] = [];
 
   const addIfPresent = (url: string | undefined | null, type: DocUrl["type"]) => {
@@ -56,45 +57,55 @@ export default function ServiceInfoColumn({
       />
 
       <div style={{ padding: "28px 0px 0", position: "relative", zIndex: 1 }}>
-        {/* Service Header */}
-        {deployment.service_details && (
-          <ServiceHeader
-            serviceDetails={deployment.service_details}
-            status={deployment.status}
-            deployment_status={deployment.deployment_status}
-          />
+        {deployment.name && (
+          <Typography.Title
+            level={1}
+            style={{ margin: 0, fontSize: 32, fontWeight: 700, lineHeight: 1.2 }}
+          >
+            {deployment.name}
+          </Typography.Title>
         )}
+        </div>
+        <div style={{ padding: "28px 0px 0", position: "relative", zIndex: 1 }}>
+          {/* Service Header */}
+          {deployment.service_details && (
+            <ServiceHeader
+              serviceDetails={deployment.service_details}
+              status={deployment.status}
+              deployment_status={deployment.deployment_status}
+            />
+          )}
 
-        {/* Divider */}
-        <div style={{ height: 1, background: "#1f1f1f", marginBottom: 28 }} />
+          {/* Divider */}
+          <div style={{ height: 1, background: "#1f1f1f", marginBottom: 28 }} />
 
-        {/* Resources & Documentation */}
-        <ResourcesAndDocumentation
-          docsUrls={docsUrls}
-          onMoreDetailsClick={() => setOpenDrawer(true)}
+          {/* Resources & Documentation */}
+          <ResourcesAndDocumentation
+            docsUrls={docsUrls}
+            onMoreDetailsClick={() => setOpenDrawer(true)}
+          />
+        </div>
+
+        {/* Subscription Status Strip */}
+        <SubscriptionStatusStrip
+          startDate={deployment.start_date}
+          durationMonth={deployment.duration_month}
+          remainingDuration={remainingDuration}
+          // endDate={deployment.start_date}
+          endDate={deployment.end_date ?? new Date(
+            new Date(deployment.start_date).setMonth(
+              new Date(deployment.start_date).getMonth() + deployment.duration_month
+            )
+          )}
+        />
+
+        {/* Drawer scoped to this column via getContainer={false} */}
+        <DocumentationDrawer
+          openDrawer={openDrawer}
+          onClose={() => setOpenDrawer(false)}
+          currentSubscription={deployment}
+          t={t}
         />
       </div>
-
-      {/* Subscription Status Strip */}
-      <SubscriptionStatusStrip
-        startDate={deployment.start_date}
-        durationMonth={deployment.duration_month}
-        remainingDuration={remainingDuration}
-        // endDate={deployment.start_date}
-        endDate={deployment.end_date ?? new Date(
-          new Date(deployment.start_date).setMonth(
-            new Date(deployment.start_date).getMonth() + deployment.duration_month
-          )
-        )}
-      />
-
-      {/* Drawer scoped to this column via getContainer={false} */}
-      <DocumentationDrawer
-        openDrawer={openDrawer}
-        onClose={() => setOpenDrawer(false)}
-        currentSubscription={deployment}
-        t={t}
-      />
-    </div>
-  );
+      );
 }

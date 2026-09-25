@@ -1,14 +1,14 @@
 import ImageFetcher from "@/lib/utils/imageFetcher";
-import {CustomBlueButton} from "@/styles/components/buttonStyle";
-import {Faders} from "@phosphor-icons/react";
-import {Badge, Card, Col, Row, Space, Tag, Typography} from "antd";
+import { CustomBlueButton } from "@/styles/components/buttonStyle";
+import { Faders } from "@phosphor-icons/react";
+import { Badge, Card, Col, Row, Space, Tag, Typography } from "antd";
 import Paragraph from "antd/es/typography/Paragraph";
-import {useRouter} from "next/navigation";
-import {useI18n, useScopedI18n} from "../../../../../../../locales/client";
-import {subscriptionStatusStyle} from "../../my-api/utils/subscriptionsConst";
-import {myDeploymentInterface} from "@/lib/features/my-deployments/myDeploymentInterface";
-import {myDeploymentsUrls} from "../utils/myDeploymentsUrls";
-export default function MyDeploymentCard({data}: {data: myDeploymentInterface}) {
+import { useRouter } from "next/navigation";
+import { useI18n, useScopedI18n } from "../../../../../../../locales/client";
+import { subscriptionStatusStyle } from "../../my-api/utils/subscriptionsConst";
+import { myDeploymentInterface } from "@/lib/features/my-deployments/myDeploymentInterface";
+import { myDeploymentsUrls } from "../utils/myDeploymentsUrls";
+export default function MyDeploymentCard({ data }: { data: myDeploymentInterface }) {
   const t = useI18n();
   const tSubscription = useScopedI18n("subscription");
   const router = useRouter();
@@ -19,34 +19,13 @@ export default function MyDeploymentCard({data}: {data: myDeploymentInterface}) 
 
   return (
     <Card
-      style={{height: "100%", width: "100%", padding: 0, cursor: "pointer", position: "relative"}}
+      style={{ height: "100%", width: "100%", padding: 0, cursor: "pointer", position: "relative" }}
       onClick={() => handleClick(data.service_details.service_slug)}
     >
-      <div style={{height: "300px"}}>
-        <Row align="middle" gutter={16} style={{height: "40%"}}>
-          <Col span={12} style={{height: "100%"}}>
-            <Badge
-              // count={
-              //     <Button
-              //         style={{
-              //             border: "none",
-              //             backgroundColor: "#fff",
-              //             boxShadow: "0 0 4px rgba(0,0,0,0.1)",
-              //             borderRadius: "50%",
-              //             padding: 0,
-              //             width: 24,
-              //             height: 24,
-              //             minWidth: 24,
-              //         }}
-
-              //         onClick={(e) => {
-              //             e.stopPropagation();
-              //             // handleFavoriteService(service.id);
-              //         }}
-              //     />
-              // }
-              offset={[-12, 12]}
-            >
+      <div style={{ height: "300px" }}>
+        <Row align="middle" gutter={16} style={{ height: "40%" }}>
+          <Col span={12} style={{ height: "100%" }}>
+            <Badge offset={[-12, 12]} >
               <ImageFetcher
                 imagePath={data.service_details.image_service}
                 width={100}
@@ -63,16 +42,16 @@ export default function MyDeploymentCard({data}: {data: myDeploymentInterface}) 
               justifyContent: "end",
             }}
           >
-            <Paragraph style={{color: "#DD8859", fontSize: 16}}>
-              {Intl.NumberFormat("fr-FR", {useGrouping: true}).format(
-                data.price / data.duration_month,
+            <Paragraph style={{ color: "#DD8859", fontSize: 16 }}>
+              {Intl.NumberFormat("fr-FR", { useGrouping: true }).format(
+                data.total_amount,
               )}{" "}
-              DZD / {data.price_category === "monthly" ? t("month") : t("year")}
+              DZD
             </Paragraph>
           </Col>
         </Row>
 
-        <Row style={{height: "40%"}}>
+        <Row style={{ height: "40%" }}>
           <div>
             <Row
               gutter={16}
@@ -83,7 +62,7 @@ export default function MyDeploymentCard({data}: {data: myDeploymentInterface}) 
                 width: "100%",
               }}
             >
-              <Paragraph ellipsis={{rows: 1, expandable: false}} style={{fontSize: 20}}>
+              <Paragraph ellipsis={{ rows: 1, expandable: false }} style={{ fontSize: 20 }}>
                 {data.name}
               </Paragraph>
               <Tag
@@ -101,13 +80,13 @@ export default function MyDeploymentCard({data}: {data: myDeploymentInterface}) 
                 {tSubscription(data.status as "active" | "inactive")}
               </Tag>
             </Row>
-            <Paragraph ellipsis={{rows: 3, expandable: false}} style={{paddingTop: "0px"}}>
+            <Paragraph ellipsis={{ rows: 3, expandable: false }} style={{ paddingTop: "0px" }}>
               {data.service_details.short_description}
             </Paragraph>
           </div>
         </Row>
       </div>
-      <Space style={{position: "absolute", bottom: "20px", right: "20px"}}>
+      <Space style={{ position: "absolute", bottom: "20px", right: "20px" }}>
         <CustomBlueButton onClick={() => handleClick(data.service_details.service_slug)}>
           <Faders size={20} />
           <Typography

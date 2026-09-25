@@ -47,12 +47,9 @@ export default function MyDeploymentSettingContent({
     <>
       <Typography.Title level={2} style={{ color: theme.token.orange400 }}>
         {Intl.NumberFormat("fr-FR", { useGrouping: true }).format(
-          myDeployment?.total_amount / myDeployment?.duration_month,
+          myDeployment?.total_amount,
         )}{" "}
-        DZD /{" "}
-        {myDeployment?.service_plan.subscription_category === "monthly"
-          ? t("month")
-          : t("year")}
+        DZD
       </Typography.Title>
       <SubscriptionPlanCard currentSubscription={myDeployment} />
       <ManagedResourcePlanDetails currentSubscription={myDeployment} />

@@ -10,6 +10,7 @@ export interface myDeploymentInterface {
   id: number;
   name: string;
   price: number;
+  total_amount: number;
   price_category: string;
   short_description: string;
   image: string;

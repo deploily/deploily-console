@@ -15,7 +15,7 @@ interface ServiceDetails {
 interface ServiceHeaderProps {
   serviceDetails: ServiceDetails;
   status: string;
-  deployment_status:string
+  deployment_status: string
 }
 
 export default function ServiceHeader({ serviceDetails, status, deployment_status }: ServiceHeaderProps) {
@@ -32,6 +32,7 @@ export default function ServiceHeader({ serviceDetails, status, deployment_statu
         marginBottom: 28,
       }}
     >
+
       {/* Logo */}
       <div
         style={{
@@ -110,15 +111,6 @@ export default function ServiceHeader({ serviceDetails, status, deployment_statu
               alignSelf: "start",
             }}
           >
-            {/* <Typography.Title level={2} style={{ color: theme.token.orange400 }}>
-              {Intl.NumberFormat("fr-FR", { useGrouping: true }).format(
-              total_amount / duration_month,
-              )}{" "}
-              DZD /{" "}
-              {subscription_category === "monthly"
-                ? t("month")
-                : t("year")}
-            </Typography.Title> */}
           </Col>
         </div>
 
